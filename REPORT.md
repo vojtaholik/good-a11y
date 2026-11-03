@@ -4,6 +4,8 @@ Durable record of tonight's build (2026-11-03). Newest first within each section
 
 ## What works
 
+- Live page on stage dev: paste a URL, the scan runs in a Cloudflare Workflow (XState machine), the report shows: what the EAA requires (Annex I, EU-ANNEX-1/4), the reference benchmark (EN 301 549 V3.2.1 / WCAG 2.1 AA) and that no EN 301 549 version is cited in the OJ under the EAA (EU-HS-1), a coverage line (9 checks touch 8 of 50 WCAG 2.1 A/AA SCs), findings with SC and clause, the member states where the EAA covers e-commerce services (flags, unknowns named) with the sourced microenterprise exemption, the automated-checks statement, and the contact CTA. Bot walls get a 'blocked automated checks' report. Our own page passes our own checks (test).
+- Product-text audit by the verifier (`docs/product-text-audit.md`): 8 defects found, all fixed.
 - `pnpm cli scan <url>`: hardened fetch, 9 deterministic static-HTML checks (lang, title, image alt, form labels, link name, button name, frame title, zoom, meta refresh), each mapped to WCAG 2.1 SC + EN 301 549 V3.2.1 clause (+ V4.1.1 as upcoming) from verified facts, per-state applicability (23 apply, 4 unknown), the automated-checks disclaimer (STD-AUTO-1), no "compliant" anywhere (tested), studio9 CTA placeholder. Bot walls (Cloudflare, DataDome) read as "refused".
 - rat-stack skeleton with webproai's full fence (tsgo Effect language service, typed lint, anti-slop, lefthook, no-verify blocks, CI workflow, skills). Gate `pnpm turbo run check test build` green.
 - Facts ledger: standards (129 facts: WCAG 2.1 A/AA SCs, EN 301 549 V3.2.1 and V4.1.1 clauses, W3C automated-testing statement) verified.
@@ -58,6 +60,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 ## Open decisions
 
+- Contact CTA wording (placeholder, shown to users now without a TODO marker): "studio9 can review this page by hand, explain what the findings mean for your site, and fix them. Get in touch with studio9." Blocked sites: "studio9 can review it by hand." Vojta to rewrite; it is one constant in `packages/core/src/report.ts`. There is no contact form or link target yet.
+
 - Bot walls: 9 of 16 large EU shops block a plain fetch (Cloudflare, DataDome, AWS WAF, Baleen). Product shows a clear blocked report with the CTA; no evasion. Browser Run block rate pending (decision 11).
 
 - Rendered-DOM checks: decided and confirmed by Vojta (axe-core on Browser Run, budgeted to the included hours, later layer). `.brain/resources/axe-on-browser-run.svx`.
@@ -72,6 +76,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 ## Log
 
 Times are CET, from the machine clock.
+
+- 20:50 Audit fixes committed and pushed (7dfac2b, 2a7a291); live crash on outdated D1 rows fixed and verified live. axe adapter in progress.
 
 - 20:58 Coverage line, blocked-site report and EAA requirement line committed (4f0e416). Block rate: 9/16 big shops refuse. builder-core on axe; verifier auditing product text.
 
