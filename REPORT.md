@@ -4,13 +4,17 @@ Durable record of tonight's build (2026-11-03). Newest first within each section
 
 ## What works
 
-- Report UX per Vojta (21:30): headline + coverage, issues first (one card per concern, static and rendered samples merged and tagged), Copy fix prompt on every issue with a fallback, judged observations in their own labelled section (Cloudflare Clef, never counted), one 'Where the EAA applies' section with all 27 states as flags opening to verified profiles (law, scope, dates, authority, penalties, micro exemption, each with a source link), passes collapsed, rules + statement + contact form last. Foldkit audit-program run.
-- Checks: 12 static (incl. autocomplete 1.3.5, BCP 47 lang, alt placeholder 1.1.1, generic title 2.4.2), axe-core 4.14 on Browser Run (also when the static fetch was refused), 4 judged observations (alt describes, link purpose, headings/labels, language match). Rendered probes (reflow, tab walk for focus visible / keyboard / trap, text spacing, target size) in progress. Coverage plan for all 56 SCs: `docs/sc-coverage-plan.md` (40 stay manual).
-- Live page on stage dev: paste a URL, the scan runs in a Cloudflare Workflow (XState machine), the report shows: what the EAA requires (Annex I, EU-ANNEX-1/4), the reference benchmark (EN 301 549 V3.2.1 / WCAG 2.1 AA) and that no EN 301 549 version is cited in the OJ under the EAA (EU-HS-1), a coverage line (9 checks touch 8 of 50 WCAG 2.1 A/AA SCs), findings with SC and clause, the member states where the EAA covers e-commerce services (flags, unknowns named) with the sourced microenterprise exemption, the automated-checks statement, and the contact CTA. Bot walls get a 'blocked automated checks' report. Our own page passes our own checks (test).
-- Product-text audit by the verifier (`docs/product-text-audit.md`): 8 defects found, all fixed.
-- `pnpm cli scan <url>`: hardened fetch, 9 deterministic static-HTML checks (lang, title, image alt, form labels, link name, button name, frame title, zoom, meta refresh), each mapped to WCAG 2.1 SC + EN 301 549 V3.2.1 clause (+ V4.1.1 as upcoming) from verified facts, per-state applicability (23 apply, 4 unknown), the automated-checks disclaimer (STD-AUTO-1), no "compliant" anywhere (tested), studio9 CTA placeholder. Bot walls (Cloudflare, DataDome) read as "refused".
-- rat-stack skeleton with webproai's full fence (tsgo Effect language service, typed lint, anti-slop, lefthook, no-verify blocks, CI workflow, skills). Gate `pnpm turbo run check test build` green.
-- Facts ledger: standards (129 facts: WCAG 2.1 A/AA SCs, EN 301 549 V3.2.1 and V4.1.1 clauses, W3C automated-testing statement) verified.
+State at 23:15 CET, all on `main`, CI green, deployed to stage dev.
+
+- **The page** (dev URL below): paste a URL, follow the scan, read the report at `/report/<host>/<scanId>` (shareable, reloads show that scan). The report puts the headline and coverage line first and lists issues worst first. Each concern gets one card with static and rendered samples merged, its WCAG 2.1 SC and EN 301 549 clause from verified facts, and a Copy fix prompt. Judged observations come next in their own labelled section. Then one "Where the EAA applies" section shows the 27 states as flags opening to verified profiles. Passes are collapsed. Rules, the automated-checks statement and the contact form come last. `/checks` lists all 50 WCAG 2.1 A/AA criteria (plus 6 WCAG 2.2 additions) and how each is tested: 23 have an automated check and 27 are manual, with a reason for each. Our own pages pass our own checks (test).
+- **Checks**: 12 deterministic static-HTML checks; axe-core 4.14.0 on Cloudflare Browser Run, also when the plain fetch was refused; and our own rendered probes for reflow 1.4.10, text spacing 1.4.12, focus visible 2.4.7, keyboard reach 2.1.1, keyboard trap 2.1.2, target size and on-focus 3.2.1. A check that cannot be decided reliably is not in the catalogue (decision 15, `docs/sc-coverage-plan.md`).
+- **Judged observations**: Cloudflare Clef answers fixed questions about collected evidence. Only checks calibrated at ≥0.9 precision on real pages are shown (link purpose, language match). They are never counted as issues and stay inside the free Workers AI allocation (decisions 18, 19, 21, 23).
+- **Accuracy**: five QA rounds on 21 real EU sites (`docs/accuracy-qa.md`). Every false-positive cause found was fixed or its check was dropped. In the regression run, 19 of 21 static results matched the earlier rounds and the 2 differences were sites newly read. There were 0 crashes, 0 wrong state lists and 0 "compliant" wording. Rendered findings hand-checked on 5 more sites: 13 of 15 true or plausible; the 2 false positives were fixed. Known residue: one heureka contrast sample unsettled, and contrast inside shadow DOM is dropped (decision recorded).
+- **Honesty**: "compliant" and "compliance score" never appear (tested). Every report says automated checks find only part of WCAG and that a manual review is needed. Two product-text audits by the verifier (`docs/product-text-audit*.md`) are fixed except D6 (below).
+- **Security**: code review plus three re-reviews (`docs/review.md`), with 0 open high or medium findings. Every fetch and browser navigation is vetted, with redirects followed by hand and the landed URL re-vetted. Popups and service workers are blocked in the browser. The scanner Worker is reachable only by service binding. Per-IP rate limits (IPv6 by /64) and a per-site per-caller daily cap are enforced in one insert, and the caller header cannot be spoofed. Daily budgets cover browser minutes (dev 90 min) and model use. The CLI pins DNS and refuses private addresses.
+- **CLI**: `pnpm cli scan <url>` runs the same static scan in the terminal; `--json` gives the schema-encoded report.
+- **Facts**: 485 facts, all verified by a second agent against the primary source; 27 of 27 states (table below).
+- **Stack**: rat-stack exactly like webproai with the full fence (tsgo Effect diagnostics, typed lint, anti-slop, lefthook, CI). Gate `pnpm turbo run check test build` is green.
 
 ## Repo
 
@@ -62,16 +66,11 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 ## Open decisions
 
-- A few state-profile values read as fragments without their claim (audit 2, D6: e.g. DE-LAW-2 "Implements Directive (EU) 2019/882"). True and sourced; tidy the ledger wording in a later research pass.
-
-- Contact CTA wording (placeholder, shown to users now without a TODO marker): "studio9 can review this page by hand, explain what the findings mean for your site, and fix them. Get in touch with studio9." Blocked sites: "studio9 can review it by hand." Vojta to rewrite; it is one constant in `packages/core/src/report.ts`. There is no contact form or link target yet.
-
-- Bot walls: 9 of 16 large EU shops block a plain fetch (Cloudflare, DataDome, AWS WAF, Baleen). Product shows a clear blocked report with the CTA; no evasion. Browser Run block rate pending (decision 11).
-
-- Rendered-DOM checks: decided and confirmed by Vojta (axe-core on Browser Run, budgeted to the included hours, later layer). `.brain/resources/axe-on-browser-run.svx`.
-
-- Contact CTA wording is a placeholder for Vojta.
-- Languages after English (proposal: Czech second).
+- Contact CTA wording is a placeholder for Vojta: "studio9 can review this page by hand, explain what the findings mean for your site, and fix them. Get in touch with studio9." (blocked sites: "studio9 can review it by hand."). It is one constant in `packages/core/src/report.ts`; the contact form under it stores messages in D1.
+- A few state-profile values read as fragments without their claim (audit 2, D6, e.g. DE-LAW-2 "Implements Directive (EU) 2019/882"). They are true and sourced; tidy the wording in a later research pass.
+- Bot walls: 9 of 16 large EU shops refuse a plain fetch, and with render-on-refused 12 of 16 still get a rendered audit. Blocked sites get a clear "blocked automated checks" report with the CTA and no evasion (decisions 11, 20).
+- Browser Run egress not reaching private networks is an assumption: Cloudflare's docs do not say it. It is recorded in AGENTS.md and `docs/rendered-audit.md`.
+- Languages after English: Czech second is proposed (decision 4).
 
 ## Needs Vojta
 
@@ -85,6 +84,10 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 ## Log
 
 Times are CET, from the machine clock.
+
+- 22:35 Re-review 2: H2 fixed (scanner Worker not reachable on its own URL, non-POST RPC refused, per-site cap keyed by site and caller, IPv6 by /64), popups and service workers blocked in Browser Run. Caller-header spoofing (R11) and popup first request (R12) fixed in 09b944b. Report links carry the scan ID (R6). Regression run found and fixed a CLI gzip bug (1349852). /checks page lists all 50 WCAG 2.1 A/AA criteria and how each is tested (23 automated, 27 manual). CI green, dev deployed.
+
+- 22:15 Review fixes deployed (H1 ea1b4cb, H2/L3/M2 26fc8be, L2 e58fc57, M1 8914d24). Re-review: H1, M1-M3, L1-L3 fixed; H2 still open (scanner Worker reachable on its own workers.dev URL; non-POST RPC unlimited), plus per-site lockout, IPv6 keying and browser popups/service workers. All routed to builder-cloud. Fresh dev screenshots of a many-issue report and a blocked report look right; builder-core on the /checks page.
 
 - 21:55 Code review (`docs/review.md`): 2 high (Browser Run navigations not vetted; no per-caller limits), 3 medium, 3 low; facts gate and report honesty clean. Second product-text audit (`docs/product-text-audit-2.md`): 8 defects, 0 blockers. All routed to builders.
 

@@ -1,7 +1,8 @@
 ---
 title: "Build the Fact Ledger"
 type: "step"
-status: "open"
+status: "closed"
+closed_at: "2026-11-03"
 parent: "./eaa-checker-brief.svx"
 created_at: "2026-11-03"
 ---
@@ -11,3 +12,11 @@ created_at: "2026-11-03"
 ## Step
 
 Research the directive, EN 301 549, WCAG 2.1 and all 27 member states into `research/facts/`, each fact verified by a second agent. Agents: research-eu, states-a/b/c, verifier (briefs in `.brain/tasks/`).
+
+## Result (2026-11-03)
+
+485 facts, all `verified` by a second agent against the primary source, 0 open rejects: `eu.md` 28, `standards.md` 129 (WCAG 2.1 A/AA SCs, EN 301 549 V3.2.1 and V4.1.1 clauses, WCAG 2.2 additions, the W3C automated-testing statement), and 27 of 27 state files. Gaps are recorded as `value: unknown` and shown as unknown (list in `REPORT.md`). The OJ citation question was answered by a negative CELLAR search: no EN 301 549 version is cited under 2019/882 as of 2026-10-30 (EU-HS-1), which led to decisions 9 and 10.
+
+Left:
+- D6 (product-text audit 2): a few state values read as fragments without their claim (e.g. DE-LAW-2); tidy in a later research pass and re-verify.
+- The ledger is dated 2026-10-30 to 2026-11-03. Watch the OJ for an EN 301 549 citation under the EAA, and watch state amendments; re-verify on change.
