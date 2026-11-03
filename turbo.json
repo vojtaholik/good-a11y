@@ -1,0 +1,54 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalDependencies": ["tsconfig.base.json"],
+  "tasks": {
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputs": []
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "test": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "//#lint": {
+      "outputs": []
+    },
+    "//#typecheck-scripts": {
+      "outputs": []
+    },
+    "//#lockfile:check": {
+      "cache": false,
+      "outputs": []
+    },
+    "check": {
+      "dependsOn": [
+        "//#lockfile:check",
+        "typecheck",
+        "//#lint",
+        "//#typecheck-scripts"
+      ],
+      "outputs": []
+    },
+    "@eaa-check/core#test": {
+      "dependsOn": ["build"],
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/AGENTS.md",
+        "$TURBO_ROOT$/README.md",
+        "$TURBO_ROOT$/package.json",
+        "$TURBO_ROOT$/pnpm-workspace.yaml",
+        "$TURBO_ROOT$/oxlint.config.ts",
+        "$TURBO_ROOT$/apps/*/package.json",
+        "$TURBO_ROOT$/packages/*/package.json",
+        "$TURBO_ROOT$/scripts/**",
+        "$TURBO_ROOT$/tools/oxlint/**",
+        "$TURBO_ROOT$/research/facts/**"
+      ]
+    }
+  }
+}

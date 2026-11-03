@@ -20,14 +20,14 @@ Durable record of tonight's build (2026-11-03). Newest first within each section
 
 ## Open decisions
 
-- Rendered-DOM checks: decided (axe-core on Browser Run, budgeted, later layer). `.brain/resources/axe-on-browser-run.svx`.
+- Rendered-DOM checks: decided and confirmed by Vojta (axe-core on Browser Run, budgeted to the included hours, later layer). `.brain/resources/axe-on-browser-run.svx`.
 
 - Contact CTA wording is a placeholder for Vojta.
 - Languages after English (proposal: Czech second).
 
 ## Needs Vojta
 
-- Confirm that axe-core on Cloudflare Browser Run is OK while it stays inside Workers Paid's included 10 browser hours a month (decision 7). Building it with a hard daily budget so it cannot overrun; static checks work without it.
+- Nothing open.
 
 ## Log
 

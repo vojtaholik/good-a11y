@@ -30,4 +30,4 @@ Adopt axe-core on Browser Run as a later layer, after the static slice and the W
 2. The rendered-DOM step is one Workflow task that runs axe once per scan, with a daily browser-time budget in the store sized to stay inside the included 10 hours a month (about 18 minutes a day). When the budget is spent, the report says the rendered check was skipped and shows static results only.
 3. Each axe rule used is mapped to its WCAG SC and EN 301 549 clause through the facts ledger, like every other check; unmapped axe rules are not shown.
 
-Why: it is the only way to see what a JS-rendered shop shows a user, it stays within what the account already includes, and the budget makes overage impossible by construction. Needs Vojta: confirm that using Browser Run within the included hours is acceptable under "no paid services beyond what webproai already uses".
+Why: it is the only way to see what a JS-rendered shop shows a user, it stays within what the account already includes, and the budget makes overage impossible by construction. Vojta confirmed the decision on 2026-11-03.
