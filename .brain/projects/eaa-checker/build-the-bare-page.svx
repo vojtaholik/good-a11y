@@ -1,7 +1,8 @@
 ---
 title: "Build the Bare Page"
 type: "step"
-status: "open"
+status: "closed"
+closed_at: "2026-11-03"
 parent: "./eaa-checker-brief.svx"
 created_at: "2026-11-03"
 ---
@@ -11,3 +12,11 @@ created_at: "2026-11-03"
 ## Step
 
 Paste a URL, see the report with per-state flags, contact CTA placeholder.
+
+## Result (2026-11-03)
+
+Done on stage `dev`: the Foldkit page in `apps/web` takes a URL, follows the scan, shows the report with per-state applicability and flags, and has the contact form (builder-cloud for the page, scan views and contact form; builder-core redesigned the report view). The website Worker forwards `/rpc` to the Scanner over its service binding. It rate-limits `startScan` and `sendMessage` per caller (IPv4 address or IPv6 /64), takes POST only, and passes the caller key to the per-site daily cap (`docs/layer-2-3.md`).
+
+Left:
+- Review R6: the report URL does not carry the scan ID, so a reloaded or shared link shows the newest scan of the host (builder-core's web route).
+- Turnstile stays deferred (decision 14). The rate limit binding is approximate, so the global daily caps remain the real ceiling.

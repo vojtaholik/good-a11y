@@ -1,7 +1,8 @@
 ---
 title: "Run the Scan in a Workflow"
 type: "step"
-status: "open"
+status: "closed"
+closed_at: "2026-11-03"
 parent: "./eaa-checker-brief.svx"
 created_at: "2026-11-03"
 ---
@@ -11,3 +12,15 @@ created_at: "2026-11-03"
 ## Step
 
 Scan machine (XState) inside a Cloudflare Workflow, scan-store on D1, Alchemy Stack, deploy to a non-production stage.
+
+## Result (2026-11-03)
+
+Done and live on stage `dev` (builder-cloud). One `ScanWorkflow` instance per scan runs the XState scan machine, and each step is a Workflow task: static scan, render (Browser Run, axe-core 4.14.0 plus the rendered probes), judge (Clef, own budget), store. D1 holds the scans, messages and both budgets through `packages/scan-store`. The Alchemy Stack (`apps/infra`) declares both Workers, the Workflow, D1, R2 and the Browser binding. Design and gotchas: `docs/layer-2-3.md`, `docs/rendered-audit.md`, `docs/rendered-probes.md`.
+
+Settled along the way: decision 20 (render also when the static fetch was refused; 12 of 16 test shops then get a rendered audit, `.brain/resources/bot-wall-block-rate.svx`) and decision 22 (per-stage browser budget, 5400 s/day on dev, 1080 elsewhere, measured session time). Review fixes H1, H2, L2, L3, M2 and re-review R1-R5, R7-R9 are in (`docs/review.md`; last commit 2254bf6).
+
+Left:
+- The Browser Run egress assumption, that it cannot reach private addresses, is not documented by Cloudflare (AGENTS.md).
+- Browser Run sometimes fails ("browser service failed") on the same page that ran a minute earlier (arngren.net); nothing in our code explains it.
+- The 3.2.1 fail path has no live sample yet.
+- No production stage is deployed.
