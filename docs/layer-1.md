@@ -21,7 +21,7 @@ Each is a pure function of `PageEvidence` and reports `pass`, `fail` or `not_app
 | `html-lang` | 3.1.1 | `<html>` has no `lang`, or it is not a language tag |
 | `document-title` | 2.4.2 | No `<title>`, or it is empty |
 | `image-alt` | 1.1.1 | An `<img>` has no `alt`, no ARIA name, no `title` and no presentational role; an image button has no text |
-| `form-labels` | 1.3.1, 4.1.2 | A field has no `<label>` (wrapping or `for`), `aria-label`, `aria-labelledby`, `title` or `placeholder` |
+| `form-labels` (title "Form fields have an accessible name") | 1.3.1, 4.1.2 | A field has no `<label>` (wrapping or `for`), `aria-label`, `aria-labelledby`, `title` or `placeholder` |
 | `link-name` | 2.4.4, 4.1.2 | An `<a href>` has no text, no image alt inside, no ARIA name and no `title` |
 | `button-name` | 4.1.2 | A button has no text, no image alt inside, no ARIA name and no `title`; an `<input type=button>` has no value |
 | `frame-title` | 4.1.2 | An `<iframe>` or `<frame>` has no `title` or ARIA name |
@@ -35,10 +35,10 @@ Elements under `hidden`, `aria-hidden="true"`, `<template>` or `<noscript>` are 
 - The page, the time, the HTTP status, and an outcome: `checked`, `refused` (bot check or refusal status), `unreachable`, or `not_html`. A page with no links, images, buttons or fields says it probably renders with JavaScript.
 - What the EAA requires: every verified fact tagged `used_by: report.legal-requirement`.
 - The reference benchmark (`STD-EN-5`, or `STD-EN-6` when a verified fact tagged `used_by: report.reference-standard` names V4.1.1 as cited), and the Official Journal citation line (that fact, otherwise `EU-HS-1`). Either line is left out when its fact is not verified.
-- Each finding with its WCAG SC (`STD-SC-*`), the reference EN 301 549 clause (`STD-EN-9.*`), and the V4.1.1 clause (`STD-EN4-9.*`) labelled "Upcoming (EN 301 549 V4.1.1)". A reference appears only when its fact is verified.
-- For each failing finding, the states where it applies and the states listed as unknown.
+- Each finding with its WCAG SC (`STD-SC-*`), the reference EN 301 549 clause (`STD-EN-9.*`), and the V4.1.1 clause (`STD-EN4-9.*`) labelled "EN 301 549 V4.1.1 (published, not cited in the OJ)". That label needs verified `STD-EN-3` and `EU-HS-1`; without them the V4.1.1 clauses are left out. A reference appears only when its fact is verified.
+- For each failing finding, "The EAA covers e-commerce services in:" with the states, the microenterprise exemption (value of `EU-MICRO-1` with its ID), and the states listed as unknown.
 - The fixed statement that automated checks find only part of what WCAG covers and that a manual review is needed, citing `STD-AUTO-1` when verified.
-- The studio9 contact, marked `placeholder: true` and starting with `TODO(Vojta)`.
+- The studio9 contact, marked `placeholder: true` until Vojta signs off the wording (tracked in `REPORT.md`).
 
 ### Tests that hold the rules
 
@@ -72,4 +72,4 @@ Elements under `hidden`, `aria-hidden="true"`, `<template>` or `<noscript>` are 
 - **First verified fact wins** when a state has two verified facts for one profile field. A verified value of `unknown` counts as unknown.
 - **Stale generated data fails the gate.** Any commit that changes the ledger must include `pnpm facts`'s output. This is deliberate: a fact flipped to rejected must leave product data in the same commit.
 - **Rendered-DOM checks** (axe-core on Browser Rendering) are not in layer 1. Static HTML from a JavaScript-rendered shop gives little to judge, and the report says so.
-- **Contact wording** is a placeholder for Vojta.
+- **Contact wording** is a placeholder for Vojta: `contact.placeholder` stays `true`, the visible text has no TODO prefix.

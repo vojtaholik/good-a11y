@@ -4421,7 +4421,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "retrieved": "2026-11-03",
     "source": "https://zoek.officielebekendmakingen.nl/stb-2024-87.html",
     "usedBy": "states.nl.scope.ecommerce",
-    "value": "yes (Art. 6:230fb Burgerlijk Wetboek)"
+    "value": "yes"
   },
   {
     "claim": "Art. 6:230fc(1) Civil Code exempts enterprises with fewer than 10 employees and annual turnover or balance sheet total of at most EUR 2 million from the e-commerce accessibility duties. The Telecommunicatiewet (Art. 7a.2(3)) has the same threshold for electronic communications services.",
@@ -5279,7 +5279,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "retrieved": "2026-11-03",
     "source": "https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html",
     "usedBy": "states.sk.scope.ecommerce",
-    "value": "yes, as information society services (Act 22/2004 Coll.)"
+    "value": "yes"
   },
   {
     "claim": "§ 2(3) of Zákon č. 351/2022 Z. z. excludes services provided by a microenterprise; microenterprise is defined by reference to Commission Recommendation 2003/361/EC (footnote 4).",

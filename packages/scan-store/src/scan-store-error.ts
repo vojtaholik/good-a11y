@@ -4,7 +4,14 @@ export class ScanStoreError extends Schema.TaggedError<ScanStoreError>()(
   "ScanStoreError",
   {
     cause: Schema.Defect(),
-    operation: Schema.Literals(["begin", "enter", "publish", "fail", "latest"]),
+    operation: Schema.Literals([
+      "begin",
+      "enter",
+      "publish",
+      "fail",
+      "latest",
+      "reserve",
+    ]),
   }
 ) {
   override get message(): string {

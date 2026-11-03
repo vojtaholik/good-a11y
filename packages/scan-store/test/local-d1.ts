@@ -6,6 +6,7 @@ import { Effect, FileSystem, Layer, Path } from "effect";
 import initSqlJs from "sql.js";
 import type { Database, SqlValue } from "sql.js";
 
+import { BrowserBudget } from "../src/browser-budget.js";
 import { scanStoreMigrationDirectory } from "../src/migrations.js";
 import { ScanStore } from "../src/scan-store.js";
 import { StoreDatabase } from "../src/store-database.js";
@@ -108,4 +109,7 @@ const localDatabase = Layer.effect(
   })
 ).pipe(Layer.provide(NodeServices.layer));
 
-export const localStores = ScanStore.layer.pipe(Layer.provide(localDatabase));
+export const localStores = Layer.mergeAll(
+  ScanStore.layer,
+  BrowserBudget.layer
+).pipe(Layer.provideMerge(localDatabase));

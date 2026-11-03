@@ -1,9 +1,10 @@
 import {
   DailyCapReached,
   ScanTargetRejected,
+  ScanUnavailable,
   UnknownScan,
 } from "@eaa-check/core/contracts";
-import { Effect, Option, Schema } from "effect";
+import { Cause, Effect, Option, Schema } from "effect";
 import { Command } from "foldkit";
 import { load, pushUrl } from "foldkit/navigation";
 
@@ -11,20 +12,21 @@ import { Message } from "./model.js";
 import { ScanApi } from "./scan-api.js";
 
 const isRefusal = Schema.is(
-  Schema.Union([ScanTargetRejected, DailyCapReached])
+  Schema.Union([ScanTargetRejected, DailyCapReached, ScanUnavailable])
 );
 
 export const StartScan = Command.define("StartScan", {
   args: { generation: Schema.Int, url: Schema.String },
   execute: ({ generation, url }) =>
     ScanApi.use((api) => api.startScan({ url })).pipe(
-      Effect.match({
-        onFailure: (error) =>
+      Effect.matchCause({
+        onFailure: (cause) =>
           Message.FailedStartScan({
             generation,
-            maybeMessage: isRefusal(error)
-              ? Option.some(error.message)
-              : Option.none(),
+            maybeMessage: Cause.findErrorOption(cause).pipe(
+              Option.filter(isRefusal),
+              Option.map((error) => error.message)
+            ),
           }),
         onSuccess: ({ slug }) =>
           Message.SucceededStartScan({ generation, slug }),
@@ -37,11 +39,14 @@ export const GetScan = Command.define("GetScan", {
   args: { generation: Schema.Int, slug: Schema.String },
   execute: ({ generation, slug }) =>
     ScanApi.use((api) => api.getScan({ slug })).pipe(
-      Effect.match({
-        onFailure: (error) =>
+      Effect.matchCause({
+        onFailure: (cause) =>
           Message.FailedGetScan({
             generation,
-            unknown: Schema.is(UnknownScan)(error),
+            unknown: Option.exists(
+              Cause.findErrorOption(cause),
+              Schema.is(UnknownScan)
+            ),
           }),
         onSuccess: (view) => Message.SucceededGetScan({ generation, view }),
       })

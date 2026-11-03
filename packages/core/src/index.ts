@@ -1,6 +1,7 @@
 export {
   APPLICABILITY,
   ApplicabilitySchema,
+  MICROENTERPRISE_FACT,
   StateRefSchema,
   applicabilityFrom,
   type Applicability,
@@ -101,11 +102,15 @@ export {
 export {
   CITED_VERSION_USE,
   LEGAL_REQUIREMENT_USE,
+  NEWER_PUBLISHED_FACT,
+  NEWER_VERSION_LABEL,
   NO_CITATION_FACT,
+  NewerVersionSchema,
   REFERENCE,
   ReferenceSchema,
   SourcedSchema,
   referenceFrom,
+  type NewerVersion,
   type Reference,
   type Sourced,
   type Version,
@@ -197,5 +202,7 @@ export {
   type ScanStage,
   type ScanView,
 } from "./scan-view.js";
+
+export { ScanUnavailable } from "./scan-unavailable.js";
 
 export { UnknownScan } from "./unknown-scan.js";

@@ -61,13 +61,13 @@ consolidated version in force from 30.05.2026 (amended by 318/2025 Z. z. and 88/
 ### SK-ECOMMERCE-1
 - claim: § 2(1)(d) of Zákon č. 351/2022 Z. z. covers information society services provided to consumers, defined by reference (footnote 3) to § 2(a) of Act No. 22/2004 Coll. on electronic commerce. The law does not use the separate EAA term "e-commerce services"; online sales to consumers fall under information society services.
 - field: scope-ecommerce
-- value: yes, as information society services (Act 22/2004 Coll.)
+- value: yes
 - source: https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html
 - excerpt: "§ 2 písm. a) zákona č. 22/2004 Z. z. o elektronickom obchode" [§ 2(a) of Act No. 22/2004 Coll. on electronic commerce]
 - retrieved: 2026-11-03
 - used_by: states.sk.scope.ecommerce
 - status: verified
-- verifier_note: § 2(1) d) with footnote 3 to § 2 písm. a) zákona č. 22/2004 Z. z. matches.
+- verifier_note: Re-verified after value set to yes: § 2(1) d) with footnote 3 to § 2 písm. a) zákona č. 22/2004 Z. z. matches
 
 ### SK-MICRO-1
 - claim: § 2(3) of Zákon č. 351/2022 Z. z. excludes services provided by a microenterprise; microenterprise is defined by reference to Commission Recommendation 2003/361/EC (footnote 4).

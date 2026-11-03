@@ -9,6 +9,7 @@ import {
   BLOCKED_HEADLINE,
   CATALOGUE,
   LOOKS_EMPTY,
+  NEWER_VERSION_LABEL,
   ReportSchema,
   applicabilityFrom,
   coverageFrom,
@@ -118,10 +119,20 @@ describe("the report", () => {
     expect(AUTOMATED_LIMIT).toContain("manual review");
   });
 
+  it("says under the states that microenterprises providing services are exempt, from EU-MICRO-1", () => {
+    const [, report] = reports;
+
+    expect(report?.applicability.exemption?.factId).toBe("EU-MICRO-1");
+    expect(report === undefined ? "" : formatReport(report)).toContain(
+      "(EU-MICRO-1)"
+    );
+  });
+
   it("ends with the studio9 contact, marked as a placeholder", () => {
     const [, report] = reports;
 
     expect(report?.contact.placeholder).toBe(true);
+    expect(report?.contact.text).not.toContain("TODO");
     expect(
       report === undefined
         ? false
@@ -235,29 +246,35 @@ describe("referencesOf", () => {
   const v3: Reference = {
     benchmark: null,
     citation: null,
+    newerVersion: { factIds: [], label: "" },
     requirements: [],
     version: "V3.2.1",
   };
 
-  const v4: Reference = {
-    benchmark: null,
-    citation: null,
-    requirements: [],
-    version: "V4.1.1",
-  };
+  const v4: Reference = { ...v3, newerVersion: null, version: "V4.1.1" };
 
-  it("labels a V4.1.1 clause upcoming while V3.2.1 is the reference, and the reference once V4.1.1 is cited", () => {
+  it("labels a V4.1.1 clause as the newer version while V3.2.1 is the reference, and the reference once V4.1.1 is cited", () => {
     for (const entry of CATALOGUE) {
       for (const reference of referencesOf(entry, v3)) {
         expect(reference.factId.startsWith("STD-EN4-")).toBe(
-          reference.kind === "en-upcoming"
+          reference.kind === "en-newer"
         );
       }
 
       for (const reference of referencesOf(entry, v4)) {
-        expect(reference.kind).not.toBe("en-upcoming");
+        expect(reference.kind).not.toBe("en-newer");
         expect(reference.factId.startsWith("STD-EN-9.")).toBe(false);
       }
+    }
+  });
+
+  it("shows no V4.1.1 clause when no fact says it is published and uncited", () => {
+    for (const entry of CATALOGUE) {
+      expect(
+        referencesOf(entry, { ...v3, newerVersion: null }).map(
+          (reference) => reference.kind
+        )
+      ).not.toContain("en-newer");
     }
   });
 });
@@ -284,6 +301,19 @@ describe("referenceFrom", () => {
     expect(reference.version).toBe("V3.2.1");
     expect(reference.benchmark?.factId).toBe("STD-EN-5");
     expect(reference.citation?.factId).toBe("EU-HS-1");
+    expect(reference.newerVersion).toBeNull();
+  });
+
+  it("names V4.1.1 as published and not cited only from STD-EN-3 and EU-HS-1", () => {
+    const reference = referenceFrom([
+      fact("STD-EN-3", "report.standard", "V4.1.1 is the latest"),
+      fact("EU-HS-1", "report.status", "No version found cited"),
+    ]);
+
+    expect(reference.newerVersion).toEqual({
+      factIds: ["STD-EN-3", "EU-HS-1"],
+      label: NEWER_VERSION_LABEL,
+    });
   });
 
   it("follows the version a verified citation fact names", () => {
@@ -301,6 +331,7 @@ describe("referenceFrom", () => {
     expect(referenceFrom([])).toEqual({
       benchmark: null,
       citation: null,
+      newerVersion: null,
       requirements: [],
       version: "V3.2.1",
     });
@@ -359,12 +390,15 @@ const profile = (
 
 describe("applicabilityFrom", () => {
   it("lists a state as applying only with a verified law and e-commerce in scope, and every other state as unknown", () => {
-    const result = applicabilityFrom([
-      profile("at", known("AT-LAW-1", "BaFG"), known("AT-EC-1", "yes")),
-      profile("de", known("DE-LAW-1", "BFSG"), UNKNOWN),
-      profile("cz", UNKNOWN, known("CZ-EC-1", "yes")),
-      profile("fr", known("FR-LAW-1", "Loi"), known("FR-EC-1", "unclear")),
-    ]);
+    const result = applicabilityFrom(
+      [
+        profile("at", known("AT-LAW-1", "BaFG"), known("AT-EC-1", "yes")),
+        profile("de", known("DE-LAW-1", "BFSG"), UNKNOWN),
+        profile("cz", UNKNOWN, known("CZ-EC-1", "yes")),
+        profile("fr", known("FR-LAW-1", "Loi"), known("FR-EC-1", "unclear")),
+      ],
+      null
+    );
 
     expect(result.applies.map((state) => state.code)).toEqual(["at"]);
     expect(result.applies[0]?.factIds).toEqual(["AT-LAW-1", "AT-EC-1"]);

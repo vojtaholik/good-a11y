@@ -25,6 +25,8 @@ export type { Applicability, StateRef } from "./applicability.js";
 
 export type { FindingReference } from "./report.js";
 
+export { NEWER_VERSION_LABEL } from "./reference.js";
+
 export { DailyCapReached } from "./daily-cap-reached.js";
 
 export { getScanContract, startScanContract } from "./scan-lifecycle.js";
@@ -32,5 +34,7 @@ export { getScanContract, startScanContract } from "./scan-lifecycle.js";
 export { ScanTargetRejected } from "./scan-target-rejected.js";
 
 export { ScanViewSchema, type ScanView } from "./scan-view.js";
+
+export { ScanUnavailable } from "./scan-unavailable.js";
 
 export { UnknownScan } from "./unknown-scan.js";

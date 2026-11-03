@@ -1,5 +1,6 @@
 import type { StateRef } from "./applicability.js";
 import type { CheckStatus } from "./check.js";
+import { NEWER_VERSION_LABEL } from "./reference.js";
 import type { Finding, FindingReference, Report } from "./report.js";
 
 const MARKS: Readonly<Record<CheckStatus, string>> = {
@@ -9,8 +10,8 @@ const MARKS: Readonly<Record<CheckStatus, string>> = {
 };
 
 const KIND_LABELS: Readonly<Record<FindingReference["kind"], string>> = {
+  "en-newer": NEWER_VERSION_LABEL,
   "en-reference": "Reference benchmark",
-  "en-upcoming": "Upcoming (EN 301 549 V4.1.1)",
   wcag: "WCAG 2.1",
 };
 
@@ -34,7 +35,12 @@ const findingLines = (finding: Finding, report: Report): string[] => [
     ? [
         `      What fails: ${finding.whatFails}`,
         ...finding.samples.map((sample) => `      · ${sample}`),
-        `      Applies in (${report.applicability.applies.length}): ${codes(report.applicability.applies)}`,
+        `      The EAA covers e-commerce services in (${report.applicability.applies.length}): ${codes(report.applicability.applies)}`,
+        ...(report.applicability.exemption === null
+          ? []
+          : [
+              `      ${report.applicability.exemption.text}  (${report.applicability.exemption.factId})`,
+            ]),
         `      Unknown (${report.applicability.unknown.length}): ${codes(report.applicability.unknown)}`,
       ]
     : []),

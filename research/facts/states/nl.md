@@ -64,13 +64,13 @@ Wetboek, Wft, Wet handhaving consumentenbescherming, and others). Fetched 2026-1
 ### NL-ECOMMERCE-1
 - claim: Art. IV of the Implementatiewet inserts Art. 230fb in Book 6 of the Civil Code: a service provider performing e-commerce services towards a consumer must design and provide them in line with the EAA accessibility requirements (Annex I sections III and IV point g, and Annex V).
 - field: scope-ecommerce
-- value: yes (Art. 6:230fb Burgerlijk Wetboek)
+- value: yes
 - source: https://zoek.officielebekendmakingen.nl/stb-2024-87.html
 - excerpt: "1. De dienstverlener die e-handelsdiensten verricht jegens een consument ontwerpt en verleent die diensten in overeenstemming met de toegankelijkheidsvoorschriften in bijlage I, afdeling III en IV, onder g, en bijlage V bij richtlijn (EU) 2019/882." [1. The service provider performing e-commerce services towards a consumer designs and provides those services in line with the accessibility requirements in Annex I, sections III and IV, point g, and Annex V of Directive (EU) 2019/882.]
 - retrieved: 2026-11-03
 - used_by: states.nl.scope.ecommerce
 - status: verified
-- verifier_note: Art. 6:230fb(1) BW matches verbatim.
+- verifier_note: Re-verified after value set to yes: Art. 6:230fb(1) BW in Stb. 2024, 87 matches verbatim
 
 ### NL-MICRO-1
 - claim: Art. 6:230fc(1) Civil Code exempts enterprises with fewer than 10 employees and annual turnover or balance sheet total of at most EUR 2 million from the e-commerce accessibility duties. The Telecommunicatiewet (Art. 7a.2(3)) has the same threshold for electronic communications services.

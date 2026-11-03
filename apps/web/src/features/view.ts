@@ -27,7 +27,7 @@ const homeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
   h.main(
     [],
     [
-      h.h1([], ["Check one page against the EU accessibility rules"]),
+      h.h1([], ["Find accessibility issues on one page"]),
       h.p(
         [],
         [

@@ -3,6 +3,7 @@ import * as Drizzle from "alchemy/Drizzle";
 import * as Effect from "effect/Effect";
 import * as Layer from "effect/Layer";
 
+import { BrowserBudget } from "./browser-budget.js";
 import {
   scanStoreMigrationDirectory,
   scanStoreSchemaFile,
@@ -30,4 +31,7 @@ const storeDatabaseD1 = Layer.effect(
   })
 ).pipe(Layer.provide(Cloudflare.D1.QueryDatabaseBinding));
 
-export const scanStoreD1 = ScanStore.layer.pipe(Layer.provide(storeDatabaseD1));
+export const scanStoreD1 = Layer.mergeAll(
+  ScanStore.layer,
+  BrowserBudget.layer
+).pipe(Layer.provide(storeDatabaseD1));

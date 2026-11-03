@@ -26,10 +26,10 @@ export const AUTOMATED_LIMIT =
   "Automated checks find only part of the accessibility issues WCAG covers, and only those visible in the page's HTML as served. This report does not show whether the page meets the European Accessibility Act. A manual review by a person is needed.";
 
 export const CONTACT_TEXT =
-  "TODO(Vojta): wording. studio9 can review this page by hand, explain what the findings mean for your site, and fix them. Get in touch with studio9.";
+  "studio9 can review this page by hand, explain what the findings mean for your site, and fix them. Get in touch with studio9.";
 
 export const BLOCKED_CONTACT_TEXT =
-  "TODO(Vojta): wording. studio9 can review it by hand. Get in touch with studio9.";
+  "studio9 can review it by hand. Get in touch with studio9.";
 
 export const BLOCKED_HEADLINE =
   "This site blocked automated checks, so nothing was tested.";
@@ -43,7 +43,7 @@ export const UNREACHABLE_HEADLINE =
 export const ReferenceKindSchema = Schema.Literals([
   "wcag",
   "en-reference",
-  "en-upcoming",
+  "en-newer",
 ]);
 
 export const FindingReferenceSchema = Schema.Struct({
@@ -116,7 +116,10 @@ export const referencesOf = (
     ...withKind("wcag", sc),
     ...(reference.version === "V4.1.1"
       ? withKind("en-reference", en4)
-      : [...withKind("en-reference", en3), ...withKind("en-upcoming", en4)]),
+      : [
+          ...withKind("en-reference", en3),
+          ...(reference.newerVersion === null ? [] : withKind("en-newer", en4)),
+        ]),
   ]);
 
 const findingOf = (

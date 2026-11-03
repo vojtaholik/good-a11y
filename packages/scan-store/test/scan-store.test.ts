@@ -1,8 +1,9 @@
 import { reportOf } from "@eaa-check/core";
 import { describe, expect, it } from "@effect/vitest";
+import { sql } from "drizzle-orm";
 import { Effect, Option } from "effect";
 
-import { ScanStore } from "../src/index.js";
+import { OUTDATED_REPORT, ScanStore, StoreDatabase } from "../src/index.js";
 import { localStores } from "./local-d1.js";
 
 const HOUR = 3_600_000;
@@ -82,6 +83,31 @@ describe("ScanStore", () => {
           })
         ).toEqual({ kind: "cap_reached" });
       })
+    );
+    scoped.effect(
+      "reads a report it can no longer decode as failed, and rescans",
+      () =>
+        Effect.gen(function* outdated() {
+          const store = yield* ScanStore;
+          const db = yield* StoreDatabase;
+
+          yield* db.run(
+            sql`INSERT INTO scans (id, slug, url, requested_at, settled_at, stage, report_json) VALUES ('old', 'old.example', 'https://old.example/', 10, 20, 'published', '{"version":0}')`
+          );
+
+          const latest = Option.getOrNull(yield* store.latest("old.example"));
+
+          expect(latest?.stage).toBe("failed");
+          expect(latest?.failure).toBe(OUTDATED_REPORT);
+
+          expect(
+            yield* store.begin({
+              ...scanAt("new", 30, 100),
+              slug: "old.example",
+              url: "https://old.example/",
+            })
+          ).toEqual({ kind: "begun" });
+        })
     );
   });
 });

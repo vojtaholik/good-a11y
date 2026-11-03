@@ -4,6 +4,7 @@ import type {
   Report,
   StateRef,
 } from "@eaa-check/core/contracts";
+import { NEWER_VERSION_LABEL } from "@eaa-check/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
 import { ScanState } from "../client/model.js";
@@ -20,9 +21,9 @@ const STATUS: Readonly<Record<Finding["status"], string>> = {
 };
 
 const KIND: Readonly<Record<FindingReference["kind"], string>> = {
+  "en-newer": NEWER_VERSION_LABEL,
   "en-reference": "EN 301 549",
-  "en-upcoming": "EN 301 549, next version",
-  wcag: "WCAG",
+  wcag: "WCAG 2.1",
 };
 
 const stateView = (state: StateRef, h: HtmlBuilder<AppMessage>): Html => {
@@ -47,15 +48,25 @@ const statesView = (report: Report, h: HtmlBuilder<AppMessage>): Html =>
         [],
         report.applicability.applies.length === 0
           ? [
-              "Member states where this applies: none confirmed yet from verified sources.",
+              "The EAA covers e-commerce services in: no member state confirmed yet from verified sources.",
             ]
           : [
-              "Applies in: ",
+              "The EAA covers e-commerce services in: ",
               ...report.applicability.applies.map((state) =>
                 stateView(state, h)
               ),
             ]
       ),
+      ...(report.applicability.exemption === null
+        ? []
+        : [
+            h.p(
+              [],
+              [
+                `${report.applicability.exemption.text} (${report.applicability.exemption.factId}).`,
+              ]
+            ),
+          ]),
       ...(report.applicability.unknown.length === 0
         ? []
         : [
@@ -121,7 +132,14 @@ const requirementsView = (
 ): Html[] => [
   ...(report.reference.citation === null
     ? []
-    : [h.p([], [report.reference.citation.text])]),
+    : [
+        h.p(
+          [],
+          [
+            `Official Journal citation of EN 301 549 under the EAA: ${report.reference.citation.text}`,
+          ]
+        ),
+      ]),
   ...(report.reference.requirements.length === 0
     ? []
     : [
@@ -206,8 +224,11 @@ export const reportView = (
         Unavailable: () => [
           h.p(
             [h.Role("alert")],
-            ["The report could not be loaded. Reload the page to try again."]
+            [
+              "The scan failed: the report could not be loaded. Try again in a few minutes.",
+            ]
           ),
+          h.p([], [h.a([h.Href(homeRouter())], ["Start a new scan"])]),
         ],
         Unknown: () => [
           h.p([], [`There is no scan of ${slug} yet.`]),

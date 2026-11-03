@@ -2,6 +2,7 @@ import { implement } from "@eaa-check/capability/implement";
 import {
   DailyCapReached,
   SCAN_FAILED,
+  ScanUnavailable,
   parseScanTarget,
   slugOf,
   startScanContract,
@@ -31,7 +32,12 @@ export const startScan = implement(startScanContract, ({ url }) =>
         slug,
         url: target.url,
       })
-      .pipe(Effect.orDie);
+      .pipe(
+        Effect.tapError((error) =>
+          Effect.logError("startScan store failed", error)
+        ),
+        Effect.mapError(() => new ScanUnavailable({ operation: "startScan" }))
+      );
 
     if (outcome.kind === "cap_reached") {
       return yield* new DailyCapReached({ limit: DAILY_SCAN_CAP });
@@ -41,16 +47,14 @@ export const startScan = implement(startScanContract, ({ url }) =>
       return { scanId: outcome.scanId, slug };
     }
 
-    yield* launcher
-      .launch({ scanId, slug, target })
-      .pipe(
-        Effect.catch((error) =>
-          Effect.logError("Scan launch failed", error).pipe(
-            Effect.andThen(store.fail(scanId, SCAN_FAILED, requestedAt)),
-            Effect.orDie
-          )
+    yield* launcher.launch({ scanId, slug, target }).pipe(
+      Effect.catch((error) =>
+        Effect.logError("Scan launch failed", error).pipe(
+          Effect.andThen(store.fail(scanId, SCAN_FAILED, requestedAt)),
+          Effect.mapError(() => new ScanUnavailable({ operation: "startScan" }))
         )
-      );
+      )
+    );
 
     return { scanId, slug };
   })

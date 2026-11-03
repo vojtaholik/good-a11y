@@ -40,3 +40,14 @@ export const Scans = sqliteTable(
     ),
   ]
 );
+
+export const BrowserBudget = sqliteTable(
+  "browser_budget",
+  {
+    day: text("day").primaryKey().notNull(),
+    reservedSeconds: integer("reserved_seconds").notNull(),
+  },
+  (table) => [
+    check("browser_budget_seconds_check", sql`${table.reservedSeconds} >= 0`),
+  ]
+);

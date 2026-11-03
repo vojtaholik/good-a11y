@@ -16,7 +16,7 @@ export const formLabels: Check = {
     );
   },
   id: "form-labels",
-  title: "Form fields have a label",
+  title: "Form fields have an accessible name",
   whatFails:
     "A text field, checkbox, radio button, select or text area has no <label>, aria-label, aria-labelledby, title or placeholder.",
 };

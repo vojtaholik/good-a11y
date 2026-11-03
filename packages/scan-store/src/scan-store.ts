@@ -1,4 +1,4 @@
-import { ReportSchema, ScanStageSchema, ScanViewSchema } from "@eaa-check/core";
+import { ReportSchema, ScanStageSchema } from "@eaa-check/core";
 import type { Report, ScanView } from "@eaa-check/core";
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { Context, Effect, Layer, Option, Schema } from "effect";
@@ -27,10 +27,13 @@ const UNSETTLED = ["queued", "scanning"];
 
 const ReportJson = Schema.fromJsonString(ReportSchema);
 
+export const OUTDATED_REPORT =
+  "This report was made by an older version of the checker and can no longer be shown. Run a new scan.";
+
 const PersistedScanSchema = Schema.Struct({
   failure: Schema.NullOr(Schema.String),
   id: Schema.String,
-  reportJson: Schema.NullOr(ReportJson),
+  reportJson: Schema.NullOr(Schema.String),
   requestedAt: Schema.Int,
   settledAt: Schema.NullOr(Schema.Int),
   slug: Schema.String,
@@ -40,22 +43,55 @@ const PersistedScanSchema = Schema.Struct({
 
 type PersistedScan = typeof PersistedScanSchema.Type;
 
-const isReusable = (scan: PersistedScan, next: NewScan): boolean => {
-  if (scan.url !== next.url) {
+const viewOf = (scan: PersistedScan) =>
+  Effect.gen(function* readView() {
+    const report =
+      scan.reportJson === null
+        ? Option.some(null)
+        : yield* Schema.decodeEffect(ReportJson)(scan.reportJson).pipe(
+            Effect.option
+          );
+
+    const base = {
+      requestedAt: scan.requestedAt,
+      scanId: scan.id,
+      slug: scan.slug,
+      url: scan.url,
+    };
+
+    return Option.match(report, {
+      onNone: (): ScanView => ({
+        ...base,
+        failure: OUTDATED_REPORT,
+        report: null,
+        stage: "failed",
+      }),
+      onSome: (decoded): ScanView => ({
+        ...base,
+        failure: scan.failure,
+        report: decoded,
+        stage: scan.stage,
+      }),
+    });
+  });
+
+const isReusable = (
+  scan: PersistedScan,
+  view: ScanView,
+  next: NewScan
+): boolean => {
+  if (scan.url !== next.url || view.stage === "failed") {
     return false;
   }
 
-  if (scan.stage === "published") {
+  if (view.stage === "published") {
     return (
       scan.settledAt !== null &&
       next.requestedAt - scan.settledAt <= next.reuseWithin
     );
   }
 
-  return (
-    scan.stage !== "failed" &&
-    next.requestedAt - scan.requestedAt <= next.reuseWithin
-  );
+  return next.requestedAt - scan.requestedAt <= next.reuseWithin;
 };
 
 export class ScanStore extends Context.Service<
@@ -110,8 +146,12 @@ export class ScanStore extends Context.Service<
         function* begin(scan: NewScan) {
           const previous = yield* newest(scan.slug);
 
-          if (Option.isSome(previous) && isReusable(previous.value, scan)) {
-            return { kind: "reused", scanId: previous.value.id } as const;
+          if (Option.isSome(previous)) {
+            const view = yield* viewOf(previous.value);
+
+            if (isReusable(previous.value, view, scan)) {
+              return { kind: "reused", scanId: previous.value.id } as const;
+            }
           }
 
           const inserted = yield* db.all<{ readonly id: string }>(
@@ -160,17 +200,7 @@ export class ScanStore extends Context.Service<
             return Option.none<ScanView>();
           }
 
-          const persisted = found.value;
-
-          const view = yield* Schema.decodeEffect(ScanViewSchema)({
-            failure: persisted.failure,
-            report: persisted.reportJson,
-            requestedAt: persisted.requestedAt,
-            scanId: persisted.id,
-            slug: persisted.slug,
-            stage: persisted.stage,
-            url: persisted.url,
-          });
+          const view = yield* viewOf(found.value);
 
           return Option.some(view);
         },
