@@ -1,0 +1,13 @@
+---
+title: "Build the Fact Ledger"
+type: "step"
+status: "open"
+parent: "./eaa-checker-brief.svx"
+created_at: "2026-11-03"
+---
+
+# Build the Fact Ledger
+
+## Step
+
+Research the directive, EN 301 549, WCAG 2.1 and all 27 member states into `research/facts/`, each fact verified by a second agent. Agents: research-eu, states-a/b/c, verifier (briefs in `.brain/tasks/`).

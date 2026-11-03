@@ -1,0 +1,13 @@
+---
+title: "Decide Rendered-DOM Checks"
+type: "step"
+status: "open"
+parent: "./eaa-checker-brief.svx"
+created_at: "2026-11-03"
+---
+
+# Decide Rendered-DOM Checks
+
+## Step
+
+Investigate axe-core on Cloudflare Browser Rendering: feasibility, cost against the no-new-paid-services limit, determinism. Record the decision.
