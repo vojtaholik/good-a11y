@@ -429,7 +429,10 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
 
         const reflow = stayed
           ? yield* optional(
-              step("audit", page.setViewport.bind(page, REFLOW_VIEWPORT)).pipe(
+              evaluate("document.activeElement?.blur()").pipe(
+                Effect.andThen(
+                  step("audit", page.setViewport.bind(page, REFLOW_VIEWPORT))
+                ),
                 Effect.andThen(Effect.sleep(REFLOW_SETTLE)),
                 Effect.andThen(evaluate("__eaaProbes.reflow()"))
               )

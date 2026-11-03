@@ -4,6 +4,8 @@
   const MAX_TEXT = 120;
   const MAX_ELEMENTS = 4000;
   const SAMPLE_LIMIT = 5;
+  const MAX_DEEP_ELEMENTS = 20_000;
+  const RING_MARGIN = 16;
 
   const STYLE_PROPERTIES = [
     "outline-style",
@@ -59,6 +61,14 @@
 
   const CLIPPING = new Set(["clip", "hidden"]);
 
+  const NO_PAINT = new Set(["", "none"]);
+
+  const OUTLINE_DETAILS = new Set([
+    "outline-width",
+    "outline-color",
+    "outline-offset",
+  ]);
+
   const SPACING_CSS = [
     "*, *::before, *::after {",
     "line-height: 1.5 !important;",
@@ -100,11 +110,14 @@
       .trim()
       .slice(0, MAX_TEXT);
 
-  const addStyle = (css: string): HTMLStyleElement => {
+  const addStyle = (
+    css: string,
+    root: Element | ShadowRoot = document.documentElement
+  ): HTMLStyleElement => {
     const style = document.createElement("style");
 
     style.textContent = css;
-    document.documentElement.append(style);
+    root.append(style);
 
     return style;
   };
@@ -225,9 +238,14 @@
     for (const node of related(element)) {
       for (const pseudo of [null, "::before", "::after"]) {
         const style = getComputedStyle(node, pseudo);
+        const noOutline = NO_PAINT.has(style.outlineStyle);
 
         for (const property of STYLE_PROPERTIES) {
-          values.push(style.getPropertyValue(property));
+          values.push(
+            noOutline && OUTLINE_DETAILS.has(property)
+              ? ""
+              : style.getPropertyValue(property)
+          );
         }
       }
     }
@@ -370,10 +388,90 @@
     return key;
   };
 
+  const deepElements = (): readonly Element[] => {
+    const elements: Element[] = [];
+    const roots: (Document | ShadowRoot)[] = [document];
+
+    for (
+      let root = roots.shift();
+      root !== undefined && elements.length < MAX_DEEP_ELEMENTS;
+      root = roots.shift()
+    ) {
+      for (const element of root.querySelectorAll("*")) {
+        elements.push(element);
+
+        if (element.shadowRoot !== null) {
+          roots.push(element.shadowRoot);
+        }
+      }
+    }
+
+    return elements.slice(0, MAX_DEEP_ELEMENTS);
+  };
+
+  const hugs = (ring: DOMRect, rect: DOMRect): boolean =>
+    Math.abs(ring.left - rect.left) <= RING_MARGIN &&
+    Math.abs(ring.top - rect.top) <= RING_MARGIN &&
+    Math.abs(ring.right - rect.right) <= RING_MARGIN &&
+    Math.abs(ring.bottom - rect.bottom) <= RING_MARGIN;
+
+  const NO_WIDTH = new Set(["", "0px"]);
+
+  const paintsEdge = (style: CSSStyleDeclaration): boolean =>
+    (!NO_PAINT.has(style.outlineStyle) && !NO_WIDTH.has(style.outlineWidth)) ||
+    (!NO_PAINT.has(style.borderTopStyle) &&
+      !NO_WIDTH.has(style.borderTopWidth)) ||
+    !NO_PAINT.has(style.boxShadow);
+
+  const isFocusRing = (layer: Element, element: Element): boolean => {
+    if (
+      layer === element ||
+      layer.contains(element) ||
+      element.contains(layer) ||
+      !hugs(layer.getBoundingClientRect(), element.getBoundingClientRect())
+    ) {
+      return false;
+    }
+
+    const style = getComputedStyle(layer);
+
+    return (
+      (style.position === "absolute" || style.position === "fixed") &&
+      style.pointerEvents === "none" &&
+      style.visibility !== "hidden" &&
+      Number(style.opacity) > 0 &&
+      paintsEdge(style)
+    );
+  };
+
+  const hasFocusRing = (element: Element): boolean =>
+    deepElements().some((layer) => isFocusRing(layer, element));
+
   const changedValues = (
     previous: readonly string[],
     next: readonly string[]
   ): number => next.filter((value, index) => value !== previous[index]).length;
+
+  let unseen: {
+    readonly before: readonly string[];
+    readonly element: Element;
+    readonly index: number;
+  } | null = null;
+
+  const settleUnseen = (): void => {
+    const stop = unseen === null ? undefined : stops[unseen.index];
+
+    if (
+      unseen !== null &&
+      stop !== undefined &&
+      (changedValues(unseen.before, styleSnapshot(unseen.element)) > 0 ||
+        hasFocusRing(unseen.element))
+    ) {
+      stops[unseen.index] = { ...stop, changed: 1 };
+    }
+
+    unseen = null;
+  };
 
   const onFocus = (event: FocusEvent): void => {
     const [element] = event.composedPath();
@@ -393,8 +491,14 @@
       return;
     }
 
+    const changed = changedValues(previous, styleSnapshot(element));
+
+    if (changed === 0) {
+      unseen = { before: previous, element, index: stops.length };
+    }
+
     stops.push({
-      changed: changedValues(previous, styleSnapshot(element)),
+      changed,
       judged: true,
       key,
       modal: isModalLayer(element),
@@ -487,6 +591,12 @@
   const walkStart = (): number => {
     walkStyle.push(addStyle(NO_TRANSITIONS_CSS));
 
+    for (const element of deepElements()) {
+      if (element.shadowRoot !== null) {
+        walkStyle.push(addStyle(NO_TRANSITIONS_CSS, element.shadowRoot));
+      }
+    }
+
     const focusedAtLoad = document.activeElement;
 
     if (focusedAtLoad instanceof HTMLElement) {
@@ -518,14 +628,21 @@
     }
 
     document.addEventListener("focusin", onFocus, true);
+    document.addEventListener("focusout", settleUnseen, true);
 
     return candidates.length;
   };
 
-  const walkStops = (from: number): readonly Stop[] => stops.slice(from);
+  const walkStops = (from: number): readonly Stop[] => {
+    settleUnseen();
+
+    return stops.slice(from);
+  };
 
   const walkEnd = () => {
+    settleUnseen();
     document.removeEventListener("focusin", onFocus, true);
+    document.removeEventListener("focusout", settleUnseen, true);
 
     for (const style of walkStyle) {
       style.remove();
