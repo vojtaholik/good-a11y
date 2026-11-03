@@ -4,6 +4,7 @@ import { Effect } from "effect";
 import {
   CALLER_HEADER,
   RPC_METHOD_ONLY,
+  UNREADABLE_RPC,
   TOO_MANY,
   callerKey,
   limitedProcedures,
@@ -155,6 +156,38 @@ describe("per-caller limits in the website Worker", () => {
         yield* respond(spoofed);
 
         expect(forwarded).toEqual(["2001:db8:1:2::/64"]);
+      })
+  );
+
+  it.effect(
+    "refuses a message that sets the caller header itself, and a body it cannot read",
+    () =>
+      Effect.gen(function* refusesSpoofedMessage() {
+        const { forwarded, respond, seen, text } = handlerWith(100);
+
+        const spoofed = new Request("https://eaa.example/rpc", {
+          body: JSON.stringify({
+            headers: [["X-EAA-Caller", "victim"]],
+            id: "1",
+            payload: { url: "https://www.example.com/" },
+            tag: "startScan",
+          }),
+          headers: { "cf-connecting-ip": "203.0.113.7" },
+          method: "POST",
+        });
+
+        const refused = yield* respond(spoofed);
+
+        expect(refused.status).toBe(400);
+        expect(
+          yield* text(
+            new Request("https://eaa.example/rpc", {
+              body: "not json",
+              method: "POST",
+            })
+          )
+        ).toBe(UNREADABLE_RPC);
+        expect([forwarded, seen]).toEqual([[], []]);
       })
   );
 });

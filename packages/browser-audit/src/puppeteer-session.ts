@@ -21,6 +21,9 @@ export const NAVIGATION_TIMEOUT_MS = 30_000;
 
 export const KEEP_ALIVE_MS = 60_000;
 
+const NO_POPUPS =
+  'Object.defineProperty(window, "open", { configurable: false, value: () => null, writable: false });';
+
 const AXE_RUN = `axe.run(document, ${JSON.stringify({
   resultTypes: ["violations"],
   runOnly: { type: "tag", values: AXE_TAGS },
@@ -178,6 +181,10 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
       open: (url) =>
         Effect.gen(function* openPage() {
           yield* step("browser", page.setBypassServiceWorker.bind(page, true));
+          yield* step(
+            "browser",
+            page.evaluateOnNewDocument.bind(page, NO_POPUPS)
+          );
           yield* step("browser", page.setRequestInterception.bind(page, true));
           page.on("request", (request) => {
             void guard(request);

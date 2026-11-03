@@ -9,34 +9,58 @@ export const LIMITED_PROCEDURES = ["startScan", "sendMessage"] as const;
 
 export type LimitedProcedure = (typeof LIMITED_PROCEDURES)[number];
 
+export const CALLER_HEADER = "x-eaa-caller";
+
 export type CallerLimit = (
   procedure: LimitedProcedure,
   caller: string
 ) => Promise<boolean>;
 
-const RpcMessage = Schema.Struct({ tag: Schema.String });
+const RpcMessage = Schema.Struct({
+  headers: Schema.optional(
+    Schema.Array(Schema.Tuple([Schema.String, Schema.String]))
+  ),
+  tag: Schema.optional(Schema.String),
+});
+
+const RpcMessages = Schema.Array(RpcMessage);
 
 const decodeMessages = Schema.decodeUnknownResult(
-  Schema.fromJsonString(Schema.Union([RpcMessage, Schema.Array(RpcMessage)]))
+  Schema.fromJsonString(Schema.Union([RpcMessages, RpcMessage]))
 );
 
-const isLimited = (tag: string): tag is LimitedProcedure =>
+const isLimited = (tag: string | undefined): tag is LimitedProcedure =>
   LIMITED_PROCEDURES.some((procedure) => procedure === tag);
 
-export const limitedProcedures = (
-  body: string
-): readonly LimitedProcedure[] => {
+export interface RpcBody {
+  readonly procedures: readonly LimitedProcedure[];
+  readonly setsCaller: boolean;
+}
+
+export const readRpcBody = (body: string): RpcBody | null => {
   const decoded = decodeMessages(body);
 
   if (Result.isFailure(decoded)) {
-    return [];
+    return null;
   }
 
-  const messages: readonly (typeof RpcMessage.Type)[] =
-    "tag" in decoded.success ? [decoded.success] : decoded.success;
+  const messages = Schema.is(RpcMessages)(decoded.success)
+    ? decoded.success
+    : [decoded.success];
 
-  return messages.flatMap(({ tag }) => (isLimited(tag) ? [tag] : []));
+  return {
+    procedures: messages.flatMap(({ tag }) => (isLimited(tag) ? [tag] : [])),
+    setsCaller: messages.some(({ headers = [] }) =>
+      headers.some(([name]) => name.toLowerCase() === CALLER_HEADER)
+    ),
+  };
 };
+
+export const limitedProcedures = (body: string): readonly LimitedProcedure[] =>
+  readRpcBody(body)?.procedures ?? [];
+
+export const UNREADABLE_RPC =
+  "The request could not be read as an RPC call, or it sets a header only the site may set.";
 
 export const TOO_MANY =
   "Too many requests from your address. Wait a minute and try again.";
@@ -69,8 +93,6 @@ export const callerKey = (address: string): string => {
 const callerOf = (request: Request): string =>
   callerKey(request.headers.get("cf-connecting-ip") ?? "unknown");
 
-export const CALLER_HEADER = "x-eaa-caller";
-
 export const RPC_METHOD_ONLY = "The RPC endpoint takes POST only.";
 
 export const websiteHandler =
@@ -88,7 +110,13 @@ export const websiteHandler =
       });
     }
 
-    const procedures = limitedProcedures(await request.clone().text());
+    const body = readRpcBody(await request.clone().text());
+
+    if (body === null || body.setsCaller) {
+      return new Response(UNREADABLE_RPC, { status: 400 });
+    }
+
+    const { procedures } = body;
 
     const caller = callerOf(request);
 
