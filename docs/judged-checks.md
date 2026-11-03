@@ -47,7 +47,9 @@ Measured on the fixture page (`packages/core/test/fixtures/judged-page.html`, 4 
 - Clef lists $0.24 per million input tokens. Workers AI bills $0.011 per 1,000 neurons, so that is about 21,800 neurons per million tokens: about 68 neurons, $0.00075, for this scan.
 - Workers AI includes 10,000 neurons a day, about 458,000 Clef input tokens. `DAILY_JUDGE_TOKENS = 400,000` keeps the judged step inside that allocation: roughly 100 scans a day of this size, and about 40 at the 20-item cap on every check. Past the cap the step is skipped, never billed.
 - The reservation is computed before the call from the request size (characters / 3, plus 40 tokens per question and 300 per request). On the fixture it reserves 3,802 for 3,114 used.
-- The deployed dev scan's tokens are logged by the `judge` task (`Judged step for <url>: <n> input tokens`) and stored in `report.judged.inputTokens`.
+- Measured on stage `dev`, 2026-11-03, scanning https://en.wikipedia.org/wiki/Brno: 61 items asked (20 images, 20 links, 20 headings and labels, 1 language sample), 9,632 input tokens, about 210 neurons, $0.0023. Nothing was noted. The reservation was 16,629 tokens (1.7× the real use: long link contexts escape into more characters per token), so at the 20-item cap the daily budget allows about 24 scans. Lowering the estimate is the lever if that is too few; the budget sits under the free allocation either way.
+- Each scan's tokens are logged by the `judge` task (`Judged step for <url>: <n> input tokens`) and stored in `report.judged.inputTokens`.
+- w3.org's BAD demo page was tried first and refused the scanner (HTTP 403 from Cloudflare's network), so it got no judged section, as designed.
 
 ## Known failure modes
 
