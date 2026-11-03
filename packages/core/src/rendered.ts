@@ -86,8 +86,12 @@ export const criteriaOfRule = (rule: AxeRule): readonly string[] =>
       : [`${groups.principle}.${groups.guideline}.${groups.criterion}`];
   });
 
+export const DROPPED_RULES: ReadonlySet<string> = new Set([
+  "label-content-name-mismatch",
+]);
+
 const verifiedCriteria = (rule: AxeRule): readonly string[] =>
-  rule.tags.some((tag) => IN_SCOPE.has(tag))
+  !DROPPED_RULES.has(rule.id) && rule.tags.some((tag) => IN_SCOPE.has(tag))
     ? criteriaOfRule(rule).filter(
         (number) => verifiedText(`STD-SC-${number}`) !== null
       )

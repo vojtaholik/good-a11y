@@ -3,6 +3,7 @@ import { Schema } from "effect";
 import type { HeaderMap } from "./hop-transport.js";
 
 export const ChallengeSystemSchema = Schema.Literals([
+  "akamai",
   "anubis",
   "aws_waf",
   "baleen",
@@ -16,6 +17,7 @@ export type ChallengeSystem = typeof ChallengeSystemSchema.Type;
 
 export const CHALLENGE_SYSTEM_NAMES: Readonly<Record<ChallengeSystem, string>> =
   {
+    akamai: "Akamai Bot Manager",
     anubis: "Anubis",
     aws_waf: "AWS WAF",
     baleen: "Baleen",
@@ -47,6 +49,7 @@ export const CHALLENGE_HEADERS: readonly HeaderMarker[] = [
 ];
 
 export const CHALLENGE_BODIES: readonly BodyMarker[] = [
+  { parts: ["bm-verify=", "/_sec/verify?provider="], system: "akamai" },
   {
     parts: ['id="anubis_challenge"', "/.within.website/x/cmd/anubis/"],
     system: "anubis",

@@ -143,7 +143,7 @@ describe("rendered findings from a recorded axe-core run", () => {
     );
   });
 
-  it("leaves out rules outside WCAG 2.1 A and AA and rules whose criterion has no verified fact", () => {
+  it("leaves out rules outside WCAG 2.1 A and AA, rules whose criterion has no verified fact, and rules dropped as noisy", () => {
     const shown = renderedOf({
       ...RESULTS,
       passes: [],
@@ -151,6 +151,10 @@ describe("rendered findings from a recorded axe-core run", () => {
         rule({ id: "best", tags: ["best-practice"] }),
         rule({ id: "newer", tags: ["wcag22aa", "wcag2411"] }),
         rule({ id: "unsourced", tags: ["wcag2a", "wcag999"] }),
+        rule({
+          id: "label-content-name-mismatch",
+          tags: ["wcag21a", "wcag253"],
+        }),
         rule({ id: "kept" }),
       ],
     });

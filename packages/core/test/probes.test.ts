@@ -298,6 +298,54 @@ describe("the tab walk", () => {
   });
 });
 
+describe("focus not obscured, behind a large overlay", () => {
+  it("does not judge controls behind a layer covering half the screen or more, such as a consent overlay", () => {
+    expect(
+      resultOf(
+        {
+          walk: walk({
+            forward: [
+              {
+                ...stop(0),
+                coverShare: 1,
+                obscuredBy: '<div class="consent">',
+              },
+              {
+                ...stop(1),
+                coverShare: 0.9,
+                obscuredBy: '<div class="consent">',
+              },
+              stop(0),
+            ],
+          }),
+        },
+        "focus-obscured"
+      )
+    ).toMatchObject({ failing: 0, status: "not_applicable" });
+  });
+
+  it("still fails a control hidden under a small sticky bar", () => {
+    expect(
+      resultOf(
+        {
+          walk: walk({
+            forward: [
+              stop(0),
+              {
+                ...stop(1),
+                coverShare: 0.12,
+                obscuredBy: '<footer class="sticky">',
+              },
+              stop(0),
+            ],
+          }),
+        },
+        "focus-obscured"
+      )
+    ).toMatchObject({ failing: 1, status: "fail" });
+  });
+});
+
 describe("target size", () => {
   it("fails on the nodes axe target-size reports, as the newer criterion 2.5.8", () => {
     const axe = JSON.stringify({

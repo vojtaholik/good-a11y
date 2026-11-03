@@ -196,6 +196,7 @@ export { RenderedAuditFailed } from "./rendered-audit-failed.js";
 
 export {
   BUDGET_SPENT,
+  DROPPED_RULES,
   RENDERED_BLOCKED,
   RENDERED_UNREADABLE,
   RenderedFindingSchema,

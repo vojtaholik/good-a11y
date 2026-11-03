@@ -1,0 +1,15 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": ["packages/core/test/judged-calibration.test.ts"],
+        "createdAt": "2026-11-03T20:36:13.082Z",
+        "reason": "agent: snippet string in recorded page evidence for a unit test, not rendered markup"
+      }
+    ]
+  }
+}

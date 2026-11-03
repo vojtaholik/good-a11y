@@ -29,6 +29,7 @@ const TextSpacingMeasuredSchema = Schema.Struct({
 
 const StopSchema = Schema.Struct({
   changed: Schema.optional(Count),
+  coverShare: Schema.optional(Schema.NullOr(Schema.Number)),
   judged: Schema.Boolean,
   key: Schema.Int,
   modal: Schema.optional(Schema.Boolean),
@@ -142,6 +143,11 @@ export const TRAP_PRESSES = 50;
 
 export const TRAP_SIZE = 3;
 
+export const OVERLAY_SHARE = 0.5;
+
+const behindOverlay = (stop: Stop): boolean =>
+  (stop.coverShare ?? 0) >= OVERLAY_SHARE;
+
 export const scFactOf = (probe: ProbeId): string => {
   const { criterion, newer } = PROBES[probe];
 
@@ -239,7 +245,7 @@ export const decideFocusVisible = (walk: WalkMeasured): ProbeResult => {
 
 export const decideFocusObscured = (walk: WalkMeasured): ProbeResult => {
   const stops = firstOfEachKey(walk.forward).filter(
-    (stop) => stop.judged && stop.modal !== true
+    (stop) => stop.judged && stop.modal !== true && !behindOverlay(stop)
   );
 
   return stops.length === 0
@@ -249,7 +255,9 @@ export const decideFocusObscured = (walk: WalkMeasured): ProbeResult => {
         stops.flatMap((stop) =>
           (stop.obscuredBy ?? null) === null
             ? []
-            : [`${stop.snippet} | under ${stop.obscuredBy}`]
+            : [
+                `${stop.snippet.slice(0, 120)} | under ${(stop.obscuredBy ?? "").slice(0, 70)}`,
+              ]
         )
       );
 };

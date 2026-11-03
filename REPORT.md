@@ -82,6 +82,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 Times are CET, from the machine clock.
 
+- 21:38 Judged observations calibrated on 212 labelled items (thresholds per check for precision >= 0.9; mostly hand-written cases, so real-world precision is likely lower); a test guards it. ~$0.002 per scan on Clef, inside the free allocation.
+
 - 21:30 Report redesign live on dev (adc00e5, 9881eb2). Judged observations built on Clef. Browser budget per stage (dev 90 min/day). builder-core running accuracy QA on ~10 real sites.
 
 - 21:15 Vojta (afk after): issues first + smarter states UX, copy-fix-prompt per issue, Foldkit skills for UI, and test almost everything accurately, Jev via Cloudflare for decisions. Now running: builder-core (report UX + fix prompts), builder-cloud (Browser Run deploy, block rate, rendered probes: reflow, text spacing, focus visible, target size), builder-judge (Jev-judged checks via Workers AI binding), verifier (SC coverage plan for all 50 + 6 SCs). Decisions 15-18.

@@ -76,6 +76,7 @@
     readonly judged: boolean;
     readonly key: number;
     readonly modal?: boolean;
+    readonly coverShare?: number | null;
     readonly obscuredBy?: string | null;
     readonly snippet: string;
   }
@@ -271,7 +272,23 @@
     return null;
   };
 
-  const obscuredBy = (element: Element): string | null => {
+  const viewportShare = (element: Element): number => {
+    const rect = element.getBoundingClientRect();
+
+    const width = Math.max(
+      0,
+      Math.min(rect.right, innerWidth) - Math.max(rect.left, 0)
+    );
+
+    const height = Math.max(
+      0,
+      Math.min(rect.bottom, innerHeight) - Math.max(rect.top, 0)
+    );
+
+    return (width * height) / (innerWidth * innerHeight);
+  };
+
+  const coverOf = (element: Element): Element | null => {
     const rect = element.getBoundingClientRect();
     const insetX = Math.min(4, rect.width / 4);
     const insetY = Math.min(4, rect.height / 4);
@@ -311,8 +328,16 @@
       cover = layer;
     }
 
-    return cover === null ? null : snippetOf(cover);
+    return cover;
   };
+
+  const coverFields = (cover: Element | null) =>
+    cover === null
+      ? { coverShare: null, obscuredBy: null }
+      : {
+          coverShare: Math.round(viewportShare(cover) * 100) / 100,
+          obscuredBy: snippetOf(cover),
+        };
 
   const clipped = (element: Element): boolean => {
     const style = getComputedStyle(element);
@@ -373,7 +398,7 @@
       judged: true,
       key,
       modal: isModalLayer(element),
-      obscuredBy: obscuredBy(element),
+      ...coverFields(coverOf(element)),
       snippet: snippetOf(element),
     });
   };

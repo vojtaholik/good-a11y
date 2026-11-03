@@ -93,10 +93,6 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
     const ai = yield* Cloudflare.Workers.AI();
     const browser = yield* Cloudflare.Browser("BROWSER");
 
-    const dailySeconds = yield* Config.Int(DAILY_BROWSER_SECONDS_NAME).pipe(
-      Config.withDefault(DAILY_BROWSER_SECONDS)
-    );
-
     const archive = yield* Cloudflare.R2.ReadWriteBucket(EvidenceArchive);
     const domain = yield* Layer.build(scanDomainLayer);
 
@@ -155,6 +151,10 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
     const audit = (job: ScanJob, report: Report) =>
       Effect.gen(function* auditStep() {
         const day = utcDayOf(yield* Clock.currentTimeMillis);
+
+        const dailySeconds = yield* Config.Int(DAILY_BROWSER_SECONDS_NAME).pipe(
+          Config.withDefault(DAILY_BROWSER_SECONDS)
+        );
 
         const reserved = yield* budget.reserve({
           dailySeconds,
