@@ -49,6 +49,8 @@ export {
 
 export { METHOD_NAMES } from "./coverage.js";
 
+export { AXE_CORE_VERSION } from "./axe-rules.js";
+
 export type { Rendered, RenderedFinding } from "./rendered.js";
 
 export { DailyCapReached } from "./daily-cap-reached.js";
@@ -76,3 +78,12 @@ export { UnknownScan } from "./unknown-scan.js";
 export type { Judged, Observation } from "./judged.js";
 
 export { shownObservations } from "./judged.js";
+
+export {
+  SC_COVERAGE,
+  TEST_METHOD_NAMES,
+  scCoverageCounts,
+  scCoverageSummary,
+  type ScCoverageRow,
+  type TestMethod,
+} from "./sc-coverage.js";

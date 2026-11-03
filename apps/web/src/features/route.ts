@@ -3,6 +3,7 @@ import { Route } from "foldkit";
 import { defineRouteUnion, literal, slash, string } from "foldkit/route";
 
 export const AppRoute = defineRouteUnion({
+  Checks: {},
   Home: {},
   NotFound: { path: Schema.String },
   Report: { slug: Schema.String },
@@ -18,7 +19,12 @@ export const reportRouter = pipe(
   Route.mapTo(AppRoute.Report)
 );
 
+export const checksRouter = pipe(
+  literal("checks"),
+  Route.mapTo(AppRoute.Checks)
+);
+
 export const parseRoute = Route.parseUrlWithFallback(
-  Route.oneOf(reportRouter, homeRouter),
+  Route.oneOf(reportRouter, checksRouter, homeRouter),
   AppRoute.NotFound
 );

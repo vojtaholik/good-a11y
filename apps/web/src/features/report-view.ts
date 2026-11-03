@@ -14,7 +14,7 @@ import { issuesSection } from "./report-issues.js";
 import { judgedSection } from "./report-judged.js";
 import { statesSection } from "./report-states.js";
 import { report as local } from "./report-styles.js";
-import { homeRouter } from "./route.js";
+import { checksRouter, homeRouter } from "./route.js";
 import { styles } from "./styles.js";
 import { sx } from "./sx.js";
 
@@ -48,7 +48,17 @@ const topView = (report: Report, h: HtmlBuilder<AppMessage>): Html =>
         ]
       ),
       h.p([sx(h, local.headline), h.Role("status")], [report.headline]),
-      ...(report.coverage === null ? [] : [h.p([], [report.coverage.text])]),
+      ...(report.coverage === null
+        ? []
+        : [
+            h.p(
+              [],
+              [
+                `${report.coverage.text} `,
+                h.a([h.Href(checksRouter())], ["What we check"]),
+              ]
+            ),
+          ]),
       ...(report.rendered?.status === "skipped"
         ? [
             h.p(

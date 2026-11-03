@@ -84,7 +84,7 @@ const RENDERS: ReadonlySet<Report["outcome"]> = new Set(["checked", "refused"]);
 
 const RENDER_PATIENCE = {
   retries: { delay: "3 seconds", limit: 0 },
-  timeout: "120 seconds",
+  timeout: "140 seconds",
 } as const;
 
 const spentIn =

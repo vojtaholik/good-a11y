@@ -75,7 +75,23 @@ describe("our own page", () => {
 
   it.effect("passes our own checks on the start page", () =>
     Effect.gen(function* startPage() {
-      expect(failing(yield* pageOf(home))).toEqual([]);
+      const html = yield* pageOf(home);
+
+      expect(failing(html)).toEqual([]);
+      expect(html).toContain('href="/checks"');
+    })
+  );
+
+  it.effect("passes our own checks on the page that lists what we check", () =>
+    Effect.gen(function* checksPage() {
+      const html = yield* pageOf({ ...home, route: AppRoute.Checks() });
+
+      expect(failing(html)).toEqual([]);
+      expect(html).toContain("<title>What we check | eaa-check</title>");
+      expect(html).toContain("1.1.1 Non-text Content (Level A)");
+      expect(html).toContain("2.5.8 Target Size (Minimum) (Level AA)");
+      expect(html).toContain("Not automated.");
+      expect(html.toLowerCase()).not.toContain("compliant");
     })
   );
 
@@ -99,6 +115,7 @@ describe("our own page", () => {
       expect(order.map((index) => index >= 0)).toEqual(order.map(() => true));
       expect(order).toEqual(order.toSorted((left, right) => left - right));
       expect(html).toContain("Send message");
+      expect(html).toContain('href="/checks"');
       expect(html).toContain(
         "studio9 keeps your e-mail, name, message and the scanned address only to answer you."
       );

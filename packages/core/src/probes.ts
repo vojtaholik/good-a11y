@@ -54,6 +54,10 @@ const WalkMeasuredSchema = Schema.Struct({
   candidates: Schema.Array(CandidateSchema),
   cycled: Schema.Boolean,
   forward: Schema.Array(StopSchema),
+  navigated: Schema.Boolean,
+  onFocus: Schema.NullOr(
+    Schema.Struct({ snippet: Schema.String, to: Schema.String })
+  ),
   presses: Count,
 });
 
@@ -77,6 +81,7 @@ export const ProbeIdSchema = Schema.Literals([
   "keyboard-reach",
   "keyboard-trap",
   "focus-obscured",
+  "on-focus",
   "target-size",
 ]);
 
@@ -97,6 +102,7 @@ interface ProbeSpec {
   readonly criterion: string;
   readonly help: string;
   readonly newer: boolean;
+  readonly title: string;
 }
 
 export const PROBES: Readonly<Record<ProbeId, ProbeSpec>> = {
@@ -104,36 +110,49 @@ export const PROBES: Readonly<Record<ProbeId, ProbeSpec>> = {
     criterion: "2.4.11",
     help: "A focused control was fully hidden behind a fixed or sticky layer.",
     newer: true,
+    title: "Focused controls hidden behind a fixed layer",
   },
   "focus-visible": {
     criterion: "2.4.7",
     help: "A control reached with the Tab key showed no visible change when it got focus.",
     newer: false,
+    title: "Focus that cannot be seen",
   },
   "keyboard-reach": {
     criterion: "2.1.1",
     help: "A visible control was never reached with the Tab key.",
     newer: false,
+    title: "Controls the Tab key never reaches",
   },
   "keyboard-trap": {
     criterion: "2.1.2",
     help: "The Tab key kept cycling among a few controls and never left them, in both directions.",
     newer: false,
+    title: "Keyboard focus that cannot leave",
+  },
+  "on-focus": {
+    criterion: "3.2.1",
+    help: "Moving focus to a control with the Tab key sent the page to another address.",
+    newer: false,
+    title: "Focus that moves the page elsewhere",
   },
   reflow: {
     criterion: "1.4.10",
     help: "At 320 CSS pixels wide the page scrolls sideways.",
     newer: false,
+    title: "Sideways scrolling at 320 CSS pixels",
   },
   "target-size": {
     criterion: "2.5.8",
     help: "A target is smaller than 24 by 24 CSS pixels and has too little space around it.",
     newer: true,
+    title: "Targets smaller than 24 by 24 CSS pixels",
   },
   "text-spacing": {
     criterion: "1.4.12",
     help: "With the text spacing of the success criterion applied, text no longer fits its box and is cut off. Check each sample by eye.",
     newer: false,
+    title: "Text cut off with wider text spacing",
   },
 };
 
@@ -337,6 +356,18 @@ export const decideKeyboardTrap = (walk: WalkMeasured): ProbeResult => {
   );
 };
 
+export const decideOnFocus = (walk: WalkMeasured): ProbeResult => {
+  if (walk.onFocus !== null) {
+    return judged("on-focus", [
+      `${walk.onFocus.snippet.slice(0, 120)} | goes to ${walk.onFocus.to.slice(0, 80)}`,
+    ]);
+  }
+
+  return walk.cycled && !walk.navigated
+    ? judged("on-focus", [])
+    : notApplicable("on-focus");
+};
+
 const decodeAxe = Schema.decodeUnknownResult(AxeResultsJson);
 
 export const decideTargetSize = (axeJson: string): ProbeResult | null => {
@@ -375,6 +406,7 @@ export const probeResults = (
         decideKeyboardReach(measured.walk),
         decideKeyboardTrap(measured.walk),
         decideFocusObscured(measured.walk),
+        decideOnFocus(measured.walk),
       ]),
   ...(measured.targetSize === null
     ? []

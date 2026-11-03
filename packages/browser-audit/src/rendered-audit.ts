@@ -16,7 +16,7 @@ import type {
 
 export const SETTLE: Duration.Input = "2 seconds";
 
-export const HARD_TIMEOUT: Duration.Input = "80 seconds";
+export const HARD_TIMEOUT: Duration.Input = "100 seconds";
 
 const decodeText = Schema.decodeUnknownResult(Schema.String);
 

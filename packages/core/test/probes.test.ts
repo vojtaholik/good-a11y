@@ -55,6 +55,8 @@ const walk = (
   candidates: Array.from({ length: 5 }, (_, key) => candidate(key)),
   cycled: true,
   forward: cycle(5),
+  navigated: false,
+  onFocus: null,
   presses: 10,
   ...overrides,
 });
@@ -343,6 +345,43 @@ describe("focus not obscured, behind a large overlay", () => {
         "focus-obscured"
       )
     ).toMatchObject({ failing: 1, status: "fail" });
+  });
+});
+
+describe("on focus", () => {
+  it("fails when focusing a control sent the page elsewhere, confirmed twice", () => {
+    expect(
+      resultOf(
+        {
+          walk: walk({
+            cycled: false,
+            navigated: true,
+            onFocus: {
+              snippet: '<select onfocus="location=this.value">',
+              to: "https://www.example.com/de/",
+            },
+          }),
+        },
+        "on-focus"
+      )
+    ).toMatchObject({
+      criterion: "3.2.1",
+      failing: 1,
+      samples: [
+        '<select onfocus="location=this.value"> | goes to https://www.example.com/de/',
+      ],
+      status: "fail",
+    });
+  });
+
+  it("passes a full cycle with no navigation, and does not judge an unconfirmed one", () => {
+    expect(resultOf({ walk: walk() }, "on-focus")?.status).toBe("pass");
+    expect(
+      resultOf({ walk: walk({ navigated: true }) }, "on-focus")?.status
+    ).toBe("not_applicable");
+    expect(
+      resultOf({ walk: walk({ cycled: false }) }, "on-focus")?.status
+    ).toBe("not_applicable");
   });
 });
 

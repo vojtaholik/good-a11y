@@ -2,8 +2,9 @@ import type { Document, Html, HtmlBuilder } from "foldkit/html";
 
 import { Message, StartState } from "../client/model.js";
 import type { AppMessage, AppModel } from "../client/model.js";
+import { checksView } from "./checks-view.js";
 import { reportView } from "./report-view.js";
-import { AppRoute, homeRouter } from "./route.js";
+import { AppRoute, checksRouter, homeRouter } from "./route.js";
 import { styles } from "./styles.js";
 import { sx } from "./sx.js";
 
@@ -31,7 +32,8 @@ const homeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
       h.p(
         [],
         [
-          "Paste the address of a web page. We fetch it once, run automated checks on its HTML, and show what they find, with the WCAG success criteria and EN 301 549 clauses each check relates to.",
+          "Paste the address of a web page. We read its HTML and open it in a browser, then list the issues the automated checks found, worst first, each with the WCAG success criterion and EN 301 549 clause it relates to. For each of the 27 EU member states the report shows what verified sources say about the European Accessibility Act there. You get no verdict on whether the page meets the Act: automated checks find only part of the issues, and a person reviews the rest. ",
+          h.a([h.Href(checksRouter())], ["What we check"]),
         ]
       ),
       h.form(
@@ -73,6 +75,7 @@ const notFoundView = (h: HtmlBuilder<AppMessage>): Html =>
 
 const titleOf = (model: AppModel): string =>
   AppRoute.match<string>(model.route, {
+    Checks: () => "What we check | eaa-check",
     Home: () => "eaa-check: automated EU accessibility checks",
     NotFound: () => "Page not found | eaa-check",
     Report: ({ slug }) => `Report for ${slug} | eaa-check`,
@@ -87,6 +90,7 @@ export const view = (
     [
       h.header([], [h.nav([], [h.a([h.Href(homeRouter())], ["eaa-check"])])]),
       AppRoute.match<Html>(model.route, {
+        Checks: () => checksView(h),
         Home: () => homeView(model, h),
         NotFound: () => notFoundView(h),
         Report: ({ slug }) => reportView(model, slug, h),

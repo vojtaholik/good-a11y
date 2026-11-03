@@ -8,6 +8,7 @@ import {
   TRAP_SIZE,
 } from "@eaa-check/core";
 import { Clock, Effect, Result, Schema } from "effect";
+import type { Duration } from "effect";
 
 import { axeSource, probesSource } from "#page-scripts";
 
@@ -33,9 +34,15 @@ const READ_EVERY = 10;
 
 const REFLOW_SETTLE = "1 second";
 
-const PROBE_TIMEOUT = "40 seconds";
+const PROBE_TIMEOUT = "55 seconds";
 
 const STEP_TIMEOUT = "8 seconds";
+
+const CONFIRM_TIMEOUT = "15 seconds";
+
+const NAVIGATION_WAIT = "150 millis";
+
+const QUIET_WAIT = "1 second";
 
 export const WALK_MILLIS = 15_000;
 
@@ -56,14 +63,17 @@ const keysOf = (stops: readonly unknown[]): readonly number[] => {
   return Result.isSuccess(decoded) ? decoded.success.map(({ key }) => key) : [];
 };
 
-const optional = <A>(probe: Effect.Effect<A, RenderedAuditFailed>) =>
+const optionalWithin = <A>(
+  duration: Duration.Input,
+  probe: Effect.Effect<A, RenderedAuditFailed>
+) =>
   probe.pipe(
     Effect.timeoutOrElse({
-      duration: STEP_TIMEOUT,
+      duration,
       orElse: () =>
         Effect.fail(
           new RenderedAuditFailed({
-            detail: `A rendered probe ran past ${STEP_TIMEOUT}.`,
+            detail: "A rendered probe ran past its timeout.",
             kind: "timeout",
           })
         ),
@@ -73,6 +83,13 @@ const optional = <A>(probe: Effect.Effect<A, RenderedAuditFailed>) =>
     ),
     Effect.orElseSucceed(() => null)
   );
+
+const optional = <A>(probe: Effect.Effect<A, RenderedAuditFailed>) =>
+  optionalWithin(STEP_TIMEOUT, probe);
+
+const decodeSnippets = Schema.decodeUnknownResult(
+  Schema.Array(Schema.Struct({ snippet: Schema.String }))
+);
 
 const decodeCount = Schema.decodeUnknownResult(Schema.Int);
 
@@ -107,6 +124,8 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
     );
 
     const refused: string[] = [];
+    const held: string[] = [];
+    const holding = { navigations: false };
 
     // @effect-diagnostics-next-line asyncFunction:off -- Puppeteer calls this request listener itself and awaits nothing, so it settles each paused request with a promise that never rejects.
     const guard = async (request: HTTPRequest): Promise<void> => {
@@ -118,12 +137,24 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
         !request.isNavigationRequest() ||
         navigationAllowed(request.url(), request.redirectChain().length);
 
+      const hold =
+        allowed &&
+        holding.navigations &&
+        request.isNavigationRequest() &&
+        request.frame() === page.mainFrame();
+
       if (!allowed) {
         refused.push(request.url());
       }
 
+      if (hold) {
+        held.push(request.url());
+      }
+
       await Promise.allSettled([
-        allowed ? request.continue() : request.abort("blockedbyclient"),
+        allowed && !hold
+          ? request.continue()
+          : request.abort("blockedbyclient"),
       ]);
     };
 
@@ -165,6 +196,8 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
           };
         }),
       probe: Effect.gen(function* probePage() {
+        const startUrl = page.url();
+
         const evaluate = (expression: string) =>
           step("audit", page.evaluate.bind(page, expression));
 
@@ -194,6 +227,8 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
           const forward: unknown[] = [];
           let presses = 0;
           let state = walkState([], candidateCount);
+          let heldInChunk: number | null = null;
+          const heldBefore = held.length;
 
           const startedAt = yield* Clock.currentTimeMillis;
 
@@ -205,6 +240,11 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
           ) {
             yield* press(READ_EVERY);
             presses += READ_EVERY;
+
+            if (heldInChunk === null && held.length > heldBefore) {
+              heldInChunk = presses - READ_EVERY;
+            }
+
             forward.push(...(yield* stopsFrom(forward.length)));
             state = walkState(keysOf(forward), candidateCount);
           }
@@ -232,11 +272,94 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
             candidates: Result.isSuccess(ended) ? ended.success.candidates : [],
             cycled: state.cycled,
             forward,
+            heldInChunk,
             presses,
           };
         });
 
-        const startUrl = page.url();
+        const reopen = Effect.gen(function* reopenPage() {
+          holding.navigations = false;
+          yield* step(
+            "audit",
+            page.goto.bind(page, startUrl, {
+              timeout: NAVIGATION_TIMEOUT_MS,
+              waitUntil: "load",
+            })
+          );
+          holding.navigations = true;
+          yield* evaluate(probesSource);
+          yield* evaluate("__eaaProbes.walkStart()");
+
+          return held.length;
+        });
+
+        const pressThenWait = (wait: Duration.Input) =>
+          press(1).pipe(Effect.andThen(Effect.sleep(wait)));
+
+        const triggerAfter = (chunkStart: number) =>
+          Effect.gen(function* findTrigger() {
+            const base = yield* reopen;
+
+            if (chunkStart > 0) {
+              yield* press(chunkStart);
+              yield* Effect.sleep(NAVIGATION_WAIT);
+            }
+
+            if (held.length > base) {
+              return null;
+            }
+
+            for (let extra = 1; extra <= READ_EVERY + 2; extra += 1) {
+              yield* pressThenWait(NAVIGATION_WAIT);
+
+              if (held.length > base) {
+                const stops = Result.getOrElse(
+                  decodeSnippets(yield* evaluate("__eaaProbes.walkStops(0)")),
+                  () => []
+                );
+
+                return {
+                  presses: chunkStart + extra,
+                  snippet: stops.at(-1)?.snippet ?? "",
+                  to: held[base] ?? "",
+                };
+              }
+            }
+
+            return null;
+          });
+
+        const confirmed = (trigger: {
+          readonly presses: number;
+          readonly snippet: string;
+          readonly to: string;
+        }) =>
+          Effect.gen(function* confirmTrigger() {
+            const base = yield* reopen;
+
+            if (trigger.presses > 1) {
+              yield* press(trigger.presses - 1);
+            }
+
+            yield* Effect.sleep(QUIET_WAIT);
+
+            if (held.length > base) {
+              return null;
+            }
+
+            yield* pressThenWait(NAVIGATION_WAIT);
+
+            return held.length > base
+              ? { snippet: trigger.snippet, to: trigger.to }
+              : null;
+          });
+
+        const onFocusOf = (chunkStart: number) =>
+          triggerAfter(chunkStart).pipe(
+            Effect.flatMap((trigger) =>
+              trigger === null ? Effect.succeed(null) : confirmed(trigger)
+            )
+          );
 
         yield* evaluate(probesSource);
 
@@ -244,12 +367,37 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
           evaluate("__eaaProbes.textSpacing()")
         );
 
-        const walked = yield* walk.pipe(
+        holding.navigations = true;
+
+        const walkedRaw = yield* walk.pipe(
           Effect.tapError((failure) =>
             Effect.logWarning(`Rendered probe skipped: ${failure.detail}`)
           ),
           Effect.orElseSucceed(() => null)
         );
+
+        const onFocus =
+          walkedRaw === null || walkedRaw.heldInChunk === null
+            ? null
+            : yield* optionalWithin(
+                CONFIRM_TIMEOUT,
+                onFocusOf(walkedRaw.heldInChunk)
+              );
+
+        holding.navigations = false;
+
+        const walked =
+          walkedRaw === null
+            ? null
+            : {
+                backward: walkedRaw.backward,
+                candidates: walkedRaw.candidates,
+                cycled: walkedRaw.cycled,
+                forward: walkedRaw.forward,
+                navigated: walkedRaw.heldInChunk !== null,
+                onFocus,
+                presses: walkedRaw.presses,
+              };
 
         const stayed = page.url() === startUrl;
 

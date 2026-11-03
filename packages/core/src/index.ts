@@ -350,3 +350,17 @@ export {
 } from "./probes.js";
 
 export type { ProbeId, ProbeResult, ProbesMeasured } from "./probes.js";
+
+export {
+  NO_CHECK_NOTE,
+  SC_COVERAGE,
+  TEST_METHOD_NAMES,
+  scCoverageCounts,
+  scCoverageFrom,
+  scCoverageSummary,
+  type ScCoverageRow,
+  type TestMethod,
+  type TestedBy,
+} from "./sc-coverage.js";
+
+export { AXE_CORE_VERSION, AXE_RULES } from "./axe-rules.js";

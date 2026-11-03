@@ -72,3 +72,51 @@ Fix: in the Node transport, resolve the host first (`dns.lookup` with `all: true
 - **Workflow replay**: the machine has no clock, randomness or I/O outside `ScanSteps`; every side effect is inside a named `Cloudflare.Workflows.task`; step names are fixed and unique; step outputs are schema-encoded JSON and decoded after replay. Render and judge failures fall through to storing; scan and store failures go to `fail`.
 - **Facts gate**: `renderLedger` writes only `status === "verified"` facts (`packages/facts/src/render.ts:3-31`); the generated file holds no status field and so no unverified fact. Fix prompts quote site text one line per sample behind `> ` with whitespace collapsed, so page text cannot break out of the quote, and the rules tell the agent to treat it as data. The "published, not cited in the OJ" label traces to verified ledger facts.
 - **Report honesty**: headlines never say "compliant"; the zero-issue headline is scoped ("of the kinds they look for") and the automated-limit statement is on every report. `tallyOf` counts static and rendered issues only; judged observations are a separate list and never enter the tally. A browser that lands on a bot wall is detected (`rendered.ts:181-184`) and reported as skipped, so a challenge page cannot produce "No issues found".
+
+## Re-review (22:15 CET) of ea1b4cb, 26fc8be, e58fc57, 8914d24
+
+Read each diff end to end; ran the touched suites (`http-transport` node transport 24/24, `browser-audit` 11/11, `scan-store` 20/20, `web` handler 3/3, all pass). Two bypasses were confirmed against the live dev stage with read-only `getScan` calls only; no scan was started.
+
+Counts: **2 high, 3 medium, 5 low** (new or remaining). Status of the original findings: H1 fixed for navigations, residual below (R5). H2 **not fixed** (R1, R2). M1 fixed for the visitor's own session, residual R6. M2, M3, L1, L2, L3 fixed.
+
+### High
+
+**R1. The scanner Worker serves RPC on its own public workers.dev URL, so the rate limits do not apply.** `apps/scanner/src/worker.ts:20-28` sets no `workersDev`, and Alchemy's default is `true` (`alchemy/src/Cloudflare/Workers/Worker.ts:545-556`). The Worker's fetch handler is the RPC server for any path. Verified: `POST https://eaacheck-scanner-dev-butkmrv76a43vsix.vojtaholik.workers.dev/` with a `getScan` message returns the report. `startScan` and `sendMessage` go through the same server, so a caller skips the website Worker and its per-IP limits entirely; only the global and per-site caps remain. Fix: `workersDev: false` on Scanner (the website reaches it through the service binding), and `previewsEnabled: false` too, since version preview URLs are another way in.
+
+**R2. The limiter only reads POST bodies; PUT and PATCH reach the RPC server unlimited.** `apps/web/src/server/handler.ts:57-60` parses the body only when `request.method === "POST"`, then forwards every method to the backend. Effect's HTTP RPC protocol reads `request.text` with no method check (`effect/src/rpc/RpcServer.ts`, `makeProtocolWithHttpEffect`). Verified on the dev website: `PUT /rpc` and `PATCH /rpc` with a `getScan` body are answered like POST. A `PUT /rpc` carrying `startScan` is therefore never counted. Fix: on RPC paths, refuse any method other than POST with 405 before forwarding, and add that case to `apps/web/test/handler.test.ts`.
+
+### Medium
+
+**R3. The per-site cap is a new targeted lockout.** `SITE_DAILY_SCAN_CAP = 10` (`apps/scanner/src/site-limits.ts`) counts every scan of a host, and `?n=1..10` makes ten distinct URLs. At 5 a minute from one IP (or immediately through R1 or R2), anyone can use up a site's ten scans in two minutes, and the site owner, the very prospect studio9 wants, then gets "Daily cap reached for scans of this site" for 24 hours. Fix: drop the query string and fragment from the reuse/cap key (or reuse within the hour per host and path), and count the site cap per caller. The website Worker knows the IP and can pass a caller key (a hash of the IP) to `startScan`. Or keep the site cap only as an anti-abuse ceiling well above what a person needs (for example 50).
+
+**R4. The per-IP key is the full IPv6 address.** `handler.ts:47` keys on `cf-connecting-ip` as given. The header can't be spoofed through Cloudflare, but an IPv6 client controls at least a /64, so it has 2^64 keys and the 5/minute limit never applies. The binding's counters are also per Cloudflare location and eventually consistent, so it is a soft limit. Fix: key IPv6 callers by their /64 (`2001:db8:1:2::/64`), IPv4 by the full address; leave the global caps as the real ceiling.
+
+**R5. The browser fence covers navigations only.** `puppeteer-session.ts` (guard) vets main-frame and iframe document requests, which closes the redirect, meta-refresh and `location =` paths from H1, and `landedOn` re-vets the URL. What is still unvetted, by design or by omission:
+
+- subresource requests, `fetch`/XHR and WebSockets from page JS (WebSockets are not seen by request interception at all);
+- popups and new targets (`window.open`, `target=_blank`): `page.on("request")` is attached to one page, so another target navigates freely;
+- service workers: requests a page's service worker makes are not this page's requests;
+- DNS rebinding: a name that passed `vetUrl` can resolve to a private address inside Chrome, and same-origin reads then work.
+
+Blind requests out of Browser Run are all that's left unless its egress reaches private networks. AGENTS.md now records the egress assumption for Workers only (`AGENTS.md:120`), not for Browser Run, which is a separate service. Fix: state the Browser Run egress assumption in AGENTS.md with its source, close popups (`browser.on("targetcreated")` → close any new page target), and call `page.setBypassServiceWorker(true)`. If Browser Run's egress is not confirmed, treat this as High.
+
+### Low
+
+**R6. A shared or reloaded report link still shows the newest scan of the host.** `8914d24` keeps the scan ID only in memory (`model.started`, then the loaded view). The URL stays `/<host>`, so a reload, a new tab or a shared link falls back to `latest(slug)`, and a third party can still repoint what a recipient sees. Fix: put the scan ID in the report route (`/<host>?scan=<id>` or `/<host>/<id>`) and read with `one`.
+
+**R7. A blocked subframe can mislabel an unrelated navigation failure.** `puppeteer-session.ts` (`open`) maps every `goto` failure to `kind: "navigation"` whenever `refused` is non-empty, and `refused` also collects blocked iframes. A page with a blocked third-party iframe that then times out reports "sent the browser to an address the scanner does not open" in place of the timeout. Fix: record only main-frame refusals (`request.frame() === page.mainFrame()`) for that mapping.
+
+**R8. One close path still releases unused seconds when the browser may not have closed.** `puppeteer-session.ts`: when `newPage` fails, `close` runs under `Effect.ignore` inside the launch, and the session never reaches `acquireRelease`, so `closed` stays `true` and `scan-workflow.ts` releases `90 − elapsed`. `keep_alive: 60_000` bounds the orphan, so the overshoot is under a minute per occurrence. Fix: report that close to `onClose` as well.
+
+**R9. A failed `settle` throws away answers the model already gave.** `scan-workflow.ts` (`askModel`) runs `judgeBudget.settle` after the answers; a D1 error there fails the judge step, the machine goes to storing without judged observations, and the tokens are spent. Fix: `Effect.ignore` (with a log) around `settle`, as `release` does.
+
+**R10. The new node transport test depends on live DNS.** `packages/http-transport/test/node-hop-transport.test.ts` resolves `localtest.me`. Offline, or with a resolver that filters rebinding answers, the result is `dns`, not `forbidden_host`, and the gate fails for a reason that isn't a bug. Fix: test `publicLookup` with an injected resolver, and keep the live case out of the default run.
+
+### Verified fixed
+
+- **H1 (navigation path)**: interception on before `goto`, every navigation request vetted with `vetUrl` and capped at `DEFAULT_MAX_REDIRECTS`, non-http schemes refused by `vetUrl`, landed URL re-vetted after `goto` and after the probes, refused hop surfaces as a typed `navigation` skip with a reason.
+- **M2**: stale unsettled rows of the URL are marked failed in `begin`, reuse of unsettled rows is limited to `min(reuseWithin, staleAfter)`, and `STALE_AFTER_MILLIS` (15 min) is above the summed step timeouts.
+- **L3 and the INSERT**: the global cap, the site cap and "no running scan of this URL" are one conditional `INSERT … SELECT … WHERE` statement, so concurrent callers cannot double-start or pass a cap; the follow-up `SELECT` only classifies the refusal. `INSERT OR IGNORE` on an ID collision would report `begun` for someone else's row, which the 36^8 nonce plus millisecond prefix makes negligible.
+- **M3**: `publicLookup` resolves with `all: true`, refuses when any address is private, loopback, link-local, CGNAT, multicast, reserved, NAT64, 6to4 or IPv4-mapped, and hands the vetted address to the socket, so a rebind between check and connect can't happen. Both the http and https agents get the lookup (`layerAgentOptions`). One gap not worth a finding: deprecated IPv4-compatible `::a.b.c.d` is not listed (not routed by modern stacks).
+- **L1**: `settle` adds `used − reserved` (clamped at 0) after a run; overshoot is per scan and the next reserve is refused.
+- **L2**: a failed close keeps the full reservation; `keep_alive` is set explicitly.

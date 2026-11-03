@@ -1,6 +1,6 @@
 import { Number } from "effect";
 
-import { AXE_REPORTS, axeTitleOf } from "./axe-titles.js";
+import { AXE_REPORTS, axeTitleOf } from "./axe-rules.js";
 import type { CheckId } from "./check.js";
 import type { FindingReference } from "./finding-reference.js";
 import { PROBES } from "./probes.js";
@@ -126,10 +126,9 @@ const staticIssue = (
   };
 };
 
-const PROBE_IDS: ReadonlySet<string> = new Set(Object.keys(PROBES));
-
-const isProbe = (finding: RenderedFinding): boolean =>
-  PROBE_IDS.has(finding.rule);
+const PROBE_TITLES: ReadonlyMap<string, string> = new Map(
+  Object.entries(PROBES).map(([id, { title }]) => [id, title])
+);
 
 const renderedIssue = (finding: RenderedFinding): Issue => ({
   checked: null,
@@ -140,8 +139,10 @@ const renderedIssue = (finding: RenderedFinding): Issue => ({
   references: finding.references,
   samples: samplesOf([], tagged("rendered", finding.samples)),
   sources: ["rendered"],
-  title: isProbe(finding) ? finding.help : axeTitleOf(finding.rule),
-  whatFails: isProbe(finding) ? null : `${AXE_REPORTS} ${finding.help}`,
+  title: PROBE_TITLES.get(finding.rule) ?? axeTitleOf(finding.rule),
+  whatFails: PROBE_TITLES.has(finding.rule)
+    ? finding.help
+    : `${AXE_REPORTS} ${finding.help}`,
 });
 
 const LEVEL_RANK = new Map<Level | null, number>([
