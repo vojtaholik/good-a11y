@@ -9,6 +9,7 @@ const Count = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0));
 
 const ReflowMeasuredSchema = Schema.Struct({
   clientWidth: Count,
+  offenderCount: Count,
   offenders: Schema.Array(
     Schema.Struct({
       exempt: Schema.Boolean,
@@ -208,14 +209,19 @@ export const decideReflow = (
     return notApplicable("reflow");
   }
 
-  return widest.exempt
-    ? judged("reflow", [])
-    : judged(
-        "reflow",
-        measured.offenders
-          .filter((offender) => !offender.exempt)
-          .map((offender) => offender.snippet)
-      );
+  if (widest.exempt) {
+    return judged("reflow", []);
+  }
+
+  return {
+    ...judged(
+      "reflow",
+      measured.offenders
+        .filter((offender) => !offender.exempt)
+        .map((offender) => offender.snippet)
+    ),
+    failing: measured.offenderCount,
+  };
 };
 
 export const decideTextSpacing = (

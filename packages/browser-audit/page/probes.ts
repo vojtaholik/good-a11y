@@ -553,6 +553,7 @@
 
     return {
       clientWidth: root.clientWidth,
+      offenderCount: offenders.filter(({ exempt }) => !exempt).length,
       offenders: offenders.slice(0, SAMPLE_LIMIT),
       scrollWidth: root.scrollWidth,
     };

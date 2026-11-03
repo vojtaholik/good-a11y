@@ -25,6 +25,13 @@ const StopsJson = Schema.fromJsonString(
   )
 );
 
+const ReflowJson = Schema.fromJsonString(
+  Schema.Struct({
+    offenderCount: Schema.Finite,
+    offenders: Schema.Array(Schema.Struct({ snippet: Schema.String })),
+  })
+);
+
 const pageWith = (html: string) => {
   const window = new Window({
     settings: {
@@ -130,5 +137,21 @@ describe("the tab walk in the page", () => {
         '<style>a { opacity: 1; outline: none } a:focus { outline-offset: 1px }</style><a id=link href="/">Home</a>'
       )
     ).toEqual([0]);
+  });
+});
+
+describe("reflow in the page", () => {
+  it("counts every element past the right edge and keeps five samples", () => {
+    const window = pageWith(
+      `<style>div { opacity: 1 }</style>${Array.from({ length: 8 }, (_, index) => `<div id="wide-${index}"></div>`).join("")}`
+    );
+
+    window.eval(probesSource);
+
+    expect(
+      Schema.decodeUnknownSync(ReflowJson)(
+        window.eval("JSON.stringify(__eaaProbes.reflow())")
+      )
+    ).toMatchObject({ offenderCount: 8, offenders: { length: 5 } });
   });
 });
