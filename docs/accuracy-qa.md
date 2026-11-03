@@ -16,9 +16,9 @@ gov.uk, Wikipedia, ikea.com, emag.ro, rohlik.cz and bbc.co.uk came back with no 
 | info.cern.ch | html-lang | `<html>` has no lang | TP |  |
 | craigslist.org | html-lang | `<html>` has no lang | TP |  |
 | craigslist.org | form-labels | `<select id="chlang" name="lang">` | TP | The language picker has no label, aria-label or title |
-| craigslist.org | frame-title | `<iframe id="cl-local-storage">` | FP, fixed | The iframe has `style="display:none;"`, so it is not exposed to assistive technology. The reader now treats inline `display: none` and `visibility: hidden` as hidden |
+| craigslist.org | frame-title | `<iframe id="cl-local-storage">` | FP, fixed | The iframe has `style="display:none;"`, so it is not exposed to assistive technology. An element hidden by its own inline `display: none` or `visibility: hidden` is now not checked. Its descendants still are: otto.de hides whole navigation regions inline and reveals them with script, and skipping those dropped its checked links from 551 to 4 |
 | otto.de | image-alt | 10 `<img>` in navigation chips and tiles | TP | Light-DOM `<img>` slotted into Otto's web components, with no alt |
 | otto.de | link-name | `<a href="/wishlist-view/">` | TP in the served HTML | All content is `aria-hidden`. The wrapping `oc-interactive-overlay-v1` carries `oc-aria-label="Merkzettel"`, which its script may copy onto the link after load. The rendered check would settle it |
-| otto.de | link-name | `<a id="to-login-link" href="">` | Uncertain | The link wraps `oc-media-object-card-v1 oc-aria-label="…"`, whose shadow DOM may hold the name. Shadow content counts toward a link's name, and static HTML cannot see it |
+| otto.de | link-name | `<a id="to-login-link" href="">` | Undecidable, now not reported | The link wraps a visible `oc-media-object-card-v1 oc-aria-label="…"`, whose shadow DOM may hold the name. Shadow content counts toward a link's name, and static HTML cannot see it. A link or button that contains a visible custom element is now treated as named |
 
-The two web-component cases show a limit of static checks: a name may be supplied by a custom element's shadow DOM or script. They stay reported. The rendered audit sees the flat tree and is the better judge there.
+Web components are a limit of static checks: a name may come from a custom element's shadow DOM or script. The static check now leaves those links and buttons to the rendered audit, which sees the flat tree.
