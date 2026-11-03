@@ -1,0 +1,48 @@
+---
+title: "EAA checker"
+type: "brief"
+status: "open"
+created_at: "2026-11-03"
+privacy: "private"
+---
+
+# EAA checker
+
+A visitor pastes a URL. The checker scans the public page and reports how it stands against the
+European Accessibility Act (Directive (EU) 2019/882) and EN 301 549 (which pulls in WCAG 2.1 AA for
+web content), for every EU member state. It sells web and accessibility work for studio9; the
+report ends with a contact call to action (wording is a placeholder for Vojta).
+
+Source brief: `BRIEF.md` (Vojta via his orchestrator, 2026-11-03). Durable status: `REPORT.md`.
+
+## Finish line (tonight)
+
+Layers, each on top of a working one:
+
+1. CLI scan → deterministic checks → report, mapped to WCAG SC and EN 301 549 clauses from the ledger.
+2. The scan as an XState machine inside a Cloudflare Workflow, deployed with Alchemy to a non-production stage.
+3. A bare page: paste a URL, see the report, per-state applicability with flags, contact CTA.
+
+## Binding rules
+
+- Every legal and normative claim traces to a `verified` fact in `research/facts/`. Gaps show "unknown".
+- The report never says "compliant". It says plainly that automated checks cover only part of WCAG.
+- Checks are deterministic. No model output changes a finding.
+- webproai is read-only reference; anything reused is copied in.
+- Non-production stage only, on webproai's Cloudflare account. No domains, no paid services beyond webproai's.
+
+## Vocabulary
+
+- **Fact** – one sourced claim in `research/facts/`, with status unverified / verified / rejected.
+- **Check** – a pure function from collected page evidence to findings, mapped to WCAG SC + EN 301 549 clause.
+- **State profile** – per member state: transposing law, applies-from, scope, exemptions, authority, penalties.
+
+## Decision ledger
+
+| # | Date | Decision | Why |
+| --- | --- | --- | --- |
+| 1 | 2026-11-03 | Copy webproai's rat-stack skeleton (root config, `capability`, `http-transport`, `html-reader`, `scan-store` patterns, `cli`, `scanner`, `infra`, `web`) into this repo under the `@eaa-check` scope, then cut what the EAA checker does not use. | Brief asks for the same stack and reuse; copying a working skeleton is the fastest path to a green end-to-end slice. webproai is not modified. |
+| 2 | 2026-11-03 | The facts ledger is Markdown with a fixed per-fact bullet format (`research/facts/README.md`) that tests parse. Product data references fact IDs; a test fails if any referenced fact is not `verified`. | Makes "every claim is sourced" enforceable by the fence instead of by discipline. |
+| 3 | 2026-11-03 | Research split: one agent for the directive + EN 301 549 + WCAG, three agents for 9 member states each, one verifier that sets `verified`/`rejected`. Researchers never set status. | Brief's suggested split within ~6 concurrent agents; independent verification. |
+| 4 | 2026-11-03 | English UI first. Proposal for Vojta: Czech second (studio9's home market), other languages only on demand. | Brief asks to record it; Czech is the one market studio9 already sells in. |
+| 5 | 2026-11-03 | The report lists findings with their WCAG SC + EN 301 549 clause, and a fixed statement that automated checks find only part of the issues and that a manual audit is needed. It never uses the words "compliant" or "compliance score". | Brief rule; avoids a false legal claim. |

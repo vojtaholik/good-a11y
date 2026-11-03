@@ -1,0 +1,4 @@
+# Project Brain
+
+The rendered Brain index is programmatic. `.brain/**/*.svx` is discovered automatically.
+Working brief and decision ledger: `projects/eaa-checker/eaa-checker-brief.svx`.
