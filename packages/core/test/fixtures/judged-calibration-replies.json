@@ -1,0 +1,1214 @@
+{
+  "model": "@cf/cloudflare/clef",
+  "note": "Language replies keep the probabilities of the model's choice and of every language an item in the set declares; the model was asked once per distinct text.",
+  "recorded": "2026-11-03",
+  "batches": [
+    {
+      "id": "alt-text-describes",
+      "reply": {
+        "answers": {
+          "image_1": {
+            "noul": 0.0261,
+            "type": "noul"
+          },
+          "image_2": {
+            "noul": 0.9829,
+            "type": "noul"
+          },
+          "image_3": {
+            "noul": 0.0227,
+            "type": "noul"
+          },
+          "image_4": {
+            "noul": 0.073,
+            "type": "noul"
+          },
+          "image_5": {
+            "noul": 0.9572,
+            "type": "noul"
+          },
+          "image_6": {
+            "noul": 0.9757,
+            "type": "noul"
+          },
+          "image_7": {
+            "noul": 0.0838,
+            "type": "noul"
+          },
+          "image_8": {
+            "noul": 0.0515,
+            "type": "noul"
+          },
+          "image_9": {
+            "noul": 0.9215,
+            "type": "noul"
+          },
+          "image_10": {
+            "noul": 0.1706,
+            "type": "noul"
+          },
+          "image_11": {
+            "noul": 0.0363,
+            "type": "noul"
+          },
+          "image_12": {
+            "noul": 0.9621,
+            "type": "noul"
+          },
+          "image_13": {
+            "noul": 0.953,
+            "type": "noul"
+          },
+          "image_14": {
+            "noul": 0.0335,
+            "type": "noul"
+          },
+          "image_15": {
+            "noul": 0.0629,
+            "type": "noul"
+          },
+          "image_16": {
+            "noul": 0.9335,
+            "type": "noul"
+          },
+          "image_17": {
+            "noul": 0.0916,
+            "type": "noul"
+          },
+          "image_18": {
+            "noul": 0.022,
+            "type": "noul"
+          },
+          "image_19": {
+            "noul": 0.9396,
+            "type": "noul"
+          },
+          "image_20": {
+            "noul": 0.8815,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 3255,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "alt-text-describes",
+      "reply": {
+        "answers": {
+          "image_1": {
+            "noul": 0.0395,
+            "type": "noul"
+          },
+          "image_2": {
+            "noul": 0.0202,
+            "type": "noul"
+          },
+          "image_3": {
+            "noul": 0.913,
+            "type": "noul"
+          },
+          "image_4": {
+            "noul": 0.0299,
+            "type": "noul"
+          },
+          "image_5": {
+            "noul": 0.0483,
+            "type": "noul"
+          },
+          "image_6": {
+            "noul": 0.689,
+            "type": "noul"
+          },
+          "image_7": {
+            "noul": 0.8001,
+            "type": "noul"
+          },
+          "image_8": {
+            "noul": 0.0851,
+            "type": "noul"
+          },
+          "image_9": {
+            "noul": 0.0255,
+            "type": "noul"
+          },
+          "image_10": {
+            "noul": 0.9808,
+            "type": "noul"
+          },
+          "image_11": {
+            "noul": 0.9378,
+            "type": "noul"
+          },
+          "image_12": {
+            "noul": 0.0639,
+            "type": "noul"
+          },
+          "image_13": {
+            "noul": 0.8456,
+            "type": "noul"
+          },
+          "image_14": {
+            "noul": 0.7138,
+            "type": "noul"
+          },
+          "image_15": {
+            "noul": 0.0788,
+            "type": "noul"
+          },
+          "image_16": {
+            "noul": 0.0279,
+            "type": "noul"
+          },
+          "image_17": {
+            "noul": 0.8808,
+            "type": "noul"
+          },
+          "image_18": {
+            "noul": 0.948,
+            "type": "noul"
+          },
+          "image_19": {
+            "noul": 0.0444,
+            "type": "noul"
+          },
+          "image_20": {
+            "noul": 0.9008,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 3240,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "alt-text-describes",
+      "reply": {
+        "answers": {
+          "image_1": {
+            "noul": 0.7821,
+            "type": "noul"
+          },
+          "image_2": {
+            "noul": 0.0264,
+            "type": "noul"
+          },
+          "image_3": {
+            "noul": 0.0317,
+            "type": "noul"
+          },
+          "image_4": {
+            "noul": 0.9425,
+            "type": "noul"
+          },
+          "image_5": {
+            "noul": 0.3495,
+            "type": "noul"
+          },
+          "image_6": {
+            "noul": 0.0506,
+            "type": "noul"
+          },
+          "image_7": {
+            "noul": 0.7174,
+            "type": "noul"
+          },
+          "image_8": {
+            "noul": 0.5341,
+            "type": "noul"
+          },
+          "image_9": {
+            "noul": 0.0304,
+            "type": "noul"
+          },
+          "image_10": {
+            "noul": 0.0675,
+            "type": "noul"
+          },
+          "image_11": {
+            "noul": 0.7745,
+            "type": "noul"
+          },
+          "image_12": {
+            "noul": 0.9435,
+            "type": "noul"
+          },
+          "image_13": {
+            "noul": 0.0936,
+            "type": "noul"
+          },
+          "image_14": {
+            "noul": 0.9229,
+            "type": "noul"
+          },
+          "image_15": {
+            "noul": 0.9115,
+            "type": "noul"
+          },
+          "image_16": {
+            "noul": 0.0378,
+            "type": "noul"
+          },
+          "image_17": {
+            "noul": 0.0867,
+            "type": "noul"
+          },
+          "image_18": {
+            "noul": 0.4821,
+            "type": "noul"
+          },
+          "image_19": {
+            "noul": 0.937,
+            "type": "noul"
+          },
+          "image_20": {
+            "noul": 0.0902,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 3243,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "link-purpose",
+      "reply": {
+        "answers": {
+          "link_1": {
+            "noul": 0.059,
+            "type": "noul"
+          },
+          "link_2": {
+            "noul": 0.9296,
+            "type": "noul"
+          },
+          "link_3": {
+            "noul": 0.0707,
+            "type": "noul"
+          },
+          "link_4": {
+            "noul": 0.0126,
+            "type": "noul"
+          },
+          "link_5": {
+            "noul": 0.8525,
+            "type": "noul"
+          },
+          "link_6": {
+            "noul": 0.5443,
+            "type": "noul"
+          },
+          "link_7": {
+            "noul": 0.1046,
+            "type": "noul"
+          },
+          "link_8": {
+            "noul": 0.0551,
+            "type": "noul"
+          },
+          "link_9": {
+            "noul": 0.2671,
+            "type": "noul"
+          },
+          "link_10": {
+            "noul": 0.0636,
+            "type": "noul"
+          },
+          "link_11": {
+            "noul": 0.0078,
+            "type": "noul"
+          },
+          "link_12": {
+            "noul": 0.9111,
+            "type": "noul"
+          },
+          "link_13": {
+            "noul": 0.7315,
+            "type": "noul"
+          },
+          "link_14": {
+            "noul": 0.0182,
+            "type": "noul"
+          },
+          "link_15": {
+            "noul": 0.0327,
+            "type": "noul"
+          },
+          "link_16": {
+            "noul": 0.8341,
+            "type": "noul"
+          },
+          "link_17": {
+            "noul": 0.6374,
+            "type": "noul"
+          },
+          "link_18": {
+            "noul": 0.1098,
+            "type": "noul"
+          },
+          "link_19": {
+            "noul": 0.9131,
+            "type": "noul"
+          },
+          "link_20": {
+            "noul": 0.4436,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 2566,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "link-purpose",
+      "reply": {
+        "answers": {
+          "link_1": {
+            "noul": 0.0181,
+            "type": "noul"
+          },
+          "link_2": {
+            "noul": 0.0693,
+            "type": "noul"
+          },
+          "link_3": {
+            "noul": 0.9459,
+            "type": "noul"
+          },
+          "link_4": {
+            "noul": 0.2649,
+            "type": "noul"
+          },
+          "link_5": {
+            "noul": 0.1288,
+            "type": "noul"
+          },
+          "link_6": {
+            "noul": 0.1681,
+            "type": "noul"
+          },
+          "link_7": {
+            "noul": 0.8572,
+            "type": "noul"
+          },
+          "link_8": {
+            "noul": 0.0173,
+            "type": "noul"
+          },
+          "link_9": {
+            "noul": 0.0142,
+            "type": "noul"
+          },
+          "link_10": {
+            "noul": 0.9135,
+            "type": "noul"
+          },
+          "link_11": {
+            "noul": 0.9548,
+            "type": "noul"
+          },
+          "link_12": {
+            "noul": 0.4812,
+            "type": "noul"
+          },
+          "link_13": {
+            "noul": 0.7361,
+            "type": "noul"
+          },
+          "link_14": {
+            "noul": 0.8395,
+            "type": "noul"
+          },
+          "link_15": {
+            "noul": 0.4305,
+            "type": "noul"
+          },
+          "link_16": {
+            "noul": 0.2372,
+            "type": "noul"
+          },
+          "link_17": {
+            "noul": 0.9215,
+            "type": "noul"
+          },
+          "link_18": {
+            "noul": 0.91,
+            "type": "noul"
+          },
+          "link_19": {
+            "noul": 0.2946,
+            "type": "noul"
+          },
+          "link_20": {
+            "noul": 0.905,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 2532,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "link-purpose",
+      "reply": {
+        "answers": {
+          "link_1": {
+            "noul": 0.8872,
+            "type": "noul"
+          },
+          "link_2": {
+            "noul": 0.0268,
+            "type": "noul"
+          },
+          "link_3": {
+            "noul": 0.1253,
+            "type": "noul"
+          },
+          "link_4": {
+            "noul": 0.9194,
+            "type": "noul"
+          },
+          "link_5": {
+            "noul": 0.9012,
+            "type": "noul"
+          },
+          "link_6": {
+            "noul": 0.0584,
+            "type": "noul"
+          },
+          "link_7": {
+            "noul": 0.5911,
+            "type": "noul"
+          },
+          "link_8": {
+            "noul": 0.8402,
+            "type": "noul"
+          },
+          "link_9": {
+            "noul": 0.0186,
+            "type": "noul"
+          },
+          "link_10": {
+            "noul": 0.0934,
+            "type": "noul"
+          },
+          "link_11": {
+            "noul": 0.9503,
+            "type": "noul"
+          },
+          "link_12": {
+            "noul": 0.8613,
+            "type": "noul"
+          },
+          "link_13": {
+            "noul": 0.1089,
+            "type": "noul"
+          },
+          "link_14": {
+            "noul": 0.8775,
+            "type": "noul"
+          },
+          "link_15": {
+            "noul": 0.5284,
+            "type": "noul"
+          },
+          "link_16": {
+            "noul": 0.0218,
+            "type": "noul"
+          },
+          "link_17": {
+            "noul": 0.0543,
+            "type": "noul"
+          },
+          "link_18": {
+            "noul": 0.8741,
+            "type": "noul"
+          },
+          "link_19": {
+            "noul": 0.7995,
+            "type": "noul"
+          },
+          "link_20": {
+            "noul": 0.0185,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 2564,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "headings-labels-describe",
+      "reply": {
+        "answers": {
+          "heading_1": {
+            "noul": 0.0565,
+            "type": "noul"
+          },
+          "heading_2": {
+            "noul": 0.8096,
+            "type": "noul"
+          },
+          "heading_3": {
+            "noul": 0.4772,
+            "type": "noul"
+          },
+          "heading_4": {
+            "noul": 0.9431,
+            "type": "noul"
+          },
+          "heading_5": {
+            "noul": 0.9267,
+            "type": "noul"
+          },
+          "heading_6": {
+            "noul": 0.1615,
+            "type": "noul"
+          },
+          "heading_7": {
+            "noul": 0.1106,
+            "type": "noul"
+          },
+          "heading_8": {
+            "noul": 0.0196,
+            "type": "noul"
+          },
+          "heading_9": {
+            "noul": 0.6656,
+            "type": "noul"
+          },
+          "heading_10": {
+            "noul": 0.9166,
+            "type": "noul"
+          },
+          "heading_11": {
+            "noul": 0.5318,
+            "type": "noul"
+          },
+          "heading_12": {
+            "noul": 0.745,
+            "type": "noul"
+          },
+          "label_1": {
+            "noul": 0.0156,
+            "type": "noul"
+          },
+          "label_2": {
+            "noul": 0.0129,
+            "type": "noul"
+          },
+          "label_3": {
+            "noul": 0.9692,
+            "type": "noul"
+          },
+          "label_4": {
+            "noul": 0.8787,
+            "type": "noul"
+          },
+          "label_5": {
+            "noul": 0.0359,
+            "type": "noul"
+          },
+          "label_6": {
+            "noul": 0.1683,
+            "type": "noul"
+          },
+          "label_7": {
+            "noul": 0.9668,
+            "type": "noul"
+          },
+          "label_8": {
+            "noul": 0.0102,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 2519,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "headings-labels-describe",
+      "reply": {
+        "answers": {
+          "heading_1": {
+            "noul": 0.1212,
+            "type": "noul"
+          },
+          "heading_2": {
+            "noul": 0.0346,
+            "type": "noul"
+          },
+          "heading_3": {
+            "noul": 0.0542,
+            "type": "noul"
+          },
+          "heading_4": {
+            "noul": 0.9498,
+            "type": "noul"
+          },
+          "heading_5": {
+            "noul": 0.9231,
+            "type": "noul"
+          },
+          "heading_6": {
+            "noul": 0.879,
+            "type": "noul"
+          },
+          "heading_7": {
+            "noul": 0.8468,
+            "type": "noul"
+          },
+          "heading_8": {
+            "noul": 0.0616,
+            "type": "noul"
+          },
+          "heading_9": {
+            "noul": 0.1192,
+            "type": "noul"
+          },
+          "heading_10": {
+            "noul": 0.0509,
+            "type": "noul"
+          },
+          "heading_11": {
+            "noul": 0.71,
+            "type": "noul"
+          },
+          "heading_12": {
+            "noul": 0.92,
+            "type": "noul"
+          },
+          "label_1": {
+            "noul": 0.0153,
+            "type": "noul"
+          },
+          "label_2": {
+            "noul": 0.8071,
+            "type": "noul"
+          },
+          "label_3": {
+            "noul": 0.9614,
+            "type": "noul"
+          },
+          "label_4": {
+            "noul": 0.1186,
+            "type": "noul"
+          },
+          "label_5": {
+            "noul": 0.9682,
+            "type": "noul"
+          },
+          "label_6": {
+            "noul": 0.9132,
+            "type": "noul"
+          },
+          "label_7": {
+            "noul": 0.0661,
+            "type": "noul"
+          },
+          "label_8": {
+            "noul": 0.0114,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 2500,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "headings-labels-describe",
+      "reply": {
+        "answers": {
+          "heading_1": {
+            "noul": 0.8493,
+            "type": "noul"
+          },
+          "heading_2": {
+            "noul": 0.8433,
+            "type": "noul"
+          },
+          "heading_3": {
+            "noul": 0.0294,
+            "type": "noul"
+          },
+          "heading_4": {
+            "noul": 0.0951,
+            "type": "noul"
+          },
+          "heading_5": {
+            "noul": 0.0498,
+            "type": "noul"
+          },
+          "heading_6": {
+            "noul": 0.887,
+            "type": "noul"
+          },
+          "heading_7": {
+            "noul": 0.8348,
+            "type": "noul"
+          },
+          "heading_8": {
+            "noul": 0.5778,
+            "type": "noul"
+          },
+          "heading_9": {
+            "noul": 0.8594,
+            "type": "noul"
+          },
+          "heading_10": {
+            "noul": 0.8365,
+            "type": "noul"
+          },
+          "heading_11": {
+            "noul": 0.0532,
+            "type": "noul"
+          },
+          "heading_12": {
+            "noul": 0.3107,
+            "type": "noul"
+          },
+          "label_1": {
+            "noul": 0.9242,
+            "type": "noul"
+          },
+          "label_2": {
+            "noul": 0.9156,
+            "type": "noul"
+          },
+          "label_3": {
+            "noul": 0.0442,
+            "type": "noul"
+          },
+          "label_4": {
+            "noul": 0.9059,
+            "type": "noul"
+          },
+          "label_5": {
+            "noul": 0.7621,
+            "type": "noul"
+          },
+          "label_6": {
+            "noul": 0.0132,
+            "type": "noul"
+          },
+          "label_7": {
+            "noul": 0.029,
+            "type": "noul"
+          },
+          "label_8": {
+            "noul": 0.9711,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 2509,
+          "output_tokens": 0
+        }
+      }
+    }
+  ],
+  "language": [
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8329,
+            "probabilities": {
+              "cs": 0.9156,
+              "en": 0.0024
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 621,
+          "output_tokens": 0
+        }
+      },
+      "text": "Vyrábíme a opravujeme městská kola v Brně. Každé kolo ručně skládáme v naší dílně a před předáním ho otestujeme na silnici. Naši mechanici servisují všechny hlavní značky a většinu oprav zvládneme do dvou pracovních dnů. Objednávky nad tisíc korun doručujeme zdarma."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "de",
+            "confidence": 0.9156,
+            "probabilities": {
+              "de": 0.9586,
+              "en": 0.0025
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 595,
+          "output_tokens": 0
+        }
+      },
+      "text": "Wir bauen und reparieren Stadträder in Wien. Jedes Rad wird in unserer Werkstatt von Hand montiert und vor der Übergabe auf der Straße getestet. Unsere Mechaniker warten alle großen Marken, und die meisten Reparaturen sind innerhalb von zwei Werktagen erledigt."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.8699,
+            "probabilities": {
+              "de": 0.019,
+              "en": 0.9352
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 593,
+          "output_tokens": 0
+        }
+      },
+      "text": "We build and repair city bikes in Vienna. Every bike is assembled by hand in our workshop and road-tested before it leaves the shop. Our mechanics service all major brands, and most repairs are done within two working days. Orders over fifty euros ship free."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "fr",
+            "confidence": 0.9355,
+            "probabilities": {
+              "cs": 0.0011,
+              "fr": 0.9685
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 603,
+          "output_tokens": 0
+        }
+      },
+      "text": "Nous fabriquons et réparons des vélos de ville à Lyon. Chaque vélo est monté à la main dans notre atelier et testé sur route avant de quitter la boutique. Nos mécaniciens entretiennent toutes les grandes marques et la plupart des réparations sont faites en deux jours ouvrés."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "es",
+            "confidence": 0.8842,
+            "probabilities": {
+              "en": 0.0036,
+              "es": 0.9427
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 599,
+          "output_tokens": 0
+        }
+      },
+      "text": "Fabricamos y reparamos bicicletas urbanas en Valencia. Cada bicicleta se monta a mano en nuestro taller y se prueba en carretera antes de salir de la tienda. Nuestros mecánicos atienden todas las marcas principales y la mayoría de las reparaciones se hacen en dos días laborables."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "pl",
+            "confidence": 0.8813,
+            "probabilities": {
+              "en": 0.0026,
+              "pl": 0.9411
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 604,
+          "output_tokens": 0
+        }
+      },
+      "text": "Produkujemy i naprawiamy rowery miejskie w Krakowie. Każdy rower jest składany ręcznie w naszym warsztacie i testowany na drodze, zanim opuści sklep. Nasi mechanicy serwisują wszystkie główne marki, a większość napraw wykonujemy w ciągu dwóch dni roboczych."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "it",
+            "confidence": 0.9142,
+            "probabilities": {
+              "fr": 0.0022,
+              "it": 0.9579
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 604,
+          "output_tokens": 0
+        }
+      },
+      "text": "Costruiamo e ripariamo biciclette da città a Bologna. Ogni bicicletta viene montata a mano nella nostra officina e provata su strada prima di lasciare il negozio. I nostri meccanici assistono tutti i principali marchi e la maggior parte delle riparazioni si completa in due giorni lavorativi."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "nl",
+            "confidence": 0.9032,
+            "probabilities": {
+              "en": 0.0027,
+              "nl": 0.9523
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 603,
+          "output_tokens": 0
+        }
+      },
+      "text": "Wij bouwen en repareren stadsfietsen in Utrecht. Elke fiets wordt met de hand in onze werkplaats gemonteerd en op de weg getest voordat hij de winkel verlaat. Onze monteurs onderhouden alle grote merken en de meeste reparaties zijn binnen twee werkdagen klaar."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "sv",
+            "confidence": 0.9072,
+            "probabilities": {
+              "de": 0.0018,
+              "sv": 0.9543
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 609,
+          "output_tokens": 0
+        }
+      },
+      "text": "Vi bygger och reparerar stadscyklar i Göteborg. Varje cykel monteras för hand i vår verkstad och provkörs på vägen innan den lämnar butiken. Våra mekaniker servar alla stora märken och de flesta reparationer är klara inom två arbetsdagar."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "de",
+            "confidence": 0.9095,
+            "probabilities": {
+              "de": 0.9555,
+              "sk": 0.0018
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 599,
+          "output_tokens": 0
+        }
+      },
+      "text": "Ihre Bestellung wird innerhalb von drei Werktagen versandt. Sie erhalten eine E-Mail mit der Sendungsnummer, sobald das Paket unser Lager verlässt. Rücksendungen sind innerhalb von dreißig Tagen kostenlos möglich, nutzen Sie dazu bitte das beiliegende Etikett."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.789,
+            "probabilities": {
+              "cs": 0.8921,
+              "en": 0.0026
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 623,
+          "output_tokens": 0
+        }
+      },
+      "text": "Vaše objednávka bude odeslána do tří pracovních dnů. Jakmile balík opustí náš sklad, dostanete e-mail s číslem zásilky. Vrácení zboží je do třiceti dnů zdarma, použijte prosím přiložený štítek. Na veškeré zboží poskytujeme záruku dvacet čtyři měsíců."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9019,
+            "probabilities": {
+              "en": 0.9517,
+              "pl": 0.0017
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 594,
+          "output_tokens": 0
+        }
+      },
+      "text": "Your order ships within three working days. You will get an email with the tracking number as soon as the parcel leaves our warehouse. Returns are free within thirty days; please use the label enclosed in the box. All goods come with a twenty-four month warranty."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "fr",
+            "confidence": 0.9264,
+            "probabilities": {
+              "en": 0.0021,
+              "fr": 0.964
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 606,
+          "output_tokens": 0
+        }
+      },
+      "text": "Votre commande est expédiée sous trois jours ouvrés. Vous recevrez un e-mail avec le numéro de suivi dès que le colis quitte notre entrepôt. Les retours sont gratuits sous trente jours ; utilisez l'étiquette jointe dans le carton. Tous nos produits sont garantis vingt-quatre mois."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "es",
+            "confidence": 0.8616,
+            "probabilities": {
+              "es": 0.9311,
+              "it": 0.0051
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 594,
+          "output_tokens": 0
+        }
+      },
+      "text": "Su pedido se envía en un plazo de tres días laborables. Recibirá un correo con el número de seguimiento en cuanto el paquete salga de nuestro almacén. Las devoluciones son gratuitas durante treinta días; use la etiqueta incluida en la caja."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "hu",
+            "confidence": 0.8533,
+            "probabilities": {
+              "en": 0.0025,
+              "hu": 0.9268
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 629,
+          "output_tokens": 0
+        }
+      },
+      "text": "Rendelését három munkanapon belül feladjuk. Amint a csomag elhagyja raktárunkat, e-mailben elküldjük a nyomkövetési számot. A visszaküldés harminc napon belül ingyenes, kérjük, használja a dobozban található címkét. Minden termékre huszonnégy hónap garanciát adunk."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.8429,
+            "probabilities": {
+              "en": 0.9211
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 595,
+          "output_tokens": 0
+        }
+      },
+      "text": "We build and repair city bikes in Brno. Every bike is assembled by hand in our workshop and tested on the road before it leaves the shop. Our mechanics service all major brands and most repairs are done within two working days. Orders over fifty euros ship free."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.4232,
+            "probabilities": {
+              "de": 0.2606,
+              "en": 0.6143
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 589,
+          "output_tokens": 0
+        }
+      },
+      "text": "Home Shop Bikes Repairs Contact Cookie settings We build and repair city bikes. Kontakt Impressum Datenschutz. Every bike is assembled by hand in our workshop and tested on the road before it leaves the shop. Our mechanics service all major brands."
+    },
+    {
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "de",
+            "confidence": 0.8691,
+            "probabilities": {
+              "de": 0.9349,
+              "en": 0.01
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 589,
+          "output_tokens": 0
+        }
+      },
+      "text": "Startseite Shop Kontakt. Wir bauen und reparieren Stadträder. Cookie settings Accept all. Jedes Rad wird in unserer Werkstatt von Hand montiert und vor der Übergabe auf der Straße getestet. Unsere Mechaniker warten alle großen Marken."
+    }
+  ]
+}

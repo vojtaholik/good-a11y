@@ -11,8 +11,6 @@ import type { Reference } from "./reference.js";
 
 export const MAX_JUDGED_ITEMS = 20;
 
-export const NOTE_AT = 0.8;
-
 export const MIN_LANGUAGE_SAMPLE = 200;
 
 export const DAILY_JUDGE_TOKENS = 400_000;
@@ -31,6 +29,13 @@ export const JudgedIdSchema = Schema.Literals([
 ]);
 
 export type JudgedId = typeof JudgedIdSchema.Type;
+
+export const NOTE_AT = {
+  "alt-text-describes": 0.7,
+  "headings-labels-describe": 0.7,
+  "link-purpose": 0.85,
+  "page-language-matches": 0.8,
+} as const satisfies Record<JudgedId, number>;
 
 const Count = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0));
 
@@ -154,17 +159,16 @@ const noulAnswer = (answer: Answer | undefined): number | null =>
 const rounded = (probability: number): number =>
   Math.round(probability * 100) / 100;
 
-export const notedWhereNo = (
-  asked: Asked,
-  reply: JudgeReply
-): readonly JudgedNote[] =>
-  asked.items.flatMap(({ key, sample }) => {
-    const yes = noulAnswer(reply.answers[key]);
+const notedWhereNo =
+  (noteAt: number) =>
+  (asked: Asked, reply: JudgeReply): readonly JudgedNote[] =>
+    asked.items.flatMap(({ key, sample }) => {
+      const yes = noulAnswer(reply.answers[key]);
 
-    return yes !== null && 1 - yes >= NOTE_AT
-      ? [{ confidence: rounded(1 - yes), sample }]
-      : [];
-  });
+      return yes !== null && 1 - yes >= noteAt
+        ? [{ confidence: rounded(1 - yes), sample }]
+        : [];
+    });
 
 const altTextDescribes: JudgedCheck = {
   about:
@@ -199,7 +203,7 @@ const altTextDescribes: JudgedCheck = {
     );
   },
   criteria: ["1.1.1"],
-  decide: notedWhereNo,
+  decide: notedWhereNo(NOTE_AT["alt-text-describes"]),
   id: "alt-text-describes",
   title: "Alt text that may not describe its image",
 };
@@ -247,7 +251,7 @@ const linkPurpose: JudgedCheck = {
     );
   },
   criteria: ["2.4.4"],
-  decide: notedWhereNo,
+  decide: notedWhereNo(NOTE_AT["link-purpose"]),
   id: "link-purpose",
   title: "Links whose purpose may be unclear",
 };
@@ -301,7 +305,7 @@ const headingsLabelsDescribe: JudgedCheck = {
     );
   },
   criteria: ["2.4.6"],
-  decide: notedWhereNo,
+  decide: notedWhereNo(NOTE_AT["headings-labels-describe"]),
   id: "headings-labels-describe",
   title: "Headings or labels that may not describe their topic",
 };
@@ -387,7 +391,8 @@ const pageLanguageMatches: JudgedCheck = {
 
     const notDeclared = 1 - (answer.probabilities[declared] ?? 0);
 
-    return notDeclared >= NOTE_AT && answer.choice !== declared
+    return notDeclared >= NOTE_AT["page-language-matches"] &&
+      answer.choice !== declared
       ? [
           {
             confidence: rounded(notDeclared),

@@ -35,10 +35,36 @@ The static reader collects the extra evidence in its single tokenizer pass: link
 
 ## Thresholds (fixed in code)
 
-- `NOTE_AT = 0.8`. A noul item is noted when the probability of "no" (`1 - noul`) is at least 0.8.
-- The language observation is noted when the probability that the text is in the declared language is at most 0.2 and the model's top choice is another language.
+`NOTE_AT` in `packages/core/src/judged.ts` holds one threshold per check, chosen on the labelled set below for precision of at least 0.9 with the most recall:
+
+| Check | Noted when | Precision | Recall |
+| --- | --- | --- | --- |
+| `alt-text-describes` | P(no) ≥ 0.70 | 1.00 (30/30) | 1.00 (30/30) |
+| `link-purpose` | P(no) ≥ 0.85 | 1.00 (24/24) | 0.80 (24/30) |
+| `headings-labels-describe` | P(no) ≥ 0.70 | 1.00 (26/26) | 0.96 (26/27) |
+| `page-language-matches` | P(not declared) ≥ 0.80 and the top choice is another language | 1.00 (15/15) | 1.00 (15/15) |
+
 - Each note shows the model's confidence in that answer (the probability above, rounded to a percent).
 - What a note means: the model, reading only the text shown, thinks this item probably does not do what the success criterion asks. It is a pointer for a person to look at, not a failure. A check with no notes means nothing was noted, never that the criterion is met.
+- All four checks reach 0.9 precision, so none is dropped. `packages/core/test/judged-calibration.test.ts` fails if a check in the report falls below 0.9 on the recorded answers, or a check has no calibration batch.
+
+## Calibration (2026-11-03)
+
+Set: `packages/core/test/fixtures/judged-calibration-items.json`, 212 labelled items. Answers: `judged-calibration-replies.json`, one Clef run, 36,370 input tokens (about $0.009, inside the daily allocation; one language text was asked twice because the first answer was lost in transcription).
+
+- Alt text: 60 (30 bad: file names such as `IMG_2041`, `DSC00123.JPG`, placeholders, generic words in five languages; 30 good: product and content descriptions, functional icon alts, logos, non-English descriptions).
+- Links: 60 (30 bad: "click here", "more", "read more", "here" alone, with filler context, and in Czech, German, French and Spanish; 30 good: descriptive nav text, and short text whose sentence gives the purpose).
+- Headings 36 (15 bad) and labels 24 (12 bad): "Section 1", "Untitled", "Heading goes here", "Field", "label_1", "*" against descriptive headings and labels in several languages.
+- Language: 32 pages (15 bad: `lang` names another language than the text; 17 good, including region subtags and a page whose navigation mixes English and German).
+- Asked the way a scan asks: 20 items per request in a fixed shuffled order, headings 12 and labels 8 per request, one language request per page (18 distinct texts; the declared `lang` is not part of the question).
+
+What it shows:
+
+- Clef separates clear cases well: most bad items sit at P(no) 0.85 to 0.99, most good ones under 0.3.
+- The misses are real limits: `link-purpose` does not note "Read more" after lorem ipsum (P(no) 0.57), "En savoir" (0.52) or "Více informací" (0.36), and lets go of non-English short links more readily. `headings-labels-describe` misses "New section" (0.69).
+- Near misses on good items: the logo alt "Sunny Bikes" (0.65 no), the heading "Sunny Bikes" (0.52), the icon alt "Facebook" (0.52), the link "More" after a product sentence (0.56). These set the 0.7 floor.
+- The old single 0.8 threshold already noted 30/30 bad alts and 14/15 bad headings here, so the threshold alone does not explain the silence on otto.de (41 items) and Brno Wikipedia (61). The likely reason, not verified item by item, is that those pages' alt texts, headings and short links are mostly fine.
+- The set is small and partly hand-written, so the precision is a floor check, not a rate. Recalibrate with real-shop items when the model or questions change.
 
 ## Cost per scan
 
@@ -58,11 +84,12 @@ Measured on the fixture page (`packages/core/test/fixtures/judged-page.html`, 4 
 - **Context is the innermost block.** A link in a long paragraph past the 300-character context cap is judged without its own sentence. Navigation links are judged on their own text, which is usually right for nav and wrong for card grids whose heading sits outside the link's block.
 - **Headings are judged alone.** 2.4.6 asks whether a heading describes its section; the model sees only the heading. It catches "Section 1" and "Untitled", not a heading that names the wrong topic.
 - **Language sample.** The first 1,200 characters of visible text include navigation and cookie banners. A multilingual page or a page whose banner is in another language can be noted wrongly; the 0.2 threshold keeps borderline cases out.
-- **Calibration.** Clef's probabilities are the model's own. The 0.8 threshold was set from the fixture answers (noted items scored 0.96 to 0.98 "no"; borderline "click here" with context scored 0.56, not noted). It needs a labelled sample of real shops before anyone reads the confidence as a rate.
+- **Calibration.** Clef's probabilities are the model's own; the thresholds come from 212 labelled items (see Calibration). A changed question template or model invalidates them: rerun the set.
 
 ## Tests
 
 - `packages/core/test/judged.test.ts` runs the four checks on recorded evidence (`judged-evidence.json`, read from the fixture page by the real reader) and recorded Clef answers (`judged-replies.json`, recorded 2026-11-03). No test calls a model. It covers what is noted and what is not, the item cap, skipping the language question, confidences, references from verified facts only, the token reservation covering real usage, and that judged observations never change findings or the headline.
+- `packages/core/test/judged-calibration.test.ts` rebuilds the calibration requests with `questionsFor`, decides them with each check's `decide` on the recorded answers, and checks precision and recall per check.
 - `packages/ai-judge/test/ai-judge.test.ts` checks the pinned model and gateway, decoding, and the `service`, `unreadable` and `timeout` failures.
 - `packages/scan-store/test/judge-budget.test.ts` checks the daily token cap.
 - `packages/html-reader/test/judge-evidence.test.ts` checks the new evidence, and the hostile-input test runs `questionsFor` in the linear-time budget.
