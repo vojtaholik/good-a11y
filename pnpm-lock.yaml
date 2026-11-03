@@ -581,6 +581,9 @@ importers:
       '@eaa-check/core':
         specifier: workspace:*
         version: link:../core
+      '@effect/platform-node':
+        specifier: 4.0.0
+        version: 4.0.0(effect@4.0.0)(redis@6.2.1)
       effect:
         specifier: 4.0.0
         version: 4.0.0

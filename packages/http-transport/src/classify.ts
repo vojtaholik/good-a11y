@@ -2,6 +2,8 @@ import { TransportFailure } from "@eaa-check/core";
 import { Option, Schema } from "effect";
 import type { HttpClientError } from "effect/http";
 
+import { NOT_PUBLIC_CODE } from "./public-lookup.js";
+
 const RuntimeFailure = Schema.Struct({
   cause: Schema.optional(
     Schema.Struct({
@@ -9,6 +11,7 @@ const RuntimeFailure = Schema.Struct({
       message: Schema.optional(Schema.String),
     })
   ),
+  code: Schema.optional(Schema.String),
   message: Schema.optional(Schema.String),
 });
 
@@ -35,6 +38,10 @@ const kindOf = (code: string | undefined): TransportFailure["kind"] => {
     return "unknown";
   }
 
+  if (code === NOT_PUBLIC_CODE) {
+    return "not_public";
+  }
+
   if (DNS_CODES.has(code)) {
     return "dns";
   }
@@ -58,9 +65,13 @@ export const toTransportFailure = (
     runtime?.message,
     runtime?.cause?.code,
     runtime?.cause?.message,
+    runtime?.code,
   ]
     .filter((part) => part !== undefined)
     .join(": ");
 
-  return new TransportFailure({ detail, kind: kindOf(runtime?.cause?.code) });
+  return new TransportFailure({
+    detail,
+    kind: kindOf(runtime?.cause?.code ?? runtime?.code),
+  });
 };

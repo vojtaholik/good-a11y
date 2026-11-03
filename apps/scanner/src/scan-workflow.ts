@@ -207,10 +207,13 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
       Effect.gen(function* askModelStep() {
         const asked = questionsFor(evidence);
 
+        const day = utcDayOf(yield* Clock.currentTimeMillis);
+        const tokens = tokensToReserve(asked);
+
         const reserved = yield* judgeBudget.reserve({
           dailyTokens: DAILY_JUDGE_TOKENS,
-          day: utcDayOf(yield* Clock.currentTimeMillis),
-          tokens: tokensToReserve(asked),
+          day,
+          tokens,
         });
 
         if (!reserved) {
@@ -240,6 +243,14 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
             )
           )
         );
+
+        if (judged.status === "ran") {
+          yield* judgeBudget.settle({
+            day,
+            reserved: tokens,
+            used: judged.inputTokens,
+          });
+        }
 
         return judged;
       });

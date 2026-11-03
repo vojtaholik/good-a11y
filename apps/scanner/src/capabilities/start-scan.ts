@@ -2,6 +2,7 @@ import { implement } from "@eaa-check/capability/implement";
 import {
   DailyCapReached,
   SCAN_FAILED,
+  STALE_AFTER_MILLIS,
   ScanUnavailable,
   parseScanTarget,
   slugOf,
@@ -11,7 +12,11 @@ import { ScanStore } from "@eaa-check/scan-store";
 import { Clock, Effect } from "effect";
 
 import { ScanLauncher } from "../scan-launcher.js";
-import { DAILY_SCAN_CAP, REUSE_WITHIN_MILLIS } from "../site-limits.js";
+import {
+  DAILY_SCAN_CAP,
+  REUSE_WITHIN_MILLIS,
+  SITE_DAILY_SCAN_CAP,
+} from "../site-limits.js";
 import { newId } from "./new-id.js";
 
 export const startScan = implement(startScanContract, ({ url }) =>
@@ -29,7 +34,9 @@ export const startScan = implement(startScanContract, ({ url }) =>
         requestedAt,
         reuseWithin: REUSE_WITHIN_MILLIS,
         scanId,
+        siteCap: SITE_DAILY_SCAN_CAP,
         slug,
+        staleAfter: STALE_AFTER_MILLIS,
         url: target.url,
       })
       .pipe(
@@ -43,6 +50,13 @@ export const startScan = implement(startScanContract, ({ url }) =>
       return yield* new DailyCapReached({
         limit: DAILY_SCAN_CAP,
         what: "scans",
+      });
+    }
+
+    if (outcome.kind === "site_cap_reached") {
+      return yield* new DailyCapReached({
+        limit: SITE_DAILY_SCAN_CAP,
+        what: "scans of this site",
       });
     }
 

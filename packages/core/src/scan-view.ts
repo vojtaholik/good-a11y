@@ -32,7 +32,7 @@ export const slugKey = (hostname: string): string =>
 
 export const slugOf = (url: string): string => slugKey(new URL(url).hostname);
 
-export const STALE_AFTER_MILLIS = 600_000;
+export const STALE_AFTER_MILLIS = 900_000;
 
 export const readAt = (view: ScanView, now: number): ScanView =>
   view.stage === "published" ||

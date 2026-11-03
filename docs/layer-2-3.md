@@ -23,7 +23,7 @@ Deployed to the non-production stage `dev`: https://eaacheck-website-dev-x6ihepv
    - `render`: when the static report is `checked` or `refused`, reserves browser time in `BrowserBudget`, opens the page once in Browser Run (`packages/browser-audit`), runs axe-core and the rendered probes (`docs/rendered-probes.md`), keeps the raw axe JSON in R2 (`EvidenceArchive`), and adds the result with `withRendered`. No retries and a 120 second timeout: a second browser session would spend budget on a site that already refused one. A spent budget, a browser that is blocked or a failed session leaves a skipped section with its reason, and a failed render task still publishes the static report.
    - `store`: writes the report and marks the row `published`.
    - `fail`: marks the row `failed` with a plain message.
-4. `getScan(slug)` reads the newest row for the hostname without `www.`. A row still unsettled after 10 minutes reads as failed.
+4. `getScan(slug)` reads the newest row for the hostname without `www.`. A row still unsettled after 15 minutes (`STALE_AFTER_MILLIS`, longer than the sum of the step timeouts, about 13 minutes) reads as failed, and the next `startScan` of that URL marks it failed and starts a new scan (review M2).
 
 ## Contact
 
@@ -73,3 +73,11 @@ Every settled report, refused ones included, ends with the studio9 contact text 
 ## Browser navigation is vetted (review H1)
 
 Browser Run follows redirects, meta refreshes and script navigations itself, so `SafeFetch` never sees those hops. The session therefore turns on request interception. Every navigation request, in the main frame and in frames, goes through `navigationAllowed`: it must pass `vetUrl` (which also refuses other schemes than http and https) and have at most `DEFAULT_MAX_REDIRECTS` redirects behind it, or it is aborted. Other requests, such as images and scripts, continue unchanged. After `goto` and again after the probes, the page's URL is vetted once more. A refused hop or a refused landing fails the audit with the kind `navigation`, and the report says "The page sent the browser to an address the scanner does not open, so the rendered page was not checked." Tests: `packages/browser-audit/test/rendered-audit.test.ts`.
+
+## Per-caller and per-site limits (review H2, L3)
+
+The global daily caps (200 scans, 50 messages, the browser and judge budgets) stay as spend ceilings. In front of them:
+
+- The website Worker reads the procedure tags of each `/rpc` POST body and, for `startScan` and `sendMessage`, asks a Cloudflare rate limit binding keyed by `cf-connecting-ip` before the request goes to the Scanner. Limits: 5 `startScan` calls and 2 `sendMessage` calls per minute per address (`apps/web/src/server/limits.ts`). Cloudflare's binding allows only 10 or 60 second periods, so "3 messages per 10 minutes" became 2 per minute. Over the limit the Worker answers 429 with "Too many requests from your address. Wait a minute and try again." The binding counts per Cloudflare location and approximately: on dev, 15 calls one second apart from one address got the first 429 on the 9th call. It stops bursts and scripts, not a careful caller.
+- A site can be scanned at most 10 times a day (`SITE_DAILY_SCAN_CAP`), counted by slug, so a query string per request cannot use up the global cap. Over it, `startScan` fails with "Today's cap of 10 new scans of this site is reached."
+- The per-site cap, the global cap and the reuse of a running scan of the same URL are all conditions of the one `INSERT` in `ScanStore.begin`, so two calls at the same moment start one Workflow, and the second gets the first scan's ID.

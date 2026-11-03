@@ -33,7 +33,7 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 | `@eaa-check/capability` | `packages/capability` | `defineContract`, `implement`, and the `toCommand` and `toRpc` projections, copied from webproai unchanged |
 | `@eaa-check/facts` | `packages/facts` | Parses the facts ledger (`research/facts/**/*.md`) and holds the generated data the product reads: only `verified` facts, looked up by ID, and per-state profiles |
 | `@eaa-check/core` | `packages/core` | The domain: the `scan` capability, the hardened fetch (`SafeFetch`), evidence, the checks, the check catalogue, per-state applicability and the report. It owns the ports `HopTransport`, `PageReader` and `RenderedAudit` and imports no HTTP client and no parser. The fence's own tests also live in `packages/core/test` |
-| `@eaa-check/http-transport` | `packages/http-transport` | Adapter for `HopTransport`: one request through Effect's `HttpClient` on `fetch`, never follows a redirect, sends no tracing headers |
+| `@eaa-check/http-transport` | `packages/http-transport` | Adapter for `HopTransport`: one request through Effect's `HttpClient` on `fetch`, never follows a redirect, sends no tracing headers. Its `./node` entry (the CLI's) resolves each name, refuses it when any address is private, loopback, link-local, CGNAT, multicast, reserved or IPv4-mapped to one of those, and connects only to the address it vetted |
 | `@eaa-check/browser-audit` | `packages/browser-audit` | Adapter for `RenderedAudit`: one Browser Run session through `@cloudflare/puppeteer`, fixed viewport and user agent, runs the pinned axe-core, closes the browser in a finalizer, hard timeout |
 | `@eaa-check/html-reader` | `packages/html-reader` | Adapter for `PageReader`: reads the accessibility evidence out of HTML in one pass over the `htmlparser2` tokenizer, with no tree |
 | `@eaa-check/cli` | `apps/cli` | Composition root for the `eaa-check` bin. One command per capability |
@@ -117,6 +117,7 @@ Preserve existing work. Inspect status before editing, stage only files changed 
 - `rat-stack-boundaries/no-cross-layer-imports` enforces dependency direction: apps → `packages/core` → `packages/facts`, `packages/capability` → Effect. Packages do not import apps.
 - A scan runs in steps, each a Workflow task: `parseScanTarget` turns what was typed into a vetted target, `SafeFetch` fetches the one page, `PageReader.read` turns its HTML into `PageEvidence`, and `report` runs every static check and builds the `Report`. Then `RenderedAudit` opens the page in Browser Run (also when the static fetch was refused, decision 20), runs the pinned axe-core and the rendered probes, and `withRendered` adds their findings, or a skip with its reason, to the `Report`. Then the judged step may add judged observations under its own budget.
 - `SafeFetch` is the only caller of `HopTransport`, and `HopTransport.open` takes a `PublicUrl`. Only `vetUrl` makes one.
+- `vetUrl` vets the name. The address it resolves to is vetted by the transport: on Node by `@eaa-check/http-transport/node`, on Workers by Cloudflare's egress, which does not reach private networks. The Worker code does not vet addresses itself.
 
 ## Boundaries and sign-off
 

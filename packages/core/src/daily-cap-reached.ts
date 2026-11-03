@@ -4,7 +4,7 @@ export class DailyCapReached extends Schema.TaggedError<DailyCapReached>()(
   "DailyCapReached",
   {
     limit: Schema.Int,
-    what: Schema.Literals(["scans", "messages"]),
+    what: Schema.Literals(["scans", "scans of this site", "messages"]),
   }
 ) {
   override get message(): string {

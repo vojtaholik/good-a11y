@@ -11,12 +11,21 @@ export interface TokenReservation {
   readonly tokens: number;
 }
 
+export interface TokenSettlement {
+  readonly day: string;
+  readonly reserved: number;
+  readonly used: number;
+}
+
 export class JudgeBudget extends Context.Service<
   JudgeBudget,
   {
     readonly reserve: (
       reservation: TokenReservation
     ) => Effect.Effect<boolean, ScanStoreError>;
+    readonly settle: (
+      settlement: TokenSettlement
+    ) => Effect.Effect<void, ScanStoreError>;
   }
 >()("@eaa-check/scan-store/JudgeBudget", {
   make: Effect.gen(function* makeJudgeBudget() {
@@ -36,6 +45,14 @@ export class JudgeBudget extends Context.Service<
           return changed.length > 0;
         },
         Effect.mapError(failedDuring("reserve"))
+      ),
+      settle: Effect.fn("JudgeBudget.settle")(
+        function* settle({ day, reserved, used }: TokenSettlement) {
+          yield* db.all<{ readonly day: string }>(
+            sql`UPDATE judge_budget SET reserved_tokens = MAX(0, reserved_tokens + ${Math.max(0, used)} - ${Math.max(0, reserved)}) WHERE day = ${day} RETURNING day`
+          );
+        },
+        Effect.mapError(failedDuring("settle"))
       ),
     };
   }),

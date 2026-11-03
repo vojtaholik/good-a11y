@@ -13,6 +13,7 @@ export class ScanStoreError extends Schema.TaggedError<ScanStoreError>()(
       "one",
       "reserve",
       "release",
+      "settle",
       "keep",
     ]),
   }

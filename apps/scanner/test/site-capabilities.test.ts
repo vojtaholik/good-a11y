@@ -2,6 +2,7 @@ import type { ScanJob } from "@eaa-check/core";
 import { localStores } from "@eaa-check/scan-store/testing";
 import { describe, expect, it } from "@effect/vitest";
 import { Effect, Layer, Ref } from "effect";
+import { TestClock } from "effect/testing";
 
 import { getScan, sendMessage, startScan } from "../src/capabilities/index.js";
 import { ScanLauncher } from "../src/scan-launcher.js";
@@ -46,6 +47,8 @@ describe("site capabilities", () => {
         const mine = yield* startScan.handler({
           url: "https://own.example.com/",
         });
+
+        yield* TestClock.adjust("1 second");
 
         const theirs = yield* startScan.handler({
           url: "https://own.example.com/other",

@@ -1,4 +1,4 @@
-import { ReportSchema, ScanStageSchema } from "@eaa-check/core";
+import { ReportSchema, SCAN_FAILED, ScanStageSchema } from "@eaa-check/core";
 import type { Report, ScanView } from "@eaa-check/core";
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { Context, Effect, Layer, Option, Schema } from "effect";
@@ -14,14 +14,17 @@ export interface NewScan {
   readonly requestedAt: number;
   readonly reuseWithin: number;
   readonly scanId: string;
+  readonly siteCap: number;
   readonly slug: string;
+  readonly staleAfter: number;
   readonly url: string;
 }
 
 export type BeginOutcome =
   | { readonly kind: "begun" }
   | { readonly kind: "reused"; readonly scanId: string }
-  | { readonly kind: "cap_reached" };
+  | { readonly kind: "cap_reached" }
+  | { readonly kind: "site_cap_reached" };
 
 const UNSETTLED = ["queued", "scanning"];
 
@@ -75,6 +78,9 @@ const viewOf = (scan: PersistedScan) =>
     });
   });
 
+const unsettledWindow = (next: NewScan): number =>
+  Math.min(next.reuseWithin, next.staleAfter);
+
 const isReusable = (
   scan: PersistedScan,
   view: ScanView,
@@ -91,7 +97,7 @@ const isReusable = (
     );
   }
 
-  return next.requestedAt - scan.requestedAt <= next.reuseWithin;
+  return next.requestedAt - scan.requestedAt <= unsettledWindow(next);
 };
 
 export class ScanStore extends Context.Service<
@@ -148,6 +154,10 @@ export class ScanStore extends Context.Service<
     return {
       begin: Effect.fn("ScanStore.begin")(
         function* begin(scan: NewScan) {
+          yield* db.run(
+            sql`UPDATE scans SET stage = 'failed', failure = ${SCAN_FAILED}, settled_at = ${scan.requestedAt} WHERE url = ${scan.url} AND stage IN ('queued', 'scanning') AND requested_at < ${scan.requestedAt - scan.staleAfter}`
+          );
+
           const previous = yield* newest(scan.slug);
 
           if (Option.isSome(previous)) {
@@ -158,22 +168,36 @@ export class ScanStore extends Context.Service<
             }
           }
 
+          const dayStart = scan.requestedAt - DAY_MILLIS;
+          const runningSince = scan.requestedAt - unsettledWindow(scan);
+
           const inserted = yield* db.all<{ readonly id: string }>(
-            sql`INSERT OR IGNORE INTO scans (id, slug, url, requested_at, stage) SELECT ${scan.scanId}, ${scan.slug}, ${scan.url}, ${scan.requestedAt}, 'queued' WHERE (SELECT COUNT(*) FROM scans WHERE requested_at > ${scan.requestedAt - DAY_MILLIS}) < ${scan.dailyCap} RETURNING id`
+            sql`INSERT OR IGNORE INTO scans (id, slug, url, requested_at, stage) SELECT ${scan.scanId}, ${scan.slug}, ${scan.url}, ${scan.requestedAt}, 'queued' WHERE (SELECT COUNT(*) FROM scans WHERE requested_at > ${dayStart}) < ${scan.dailyCap} AND (SELECT COUNT(*) FROM scans WHERE slug = ${scan.slug} AND requested_at > ${dayStart}) < ${scan.siteCap} AND NOT EXISTS (SELECT 1 FROM scans WHERE url = ${scan.url} AND stage IN ('queued', 'scanning') AND requested_at >= ${runningSince}) RETURNING id`
           );
 
           if (inserted.length > 0) {
             return { kind: "begun" } as const;
           }
 
-          const existing = yield* db
-            .select({ id: Scans.id })
-            .from(Scans)
-            .where(eq(Scans.id, scan.scanId))
-            .limit(1);
+          const [blocker] = yield* db.all<{
+            readonly id: string;
+            readonly mine: number;
+            readonly running: number;
+            readonly site: number;
+          }>(
+            sql`SELECT (SELECT COUNT(*) FROM scans WHERE id = ${scan.scanId}) AS mine, (SELECT id FROM scans WHERE url = ${scan.url} AND stage IN ('queued', 'scanning') AND requested_at >= ${runningSince} ORDER BY requested_at DESC LIMIT 1) AS id, (SELECT COUNT(*) FROM scans WHERE url = ${scan.url} AND stage IN ('queued', 'scanning') AND requested_at >= ${runningSince}) AS running, (SELECT COUNT(*) FROM scans WHERE slug = ${scan.slug} AND requested_at > ${dayStart}) AS site`
+          );
 
-          return existing.length > 0
-            ? ({ kind: "begun" } as const)
+          if (blocker === undefined || blocker.mine > 0) {
+            return { kind: "begun" } as const;
+          }
+
+          if (blocker.running > 0) {
+            return { kind: "reused", scanId: blocker.id } as const;
+          }
+
+          return blocker.site >= scan.siteCap
+            ? ({ kind: "site_cap_reached" } as const)
             : ({ kind: "cap_reached" } as const);
         },
         Effect.mapError(failedDuring("begin"))

@@ -3,7 +3,7 @@
 import { Approval } from "@eaa-check/capability";
 import { SafeFetch } from "@eaa-check/core";
 import { htmlPageReaderLayer } from "@eaa-check/html-reader";
-import { httpHopTransportLayer } from "@eaa-check/http-transport";
+import { nodeHopTransportLayer } from "@eaa-check/http-transport/node";
 import { NodeRuntime, NodeServices } from "@effect/platform-node";
 import { Console, Effect, Layer } from "effect";
 
@@ -18,7 +18,7 @@ const program = runCommand(process.argv.slice(2)).pipe(
   ),
   Effect.provide(
     Layer.mergeAll(
-      SafeFetch.layer.pipe(Layer.provide(httpHopTransportLayer)),
+      SafeFetch.layer.pipe(Layer.provide(nodeHopTransportLayer)),
       htmlPageReaderLayer,
       NodeServices.layer,
       Approval.denyAll

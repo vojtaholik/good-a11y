@@ -27,6 +27,9 @@ const make = Effect.gen(function* makeHttpHopTransport() {
   return HopTransport.of({ open });
 });
 
-export const httpHopTransportLayer = Layer.effect(HopTransport, make).pipe(
-  Layer.provide(FetchHttpClient.layer)
-);
+export const hopTransportLayerOn = <E>(
+  client: Layer.Layer<HttpClient.HttpClient, E>
+): Layer.Layer<HopTransport, E> =>
+  Layer.effect(HopTransport, make).pipe(Layer.provide(client));
+
+export const httpHopTransportLayer = hopTransportLayerOn(FetchHttpClient.layer);

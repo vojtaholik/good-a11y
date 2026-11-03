@@ -8,6 +8,8 @@ import { localStores } from "./local-d1.js";
 
 const HOUR = 3_600_000;
 
+const STALE = 15 * 60_000;
+
 const report = reportOf(
   {
     finalUrl: "https://example.com/",
@@ -26,7 +28,9 @@ const scanAt = (scanId: string, requestedAt: number, dailyCap = 10) => ({
   requestedAt,
   reuseWithin: HOUR,
   scanId,
+  siteCap: 100,
   slug: "example.com",
+  staleAfter: STALE,
   url: "https://example.com/",
 });
 
@@ -137,6 +141,85 @@ describe("ScanStore", () => {
           expect(Option.isNone(yield* store.one("other.example", "mine"))).toBe(
             true
           );
+        })
+    );
+
+    scoped.effect(
+      "reuses a scan another request began a moment earlier for the same URL",
+      () =>
+        Effect.gen(function* concurrent() {
+          const store = yield* ScanStore;
+          const at = 20 * HOUR;
+          const site = { slug: "race.example", url: "https://race.example/" };
+
+          const [first, second] = yield* Effect.all(
+            [
+              store.begin({ ...scanAt("race-1", at, 1000), ...site }),
+              store.begin({ ...scanAt("race-2", at, 1000), ...site }),
+            ],
+            { concurrency: "unbounded" }
+          );
+
+          expect([first, second]).toEqual([
+            { kind: "begun" },
+            { kind: "reused", scanId: "race-1" },
+          ]);
+        })
+    );
+
+    scoped.effect(
+      "fails a stuck scan once it is stale and starts a new one",
+      () =>
+        Effect.gen(function* stale() {
+          const store = yield* ScanStore;
+          const at = 30 * HOUR;
+          const site = { slug: "stuck.example", url: "https://stuck.example/" };
+
+          yield* store.begin({ ...scanAt("stuck", at, 1000), ...site });
+
+          expect(
+            yield* store.begin({
+              ...scanAt("fresh", at + STALE - 1, 1000),
+              ...site,
+            })
+          ).toEqual({ kind: "reused", scanId: "stuck" });
+
+          expect(
+            yield* store.begin({
+              ...scanAt("fresh", at + STALE + 1, 1000),
+              ...site,
+            })
+          ).toEqual({ kind: "begun" });
+
+          const stuck = Option.getOrNull(
+            yield* store.one("stuck.example", "stuck")
+          );
+
+          expect(stuck?.stage).toBe("failed");
+        })
+    );
+
+    scoped.effect(
+      "refuses more scans of one site in a day than its site cap, whatever the query string",
+      () =>
+        Effect.gen(function* siteCap() {
+          const store = yield* ScanStore;
+          const at = 40 * HOUR;
+
+          const outcomes = yield* Effect.forEach([1, 2, 3], (n) =>
+            store.begin({
+              ...scanAt(`site-${n}`, at + n, 1000),
+              siteCap: 2,
+              slug: "busy.example",
+              url: `https://busy.example/?n=${n}`,
+            })
+          );
+
+          expect(outcomes.map(({ kind }) => kind)).toEqual([
+            "begun",
+            "begun",
+            "site_cap_reached",
+          ]);
         })
     );
   });

@@ -4,7 +4,13 @@ export class TransportFailure extends Schema.TaggedError<TransportFailure>()(
   "TransportFailure",
   {
     detail: Schema.String,
-    kind: Schema.Literals(["dns", "tls", "connection", "unknown"]),
+    kind: Schema.Literals([
+      "dns",
+      "tls",
+      "connection",
+      "not_public",
+      "unknown",
+    ]),
   }
 ) {
   override get message(): string {

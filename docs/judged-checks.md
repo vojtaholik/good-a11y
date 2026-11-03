@@ -14,7 +14,7 @@ Built 2026-11-03 by builder-judge. After the static and rendered checks, a scan 
 2. After `render`, the `judge` task runs (only for a `checked` report; a refused, unreachable or non-HTML page gets no judged section):
    - reads the evidence back from R2;
    - builds one request per judged check with `questionsFor(evidence)`;
-   - reserves `tokensToReserve(asked)` tokens with `JudgeBudget.reserve` against `DAILY_JUDGE_TOKENS` (400,000 a day). The insert is conditional, so the budget is never overspent;
+   - reserves `tokensToReserve(asked)` tokens with `JudgeBudget.reserve` against `DAILY_JUDGE_TOKENS` (400,000 a day). The insert is conditional, so a reservation never passes the cap; after the call the reservation is settled to real use (below);
    - asks the model, at most 4 requests at once, through the `Judge` port (`packages/ai-judge`: 30 s hard timeout, reply decoded with `JudgeReplySchema`, any failure becomes `JudgeUnavailable`);
    - turns the answers into observations with `judgedOf` and attaches them with `withJudged`.
 3. If the budget is spent, the report says "Today's budget for model-judged observations is spent." If the model fails, times out or answers outside the schema, the report says "The decision model did not answer, so nothing was judged by a model." The failure detail goes to the Worker log only; nothing the service wrote is shown to a visitor.
@@ -106,6 +106,7 @@ Measured on the fixture page (`packages/core/test/fixtures/judged-page.html`, 4 
 - The reservation is computed before the call from the request size (characters / 3, plus 40 tokens per question and 300 per request). On the fixture it reserves 3,802 for 3,114 used.
 - Measured on stage `dev`, 2026-11-03, scanning https://en.wikipedia.org/wiki/Brno: 61 items asked (20 images, 20 links, 20 headings and labels, 1 language sample), 9,632 input tokens, about 210 neurons, $0.0023. Nothing was noted. The reservation was 16,629 tokens (1.7× the real use: long link contexts escape into more characters per token), so at the 20-item cap the daily budget allows about 24 scans. Lowering the estimate is the lever if that is too few; the budget sits under the free allocation either way.
 - Each scan's tokens are logged by the `judge` task (`Judged step for <url>: <n> input tokens`) and stored in `report.judged.inputTokens`.
+- After the answers, `JudgeBudget.settle` replaces the reservation with the input tokens the model reported (`reply.usage.input_tokens`, summed), up or down. The day's count is then real use, so an undercount (dense scripts such as Greek or Bulgarian take more tokens per character) can push it past the cap once, and the next reservation is refused. When a call fails, the whole reservation stays counted. On the real calibration set the estimate was 20,041 tokens for 16,895 used.
 - w3.org's BAD demo page was tried first and refused the scanner (HTTP 403 from Cloudflare's network), so it got no judged section, as designed.
 
 ## Known failure modes

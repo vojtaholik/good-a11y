@@ -47,6 +47,10 @@ const TRANSPORT_REASONS = {
     reason: "connection",
   },
   dns: { detail: "The domain was not found in DNS.", reason: "dns" },
+  not_public: {
+    detail: "The domain resolves to a private or reserved address.",
+    reason: "forbidden_host",
+  },
   tls: {
     detail: "A secure (HTTPS) connection could not be made.",
     reason: "tls",
