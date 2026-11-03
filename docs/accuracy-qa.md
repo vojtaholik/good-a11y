@@ -108,3 +108,57 @@ Counted over the findings checked by hand above, after the fixes in this documen
 | headings-labels-describe | judged | 1 of 6 | 2 | Wrong on Czech headings |
 
 Static precision is high on these sites because the checks only fire on markup that cannot pass. Five static checks fired nowhere in this sample, so their precision is unmeasured, not proven.
+
+## Regression run
+
+Run on 2026-11-03 between 22:00 and 23:30 by builder-core, over the same 21 sites.
+
+- The static checks ran through the CLI on current main.
+- Full scans ran on stage `dev`. The first four sites ran on 2254bf6 and the rest on 49d240b, deployed at 22:31; no check changed between the two.
+- Every probe finding below was checked by hand in local headless Chrome: a screenshot before and after focus, and the same page script the adapter runs.
+
+"Static" is the CLI result. "Dev" lists the issues in the dev report.
+
+| Site | Static | Dev | Verdict |
+| --- | --- | --- | --- |
+| gov.uk | none | none | Same |
+| w3.org/WAI | none | Static fetch refused (HTTP 403); rendered checks only, none | The site refuses Worker egress but not the CLI. Not a regression |
+| Wikipedia | none | Sideways scrolling at 320 px, 5 samples | FP, fixed. The samples are `mwe-popups`, the link preview that the tab walk's last focused link opened. The page itself does not scroll at 320 px |
+| otto.de | image-alt 10 of 10, link-name 1 | Focus that cannot be seen 22, contrast 13, image-alt, reflow, link-name 3, text spacing 1 | Focus: FP, fixed (below). Contrast: the known shadow DOM background FP from round 3 |
+| ikea.com | none | Text spacing 9, invalid lists 2 | Lists TP (round 3). Text spacing asks a person to check each sample |
+| emag.ro | none | Static only: the site blocked Browser Run | Same static result. The site, not a regression |
+| rohlik.cz | none | Text spacing 8, contrast 4, invalid list 1 | Contrast and list TP (round 3) |
+| bbc.co.uk | none | Links told apart by colour alone 1 | TP (round 3) |
+| berkshirehathaway.com | html-lang | html-lang, definition list 1 | Same |
+| info.cern.ch | html-lang | html-lang, and one rendered issue | Same |
+| craigslist.org | html-lang, form-labels 1 | Focus that cannot be seen 2, form-labels, html-lang, contrast 1, text spacing 1 | Focus: FP, fixed. The frame-title FP from round 1 stays fixed |
+| arngren.net | html-lang, form-labels 3, link-name 188 of 611 | The same three, plus contrast 101, reflow, invalid list 1 | Same static result |
+| spacejam.com/1996 | html-lang | html-lang | Same |
+| idnes.cz | image-alt 20 of 103, link-name 3, frame-title 1 | image-alt, link-name 9, frame-title 7, contrast 6, reflow, text spacing 1 | Same static result. After the fix, local Chrome finds 30 article links with no visible focus: TP, checked by screenshot. The dev rescan with e1ce0a7 did not report them, so Browser Run's walk did not reach those links |
+| seznam.cz | link-name 50 of 439, button-name 53 of 113 | The same two, plus contrast 145, frame-title 52 and four structure issues | Same after the gzip fix (below) |
+| zara.com | refused (Akamai) | Rendered only: Tab key never reaches 6 | Same static result. Rendered finding not checked by hand |
+| lingscars.com | button-name 2 of 3 | button-name 2 (served HTML), contrast 15, focus 4, link-name 1, text spacing 1 | Newly read: refused in round 2, the site answers some fetches and not others. The two Swiper arrows are icon-only `<button>`s with an SVG and no name in the served HTML: TP. Swiper may name them after load. The rendered findings were not checked by hand |
+| alza.cz | refused (403) | Rendered only: Tab key never reaches 7, contrast 5, reflow, text spacing 3 | Same static result. Rendered findings not checked by hand |
+| heureka.cz | refused (403) | Rendered only: contrast 56, text spacing 32, ARIA value 1 | Same static result. Not checked by hand |
+| mediamarkt.de | none | Six rendered issues, structure and hidden focusable elements | Newly read: refused in round 2. Not checked by hand |
+| hm.com | refused (403) | refused, nothing tested | Same |
+
+Every report lists all 27 states under "Covers e-commerce services" and none as unknown. No report says "compliant" or "compliance score". The only match for "complian" is "Non-compliance" inside the verified Irish penalty fact IE-PEN-2. No scan crashed.
+
+### Bugs found and fixed
+
+- **The CLI read gzip bodies as noise** (fixed in 1349852). The Node transport (M3) sends requests through `node:http`, which does not decompress. seznam.cz came back as noise. The transport now decodes gzip, deflate, br and zstd by Content-Encoding.
+- **Focus that cannot be seen: false positives on otto.de and craigslist.org** (fixed in e1ce0a7). The probe judged a stop from the control's own styles, at the moment of `focusin`. Both pages draw their focus ring later, from their own handlers:
+  - otto.de moves a floating ring (`oc-floating-focus-v1`: absolutely positioned, `pointer-events: none`, in a shadow root) in a `setTimeout`, then animates it with a transition inside the shadow root;
+  - craigslist.org adds a `bd-focused` class to the field's wrapper.
+
+  Now a stop with no change is settled when focus leaves it. Its styles are read again, and a ring layer hugging the control (each edge within 16 px, open shadow roots included) counts as a visible change. The no-transitions style is now also added to open shadow roots. Re-walking the 17 sites that load: otto.de 34 to 0, craigslist.org 2 to 0, and no other site changes from this part. The dev rescans of otto.de and craigslist.org with e1ce0a7 no longer report the issue.
+
+- **Focus that cannot be seen: false negative on `outline: none`** (fixed in e1ce0a7). Chrome's default focus style sets `outline-offset`, so a page that wrote `outline: none` still showed a change and passed. Outline width, colour and offset now count only while an outline is drawn. In local Chrome this finds 30 article links on idnes.cz and 2 buttons on seznam.cz. The idnes case was confirmed by screenshot: the link is focused and the page does not change.
+- **Reflow: a popup opened by the tab walk** (fixed in 14fe334). Wikipedia's link preview stays open after `blur()` and Escape, until the pointer or focus reaches another link. At 320 px it made the page 890 px wide. e1ce0a7 blurred first and the dev rescan still reported it. Reflow is now measured before the tab walk, and the 1280 px viewport is restored after it. The dev rescan with 14fe334 reports no issues on Wikipedia.
+- **"The model noted nothing in the 0 items it was asked about"** on emag.ro, where the browser was blocked. The judged section is now left out when nothing was asked (14fe334).
+
+### Open
+
+- The reflow and other probe issues show their sample count (at most 5) as "5 elements failing". The probe keeps no total, so the count reads as exact when it is only a lower bound.
+- The rendered findings on lingscars.com, zara.com, alza.cz, heureka.cz and mediamarkt.de were not checked by hand.
