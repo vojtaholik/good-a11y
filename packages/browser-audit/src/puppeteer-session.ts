@@ -7,7 +7,7 @@ import {
   TRAP_PRESSES,
   TRAP_SIZE,
 } from "@eaa-check/core";
-import { Effect, Result, Schema } from "effect";
+import { Clock, Effect, Result, Schema } from "effect";
 
 import { axeSource, probesSource } from "#page-scripts";
 
@@ -31,7 +31,11 @@ const READ_EVERY = 10;
 
 const REFLOW_SETTLE = "1 second";
 
-const PROBE_TIMEOUT = "30 seconds";
+const PROBE_TIMEOUT = "40 seconds";
+
+const STEP_TIMEOUT = "8 seconds";
+
+export const WALK_MILLIS = 15_000;
 
 const TARGET_SIZE_RUN = `axe.run(document, ${JSON.stringify({
   resultTypes: ["violations"],
@@ -52,6 +56,16 @@ const keysOf = (stops: readonly unknown[]): readonly number[] => {
 
 const optional = <A>(probe: Effect.Effect<A, RenderedAuditFailed>) =>
   probe.pipe(
+    Effect.timeoutOrElse({
+      duration: STEP_TIMEOUT,
+      orElse: () =>
+        Effect.fail(
+          new RenderedAuditFailed({
+            detail: `A rendered probe ran past ${STEP_TIMEOUT}.`,
+            kind: "timeout",
+          })
+        ),
+    }),
     Effect.tapError((failure) =>
       Effect.logWarning(`Rendered probe skipped: ${failure.detail}`)
     ),
@@ -142,7 +156,14 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
           let presses = 0;
           let state = walkState([], candidateCount);
 
-          while (presses < MAX_PRESSES && !state.cycled && !state.trapped) {
+          const startedAt = yield* Clock.currentTimeMillis;
+
+          while (
+            presses < MAX_PRESSES &&
+            !state.cycled &&
+            !state.trapped &&
+            (yield* Clock.currentTimeMillis) - startedAt < WALK_MILLIS
+          ) {
             yield* press(READ_EVERY);
             presses += READ_EVERY;
             forward.push(...(yield* stopsFrom(forward.length)));
@@ -184,7 +205,13 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
           evaluate("__eaaProbes.textSpacing()")
         );
 
-        const walked = yield* optional(walk);
+        const walked = yield* walk.pipe(
+          Effect.tapError((failure) =>
+            Effect.logWarning(`Rendered probe skipped: ${failure.detail}`)
+          ),
+          Effect.orElseSucceed(() => null)
+        );
+
         const stayed = page.url() === startUrl;
 
         const targetSize = stayed

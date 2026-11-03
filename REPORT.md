@@ -82,6 +82,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 Times are CET, from the machine clock.
 
+- 21:45 Accuracy QA on 21 sites (`docs/accuracy-qa.md`): 5 false-positive causes fixed (charset, svg names in buttons, hidden iframes, shadow-DOM links, Akamai wall); static checks precise on every site where they fired; axe contrast 12/14. Two judged checks hidden for low real precision (decision 23). Vojta moved the deadline to ~01:40, all decisions on the lead.
+
 - 21:38 Judged observations calibrated on 212 labelled items (thresholds per check for precision >= 0.9; mostly hand-written cases, so real-world precision is likely lower); a test guards it. ~$0.002 per scan on Clef, inside the free allocation.
 
 - 21:30 Report redesign live on dev (adc00e5, 9881eb2). Judged observations built on Clef. Browser budget per stage (dev 90 min/day). builder-core running accuracy QA on ~10 real sites.
