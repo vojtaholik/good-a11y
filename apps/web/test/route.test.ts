@@ -4,10 +4,12 @@ import { fromString } from "foldkit/url";
 
 import {
   AppRoute,
+  homeRouter,
   parseRoute,
   reportSlugOf,
   scanRouter,
 } from "../src/features/route.js";
+import { init } from "../src/features/update.js";
 
 const routeOf = (href: string) =>
   Option.map(fromString(href), parseRoute).pipe(Option.getOrThrow);
@@ -45,5 +47,24 @@ describe("report routes", () => {
       Option.some("shop.example"),
       Option.none(),
     ]);
+  });
+});
+
+describe("the start page", () => {
+  it("fills the address field from the link a failed report gives", () => {
+    const href = `https://eaa.example${homeRouter({ url: "https://shop.example/a?b=1" })}`;
+
+    expect(routeOf(href)).toEqual(
+      AppRoute.Home({ url: "https://shop.example/a?b=1" })
+    );
+    expect(
+      Option.map(fromString(href), (url) => init(url).model.url).pipe(
+        Option.getOrThrow
+      )
+    ).toBe("https://shop.example/a?b=1");
+  });
+
+  it("starts with an empty field without the parameter", () => {
+    expect(routeOf("https://eaa.example/")).toEqual(AppRoute.Home({}));
   });
 });

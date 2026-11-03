@@ -130,6 +130,6 @@ export const checksView = (h: HtmlBuilder<AppMessage>): Html =>
           ),
         ]
       ),
-      h.p([], [h.a([h.Href(homeRouter())], ["Check a page"])]),
+      h.p([], [h.a([h.Href(homeRouter({}))], ["Check a page"])]),
     ]
   );

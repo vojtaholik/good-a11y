@@ -140,6 +140,10 @@ const enterRoute = (model: AppModel, route: AppRouteState): AppUpdate => {
     route,
     scan: Option.isSome(maybeSlug) ? ScanState.Loading() : ScanState.Idle(),
     start: StartState.Idle(),
+    url:
+      Schema.is(AppRoute.Home)(route) && route.url !== undefined
+        ? route.url
+        : model.url,
   };
 
   return Option.match(maybeSlug, {
@@ -188,7 +192,7 @@ export const init: Runtime.RoutingApplicationInit<
       },
       copy: CopyState.Idle(),
       generation: 0,
-      route: AppRoute.Home(),
+      route: AppRoute.Home({}),
       scan: ScanState.Idle(),
       start: StartState.Idle(),
       url: "",

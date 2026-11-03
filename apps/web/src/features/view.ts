@@ -69,7 +69,7 @@ const notFoundView = (h: HtmlBuilder<AppMessage>): Html =>
     [],
     [
       h.h1([], ["Page not found"]),
-      h.p([], [h.a([h.Href(homeRouter())], ["Back to the start"])]),
+      h.p([], [h.a([h.Href(homeRouter({}))], ["Back to the start"])]),
     ]
   );
 
@@ -89,7 +89,7 @@ export const view = (
   body: h.div(
     [sx(h, styles.page)],
     [
-      h.header([], [h.nav([], [h.a([h.Href(homeRouter())], ["eaa-check"])])]),
+      h.header([], [h.nav([], [h.a([h.Href(homeRouter({}))], ["eaa-check"])])]),
       AppRoute.match<Html>(model.route, {
         Checks: () => checksView(h),
         Home: () => homeView(model, h),

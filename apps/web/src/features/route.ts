@@ -4,7 +4,7 @@ import { defineRouteUnion, literal, slash, string } from "foldkit/route";
 
 export const AppRoute = defineRouteUnion({
   Checks: {},
-  Home: {},
+  Home: { url: Schema.optionalKey(Schema.String) },
   NotFound: { path: Schema.String },
   Report: { slug: Schema.String },
   Scan: { scanId: Schema.String, slug: Schema.String },
@@ -12,7 +12,11 @@ export const AppRoute = defineRouteUnion({
 
 export type AppRouteState = typeof AppRoute.Type;
 
-export const homeRouter = pipe(Route.root, Route.mapTo(AppRoute.Home));
+export const homeRouter = pipe(
+  Route.root,
+  Route.query(Schema.Struct({ url: Schema.optionalKey(Schema.String) })),
+  Route.mapTo(AppRoute.Home)
+);
 
 export const reportRouter = pipe(
   literal("report"),

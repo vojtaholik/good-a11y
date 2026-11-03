@@ -40,7 +40,7 @@ const home: AppModel = {
   contact: { email: "", message: "", name: "", state: ContactState.Editing() },
   copy: CopyState.Idle(),
   generation: 0,
-  route: AppRoute.Home(),
+  route: AppRoute.Home({}),
   scan: ScanState.Idle(),
   start: StartState.Idle(),
   url: "",
@@ -155,6 +155,35 @@ describe("our own page", () => {
         expect(html).toContain("Where the EAA applies");
         expect(html).not.toContain('id="judged"');
         expect(html).not.toContain("it was asked about");
+      })
+  );
+
+  it.effect(
+    "links a failed report to a start page that already holds its address",
+    () =>
+      Effect.gen(function* failedReport() {
+        const failed = yield* pageOf({
+          ...home,
+          route: AppRoute.Report({ slug: "example.com" }),
+          scan: ScanState.Settled({
+            view: {
+              ...publishedScan(),
+              failure: "The server refused the request (HTTP 403).",
+              report: null,
+              stage: "failed",
+            },
+          }),
+        });
+
+        expect(failed).toContain(
+          `href="/?url=${encodeURIComponent("https://example.com/")}"`
+        );
+        expect(failed.toLowerCase()).not.toContain("compliant");
+        expect(failing(failed)).toEqual([]);
+
+        const start = yield* pageOf({ ...home, url: "https://example.com/" });
+
+        expect(start).toContain('value="https://example.com/"');
       })
   );
 });

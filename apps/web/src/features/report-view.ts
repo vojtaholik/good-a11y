@@ -206,7 +206,15 @@ export const reportView = (
           view.report === null
             ? [
                 h.p([h.Role("alert")], [view.failure ?? "The scan failed."]),
-                h.p([], [h.a([h.Href(homeRouter())], ["Start a new scan"])]),
+                h.p(
+                  [],
+                  [
+                    h.a(
+                      [h.Href(homeRouter({ url: view.url }))],
+                      ["Start a new scan"]
+                    ),
+                  ]
+                ),
               ]
             : [
                 ...publishedView(model, view.report, h),
@@ -223,11 +231,14 @@ export const reportView = (
               "The scan failed: the report could not be loaded. Try again in a few minutes.",
             ]
           ),
-          h.p([], [h.a([h.Href(homeRouter())], ["Start a new scan"])]),
+          h.p(
+            [],
+            [h.a([h.Href(homeRouter({ url: slug }))], ["Start a new scan"])]
+          ),
         ],
         Unknown: () => [
           h.p([], [`There is no scan of ${slug} yet.`]),
-          h.p([], [h.a([h.Href(homeRouter())], ["Start one"])]),
+          h.p([], [h.a([h.Href(homeRouter({ url: slug }))], ["Start one"])]),
         ],
       }),
     ]
