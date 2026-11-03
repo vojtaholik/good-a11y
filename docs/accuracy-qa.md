@@ -67,3 +67,44 @@ The daily browser budget on dev was spent, so axe-core 4.14.0 ran in local headl
 | otto.de, idnes.cz, seznam.cz | image-alt | slotted `<img>`, tracking pixels, `<img src="">` | TP |  |
 
 `label-content-name-mismatch` is out of the rendered map (`DROPPED_RULES` in `packages/core/src/rendered.ts`): most of what it reported needed judgment, and on bbc.co.uk it was wrong 23 times.
+
+## Round 4: judged observations on the live dev page
+
+Scans of idnes.cz, arngren.net, bbc.co.uk and seznam.cz on stage `dev` at commit 9881eb2. Judged observations are labelled as a model's and are never counted as issues, but a wrong one still costs the reader's trust.
+
+| Site | Question | Item | Verdict | Cause |
+| --- | --- | --- | --- | --- |
+| idnes.cz | alt-text-describes | `alt="iDNES.cz"` on `idnes.svg` | FP | A logo whose alt names the site is the right alt text |
+| idnes.cz | link-purpose | "{NADPIS} {LABEL}" | TP | An ad template's placeholders in the served HTML |
+| idnes.cz | link-purpose | "Slow" | Not verified |  |
+| idnes.cz | headings-labels-describe | h3 "{NADPIS}" | TP | Same template |
+| arngren.net | link-purpose | "139,-", "99,-", "2998,-" and 8 more | TP | Price-only link texts |
+| bbc.co.uk | all | 61 items, nothing noted |  |  |
+| seznam.cz | headings-labels-describe | h6 "Vyhledat", "Právě hledané fráze", "Hlavní obsah"; labels "Méně služeb", "Další služby" | FP | Ordinary Czech headings ("Search", "Trending searches", "Main content") and button labels ("Fewer services", "More services") |
+
+The headings and labels question is wrong on Czech page furniture, and the alt question is wrong on a logo. Handed to builder-judge, who owns the thresholds and the calibration set.
+
+## Precision estimate per check
+
+Counted over the findings checked by hand above, after the fixes in this document. "n" is the number of sites with a finding.
+
+| Check | Method | Precision | n | Note |
+| --- | --- | --- | --- | --- |
+| html-lang | static | 5 of 5 | 5 |  |
+| document-title | static | no finding after the fix | 0 | The one finding was the charset bug |
+| title-generic | static | no finding | 0 | Unmeasured |
+| image-alt | static | 2 of 2 sites, 30 elements | 2 |  |
+| alt-placeholder | static | no finding | 0 | Unmeasured |
+| form-labels | static | 2 of 2 | 2 |  |
+| link-name | static | 4 of 4 sites, 242 elements | 4 | One web-component case is now left to the rendered check |
+| button-name | static | 1 of 1 site, 53 elements | 1 | The w3.org/WAI false positive is fixed |
+| frame-title | static | 1 of 1 | 1 | The craigslist false positive is fixed |
+| meta-viewport-zoom, meta-refresh, autocomplete-valid | static | no finding | 0 | Unmeasured |
+| color-contrast | rendered | 12 of 14 samples | 4 | Misses web-component backgrounds in shadow DOM |
+| label-content-name-mismatch | rendered | about 1 of 45 | 5 | Dropped |
+| link-name, image-alt, frame-title, list, listitem, link-in-text-block, nested-interactive, html-has-lang, label, button-name | rendered | every sample checked was a TP | 1 to 4 each | Small samples |
+| alt-text-describes | judged | 0 of 1 | 1 |  |
+| link-purpose | judged | 13 of 14 checked | 2 |  |
+| headings-labels-describe | judged | 1 of 6 | 2 | Wrong on Czech headings |
+
+Static precision is high on these sites because the checks only fire on markup that cannot pass. Five static checks fired nowhere in this sample, so their precision is unmeasured, not proven.
