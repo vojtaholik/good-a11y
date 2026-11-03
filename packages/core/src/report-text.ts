@@ -25,26 +25,54 @@ const countLine = (finding: Finding): string =>
     ? ""
     : `  ${finding.failing} of ${finding.checked} failing`;
 
+const statesLines = (report: Report): string[] => [
+  `      The EAA covers e-commerce services in (${report.applicability.applies.length}): ${codes(report.applicability.applies)}`,
+  ...(report.applicability.exemption === null
+    ? []
+    : [
+        `      ${report.applicability.exemption.text}  (${report.applicability.exemption.factId})`,
+      ]),
+  `      Unknown (${report.applicability.unknown.length}): ${codes(report.applicability.unknown)}`,
+];
+
+const referenceLine = (reference: FindingReference): string =>
+  `      ${KIND_LABELS[reference.kind]}: ${reference.text}  (${reference.factId})`;
+
 const findingLines = (finding: Finding, report: Report): string[] => [
   `  ${MARKS[finding.status]}: ${finding.title}  [${finding.id}]${countLine(finding)}`,
-  ...finding.references.map(
-    (reference) =>
-      `      ${KIND_LABELS[reference.kind]}: ${reference.text}  (${reference.factId})`
-  ),
+  ...finding.references.map(referenceLine),
   ...(finding.status === "fail"
     ? [
         `      What fails: ${finding.whatFails}`,
         ...finding.samples.map((sample) => `      · ${sample}`),
-        `      The EAA covers e-commerce services in (${report.applicability.applies.length}): ${codes(report.applicability.applies)}`,
-        ...(report.applicability.exemption === null
-          ? []
-          : [
-              `      ${report.applicability.exemption.text}  (${report.applicability.exemption.factId})`,
-            ]),
-        `      Unknown (${report.applicability.unknown.length}): ${codes(report.applicability.unknown)}`,
+        ...statesLines(report),
       ]
     : []),
 ];
+
+const renderedLines = (report: Report): string[] => {
+  const { rendered } = report;
+
+  if (rendered === null) {
+    return [];
+  }
+
+  if (rendered.status === "skipped") {
+    return [`Rendered page check skipped: ${rendered.reason}`, ""];
+  }
+
+  return [
+    `Rendered page checks (${rendered.engine}): ${rendered.rules} rules run, ${rendered.findings.length} found issues`,
+    ...rendered.findings.flatMap((finding) => [
+      `  ${MARKS.fail}: ${finding.help}  [axe:${finding.rule}]  ${finding.failing} elements`,
+      ...finding.references.map(referenceLine),
+      ...finding.samples.map((sample) => `      · ${sample}`),
+      `      More: ${finding.helpUrl}`,
+      ...statesLines(report),
+    ]),
+    "",
+  ];
+};
 
 const sourcedLine = (
   label: string,
@@ -89,6 +117,7 @@ export const formatReport = (report: Report): string =>
           ),
           "",
         ]),
+    ...renderedLines(report),
     report.statement.factId === null
       ? report.statement.text
       : `${report.statement.text}  (${report.statement.factId})`,

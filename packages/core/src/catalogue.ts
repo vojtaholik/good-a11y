@@ -14,7 +14,7 @@ export interface CatalogueEntry {
   readonly criteria: readonly string[];
 }
 
-const criterion = (number: string) => ({
+export const criterion = (number: string) => ({
   en3: `STD-EN-9.${number}`,
   en4: `STD-EN4-9.${number}`,
   sc: `STD-SC-${number}`,

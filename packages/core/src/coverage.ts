@@ -5,12 +5,16 @@ import { Schema } from "effect";
 import { CATALOGUE, criteriaOf } from "./catalogue.js";
 import type { CatalogueEntry } from "./catalogue.js";
 
-export const MethodSchema = Schema.Literals(["static_html"]);
+export const MethodSchema = Schema.Literals([
+  "static_html",
+  "static_html_and_rendered",
+]);
 
 export type Method = typeof MethodSchema.Type;
 
 export const METHOD_NAMES: Readonly<Record<Method, string>> = {
   static_html: "static HTML only",
+  static_html_and_rendered: "static HTML + rendered page",
 };
 
 const Count = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0));
@@ -27,8 +31,18 @@ export type Coverage = typeof CoverageSchema.Type;
 
 const WCAG21_CRITERION = /^STD-SC-\d+\.\d+\.\d+$/u;
 
+export interface Tested {
+  readonly checks: number;
+  readonly criteria: readonly string[];
+}
+
+export const testedBy = (catalogue: readonly CatalogueEntry[]): Tested => ({
+  checks: catalogue.length,
+  criteria: catalogue.flatMap(criteriaOf).map(({ sc }) => sc),
+});
+
 export const coverageFrom = (
-  catalogue: readonly CatalogueEntry[],
+  { checks, criteria: tested }: Tested,
   facts: readonly VerifiedFact[],
   method: Method
 ): Coverage => {
@@ -36,13 +50,7 @@ export const coverageFrom = (
     facts.flatMap((fact) => (WCAG21_CRITERION.test(fact.id) ? [fact.id] : []))
   );
 
-  const touched = new Set(
-    catalogue
-      .flatMap(criteriaOf)
-      .flatMap(({ sc }) => (criteria.has(sc) ? [sc] : []))
-  );
-
-  const checks = catalogue.length;
+  const touched = new Set(tested.filter((sc) => criteria.has(sc)));
 
   return {
     checks,
@@ -53,8 +61,10 @@ export const coverageFrom = (
   };
 };
 
+export const STATIC_TESTED: Tested = testedBy(CATALOGUE);
+
 export const STATIC_COVERAGE: Coverage = coverageFrom(
-  CATALOGUE,
+  STATIC_TESTED,
   VERIFIED_FACTS,
   "static_html"
 );

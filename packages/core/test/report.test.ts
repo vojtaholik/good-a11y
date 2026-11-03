@@ -17,6 +17,7 @@ import {
   judgePage,
   referenceFrom,
   referencesOf,
+  testedBy,
 } from "../src/index.js";
 import type {
   FetchResult,
@@ -213,7 +214,7 @@ describe("an empty bill of health", () => {
 
   it("counts the criteria it touches from the catalogue and the verified facts", () => {
     const coverage = coverageFrom(
-      CATALOGUE,
+      testedBy(CATALOGUE),
       [
         sc("STD-SC-1.1.1"),
         sc("STD-SC-4.1.2"),

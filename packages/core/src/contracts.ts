@@ -27,6 +27,8 @@ export type { FindingReference } from "./report.js";
 
 export { NEWER_VERSION_LABEL } from "./reference.js";
 
+export type { Rendered, RenderedFinding } from "./rendered.js";
+
 export { DailyCapReached } from "./daily-cap-reached.js";
 
 export { getScanContract, startScanContract } from "./scan-lifecycle.js";

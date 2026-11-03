@@ -14,6 +14,7 @@ export {
   CATALOGUE,
   CHECKS,
   catalogueIds,
+  criterion,
   criteriaOf,
   entryOf,
   type CatalogueEntry,
@@ -49,9 +50,12 @@ export {
   METHOD_NAMES,
   MethodSchema,
   STATIC_COVERAGE,
+  STATIC_TESTED,
   coverageFrom,
+  testedBy,
   type Coverage,
   type Method,
+  type Tested,
 } from "./coverage.js";
 
 export {
@@ -137,6 +141,7 @@ export {
   referencesOf,
   reportOf,
   runChecks,
+  withRendered,
   type Finding,
   type FindingReference,
   type Outcome,
@@ -145,6 +150,40 @@ export {
 } from "./report.js";
 
 export { formatReport } from "./report-text.js";
+
+export {
+  AxeResultsJson,
+  AxeResultsSchema,
+  AxeRuleSchema,
+  type AxeResults,
+  type AxeRule,
+} from "./axe-results.js";
+
+export {
+  AXE_TAGS,
+  DAILY_BROWSER_SECONDS,
+  RENDERED_AUDIT_RESERVE_SECONDS,
+  RENDERED_HTML_CHARACTERS,
+  RenderedAudit,
+  type RenderedPage,
+} from "./rendered-audit.js";
+
+export { RenderedAuditFailed } from "./rendered-audit-failed.js";
+
+export {
+  BUDGET_SPENT,
+  RENDERED_BLOCKED,
+  RENDERED_UNREADABLE,
+  RenderedFindingSchema,
+  RenderedSchema,
+  criteriaOfRule,
+  renderedFrom,
+  renderedOf,
+  skippedBecause,
+  type Rendered,
+  type RenderedFinding,
+  type RenderedOutcome,
+} from "./rendered.js";
 
 export {
   DEFAULT_MAX_BYTES,

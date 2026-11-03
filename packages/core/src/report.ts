@@ -1,3 +1,4 @@
+import { VERIFIED_FACTS } from "@eaa-check/facts";
 import { Schema } from "effect";
 
 import { APPLICABILITY, ApplicabilitySchema } from "./applicability.js";
@@ -10,20 +11,24 @@ import {
   CheckStatusSchema,
 } from "./check.js";
 import type { CheckResult } from "./check.js";
-import { CoverageSchema, STATIC_COVERAGE } from "./coverage.js";
-import type { PageEvidence } from "./page-evidence.js";
 import {
-  REFERENCE,
-  ReferenceSchema,
-  SourcedSchema,
-  verifiedText,
-} from "./reference.js";
+  CoverageSchema,
+  STATIC_COVERAGE,
+  STATIC_TESTED,
+  coverageFrom,
+} from "./coverage.js";
+import { FindingReferenceSchema, referencesFor } from "./finding-reference.js";
+import type { FindingReference } from "./finding-reference.js";
+import type { PageEvidence } from "./page-evidence.js";
+import { REFERENCE, ReferenceSchema, verifiedText } from "./reference.js";
 import type { Reference } from "./reference.js";
+import { RenderedSchema, renderedFrom } from "./rendered.js";
+import type { Rendered, RenderedOutcome } from "./rendered.js";
 
 export const AUTOMATED_LIMIT_FACT = "STD-AUTO-1";
 
 export const AUTOMATED_LIMIT =
-  "Automated checks find only part of the accessibility issues WCAG covers, and only those visible in the page's HTML as served. This report does not show whether the page meets the European Accessibility Act. A manual review by a person is needed.";
+  "Automated checks find only part of the accessibility issues WCAG covers, and only those visible to the checker in the page it read. This report does not show whether the page meets the European Accessibility Act. A manual review by a person is needed.";
 
 export const CONTACT_TEXT =
   "studio9 can review this page by hand, explain what the findings mean for your site, and fix them. Get in touch with studio9.";
@@ -40,18 +45,11 @@ export const NOT_HTML_HEADLINE =
 export const UNREACHABLE_HEADLINE =
   "The page could not be read, so nothing was tested.";
 
-export const ReferenceKindSchema = Schema.Literals([
-  "wcag",
-  "en-reference",
-  "en-newer",
-]);
-
-export const FindingReferenceSchema = Schema.Struct({
-  kind: ReferenceKindSchema,
-  ...SourcedSchema.fields,
-});
-
-export type FindingReference = typeof FindingReferenceSchema.Type;
+export {
+  FindingReferenceSchema,
+  ReferenceKindSchema,
+  type FindingReference,
+} from "./finding-reference.js";
 
 export const FindingSchema = Schema.Struct({
   ...CheckResultSchema.fields,
@@ -88,6 +86,7 @@ export const ReportSchema = Schema.Struct({
   outcome: OutcomeSchema,
   outcomeDetail: Schema.String,
   reference: ReferenceSchema,
+  rendered: Schema.NullOr(RenderedSchema),
   requestedUrl: Schema.String,
   scannedAt: Schema.String,
   statement: Schema.Struct({
@@ -99,28 +98,10 @@ export const ReportSchema = Schema.Struct({
 
 export type Report = typeof ReportSchema.Type;
 
-const withKind = (
-  kind: FindingReference["kind"],
-  id: string
-): FindingReference[] => {
-  const text = verifiedText(id);
-
-  return text === null ? [] : [{ kind, ...text }];
-};
-
 export const referencesOf = (
   entry: CatalogueEntry,
   reference: Reference
-): FindingReference[] =>
-  criteriaOf(entry).flatMap(({ en3, en4, sc }) => [
-    ...withKind("wcag", sc),
-    ...(reference.version === "V4.1.1"
-      ? withKind("en-reference", en4)
-      : [
-          ...withKind("en-reference", en3),
-          ...(reference.newerVersion === null ? [] : withKind("en-newer", en4)),
-        ]),
-  ]);
+): FindingReference[] => referencesFor(criteriaOf(entry), reference);
 
 const findingOf = (
   entry: CatalogueEntry,
@@ -148,7 +129,26 @@ export interface PageVisit {
   readonly truncated: boolean;
 }
 
-const headlineOf = (outcome: Outcome, findings: readonly Finding[]): string => {
+interface Tally {
+  readonly checks: number;
+  readonly failing: number;
+}
+
+const tallyOf = (
+  findings: readonly Finding[],
+  rendered: Rendered | null
+): Tally => {
+  const failing = findings.filter((finding) => finding.status === "fail");
+
+  return rendered?.status === "ran"
+    ? {
+        checks: findings.length + rendered.rules,
+        failing: failing.length + rendered.findings.length,
+      }
+    : { checks: findings.length, failing: failing.length };
+};
+
+const headlineOf = (outcome: Outcome, { checks, failing }: Tally): string => {
   if (outcome === "refused") {
     return BLOCKED_HEADLINE;
   }
@@ -161,11 +161,9 @@ const headlineOf = (outcome: Outcome, findings: readonly Finding[]): string => {
     return UNREACHABLE_HEADLINE;
   }
 
-  const failing = findings.filter((finding) => finding.status === "fail");
-
-  return failing.length === 0
+  return failing === 0
     ? "The automated checks found no issues of the kinds they look for."
-    : `The automated checks found issues in ${failing.length} of ${findings.length} checks.`;
+    : `The automated checks found issues in ${failing} of ${checks} checks.`;
 };
 
 export const reportOf = (
@@ -182,10 +180,44 @@ export const reportOf = (
   },
   coverage: visit.outcome === "checked" ? STATIC_COVERAGE : null,
   findings,
-  headline: headlineOf(visit.outcome, findings),
+  headline: headlineOf(visit.outcome, tallyOf(findings, null)),
   reference: REFERENCE,
+  rendered: null,
   statement: {
     factId: verifiedText(AUTOMATED_LIMIT_FACT)?.factId ?? null,
     text: AUTOMATED_LIMIT,
   },
 });
+
+const renderedCoverage = (rendered: Rendered) =>
+  rendered.status === "ran"
+    ? coverageFrom(
+        {
+          checks: STATIC_TESTED.checks + rendered.rules,
+          criteria: [
+            ...STATIC_TESTED.criteria,
+            ...rendered.criteria.map((number) => `STD-SC-${number}`),
+          ],
+        },
+        VERIFIED_FACTS,
+        "static_html_and_rendered"
+      )
+    : STATIC_COVERAGE;
+
+export const withRendered = (
+  report: Report,
+  outcome: RenderedOutcome
+): Report => {
+  if (report.outcome !== "checked") {
+    return report;
+  }
+
+  const rendered = renderedFrom(outcome);
+
+  return {
+    ...report,
+    coverage: renderedCoverage(rendered),
+    headline: headlineOf(report.outcome, tallyOf(report.findings, rendered)),
+    rendered,
+  };
+};
