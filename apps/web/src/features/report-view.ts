@@ -14,9 +14,9 @@ import { styles } from "./styles.js";
 import { sx } from "./sx.js";
 
 const STATUS: Readonly<Record<Finding["status"], string>> = {
-  fail: "Issues found",
-  not_applicable: "Nothing to check on this page",
-  pass: "No issues found by this check",
+  fail: "Issue found",
+  not_applicable: "Nothing to check",
+  pass: "No issue found",
 };
 
 const KIND: Readonly<Record<FindingReference["kind"], string>> = {
@@ -59,20 +59,12 @@ const statesView = (report: Report, h: HtmlBuilder<AppMessage>): Html =>
       ...(report.applicability.unknown.length === 0
         ? []
         : [
-            h.details(
+            h.p(
               [],
               [
-                h.summary(
-                  [],
-                  [
-                    `Unknown for ${report.applicability.unknown.length} member states`,
-                  ]
-                ),
-                h.p(
-                  [],
-                  report.applicability.unknown.map((state) =>
-                    stateView(state, h)
-                  )
+                "Not known yet from verified sources: ",
+                ...report.applicability.unknown.map((state) =>
+                  stateView(state, h)
                 ),
               ]
             ),
@@ -123,8 +115,38 @@ const findingView = (
     ]
   );
 
-const publishedView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] => [
+const requirementsView = (
+  report: Report,
+  h: HtmlBuilder<AppMessage>
+): Html[] => [
+  ...(report.reference.citation === null
+    ? []
+    : [h.p([], [report.reference.citation.text])]),
+  ...(report.reference.requirements.length === 0
+    ? []
+    : [
+        h.h2([], ["What the EAA requires"]),
+        ...report.reference.requirements.map((requirement) =>
+          h.p([], [requirement.text])
+        ),
+      ]),
+];
+
+const closingView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] => [
   h.p([sx(h, styles.statement)], [report.statement.text]),
+  h.aside([sx(h, styles.contact)], [h.p([], [report.contact.text])]),
+];
+
+const refusedView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] => [
+  h.p([sx(h, styles.headline)], [report.headline]),
+  h.p([h.Role("status")], [report.outcomeDetail]),
+  ...requirementsView(report, h),
+  ...closingView(report, h),
+];
+
+const checkedView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] => [
+  h.p([sx(h, styles.headline)], [report.headline]),
+  ...(report.coverage === null ? [] : [h.p([], [report.coverage.text])]),
   h.p([], [`Page: ${report.finalUrl ?? report.requestedUrl}`]),
   ...(report.outcome === "checked"
     ? []
@@ -139,12 +161,18 @@ const publishedView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] => [
         ),
       ]
     : []),
+  ...requirementsView(report, h),
   ...(report.reference.benchmark === null
     ? []
     : [h.p([], [report.reference.benchmark.text])]),
   ...report.findings.map((finding) => findingView(finding, report, h)),
-  h.aside([sx(h, styles.contact)], [h.p([], [report.contact.text])]),
+  ...closingView(report, h),
 ];
+
+const publishedView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] =>
+  report.outcome === "refused"
+    ? refusedView(report, h)
+    : checkedView(report, h);
 
 export const reportView = (
   model: AppModel,

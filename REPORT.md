@@ -14,7 +14,7 @@ Durable record of tonight's build (2026-11-03). Newest first within each section
 
 ## Deploy URL
 
-- None yet.
+- Stage `dev` (non-production, workers.dev): https://eaacheck-website-dev-x6ihepvlvg74r7cg.vojtaholik.workers.dev . Alchemy plan was 5 creates, 0 updates or deletes (Website Worker, Scanner Worker, ScanWorkflow, D1 ScanDatabase, migrations). A scan runs through the XState machine inside the Cloudflare Workflow and the page shows the report.
 
 ## Facts ledger coverage
 
@@ -71,7 +71,9 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 Times are CET, from the machine clock.
 
-- 20:36 Ledger complete: 507 facts, all verified, 27/27 states. Layer 1 CLI works live. builder-cloud has store + Workflow machine + infra green, web page in progress. builder-core on round 2 (legal-requirement line, axe-core on Browser Run).
+- 20:50 Deployed to stage dev; lead scanned wikipedia.org through the live page, report correct. Fixes queued: our own URL field needs a real label, OJ citation line on the page.
+
+- 20:36 Ledger complete: 485 facts, all verified, 27/27 states. Layer 1 CLI works live. builder-cloud has store + Workflow machine + infra green, web page in progress. builder-core on round 2 (legal-requirement line, axe-core on Browser Run).
 
 - 20:25 Deadline set by Vojta: machine sleeps ~00:20; no questions. builder-cloud started (layers 2-3, deploy). EU directive verified 28/28 (no EN 301 549 cited in the OJ under the EAA as of 2026-10-30). facts package committed (milestone 2). CI green.
 

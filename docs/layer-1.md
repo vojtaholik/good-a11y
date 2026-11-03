@@ -33,6 +33,7 @@ Elements under `hidden`, `aria-hidden="true"`, `<template>` or `<noscript>` are 
 ### Report
 
 - The page, the time, the HTTP status, and an outcome: `checked`, `refused` (bot check or refusal status), `unreachable`, or `not_html`. A page with no links, images, buttons or fields says it probably renders with JavaScript.
+- What the EAA requires: every verified fact tagged `used_by: report.legal-requirement`.
 - The reference benchmark (`STD-EN-5`, or `STD-EN-6` when a verified fact tagged `used_by: report.reference-standard` names V4.1.1 as cited), and the Official Journal citation line (that fact, otherwise `EU-HS-1`). Either line is left out when its fact is not verified.
 - Each finding with its WCAG SC (`STD-SC-*`), the reference EN 301 549 clause (`STD-EN-9.*`), and the V4.1.1 clause (`STD-EN4-9.*`) labelled "Upcoming (EN 301 549 V4.1.1)". A reference appears only when its fact is verified.
 - For each failing finding, the states where it applies and the states listed as unknown.
@@ -63,9 +64,9 @@ Elements under `hidden`, `aria-hidden="true"`, `<template>` or `<noscript>` are 
 
 ## Open questions and calls made
 
-- **DNS to private addresses.** `vetUrl` refuses IP literals, ports, credentials and non-public TLDs on every hop, as webproai does. A public hostname that resolves to a private address is not caught on Node. On Workers (layer 2) Cloudflare's fetch does not reach private networks. Proposal: leave it for the CLI, which runs on the user's own machine, and confirm on the Worker.
-- **Member state list.** The 27 codes and English names in `packages/facts/src/member-states.ts` are written in code, not sourced from a fact. Proposal: add one EUR-Lex fact for the list if the page will show it as a claim.
-- **Legal requirement line.** Decision 10 names the EAA Annex I requirements (`EU-ANNEX-*`) as the legal requirement. The report does not show them yet; it needs to know which fact ID holds the line. Proposal: tag it `used_by: report.legal-requirement` and render it like the citation line.
+- **DNS to private addresses.** Decided (lead, 2026-11-03): the CLI keeps the gap. `vetUrl` refuses IP literals, ports, credentials and non-public TLDs on every hop, as webproai does, but a public hostname that resolves to a private address is fetched on Node. The CLI runs on the user's own machine; on Workers, Cloudflare's fetch does not reach private networks.
+- **Member state list.** Decided (lead, 2026-11-03): the 27 codes and English names stay in `packages/facts/src/member-states.ts`. The page never presents the list as a legal claim; it only labels the states facts speak about.
+- **Legal requirement line.** Done: verified facts tagged `used_by: report.legal-requirement` (`EU-ANNEX-1`, `EU-ANNEX-4`) appear as "What the EAA requires" above the reference benchmark, in ID order (`Report.reference.requirements`).
 - **WCAG 2.2-only checks.** None of the nine checks is WCAG 2.2-only, so nothing is labelled upcoming at the check level; only the V4.1.1 clauses are.
 - **Applicability per finding.** It depends only on each state's law (transposing law and e-commerce scope), so every failing finding lists the same states. When per-criterion exemptions are in the ledger this is where they plug in.
 - **First verified fact wins** when a state has two verified facts for one profile field. A verified value of `unknown` counts as unknown.

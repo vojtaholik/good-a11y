@@ -3,22 +3,15 @@ import type { CheckStatus } from "./check.js";
 import type { Finding, FindingReference, Report } from "./report.js";
 
 const MARKS: Readonly<Record<CheckStatus, string>> = {
-  fail: "✗",
-  not_applicable: "–",
-  pass: "✓",
+  fail: "✗ issue found",
+  not_applicable: "– nothing to check",
+  pass: "· no issue found",
 };
 
 const KIND_LABELS: Readonly<Record<FindingReference["kind"], string>> = {
   "en-reference": "Reference benchmark",
   "en-upcoming": "Upcoming (EN 301 549 V4.1.1)",
   wcag: "WCAG 2.1",
-};
-
-const OUTCOME_HEADLINES: Readonly<Record<Report["outcome"], string>> = {
-  checked: "Checked",
-  not_html: "Not an HTML page",
-  refused: "The site refused the checker",
-  unreachable: "The page could not be reached",
 };
 
 const codes = (states: readonly StateRef[]): string =>
@@ -28,11 +21,11 @@ const codes = (states: readonly StateRef[]): string =>
 
 const countLine = (finding: Finding): string =>
   finding.status === "not_applicable"
-    ? "nothing of this kind on the page"
-    : `${finding.failing} of ${finding.checked} failing`;
+    ? ""
+    : `  ${finding.failing} of ${finding.checked} failing`;
 
 const findingLines = (finding: Finding, report: Report): string[] => [
-  `  ${MARKS[finding.status]} ${finding.title}  [${finding.id}]  ${countLine(finding)}`,
+  `  ${MARKS[finding.status]}: ${finding.title}  [${finding.id}]${countLine(finding)}`,
   ...finding.references.map(
     (reference) =>
       `      ${KIND_LABELS[reference.kind]}: ${reference.text}  (${reference.factId})`
@@ -57,13 +50,24 @@ export const formatReport = (report: Report): string =>
   [
     `Page: ${report.finalUrl ?? report.requestedUrl}`,
     `Scanned: ${report.scannedAt}${report.httpStatus === null ? "" : `  HTTP ${report.httpStatus}`}`,
-    `${OUTCOME_HEADLINES[report.outcome]}: ${report.outcomeDetail}`,
+    "",
+    report.headline,
+    ...(report.coverage === null ? [] : [report.coverage.text]),
+    report.outcomeDetail,
     ...(report.truncated
       ? [
           "The page was larger than the checker reads; only its first part was checked.",
         ]
       : []),
     "",
+    ...(report.reference.requirements.length === 0
+      ? []
+      : [
+          "What the EAA requires:",
+          ...report.reference.requirements.map(
+            (requirement) => `  ${requirement.text}  (${requirement.factId})`
+          ),
+        ]),
     ...sourcedLine("Reference benchmark", report.reference.benchmark),
     ...sourcedLine(
       "Official Journal citation of EN 301 549 under the EAA",

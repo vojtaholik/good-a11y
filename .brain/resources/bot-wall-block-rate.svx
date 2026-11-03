@@ -1,0 +1,42 @@
+---
+title: "Bot-wall block rate on large EU shops"
+type: "resource"
+created_at: "2026-11-03"
+---
+
+# Bot-wall block rate on large EU shops
+
+Measured 2026-11-03 around 20:45 CET by builder-core, from one residential connection in Czechia, with the CLI (`pnpm cli scan <host> --json`): one request per site, the scanner's own user agent (`Mozilla/5.0 (compatible; eaa-check/0.1; accessibility checker by studio9)`), no retries, no evasion.
+
+## Result
+
+9 of 16 home pages blocked the scanner. 6 were read and checked. 1 sent a JavaScript shell with nothing to check.
+
+| Site | HTTP | Outcome | Wall |
+| --- | --- | --- | --- |
+| zalando.de | 200 | checked, empty shell | none seen; content built by JavaScript |
+| otto.de | 200 | checked | none |
+| bol.com | 403 | refused | refusal status, vendor not named |
+| cdiscount.com | 200 | refused | Baleen JavaScript challenge |
+| fnac.com | 200 | checked | none |
+| elcorteingles.es | 200 | checked | none |
+| mediamarkt.de | 403 | refused | Cloudflare |
+| ikea.com | 200 | checked | none |
+| decathlon.fr | 403 | refused | Cloudflare |
+| allegro.pl | 403 | refused | DataDome |
+| emag.ro | 200 | checked | none |
+| alza.cz | 403 | refused | Cloudflare |
+| notino.cz | 403 | refused | Cloudflare |
+| mall.cz | 403 | refused | DataDome |
+| rohlik.cz | 200 | checked | none |
+| booking.com | 202 | refused | AWS WAF JavaScript challenge |
+
+## Gotcha found on the way
+
+booking.com (HTTP 202) and cdiscount.com (HTTP 200) answered with challenge pages the detector did not know, so the first run reported findings about a challenge page (`document-title` on booking, `html-lang` on cdiscount). One diagnostic request each showed the markers: AWS WAF's `AwsWafIntegration` plus `/challenge.js`, and Baleen's `__blnChallengeStore`. Both are now in `CHALLENGE_BODIES` (`packages/core/src/challenge.ts`, test in `packages/core/test/challenge.test.ts`), and both sites now get the blocked report. A wall the detector does not know still yields findings about the wall; the outcome text and the "empty shell" note are the only guard.
+
+## What it means for the axe round
+
+- More than half of large shops refuse a plain fetch from a scanner that names itself. Static checks alone will tell most big e-commerce visitors "this site blocked automated checks".
+- Whether Browser Run gets further is untested here: it needs the deployed Worker. Cloudflare-fronted shops may treat Cloudflare's own browser differently from a residential fetch; DataDome, AWS WAF and Baleen run JavaScript challenges that a real browser may pass on its own. Repeat this list through Browser Run after the deploy, same one-request rule, and record it below this table.
+- Never evade: no user-agent spoofing, no challenge solving, no retries to wear a wall down.

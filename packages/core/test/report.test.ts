@@ -5,10 +5,13 @@ import { Schema } from "effect";
 
 import {
   AUTOMATED_LIMIT,
+  BLOCKED_CONTACT_TEXT,
+  BLOCKED_HEADLINE,
   CATALOGUE,
   LOOKS_EMPTY,
   ReportSchema,
   applicabilityFrom,
+  coverageFrom,
   formatReport,
   judgePage,
   referenceFrom,
@@ -160,9 +163,88 @@ describe("the report", () => {
   });
 });
 
+const sc = (id: string) => ({
+  claim: "claim",
+  excerpt: "excerpt",
+  field: "other" as const,
+  file: "standards.md",
+  id,
+  retrieved: "2026-11-03",
+  source: "https://www.w3.org/TR/WCAG21/",
+  usedBy: "checks.catalogue",
+  value: id,
+});
+
+describe("an empty bill of health", () => {
+  const allPass: PageEvidence = {
+    ...NOTHING,
+    lang: "en",
+    links: [{ labelled: false, snippet: '<a href="/">', text: "Home" }],
+    title: "Shop",
+  };
+
+  const report = judgePage(page(), readerOf(allPass), AT);
+
+  it("leads with how little the checks cover and shows no pass as a tick", () => {
+    const text = formatReport(report);
+
+    expect(report.coverage?.text).toBeDefined();
+    expect(text.indexOf(report.coverage?.text ?? "?")).toBeGreaterThan(-1);
+    expect(text.indexOf(report.coverage?.text ?? "?")).toBeLessThan(
+      text.indexOf("Checks run")
+    );
+    expect(text).not.toContain("✓");
+    expect(text).toContain("no issue found");
+    expect(report.coverage?.text).toContain(
+      "does not mean the page is accessible"
+    );
+  });
+
+  it("counts the criteria it touches from the catalogue and the verified facts", () => {
+    const coverage = coverageFrom(
+      CATALOGUE,
+      [
+        sc("STD-SC-1.1.1"),
+        sc("STD-SC-4.1.2"),
+        sc("STD-SC-1.4.3"),
+        sc("STD-SC22-2.4.11"),
+      ],
+      "static_html"
+    );
+
+    expect(coverage.criteria).toBe(2);
+    expect(coverage.ofCriteria).toBe(3);
+    expect(coverage.checks).toBe(CATALOGUE.length);
+    expect(coverage.text).toContain("touch 2 of the 3 WCAG 2.1");
+  });
+});
+
+describe("a blocked site", () => {
+  const report = judgePage(refused, readerOf(FAILING), AT);
+
+  it("says nothing was tested, shows no findings and no coverage, and offers a review by hand", () => {
+    expect(report.headline).toBe(BLOCKED_HEADLINE);
+    expect(report.findings).toEqual([]);
+    expect(report.coverage).toBeNull();
+    expect(report.contact.text).toBe(BLOCKED_CONTACT_TEXT);
+    expect(formatReport(report)).toContain(BLOCKED_HEADLINE);
+  });
+});
+
 describe("referencesOf", () => {
-  const v3: Reference = { benchmark: null, citation: null, version: "V3.2.1" };
-  const v4: Reference = { benchmark: null, citation: null, version: "V4.1.1" };
+  const v3: Reference = {
+    benchmark: null,
+    citation: null,
+    requirements: [],
+    version: "V3.2.1",
+  };
+
+  const v4: Reference = {
+    benchmark: null,
+    citation: null,
+    requirements: [],
+    version: "V4.1.1",
+  };
 
   it("labels a V4.1.1 clause upcoming while V3.2.1 is the reference, and the reference once V4.1.1 is cited", () => {
     for (const entry of CATALOGUE) {
@@ -219,8 +301,30 @@ describe("referenceFrom", () => {
     expect(referenceFrom([])).toEqual({
       benchmark: null,
       citation: null,
+      requirements: [],
       version: "V3.2.1",
     });
+  });
+
+  it("states what the EAA requires only from facts tagged for it, in ID order", () => {
+    const reference = referenceFrom([
+      fact(
+        "EU-ANNEX-4",
+        "eu.annex.ecommerce, report.legal-requirement",
+        "E-commerce"
+      ),
+      fact("EU-ANNEX-2", "eu.annex.other", "Not for the report"),
+      fact(
+        "EU-ANNEX-1",
+        "eu.annex.websites, report.legal-requirement",
+        "Websites"
+      ),
+    ]);
+
+    expect(reference.requirements.map((item) => item.factId)).toEqual([
+      "EU-ANNEX-1",
+      "EU-ANNEX-4",
+    ]);
   });
 });
 

@@ -14,7 +14,7 @@ export {
 
 export { VERIFIED_FACTS } from "./ledger.generated.js";
 
-export { verifiedFact } from "./lookup.js";
+export { isUsedBy, verifiedFact, verifiedUsedBy } from "./lookup.js";
 
 export {
   MEMBER_STATES,

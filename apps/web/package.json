@@ -6,7 +6,8 @@
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "build": "vite build",
-    "check": "pnpm run typecheck"
+    "check": "pnpm run typecheck",
+    "test": "vitest run"
   },
   "dependencies": {
     "@eaa-check/capability": "workspace:*",
@@ -19,10 +20,13 @@
     "foldkit": "0.166.0"
   },
   "devDependencies": {
+    "@eaa-check/html-reader": "workspace:*",
+    "@effect/vitest": "4.0.0",
     "@foldkit/vite-plugin": "0.26.1",
     "@stylexjs/unplugin": "0.19.1",
     "@types/node": "24.13.6",
     "typescript": "7.0.2",
-    "vite": "8.0.7"
+    "vite": "8.0.7",
+    "vitest": "5.0.1"
   }
 }

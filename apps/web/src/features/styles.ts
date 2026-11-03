@@ -34,6 +34,10 @@ export const styles = stylex.create({
     marginInlineEnd: "0.25rem",
     verticalAlign: "middle",
   },
+  headline: {
+    fontSize: "1.25rem",
+    fontWeight: 600,
+  },
   input: {
     boxSizing: "border-box",
     display: "block",

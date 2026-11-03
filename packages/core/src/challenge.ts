@@ -5,6 +5,7 @@ import type { HeaderMap } from "./hop-transport.js";
 export const ChallengeSystemSchema = Schema.Literals([
   "anubis",
   "aws_waf",
+  "baleen",
   "cloudflare",
   "datadome",
   "human",
@@ -17,6 +18,7 @@ export const CHALLENGE_SYSTEM_NAMES: Readonly<Record<ChallengeSystem, string>> =
   {
     anubis: "Anubis",
     aws_waf: "AWS WAF",
+    baleen: "Baleen",
     cloudflare: "Cloudflare",
     datadome: "DataDome",
     human: "HUMAN (PerimeterX)",
@@ -53,6 +55,8 @@ export const CHALLENGE_BODIES: readonly BodyMarker[] = [
     parts: ["/cdn-cgi/challenge-platform/h/", "/orchestrate/chl_page/"],
     system: "cloudflare",
   },
+  { parts: ["AwsWafIntegration", "/challenge.js"], system: "aws_waf" },
+  { parts: ["__blnChallengeStore"], system: "baleen" },
   { parts: ["captcha-delivery.com/c.js"], system: "datadome" },
   { parts: ["window._pxAppId", "px-captcha"], system: "human" },
 ];
@@ -88,4 +92,4 @@ export const challengeDetail = (
   system: ChallengeSystem,
   status: number
 ): string =>
-  `The server sent a ${CHALLENGE_SYSTEM_NAMES[system]} bot check in place of the page (HTTP ${status}).`;
+  `The server sent a bot check (${CHALLENGE_SYSTEM_NAMES[system]}) in place of the page (HTTP ${status}).`;

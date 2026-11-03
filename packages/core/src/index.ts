@@ -44,6 +44,16 @@ export {
 export { scanContract } from "./contracts.js";
 
 export {
+  CoverageSchema,
+  METHOD_NAMES,
+  MethodSchema,
+  STATIC_COVERAGE,
+  coverageFrom,
+  type Coverage,
+  type Method,
+} from "./coverage.js";
+
+export {
   FetchFailureReasonSchema,
   FetchFailureSchema,
   FetchResultSchema,
@@ -90,6 +100,7 @@ export {
 
 export {
   CITED_VERSION_USE,
+  LEGAL_REQUIREMENT_USE,
   NO_CITATION_FACT,
   REFERENCE,
   ReferenceSchema,
@@ -110,7 +121,11 @@ export {
 export {
   AUTOMATED_LIMIT,
   AUTOMATED_LIMIT_FACT,
-  CONTACT,
+  BLOCKED_CONTACT_TEXT,
+  BLOCKED_HEADLINE,
+  CONTACT_TEXT,
+  NOT_HTML_HEADLINE,
+  UNREACHABLE_HEADLINE,
   FindingSchema,
   OutcomeSchema,
   ReportSchema,
