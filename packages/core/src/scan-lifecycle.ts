@@ -1,6 +1,7 @@
 import { defineContract } from "@eaa-check/capability/contract";
 import { Schema } from "effect";
 
+import { ContactMessageSchema } from "./contact-message.js";
 import { DailyCapReached } from "./daily-cap-reached.js";
 import { ScanTargetRejected } from "./scan-target-rejected.js";
 import { ScanUnavailable } from "./scan-unavailable.js";
@@ -31,4 +32,12 @@ export const getScanContract = defineContract("getScan", {
     }),
   }),
   output: ScanViewSchema,
+});
+
+export const sendMessageContract = defineContract("sendMessage", {
+  description:
+    "Keep a visitor's message to studio9, with the scanned page it was sent from",
+  failure: Schema.Union([DailyCapReached, ScanUnavailable]),
+  input: ContactMessageSchema,
+  output: Schema.Struct({ received: Schema.Boolean }),
 });

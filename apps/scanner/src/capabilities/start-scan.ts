@@ -40,7 +40,10 @@ export const startScan = implement(startScanContract, ({ url }) =>
       );
 
     if (outcome.kind === "cap_reached") {
-      return yield* new DailyCapReached({ limit: DAILY_SCAN_CAP });
+      return yield* new DailyCapReached({
+        limit: DAILY_SCAN_CAP,
+        what: "scans",
+      });
     }
 
     if (outcome.kind === "reused") {

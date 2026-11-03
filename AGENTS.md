@@ -13,13 +13,17 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 - pnpm workspaces + Turborepo (`apps/*`, `packages/*`)
 - Node `>=24.18.0` and pnpm `11.3.0`; do not replace pnpm with Bun or npm for installs. A new shell may start on another Node: run `nvm use` first
 - Effect `4.0.0` and `@effect/platform-node` `4.0.0`
-- XState `6.0.0-alpha.63` with `@xstate/effect` `0.1.0-alpha.6` for the scan lifecycle once it runs in a Workflow (layer 2). Not installed yet
-- Alchemy `2.0.0-beta.81` for every cloud resource (layer 2). Not installed yet
+- XState `6.0.0-alpha.63` with `@xstate/effect` `0.1.0-alpha.6` for the scan lifecycle: machines run as scoped Effects via `createEffectActor`, side effects are declared `fromEffect` actors
+- Alchemy `2.0.0-beta.81` for every cloud resource, declared in `apps/infra/alchemy.run.ts`, authenticated through Alchemy profiles (`~/.alchemy/profiles`), never through env vars in this repo
+- Foldkit `0.166.0` with `@foldkit/vite-plugin` `0.26.1` on Vite `8.0.7`, and StyleX `0.19.1`, for `apps/web`, at webproai's pins
+- `flag-icons` `7.6.0` (MIT) for the member-state flags on the page
+- Drizzle `1.0.0-rc.5-ab785fc` and `@effect/sql-d1` `4.0.0` for the D1 store, only in `packages/scan-store`
 - TypeScript `7.0.2` in strict mode, patched by `@effect/tsgo` `0.45.0` in `prepare` so the Effect language service diagnostics in `tsconfig.base.json` fail `tsc`, not just the editor. Escape hatch for a real boundary: `// @effect-diagnostics-next-line <rule>:off` with a reason
 - `@effect/vitest` `4.0.0` for every Effect test: `it.effect` and `it.layer(layer)`; `Effect.run*` and `ManagedRuntime.make` in test files are a lint error
 - `@oxlint/plugins` `1.83.0` for the typed lint rules in `scripts/oxlint-plugin-*.ts` and the vendored [anti-slop](https://github.com/dmmulroy/anti-slop) rules in `tools/oxlint/anti-slop/` (all generic rules plus the Effect group, at `error`)
 - Oxlint `1.83.0` with Ultracite `7.12.0`, Oxfmt `0.68.0`, and Turborepo `2.11.2`
 - `htmlparser2` `12.0.0` is the one HTML parser, and only `packages/html-reader` imports it
+- `axe-core` `4.14.0` (MPL-2.0) and `@cloudflare/puppeteer` `1.4.0` for the rendered page check; only `packages/browser-audit` imports them
 - varlock `1.20.0`: declare every env var in `.env.schema`, never read `.env.local` directly, run `pnpm env:check` after schema edits
 
 ## Packages
@@ -28,12 +32,13 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 | --- | --- | --- |
 | `@eaa-check/capability` | `packages/capability` | `defineContract`, `implement`, and the `toCommand` and `toRpc` projections, copied from webproai unchanged |
 | `@eaa-check/facts` | `packages/facts` | Parses the facts ledger (`research/facts/**/*.md`) and holds the generated data the product reads: only `verified` facts, looked up by ID, and per-state profiles |
-| `@eaa-check/core` | `packages/core` | The domain: the `scan` capability, the hardened fetch (`SafeFetch`), evidence, the checks, the check catalogue, per-state applicability and the report. It owns the ports `HopTransport` and `PageReader` and imports no HTTP client and no parser. The fence's own tests also live in `packages/core/test` |
+| `@eaa-check/core` | `packages/core` | The domain: the `scan` capability, the hardened fetch (`SafeFetch`), evidence, the checks, the check catalogue, per-state applicability and the report. It owns the ports `HopTransport`, `PageReader` and `RenderedAudit` and imports no HTTP client and no parser. The fence's own tests also live in `packages/core/test` |
 | `@eaa-check/http-transport` | `packages/http-transport` | Adapter for `HopTransport`: one request through Effect's `HttpClient` on `fetch`, never follows a redirect, sends no tracing headers |
+| `@eaa-check/browser-audit` | `packages/browser-audit` | Adapter for `RenderedAudit`: one Browser Run session through `@cloudflare/puppeteer`, fixed viewport and user agent, runs the pinned axe-core, closes the browser in a finalizer, hard timeout |
 | `@eaa-check/html-reader` | `packages/html-reader` | Adapter for `PageReader`: reads the accessibility evidence out of HTML in one pass over the `htmlparser2` tokenizer, with no tree |
 | `@eaa-check/cli` | `apps/cli` | Composition root for the `eaa-check` bin. One command per capability |
 
-Later layers add `apps/scanner` (the Worker and its Workflow), `apps/infra` (the Alchemy Stack), `apps/web` (the page) and `packages/scan-store`, the same way webproai has them.
+| `@eaa-check/scan-store` | `packages/scan-store` | Cartridge on D1: `ScanStore` (one row per scan: stage, report or failure; same-URL reuse within an hour; daily cap), `MessageStore` (contact messages, daily cap) and `BrowserBudget` (daily browser time for the rendered check). Each cap is one conditional insert. Declares its database and migrations for the Stack | | `@eaa-check/scanner` | `apps/scanner` | The backend Worker: `startScan`, `getScan`, `sendMessage` over RPC, and `ScanWorkflow`, one Workflow instance per scan whose body runs the XState scan machine with each step as a Workflow task | | `@eaa-check/web` | `apps/web` | The page: a Foldkit app styled with StyleX. Paste a URL, follow the scan, read the report, write to studio9 | | `@eaa-check/infra` | `apps/infra` | The Alchemy Stack: website Worker, scanner Worker, the Workflow, D1. No zone, no domain |
 
 ## Nouns
 
@@ -42,7 +47,7 @@ Later layers add `apps/scanner` (the Worker and its Workflow), `apps/infra` (the
 | Fact | `research/facts/**/*.md` | One sourced claim with status `unverified`, `verified` or `rejected`. Only `verified` facts reach product code |
 | Contract | `packages/core/src/contracts.ts` | Shared name, schemas, failure, annotations |
 | Capability | `packages/core/src/<name>.ts` | Binds one contract to its handler with `implement` |
-| Port | `packages/core/src/<name>.ts` | A `Context.Service` core owns and an adapter implements: `HopTransport`, `PageReader` |
+| Port | `packages/core/src/<name>.ts` | A `Context.Service` core owns and an adapter implements: `HopTransport`, `PageReader`, `RenderedAudit` |
 | Check | `packages/core/src/checks/<id>.ts` | One pure function from page evidence to a check result |
 | Catalogue | `packages/core/src/catalogue.ts` | Maps each check to the fact IDs of its WCAG success criterion and EN 301 549 clauses |
 | State profile | `packages/facts` | Per member state: one verified fact per field, or unknown |
@@ -60,6 +65,8 @@ Later layers add `apps/scanner` (the Worker and its Workflow), `apps/infra` (the
 | `pnpm build` | Compile package outputs |
 | `pnpm facts` | Regenerate `packages/facts/src/ledger.generated.ts` from the ledger. A test fails while it is stale |
 | `pnpm cli scan <url>` | Build and run the CLI; `--json` prints the schema-encoded result |
+| `pnpm exec alchemy dev --no-input` (in `apps/infra`) | The whole product in local workerd, no cloud calls |
+| `pnpm exec varlock run -- pnpm --filter @eaa-check/infra exec alchemy plan --stage dev --no-input` | Preview the Stack diff. Use `deploy --stage dev --yes --no-input` to apply. Name the stage every time; only non-production stages are authorized |
 | `pnpm vendor:agent-sources` | Clone the pinned source mirrors agents read before writing Effect or XState code |
 | `pnpm exec lefthook install` | Install git hooks (also via `prepare`) |
 | `pnpm turbo run check test build` | The gate. Run it before claiming a change is ready |

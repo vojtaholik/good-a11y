@@ -6,7 +6,7 @@ import { Effect } from "effect";
 import { renderToString } from "foldkit/experimental/server";
 
 import SHELL from "../index.html?raw";
-import { ScanState, StartState } from "../src/client/model.js";
+import { ContactState, ScanState, StartState } from "../src/client/model.js";
 import type { AppModel } from "../src/client/model.js";
 import { AppRoute } from "../src/features/route.js";
 import { view } from "../src/features/view.js";
@@ -32,6 +32,7 @@ const pageOf = (model: AppModel) =>
   );
 
 const home: AppModel = {
+  contact: { email: "", message: "", name: "", state: ContactState.Editing() },
   generation: 0,
   route: AppRoute.Home(),
   scan: ScanState.Idle(),
@@ -80,6 +81,7 @@ describe("our own page", () => {
       });
 
       expect(html).toContain("Issue found");
+      expect(html).toContain("Send message");
       expect(html.toLowerCase()).not.toContain("compliant");
       expect(failing(html)).toEqual([]);
     })

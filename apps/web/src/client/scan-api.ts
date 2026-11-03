@@ -1,10 +1,18 @@
 import { toRpcGroup } from "@eaa-check/capability/rpc-group";
-import { getScanContract, startScanContract } from "@eaa-check/core/contracts";
+import {
+  getScanContract,
+  sendMessageContract,
+  startScanContract,
+} from "@eaa-check/core/contracts";
 import { Context, Effect, Layer } from "effect";
 import { FetchHttpClient } from "effect/http";
 import { RpcClient, RpcSerialization } from "effect/rpc";
 
-const { group } = toRpcGroup([startScanContract, getScanContract]);
+const { group } = toRpcGroup([
+  startScanContract,
+  getScanContract,
+  sendMessageContract,
+]);
 
 const protocol = RpcClient.layerProtocolHttp({ url: "/rpc" }).pipe(
   Layer.provide([FetchHttpClient.layer, RpcSerialization.layerJson])

@@ -3,7 +3,7 @@ import { localStores } from "@eaa-check/scan-store/testing";
 import { describe, expect, it } from "@effect/vitest";
 import { Effect, Layer, Ref } from "effect";
 
-import { getScan, startScan } from "../src/capabilities/index.js";
+import { getScan, sendMessage, startScan } from "../src/capabilities/index.js";
 import { ScanLauncher } from "../src/scan-launcher.js";
 
 const launched = Ref.makeUnsafe<readonly ScanJob[]>([]);
@@ -58,6 +58,17 @@ describe("site capabilities", () => {
         );
 
         expect(error._tag).toBe("UnknownScan");
+      })
+    );
+    scoped.effect("keeps a visitor's message with the scanned page", () =>
+      Effect.gen(function* keepsMessage() {
+        expect(
+          yield* sendMessage.handler({
+            email: "owner@example.com",
+            message: "Please review this page.",
+            url: "https://example.com/",
+          })
+        ).toEqual({ received: true });
       })
     );
   });

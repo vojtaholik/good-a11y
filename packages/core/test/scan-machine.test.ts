@@ -23,7 +23,12 @@ const report: Report = reportOf(
   []
 );
 
-type Step = "scan" | "store" | "fail";
+const rendered = (scanned: Report): Report => ({
+  ...scanned,
+  headline: "rendered",
+});
+
+type Step = "scan" | "render" | "store" | "fail";
 
 const hostWhere = (failing: readonly Step[]) =>
   Effect.gen(function* buildHost() {
@@ -47,6 +52,8 @@ const hostWhere = (failing: readonly Step[]) =>
 
     const steps = ScanSteps.of({
       fail: () => record("fail"),
+      render: (_job, scanned) =>
+        record("render").pipe(Effect.as(rendered(scanned))),
       scan: () => record("scan").pipe(Effect.as(report)),
       store: (_job, stored) =>
         record("store").pipe(Effect.andThen(Ref.set(kept, stored))),
@@ -56,6 +63,19 @@ const hostWhere = (failing: readonly Step[]) =>
   });
 
 describe("runScan", () => {
+  it.effect("publishes the static report when rendering is spent", () =>
+    Effect.gen(function* renderSpent() {
+      const host = yield* hostWhere(["render"]);
+
+      const outcome = yield* runScan(job).pipe(
+        Effect.provideService(ScanSteps, host.steps)
+      );
+
+      expect(outcome.stage).toBe("published");
+      expect(yield* Ref.get(host.kept)).toEqual(report);
+    })
+  );
+
   it.effect("publishes the report the scan step returned", () =>
     Effect.gen(function* publishes() {
       const host = yield* hostWhere([]);
@@ -65,8 +85,8 @@ describe("runScan", () => {
       );
 
       expect(outcome.stage).toBe("published");
-      expect(yield* Ref.get(host.calls)).toEqual(["scan", "store"]);
-      expect(yield* Ref.get(host.kept)).toEqual(report);
+      expect(yield* Ref.get(host.calls)).toEqual(["scan", "render", "store"]);
+      expect(yield* Ref.get(host.kept)).toEqual(rendered(report));
     })
   );
 
@@ -92,7 +112,12 @@ describe("runScan", () => {
       );
 
       expect(outcome.stage).toBe("failed");
-      expect(yield* Ref.get(host.calls)).toEqual(["scan", "store", "fail"]);
+      expect(yield* Ref.get(host.calls)).toEqual([
+        "scan",
+        "render",
+        "store",
+        "fail",
+      ]);
       expect(yield* Ref.get(host.kept)).toBeNull();
     })
   );

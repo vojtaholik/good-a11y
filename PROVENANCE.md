@@ -15,3 +15,10 @@ The repository was created from the [joelhooks/rat-stack](https://github.com/joe
 | `tools/oxlint/anti-slop/` | [dmmulroy/anti-slop](https://github.com/dmmulroy/anti-slop) at `c44ef22`, MIT | Vendored; see `UPSTREAM.md` there |
 | `scripts/oxlint-plugin-patterns.ts`, parts of `scripts/oxlint-plugin-boundaries.ts` | [foldkit/foldkit](https://github.com/foldkit/foldkit) `packages/oxlint-plugin-foldkit` at `95fed7f`, MIT | Rule ideas, via webproai |
 | `skills/rat-stack-mode/` router and adapted principles | pstack by Lauren Tan, MIT (`skills/rat-stack-mode/LICENSE-pstack`) | Via webproai |
+
+## Runtime dependencies with notable licences
+
+| Dependency | Licence | How it is used |
+| --- | --- | --- |
+| [axe-core](https://github.com/dequelabs/axe-core) `4.14.0` | MPL-2.0 | `packages/browser-audit` evaluates its unmodified source (`axe.source`) inside the rendered page and runs `axe.run`. Not modified or vendored; MPL-2.0 is file-level copyleft, so changes to axe-core files would have to be published, use of it does not. `packages/core/test/fixtures/axe-results.json` is its output, recorded from `axe-page.html` in local headless Chrome |
+| [@cloudflare/puppeteer](https://github.com/cloudflare/puppeteer) `1.4.0` | Apache-2.0 | `packages/browser-audit` drives Cloudflare Browser Run through the Worker's `browser` binding |

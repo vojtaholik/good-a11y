@@ -223,7 +223,17 @@ export {
   type ScanOutcome,
 } from "./scan-job.js";
 
-export { getScanContract, startScanContract } from "./scan-lifecycle.js";
+export {
+  ContactMessageSchema,
+  MAX_MESSAGE_LENGTH,
+  type ContactMessage,
+} from "./contact-message.js";
+
+export {
+  getScanContract,
+  sendMessageContract,
+  startScanContract,
+} from "./scan-lifecycle.js";
 
 export { runScan, scanMachine } from "./scan-machine.js";
 

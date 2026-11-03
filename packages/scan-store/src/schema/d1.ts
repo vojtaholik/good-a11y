@@ -51,3 +51,16 @@ export const BrowserBudget = sqliteTable(
     check("browser_budget_seconds_check", sql`${table.reservedSeconds} >= 0`),
   ]
 );
+
+export const Messages = sqliteTable(
+  "messages",
+  {
+    email: text("email").notNull(),
+    id: text("id").primaryKey().notNull(),
+    message: text("message").notNull(),
+    name: text("name"),
+    receivedAt: integer("received_at").notNull(),
+    url: text("url"),
+  },
+  (table) => [index("messages_received_idx").on(table.receivedAt, table.id)]
+);

@@ -9,8 +9,8 @@ Deployed to the non-production stage `dev`: https://eaacheck-website-dev-x6ihepv
 | Package | What it does |
 | --- | --- |
 | `packages/core` (new files) | `startScan` and `getScan` contracts (`scan-lifecycle.ts`), `ScanView` and its stages (`scan-view.ts`), `ScanJob` (`scan-job.ts`), the `ScanSteps` port, the scan machine (`scan-machine.ts`), and the failures `UnknownScan`, `DailyCapReached`, `ScanUnavailable`, `ScanStepFailed`. The browser-safe entry `@eaa-check/core/contracts` re-exports what the page needs |
-| `packages/scan-store` | D1 through Drizzle. `ScanStore`: one row per scan (stage, report JSON, failure). `BrowserBudget`: one row per UTC day of reserved browser seconds. Migrations in `migrations/d1/`, declared for the Stack by `ScanDatabase` in `src/d1.ts` |
-| `apps/scanner` | The backend Worker. Serves `startScan` and `getScan` over RPC (`toRpc`), and owns `ScanWorkflow` |
+| `packages/scan-store` | D1 through Drizzle. `ScanStore`: one row per scan (stage, report JSON, failure). `MessageStore`: one row per visitor message. `BrowserBudget`: one row per UTC day of reserved browser seconds. Migrations in `migrations/d1/`, declared for the Stack by `ScanDatabase` in `src/d1.ts` |
+| `apps/scanner` | The backend Worker. Serves `startScan`, `getScan` and `sendMessage` over RPC (`toRpc`), and owns `ScanWorkflow` |
 | `apps/infra` | The Alchemy Stack `EaaCheck`: the website Worker, the scanner Worker, the Workflow, D1 and its migrations. No zone, no domain, no email |
 | `apps/web` | The bare Foldkit page, styled with StyleX, flags from `flag-icons` |
 
@@ -23,6 +23,10 @@ Deployed to the non-production stage `dev`: https://eaacheck-website-dev-x6ihepv
    - `store`: writes the report and marks the row `published`.
    - `fail`: marks the row `failed` with a plain message.
 4. `getScan(slug)` reads the newest row for the hostname without `www.`. A row still unsettled after 10 minutes reads as failed.
+
+## Contact
+
+Every settled report, refused ones included, ends with the studio9 contact text (still the placeholder wording) and a short form: name (optional), email and message. The scanned URL is sent with it and the page says so. `sendMessage` checks the fields against `ContactMessageSchema` (the page checks the same schema before sending), and `MessageStore.keep` stores the message in D1 unless 50 messages (`DAILY_MESSAGE_CAP`) arrived in the last 24 hours, which fails with `DailyCapReached`. Ported from webproai's slice (`76991af`, `f6978ef`), without the notified column. Messages are stored only: nobody is told one arrived.
 
 ## Decisions
 
@@ -48,11 +52,15 @@ Deployed to the non-production stage `dev`: https://eaacheck-website-dev-x6ihepv
 ## Verified
 
 - Gate: `pnpm turbo run check test build`, 40 of 40 tasks.
-- Tests: the scan machine (published, scan spent, store spent), the store (publish, reuse, rescan after the window, daily cap, an outdated row), the budget (spend, new day, oversize), the site capabilities (start and reuse, a refused address, an unknown site), our own page.
+- Tests: the scan machine (published, scan spent, store spent), the store (publish, reuse, rescan after the window, daily cap, an outdated row), the message store (cap, a resent message), the budget (spend, new day, oversize), the site capabilities (start and reuse, a refused address, an unknown site, a message), our own page (with the contact form).
+- Stage `dev`, contact: a test message sent from the form under a live report was stored and the page said "Your message arrived. Thank you."
 - `alchemy dev`: the page served and a scan of example.com published through the local Workflow.
 - Stage `dev`: first deploy created 5 resources and changed nothing else. A scan typed into the live page (gov.uk) published and rendered; w3.org comes back as refused (HTTP 403 to Worker requests), which the report states.
 
 ## Open
+
+- Contact messages are stored and never sent anywhere. Sending them (webproai notifies the owner's own address through Cloudflare Email) needs the destination address verified in Cloudflare, and is not built.
+- The contact form has no Turnstile or other bot check; the daily cap of 50 is the only limit.
 
 - The browser bundle is 650 kB: `@eaa-check/core/contracts` pulls the facts ledger. Splitting the page's schemas from the ledger is a later change.
 - Old rows on stage `dev` from before the Report schema changes read as outdated; nothing migrates them, by design.

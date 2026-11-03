@@ -1,3 +1,4 @@
+import { ContactMessageSchema } from "@eaa-check/core/contracts";
 import type { ScanView } from "@eaa-check/core/contracts";
 import { Option, Schema } from "effect";
 import type { Runtime, Update } from "foldkit";
@@ -9,9 +10,16 @@ import {
   GetScan,
   LoadExternal,
   Navigate,
+  SendMessage,
   StartScan,
 } from "../client/commands.js";
-import { Message, ScanState, StartState } from "../client/model.js";
+import {
+  ContactField,
+  ContactState,
+  Message,
+  ScanState,
+  StartState,
+} from "../client/model.js";
 import type { AppMessage, AppModel } from "../client/model.js";
 import { pollTarget } from "../client/polling.js";
 import type { ScanApi } from "../client/scan-api.js";
@@ -37,6 +45,70 @@ const readScan = (model: AppModel, view: ScanView): AppUpdate =>
               : ScanState.Running({ view }),
         }),
       };
+
+const isValidContactField = {
+  email: Schema.is(ContactMessageSchema.fields.email),
+  message: Schema.is(ContactMessageSchema.fields.message),
+};
+
+const submitContact = (model: AppModel, url: string): AppUpdate => {
+  const { contact } = model;
+
+  if (Schema.is(ContactState.Sending)(contact.state)) {
+    return { model };
+  }
+
+  const typed = {
+    email: contact.email.trim(),
+    message: contact.message.trim(),
+    name: contact.name.trim(),
+  };
+
+  const fields = ContactField.literals.filter(
+    (field) => !isValidContactField[field](typed[field])
+  );
+
+  if (fields.length > 0) {
+    return {
+      model: modifyFields(model, {
+        contact: () => ({
+          ...contact,
+          state: ContactState.Invalid({ fields }),
+        }),
+      }),
+    };
+  }
+
+  return {
+    commands: [
+      SendMessage({
+        email: typed.email,
+        maybeName: typed.name === "" ? Option.none() : Option.some(typed.name),
+        message: typed.message,
+        url,
+      }),
+    ],
+    model: modifyFields(model, {
+      contact: () => ({ ...contact, state: ContactState.Sending() }),
+    }),
+  };
+};
+
+const editContact = (
+  model: AppModel,
+  field: "email" | "message" | "name",
+  value: string
+): AppUpdate => ({
+  model: modifyFields(model, {
+    contact: (contact) => ({
+      ...contact,
+      [field]: value,
+      state: Schema.is(ContactState.Sending)(contact.state)
+        ? contact.state
+        : ContactState.Editing(),
+    }),
+  }),
+});
 
 const enterRoute = (model: AppModel, route: AppRouteState): AppUpdate => {
   const generation = model.generation + 1;
@@ -88,6 +160,12 @@ export const init: Runtime.RoutingApplicationInit<
 > = (url) =>
   enterRoute(
     {
+      contact: {
+        email: "",
+        message: "",
+        name: "",
+        state: ContactState.Editing(),
+      },
       generation: 0,
       route: AppRoute.Home(),
       scan: ScanState.Idle(),
@@ -120,6 +198,17 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
             }),
           }
         : { model },
+    FailedSendMessage: ({ maybeMessage }) => ({
+      model: modifyFields(model, {
+        contact: (contact) => ({
+          ...contact,
+          state: Option.match(maybeMessage, {
+            onNone: () => ContactState.Unavailable(),
+            onSome: (refusal) => ContactState.Refused({ message: refusal }),
+          }),
+        }),
+      }),
+    }),
     FailedStartScan: ({ generation, maybeMessage }) =>
       generation === model.generation
         ? {
@@ -132,9 +221,19 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
             }),
           }
         : { model },
+    SubmittedContactForm: ({ url }) => submitContact(model, url),
     SubmittedScanForm: () => submitScan(model),
     SucceededGetScan: ({ generation, view }) =>
       generation === model.generation ? readScan(model, view) : { model },
+    SucceededSendMessage: () => ({
+      model: modifyFields(model, {
+        contact: (contact) => ({
+          ...contact,
+          message: "",
+          state: ContactState.Sent(),
+        }),
+      }),
+    }),
     SucceededStartScan: ({ generation, slug }) =>
       generation === model.generation
         ? { commands: [Navigate({ url: reportRouter({ slug }) })], model }
@@ -147,6 +246,9 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
           model,
         }),
       }),
+    UpdatedContactEmail: ({ value }) => editContact(model, "email", value),
+    UpdatedContactMessage: ({ value }) => editContact(model, "message", value),
+    UpdatedContactName: ({ value }) => editContact(model, "name", value),
     UpdatedScanUrl: ({ value }) => ({
       model: modifyFields(model, {
         start: (start) =>

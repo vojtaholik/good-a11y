@@ -12,6 +12,10 @@ export class ScanSteps extends Context.Service<
       job: ScanJob,
       failure: string
     ) => Effect.Effect<void, ScanStepFailed>;
+    readonly render: (
+      job: ScanJob,
+      report: Report
+    ) => Effect.Effect<Report, ScanStepFailed>;
     readonly scan: (job: ScanJob) => Effect.Effect<Report, ScanStepFailed>;
     readonly store: (
       job: ScanJob,

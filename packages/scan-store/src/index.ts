@@ -1,5 +1,11 @@
 export { BrowserBudget, utcDayOf, type Reservation } from "./browser-budget.js";
 
+export {
+  MessageStore,
+  type KeepOutcome,
+  type NewMessage,
+} from "./message-store.js";
+
 export { ScanStoreError } from "./scan-store-error.js";
 
 export {

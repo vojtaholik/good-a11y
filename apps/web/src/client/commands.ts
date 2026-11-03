@@ -54,6 +54,36 @@ export const GetScan = Command.define("GetScan", {
   messages: [Message.SucceededGetScan, Message.FailedGetScan],
 });
 
+export const SendMessage = Command.define("SendMessage", {
+  args: {
+    email: Schema.String,
+    maybeName: Schema.Option(Schema.String),
+    message: Schema.String,
+    url: Schema.String,
+  },
+  execute: ({ email, maybeName, message, url }) =>
+    ScanApi.use((api) =>
+      api.sendMessage(
+        Option.match(maybeName, {
+          onNone: () => ({ email, message, url }),
+          onSome: (name) => ({ email, message, name, url }),
+        })
+      )
+    ).pipe(
+      Effect.matchCause({
+        onFailure: (cause) =>
+          Message.FailedSendMessage({
+            maybeMessage: Cause.findErrorOption(cause).pipe(
+              Option.filter(isRefusal),
+              Option.map((error) => error.message)
+            ),
+          }),
+        onSuccess: () => Message.SucceededSendMessage(),
+      })
+    ),
+  messages: [Message.SucceededSendMessage, Message.FailedSendMessage],
+});
+
 export const Navigate = Command.define("Navigate", {
   args: { url: Schema.String },
   execute: ({ url }) =>

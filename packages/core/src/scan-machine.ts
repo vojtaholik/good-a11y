@@ -32,6 +32,16 @@ const scan = fromEffect({
   schemas: { input: StepInput, output: ReportSchema },
 });
 
+const render = fromEffect({
+  effect: ({ input: { job, report } }) =>
+    report === undefined
+      ? Effect.die(
+          new Error(`Scan ${job.scanId} reached rendering without a report`)
+        )
+      : ScanSteps.use((steps) => steps.render(job, report)),
+  schemas: { input: StoreInput, output: ReportSchema },
+});
+
 const store = fromEffect({
   effect: ({ input: { job, report } }) =>
     report === undefined
@@ -49,7 +59,7 @@ const settleFailed = fromEffect({
 });
 
 export const scanMachine = setupEffect({
-  actors: { scan, settleFailed, store },
+  actors: { render, scan, settleFailed, store },
   schemas: {
     context: types<ScanContext>(),
     input: ScanJobSchema,
@@ -71,6 +81,20 @@ export const scanMachine = setupEffect({
       },
     },
     published: { type: "final" },
+    rendering: {
+      invoke: {
+        input: ({ context }) => ({ job: context.job, report: context.report }),
+        onDone: {
+          context: ({ context, event }) => ({
+            ...context,
+            report: event.output,
+          }),
+          target: "storing",
+        },
+        onError: { target: "storing" },
+        src: "render",
+      },
+    },
     scanning: {
       invoke: {
         input: ({ context }) => ({ job: context.job }),
@@ -79,7 +103,7 @@ export const scanMachine = setupEffect({
             ...context,
             report: event.output,
           }),
-          target: "storing",
+          target: "rendering",
         },
         onError: { target: "failing" },
         src: "scan",

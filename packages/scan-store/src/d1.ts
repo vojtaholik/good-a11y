@@ -4,6 +4,7 @@ import * as Effect from "effect/Effect";
 import * as Layer from "effect/Layer";
 
 import { BrowserBudget } from "./browser-budget.js";
+import { MessageStore } from "./message-store.js";
 import {
   scanStoreMigrationDirectory,
   scanStoreSchemaFile,
@@ -33,5 +34,6 @@ const storeDatabaseD1 = Layer.effect(
 
 export const scanStoreD1 = Layer.mergeAll(
   ScanStore.layer,
-  BrowserBudget.layer
+  BrowserBudget.layer,
+  MessageStore.layer
 ).pipe(Layer.provide(storeDatabaseD1));

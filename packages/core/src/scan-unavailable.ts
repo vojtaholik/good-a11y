@@ -3,7 +3,7 @@ import { Schema } from "effect";
 export class ScanUnavailable extends Schema.TaggedError<ScanUnavailable>()(
   "ScanUnavailable",
   {
-    operation: Schema.Literals(["startScan", "getScan"]),
+    operation: Schema.Literals(["startScan", "getScan", "sendMessage"]),
   }
 ) {
   override get message(): string {

@@ -1,6 +1,8 @@
 import type {
   Finding,
   FindingReference,
+  Rendered,
+  RenderedFinding,
   Report,
   StateRef,
 } from "@eaa-check/core/contracts";
@@ -9,6 +11,7 @@ import type { Html, HtmlBuilder } from "foldkit/html";
 
 import { ScanState } from "../client/model.js";
 import type { AppMessage, AppModel } from "../client/model.js";
+import { contactView } from "./contact-view.js";
 import { flagOf } from "./flags.js";
 import { homeRouter } from "./route.js";
 import { styles } from "./styles.js";
@@ -126,6 +129,92 @@ const findingView = (
     ]
   );
 
+const referencesView = (
+  references: readonly FindingReference[],
+  h: HtmlBuilder<AppMessage>
+): Html[] =>
+  references.length === 0
+    ? []
+    : [
+        h.ul(
+          [],
+          references.map((reference) =>
+            h.li([], [`${KIND[reference.kind]}: ${reference.text}`])
+          )
+        ),
+      ];
+
+const samplesView = (
+  samples: readonly string[],
+  h: HtmlBuilder<AppMessage>
+): Html[] =>
+  samples.length === 0
+    ? []
+    : [
+        h.ul(
+          [],
+          samples.map((sample) =>
+            h.li([], [h.code([sx(h, styles.sample)], [sample])])
+          )
+        ),
+      ];
+
+const renderedFindingView = (
+  finding: RenderedFinding,
+  report: Report,
+  h: HtmlBuilder<AppMessage>
+): Html =>
+  h.section(
+    [sx(h, styles.finding)],
+    [
+      h.h3([], [finding.help]),
+      h.p(
+        [],
+        [
+          h.span([sx(h, styles.status)], [STATUS.fail]),
+          ` (${finding.failing} ${finding.failing === 1 ? "element" : "elements"}; axe rule `,
+          h.a([h.Href(finding.helpUrl)], [finding.rule]),
+          ")",
+        ]
+      ),
+      ...samplesView(finding.samples, h),
+      ...referencesView(finding.references, h),
+      statesView(report, h),
+    ]
+  );
+
+const renderedView = (
+  rendered: Rendered | null,
+  report: Report,
+  h: HtmlBuilder<AppMessage>
+): Html[] => {
+  if (rendered === null) {
+    return [];
+  }
+
+  if (rendered.status === "skipped") {
+    return [
+      h.h2([], ["Rendered page check"]),
+      h.p([], [`Rendered page check skipped: ${rendered.reason}`]),
+    ];
+  }
+
+  return [
+    h.h2([], ["Rendered page check"]),
+    h.p(
+      [],
+      [
+        `The page was opened in a browser and checked with ${rendered.engine}: ${rendered.rules} rules touching ${rendered.criteria.length} WCAG 2.1 success criteria.`,
+      ]
+    ),
+    ...(rendered.findings.length === 0
+      ? [h.p([], [STATUS.pass])]
+      : rendered.findings.map((finding) =>
+          renderedFindingView(finding, report, h)
+        )),
+  ];
+};
+
 const requirementsView = (
   report: Report,
   h: HtmlBuilder<AppMessage>
@@ -184,6 +273,7 @@ const checkedView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] => [
     ? []
     : [h.p([], [report.reference.benchmark.text])]),
   ...report.findings.map((finding) => findingView(finding, report, h)),
+  ...renderedView(report.rendered, report, h),
   ...closingView(report, h),
 ];
 
@@ -220,7 +310,10 @@ export const reportView = (
                 h.p([h.Role("alert")], [view.failure ?? "The scan failed."]),
                 h.p([], [h.a([h.Href(homeRouter())], ["Start a new scan"])]),
               ]
-            : publishedView(view.report, h),
+            : [
+                ...publishedView(view.report, h),
+                contactView(model, view.url, h),
+              ],
         Unavailable: () => [
           h.p(
             [h.Role("alert")],

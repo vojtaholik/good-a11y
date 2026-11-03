@@ -23,7 +23,28 @@ export const ScanState = defineTaggedUnion({
   Unknown: {},
 });
 
+export const ContactField = Schema.Literals(["email", "message"]);
+
+export type ContactFieldName = typeof ContactField.Type;
+
+export const ContactState = defineTaggedUnion({
+  Editing: {},
+  Invalid: { fields: Schema.Array(ContactField) },
+  Refused: { message: Schema.String },
+  Sending: {},
+  Sent: {},
+  Unavailable: {},
+});
+
+export const ContactForm = Schema.Struct({
+  email: Schema.String,
+  message: Schema.String,
+  name: Schema.String,
+  state: ContactState,
+});
+
 export const Model = Schema.Struct({
+  contact: ContactForm,
   generation: Schema.Int,
   route: AppRoute,
   scan: ScanState,
@@ -39,14 +60,20 @@ export const Message = defineMessageUnion({
   CompletedLoadExternal: {},
   CompletedNavigate: {},
   FailedGetScan: { generation: Schema.Int, unknown: Schema.Boolean },
+  FailedSendMessage: { maybeMessage: Schema.Option(Schema.String) },
   FailedStartScan: {
     generation: Schema.Int,
     maybeMessage: Schema.Option(Schema.String),
   },
+  SubmittedContactForm: { url: Schema.String },
   SubmittedScanForm: {},
   SucceededGetScan: { generation: Schema.Int, view: ScanViewSchema },
+  SucceededSendMessage: {},
   SucceededStartScan: { generation: Schema.Int, slug: Schema.String },
   TickedPoll: {},
+  UpdatedContactEmail: { value: Schema.String },
+  UpdatedContactMessage: { value: Schema.String },
+  UpdatedContactName: { value: Schema.String },
   UpdatedScanUrl: { value: Schema.String },
 });
 
