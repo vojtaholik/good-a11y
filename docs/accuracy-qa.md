@@ -189,6 +189,15 @@ Browser Run reached the real page on all five sites, not a bot wall.
 
 Reflow counted only the 5 samples its page script kept, so reports said "5 elements failing" whatever the real number (fixed in 81ec6a0). The page script now returns the number of offenders that are not exempt, and the finding counts that. Text spacing already had its own count. The focus, keyboard and axe counts use the full lists. The dev rescan of otto.de with b361b59 reports 621 elements past the right edge at 320 px: the promotion carousel's slides and everything inside them. That is the real number, and every element wider than the screen counts, nested ones included.
 
+Reflow is now page-level (79493a1). It fails only when the document itself is wider than the viewport at 320 CSS pixels, and counts as one instance. Its samples are the widest elements that end within the page's scroll width and have no ancestor, across shadow roots, that clips or scrolls on x.
+
+| Site | Page at 320 px | Before | After, dev rescan |
+| --- | --- | --- | --- |
+| alza.cz | 1460 px wide | 547 elements, carousel items | 1 instance, the `brandingEars` side banners |
+| otto.de | 326 px wide | 621 elements, carousel slides at 2496 px | 1 instance, the trust seal ending at 324 px |
+| idnes.cz | 1015 px wide | 765 elements, the article list | 1 instance, the header menu (`#iph`) |
+| Wikipedia | 320 px, no scroll | pass | pass |
+
 ### Contrast inside web components
 
 Decision: color-contrast results on content inside a shadow root, or slotted into one, are left out (b361b59).
