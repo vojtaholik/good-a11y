@@ -8,7 +8,11 @@ import { Effect, Layer, Result, Schema } from "effect";
 import type { Duration } from "effect";
 
 import { landedOn } from "./browser-session.js";
-import type { BrowserSession, LaunchSession } from "./browser-session.js";
+import type {
+  BrowserSession,
+  LaunchSession,
+  OnClose,
+} from "./browser-session.js";
 
 export const SETTLE: Duration.Input = "2 seconds";
 
@@ -61,9 +65,25 @@ const auditIn = Effect.fn("RenderedAudit.auditIn")(function* auditIn(
   return page;
 });
 
-export const renderedAuditWith = (launch: LaunchSession) => ({
+const closeReporting = (session: BrowserSession, onClose: OnClose) =>
+  session.close.pipe(
+    Effect.matchEffect({
+      onFailure: (failure) =>
+        Effect.logWarning(`The browser did not close: ${failure.detail}`).pipe(
+          Effect.andThen(onClose(false))
+        ),
+      onSuccess: () => onClose(true),
+    })
+  );
+
+export const renderedAuditWith = (
+  launch: LaunchSession,
+  onClose: OnClose = () => Effect.void
+) => ({
   audit: (url: PublicUrl): Effect.Effect<RenderedPage, RenderedAuditFailed> =>
-    Effect.acquireRelease(launch, (session) => session.close).pipe(
+    Effect.acquireRelease(launch, (session) =>
+      closeReporting(session, onClose)
+    ).pipe(
       Effect.flatMap((session) => auditIn(session, url)),
       Effect.scoped,
       Effect.timeoutOrElse({
@@ -79,5 +99,8 @@ export const renderedAuditWith = (launch: LaunchSession) => ({
     ),
 });
 
-export const renderedAuditLayer = (launch: LaunchSession) =>
-  Layer.succeed(RenderedAudit, RenderedAudit.of(renderedAuditWith(launch)));
+export const renderedAuditLayer = (launch: LaunchSession, onClose?: OnClose) =>
+  Layer.succeed(
+    RenderedAudit,
+    RenderedAudit.of(renderedAuditWith(launch, onClose))
+  );

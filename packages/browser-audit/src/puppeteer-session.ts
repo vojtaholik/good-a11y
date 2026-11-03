@@ -18,6 +18,8 @@ export const VIEWPORT = { height: 800, width: 1280 } as const;
 
 export const NAVIGATION_TIMEOUT_MS = 30_000;
 
+export const KEEP_ALIVE_MS = 60_000;
+
 const AXE_RUN = `axe.run(document, ${JSON.stringify({
   resultTypes: ["violations"],
   runOnly: { type: "tag", values: AXE_TAGS },
@@ -93,12 +95,15 @@ export const walkState = (keys: readonly number[], candidates: number) => {
 
 export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
   Effect.gen(function* launchPuppeteer() {
-    const browser = yield* step("browser", launch.bind(undefined, binding));
+    const browser = yield* step(
+      "browser",
+      launch.bind(undefined, binding, { keep_alive: KEEP_ALIVE_MS })
+    );
 
-    const close = Effect.ignore(step("browser", browser.close.bind(browser)));
+    const close = step("browser", browser.close.bind(browser));
 
     const page = yield* step("browser", browser.newPage.bind(browser)).pipe(
-      Effect.tapError(() => close)
+      Effect.tapError(() => Effect.ignore(close))
     );
 
     const refused: string[] = [];

@@ -12,7 +12,7 @@ export interface Landing {
 }
 
 export interface BrowserSession {
-  readonly close: Effect.Effect<void>;
+  readonly close: Effect.Effect<void, RenderedAuditFailed>;
   readonly html: Effect.Effect<string, RenderedAuditFailed>;
   readonly open: (url: string) => Effect.Effect<Landing, RenderedAuditFailed>;
   readonly probe: Effect.Effect<string, RenderedAuditFailed>;
@@ -40,6 +40,8 @@ export const landedOn = (
   );
 
 export type LaunchSession = Effect.Effect<BrowserSession, RenderedAuditFailed>;
+
+export type OnClose = (closed: boolean) => Effect.Effect<void>;
 
 export const step = <A>(
   kind: RenderedAuditFailed["kind"],

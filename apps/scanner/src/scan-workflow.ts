@@ -2,6 +2,7 @@ import type { BrowserWorker } from "@cloudflare/puppeteer";
 import { aiJudgeLayer } from "@eaa-check/ai-judge";
 import type { ModelRunner } from "@eaa-check/ai-judge";
 import { browserRenderedAuditLayer } from "@eaa-check/browser-audit";
+import type { OnClose } from "@eaa-check/browser-audit";
 import {
   BUDGET_SPENT,
   DAILY_BROWSER_SECONDS,
@@ -44,7 +45,16 @@ import {
 import { scanStoreD1 } from "@eaa-check/scan-store/d1";
 import * as Cloudflare from "alchemy/Cloudflare";
 import type { RuntimeContext } from "alchemy/RuntimeContext";
-import { Clock, Config, Context, Effect, Layer, Result, Schema } from "effect";
+import {
+  Clock,
+  Config,
+  Context,
+  Effect,
+  Layer,
+  Ref,
+  Result,
+  Schema,
+} from "effect";
 
 import { DAILY_BROWSER_SECONDS_NAME, secondsUsed } from "./browser-limits.js";
 import {
@@ -115,7 +125,7 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
         Effect.mapError(spentIn(job, "scan"))
       );
 
-    const session = (job: ScanJob, report: Report) =>
+    const session = (job: ScanJob, report: Report, onClose: OnClose) =>
       Effect.gen(function* browserSession() {
         const vetted = vetUrl(report.finalUrl ?? job.target.url);
 
@@ -132,7 +142,7 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
         const outcome: RenderedOutcome = yield* RenderedAudit.use((auditor) =>
           auditor.audit(vetted.success)
         ).pipe(
-          Effect.provide(browserRenderedAuditLayer(worker)),
+          Effect.provide(browserRenderedAuditLayer(worker, onClose)),
           Effect.matchEffect({
             onFailure: (failure) =>
               Effect.logWarning(
@@ -167,17 +177,25 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
         }
 
         const startedAt = yield* Clock.currentTimeMillis;
+        const closed = yield* Ref.make(true);
 
-        return yield* session(job, report).pipe(
+        return yield* session(job, report, (done) =>
+          Ref.set(closed, done)
+        ).pipe(
           Effect.ensuring(
             Clock.currentTimeMillis.pipe(
               Effect.flatMap((endedAt) =>
-                budget.release({
-                  day,
-                  seconds:
-                    RENDERED_AUDIT_RESERVE_SECONDS -
-                    secondsUsed(startedAt, endedAt),
-                })
+                Ref.get(closed).pipe(
+                  Effect.flatMap((done) =>
+                    budget.release({
+                      day,
+                      seconds: done
+                        ? RENDERED_AUDIT_RESERVE_SECONDS -
+                          secondsUsed(startedAt, endedAt)
+                        : 0,
+                    })
+                  )
+                )
               ),
               Effect.ignore
             )

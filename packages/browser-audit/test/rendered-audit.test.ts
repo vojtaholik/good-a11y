@@ -220,4 +220,36 @@ describe("the rendered audit", () => {
         );
       })
   );
+
+  it.effect(
+    "reports a browser that did not close, and keeps the axe results",
+    () =>
+      Effect.gen(function* reportsFailedClose() {
+        const closed = yield* Ref.make(0);
+        const reported = yield* Ref.make<boolean[]>([]);
+
+        const fiber = yield* Effect.forkChild(
+          renderedAuditWith(
+            Effect.succeed(
+              fakeSession(closed, {
+                close: Effect.fail(
+                  new RenderedAuditFailed({
+                    detail: "Target closed.",
+                    kind: "browser",
+                  })
+                ),
+              })
+            ),
+            (done) => Ref.update(reported, (seen) => [...seen, done])
+          ).audit(URL)
+        );
+
+        yield* TestClock.adjust("3 seconds");
+
+        const page = yield* Fiber.join(fiber);
+
+        expect(page.axe).toBe('{"violations":[]}');
+        expect(yield* Ref.get(reported)).toEqual([false]);
+      })
+  );
 });
