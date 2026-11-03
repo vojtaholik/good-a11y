@@ -158,7 +158,47 @@ Every report lists all 27 states under "Covers e-commerce services" and none as 
 - **Reflow: a popup opened by the tab walk** (fixed in 14fe334). Wikipedia's link preview stays open after `blur()` and Escape, until the pointer or focus reaches another link. At 320 px it made the page 890 px wide. e1ce0a7 blurred first and the dev rescan still reported it. Reflow is now measured before the tab walk, and the 1280 px viewport is restored after it. The dev rescan with 14fe334 reports no issues on Wikipedia.
 - **"The model noted nothing in the 0 items it was asked about"** on emag.ro, where the browser was blocked. The judged section is now left out when nothing was asked (14fe334).
 
-### Open
+### Left open by this run, settled in round 5
 
-- The reflow and other probe issues show their sample count (at most 5) as "5 elements failing". The probe keeps no total, so the count reads as exact when it is only a lower bound.
+- Reflow showed its sample count (at most 5) as the number of failing elements.
 - The rendered findings on lingscars.com, zara.com, alza.cz, heureka.cz and mediamarkt.de were not checked by hand.
+
+## Round 5: rendered findings on the newly read sites
+
+Run on 2026-11-03 by builder-core. The rendered findings on lingscars.com, zara.com, alza.cz, heureka.cz and mediamarkt.de were checked by hand, as in round 3:
+
+- axe-core 4.14.0 and the probe script ran in local headless Chrome;
+- each probe finding got a screenshot before and after focus.
+
+Browser Run reached the real page on all five sites, not a bot wall.
+
+| Site | Finding | Verdict | Cause or evidence |
+| --- | --- | --- | --- |
+| zara.com | Controls the Tab key never reaches, 6 | FP, fixed | The walk cycled inside OneTrust's consent banner (its policy link and three buttons), so the page behind it could not be reached until the banner is dismissed. Keyboard reach is now not judged when modal stops make up at least half of the stops reached. A fixed header alone leaves the check on. The dev rescan with 0c7af11 reports no issues |
+| lingscars.com | Buttons have a name, 2 (served HTML) | FP, fixed | Swiper names both arrows (`aria-label="Next slide"`) after load, and axe passes `button-name` on the rendered page. A failure seen only in the served HTML is now left out when axe passed a rule of the same concern and did not leave it incomplete. The dev rescan with 0c7af11 no longer shows it |
+| lingscars.com | Contrast, 15 | TP | White on `#01b6e5` at 2.37:1 (badges, toggles), white on `#018eb2` at 3.8:1 for 18px text |
+| lingscars.com | Focus that cannot be seen, 4 | TP | "I want a car" has `:focus-visible` and looks exactly the same before and after focus |
+| alza.cz | Focused controls hidden behind a fixed layer, 26 | TP by the criterion's text | The cookie banner (`js-cookies-info`) entirely hides the focused links until it is dismissed. It is author content the user did not open |
+| alza.cz | Controls the Tab key never reaches, 7 | Plausible TP | "Sleva" badge buttons with `tabindex="-1"`. A person checks whether they do anything that the keyboard cannot reach elsewhere |
+| alza.cz | Contrast, 5 | TP | White on `#0094e7` at 3.28:1, white on `#ff7900` at 2.62:1, 14px |
+| heureka.cz | Contrast, 56 | TP, 53 of 54 checked | Blue `#0084e0` on white at 3.9:1 for 13px ratings, white on `#0084e0` at 3.9:1. One sample, `#141414` on `#333333`, sits on a dark image and was not settled |
+| mediamarkt.de | List items outside a list 27, ARIA parent 12, ARIA children 2 | TP | `<ul role="menu">` with plain `<li>` children: the menu role breaks the list, and the `li` breaks the menu |
+| mediamarkt.de | Hidden elements that can still take focus, 17 | TP | Carousel clones with `aria-hidden="true"` keep focusable links |
+
+### Probe counts
+
+Reflow counted only the 5 samples its page script kept, so reports said "5 elements failing" whatever the real number (fixed in 81ec6a0). The page script now returns the number of offenders that are not exempt, and the finding counts that. Text spacing already had its own count. The focus, keyboard and axe counts use the full lists. The dev rescan of otto.de with b361b59 reports 621 elements past the right edge at 320 px: the promotion carousel's slides and everything inside them. That is the real number, and every element wider than the screen counts, nested ones included.
+
+### Contrast inside web components
+
+Decision: color-contrast results on content inside a shadow root, or slotted into one, are left out (b361b59).
+
+axe-core reads the background of such content from the light DOM. On otto.de, white text on a red card was reported as white on the grey page (1.13:1).
+
+How it works: after axe runs, the page script resolves each contrast node's target, shadow paths included. It marks the node when the node is in a shadow root, or when the node or an ancestor is assigned to a slot or is a child of an open shadow host. Core then drops the marked nodes.
+
+What it costs:
+
+- On otto.de all 10 contrast nodes go. That is the two known false positives, and also eight red prices on beige at 4.23:1 that may be real. Contrast inside components is left to a person.
+- seznam.cz, heureka.cz, rohlik.cz, emag.ro and lingscars.com have no such nodes, so nothing changes there.
+- The dev rescan of otto.de with b361b59 shows no contrast issue and no focus issue.
