@@ -120,3 +120,36 @@ Blind requests out of Browser Run are all that's left unless its egress reaches 
 - **M3**: `publicLookup` resolves with `all: true`, refuses when any address is private, loopback, link-local, CGNAT, multicast, reserved, NAT64, 6to4 or IPv4-mapped, and hands the vetted address to the socket, so a rebind between check and connect can't happen. Both the http and https agents get the lookup (`layerAgentOptions`). One gap not worth a finding: deprecated IPv4-compatible `::a.b.c.d` is not listed (not routed by modern stacks).
 - **L1**: `settle` adds `used − reserved` (clamped at 0) after a run; overshoot is per scan and the next reserve is refused.
 - **L2**: a failed close keeps the full reservation; `keep_alive` is set explicitly.
+
+## Re-review 2 (22:35 CET) of 2254bf6
+
+Read the diff end to end, ran the touched suites (`apps/web` 10/10, `apps/scanner` 6/6, `scan-store` 20/20, `browser-audit` 13/13, all pass), and checked the dev stage again with read-only `getScan` calls only.
+
+Counts: **0 high, 1 medium, 3 low** (1 medium and 1 low new, 2 low carried: R6, R10).
+
+### Verified fixed
+
+- **R1**, live: `https://eaacheck-scanner-dev-butkmrv76a43vsix.vojtaholik.workers.dev/` now answers 404 (Cloudflare 1042) to GET and to a POSTed `getScan`. `workersDev: false` turns off both the stable URL and version previews (`alchemy/src/Cloudflare/Workers/Worker.ts:545-556`).
+- **R2**, live: `PUT`, `PATCH` and `GET /rpc` on the dev website answer 405; `POST` still works.
+- **R3**: the site cap counts per site and caller in the same conditional INSERT, so a stranger no longer uses up the owner's scans. One caveat: the caller key can be spoofed, see R11.
+- **R4**: `callerKey` expands `::` and keys IPv6 by its first four groups (`/64`), IPv4 by the full address; rate limits and the stored caller both use it.
+- **R5**: service workers bypassed before interception is turned on, new page targets closed on `targetcreated`, iframe navigations still vetted (`guard` vets every navigation request), and the Browser Run egress assumption is recorded in `AGENTS.md` and `docs/rendered-audit.md` as an assumption, not a fact.
+- **R7**: only main-frame refusals turn a `goto` failure into `navigation`.
+- **R8**: a failed launch calls `onClose(false)`, so the full reservation is kept.
+- **R9**: `settle` errors are logged and ignored; the answers stay in the report.
+
+### Medium
+
+**R11. The caller key can be set by the client through RPC message headers.** The website sets the HTTP header `x-eaa-caller` (`apps/web/src/server/handler.ts`, `forwarded.headers.set`), and `CallerMiddleware` reads `headers[CALLER_HEADER]` (`apps/scanner/src/caller-middleware.ts`). But Effect's HTTP RPC server builds those headers as `requestHeaders.concat(message.headers)` (`effect/src/rpc/RpcServer.ts:1165`), and `Headers.fromInput` keeps the last value for a name (`effect/src/http/Headers.ts`, `fromInput`). Each JSON message carries its own `headers` array, which the client writes. A `startScan` message with `"headers":[["x-eaa-caller","anything"]]` therefore replaces the website's value. Verified by reading both code paths. I did not send a spoofed `startScan`, because that starts a scan.
+
+Failure scenario: a script sends a new made-up caller with every `startScan` and gets past the per-site-per-caller cap. It is still held to 5 a minute per IP and the global 200. Or it writes the caller key of a known site owner (their IPv4, or their /64) and uses up that owner's 10 scans of their own site, which brings back R3's lockout for a targeted victim.
+
+Fix: the website already parses every message (`limitedProcedures`). Reject with 400 any RPC body whose messages carry a header named `x-eaa-caller`, or strip it by re-serialising the messages before forwarding. Add a handler test for it. Do not rely on the middleware's header order.
+
+### Low
+
+**R12. A popup is closed after it starts, not before.** `closePopup` (`packages/browser-audit/src/puppeteer-session.ts`) runs on `targetcreated`, and interception is attached only to the audited page. The popup's first navigation request can leave before `close()`, so one unvetted blind request per popup remains. Nothing from it is read back, and it falls under the recorded egress assumption. Fix if wanted: attach the same `guard` to any new page before closing it, or turn on auto-attach with interception for the whole browser context.
+
+Carried, not claimed in 2254bf6: **R6** (shared or reloaded report link still shows the newest scan of the host) and **R10** (node transport test needs live DNS for `localtest.me`).
+
+Accepted residual, recorded: the global caps (200 scans, browser seconds, judge tokens, 50 messages a day) can still be used up by a caller with many IPs or many /64s. Per-IP limits slow that down; Turnstile (decision 14) is the remaining control.
