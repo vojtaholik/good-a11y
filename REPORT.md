@@ -4,7 +4,7 @@ Durable record of tonight's build (2026-11-03). Newest first within each section
 
 ## What works
 
-State at 23:15 CET, all on `main`, CI green, deployed to stage dev.
+State at 23:25 CET, all on `main`, CI green, deployed to stage dev.
 
 - **The page** (dev URL below): paste a URL, follow the scan, read the report at `/report/<host>/<scanId>` (shareable, reloads show that scan). The report puts the headline and coverage line first and lists issues worst first. Each concern gets one card with static and rendered samples merged, its WCAG 2.1 SC and EN 301 549 clause from verified facts, and a Copy fix prompt. Judged observations come next in their own labelled section. Then one "Where the EAA applies" section shows the 27 states as flags opening to verified profiles. Passes are collapsed. Rules, the automated-checks statement and the contact form come last. `/checks` lists all 50 WCAG 2.1 A/AA criteria (plus 6 WCAG 2.2 additions) and how each is tested: 23 have an automated check and 27 are manual, with a reason for each. Our own pages pass our own checks (test).
 - **Checks**: 12 deterministic static-HTML checks; axe-core 4.14.0 on Cloudflare Browser Run, also when the plain fetch was refused; and our own rendered probes for reflow 1.4.10, text spacing 1.4.12, focus visible 2.4.7, keyboard reach 2.1.1, keyboard trap 2.1.2, target size and on-focus 3.2.1. A check that cannot be decided reliably is not in the catalogue (decision 15, `docs/sc-coverage-plan.md`).
@@ -84,6 +84,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 ## Log
 
 Times are CET, from the machine clock.
+
+- 23:25 Build wrapped. Re-review 3: 0 open high/medium (R13 CLI DNS crash fixed, 90d723f). Accuracy round 5 plus the orchestrator's alza check: reflow is now page-level (1 instance when the page scrolls sideways at 320 px; carousel items no longer count), probe counts are real counts, contrast inside web components dropped, consent dialogs no longer fail keyboard reach. Old stored reports show 'made by an older version, run a new scan' with the URL prefilled. All Brain steps closed. CI green on main, dev deployed. Children stopped.
 
 - 22:35 Re-review 2: H2 fixed (scanner Worker not reachable on its own URL, non-POST RPC refused, per-site cap keyed by site and caller, IPv6 by /64), popups and service workers blocked in Browser Run. Caller-header spoofing (R11) and popup first request (R12) fixed in 09b944b. Report links carry the scan ID (R6). Regression run found and fixed a CLI gzip bug (1349852). /checks page lists all 50 WCAG 2.1 A/AA criteria and how each is tested (23 automated, 27 manual). CI green, dev deployed.
 
