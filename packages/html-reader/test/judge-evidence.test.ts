@@ -24,6 +24,16 @@ describe("evidence for model-judged observations", () => {
     ]);
   });
 
+  it("marks links that carry hreflang or lang", () => {
+    const { links } = readPage(
+      page(
+        '<a href="/fr" hreflang="fr">Français</a><a href="/eu" lang="eu">Euskara</a><a href="/x">Shop</a>'
+      )
+    );
+
+    expect(links.map(({ language }) => language)).toEqual([true, true, false]);
+  });
+
   it("reads headings with their level, and label texts", () => {
     const evidence = readPage(
       page(

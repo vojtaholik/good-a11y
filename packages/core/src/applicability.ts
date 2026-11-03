@@ -47,20 +47,30 @@ export const PROFILE_LABELS: readonly (readonly [ProfileField, string])[] = [
   ["microenterprise-exemption", "Microenterprise exemption"],
 ];
 
+export const UNKNOWN_VALUE = "Unknown";
+
+const isUnknown = (fact: VerifiedFact): boolean =>
+  fact.value.trim().toLowerCase() === "unknown";
+
 const profileLines = (
   facts: readonly VerifiedFact[],
   profile: StateProfile
 ): ProfileLine[] => {
   const own = factsOfState(facts, profile.code);
 
-  return PROFILE_LABELS.map(([field, label]) => ({
-    label,
-    values: own.flatMap((fact) =>
-      fact.field === field && fact.value !== "unknown"
-        ? [{ factId: fact.id, source: fact.source, text: fact.value }]
-        : []
-    ),
-  }));
+  return PROFILE_LABELS.map(([field, label]) => {
+    const ofField = own.filter((fact) => fact.field === field);
+    const known = ofField.filter((fact) => !isUnknown(fact));
+
+    return {
+      label,
+      values: (known.length > 0 ? known : ofField).map((fact) => ({
+        factId: fact.id,
+        source: fact.source,
+        text: isUnknown(fact) ? UNKNOWN_VALUE : fact.value,
+      })),
+    };
+  });
 };
 
 const unknownReason = (profile: StateProfile): string => {

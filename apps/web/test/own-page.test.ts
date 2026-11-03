@@ -99,6 +99,9 @@ describe("our own page", () => {
       expect(order.map((index) => index >= 0)).toEqual(order.map(() => true));
       expect(order).toEqual(order.toSorted((left, right) => left - right));
       expect(html).toContain("Send message");
+      expect(html).toContain(
+        "studio9 keeps your e-mail, name, message and the scanned address only to answer you."
+      );
       expect(html.toLowerCase()).not.toContain("compliant");
       expect(failing(html)).toEqual([]);
     })

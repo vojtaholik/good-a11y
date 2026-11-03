@@ -200,7 +200,11 @@ export const reportView = (
               ]
             : [
                 ...publishedView(model, view.report, h),
-                contactView(model, view.url, h),
+                contactView(
+                  model,
+                  view.report.finalUrl ?? view.report.requestedUrl,
+                  h
+                ),
               ],
         Unavailable: () => [
           h.p(

@@ -48,6 +48,10 @@ export type NamedEvidence = typeof NamedEvidenceSchema.Type;
 export const LinkEvidenceSchema = Schema.Struct({
   ...NamedEvidenceSchema.fields,
   context: Schema.String.check(Schema.isMaxLength(MAX_CONTEXT)),
+  language: Schema.Boolean.annotate({
+    description:
+      "The link carries hreflang or lang, so it names a page in another language",
+  }),
 });
 
 export type LinkEvidence = typeof LinkEvidenceSchema.Type;

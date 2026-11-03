@@ -40,11 +40,13 @@ interface HeadingRegion extends TextRegion {
 
 interface LinkRegion extends NameRegion {
   readonly context: TextRegion | undefined;
+  readonly language: boolean;
 }
 
 interface PendingLink {
   readonly context: TextRegion | undefined;
   readonly evidence: NamedEvidence;
+  readonly language: boolean;
 }
 
 interface Reading {
@@ -94,6 +96,7 @@ const KEPT_ATTRIBUTES = new Set([
   "for",
   "hidden",
   "href",
+  "hreflang",
   "http-equiv",
   "id",
   "lang",
@@ -277,6 +280,7 @@ const endLink = (reading: Reading) => {
     keep(reading, reading.links, {
       context: reading.link.context,
       evidence: nameOf(reading.link),
+      language: reading.link.language,
     });
     reading.link = undefined;
   }
@@ -536,6 +540,7 @@ const readElement = (reading: Reading, tag: string, attributes: Attributes) => {
     reading.link = {
       ...regionOf(reading, tag, attributes),
       context: reading.contexts.at(-1),
+      language: attributes.has("hreflang") || attributes.has("lang"),
     };
   } else if (tag === "label") {
     const target = attribute(attributes, "for");
@@ -723,9 +728,14 @@ const blank = (): Reading => ({
   viewports: [],
 });
 
-const linkOf = ({ context, evidence }: PendingLink): LinkEvidence => ({
+const linkOf = ({
+  context,
+  evidence,
+  language,
+}: PendingLink): LinkEvidence => ({
   ...evidence,
   context: context === undefined ? "" : textOf(context, MAX_CONTEXT),
+  language,
 });
 
 export const readPage = (html: string): PageEvidence => {

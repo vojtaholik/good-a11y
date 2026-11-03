@@ -11,7 +11,9 @@ import {
   CATALOGUE,
   LOOKS_EMPTY,
   NEWER_VERSION_LABEL,
+  PROFILE_LABELS,
   ReportSchema,
+  UNKNOWN_VALUE,
   applicabilityFrom,
   coverageFrom,
   formatReport,
@@ -78,7 +80,15 @@ const FAILING: PageEvidence = {
       snippet: '<img src="a.png" alt="image">',
     },
   ],
-  links: [{ context: "", labelled: false, snippet: '<a href="/">', text: "" }],
+  links: [
+    {
+      context: "",
+      labelled: false,
+      language: false,
+      snippet: '<a href="/">',
+      text: "",
+    },
+  ],
   refreshes: ["5; url=/next"],
   viewports: ["width=device-width, user-scalable=no"],
 };
@@ -216,7 +226,13 @@ describe("an empty bill of health", () => {
     ...NOTHING,
     lang: "en",
     links: [
-      { context: "", labelled: false, snippet: '<a href="/">', text: "Home" },
+      {
+        context: "",
+        labelled: false,
+        language: false,
+        snippet: '<a href="/">',
+        text: "Home",
+      },
     ],
     title: "Shop",
   };
@@ -326,10 +342,13 @@ describe("state profiles", () => {
         for (const value of line.values) {
           const fact = verified.get(value.factId);
 
-          expect(fact?.value).toBe(value.text);
+          expect(
+            value.text === UNKNOWN_VALUE
+              ? fact?.value.trim().toLowerCase()
+              : fact?.value
+          ).toBe(value.text === UNKNOWN_VALUE ? "unknown" : value.text);
           expect(fact?.source).toBe(value.source);
           expect(fact?.file).toBe(`states/${state.code}.md`);
-          expect(value.text).not.toBe("unknown");
         }
       }
     }
@@ -513,5 +532,34 @@ describe("applicabilityFrom", () => {
       "cz",
       "fr",
     ]);
+  });
+});
+
+describe("state profile lines", () => {
+  const states = [...APPLICABILITY.applies, ...APPLICABILITY.unknown];
+  const fields = new Set<string>(PROFILE_LABELS.map(([field]) => field));
+
+  const unknownFacts = VERIFIED_FACTS.filter(
+    (gap) =>
+      gap.value.trim().toLowerCase() === "unknown" && fields.has(gap.field)
+  );
+
+  it("has a verified fact that records a gap, so the check below sees one", () => {
+    expect(unknownFacts.length).toBeGreaterThan(0);
+  });
+
+  it("shows a verified unknown as Unknown with its source", () => {
+    const shown = unknownFacts.flatMap((gap) =>
+      states.flatMap((state) =>
+        state.profile.flatMap((line) =>
+          line.values.filter((value) => value.factId === gap.id)
+        )
+      )
+    );
+
+    expect(shown.length).toBeGreaterThan(0);
+    expect(new Set(shown.map((value) => value.text))).toEqual(
+      new Set([UNKNOWN_VALUE])
+    );
   });
 });

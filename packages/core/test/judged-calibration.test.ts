@@ -192,6 +192,7 @@ const judgements: Record<JudgedId, Judgement[]> = {
         links: indexes.map((index) => ({
           context: items.links[index]?.context ?? "",
           labelled: false,
+          language: false,
           snippet: "<a>",
           text: items.links[index]?.text ?? "",
         })),

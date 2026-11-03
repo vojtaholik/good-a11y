@@ -84,43 +84,50 @@
       "labelled": false,
       "snippet": "<a href=\"/bikes\">",
       "text": "City bikes",
-      "context": "City bikes"
+      "context": "City bikes",
+      "language": false
     },
     {
       "labelled": false,
       "snippet": "<a href=\"/repairs\">",
       "text": "Repairs",
-      "context": "Repairs"
+      "context": "Repairs",
+      "language": false
     },
     {
       "labelled": false,
       "snippet": "<a href=\"/contact\">",
       "text": "Contact",
-      "context": "Contact"
+      "context": "Contact",
+      "language": false
     },
     {
       "labelled": false,
       "snippet": "<a href=\"/spring-service\">",
       "text": "Read more",
-      "context": "Our spring service checks brakes, gears, tyres and lights for a fixed price. Read more"
+      "context": "Our spring service checks brakes, gears, tyres and lights for a fixed price. Read more",
+      "language": false
     },
     {
       "labelled": false,
       "snippet": "<a href=\"/holidays\">",
       "text": "click here",
-      "context": "Monday to Friday, 9:00 to 18:00. To see our holiday closures, click here."
+      "context": "Monday to Friday, 9:00 to 18:00. To see our holiday closures, click here.",
+      "language": false
     },
     {
       "labelled": false,
       "snippet": "<a href=\"/news/1\">",
       "text": "More",
-      "context": "More"
+      "context": "More",
+      "language": false
     },
     {
       "labelled": false,
       "snippet": "<a href=\"/news/2\">",
       "text": "More",
-      "context": "More"
+      "context": "More",
+      "language": false
     }
   ],
   "refreshes": [],

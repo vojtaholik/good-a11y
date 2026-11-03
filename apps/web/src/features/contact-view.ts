@@ -51,6 +51,12 @@ export const contactView = (
   h.form(
     [h.OnSubmit(Message.SubmittedContactForm({ url }))],
     [
+      h.p(
+        [],
+        [
+          "studio9 keeps your e-mail, name, message and the scanned address only to answer you. Ask us to delete them at any time.",
+        ]
+      ),
       h.p([], [`The scanned page (${url}) is sent with your message.`]),
       h.label([h.For("contact-name")], ["Name (optional)"]),
       h.input([

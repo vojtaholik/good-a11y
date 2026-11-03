@@ -3,6 +3,7 @@ export {
   ApplicabilitySchema,
   MICROENTERPRISE_FACT,
   PROFILE_LABELS,
+  UNKNOWN_VALUE,
   ProfileLineSchema,
   StateRefSchema,
   applicabilityFrom,

@@ -223,6 +223,7 @@ const linkPurpose: JudgedCheck = {
       evidence.links.filter(
         (link) =>
           !link.labelled &&
+          !link.language &&
           wordsIn(link.text) > 0 &&
           wordsIn(link.text) <= SHORT_LINK_WORDS
       ),

@@ -65,6 +65,23 @@ const notesOf = (judged: Judged, id: JudgedId) =>
     .observations.find((observation) => observation.id === id)
     ?.notes.map(({ sample }) => sample);
 
+describe("link purpose", () => {
+  it("does not ask about links that name another language", () => {
+    const languageLinks: PageEvidence = {
+      ...evidence,
+      links: ["Français", "Euskara"].map((text) => ({
+        context: text,
+        labelled: false,
+        language: true,
+        snippet: `<a hreflang="x" href="/">${text}</a>`,
+        text,
+      })),
+    };
+
+    expect(idsAskedFor(languageLinks)).not.toContain("link-purpose");
+  });
+});
+
 describe("checks hidden until calibrated on real pages", () => {
   it("are not asked and not reported", () => {
     expect(questionsFor(evidence).map(({ id }) => id)).toEqual([
