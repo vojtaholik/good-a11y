@@ -322,6 +322,8 @@ export {
   judgedOf,
   judgedSkipped,
   questionsFor,
+  questionsOf,
+  SHOWN_JUDGED_CHECKS,
   tokensToReserve,
   type Answered,
   type Asked,

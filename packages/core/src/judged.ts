@@ -100,12 +100,13 @@ export interface Asked {
   readonly request: JudgeRequest;
 }
 
-interface JudgedCheck {
+export interface JudgedCheck {
   readonly about: string;
   readonly ask: (evidence: PageEvidence) => Asked | null;
   readonly criteria: readonly string[];
   readonly decide: (asked: Asked, reply: JudgeReply) => readonly JudgedNote[];
   readonly id: JudgedId;
+  readonly shown: boolean;
   readonly title: string;
 }
 
@@ -205,6 +206,7 @@ const altTextDescribes: JudgedCheck = {
   criteria: ["1.1.1"],
   decide: notedWhereNo(NOTE_AT["alt-text-describes"]),
   id: "alt-text-describes",
+  shown: false,
   title: "Alt text that may not describe its image",
 };
 
@@ -253,6 +255,7 @@ const linkPurpose: JudgedCheck = {
   criteria: ["2.4.4"],
   decide: notedWhereNo(NOTE_AT["link-purpose"]),
   id: "link-purpose",
+  shown: true,
   title: "Links whose purpose may be unclear",
 };
 
@@ -307,6 +310,7 @@ const headingsLabelsDescribe: JudgedCheck = {
   criteria: ["2.4.6"],
   decide: notedWhereNo(NOTE_AT["headings-labels-describe"]),
   id: "headings-labels-describe",
+  shown: false,
   title: "Headings or labels that may not describe their topic",
 };
 
@@ -402,6 +406,7 @@ const pageLanguageMatches: JudgedCheck = {
       : [];
   },
   id: "page-language-matches",
+  shown: true,
   title: "Declared page language may not match the text",
 };
 
@@ -412,15 +417,25 @@ export const JUDGED_CHECKS: readonly JudgedCheck[] = [
   pageLanguageMatches,
 ];
 
-export const judgedCriteria = (): readonly string[] =>
-  JUDGED_CHECKS.flatMap((check) => check.criteria);
+export const SHOWN_JUDGED_CHECKS: readonly JudgedCheck[] = JUDGED_CHECKS.filter(
+  (check) => check.shown
+);
 
-export const questionsFor = (evidence: PageEvidence): readonly Asked[] =>
-  JUDGED_CHECKS.flatMap((check) => {
+export const judgedCriteria = (): readonly string[] =>
+  SHOWN_JUDGED_CHECKS.flatMap((check) => check.criteria);
+
+export const questionsOf = (
+  checks: readonly JudgedCheck[],
+  evidence: PageEvidence
+): readonly Asked[] =>
+  checks.flatMap((check) => {
     const asked = check.ask(evidence);
 
     return asked === null ? [] : [asked];
   });
+
+export const questionsFor = (evidence: PageEvidence): readonly Asked[] =>
+  questionsOf(SHOWN_JUDGED_CHECKS, evidence);
 
 export const tokensToReserve = (asked: readonly Asked[]): number =>
   asked.reduce(
@@ -457,7 +472,8 @@ const observationOf = (
 
 export const judgedOf = (
   answered: readonly Answered[],
-  reference: Reference = REFERENCE
+  reference: Reference = REFERENCE,
+  checks: readonly JudgedCheck[] = SHOWN_JUDGED_CHECKS
 ): Judged => ({
   inputTokens: answered.reduce(
     (total, { reply }) => total + reply.usage.input_tokens,
@@ -465,7 +481,7 @@ export const judgedOf = (
   ),
   label: JUDGED_LABEL,
   model: JUDGE_MODEL,
-  observations: JUDGED_CHECKS.flatMap((check) => {
+  observations: checks.flatMap((check) => {
     const found = answered.find(({ asked }) => asked.id === check.id);
 
     return found === undefined ? [] : [observationOf(check, found, reference)];

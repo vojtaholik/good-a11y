@@ -7,12 +7,15 @@ import { describe, expect, it } from "@effect/vitest";
 import { Schema } from "effect";
 
 import {
+  JUDGED_CHECKS,
   JudgeReplySchema,
+  REFERENCE,
   JudgedSchema,
   MAX_JUDGED_ITEMS,
   PageEvidenceSchema,
   judgedOf,
   questionsFor,
+  questionsOf,
   reportOf,
   runChecks,
   tokensToReserve,
@@ -40,14 +43,14 @@ const { replies } = Schema.decodeUnknownSync(Recorded)(
 );
 
 const answeredFor = (page: PageEvidence): Answered[] =>
-  questionsFor(page).flatMap((asked) => {
+  questionsOf(JUDGED_CHECKS, page).flatMap((asked) => {
     const recorded = replies.find(({ id }) => id === asked.id);
 
     return recorded === undefined ? [] : [{ asked, reply: recorded.reply }];
   });
 
 const idsAskedFor = (page: PageEvidence) =>
-  questionsFor(page).map(({ id }) => id);
+  questionsOf(JUDGED_CHECKS, page).map(({ id }) => id);
 
 const ran = (judged: Judged) => {
   if (judged.status !== "ran") {
@@ -62,9 +65,21 @@ const notesOf = (judged: Judged, id: JudgedId) =>
     .observations.find((observation) => observation.id === id)
     ?.notes.map(({ sample }) => sample);
 
+describe("checks hidden until calibrated on real pages", () => {
+  it("are not asked and not reported", () => {
+    expect(questionsFor(evidence).map(({ id }) => id)).toEqual([
+      "link-purpose",
+      "page-language-matches",
+    ]);
+    expect(
+      ran(judgedOf(answeredFor(evidence))).observations.map(({ id }) => id)
+    ).toEqual(["link-purpose", "page-language-matches"]);
+  });
+});
+
 describe("questionsFor", () => {
   it("asks one question per distinct item, for each judged check", () => {
-    const asked = questionsFor(evidence);
+    const asked = questionsOf(JUDGED_CHECKS, evidence);
 
     expect(asked.map(({ id }) => id)).toEqual([
       "alt-text-describes",
@@ -88,7 +103,9 @@ describe("questionsFor", () => {
       })),
     };
 
-    expect(questionsFor(many)[0]?.items).toHaveLength(MAX_JUDGED_ITEMS);
+    expect(questionsOf(JUDGED_CHECKS, many)[0]?.items).toHaveLength(
+      MAX_JUDGED_ITEMS
+    );
   });
 
   it("asks nothing about a page language it cannot compare", () => {
@@ -106,14 +123,14 @@ describe("questionsFor", () => {
       0
     );
 
-    expect(tokensToReserve(questionsFor(evidence))).toBeGreaterThanOrEqual(
-      used
-    );
+    expect(
+      tokensToReserve(questionsOf(JUDGED_CHECKS, evidence))
+    ).toBeGreaterThanOrEqual(used);
   });
 });
 
 describe("judgedOf", () => {
-  const judged = judgedOf(answeredFor(evidence));
+  const judged = judgedOf(answeredFor(evidence), REFERENCE, JUDGED_CHECKS);
 
   it("notes only items the model answered no for with high confidence", () => {
     expect(notesOf(judged, "alt-text-describes")).toEqual([
@@ -156,7 +173,9 @@ describe("judgedOf", () => {
     }));
 
     expect(
-      ran(judgedOf(unanswered)).observations.every(({ noted }) => noted === 0)
+      ran(judgedOf(unanswered, REFERENCE, JUDGED_CHECKS)).observations.every(
+        ({ noted }) => noted === 0
+      )
     ).toBe(true);
   });
 
@@ -186,7 +205,10 @@ describe("withJudged", () => {
       runChecks(evidence)
     );
 
-    const judged = withJudged(report, judgedOf(answeredFor(evidence)));
+    const judged = withJudged(
+      report,
+      judgedOf(answeredFor(evidence), REFERENCE, JUDGED_CHECKS)
+    );
 
     expect(judged.findings).toEqual(report.findings);
     expect(judged.headline).toBe(report.headline);

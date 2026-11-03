@@ -46,7 +46,22 @@ The static reader collects the extra evidence in its single tokenizer pass: link
 
 - Each note shows the model's confidence in that answer (the probability above, rounded to a percent).
 - What a note means: the model, reading only the text shown, thinks this item probably does not do what the success criterion asks. It is a pointer for a person to look at, not a failure. A check with no notes means nothing was noted, never that the criterion is met.
-- All four checks reach 0.9 precision, so none is dropped. `packages/core/test/judged-calibration.test.ts` fails if a check in the report falls below 0.9 on the recorded answers, or a check has no calibration batch.
+- All four checks reach 0.9 precision on that set.
+
+## Shown in the report (decision 23)
+
+Each check has a `shown` flag in `packages/core/src/judged.ts`. A check that is not shown is not asked, costs no model budget and adds nothing to the report. Its code and thresholds stay, for calibration.
+
+| Check | Shown | Why |
+| --- | --- | --- |
+| `alt-text-describes` | no | On real pages it noted a correct logo alt (idnes.cz `alt="iDNES.cz"` on `idnes.svg`, 83%): 0 of 1 real notes were right (docs/accuracy-qa.md, round 4) |
+| `link-purpose` | yes | 13 of 14 real notes right |
+| `headings-labels-describe` | no | 1 of 6 real notes right. It noted ordinary Czech headings and labels on seznam.cz ("Vyhledat", "Hlavní obsah", "Méně služeb") at 70 to 98% |
+| `page-language-matches` | yes |  |
+
+The hand-written set above did not predict the failures on real pages. A hidden check comes back only when it reaches precision 0.9 on a set of at least 30 real items, labelled by hand, taken from scanned pages.
+
+- `packages/core/test/judged-calibration.test.ts` fails if a check in the report falls below 0.9 on the recorded answers, or a check has no calibration batch.
 
 ## Calibration (2026-11-03)
 

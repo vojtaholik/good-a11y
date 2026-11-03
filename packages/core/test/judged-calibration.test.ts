@@ -5,7 +5,7 @@ import path from "node:path";
 import { describe, expect, it } from "@effect/vitest";
 import { Schema } from "effect";
 
-import { JUDGED_CHECKS, JudgeReplySchema, questionsFor } from "../src/index.js";
+import { JUDGED_CHECKS, JudgeReplySchema, questionsOf } from "../src/index.js";
 import type { JudgedId, PageEvidence } from "../src/index.js";
 
 const fixture = (name: string): string =>
@@ -102,7 +102,10 @@ const judge = (
   labels: readonly boolean[],
   reply: typeof JudgeReplySchema.Type
 ): Judgement[] => {
-  const asked = questionsFor(evidence).find((each) => each.id === id);
+  const asked = questionsOf(JUDGED_CHECKS, evidence).find(
+    (each) => each.id === id
+  );
+
   const check = JUDGED_CHECKS.find((each) => each.id === id);
 
   if (asked === undefined || check === undefined) {
