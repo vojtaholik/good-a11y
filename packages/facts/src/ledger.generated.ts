@@ -2,6 +2,314 @@ import type { VerifiedFact } from "./fact.js";
 
 export const VERIFIED_FACTS: readonly VerifiedFact[] = [
   {
+    "claim": "The European Accessibility Act is Directive (EU) 2019/882 of the European Parliament and of the Council of 17 April 2019 on the accessibility requirements for products and services, published in OJ L 151, 7.6.2019, p. 70 (CELEX 32019L0882).",
+    "excerpt": "\"7.6.2019 EN Official Journal of the European Union L 151/70 DIRECTIVE (EU) 2019/882 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL of 17 April 2019 on the accessibility requirements for products and services\"",
+    "field": "transposing-law",
+    "file": "eu.md",
+    "id": "EU-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.law",
+    "value": "Directive (EU) 2019/882 on the accessibility requirements for products and services"
+  },
+  {
+    "claim": "Member States had to adopt and publish their transposing measures by 28 June 2022 (Art. 31(1)).",
+    "excerpt": "\"1. Member States shall adopt and publish, by 28 June 2022, the laws, regulations and administrative provisions necessary to comply with this Directive.\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-DATE-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.transpositionDeadline",
+    "value": "28 June 2022 (transposition deadline)"
+  },
+  {
+    "claim": "Member States must apply the transposing measures from 28 June 2025 (Art. 31(2)).",
+    "excerpt": "\"2. They shall apply those measures from 28 June 2025.\"",
+    "field": "applies-from",
+    "file": "eu.md",
+    "id": "EU-DATE-2",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.appliesFrom",
+    "value": "28 June 2025"
+  },
+  {
+    "claim": "The Directive applies to services provided to consumers after 28 June 2025, including e-commerce services, without prejudice to the transitional measures in Art. 32 (Art. 2(2)(f)).",
+    "excerpt": "\"2. Without prejudice to Article 32, this Directive applies to the following services provided to consumers after 28 June 2025: ... (f) e-commerce services.\"",
+    "field": "scope-ecommerce",
+    "file": "eu.md",
+    "id": "EU-SCOPE-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.scope.ecommerce",
+    "value": "E-commerce services provided to consumers after 28 June 2025"
+  },
+  {
+    "claim": "The services in scope (Art. 2(2)) are: electronic communications services; services providing access to audiovisual media services; listed elements of air, bus, rail and waterborne passenger transport services; consumer banking services; e-books and dedicated software; e-commerce services.",
+    "excerpt": "\"(a) electronic communications services with the exception of transmission services used for the provision of machine-to-machine services; (b) services providing access to audiovisual media services; ... (d) consumer banking services; (e) e-books and dedicated software; and (f) e-commerce services.\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-SCOPE-2",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.scope.services",
+    "value": "Electronic communications, access to audiovisual media, passenger transport elements, consumer banking, e-books and dedicated software, e-commerce"
+  },
+  {
+    "claim": "Art. 3(30) defines e-commerce services as services provided at a distance, through websites and mobile device-based services, by electronic means, at the individual request of a consumer, with a view to concluding a consumer contract.",
+    "excerpt": "\"‘e-commerce services’ means services provided at a distance, through websites and mobile device-based services by electronic means and at the individual request of a consumer with a view to concluding a consumer contract;\"",
+    "field": "scope-ecommerce",
+    "file": "eu.md",
+    "id": "EU-DEF-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.definition.ecommerce",
+    "value": "E-commerce services: distance services via websites and mobile services, at a consumer's request, aimed at a consumer contract"
+  },
+  {
+    "claim": "Art. 3(23) defines a microenterprise as an enterprise with fewer than 10 persons employed and an annual turnover or annual balance sheet total not exceeding EUR 2 million.",
+    "excerpt": "\"‘microenterprise’ means an enterprise which employs fewer than 10 persons and which has an annual turnover not exceeding EUR 2 million or an annual balance sheet total not exceeding EUR 2 million;\"",
+    "field": "microenterprise-exemption",
+    "file": "eu.md",
+    "id": "EU-DEF-2",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.definition.microenterprise",
+    "value": "Fewer than 10 persons and turnover or balance sheet total not exceeding EUR 2 million"
+  },
+  {
+    "claim": "Microenterprises providing services are exempt from the service accessibility requirements of Art. 4(3) and related obligations (Art. 4(5)).",
+    "excerpt": "\"5. Microenterprises providing services shall be exempt from complying with the accessibility requirements referred to in paragraph 3 of this Article and any obligations relating to the compliance with those requirements.\"",
+    "field": "microenterprise-exemption",
+    "file": "eu.md",
+    "id": "EU-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.exemption.microenterprise",
+    "value": "Microenterprises providing services are exempt"
+  },
+  {
+    "claim": "All services must comply with Annex I Section III (except urban, suburban and regional transport services) and with Annex I Section IV, without prejudice to the microenterprise exemption (Art. 4(3)).",
+    "excerpt": "\"3. Without prejudice to paragraph 5 of this Article, all services, except for urban and suburban transport services and regional transport services, shall comply with the accessibility requirements set out in Section III of Annex I.\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-REQ-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.requirements.services",
+    "value": "Services must meet Annex I Sections III and IV"
+  },
+  {
+    "claim": "The accessibility requirements apply only to the extent that compliance does not fundamentally alter the product or service and does not impose a disproportionate burden on the economic operator (Art. 14(1)).",
+    "excerpt": "\"1. The accessibility requirements referred to in Article 4 shall apply only to the extent that compliance: (a) does not require a significant change in a product or service that results in the fundamental alteration of its basic nature; and (b) does not result in the imposition of a disproportionate burden on the economic operators concerned.\"",
+    "field": "disproportionate-burden",
+    "file": "eu.md",
+    "id": "EU-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.exemption.disproportionateBurden",
+    "value": "Requirements apply unless fundamental alteration or disproportionate burden"
+  },
+  {
+    "claim": "Economic operators must assess fundamental alteration or disproportionate burden against the criteria in Annex VI, document the assessment and keep the results for five years (Art. 14(2) and (3)).",
+    "excerpt": "\"3. Economic operators shall document the assessment referred to in paragraph 2. Economic operators shall keep all relevant results for a period of five years\"",
+    "field": "disproportionate-burden",
+    "file": "eu.md",
+    "id": "EU-BURDEN-2",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.exemption.disproportionateBurden",
+    "value": "Operator assesses against Annex VI, documents it, keeps it 5 years"
+  },
+  {
+    "claim": "Service providers relying on disproportionate burden must renew the assessment when the service changes, when the authorities ask, and at least every five years (Art. 14(5)).",
+    "excerpt": "\"5. Service providers relying on point (b) of paragraph 1 shall, with regard to each category or type of service, renew their assessment of whether the burden is disproportionate: (a) when the service offered is altered; or (b) when requested to do so by the authorities responsible for checking compliance of services; and (c) in any event, at least every five years.\"",
+    "field": "disproportionate-burden",
+    "file": "eu.md",
+    "id": "EU-BURDEN-3",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.exemption.disproportionateBurden",
+    "value": "Burden assessment renewed on change, on request, at least every 5 years"
+  },
+  {
+    "claim": "Economic operators relying on Art. 14(1) must inform the relevant market surveillance or service compliance authorities of the Member State concerned; this does not apply to microenterprises (Art. 14(8)).",
+    "excerpt": "\"8. Where economic operators rely on paragraph 1 for a specific product or service they shall send information to that effect to the relevant market surveillance authorities, or authorities responsible for checking the compliance of services\"",
+    "field": "disproportionate-burden",
+    "file": "eu.md",
+    "id": "EU-BURDEN-4",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.exemption.disproportionateBurden",
+    "value": "Operators relying on the exemption must notify the authority (not microenterprises)"
+  },
+  {
+    "claim": "Products and services conforming to harmonised standards whose references are published in the Official Journal are presumed to conform with the accessibility requirements, to the extent the standards cover them (Art. 15(1)).",
+    "excerpt": "\"1. Products and services which are in conformity with harmonised standards or parts thereof the references of which have been published in the Official Journal of the European Union , shall be presumed to be in conformity with the accessibility requirements of this Directive\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-HS-PRES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.presumption",
+    "value": "Presumption of conformity via harmonised standards cited in the OJ"
+  },
+  {
+    "claim": "Member States must provide a transitional period ending 28 June 2030 during which service providers may keep providing services using products they lawfully used before that date (Art. 32(1)).",
+    "excerpt": "\"1. Without prejudice to paragraph 2 of this Article, Member States shall provide for a transitional period ending on 28 June 2030 during which service providers may continue to provide their services using products which were lawfully used by them to provide similar services before that date.\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-TRANS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.transitional",
+    "value": "Transitional period for products used in services until 28 June 2030"
+  },
+  {
+    "claim": "Service contracts agreed before 28 June 2025 may continue unchanged until they expire, but no longer than five years from that date (Art. 32(1), second subparagraph).",
+    "excerpt": "\"Service contracts agreed before 28 June 2025 may continue without alteration until they expire, but no longer than five years from that date.\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-TRANS-2",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.transitional",
+    "value": "Pre-28 June 2025 service contracts may run up to 5 years"
+  },
+  {
+    "claim": "Member States may allow self-service terminals lawfully used before 28 June 2025 to stay in use until the end of their economically useful life, but no longer than 20 years after entry into use (Art. 32(2)).",
+    "excerpt": "\"2. Member States may provide that self-service terminals lawfully used by service providers for the provision of services before 28 June 2025 may continue to be used in the provision of similar services until the end of their economically useful life, but no longer than 20 years after their entry into use.\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-TRANS-3",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.transitional",
+    "value": "Self-service terminals: up to 20 years (Member State option)"
+  },
+  {
+    "claim": "Member States lay down the penalties for infringements of the national transposing provisions; they must be effective, proportionate and dissuasive and accompanied by effective remedial action (Art. 30(1) and (2)).",
+    "excerpt": "\"1. Member States shall lay down the rules on penalties applicable to infringements of national provisions adopted pursuant to this Directive and shall take all measures necessary to ensure that they are implemented. 2. The penalties provided for shall be effective, proportionate and dissuasive.\"",
+    "field": "penalties",
+    "file": "eu.md",
+    "id": "EU-PEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.penalties",
+    "value": "Penalties set by each Member State; effective, proportionate and dissuasive"
+  },
+  {
+    "claim": "Annex I Section III point (c) requires websites, including related online applications, and mobile device-based services to be made accessible in a consistent and adequate way by making them perceivable, operable, understandable and robust.",
+    "excerpt": "\"(c) making websites, including the related online applications, and mobile device-based services, including mobile applications, accessible in a consistent and adequate way by making them perceivable, operable, understandable and robust;\"",
+    "field": "scope-ecommerce",
+    "file": "eu.md",
+    "id": "EU-ANNEX-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.annex.websites, report.legal-requirement",
+    "value": "Websites and mobile services must be perceivable, operable, understandable and robust"
+  },
+  {
+    "claim": "Annex I Section III point (b) requires information about the functioning of the service to be provided via more than one sensory channel, understandably, perceivably, in text formats usable for assistive formats, in adequate fonts with sufficient contrast and adjustable spacing, with alternatives for non-text content.",
+    "excerpt": "\"(v) presenting in fonts of adequate size and suitable shape, taking into account foreseeable conditions of use and using sufficient contrast, as well as adjustable spacing between letters, lines and paragraphs; (vi) supplementing any non-textual content with an alternative presentation of that content;\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-ANNEX-2",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.annex.information",
+    "value": "Service information: multi-sensory, understandable, text formats, adequate fonts and contrast, text alternatives"
+  },
+  {
+    "claim": "Annex I Section III point (d) requires support services, where available, to give information on the accessibility of the service and its compatibility with assistive technologies, in accessible modes of communication.",
+    "excerpt": "\"(d) where available, support services (help desks, call centres, technical support, relay services and training services) providing information on the accessibility of the service and its compatibility with assistive technologies, in accessible modes of communication.\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-ANNEX-3",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.annex.support",
+    "value": "Support services give accessibility information in accessible modes"
+  },
+  {
+    "claim": "Annex I Section IV point (g) adds, for e-commerce services: providing accessibility information about products and services sold when the responsible economic operator provides it; and making identification, security and payment functionality, identification methods, electronic signatures and payment services perceivable, operable, understandable and robust.",
+    "excerpt": "\"(g) E-Commerce services: (i) providing the information concerning accessibility of the products and services being sold when this information is provided by the responsible economic operator; (ii) ensuring the accessibility of the functionality for identification, security and payment\"",
+    "field": "scope-ecommerce",
+    "file": "eu.md",
+    "id": "EU-ANNEX-4",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.annex.ecommerce, report.legal-requirement",
+    "value": "E-commerce: accessibility info on goods sold; accessible identification, security and payment"
+  },
+  {
+    "claim": "No harmonised standard reference under Directive (EU) 2019/882 (EN 301 549 or any other) was found in the Official Journal as of 2026-10-30, the latest 2026 decision date in the Publications Office index (EU-HS-4). Method: Publications Office (CELLAR) SPARQL metadata, the data behind EUR-Lex, for CELEX sector 3 decisions of 2019 to 2026 with \"2019/882\" in the English title; the response is a header with no rows. EUR-Lex itself (eur-lex.europa.eu) returned an empty HTTP 202 bot challenge to scripted requests. The same title method finds Implementing Decision (EU) 2018/2048 when searched for \"harmonised standard for websites and mobile applications\". This is a negative search result, not a statement by the Commission.",
+    "excerpt": "\"celex\",\"title\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-HS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/webapi/rdf/sparql?query=PREFIX+cdm%3A+%3Chttp%3A%2F%2Fpublications.europa.eu%2Fontology%2Fcdm%23%3E+SELECT+DISTINCT+%3Fcelex+%3Ftitle+WHERE+%7B+%3Fw+cdm%3Aresource_legal_id_celex+%3Fcelex+.+FILTER%28REGEX%28STR%28%3Fcelex%29%2C%22%5E320%2819%7C2%5B0-6%5D%29D%22%29%29+%3Fe+cdm%3Aexpression_belongs_to_work+%3Fw+%3B+cdm%3Aexpression_uses_language+%3Chttp%3A%2F%2Fpublications.europa.eu%2Fresource%2Fauthority%2Flanguage%2FENG%3E+%3B+cdm%3Aexpression_title+%3Ftitle+.+FILTER%28CONTAINS%28%3Ftitle%2C%222019%2F882%22%29%29+%7D&format=text%2Fcsv",
+    "usedBy": "eu.harmonisedStandard",
+    "value": "Not found as of 2026-10-30"
+  },
+  {
+    "claim": "Commission Implementing Decision (EU) 2021/1339 of 11 August 2021 (OJ L 289, 12.8.2021, p. 53) publishes the reference of EN 301 549 V3.2.1 (2021-03) as the harmonised standard under Directive (EU) 2016/2102 (public sector websites and mobile applications), amending Implementing Decision (EU) 2018/2048. It is not a citation under Directive (EU) 2019/882.",
+    "excerpt": "\"(5) The result of the assessment is that the relevant provisions of the harmonised European standard EN 301 549 v3.2.1 (2021-03) satisfy the requirements which they aim to cover and which are set out in Annex II to Implementing Decision C(2017) 2585. It is therefore appropriate to publish the reference of that standard in the Official Journal of the European Union .\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-HS-2",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/ad4c8d56-fb07-11eb-b520-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eu.harmonisedStandard",
+    "value": "EN 301 549 V3.2.1 cited under Directive (EU) 2016/2102 by Implementing Decision (EU) 2021/1339"
+  },
+  {
+    "claim": "The standardisation request for harmonised standards under Directive (EU) 2019/882 is M/587, Commission Implementing Decision C(2022) 6456 of 14.9.2022, as identified in EN 301 549 V4.1.1 reference [i.28]. The decision text itself was not fetched: it is not published in the OJ, and the Commission eNorm database page (https://ec.europa.eu/growth/tools-databases/enorm/mandate/587_en) is a JavaScript application whose data API needs an API gateway token.",
+    "excerpt": "\"[i.28] C(2022)6456 - Standardisation request M/587: \"Commission Implementing Decision of 14.9.2022 on a standardisation request to the European standardisation organisations as regards the accessibility requirements of products and services in support of Directive (EU) 2019/882\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-HS-3",
+    "retrieved": "2026-11-03",
+    "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "eu.harmonisedStandard",
+    "value": "M/587, Commission Implementing Decision C(2022) 6456 of 14.9.2022"
+  },
+  {
+    "claim": "Control for EU-HS-1: the latest document date among CELEX sector 3 decisions of 2026 in the Publications Office metadata is 2026-10-30.",
+    "excerpt": "\"latest\" 2026-10-30",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-HS-4",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/webapi/rdf/sparql?query=PREFIX+cdm%3A+%3Chttp%3A%2F%2Fpublications.europa.eu%2Fontology%2Fcdm%23%3E+SELECT+%28MAX%28%3Fd%29+AS+%3Flatest%29+WHERE+%7B+%3Fw+cdm%3Aresource_legal_id_celex+%3Fcelex+.+FILTER%28REGEX%28STR%28%3Fcelex%29%2C%22%5E32026D%22%29%29+%3Fw+cdm%3Awork_date_document+%3Fd+%7D&format=text%2Fcsv",
+    "usedBy": "none",
+    "value": "Publications Office index holds 2026 decisions up to 2026-10-30"
+  },
+  {
+    "claim": "Commission Implementing Decision (EU) 2018/2048 of 20 December 2018 (OJ L 327, 21.12.2018, p. 84) first published EN 301 549 V2.1.2 (2018-08) as the harmonised standard under Directive (EU) 2016/2102.",
+    "excerpt": "\"The reference to harmonised standard for websites and mobile applications drafted in support of Directive (EU) 2016/2102 listed in the Annex to this Decision, is hereby published in the Official Journal of the European Union .\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-HS-5",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/37272778-04e7-11e9-adde-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "none",
+    "value": "EN 301 549 V2.1.2 cited under Directive (EU) 2016/2102 by Implementing Decision (EU) 2018/2048"
+  },
+  {
+    "claim": "In the Publications Office metadata, the only act amending Implementing Decision (EU) 2018/2048 is Implementing Decision (EU) 2021/1339, so V3.2.1 is the version cited under Directive (EU) 2016/2102 as of 2026-11-03; V4.1.1 has not been cited there.",
+    "excerpt": "\"celex\" \"32021D1339\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-HS-6",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/webapi/rdf/sparql?query=PREFIX+cdm%3A+%3Chttp%3A%2F%2Fpublications.europa.eu%2Fontology%2Fcdm%23%3E+SELECT+DISTINCT+%3Fcelex+WHERE+%7B+%3Fw+cdm%3Aresource_legal_amends_resource_legal+%3Fb+.+%3Fb+cdm%3Aresource_legal_id_celex+%2232018D2048%22%5E%5E%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23string%3E+.+%3Fw+cdm%3Aresource_legal_id_celex+%3Fcelex+%7D&format=text%2Fcsv",
+    "usedBy": "eu.harmonisedStandard",
+    "value": "Only 2021/1339 amends 2018/2048"
+  },
+  {
     "claim": "EN 301 549 V3.2.1 (2021-03) is the ETSI/CEN/CENELEC harmonised European standard titled \"Accessibility requirements for ICT products and services\".",
     "excerpt": "\"EN 301 549 V3.2.1 (2021-03) HARMONISED EUROPEAN STANDARD Accessibility requirements for ICT products and services\"",
     "field": "other",
@@ -9,6 +317,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "report.standard",
     "value": "EN 301 549 V3.2.1 (2021-03), Accessibility requirements for ICT products and services"
   },
   {
@@ -19,6 +328,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "report.standard",
     "value": "EN 301 549 V4.1.1 (2026-09), Accessibility requirements for ICT products and services"
   },
   {
@@ -29,6 +339,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-3",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/",
+    "usedBy": "report.standard",
     "value": "EN 301 549 V4.1.1 is the latest published version (folder dated 2026-09-02)"
   },
   {
@@ -39,6 +350,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-4",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "report.standard",
     "value": "EN 301 549 clause 9 applies to web pages"
   },
   {
@@ -49,6 +361,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-5",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "report.standard",
     "value": "EN 301 549 V3.2.1 clause 9 = WCAG 2.1 Level A and AA"
   },
   {
@@ -59,6 +372,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-6",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "report.standard",
     "value": "EN 301 549 V4.1.1 clause 9 = WCAG 2.2 Level A and AA"
   },
   {
@@ -69,6 +383,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-7",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "report.standard",
     "value": "V4.1.1 adds clauses 9.2.4.11, 9.2.5.7, 9.2.5.8, 9.3.2.6, 9.3.3.7, 9.3.3.8 beyond WCAG 2.1 AA"
   },
   {
@@ -79,6 +394,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-8",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "report.standard",
     "value": "EN 301 549 V4.1.1 clause 9.4.1.1 is void (4.1.1 Parsing removed)"
   },
   {
@@ -89,6 +405,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "report.standard",
     "value": "V4.1.1 presumption of conformity under 2019/882 requires OJ citation"
   },
   {
@@ -99,6 +416,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-WCAG21-1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/",
+    "usedBy": "report.standard",
     "value": "WCAG 2.1, W3C Recommendation 06 May 2025"
   },
   {
@@ -109,6 +427,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-WCAG21-2",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#parsing",
+    "usedBy": "checks.catalogue",
     "value": "WCAG 2.1 SC 4.1.1 is always satisfied for HTML or XML content"
   },
   {
@@ -119,6 +438,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-WCAG22-1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG22/",
+    "usedBy": "report.standard",
     "value": "WCAG 2.2, W3C Recommendation 12 December 2024"
   },
   {
@@ -129,6 +449,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC22-4.1.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG22/#parsing",
+    "usedBy": "checks.catalogue",
     "value": "4.1.1 Parsing (Obsolete and removed) in WCAG 2.2"
   },
   {
@@ -139,6 +460,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-AUTO-1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/WAI/test-evaluate/tools/selecting/",
+    "usedBy": "report.disclaimer",
     "value": "Automated tools cannot check all of accessibility; human judgement is required"
   },
   {
@@ -149,6 +471,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.1.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#non-text-content",
+    "usedBy": "checks.catalogue",
     "value": "1.1.1 Non-text Content (Level A)"
   },
   {
@@ -159,6 +482,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.2.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#audio-only-and-video-only-prerecorded",
+    "usedBy": "checks.catalogue",
     "value": "1.2.1 Audio-only and Video-only (Prerecorded) (Level A)"
   },
   {
@@ -169,6 +493,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.2.2",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#captions-prerecorded",
+    "usedBy": "checks.catalogue",
     "value": "1.2.2 Captions (Prerecorded) (Level A)"
   },
   {
@@ -179,6 +504,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.2.3",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#audio-description-or-media-alternative-prerecorded",
+    "usedBy": "checks.catalogue",
     "value": "1.2.3 Audio Description or Media Alternative (Prerecorded) (Level A)"
   },
   {
@@ -189,6 +515,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.2.4",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#captions-live",
+    "usedBy": "checks.catalogue",
     "value": "1.2.4 Captions (Live) (Level AA)"
   },
   {
@@ -199,6 +526,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.2.5",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#audio-description-prerecorded",
+    "usedBy": "checks.catalogue",
     "value": "1.2.5 Audio Description (Prerecorded) (Level AA)"
   },
   {
@@ -209,6 +537,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.3.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#info-and-relationships",
+    "usedBy": "checks.catalogue",
     "value": "1.3.1 Info and Relationships (Level A)"
   },
   {
@@ -219,6 +548,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.3.2",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#meaningful-sequence",
+    "usedBy": "checks.catalogue",
     "value": "1.3.2 Meaningful Sequence (Level A)"
   },
   {
@@ -229,6 +559,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.3.3",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#sensory-characteristics",
+    "usedBy": "checks.catalogue",
     "value": "1.3.3 Sensory Characteristics (Level A)"
   },
   {
@@ -239,6 +570,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.3.4",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#orientation",
+    "usedBy": "checks.catalogue",
     "value": "1.3.4 Orientation (Level AA)"
   },
   {
@@ -249,6 +581,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.3.5",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#identify-input-purpose",
+    "usedBy": "checks.catalogue",
     "value": "1.3.5 Identify Input Purpose (Level AA)"
   },
   {
@@ -259,6 +592,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.4.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#use-of-color",
+    "usedBy": "checks.catalogue",
     "value": "1.4.1 Use of Color (Level A)"
   },
   {
@@ -269,6 +603,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.4.2",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#audio-control",
+    "usedBy": "checks.catalogue",
     "value": "1.4.2 Audio Control (Level A)"
   },
   {
@@ -279,6 +614,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.4.3",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#contrast-minimum",
+    "usedBy": "checks.catalogue",
     "value": "1.4.3 Contrast (Minimum) (Level AA)"
   },
   {
@@ -289,6 +625,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.4.4",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#resize-text",
+    "usedBy": "checks.catalogue",
     "value": "1.4.4 Resize Text (Level AA)"
   },
   {
@@ -299,6 +636,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.4.5",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#images-of-text",
+    "usedBy": "checks.catalogue",
     "value": "1.4.5 Images of Text (Level AA)"
   },
   {
@@ -309,6 +647,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.4.10",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#reflow",
+    "usedBy": "checks.catalogue",
     "value": "1.4.10 Reflow (Level AA)"
   },
   {
@@ -319,6 +658,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.4.11",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#non-text-contrast",
+    "usedBy": "checks.catalogue",
     "value": "1.4.11 Non-text Contrast (Level AA)"
   },
   {
@@ -329,6 +669,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.4.12",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#text-spacing",
+    "usedBy": "checks.catalogue",
     "value": "1.4.12 Text Spacing (Level AA)"
   },
   {
@@ -339,6 +680,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-1.4.13",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#content-on-hover-or-focus",
+    "usedBy": "checks.catalogue",
     "value": "1.4.13 Content on Hover or Focus (Level AA)"
   },
   {
@@ -349,6 +691,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.1.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#keyboard",
+    "usedBy": "checks.catalogue",
     "value": "2.1.1 Keyboard (Level A)"
   },
   {
@@ -359,6 +702,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.1.2",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#no-keyboard-trap",
+    "usedBy": "checks.catalogue",
     "value": "2.1.2 No Keyboard Trap (Level A)"
   },
   {
@@ -369,6 +713,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.1.4",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#character-key-shortcuts",
+    "usedBy": "checks.catalogue",
     "value": "2.1.4 Character Key Shortcuts (Level A)"
   },
   {
@@ -379,6 +724,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.2.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#timing-adjustable",
+    "usedBy": "checks.catalogue",
     "value": "2.2.1 Timing Adjustable (Level A)"
   },
   {
@@ -389,6 +735,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.2.2",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#pause-stop-hide",
+    "usedBy": "checks.catalogue",
     "value": "2.2.2 Pause, Stop, Hide (Level A)"
   },
   {
@@ -399,6 +746,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.3.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#three-flashes-or-below-threshold",
+    "usedBy": "checks.catalogue",
     "value": "2.3.1 Three Flashes or Below Threshold (Level A)"
   },
   {
@@ -409,6 +757,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.4.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#bypass-blocks",
+    "usedBy": "checks.catalogue",
     "value": "2.4.1 Bypass Blocks (Level A)"
   },
   {
@@ -419,6 +768,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.4.2",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#page-titled",
+    "usedBy": "checks.catalogue",
     "value": "2.4.2 Page Titled (Level A)"
   },
   {
@@ -429,6 +779,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.4.3",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#focus-order",
+    "usedBy": "checks.catalogue",
     "value": "2.4.3 Focus Order (Level A)"
   },
   {
@@ -439,6 +790,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.4.4",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#link-purpose-in-context",
+    "usedBy": "checks.catalogue",
     "value": "2.4.4 Link Purpose (In Context) (Level A)"
   },
   {
@@ -449,6 +801,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.4.5",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#multiple-ways",
+    "usedBy": "checks.catalogue",
     "value": "2.4.5 Multiple Ways (Level AA)"
   },
   {
@@ -459,6 +812,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.4.6",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#headings-and-labels",
+    "usedBy": "checks.catalogue",
     "value": "2.4.6 Headings and Labels (Level AA)"
   },
   {
@@ -469,6 +823,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.4.7",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#focus-visible",
+    "usedBy": "checks.catalogue",
     "value": "2.4.7 Focus Visible (Level AA)"
   },
   {
@@ -479,6 +834,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.5.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#pointer-gestures",
+    "usedBy": "checks.catalogue",
     "value": "2.5.1 Pointer Gestures (Level A)"
   },
   {
@@ -489,6 +845,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.5.2",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#pointer-cancellation",
+    "usedBy": "checks.catalogue",
     "value": "2.5.2 Pointer Cancellation (Level A)"
   },
   {
@@ -499,6 +856,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.5.3",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#label-in-name",
+    "usedBy": "checks.catalogue",
     "value": "2.5.3 Label in Name (Level A)"
   },
   {
@@ -509,6 +867,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-2.5.4",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#motion-actuation",
+    "usedBy": "checks.catalogue",
     "value": "2.5.4 Motion Actuation (Level A)"
   },
   {
@@ -519,6 +878,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-3.1.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#language-of-page",
+    "usedBy": "checks.catalogue",
     "value": "3.1.1 Language of Page (Level A)"
   },
   {
@@ -529,6 +889,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-3.1.2",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#language-of-parts",
+    "usedBy": "checks.catalogue",
     "value": "3.1.2 Language of Parts (Level AA)"
   },
   {
@@ -539,6 +900,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-3.2.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#on-focus",
+    "usedBy": "checks.catalogue",
     "value": "3.2.1 On Focus (Level A)"
   },
   {
@@ -549,6 +911,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-3.2.2",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#on-input",
+    "usedBy": "checks.catalogue",
     "value": "3.2.2 On Input (Level A)"
   },
   {
@@ -559,6 +922,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-3.2.3",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#consistent-navigation",
+    "usedBy": "checks.catalogue",
     "value": "3.2.3 Consistent Navigation (Level AA)"
   },
   {
@@ -569,6 +933,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-3.2.4",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#consistent-identification",
+    "usedBy": "checks.catalogue",
     "value": "3.2.4 Consistent Identification (Level AA)"
   },
   {
@@ -579,6 +944,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-3.3.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#error-identification",
+    "usedBy": "checks.catalogue",
     "value": "3.3.1 Error Identification (Level A)"
   },
   {
@@ -589,6 +955,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-3.3.2",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#labels-or-instructions",
+    "usedBy": "checks.catalogue",
     "value": "3.3.2 Labels or Instructions (Level A)"
   },
   {
@@ -599,6 +966,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-3.3.3",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#error-suggestion",
+    "usedBy": "checks.catalogue",
     "value": "3.3.3 Error Suggestion (Level AA)"
   },
   {
@@ -609,6 +977,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-3.3.4",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#error-prevention-legal-financial-data",
+    "usedBy": "checks.catalogue",
     "value": "3.3.4 Error Prevention (Legal, Financial, Data) (Level AA)"
   },
   {
@@ -619,6 +988,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-4.1.1",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#parsing",
+    "usedBy": "checks.catalogue",
     "value": "4.1.1 Parsing (Level A)"
   },
   {
@@ -629,6 +999,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-4.1.2",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#name-role-value",
+    "usedBy": "checks.catalogue",
     "value": "4.1.2 Name, Role, Value (Level A)"
   },
   {
@@ -639,6 +1010,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC-4.1.3",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG21/#status-messages",
+    "usedBy": "checks.catalogue",
     "value": "4.1.3 Status Messages (Level AA)"
   },
   {
@@ -649,6 +1021,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.1.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.1.1"
   },
   {
@@ -659,6 +1032,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.2.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.2.1"
   },
   {
@@ -669,6 +1043,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.2.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.2.2"
   },
   {
@@ -679,6 +1054,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.2.3",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.2.3"
   },
   {
@@ -689,6 +1065,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.2.4",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.2.4"
   },
   {
@@ -699,6 +1076,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.2.5",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.2.5"
   },
   {
@@ -709,6 +1087,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.3.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.3.1"
   },
   {
@@ -719,6 +1098,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.3.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.3.2"
   },
   {
@@ -729,6 +1109,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.3.3",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.3.3"
   },
   {
@@ -739,6 +1120,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.3.4",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.3.4"
   },
   {
@@ -749,6 +1131,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.3.5",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.3.5"
   },
   {
@@ -759,6 +1142,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.4.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.4.1"
   },
   {
@@ -769,6 +1153,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.4.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.4.2"
   },
   {
@@ -779,6 +1164,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.4.3",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.4.3"
   },
   {
@@ -789,6 +1175,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.4.4",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.4.4"
   },
   {
@@ -799,6 +1186,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.4.5",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.4.5"
   },
   {
@@ -809,6 +1197,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.4.10",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.4.10"
   },
   {
@@ -819,6 +1208,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.4.11",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.4.11"
   },
   {
@@ -829,6 +1219,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.4.12",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.4.12"
   },
   {
@@ -839,6 +1230,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.1.4.13",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.1.4.13"
   },
   {
@@ -849,6 +1241,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.1.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.1.1"
   },
   {
@@ -859,6 +1252,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.1.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.1.2"
   },
   {
@@ -869,6 +1263,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.1.4",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.1.4"
   },
   {
@@ -879,6 +1274,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.2.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.2.1"
   },
   {
@@ -889,6 +1285,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.2.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.2.2"
   },
   {
@@ -899,6 +1296,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.3.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.3.1"
   },
   {
@@ -909,6 +1307,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.4.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.4.1"
   },
   {
@@ -919,6 +1318,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.4.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.4.2"
   },
   {
@@ -929,6 +1329,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.4.3",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.4.3"
   },
   {
@@ -939,6 +1340,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.4.4",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.4.4"
   },
   {
@@ -949,6 +1351,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.4.5",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.4.5"
   },
   {
@@ -959,6 +1362,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.4.6",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.4.6"
   },
   {
@@ -969,6 +1373,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.4.7",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.4.7"
   },
   {
@@ -979,6 +1384,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.5.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.5.1"
   },
   {
@@ -989,6 +1395,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.5.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.5.2"
   },
   {
@@ -999,6 +1406,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.5.3",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.5.3"
   },
   {
@@ -1009,6 +1417,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.2.5.4",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.2.5.4"
   },
   {
@@ -1019,6 +1428,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.3.1.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.3.1.1"
   },
   {
@@ -1029,6 +1439,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.3.1.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.3.1.2"
   },
   {
@@ -1039,6 +1450,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.3.2.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.3.2.1"
   },
   {
@@ -1049,6 +1461,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.3.2.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.3.2.2"
   },
   {
@@ -1059,6 +1472,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.3.2.3",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.3.2.3"
   },
   {
@@ -1069,6 +1483,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.3.2.4",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.3.2.4"
   },
   {
@@ -1079,6 +1494,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.3.3.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.3.3.1"
   },
   {
@@ -1089,6 +1505,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.3.3.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.3.3.2"
   },
   {
@@ -1099,6 +1516,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.3.3.3",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.3.3.3"
   },
   {
@@ -1109,6 +1527,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.3.3.4",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.3.3.4"
   },
   {
@@ -1119,6 +1538,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.4.1.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.4.1.1"
   },
   {
@@ -1129,6 +1549,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.4.1.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.4.1.2"
   },
   {
@@ -1139,6 +1560,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN-9.4.1.3",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 clause 9.4.1.3"
   },
   {
@@ -1149,6 +1571,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC22-2.4.11",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG22/#focus-not-obscured-minimum",
+    "usedBy": "checks.catalogue",
     "value": "2.4.11 Focus Not Obscured (Minimum) (Level AA)"
   },
   {
@@ -1159,6 +1582,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC22-2.5.7",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG22/#dragging-movements",
+    "usedBy": "checks.catalogue",
     "value": "2.5.7 Dragging Movements (Level AA)"
   },
   {
@@ -1169,6 +1593,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC22-2.5.8",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG22/#target-size-minimum",
+    "usedBy": "checks.catalogue",
     "value": "2.5.8 Target Size (Minimum) (Level AA)"
   },
   {
@@ -1179,6 +1604,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC22-3.2.6",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG22/#consistent-help",
+    "usedBy": "checks.catalogue",
     "value": "3.2.6 Consistent Help (Level A)"
   },
   {
@@ -1189,6 +1615,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC22-3.3.7",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG22/#redundant-entry",
+    "usedBy": "checks.catalogue",
     "value": "3.3.7 Redundant Entry (Level A)"
   },
   {
@@ -1199,6 +1626,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-SC22-3.3.8",
     "retrieved": "2026-11-03",
     "source": "https://www.w3.org/TR/WCAG22/#accessible-authentication-minimum",
+    "usedBy": "checks.catalogue",
     "value": "3.3.8 Accessible Authentication (Minimum) (Level AA)"
   },
   {
@@ -1209,6 +1637,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN4-9.1.1.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 V4.1.1 clause 9.1.1.1"
   },
   {
@@ -1219,6 +1648,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN4-9.1.3.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 V4.1.1 clause 9.1.3.1"
   },
   {
@@ -1229,6 +1659,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN4-9.1.4.3",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 V4.1.1 clause 9.1.4.3"
   },
   {
@@ -1239,6 +1670,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN4-9.1.4.4",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 V4.1.1 clause 9.1.4.4"
   },
   {
@@ -1249,6 +1681,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN4-9.2.2.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 V4.1.1 clause 9.2.2.1"
   },
   {
@@ -1259,6 +1692,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN4-9.2.4.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 V4.1.1 clause 9.2.4.2"
   },
   {
@@ -1269,6 +1703,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN4-9.2.4.4",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 V4.1.1 clause 9.2.4.4"
   },
   {
@@ -1279,6 +1714,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN4-9.3.1.1",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 V4.1.1 clause 9.3.1.1"
   },
   {
@@ -1289,6 +1725,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "STD-EN4-9.4.1.2",
     "retrieved": "2026-11-03",
     "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "checks.catalogue",
     "value": "EN 301 549 V4.1.1 clause 9.4.1.2"
   },
   {
@@ -1299,6 +1736,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "AT-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20012316",
+    "usedBy": "states.at.law",
     "value": "Barrierefreiheitsgesetz (BaFG), BGBl. I Nr. 76/2023"
   },
   {
@@ -1309,6 +1747,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "AT-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20012316",
+    "usedBy": "states.at.appliesFrom",
     "value": "2025-06-28"
   },
   {
@@ -1319,6 +1758,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "AT-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20012316",
+    "usedBy": "states.at.scope.products",
     "value": "EAA Art. 2(1) products placed on the market after 2025-06-28"
   },
   {
@@ -1329,6 +1769,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "AT-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20012316",
+    "usedBy": "states.at.scope.services",
     "value": "EAA Art. 2(2) services provided to consumers after 2025-06-28"
   },
   {
@@ -1339,6 +1780,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "AT-ECOMMERCE-1",
     "retrieved": "2026-11-03",
     "source": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20012316",
+    "usedBy": "states.at.scope.ecommerce",
     "value": "yes"
   },
   {
@@ -1349,6 +1791,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "AT-ECOMMERCE-2",
     "retrieved": "2026-11-03",
     "source": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20012316",
+    "usedBy": "states.at.scope.ecommerce",
     "value": "definition matches EAA Art. 3(30)"
   },
   {
@@ -1359,6 +1802,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "AT-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20012316",
+    "usedBy": "states.at.exemptions.micro",
     "value": "yes (services)"
   },
   {
@@ -1369,6 +1813,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "AT-MICRO-2",
     "retrieved": "2026-11-03",
     "source": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20012316",
+    "usedBy": "states.at.exemptions.micro",
     "value": "fewer than 10 persons and turnover or balance sheet at most EUR 2 million"
   },
   {
@@ -1379,6 +1824,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "AT-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20012316",
+    "usedBy": "states.at.exemptions.burden",
     "value": "yes"
   },
   {
@@ -1389,6 +1835,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "AT-AUTHORITY-1",
     "retrieved": "2026-11-03",
     "source": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20012316",
+    "usedBy": "states.at.authority",
     "value": "Bundesamt für Soziales und Behindertenwesen (Sozialministeriumservice)"
   },
   {
@@ -1399,6 +1846,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "AT-PENALTIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20012316",
+    "usedBy": "states.at.penalties",
     "value": "up to EUR 80,000 (up to EUR 50,000 for SMEs and microenterprises)"
   },
   {
@@ -1409,7 +1857,404 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "AT-PENALTIES-2",
     "retrieved": "2026-11-03",
     "source": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20012316",
+    "usedBy": "states.at.penalties",
     "value": "other offences up to EUR 40,000 or EUR 16,000 (EUR 25,000 or EUR 10,000 for SMEs)"
+  },
+  {
+    "claim": "Belgium's federal transposition for consumer banking and e-commerce services is the Law of 5 November 2023 amending several books of the Code of Economic Law, published in the Moniteur belge on 28 November 2023 (numac 2023046827), for the partial transposition of Directive (EU) 2019/882.",
+    "excerpt": "\"5 NOVEMBRE 2023. - Loi modifiant plusieurs livres du Code de droit économique et la loi du 2 aout 2002 relative à la surveillance du secteur financier et aux services financiers en vue de la transposition partielle de la directive (UE) 2019/882\" / \"Publication: 28 novembre 2023\" [Law of 5 November 2023 amending several books of the Code of Economic Law and the law of 2 August 2002 on the supervision of the financial sector and financial services, for the partial transposition of Directive (EU) 2019/882 / Published: 28 November 2023]",
+    "field": "transposing-law",
+    "file": "states/be.md",
+    "id": "BE-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.ejustice.just.fgov.be/eli/loi/2023/11/05/2023046827/justel",
+    "usedBy": "states.be.law",
+    "value": "Loi du 5 novembre 2023 modifiant plusieurs livres du Code de droit économique (MB 28-11-2023, numac 2023046827)"
+  },
+  {
+    "claim": "Belgium transposed the EAA in several federal, regional and community acts. The EUR-Lex national transposition list for 32019L0882 lists 22 Belgian measures, including federal laws on electronic communications, audiovisual media and transport, and regional and community decrees. This ledger does not yet cite the text of those acts.",
+    "excerpt": "\"Belgium 28/06/2022 22\" / \"Wet van 8 mei 2024 betreffende de toegankelijkheidsvoorschriften voor vervoersdiensten\" [Belgium, transposition deadline 28/06/2022, 22 measures / Law of 8 May 2024 on accessibility requirements for transport services]",
+    "field": "other",
+    "file": "states/be.md",
+    "id": "BE-LAW-2",
+    "retrieved": "2026-11-03",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/NIM/?uri=CELEX:32019L0882",
+    "usedBy": "none",
+    "value": "transposition split across 22 federal, regional and community measures"
+  },
+  {
+    "claim": "Art. 38 of the Law of 5 November 2023 sets entry into force on 28 June 2025.",
+    "excerpt": "\"Art. 38. La présente loi entre en vigueur le 28 juin 2025.\" [Art. 38. This law enters into force on 28 June 2025.]",
+    "field": "applies-from",
+    "file": "states/be.md",
+    "id": "BE-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.ejustice.just.fgov.be/eli/loi/2023/11/05/2023046827/justel",
+    "usedBy": "states.be.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "The Law of 5 November 2023 does not itself list the EAA products. Art. 5 extends the King's powers under CDE Art. VIII.57, and Art. 28-29 add market surveillance rules for products, so product requirements appear to be set by royal decree. Which royal decree sets them was not found. Value unknown.",
+    "excerpt": "\"Art. 28. Dans la section 2/1 insérée par l'article 24, il est inséré une sous-section 2 intitulée \\\"Surveillance du marché pour les produits\\\".\" [Art. 28. In section 2/1 inserted by Article 24, a subsection 2 entitled \"Market surveillance for products\" is inserted.]",
+    "field": "scope-products",
+    "file": "states/be.md",
+    "id": "BE-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.ejustice.just.fgov.be/eli/loi/2023/11/05/2023046827/justel",
+    "usedBy": "states.be.scope.products",
+    "value": "unknown"
+  },
+  {
+    "claim": "New CDE Art. VIII.58 § 1 (inserted by Art. 8) applies the federal service rules to two services provided to consumers: consumer banking services and e-commerce services. Other EAA services are covered by other Belgian acts (see BE-LAW-2).",
+    "excerpt": "\"\\\"Art. VIII.58. § 1er. Le présent titre s'applique aux services ci-après, fournis aux consommateurs: 1° services bancaires aux consommateurs; 2° services de commerce électronique.\" [Art. VIII.58 § 1. This title applies to the following services provided to consumers: 1° consumer banking services; 2° e-commerce services.]",
+    "field": "scope-services",
+    "file": "states/be.md",
+    "id": "BE-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.ejustice.just.fgov.be/eli/loi/2023/11/05/2023046827/justel",
+    "usedBy": "states.be.scope.services",
+    "value": "consumer banking and e-commerce (this act); other services in separate acts"
+  },
+  {
+    "claim": "E-commerce services provided to consumers are in scope (CDE Art. VIII.58 § 1, 2°). The definition inserted by Art. 3 matches EAA Art. 3(30).",
+    "excerpt": "\"7° services de commerce électronique: des services fournis à distance, via des sites internet, des services intégrés sur des appareils mobiles, par voie électronique et à la demande individuelle d'un consommateur, en vue de conclure un contrat de consommation;\" [7° e-commerce services: services provided at a distance, via websites and mobile device-based services, by electronic means and at the individual request of a consumer, with a view to concluding a consumer contract;]",
+    "field": "scope-ecommerce",
+    "file": "states/be.md",
+    "id": "BE-ECOMMERCE-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.ejustice.just.fgov.be/eli/loi/2023/11/05/2023046827/justel",
+    "usedBy": "states.be.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "The Law of 5 November 2023 does not itself exempt microenterprises providing services. New CDE Art. VIII.59 § 2 lets the King exclude all or some categories of microenterprises from all or some accessibility requirements. Whether a royal decree has done so was not checked. The exemption under this act is therefore unknown, not a plain yes.",
+    "excerpt": "\"§ 2. Le Roi peut exclure toutes ou certaines catégories de micro-entreprises de l'obligation de satisfaire à toutes ou à certaines exigences en matière d'accessibilité visées à l'annexe 1re du présent livre.\" [§ 2. The King may exclude all or certain categories of microenterprises from the obligation to meet all or some of the accessibility requirements in Annex 1 of this book.]",
+    "field": "microenterprise-exemption",
+    "file": "states/be.md",
+    "id": "BE-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.ejustice.just.fgov.be/eli/loi/2023/11/05/2023046827/justel",
+    "usedBy": "states.be.exemptions.micro",
+    "value": "unknown (the King may exclude microenterprises by royal decree; no exemption in the law itself)"
+  },
+  {
+    "claim": "The Law of 5 November 2023 defines a microenterprise as an enterprise employing fewer than ten persons with annual turnover or annual balance sheet total not exceeding EUR 2,000,000.",
+    "excerpt": "\"5° micro-entreprise: une entreprise qui emploie moins de dix personnes et dont le chiffre d'affaires annuel ou le total du bilan annuel n'excède pas 2.000.000 euros;\" [5° microenterprise: an enterprise employing fewer than ten persons and whose annual turnover or annual balance sheet total does not exceed EUR 2,000,000;]",
+    "field": "microenterprise-exemption",
+    "file": "states/be.md",
+    "id": "BE-MICRO-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.ejustice.just.fgov.be/eli/loi/2023/11/05/2023046827/justel",
+    "usedBy": "states.be.exemptions.micro",
+    "value": "fewer than 10 persons and turnover or balance sheet at most EUR 2,000,000"
+  },
+  {
+    "claim": "New CDE Art. VIII.62 (inserted by Art. 15) transposes the fundamental-alteration and disproportionate-burden exceptions for these services, with an assessment by the service provider (§ 2).",
+    "excerpt": "\"\\\"Art. VIII.62. § 1er. Les exigences en matière d'accessibilité visées à l'annexe 1re du présent livre s'appliquent uniquement dans la mesure où la conformité: 1° n'exige pas de modification significative d'un service qui entraîne une modification fondamentale de la nature de celui-ci; et 2° n'entraîne pas l'imposition d'une charge disproportionnée aux prestataires de services concernés.\" [The accessibility requirements apply only insofar as compliance 1° does not require a significant change that fundamentally alters the nature of the service; and 2° does not impose a disproportionate burden on the service providers concerned.]",
+    "field": "disproportionate-burden",
+    "file": "states/be.md",
+    "id": "BE-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.ejustice.just.fgov.be/eli/loi/2023/11/05/2023046827/justel",
+    "usedBy": "states.be.exemptions.burden",
+    "value": "yes"
+  },
+  {
+    "claim": "Enforcement of the federal service rules lies with the agents referred to in CDE Art. XV.2, which the CDE defines as agents commissioned by the Minister to investigate and record infringements of the Code. The texts read do not name the administration. The Justel record lists the source department as \"Economie, PME, Classes moyennes et Energie\", but that is metadata, not the designation of an authority.",
+    "excerpt": "\"Art. XV.2. § 1er. Sans préjudice des compétences des fonctionnaires de police de la police locale et fédérale, les agents commissionnés par le ministre sont compétents pour rechercher et constater les infractions au présent Code.\" [Without prejudice to the powers of local and federal police officers, agents commissioned by the Minister are competent to investigate and record infringements of this Code.]",
+    "field": "authority",
+    "file": "states/be.md",
+    "id": "BE-AUTHORITY-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.ejustice.just.fgov.be/eli/loi/2013/02/28/2013A11134/justel",
+    "usedBy": "states.be.authority",
+    "value": "agents commissioned by the Minister under CDE Art. XV.2 (administration not named in the text read)"
+  },
+  {
+    "claim": "New CDE Art. XV.101/1 (inserted by the Law of 5 November 2023) punishes infringements of the service accessibility articles VIII.59 to VIII.62 with a level 2 sanction, or level 3 if committed in bad faith. CDE Art. XV.70 sets level 2 as a criminal fine of EUR 26 to EUR 10,000 or 4% of annual turnover if higher, and level 3 as EUR 26 to EUR 25,000 or 6% of turnover if higher.",
+    "excerpt": "\"Art. XV.101/1. Sont punis d'une sanction de niveau 2, ceux qui commettent une infraction aux articles VIII.59 à VIII.62.\" / \"2° la sanction de niveau 2 est constituée d'une amende pénale allant d'un montant minimum de 26 euros à un montant maximum de 10 000 euros ou de 4 % du chiffre d'affaires annuel total\" [Infringements of Articles VIII.59 to VIII.62 are punished with a level 2 sanction / the level 2 sanction is a criminal fine of EUR 26 to EUR 10,000 or 4% of total annual turnover]",
+    "field": "penalties",
+    "file": "states/be.md",
+    "id": "BE-PENALTIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.ejustice.just.fgov.be/eli/loi/2013/02/28/2013A11134/justel",
+    "usedBy": "states.be.penalties",
+    "value": "EUR 26-10,000 or 4% of turnover (bad faith: EUR 26-25,000 or 6% of turnover)"
+  },
+  {
+    "claim": "Bulgaria transposed the EAA with the Act on the accessibility requirements for products and services, adopted by the 51st National Assembly on 28 March 2025 and promulgated in State Gazette (Държавен вестник) issue 31/2025.",
+    "excerpt": "\"ЗАКОН ЗА ИЗИСКВАНИЯТА ЗА ДОСТЪПНОСТ НА ПРОДУКТИ И УСЛУГИ Дата на приемане 28/03/2025 Държавен вестник брой 31 / 2025 г.\" [Act on the accessibility requirements for products and services. Date adopted 28/03/2025. State Gazette issue 31 / 2025]",
+    "field": "transposing-law",
+    "file": "states/bg.md",
+    "id": "BG-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.parliament.bg/bg/laws/ID/165848",
+    "usedBy": "states.bg.law",
+    "value": "Закон за изискванията за достъпност на продукти и услуги, ДВ бр. 31/2025"
+  },
+  {
+    "claim": "§ 9 of the final provisions: the act enters into force on 28 June 2025, except § 5 (from 28 June 2027) and § 7 (from promulgation).",
+    "excerpt": "\"§ 9. Законът влиза в сила от 28 юни 2025 г. с изключение на: 1. параграф 5, който влиза в сила от 28 юни 2027 г.;\" [§ 9. The act enters into force on 28 June 2025 except: 1. paragraph 5, which enters into force on 28 June 2027;]",
+    "field": "applies-from",
+    "file": "states/bg.md",
+    "id": "BG-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.parliament.bg/bg/laws/ID/165848",
+    "usedBy": "states.bg.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "Art. 2(1) covers the EAA product list, including self-service terminals, consumer terminal equipment for electronic communications and audiovisual media, and e-readers.",
+    "excerpt": "\"3. потребителско крайно оборудване с интерактивни възможности за компютърна обработка, използвано за електронни съобщителни услуги; [...] 5. електронни четци.\" [3. consumer terminal equipment with interactive computing capability used for electronic communications services; ... 5. e-readers.]",
+    "field": "scope-products",
+    "file": "states/bg.md",
+    "id": "BG-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.parliament.bg/bg/laws/ID/165848",
+    "usedBy": "states.bg.scope.products",
+    "value": "EAA Art. 2(1) products"
+  },
+  {
+    "claim": "Art. 2(2) covers electronic communications, access to audiovisual media, passenger transport elements, consumer banking, e-books, and e-commerce services.",
+    "excerpt": "\"(2) Този закон се прилага за следните услуги: 1. електронни съобщителни услуги [...] 5. потребителски банкови услуги; 6. електронни книги и специализиран софтуер; 7. услуги за електронна търговия.\" [This act applies to the following services: 1. electronic communications services ... 5. consumer banking services; 6. e-books and dedicated software; 7. e-commerce services.]",
+    "field": "scope-services",
+    "file": "states/bg.md",
+    "id": "BG-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.parliament.bg/bg/laws/ID/165848",
+    "usedBy": "states.bg.scope.services",
+    "value": "EAA Art. 2(2) services"
+  },
+  {
+    "claim": "Art. 2(2) item 7 covers e-commerce services; § 1 item 40 of the supplementary provisions defines them as distance services via websites and mobile services, by electronic means, at a consumer's individual request, to conclude a consumer contract.",
+    "excerpt": "\"40. „Услуги за електронна търговия“ са услуги, предоставяни от разстояние чрез уебсайтове и услуги, базирани на мобилни устройства, чрез електронни средства и по индивидуално искане на потребител с цел сключване на потребителски договор.\" [40. \"E-commerce services\" are services provided at a distance through websites and mobile device-based services, by electronic means and at the individual request of a consumer, with a view to concluding a consumer contract.]",
+    "field": "scope-ecommerce",
+    "file": "states/bg.md",
+    "id": "BG-ECOMMERCE-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.parliament.bg/bg/laws/ID/165848",
+    "usedBy": "states.bg.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "Art. 46(3) exempts microenterprises offering services from the service accessibility requirements and all related obligations.",
+    "excerpt": "\"(3) Микропредприятията, които предлагат услуги, се освобождават от спазването на изискванията за достъпност по ал. 1 и 2 и от всички задължения, свързани със спазването на тези изисквания.\" [(3) Microenterprises offering services are exempt from the accessibility requirements under paragraphs 1 and 2 and from all obligations related to compliance with those requirements.]",
+    "field": "microenterprise-exemption",
+    "file": "states/bg.md",
+    "id": "BG-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.parliament.bg/bg/laws/ID/165848",
+    "usedBy": "states.bg.exemptions.micro",
+    "value": "yes (services)"
+  },
+  {
+    "claim": "Art. 3(1) transposes the fundamental-alteration and disproportionate-burden exceptions; Art. 3(2) requires an assessment against the criteria in Annex 1.",
+    "excerpt": "\"Чл. 3. (1) Изискванията за достъпност на продукти и услуги се прилагат само дотолкова, доколкото тяхното спазване: 1. не изисква значително изменение в продукт или услуга, [...] или 2. не води до прекомерна тежест за съответните икономически оператори.\" [Art. 3(1) The accessibility requirements apply only insofar as compliance: 1. does not require a significant change to a product or service ... or 2. does not impose a disproportionate burden on the economic operators concerned.]",
+    "field": "disproportionate-burden",
+    "file": "states/bg.md",
+    "id": "BG-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.parliament.bg/bg/laws/ID/165848",
+    "usedBy": "states.bg.exemptions.burden",
+    "value": "yes"
+  },
+  {
+    "claim": "Art. 54(1) splits service compliance control by sector; item 10 assigns e-commerce services (Art. 2(2) item 7), and some consumer banking services, to the Commission for Consumer Protection. Item 1 assigns electronic communications to the Communications Regulation Commission.",
+    "excerpt": "\"10. Комисията за защита на потребителите – за услугите по чл. 2, ал. 2, т. 5 във връзка с услугите, посочени в § 1, ал. 1, т. 25, буква „а“ от допълнителните разпоредби, и за услугите по чл. 2, ал. 2, т. 7.\" [10. the Commission for Consumer Protection, for services under Art. 2(2) item 5 in connection with the services in § 1(1) item 25(a) of the supplementary provisions, and for services under Art. 2(2) item 7.]",
+    "field": "authority",
+    "file": "states/bg.md",
+    "id": "BG-AUTHORITY-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.parliament.bg/bg/laws/ID/165848",
+    "usedBy": "states.bg.authority",
+    "value": "Комисия за защита на потребителите (Commission for Consumer Protection), e-commerce services"
+  },
+  {
+    "claim": "For products, Art. 34(1) designates the Chairperson of the State Agency for Metrological and Technical Surveillance as market surveillance authority within the meaning of Regulation (EU) 2019/1020; Art. 39(2) confirms the Chairperson imposes restrictive measures.",
+    "excerpt": "\"(2) Председателят на Държавната агенция за метрологичен и технически надзор или оправомощени от него длъжностни лица налагат ограничителни мерки по ал. 1 или разпореждат предприемане на коригиращи действия със заповед.\" [(2) The Chairperson of the State Agency for Metrological and Technical Surveillance, or officials authorised by them, impose the restrictive measures under paragraph 1 or order corrective action.]",
+    "field": "authority",
+    "file": "states/bg.md",
+    "id": "BG-AUTHORITY-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.parliament.bg/bg/laws/ID/165848",
+    "usedBy": "states.bg.authority",
+    "value": "Държавна агенция за метрологичен и технически надзор (State Agency for Metrological and Technical Surveillance), products"
+  },
+  {
+    "claim": "Art. 89: breach of an obligation in Chapter Three (accessibility of services), for which no other penalty is provided, is punished with a fine of BGN 1,500 to 10,000 or a property sanction of BGN 3,000 to 20,000; for a repeat breach, BGN 3,000 to 20,000 or BGN 6,000 to 40,000.",
+    "excerpt": "\"Чл. 89. За нарушение на задължение по глава трета, за което не е предвидено друго наказание, се налага глоба от 1500 до 10 000 лв. или имуществена санкция от 3000 до 20 000 лв., а при повторно нарушение – глоба от 3000 до 20 000 лв. или имуществена санкция от 6000 до 40 000 лв.\" [Art. 89. For breach of an obligation under Chapter Three, with no other penalty provided, a fine of BGN 1,500 to 10,000 or a property sanction of BGN 3,000 to 20,000 is imposed; for a repeat breach, a fine of BGN 3,000 to 20,000 or a property sanction of BGN 6,000 to 40,000.]",
+    "field": "penalties",
+    "file": "states/bg.md",
+    "id": "BG-PENALTIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.parliament.bg/bg/laws/ID/165848",
+    "usedBy": "states.bg.penalties",
+    "value": "BGN 1,500-10,000 fine or BGN 3,000-20,000 property sanction (repeat: up to BGN 20,000 / 40,000)"
+  },
+  {
+    "claim": "Art. 86: a service provider breaching Art. 3 (the disproportionate-burden / fundamental-alteration assessment rules) is fined BGN 500 to 3,000 or a property sanction of BGN 1,000 to 5,000 (repeat: BGN 1,000 to 6,000 or BGN 2,000 to 10,000).",
+    "excerpt": "\"Чл. 86. За нарушение на задължение по чл. 3 на доставчика на услуги се налага глоба от 500 до 3000 лв. или имуществена санкция от 1000 до 5000 лв., а при повторно нарушение – глоба от 1000 до 6000 лв. или имуществена санкция от 2000 до 10 000 лв.\" [Art. 86. For breach of an obligation under Art. 3 by a service provider, a fine of BGN 500 to 3,000 or a property sanction of BGN 1,000 to 5,000; for a repeat breach, BGN 1,000 to 6,000 or BGN 2,000 to 10,000.]",
+    "field": "penalties",
+    "file": "states/bg.md",
+    "id": "BG-PENALTIES-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.parliament.bg/bg/laws/ID/165848",
+    "usedBy": "states.bg.penalties",
+    "value": "Art. 3 breaches by service providers: BGN 500-3,000 fine or BGN 1,000-5,000 property sanction"
+  },
+  {
+    "claim": "Cyprus transposed the EAA with the Accessibility of Products and Services Law of 2024 (Ο περί της Προσβασιμότητας Προϊόντων και Υπηρεσιών Νόμος του 2024), Law No. 57(I) of 2024, Official Gazette No. 4996 of 2 May 2024; its preamble states it harmonises with Directive (EU) 2019/882.",
+    "excerpt": "\"Ο περί της Προσβασιμότητας Προϊόντων και Υπηρεσιών Νόμος του 2024 εκδίδεται με δημοσίευση στην Επίσημη Εφημερίδα της Κυπριακής Δημοκρατίας σύμφωνα με το Άρθρο 52 του Συντάγματος. Αριθμός 57(Ι) του 2024\" [The Accessibility of Products and Services Law of 2024 is promulgated by publication in the Official Gazette of the Republic of Cyprus under Article 52 of the Constitution. Number 57(I) of 2024]",
+    "field": "transposing-law",
+    "file": "states/cy.md",
+    "id": "CY-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.law",
+    "value": "Ο περί της Προσβασιμότητας Προϊόντων και Υπηρεσιών Νόμος του 2024, Ν. 57(Ι)/2024 (Gazette 4996, 2.5.2024)"
+  },
+  {
+    "claim": "The Law applies to the covered services provided to consumers from 28 June 2025 (Article 4(2)), and to covered products placed on the market from 28 June 2025 (Article 4(1)).",
+    "excerpt": "\"εφαρμόζονται στις ακόλουθες υπηρεσίες, οι οποίες παρέχονται στους καταναλωτές από την 28η Ιουνίου 2025 και εντεύθεν:\" [apply to the following services provided to consumers from 28 June 2025 onwards:]",
+    "field": "applies-from",
+    "file": "states/cy.md",
+    "id": "CY-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "Article 4(1) covers the EAA product list placed on the market from 28 June 2025, starting with consumer general purpose computer hardware systems and their operating systems and ending with e-readers.",
+    "excerpt": "\"4.-(1) Οι διατάξεις του παρόντος Νόμου εφαρμόζονται στα ακόλουθα προϊόντα τα οποία διατίθενται στην αγορά από την 28η Ιουνίου 2025 και εντεύθεν:\" [4.-(1) The provisions of this Law apply to the following products made available on the market from 28 June 2025 onwards:]",
+    "field": "scope-products",
+    "file": "states/cy.md",
+    "id": "CY-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.scope.products",
+    "value": "EAA Art. 2(1) products placed on the market from 2025-06-28"
+  },
+  {
+    "claim": "Article 4(2) covers services provided to consumers: electronic communications, access to audiovisual media, elements of passenger transport by air, bus, rail and waterborne means, consumer banking, e-books and dedicated software, and e-commerce.",
+    "excerpt": "\"(δ) τραπεζικές υπηρεσίες για καταναλωτές. (ε) ηλεκτρονικά βιβλία και ειδικό λογισμικό. και (στ) υπηρεσίες ηλεκτρονικού εμπορίου.\" [(d) consumer banking services. (e) e-books and dedicated software. and (f) e-commerce services.]",
+    "field": "scope-services",
+    "file": "states/cy.md",
+    "id": "CY-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.scope.services",
+    "value": "EAA Art. 2(2) services provided to consumers from 2025-06-28"
+  },
+  {
+    "claim": "Article 4(2)(f) lists e-commerce services among the consumer services covered.",
+    "excerpt": "\"(στ) υπηρεσίες ηλεκτρονικού εμπορίου.\" [(f) e-commerce services.]",
+    "field": "scope-ecommerce",
+    "file": "states/cy.md",
+    "id": "CY-ECOMMERCE-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "Article 2 defines e-commerce services in the same terms as Art. 3(30) EAA.",
+    "excerpt": "\"«υπηρεσίες ηλεκτρονικού εμπορίου» σημαίνει υπηρεσίες που παρέχονται εξ αποστάσεως μέσω διαδικτυακών τόπων και υπηρεσιών που βασίζονται σε φορητές συσκευές, με ηλεκτρονικά μέσα και κατόπιν ατομικού αιτήματος καταναλωτή, με σκοπό τη σύναψη συμβάσεως καταναλωτών.\" ['e-commerce services' means services provided at a distance through websites and mobile device-based services, by electronic means and at the individual request of a consumer, with a view to concluding a consumer contract.]",
+    "field": "scope-ecommerce",
+    "file": "states/cy.md",
+    "id": "CY-ECOMMERCE-2",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.scope.ecommerce",
+    "value": "E-commerce services: distance services via websites and mobile services, at a consumer's request, to conclude a consumer contract"
+  },
+  {
+    "claim": "Microenterprises providing services are exempt from the service accessibility requirements and related obligations (Article 5(5)).",
+    "excerpt": "\"(5) Οι πολύ μικρές επιχειρήσεις που παρέχουν υπηρεσίες απαλλάσσονται από την τήρηση των προβλεπόμενων στο εδάφιο (3) απαιτήσεων προσβασιμότητας και από οποιαδήποτε άλλη υποχρέωση σχετίζεται με την τήρηση των εν λόγω απαιτήσεων.\" [(5) Microenterprises providing services are exempt from complying with the accessibility requirements of subsection (3) and from any other obligation relating to compliance with those requirements.]",
+    "field": "microenterprise-exemption",
+    "file": "states/cy.md",
+    "id": "CY-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.exemption.microenterprise",
+    "value": "yes"
+  },
+  {
+    "claim": "Article 2 defines a microenterprise as an enterprise with fewer than 10 employees and annual turnover or annual balance sheet total not exceeding EUR 2 million.",
+    "excerpt": "\"«πολύ μικρή επιχείρηση» σημαίνει επιχείρηση η οποία απασχολεί λιγότερους από δέκα (10) εργαζομένους και ο ετήσιος κύκλος εργασιών της οποίας δεν υπερβαίνει τα δύο εκατομμύρια ευρώ (€2.000.000)\" ['microenterprise' means an enterprise employing fewer than ten (10) persons and whose annual turnover does not exceed two million euros (EUR 2,000,000)]",
+    "field": "microenterprise-exemption",
+    "file": "states/cy.md",
+    "id": "CY-MICRO-2",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.exemption.microenterprise",
+    "value": "Fewer than 10 employees and turnover or balance sheet total not exceeding EUR 2 million"
+  },
+  {
+    "claim": "Article 15(1) transposes the Art. 14 EAA exception: the accessibility requirements apply only to the extent compliance does not fundamentally alter the product or service and does not impose a disproportionate burden on the economic operators concerned.",
+    "excerpt": "\"(β) δεν συνεπάγεται την επιβολή δυσανάλογης επιβάρυνσης για τους ενδιαφερόμενους οικονομικούς φορείς.\" [(b) does not result in the imposition of a disproportionate burden on the economic operators concerned.]",
+    "field": "disproportionate-burden",
+    "file": "states/cy.md",
+    "id": "CY-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.exemption.disproportionateBurden",
+    "value": "yes (Article 15)"
+  },
+  {
+    "claim": "The competent authority for applying the Law is the Deputy Minister of Social Welfare (Article 3(1)).",
+    "excerpt": "\"3.-(1) Αρμόδια αρχή για την άσκηση των εξουσιών και την εφαρμογή των διατάξεων του παρόντος Νόμου και των προνοιών των Κανονισμών, Διαταγμάτων και Γνωστοποιήσεων που εκδίδονται δυνάμει αυτού είναι ο Υφυπουργός Κοινωνικής Πρόνοιας.\" [3.-(1) The competent authority for exercising the powers and applying this Law and the Regulations, Orders and Notices issued under it is the Deputy Minister of Social Welfare.]",
+    "field": "authority",
+    "file": "states/cy.md",
+    "id": "CY-AUTHORITY-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.authority",
+    "value": "Υφυπουργός Κοινωνικής Πρόνοιας (Deputy Minister of Social Welfare)"
+  },
+  {
+    "claim": "The market surveillance departments (accessibility surveillance authorities) are designated by the Council of Ministers under Article 3(3), not named in the Law. Which department supervises e-commerce services is unknown: no designation decision was found in a primary source.",
+    "excerpt": "\"(3) Το Υπουργικό Συμβούλιο καθορίζει τμήματα και υπηρεσίες του δημοσίου, τα οποία συνεργάζονται με την αρμόδια αρχή και προβαίνουν σε επιτήρηση της αγοράς\" [(3) The Council of Ministers designates public departments and services which cooperate with the competent authority and carry out market surveillance]",
+    "field": "authority",
+    "file": "states/cy.md",
+    "id": "CY-AUTHORITY-2",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.authority",
+    "value": "unknown"
+  },
+  {
+    "claim": "The competent authority may impose an administrative fine of up to EUR 10,000 for the infringements in Article 35, and up to EUR 20,000 for a subsequent infringement (Article 36(1)); a continuing infringement may draw up to EUR 500 per day (Article 36(2)).",
+    "excerpt": "\"36.-(1) Η αρμόδια αρχή δύναται να επιβάλει διοικητικό πρόστιμο το οποίο δεν υπερβαίνει τις δέκα χιλιάδες ευρώ (€10.000) σε πρόσωπο το οποίο προβαίνει σε οποιαδήποτε από τις προβλεπόμενες στο άρθρο 35 παραβάσεις\" [36.-(1) The competent authority may impose an administrative fine not exceeding ten thousand euros (EUR 10,000) on a person committing any of the infringements in Article 35]",
+    "field": "penalties",
+    "file": "states/cy.md",
+    "id": "CY-PENALTIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.penalties",
+    "value": "Administrative fine up to EUR 10,000 (EUR 20,000 repeat; up to EUR 500/day continuing)"
+  },
+  {
+    "claim": "Separately from administrative fines, a person who makes available a non-compliant product or service commits a criminal offence (Article 38(a)) punishable on first conviction by up to 2 years imprisonment or a fine up to EUR 20,000 or both, and on a later conviction by up to 3 years or up to EUR 30,000 or both.",
+    "excerpt": "\"(αα) σε περίπτωση πρώτης καταδίκης, υπόκειται σε ποινή φυλάκισης που δεν υπερβαίνει τα δύο (2) έτη ή σε χρηματική ποινή που δεν υπερβαίνει τις είκοσι χιλιάδες ευρώ (€20.000)\" [(aa) on first conviction, is liable to imprisonment not exceeding two (2) years or a fine not exceeding twenty thousand euros (EUR 20,000)]",
+    "field": "penalties",
+    "file": "states/cy.md",
+    "id": "CY-PENALTIES-2",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.penalties",
+    "value": "Criminal: up to 2 years or EUR 20,000 (first); up to 3 years or EUR 30,000 (repeat)"
+  },
+  {
+    "claim": "Article 45(1) sets the transitional period ending 28 June 2030 for services provided with products lawfully used before that date; service contracts agreed before 28 June 2025 may continue unchanged for at most five years.",
+    "excerpt": "\"ορίζεται μεταβατική περίοδος που λήγει την 28η Ιουνίου 2030, κατά την οποία οι πάροχοι υπηρεσιών δύνανται να συνεχίσουν να παρέχουν τις υπηρεσίες τους με προϊόντα που χρησιμοποιούσαν νόμιμα\" [a transitional period is set ending on 28 June 2030, during which service providers may continue to provide their services with products they lawfully used]",
+    "field": "other",
+    "file": "states/cy.md",
+    "id": "CY-OTHER-1",
+    "retrieved": "2026-11-03",
+    "source": "https://publications.europa.eu/resource/cellar/870fc35b-4cb5-454d-9d16-465cff922112.0001.01/DOC_1",
+    "usedBy": "states.cy.transitional",
+    "value": "Transitional period to 2030-06-28"
   },
   {
     "claim": "Czechia transposed the EAA with Act No. 424/2023 Coll. on accessibility requirements for certain products and services, published in Collection of Laws part (částka) 194 on 29 December 2023.",
@@ -1419,6 +2264,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "CZ-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://www.e-sbirka.cz/sb/2023/424",
+    "usedBy": "states.cz.law",
     "value": "Zákon č. 424/2023 Sb., o požadavcích na přístupnost některých výrobků a služeb"
   },
   {
@@ -1429,6 +2275,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "CZ-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.e-sbirka.cz/sb/2023/424",
+    "usedBy": "states.cz.appliesFrom",
     "value": "2025-06-28"
   },
   {
@@ -1439,6 +2286,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "CZ-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://www.e-sbirka.cz/sb/2023/424",
+    "usedBy": "states.cz.scope.products",
     "value": "EAA Art. 2(1) products"
   },
   {
@@ -1449,6 +2297,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "CZ-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.e-sbirka.cz/sb/2023/424",
+    "usedBy": "states.cz.scope.services",
     "value": "EAA Art. 2(2) services provided to consumers"
   },
   {
@@ -1459,6 +2308,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "CZ-ECOMMERCE-1",
     "retrieved": "2026-11-03",
     "source": "https://www.e-sbirka.cz/sb/2023/424",
+    "usedBy": "states.cz.scope.ecommerce",
     "value": "yes"
   },
   {
@@ -1469,6 +2319,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "CZ-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://www.e-sbirka.cz/sb/2023/424",
+    "usedBy": "states.cz.exemptions.micro",
     "value": "yes (services)"
   },
   {
@@ -1479,6 +2330,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "CZ-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://www.e-sbirka.cz/sb/2023/424",
+    "usedBy": "states.cz.exemptions.burden",
     "value": "yes"
   },
   {
@@ -1489,6 +2341,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "CZ-AUTHORITY-1",
     "retrieved": "2026-11-03",
     "source": "https://www.e-sbirka.cz/sb/2023/424",
+    "usedBy": "states.cz.authority",
     "value": "Česká obchodní inspekce (services generally, incl. e-commerce, and products)"
   },
   {
@@ -1499,6 +2352,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "CZ-PENALTIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.e-sbirka.cz/sb/2023/424",
+    "usedBy": "states.cz.penalties",
     "value": "up to CZK 10,000,000 (other offences up to CZK 5,000,000 / 2,000,000 / 1,000,000)"
   },
   {
@@ -1509,6 +2363,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.law",
     "value": "Barrierefreiheitsstärkungsgesetz (BFSG), BGBl. I S. 2970 (16 July 2021)"
   },
   {
@@ -1519,6 +2374,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-LAW-2",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.law",
     "value": "Implements Directive (EU) 2019/882"
   },
   {
@@ -1529,6 +2385,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.appliesFrom",
     "value": "2025-06-28 (services provided and products placed on the market after that date)"
   },
   {
@@ -1539,6 +2396,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-APPLIES-2",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.appliesFrom",
     "value": "Transition for pre-existing products and contracts until 2030-06-27"
   },
   {
@@ -1549,6 +2407,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.scope.products",
     "value": "Computers and OS, payment and self-service terminals, telecom and AV media terminal equipment, e-readers"
   },
   {
@@ -1559,6 +2418,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.scope.services",
     "value": "Telecoms, passenger transport elements, consumer banking, e-books, e-commerce"
   },
   {
@@ -1569,6 +2429,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-ECOM-1",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.scope.ecommerce",
     "value": "yes"
   },
   {
@@ -1579,6 +2440,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.exemptions.micro",
     "value": "yes (service microenterprises exempt)"
   },
   {
@@ -1589,6 +2451,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-MICRO-2",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.exemptions.micro",
     "value": "Fewer than 10 employees and turnover or balance sheet at most EUR 2 million"
   },
   {
@@ -1599,6 +2462,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.exemptions.burden",
     "value": "yes (§ 17 BFSG, criteria in Anlage 4)"
   },
   {
@@ -1609,6 +2473,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-AUTH-1",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.authority",
     "value": "Market surveillance authority designated under Land (federal state) law"
   },
   {
@@ -1619,6 +2484,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-AUTH-2",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.authority",
     "value": "unknown"
   },
   {
@@ -1629,6 +2495,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-PEN-1",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.penalties",
     "value": "Up to EUR 100,000 (incl. non-conforming services); up to EUR 10,000 for other offences"
   },
   {
@@ -1639,6 +2506,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DE-PEN-2",
     "retrieved": "2026-11-03",
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.penalties",
     "value": "Offering a non-conforming service is an administrative offence"
   },
   {
@@ -1649,6 +2517,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DK-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://www.retsinformation.dk/eli/lta/2022/801",
+    "usedBy": "states.dk.law",
     "value": "Lov om tilgængelighedskrav for produkter og tjenester, LOV nr 801 af 07/06/2022"
   },
   {
@@ -1659,6 +2528,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DK-LAW-2",
     "retrieved": "2026-11-03",
     "source": "https://www.retsinformation.dk/eli/lta/2024/637",
+    "usedBy": "states.dk.law",
     "value": "amended by LOV nr 637 af 11/06/2024"
   },
   {
@@ -1669,6 +2539,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DK-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.retsinformation.dk/eli/lta/2022/801",
+    "usedBy": "states.dk.appliesFrom",
     "value": "2025-06-28"
   },
   {
@@ -1679,6 +2550,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DK-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://www.retsinformation.dk/eli/lta/2022/801",
+    "usedBy": "states.dk.scope.products",
     "value": "EAA Art. 2(1) products"
   },
   {
@@ -1689,6 +2561,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DK-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.retsinformation.dk/eli/lta/2022/801",
+    "usedBy": "states.dk.scope.services",
     "value": "EAA Art. 2(2) services provided to consumers"
   },
   {
@@ -1699,6 +2572,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DK-ECOMMERCE-1",
     "retrieved": "2026-11-03",
     "source": "https://www.retsinformation.dk/eli/lta/2022/801",
+    "usedBy": "states.dk.scope.ecommerce",
     "value": "yes"
   },
   {
@@ -1709,6 +2583,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DK-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://www.retsinformation.dk/eli/lta/2022/801",
+    "usedBy": "states.dk.exemptions.micro",
     "value": "yes (services)"
   },
   {
@@ -1719,6 +2594,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DK-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://www.retsinformation.dk/eli/lta/2022/801",
+    "usedBy": "states.dk.exemptions.burden",
     "value": "yes"
   },
   {
@@ -1729,6 +2605,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DK-AUTHORITY-1",
     "retrieved": "2026-11-03",
     "source": "https://www.retsinformation.dk/eli/lta/2022/801",
+    "usedBy": "states.dk.authority",
     "value": "Sikkerhedsstyrelsen (products; e-commerce, banking, e-books, audiovisual access)"
   },
   {
@@ -1739,7 +2616,118 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "DK-PENALTIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.retsinformation.dk/eli/lta/2022/801",
+    "usedBy": "states.dk.penalties",
     "value": "fine (bøde), amount not stated in the law"
+  },
+  {
+    "claim": "Estonia transposed the EAA with the Products and Services Accessibility Act (Toodete ja teenuste ligipääsetavuse seadus, LPS), adopted 30 May 2022 and published in RT I, 15.06.2022, 1; its footnote cites Directive (EU) 2019/882.",
+    "excerpt": "\"Toodete ja teenuste ligipääsetavuse seadus1 Vastu võetud 30.05.2022\" / \"Avaldamismärge: RT I, 15.06.2022, 1\" / \"1 Euroopa Parlamendi ja nõukogu direktiiv (EL) 2019/882 toodete ja teenuste ligipääsetavusnõuete kohta\" [Products and Services Accessibility Act, adopted 30.05.2022 / Publication: RT I, 15.06.2022, 1 / footnote 1: Directive (EU) 2019/882 on accessibility requirements for products and services]",
+    "field": "transposing-law",
+    "file": "states/ee.md",
+    "id": "EE-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.riigiteataja.ee/akt/115062022001",
+    "usedBy": "states.ee.law",
+    "value": "Toodete ja teenuste ligipääsetavuse seadus (LPS), RT I, 15.06.2022, 1"
+  },
+  {
+    "claim": "The act entered into force on 28 June 2022 (§ 27), but under § 22 lg 1 its requirements apply to products placed on the market and services provided from 28 June 2025.",
+    "excerpt": "\"Käesoleva seaduse nõudeid kohaldatakse alates 2025. aasta 28. juunist turule lastava toote ja osutatava teenuse suhtes.\" [The requirements of this act apply to products placed on the market and services provided from 28 June 2025.]",
+    "field": "applies-from",
+    "file": "states/ee.md",
+    "id": "EE-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.riigiteataja.ee/akt/115062022001",
+    "usedBy": "states.ee.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "§ 2 lg 1 covers the EAA product list: e-readers, payment terminals, ticketing machines, check-in machines, cash or payment machines, interactive information terminals, consumer terminal equipment for audiovisual media and electronic communications, and consumer general-purpose computer hardware and operating systems.",
+    "excerpt": "\"(1) Käesolevat seadust kohaldatakse järgmistele toodetele: 1) e-luger; 2) makseterminal; 3) piletiautomaat; 4) registreerimisautomaat; 5) sularaha- või makseautomaat;\" [This act applies to the following products: 1) e-reader; 2) payment terminal; 3) ticketing machine; 4) check-in machine; 5) cash or payment machine;]",
+    "field": "scope-products",
+    "file": "states/ee.md",
+    "id": "EE-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.riigiteataja.ee/akt/115062022001",
+    "usedBy": "states.ee.scope.products",
+    "value": "EAA Art. 2(1) products"
+  },
+  {
+    "claim": "§ 2 lg 3 covers services provided to consumers, starting with e-commerce and electronic communications, and including payment account, investment and other services listed in the act.",
+    "excerpt": "\"(3) Käesolevat seadust kohaldatakse järgmistele tarbijale osutatavatele teenustele või nende osadele: 1) e-kaubanduse teenus; 2) elektroonilise side teenus, sealhulgas hädaabiühendus, välja arvatud masinatevahelise side teenus;\" [This act applies to the following services, or parts of them, provided to consumers: 1) e-commerce service; 2) electronic communications service, including emergency communications, except machine-to-machine services;]",
+    "field": "scope-services",
+    "file": "states/ee.md",
+    "id": "EE-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.riigiteataja.ee/akt/115062022001",
+    "usedBy": "states.ee.scope.services",
+    "value": "EAA Art. 2(2) services provided to consumers"
+  },
+  {
+    "claim": "§ 2 lg 3 p 1 covers e-commerce services, defined as distance services via websites and mobile services, by electronic means, at the consumer's individual request, to conclude a consumer contract. § 2 lg 8 extends the e-commerce rules to e-commerce of the other products and services covered by the act.",
+    "excerpt": "\"e-kaubanduse teenus on vahemaa tagant osutatav teenus, mida osutatakse veebilehtede ja mobiilsideseadmetel põhinevate teenuste kaudu elektroonilisel teel tarbija isiklikul taotlusel eesmärgiga sõlmida tarbijaleping;\" [e-commerce service is a service provided at a distance via websites and mobile device-based services, by electronic means, at the individual request of a consumer, with a view to concluding a consumer contract]",
+    "field": "scope-ecommerce",
+    "file": "states/ee.md",
+    "id": "EE-ECOMMERCE-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.riigiteataja.ee/akt/115062022001",
+    "usedBy": "states.ee.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "§ 2 lg 11 disapplies the act's requirements for service providers that are microenterprises; § 3 defines a microenterprise as fewer than ten employees and annual turnover and balance sheet not exceeding EUR 2 million.",
+    "excerpt": "\"(11) Käesoleva seaduse nõudeid ei kohaldata mikroettevõtjast teenuseosutaja tegevusele.\" [The requirements of this act do not apply to the activity of a service provider that is a microenterprise.]",
+    "field": "microenterprise-exemption",
+    "file": "states/ee.md",
+    "id": "EE-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.riigiteataja.ee/akt/115062022001",
+    "usedBy": "states.ee.exemptions.micro",
+    "value": "yes (services)"
+  },
+  {
+    "claim": "§ 5 transposes the fundamental-alteration and disproportionate-burden exceptions: the operator assesses the burden, documents it, and notifies the Consumer Protection and Technical Regulatory Authority; operators funded for accessibility from other than own resources cannot rely on it.",
+    "excerpt": "\"Kui ettevõtjal on kahtlus, et toote või teenuse vastavusse viimine [...] võib endast kujutada toote või teenuse täielikku muutmist või tuua kaasa ebaproportsionaalse koormuse, hindab ettevõtja seda koormust.\" [If an operator suspects that bringing a product or service into conformity ... may amount to a fundamental alteration or impose a disproportionate burden, the operator assesses that burden.]",
+    "field": "disproportionate-burden",
+    "file": "states/ee.md",
+    "id": "EE-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.riigiteataja.ee/akt/115062022001",
+    "usedBy": "states.ee.exemptions.burden",
+    "value": "yes"
+  },
+  {
+    "claim": "§ 16 makes the Consumer Protection and Technical Regulatory Authority (Tarbijakaitse ja Tehnilise Järelevalve Amet) the state supervisory authority for the act; § 21 makes it the out-of-court processor of misdemeanours.",
+    "excerpt": "\"Käesolevas seaduses ja selle alusel kehtestatud õigusaktides sätestatud nõuete täitmise üle teeb riiklikku järelevalvet Tarbijakaitse ja Tehnilise Järelevalve Amet.\" [State supervision over compliance with the requirements of this act and acts issued under it is exercised by the Consumer Protection and Technical Regulatory Authority.]",
+    "field": "authority",
+    "file": "states/ee.md",
+    "id": "EE-AUTHORITY-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.riigiteataja.ee/akt/115062022001",
+    "usedBy": "states.ee.authority",
+    "value": "Tarbijakaitse ja Tehnilise Järelevalve Amet (Consumer Protection and Technical Regulatory Authority)"
+  },
+  {
+    "claim": "§ 20 punishes providing a service that does not meet the accessibility requirements with a fine of up to 100 fine units, or up to EUR 20,000 for a legal person. The euro value of a fine unit is set in other law (Penal Code) and is not stated in this act.",
+    "excerpt": "\"(1) Ligipääsetavusnõuetele mittevastava teenuse osutamise eest –karistatakse rahatrahviga kuni 100 trahviühikut. (2) Sama teo eest, kui selle on toime pannud juriidiline isik, –karistatakse rahatrahviga kuni 20 000 eurot.\" [(1) Providing a service not meeting the accessibility requirements is punishable by a fine of up to 100 fine units. (2) The same act, if committed by a legal person, is punishable by a fine of up to EUR 20,000.]",
+    "field": "penalties",
+    "file": "states/ee.md",
+    "id": "EE-PENALTIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.riigiteataja.ee/akt/115062022001",
+    "usedBy": "states.ee.penalties",
+    "value": "up to 100 fine units (natural person); up to EUR 20,000 (legal person)"
+  },
+  {
+    "claim": "§ 19 caps the coercive payment (sunniraha) for failing to comply with an order at EUR 10,000.",
+    "excerpt": "\"Ettekirjutuse täitmata jätmise korral on asendustäitmise ja sunniraha seaduses sätestatud korras rakendatava sunniraha ülemmäär 10 000 eurot.\" [For failure to comply with an order, the maximum coercive payment applied under the Substitutive Enforcement and Coercive Payment Act is EUR 10,000.]",
+    "field": "penalties",
+    "file": "states/ee.md",
+    "id": "EE-PENALTIES-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.riigiteataja.ee/akt/115062022001",
+    "usedBy": "states.ee.penalties",
+    "value": "coercive payment up to EUR 10,000 per non-complied order"
   },
   {
     "claim": "Spain transposed the EAA in Title I of Ley 11/2023, de 8 de mayo, published in BOE núm. 110 of 9 May 2023 (reference BOE-A-2023-11022).",
@@ -1749,6 +2737,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "ES-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11022",
+    "usedBy": "states.es.law",
     "value": "Ley 11/2023, de 8 de mayo, Título I (BOE-A-2023-11022)"
   },
   {
@@ -1759,6 +2748,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "ES-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11022",
+    "usedBy": "states.es.appliesFrom",
     "value": "2025-06-28"
   },
   {
@@ -1769,6 +2759,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "ES-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11022",
+    "usedBy": "states.es.scope.products",
     "value": "EAA Art. 2(1) products, plus queue-management terminals"
   },
   {
@@ -1779,6 +2770,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "ES-PRODUCTS-2",
     "retrieved": "2026-11-03",
     "source": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11022",
+    "usedBy": "states.es.scope.products",
     "value": "adds queue-management terminals"
   },
   {
@@ -1789,6 +2781,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "ES-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11022",
+    "usedBy": "states.es.scope.services",
     "value": "EAA Art. 2(2) services, plus utility, travel-agency websites/apps and social networks"
   },
   {
@@ -1799,6 +2792,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "ES-SERVICES-2",
     "retrieved": "2026-11-03",
     "source": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11022",
+    "usedBy": "states.es.scope.services",
     "value": "adds utilities (web/app), travel agencies (web/app), social networks"
   },
   {
@@ -1809,6 +2803,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "ES-ECOMMERCE-1",
     "retrieved": "2026-11-03",
     "source": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11022",
+    "usedBy": "states.es.scope.ecommerce",
     "value": "yes"
   },
   {
@@ -1819,6 +2814,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "ES-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11022",
+    "usedBy": "states.es.exemptions.micro",
     "value": "yes, services microenterprises exempt"
   },
   {
@@ -1829,6 +2825,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "ES-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11022",
+    "usedBy": "states.es.exemptions.burden",
     "value": "yes (Art. 16)"
   },
   {
@@ -1839,6 +2836,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "ES-AUTHORITY-1",
     "retrieved": "2026-11-03",
     "source": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11022",
+    "usedBy": "states.es.authority",
     "value": "unknown"
   },
   {
@@ -1849,6 +2847,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "ES-AUTHORITY-2",
     "retrieved": "2026-11-03",
     "source": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11022",
+    "usedBy": "states.es.authority",
     "value": "state technical support and coordination unit (Art. 28), fallback authority"
   },
   {
@@ -1859,6 +2858,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "ES-PENALTIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2023-11022",
+    "usedBy": "states.es.penalties",
     "value": "unknown (by reference to sectoral law, else Title III of RDL 1/2013)"
   },
   {
@@ -1869,6 +2869,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "FI-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://opendata.finlex.fi/finlex/avoindata/v1/akn/fi/act/statute/2023/102/fin@",
+    "usedBy": "states.fi.law",
     "value": "Laki eräiden tuotteiden esteettömyysvaatimuksista 102/2023"
   },
   {
@@ -1879,6 +2880,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "FI-LAW-2",
     "retrieved": "2026-11-03",
     "source": "https://opendata.finlex.fi/finlex/avoindata/v1/akn/fi/act/statute/2023/104/fin@",
+    "usedBy": "states.fi.law",
     "value": "Laki digitaalisten palvelujen tarjoamisesta annetun lain muuttamisesta 104/2023 (amends 306/2019)"
   },
   {
@@ -1889,6 +2891,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "FI-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://opendata.finlex.fi/finlex/avoindata/v1/akn/fi/act/statute/2023/104/fin@",
+    "usedBy": "states.fi.appliesFrom",
     "value": "2025-06-28 (services, chapter 3 a of 306/2019)"
   },
   {
@@ -1899,6 +2902,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "FI-APPLIES-2",
     "retrieved": "2026-11-03",
     "source": "https://opendata.finlex.fi/finlex/avoindata/v1/akn/fi/act/statute/2023/102/fin@",
+    "usedBy": "states.fi.appliesFrom",
     "value": "2025-06-28 (products)"
   },
   {
@@ -1909,6 +2913,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "FI-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://opendata.finlex.fi/finlex/avoindata/v1/akn/fi/act/statute/2023/102/fin@",
+    "usedBy": "states.fi.scope.products",
     "value": "EAA Art. 2(1) products"
   },
   {
@@ -1919,6 +2924,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "FI-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://opendata.finlex.fi/finlex/avoindata/v1/akn/fi/act/statute/2023/104/fin@",
+    "usedBy": "states.fi.scope.services",
     "value": "EAA Art. 2(2) services (digital services offered to consumers)"
   },
   {
@@ -1929,6 +2935,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "FI-ECOMMERCE-1",
     "retrieved": "2026-11-03",
     "source": "https://opendata.finlex.fi/finlex/avoindata/v1/akn/fi/act/statute/2023/104/fin@",
+    "usedBy": "states.fi.scope.ecommerce",
     "value": "yes"
   },
   {
@@ -1939,6 +2946,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "FI-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://opendata.finlex.fi/finlex/avoindata/v1/akn/fi/act/statute/2023/104/fin@",
+    "usedBy": "states.fi.exemptions.micro",
     "value": "yes (services)"
   },
   {
@@ -1949,6 +2957,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "FI-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://opendata.finlex.fi/finlex/avoindata/v1/akn/fi/act/statute/2023/104/fin@",
+    "usedBy": "states.fi.exemptions.burden",
     "value": "yes"
   },
   {
@@ -1959,6 +2968,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "FI-AUTHORITY-1",
     "retrieved": "2026-11-03",
     "source": "https://opendata.finlex.fi/finlex/avoindata/v1/akn/fi/act/statute/2023/104/fin@",
+    "usedBy": "states.fi.authority",
     "value": "Etelä-Suomen aluehallintovirasto (Regional State Administrative Agency for Southern Finland), services"
   },
   {
@@ -1969,6 +2979,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "FI-AUTHORITY-2",
     "retrieved": "2026-11-03",
     "source": "https://opendata.finlex.fi/finlex/avoindata/v1/akn/fi/act/statute/2023/102/fin@",
+    "usedBy": "states.fi.authority",
     "value": "Liikenne- ja viestintävirasto (Traficom), products"
   },
   {
@@ -1979,7 +2990,591 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "FI-PENALTIES-1",
     "retrieved": "2026-11-03",
     "source": "https://opendata.finlex.fi/finlex/avoindata/v1/akn/fi/act/statute-consolidated/2019/306/fin@",
+    "usedBy": "states.fi.penalties",
     "value": "unknown (no fixed fines stated; conditional fine possible, amount not set in law)"
+  },
+  {
+    "claim": "France transposed the EAA mainly through Article 16 of Loi n° 2023-171 du 9 mars 2023 (JORF n°0059 du 10 mars 2023), whose Chapter IV deals with the accessibility of products and services and creates Article L. 412-13 of the Code de la consommation.",
+    "excerpt": "\"Chapitre IV : Dispositions relatives à l'accessibilité des produits et des services (Article 16)\"",
+    "field": "transposing-law",
+    "file": "states/fr.md",
+    "id": "FR-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000047281777&categorieLien=cid",
+    "usedBy": "states.fr.law",
+    "value": "Loi n° 2023-171 du 9 mars 2023, art. 16 (JORF n°0059 du 10 mars 2023); Code de la consommation art. L. 412-13"
+  },
+  {
+    "claim": "Décret n° 2023-931 du 9 octobre 2023 (JORF n°0235 du 10 octobre 2023) completes the transposition; its notice says its purpose is to transpose Directive (EU) 2019/882.",
+    "excerpt": "\"Il a pour objet de transposer en droit français la directive (UE) 2019/882 relative à l'harmonisation des législations des Etats membres concernant les exigences en matière d'accessibilité aux produits et services.\" [Its purpose is to transpose Directive (EU) 2019/882 into French law.]",
+    "field": "transposing-law",
+    "file": "states/fr.md",
+    "id": "FR-LAW-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000048178349",
+    "usedBy": "states.fr.law",
+    "value": "Décret n° 2023-931 du 9 octobre 2023 (JORF n°0235 du 10 octobre 2023)"
+  },
+  {
+    "claim": "Article 16 VIII A of Loi 2023-171 applies the article to products placed on the market and services provided after 28 June 2025 (with listed exceptions). Article 3 of Décret 2023-931 uses the same date.",
+    "excerpt": "\"Sans préjudice des B à E du présent VIII, le présent article est applicable aux produits mis sur le marché et aux services fournis après le 28 juin 2025\" [Without prejudice to B to E of this VIII, this article applies to products placed on the market and services provided after 28 June 2025]",
+    "field": "applies-from",
+    "file": "states/fr.md",
+    "id": "FR-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000047281777&categorieLien=cid",
+    "usedBy": "states.fr.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "Article 16 VIII B and C of Loi 2023-171: service providers may keep using products lawfully used before that date until 28 June 2030, and service contracts concluded before 28 June 2025 may run unchanged until their end, at the latest 28 June 2030.",
+    "excerpt": "\"Les contrats de services conclus avant le 28 juin 2025 peuvent s'appliquer sans modification jusqu'à leur terme, et au plus tard jusqu'au 28 juin 2030.\" [Service contracts concluded before 28 June 2025 may apply without modification until their end, and at the latest until 28 June 2030.]",
+    "field": "applies-from",
+    "file": "states/fr.md",
+    "id": "FR-APPLIES-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000047281777&categorieLien=cid",
+    "usedBy": "states.fr.appliesFrom",
+    "value": "Pre-existing products and contracts: until 2030-06-28"
+  },
+  {
+    "claim": "Article D. 412-49 of the Code de la consommation (inserted by Décret 2023-931) covers consumer general-purpose computer hardware and operating systems, self-service terminals including payment terminals, consumer terminal equipment for electronic communications and for audiovisual media services, and e-readers.",
+    "excerpt": "\"1° Systèmes informatiques matériels à usage général du grand public et systèmes d'exploitation relatifs à ces systèmes matériels ;\" [1° consumer general-purpose computer hardware systems and operating systems for those hardware systems]",
+    "field": "scope-products",
+    "file": "states/fr.md",
+    "id": "FR-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000048178349",
+    "usedBy": "states.fr.scope.products",
+    "value": "Computers and OS, self-service and payment terminals, telecom and AV media terminal equipment, e-readers"
+  },
+  {
+    "claim": "Article D. 412-50 I (inserted by Décret 2023-931) covers electronic communications services, access to audiovisual media services, elements of passenger transport services, listed consumer banking contracts and services, and e-commerce.",
+    "excerpt": "\"Les dispositions de la présente section s'appliquent aux services suivants tels que définis à l'article 3 de la directive (UE) 2019/882\" [This section applies to the following services as defined in Article 3 of Directive (EU) 2019/882]",
+    "field": "scope-services",
+    "file": "states/fr.md",
+    "id": "FR-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000048178349",
+    "usedBy": "states.fr.scope.services",
+    "value": "Electronic communications, AV media access, passenger transport elements, consumer banking, e-commerce"
+  },
+  {
+    "claim": "Article D. 412-50 I point 5° (inserted by Décret 2023-931) lists e-commerce (\"Commerce électronique\") among the covered services.",
+    "excerpt": "\"« 5° Commerce électronique. »\" [5° E-commerce.]",
+    "field": "scope-ecommerce",
+    "file": "states/fr.md",
+    "id": "FR-ECOM-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000048178349",
+    "usedBy": "states.fr.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "Article L. 412-13 I of the Code de la consommation exempts enterprises with fewer than ten employees providing services, with annual turnover or balance sheet total not above EUR 2 million, from the accessibility requirements and related obligations. The text does not use the word \"microentreprise\".",
+    "excerpt": "\"Les entreprises employant moins de dix personnes qui fournissent des services et dont le chiffre d'affaires annuel n'excède pas deux millions d'euros ou dont le total du bilan n'excède pas deux millions d'euros sont dispensées des exigences d'accessibilité mentionnées au présent article et de toutes les obligations qui y sont liées.\" [Enterprises employing fewer than ten persons that provide services, with annual turnover or balance sheet not exceeding EUR 2 million, are exempt from the accessibility requirements of this article and all related obligations.]",
+    "field": "microenterprise-exemption",
+    "file": "states/fr.md",
+    "id": "FR-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000006069565&idArticle=LEGIARTI000047284897&dateTexte=29990101&categorieLien=cid",
+    "usedBy": "states.fr.exemptions.micro",
+    "value": "yes (service providers with fewer than 10 employees and turnover or balance sheet at most EUR 2 million)"
+  },
+  {
+    "claim": "Article L. 412-13 II of the Code de la consommation transposes the disproportionate burden exception; a decree sets the criteria (annex to D. 412-60).",
+    "excerpt": "\"2° N'impose pas une charge disproportionnée aux opérateurs économiques concernés. Un décret détermine les critères d'évaluation du caractère disproportionné de la charge.\" [2° does not impose a disproportionate burden on the economic operators concerned. A decree sets the criteria for assessing whether the burden is disproportionate.]",
+    "field": "disproportionate-burden",
+    "file": "states/fr.md",
+    "id": "FR-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000006069565&idArticle=LEGIARTI000047284897&dateTexte=29990101&categorieLien=cid",
+    "usedBy": "states.fr.exemptions.burden",
+    "value": "yes (Code de la consommation L. 412-13 II)"
+  },
+  {
+    "claim": "Article L. 511-25-1 of the Code de la consommation empowers the competition, consumer affairs and fraud control agents (agents de la CCRF) to investigate breaches of L. 412-13, alongside sector regulators' agents: ARCEP (electronic communications), ARCOM (audiovisual media services), and ACPR, AMF and Banque de France (banking). The text does not name a single body for e-commerce beyond the CCRF agents.",
+    "excerpt": "\"Outre les agents de la concurrence, de la consommation et de la répression des fraudes, sont habilités à rechercher et à constater les infractions à l'article L. 412-13 :\" [In addition to the competition, consumer affairs and fraud control agents, the following are empowered to investigate and record breaches of Article L. 412-13:]",
+    "field": "authority",
+    "file": "states/fr.md",
+    "id": "FR-AUTH-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000006069565&idArticle=LEGIARTI000047284925&dateTexte=&categorieLien=id",
+    "usedBy": "states.fr.authority",
+    "value": "Agents de la concurrence, de la consommation et de la répression des fraudes (CCRF); ARCEP, ARCOM, ACPR/AMF/Banque de France by sector"
+  },
+  {
+    "claim": "Article R. 451-4 I point 10° a) of the Code de la consommation (inserted by Décret 2023-931) punishes a service provider that designs or provides services not meeting the obligations of D. 412-57 1° with the fine for 5th-class contraventions. The decree does not state a euro amount; the amount is set in the Code pénal (see FR-PEN-2, FR-PEN-3).",
+    "excerpt": "\"Est puni de l'amende prévue pour les contraventions de la 5e classe le fait : ... « 10° Pour le prestataire de service : a) De concevoir ou fournir des services, à titre gratuit ou onéreux, pour lesquels les obligations mentionnées au 1° de l'article D. 412-57 ne sont pas satisfaites ;\" [Punishable by the fine for 5th-class contraventions: ... 10° for a service provider: a) designing or providing services, free or paid, for which the obligations in D. 412-57 1° are not met]",
+    "field": "penalties",
+    "file": "states/fr.md",
+    "id": "FR-PEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000048178349",
+    "usedBy": "states.fr.penalties",
+    "value": "Fine for a 5th-class contravention (amount set in the Code pénal, not stated in the decree)"
+  },
+  {
+    "claim": "Article 131-13 of the Code pénal sets the fine for a 5th-class contravention at up to EUR 1,500, which can rise to EUR 3,000 for a repeat offence where the regulation provides for it.",
+    "excerpt": "\"5° 1 500 euros au plus pour les contraventions de la 5e classe, montant qui peut être porté à 3 000 euros en cas de récidive lorsque le règlement le prévoit\" [5° at most EUR 1,500 for 5th-class contraventions, which may be raised to EUR 3,000 for a repeat offence where the regulation so provides]",
+    "field": "penalties",
+    "file": "states/fr.md",
+    "id": "FR-PEN-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006070719/LEGISCTA000006181730",
+    "usedBy": "states.fr.penalties",
+    "value": "Up to EUR 1,500 per contravention (up to EUR 3,000 for repeat offences where provided)"
+  },
+  {
+    "claim": "Article 131-41 of the Code pénal sets the maximum fine for legal persons (companies) at five times the amount for natural persons, so up to EUR 7,500 for a 5th-class contravention.",
+    "excerpt": "\"Le taux maximum de l'amende applicable aux personnes morales est égal au quintuple de celui prévu pour les personnes physiques par le règlement qui réprime l'infraction.\" [The maximum fine for legal persons is five times that provided for natural persons by the regulation punishing the offence.]",
+    "field": "penalties",
+    "file": "states/fr.md",
+    "id": "FR-PEN-3",
+    "retrieved": "2026-11-03",
+    "source": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006070719/LEGISCTA000006181735",
+    "usedBy": "states.fr.penalties",
+    "value": "Companies: up to 5x the natural-person fine (up to EUR 7,500)"
+  },
+  {
+    "claim": "Greece transposed the EAA with Law 4994/2022 (Νόμος 4994/2022), Government Gazette Α' 215/18.11.2022, Part B of which transposes Directive (EU) 2019/882.",
+    "excerpt": "\"ΝΟΜΟΣ ΥΠ’ ΑΡΙΘΜ. 4994 Ενσωμάτωση της Οδηγίας (ΕΕ) 2019/882 του Ευρωπαϊκού Κοινοβουλίου και του Συμβουλίου της 17ης Απριλίου 2019 σχετικά με τις απαιτήσεις προσβασιμότητας προϊόντων και υπηρεσιών\" [LAW No. 4994: Transposition of Directive (EU) 2019/882 of 17 April 2019 on the accessibility requirements for products and services]",
+    "field": "transposing-law",
+    "file": "states/gr.md",
+    "id": "GR-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://ia37rg02wpsa01.blob.core.windows.net/fek/01/2022/20220100215.pdf",
+    "usedBy": "states.gr.law",
+    "value": "Νόμος 4994/2022, ΦΕΚ Α' 215/18.11.2022"
+  },
+  {
+    "claim": "Article 46(2) states that Part B (the EAA transposition) applies from 28 June 2025 unless otherwise provided. Under Article 3(3), the 112 provisions apply after 28 June 2027.",
+    "excerpt": "\"2. Η εφαρμογή του Μέρους Β’αρχίζει από την 28η Ιουνίου 2025, εκτός αν ορίζεται άλλως.\" [2. Part B applies from 28 June 2025, unless otherwise provided.]",
+    "field": "applies-from",
+    "file": "states/gr.md",
+    "id": "GR-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://ia37rg02wpsa01.blob.core.windows.net/fek/01/2022/20220100215.pdf",
+    "usedBy": "states.gr.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "Article 28(1): service contracts concluded before 28 June 2025 may stay in force unchanged until they expire, up to five years from that date.",
+    "excerpt": "\"Οι συμβάσεις υπηρεσιών που έχουν συναφθεί πριν από την 28η Ιουνίου 2025 μπορούν να παραμείνουν σε ισχύ χωρίς μεταβολή έως τη λήξη τους, έως πέντε (5) έτη από την παραπάνω ημερομηνία.\" [Service contracts concluded before 28 June 2025 may remain in force unchanged until they expire, up to five years from that date.]",
+    "field": "applies-from",
+    "file": "states/gr.md",
+    "id": "GR-APPLIES-2",
+    "retrieved": "2026-11-03",
+    "source": "https://ia37rg02wpsa01.blob.core.windows.net/fek/01/2022/20220100215.pdf",
+    "usedBy": "states.gr.appliesFrom",
+    "value": "Pre-existing service contracts: up to five years from 2025-06-28"
+  },
+  {
+    "claim": "Article 3(1) covers consumer general-purpose computer hardware and operating systems, payment terminals and listed self-service terminals, and the other EAA product categories.",
+    "excerpt": "\"1. Ο παρών εφαρμόζεται στα ακόλουθα προϊόντα: α) τα υλικά συστήματα πληροφορικής γενικής χρήσης από τους καταναλωτές και τα λειτουργικά συστήματα για τα εν λόγω υλικά συστήματα, β) τα ακόλουθα τερματικά αυτοεξυπηρέτησης: βα) τερματικά πληρωμών\" [This law applies to the following products: a) consumer general-purpose computer hardware systems and their operating systems, b) the following self-service terminals: ba) payment terminals]",
+    "field": "scope-products",
+    "file": "states/gr.md",
+    "id": "GR-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://ia37rg02wpsa01.blob.core.windows.net/fek/01/2022/20220100215.pdf",
+    "usedBy": "states.gr.scope.products",
+    "value": "Computers and OS, payment and self-service terminals, and the other EAA product categories"
+  },
+  {
+    "claim": "Article 3(2) covers electronic communications services, access to audiovisual media services, elements of air, bus, rail and waterborne passenger transport, consumer banking, e-books, and e-commerce services.",
+    "excerpt": "\"2. Με την επιφύλαξη του άρθρου 28, ο παρών εφαρμόζεται στις ακόλουθες υπηρεσίες: α) τις υπηρεσίες ηλεκτρονικών επικοινωνιών πλην των υπηρεσιών μετάδοσης, οι οποίες χρησιμοποιούνται για την παροχή υπηρεσιών μεταξύ μηχανών, β) τις υπηρεσίες που παρέχουν πρόσβαση σε υπηρεσίες οπτικοακουστικών μέσων\" [2. Subject to Article 28, this law applies to the following services: a) electronic communications services, except transmission services used for machine-to-machine services, b) services providing access to audiovisual media services]",
+    "field": "scope-services",
+    "file": "states/gr.md",
+    "id": "GR-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://ia37rg02wpsa01.blob.core.windows.net/fek/01/2022/20220100215.pdf",
+    "usedBy": "states.gr.scope.services",
+    "value": "Electronic communications, AV media access, passenger transport elements, consumer banking, e-books, e-commerce"
+  },
+  {
+    "claim": "Article 3(2)(στ) covers e-commerce services, and Article 4 point 30 defines them as distance services via websites and mobile device-based services at a consumer's individual request with a view to concluding a consumer contract.",
+    "excerpt": "\"δ) τραπεζικές υπηρεσίες για καταναλωτές, ε) ηλεκτρονικά βιβλία και υλικό εξοπλισμό που προορίζεται ειδικά για αυτά, και στ) υπηρεσίες ηλεκτρονικού εμπορίου.\" [d) consumer banking services, e) e-books and dedicated equipment, and f) e-commerce services.]",
+    "field": "scope-ecommerce",
+    "file": "states/gr.md",
+    "id": "GR-ECOM-1",
+    "retrieved": "2026-11-03",
+    "source": "https://ia37rg02wpsa01.blob.core.windows.net/fek/01/2022/20220100215.pdf",
+    "usedBy": "states.gr.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "Article 5(4) exempts very small enterprises providing services from the service accessibility requirements of Article 5(2) and all related obligations.",
+    "excerpt": "\"4. Οι πολύ μικρές επιχειρήσεις που παρέχουν υπηρεσίες απαλλάσσονται από την τήρηση των απαιτήσεων προσβασιμότητας της παρ. 2, καθώς και από οποιαδήποτε υποχρέωση σχετικά με την τήρηση των εν λόγω απαιτήσεων.\" [4. Very small enterprises providing services are exempt from the accessibility requirements of paragraph 2 and from any obligation relating to compliance with them.]",
+    "field": "microenterprise-exemption",
+    "file": "states/gr.md",
+    "id": "GR-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://ia37rg02wpsa01.blob.core.windows.net/fek/01/2022/20220100215.pdf",
+    "usedBy": "states.gr.exemptions.micro",
+    "value": "yes (service microenterprises exempt)"
+  },
+  {
+    "claim": "Article 4 point 23 defines a very small enterprise as employing fewer than 10 persons with annual turnover or balance sheet total not above EUR 2,000,000.",
+    "excerpt": "\"«Πολύ μικρή επιχείρηση»: η επιχείρηση η οποία απασχολεί λιγότερους από δέκα (10) εργαζομένους και της οποίας ο ετήσιος κύκλος εργασιών δεν υπερβαίνει τα δύο εκατομμύρια (2.000.000) ευρώ ή με συνολικό ετήσιο ισολογισμό που δεν υπερβαίνει τα δύο εκατομμύρια (2.000.000) ευρώ.\" [Very small enterprise: employs fewer than ten persons, annual turnover not exceeding EUR 2,000,000 or annual balance sheet total not exceeding EUR 2,000,000.]",
+    "field": "microenterprise-exemption",
+    "file": "states/gr.md",
+    "id": "GR-MICRO-2",
+    "retrieved": "2026-11-03",
+    "source": "https://ia37rg02wpsa01.blob.core.windows.net/fek/01/2022/20220100215.pdf",
+    "usedBy": "states.gr.exemptions.micro",
+    "value": "Fewer than 10 employees and turnover or balance sheet at most EUR 2 million"
+  },
+  {
+    "claim": "Article 14 transposes the fundamental alteration and disproportionate burden exception, assessed using the criteria in Annex VI.",
+    "excerpt": "\"1. Οι απαιτήσεις προσβασιμότητας που αναφέρονται στο άρθρο 5 εφαρμόζονται στον βαθμό που η συμμόρφωση: ... β) δεν συνεπάγεται την επιβολή δυσανάλογης επιβάρυνσης για τους ενδιαφερόμενους οικονομικούς φορείς.\" [The accessibility requirements of Article 5 apply to the extent that compliance ... b) does not impose a disproportionate burden on the economic operators concerned.]",
+    "field": "disproportionate-burden",
+    "file": "states/gr.md",
+    "id": "GR-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://ia37rg02wpsa01.blob.core.windows.net/fek/01/2022/20220100215.pdf",
+    "usedBy": "states.gr.exemptions.burden",
+    "value": "yes (Art. 14, criteria in Annex VI)"
+  },
+  {
+    "claim": "Article 22(2) names the Hellenic Telecommunications and Post Commission (EETT) as the authority for services in electronic communications. The 2022 text does not name a body for e-commerce services: Article 27(1) leaves the market surveillance set-up to a joint ministerial decision, which was not found. Later amendments were not checked. The e-commerce authority is unknown.",
+    "excerpt": "\"2. Αρμόδια αρχή για την παρακολούθηση και τον έλεγχο της συμμόρφωσης των υπηρεσιών στον τομέα των ηλεκτρονικών επικοινωνιών είναι η Εθνική Επιτροπή Τηλεπικοινωνιών και Ταχυδρομείων (ΕΕΤΤ)\" [The competent authority for monitoring and checking the compliance of services in the electronic communications sector is the Hellenic Telecommunications and Post Commission (EETT)]",
+    "field": "authority",
+    "file": "states/gr.md",
+    "id": "GR-AUTH-1",
+    "retrieved": "2026-11-03",
+    "source": "https://ia37rg02wpsa01.blob.core.windows.net/fek/01/2022/20220100215.pdf",
+    "usedBy": "states.gr.authority",
+    "value": "unknown (for e-commerce); EETT for electronic communications services"
+  },
+  {
+    "claim": "Article 26 provides for proportionate administrative sanctions, taking into account factors such as the extent of non-compliance and company size, but states no fine amounts. For products it lists measures (corrective recommendation, temporary seizure, ban); for electronic communications and media services it refers to sector laws. Fine amounts are unknown.",
+    "excerpt": "\"1. Στους παραβάτες του παρόντος, επιβάλλονται διοικητικές κυρώσεις, με βάση την αρχή της αναλογικότητας.\" [1. Administrative sanctions are imposed on those who breach this law, based on the principle of proportionality.]",
+    "field": "penalties",
+    "file": "states/gr.md",
+    "id": "GR-PEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://ia37rg02wpsa01.blob.core.windows.net/fek/01/2022/20220100215.pdf",
+    "usedBy": "states.gr.penalties",
+    "value": "unknown (administrative sanctions without stated amounts)"
+  },
+  {
+    "claim": "Croatia transposed the EAA with the Zakon o zahtjevima za pristupačnost proizvoda i usluga (Act on accessibility requirements for products and services), Narodne novine 89/2025 of 13 June 2025; Article 2 states that it transposes Directive (EU) 2019/882.",
+    "excerpt": "\"Ovim se Zakonom u hrvatsko zakonodavstvo preuzima Direktiva (EU) 2019/882 Europskog parlamenta i Vijeća od 17. travnja 2019. o zahtjevima za pristupačnost proizvoda i usluga\" [This Act transposes into Croatian law Directive (EU) 2019/882 of the European Parliament and of the Council of 17 April 2019 on the accessibility requirements for products and services]",
+    "field": "transposing-law",
+    "file": "states/hr.md",
+    "id": "HR-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.law",
+    "value": "Zakon o zahtjevima za pristupačnost proizvoda i usluga, NN 89/2025"
+  },
+  {
+    "claim": "The Act was amended by the Zakon o izmjenama i dopunama Zakona o zahtjevima za pristupačnost proizvoda i usluga, Narodne novine 114/2026 of 7 October 2026, which enters into force on the eighth day after publication.",
+    "excerpt": "\"U Zakonu o zahtjevima za pristupačnost proizvoda i usluga (»Narodne novine«, br. 89/25.) u članku 5. točki 7.\" [In the Act on accessibility requirements for products and services (Narodne novine no. 89/25), in Article 5 point 7]",
+    "field": "transposing-law",
+    "file": "states/hr.md",
+    "id": "HR-LAW-2",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2026_10_114_1371.html",
+    "usedBy": "states.hr.law",
+    "value": "Amended by NN 114/2026"
+  },
+  {
+    "claim": "The Act enters into force on 28 June 2025 (Article 38).",
+    "excerpt": "\"Ovaj Zakon objavit će se u »Narodnim novinama«, a stupa na snagu 28. lipnja 2025.\" [This Act shall be published in Narodne novine and enters into force on 28 June 2025.]",
+    "field": "applies-from",
+    "file": "states/hr.md",
+    "id": "HR-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "Article 3(1) covers the EAA product list: consumer general purpose computer hardware and operating systems, self-service terminals, consumer terminal equipment for electronic communications and for audiovisual media, and e-readers.",
+    "excerpt": "\"(1) Ovaj se Zakon primjenjuje na sljedeće proizvode: – potrošačke sustave računalne strojne opreme opće namjene i operativne sustave namijenjene za uporabu u tim sustavima strojne opreme\" [(1) This Act applies to the following products: consumer general purpose computer hardware systems and operating systems for those hardware systems]",
+    "field": "scope-products",
+    "file": "states/hr.md",
+    "id": "HR-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.scope.products",
+    "value": "EAA Art. 2(1) products"
+  },
+  {
+    "claim": "Article 3(2) covers services provided to consumers: electronic communications, access to audiovisual media, elements of air, bus, rail and waterborne passenger transport, consumer banking, e-books and dedicated software, and e-commerce.",
+    "excerpt": "\"(2) Ovaj se Zakon primjenjuje na sljedeće usluge koje se pružaju potrošačima: – elektroničke komunikacijske usluge, osim usluga prijenosa koje se upotrebljavaju za pružanje usluga komunikacije između strojeva\" [(2) This Act applies to the following services provided to consumers: electronic communications services, except transmission services used for machine-to-machine services]",
+    "field": "scope-services",
+    "file": "states/hr.md",
+    "id": "HR-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.scope.services",
+    "value": "EAA Art. 2(2) services provided to consumers"
+  },
+  {
+    "claim": "Article 3(2) lists e-commerce services among the consumer services covered.",
+    "excerpt": "\"– e-knjige i namjensku programsku opremu i – usluge e-trgovine.\" [e-books and dedicated software and e-commerce services.]",
+    "field": "scope-ecommerce",
+    "file": "states/hr.md",
+    "id": "HR-ECOMMERCE-1",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "Article 5 defines e-commerce services in line with Art. 3(30) EAA (point 25 in NN 89/2025; renumbered point 29 by NN 114/2026).",
+    "excerpt": "\"25. usluga e-trgovine je usluga koja se pruža na daljinu putem internetske stranice i usluga na mobilnom uređaju, elektroničkom sredstvu i na pojedinačni zahtjev potrošača radi sklapanja potrošačkog ugovora\" [25. e-commerce service is a service provided at a distance through a website and mobile device-based services, by electronic means and at the individual request of a consumer with a view to concluding a consumer contract]",
+    "field": "scope-ecommerce",
+    "file": "states/hr.md",
+    "id": "HR-ECOMMERCE-2",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.scope.ecommerce",
+    "value": "E-commerce service: distance service via website or mobile service, at a consumer's request, to conclude a consumer contract"
+  },
+  {
+    "claim": "The Act does not apply to microenterprises providing services (Article 4(2)).",
+    "excerpt": "\"(2) Ovaj se Zakon ne primjenjuje na mikro subjekte malog gospodarstva koji pružaju usluge.\" [(2) This Act does not apply to micro small-business entities that provide services.]",
+    "field": "microenterprise-exemption",
+    "file": "states/hr.md",
+    "id": "HR-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.exemption.microenterprise",
+    "value": "yes"
+  },
+  {
+    "claim": "Article 5 defines a microenterprise as a natural or legal person with on average fewer than ten employees per year and annual revenue, or assets, up to the equivalent of EUR 2 million (point 18 in NN 89/2025; renumbered point 22 by NN 114/2026).",
+    "excerpt": "\"18. mikro subjekt malog gospodarstva je fizička ili pravna osoba koja prosječno godišnje ima zaposleno manje od deset radnika i koja prema financijskim izvješćima za prethodnu godinu ostvaruje godišnji poslovni prihod u iznosu protuvrijednosti do dva milijuna eura\" [18. a micro small-business entity is a natural or legal person employing on average fewer than ten workers a year and whose annual revenue under the previous year's financial statements is up to the equivalent of two million euros]",
+    "field": "microenterprise-exemption",
+    "file": "states/hr.md",
+    "id": "HR-MICRO-2",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.exemption.microenterprise",
+    "value": "Fewer than 10 employees and revenue or assets up to EUR 2 million"
+  },
+  {
+    "claim": "Article 17(1) transposes the Art. 14 EAA exception: the accessibility requirements apply only to the extent they do not fundamentally alter the product or service or impose a disproportionate burden on the economic operator.",
+    "excerpt": "\"(1) Gospodarski subjekt dužan je primijeniti zahtjev za pristupačnost iz članka 6. ovoga Zakona samo u mjeri u kojoj pristupačnost:\" [(1) An economic operator must apply the accessibility requirement of Article 6 of this Act only to the extent that accessibility:]",
+    "field": "disproportionate-burden",
+    "file": "states/hr.md",
+    "id": "HR-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.exemption.disproportionateBurden",
+    "value": "yes (Article 17)"
+  },
+  {
+    "claim": "The second condition of Article 17(1) is that compliance does not impose a disproportionate burden on the economic operator.",
+    "excerpt": "\"– ne uzrokuje nametanje nerazmjernog opterećenja tom gospodarskom subjektu.\" [does not cause the imposition of a disproportionate burden on that economic operator.]",
+    "field": "disproportionate-burden",
+    "file": "states/hr.md",
+    "id": "HR-BURDEN-2",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.exemption.disproportionateBurden",
+    "value": "yes (Article 17)"
+  },
+  {
+    "claim": "Market inspection of e-commerce services is carried out by the market inspectors of the State Inspectorate (Državni inspektorat), Article 25(9).",
+    "excerpt": "\"(9) Inspekcijski nadzor tržišta usluga e-trgovine iz članka 3. stavka 2. podstavka 6. ovoga Zakona provode tržišni inspektori Državnog inspektorata.\" [(9) Market inspection of e-commerce services under Article 3(2) indent 6 of this Act is carried out by the market inspectors of the State Inspectorate.]",
+    "field": "authority",
+    "file": "states/hr.md",
+    "id": "HR-AUTHORITY-1",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.authority",
+    "value": "Državni inspektorat (State Inspectorate), market inspectors"
+  },
+  {
+    "claim": "A service provider that is a legal person is fined EUR 6,630 to EUR 132,720 for offences including failing to ensure its service design and provision meet the accessibility requirements (Article 36(1)). NN 114/2026 adds offences to Article 36(1) but does not change the amounts.",
+    "excerpt": "\"(1) Novčanom kaznom od 6630,00 do 132.720,00 eura kaznit će se za prekršaj pružatelj usluge koji je pravna osoba ako:\" [(1) A service provider that is a legal person shall be fined from EUR 6,630.00 to EUR 132,720.00 for an offence if:]",
+    "field": "penalties",
+    "file": "states/hr.md",
+    "id": "HR-PENALTIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.penalties",
+    "value": "EUR 6,630 to 132,720 (legal person service provider)"
+  },
+  {
+    "claim": "For the same offences, the responsible person in the legal person is fined EUR 2,650 to EUR 6,630 (Article 36(2)), and a service provider that is a natural person (craftsman or other self-employed person) is fined EUR 2,650 to EUR 6,630 (Article 36(3)).",
+    "excerpt": "\"(3) Za prekršaje iz stavka 1. ovoga članka kaznit će se za prekršaj pružatelj usluge koji je fizička osoba – obrtnik i osoba koja obavlja drugu samostalnu djelatnost novčanom kaznom od 2650,00 do 6630,00 eura.\" [(3) For the offences in paragraph 1, a service provider that is a natural person, a craftsman or a person carrying out another independent activity, shall be fined from EUR 2,650.00 to EUR 6,630.00.]",
+    "field": "penalties",
+    "file": "states/hr.md",
+    "id": "HR-PENALTIES-2",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.penalties",
+    "value": "EUR 2,650 to 6,630 (responsible person; self-employed service provider)"
+  },
+  {
+    "claim": "Article 37 provides the EAA transitional periods: service providers may keep using products lawfully used before 28 June 2030 until that date, and service contracts concluded before 28 June 2025 may continue unchanged until they expire, for at most five years.",
+    "excerpt": "\"(1) Do 28. lipnja 2030. pružatelji usluga mogu nastaviti pružati svoje usluge koristeći se proizvodima kojima su se zakonito koristili za pružanje sličnih usluga prije tog datuma.\" [(1) Until 28 June 2030, service providers may continue to provide their services using products they lawfully used to provide similar services before that date.]",
+    "field": "other",
+    "file": "states/hr.md",
+    "id": "HR-OTHER-1",
+    "retrieved": "2026-11-03",
+    "source": "https://narodne-novine.nn.hr/clanci/sluzbeni/2025_06_89_1231.html",
+    "usedBy": "states.hr.transitional",
+    "value": "Transitional period to 2030-06-28; pre-2025 contracts up to 5 years"
+  },
+  {
+    "claim": "Hungary transposed the EAA with Act XVII of 2022 (2022. évi XVII. törvény) on the general rules for compliance with accessibility requirements for products and services, promulgated on 22 July 2022. § 14 states it serves compliance with Directive (EU) 2019/882.",
+    "excerpt": "\"2022. évi XVII. törvény a termékekre és a szolgáltatásokra vonatkozó akadálymentességi követelményeknek való megfelelés általános szabályairól ... A kihirdetés napja: 2022. július 22.\" [Act XVII of 2022 on the general rules for compliance with accessibility requirements for products and services ... Date of promulgation: 22 July 2022.]",
+    "field": "transposing-law",
+    "file": "states/hu.md",
+    "id": "HU-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-17-00-00",
+    "usedBy": "states.hu.law",
+    "value": "2022. évi XVII. törvény (Act XVII of 2022), promulgated 2022-07-22"
+  },
+  {
+    "claim": "The authority, procedure and fine amounts are set in Government Decree 605/2022. (XII. 28.) implementing Act XVII of 2022.",
+    "excerpt": "\"605/2022. (XII. 28.) Korm. rendelet a termékekre és a szolgáltatásokra vonatkozó akadálymentességi követelményeknek való megfelelés általános szabályairól szóló 2022. évi XVII. törvény végrehajtásáról\" [Government Decree 605/2022 (28 Dec) on the implementation of Act XVII of 2022]",
+    "field": "transposing-law",
+    "file": "states/hu.md",
+    "id": "HU-LAW-2",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-605-20-22",
+    "usedBy": "states.hu.law",
+    "value": "605/2022. (XII. 28.) Korm. rendelet (implementing decree)"
+  },
+  {
+    "claim": "§ 10 of the Act states it enters into force on 28 June 2025, and § 11 applies it to products placed on the market and services provided after that date.",
+    "excerpt": "\"10. § Ez a törvény 2025. június 28-án lép hatályba. 11. § E törvény rendelkezéseit az e törvény hatálybalépését követően forgalomba hozott termékekre és nyújtott szolgáltatásokra kell alkalmazni\" [This Act enters into force on 28 June 2025. Its provisions apply to products placed on the market and services provided after its entry into force]",
+    "field": "applies-from",
+    "file": "states/hu.md",
+    "id": "HU-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-17-00-00",
+    "usedBy": "states.hu.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "§ 12(2) leaves pre-existing non-conforming service contracts unaffected until expiry but no later than 28 June 2030; § 12(4) lets providers keep using lawfully used non-conforming products until 28 June 2030.",
+    "excerpt": "\"(2) E törvény nem érinti a hatálybalépését megelőzően megkötött, az e törvényben foglalt követelményeknek nem megfelelő szolgáltatási szerződéseket a lejáratuk időpontjáig, de legfeljebb 2030. június 28-áig.\" [This Act does not affect non-conforming service contracts concluded before its entry into force until their expiry, but no later than 28 June 2030.]",
+    "field": "applies-from",
+    "file": "states/hu.md",
+    "id": "HU-APPLIES-2",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-17-00-00",
+    "usedBy": "states.hu.appliesFrom",
+    "value": "Pre-existing contracts and products: until 2030-06-28"
+  },
+  {
+    "claim": "§ 1(1) covers consumer general-purpose computer hardware and operating systems, self-service terminals including payment terminals, consumer terminal equipment for electronic communications and for audiovisual media services, and e-readers.",
+    "excerpt": "\"a) az általános lakossági felhasználású számítógépes hardverrendszerek és az ezekhez a hardverrendszerekhez alkalmazott operációs rendszerek; ... e) az e-könyv-olvasók\" [a) consumer general-purpose computer hardware systems and their operating systems; ... e) e-readers]",
+    "field": "scope-products",
+    "file": "states/hu.md",
+    "id": "HU-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-17-00-00",
+    "usedBy": "states.hu.scope.products",
+    "value": "Computers and OS, self-service and payment terminals, telecom and AV media terminal equipment, e-readers"
+  },
+  {
+    "claim": "§ 1(2) covers, when provided to consumers, electronic communications services, access to audiovisual media services, elements of air, bus, rail and waterborne passenger transport, consumer banking services, e-books and dedicated software, and e-commerce services.",
+    "excerpt": "\"d) a lakossági banki szolgáltatások; e) az elektronikus könyvek és dedikált szoftverek; f) az e-kereskedelmi szolgáltatások gazdasági szereplők által a fogyasztók részére történő biztosítására kell alkalmazni.\" [applies to the provision to consumers by economic operators of: d) consumer banking services; e) e-books and dedicated software; f) e-commerce services]",
+    "field": "scope-services",
+    "file": "states/hu.md",
+    "id": "HU-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-17-00-00",
+    "usedBy": "states.hu.scope.services",
+    "value": "Electronic communications, AV media access, passenger transport elements, consumer banking, e-books, e-commerce"
+  },
+  {
+    "claim": "§ 1(2)(f) covers e-commerce services provided to consumers.",
+    "excerpt": "\"f) az e-kereskedelmi szolgáltatások gazdasági szereplők által a fogyasztók részére történő biztosítására kell alkalmazni.\" [f) e-commerce services, as provided by economic operators to consumers]",
+    "field": "scope-ecommerce",
+    "file": "states/hu.md",
+    "id": "HU-ECOM-1",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-17-00-00",
+    "usedBy": "states.hu.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "§ 3(3) exempts microenterprises providing services from the service accessibility requirements (Annex 1 points 3 and 4) and related obligations.",
+    "excerpt": "\"(3) A szolgáltatást nyújtó mikrovállalkozásnak nem kell megfelelnie az 1. melléklet 3. és 4. pontja szerinti akadálymentességi követelményeknek, és mentesül az akadálymentességi követelményeknek való megfeleléssel kapcsolatos e törvényben előírt kötelezettségek teljesítése alól.\" [A microenterprise providing services need not meet the accessibility requirements in Annex 1 points 3 and 4 and is exempt from the related obligations under this Act.]",
+    "field": "microenterprise-exemption",
+    "file": "states/hu.md",
+    "id": "HU-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-17-00-00",
+    "usedBy": "states.hu.exemptions.micro",
+    "value": "yes (service microenterprises exempt)"
+  },
+  {
+    "claim": "§ 2 point 28 defines a microenterprise as employing fewer than 10 persons with annual net turnover or balance sheet total of at most the forint equivalent of EUR 2 million.",
+    "excerpt": "\"28. mikrovállalkozás: olyan, 10 főnél kevesebb személyt foglalkoztató vállalkozás, amely éves nettó árbevétele vagy mérlegfőösszege legfeljebb a 2 millió eurónak megfelelő forintösszeg;\" [microenterprise: an enterprise employing fewer than 10 persons whose annual net turnover or balance sheet total is at most the forint amount equal to EUR 2 million]",
+    "field": "microenterprise-exemption",
+    "file": "states/hu.md",
+    "id": "HU-MICRO-2",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-17-00-00",
+    "usedBy": "states.hu.exemptions.micro",
+    "value": "Fewer than 10 employees and turnover or balance sheet at most the HUF equivalent of EUR 2 million"
+  },
+  {
+    "claim": "§ 5 transposes the fundamental alteration and disproportionate burden exception, with a written assessment required (§ 5(4)).",
+    "excerpt": "\"5. § (1) Az akadálymentességi követelmények olyan mértékben alkalmazandók, amennyiben a megfelelés ... b) nem jelent aránytalan terhet a gazdasági szereplő számára.\" [The accessibility requirements apply to the extent that compliance ... b) does not impose a disproportionate burden on the economic operator.]",
+    "field": "disproportionate-burden",
+    "file": "states/hu.md",
+    "id": "HU-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-17-00-00",
+    "usedBy": "states.hu.exemptions.burden",
+    "value": "yes (§ 5)"
+  },
+  {
+    "claim": "Decree 605/2022 § 1(1)(f) designates the consumer protection authority (fogyasztóvédelmi hatóság) as the supervisory authority for e-books and dedicated software and for e-commerce services (Act § 1(2)(e) and (f)). The decree names the role, not a specific office.",
+    "excerpt": "\"f) 1. § (2) bekezdés e) és f) pont jában meghatározott szolgáltatások vonatkozásában a fogyasztóvédelmi hatóságot;\" [f) for the services in § 1(2)(e) and (f) [of the Act], the consumer protection authority]",
+    "field": "authority",
+    "file": "states/hu.md",
+    "id": "HU-AUTH-1",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-605-20-22",
+    "usedBy": "states.hu.authority",
+    "value": "Consumer protection authority (fogyasztóvédelmi hatóság) for e-commerce"
+  },
+  {
+    "claim": "Decree 605/2022 § 1 assigns other services to: NMHH (National Media and Infocommunications Authority) for electronic communications and AV media access; aviation, bus, rail and shipping authorities for transport; the Magyar Nemzeti Bank for consumer banking (§ 1(3)); Budapest Főváros Kormányhivatala for 112.",
+    "excerpt": "\"d) 1. § (2) bekezdés a) és b) pont jában meghatározott szolgáltatások vonatkozásában az NMHH-t;\" [d) for the services in § 1(2)(a) and (b), the NMHH]",
+    "field": "authority",
+    "file": "states/hu.md",
+    "id": "HU-AUTH-2",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-605-20-22",
+    "usedBy": "states.hu.authority",
+    "value": "NMHH, transport authorities, Magyar Nemzeti Bank, Budapest Főváros Kormányhivatala by sector"
+  },
+  {
+    "claim": "Act § 8(4) requires the authority to impose an administrative fine if the operator does not cooperate after a warning or does not meet the requirements by the deadline. Decree 605/2022 § 9(1) sets the fine from HUF 15,000 up to 5% of annual net turnover (max HUF 500 million) for non-SME operators with turnover above HUF 100 million; otherwise up to HUF 500,000, or up to 5% of turnover for violations harming a wide range of consumers.",
+    "excerpt": "\"9. § (1) Az Aktv. 8. § (4) bekezdés e szerinti közigazgatási bírság összege 15 ezer forinttól a) a 100 millió forintot meghaladó éves nettó árbevétellel rendelkező, a kis- és középvállalkozásokról ... szóló törvény hatálya alá nem tartozó gazdasági szereplő esetében a gazdasági szereplő éves nettó árbevételének 5%-áig, de legfeljebb 500 millió forintig\" [The administrative fine under Act § 8(4) ranges from HUF 15,000 a) for an operator with annual net turnover above HUF 100 million not covered by the SME act, up to 5% of annual net turnover, at most HUF 500 million]",
+    "field": "penalties",
+    "file": "states/hu.md",
+    "id": "HU-PEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-605-20-22",
+    "usedBy": "states.hu.penalties",
+    "value": "HUF 15,000 to 5% of net turnover (max HUF 500 million) for large operators; up to HUF 500,000 otherwise"
+  },
+  {
+    "claim": "Act § 8(3) and (4): on finding non-conformity the authority first issues a warning and seeks agreement on remedying it; a fine follows only if the operator does not cooperate or misses the deadline.",
+    "excerpt": "\"(4) Ha a jogsértő gazdasági szereplő a (3) bekezdés szerinti egyeztetésben nem működik együtt, vagy a megállapított határidő alatt nem gondoskodik az akadálymentesítési követelmények teljesítéséről, az ellenőrző hatóság a gazdasági szereplővel szemben közigazgatási bírságot szab ki.\" [If the operator does not cooperate in the consultation under (3), or does not meet the accessibility requirements within the deadline, the authority imposes an administrative fine.]",
+    "field": "penalties",
+    "file": "states/hu.md",
+    "id": "HU-PEN-2",
+    "retrieved": "2026-11-03",
+    "source": "https://njt.jog.gov.hu/jogszabaly/2022-17-00-00",
+    "usedBy": "states.hu.penalties",
+    "value": "Warning first; fine if not remedied by the deadline"
   },
   {
     "claim": "Ireland transposed the EAA with the European Union (Accessibility Requirements of Products and Services) Regulations 2023, S.I. No. 636/2023.",
@@ -1989,6 +3584,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IE-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://www.irishstatutebook.ie/eli/2023/si/636/made/en/print",
+    "usedBy": "states.ie.law",
     "value": "European Union (Accessibility Requirements of Products and Services) Regulations 2023, S.I. No. 636/2023"
   },
   {
@@ -1999,6 +3595,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IE-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.irishstatutebook.ie/eli/2023/si/636/made/en/print",
+    "usedBy": "states.ie.appliesFrom",
     "value": "2025-06-28"
   },
   {
@@ -2009,6 +3606,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IE-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://www.irishstatutebook.ie/eli/2023/si/636/made/en/print",
+    "usedBy": "states.ie.scope.products",
     "value": "Computers and OS, payment and self-service terminals, telecom and AV media terminal equipment, e-readers"
   },
   {
@@ -2019,6 +3617,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IE-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.irishstatutebook.ie/eli/2023/si/636/made/en/print",
+    "usedBy": "states.ie.scope.services",
     "value": "Electronic communications, AV media access, passenger transport elements, consumer banking, e-books, e-commerce"
   },
   {
@@ -2029,6 +3628,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IE-ECOM-1",
     "retrieved": "2026-11-03",
     "source": "https://www.irishstatutebook.ie/eli/2023/si/636/made/en/print",
+    "usedBy": "states.ie.scope.ecommerce",
     "value": "yes"
   },
   {
@@ -2039,6 +3639,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IE-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://www.irishstatutebook.ie/eli/2023/si/636/made/en/print",
+    "usedBy": "states.ie.exemptions.micro",
     "value": "yes (service microenterprises exempt)"
   },
   {
@@ -2049,6 +3650,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IE-MICRO-2",
     "retrieved": "2026-11-03",
     "source": "https://www.irishstatutebook.ie/eli/2023/si/636/made/en/print",
+    "usedBy": "states.ie.exemptions.micro",
     "value": "Fewer than 10 employees and turnover or balance sheet at most EUR 2 million"
   },
   {
@@ -2059,6 +3661,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IE-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://www.irishstatutebook.ie/eli/2023/si/636/made/en/print",
+    "usedBy": "states.ie.exemptions.burden",
     "value": "yes (Regulation 15)"
   },
   {
@@ -2069,6 +3672,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IE-AUTH-1",
     "retrieved": "2026-11-03",
     "source": "https://www.irishstatutebook.ie/eli/2023/si/636/made/en/print",
+    "usedBy": "states.ie.authority",
     "value": "Competition and Consumer Protection Commission (e-commerce services; products)"
   },
   {
@@ -2079,6 +3683,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IE-AUTH-2",
     "retrieved": "2026-11-03",
     "source": "https://www.irishstatutebook.ie/eli/2023/si/636/made/en/print",
+    "usedBy": "states.ie.authority",
     "value": "ComReg, Coimisiún na Meán, IAA, NTA, Central Bank of Ireland, CCPC by sector"
   },
   {
@@ -2089,6 +3694,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IE-PEN-1",
     "retrieved": "2026-11-03",
     "source": "https://www.irishstatutebook.ie/eli/2023/si/636/made/en/print",
+    "usedBy": "states.ie.penalties",
     "value": "Summary: class A fine and/or up to 6 months; indictment: up to EUR 60,000 and/or up to 18 months"
   },
   {
@@ -2099,6 +3705,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IE-PEN-2",
     "retrieved": "2026-11-03",
     "source": "https://www.irishstatutebook.ie/eli/2023/si/636/made/en/print",
+    "usedBy": "states.ie.penalties",
     "value": "Non-compliance with the accessibility requirements is a criminal offence"
   },
   {
@@ -2109,6 +3716,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82",
+    "usedBy": "states.it.law",
     "value": "Decreto legislativo 27 maggio 2022, n. 82 (GU n. 152 del 01-07-2022)"
   },
   {
@@ -2119,6 +3727,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82",
+    "usedBy": "states.it.appliesFrom",
     "value": "2025-06-28 (decree in force since 2022-07-16)"
   },
   {
@@ -2129,6 +3738,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82",
+    "usedBy": "states.it.scope.products",
     "value": "Computers and OS, self-service terminals, telecom and AV media terminal equipment, e-readers"
   },
   {
@@ -2139,6 +3749,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82",
+    "usedBy": "states.it.scope.services",
     "value": "Electronic communications, AV media access, passenger transport elements, consumer banking, e-books, e-commerce"
   },
   {
@@ -2149,6 +3760,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-ECOM-1",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82",
+    "usedBy": "states.it.scope.ecommerce",
     "value": "yes"
   },
   {
@@ -2159,6 +3771,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82~art3",
+    "usedBy": "states.it.exemptions.micro",
     "value": "yes (service microenterprises exempt)"
   },
   {
@@ -2169,6 +3782,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-MICRO-2",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82~art2",
+    "usedBy": "states.it.exemptions.micro",
     "value": "Fewer than 10 employees and turnover or balance sheet at most EUR 2 million"
   },
   {
@@ -2179,6 +3793,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82~art13",
+    "usedBy": "states.it.exemptions.burden",
     "value": "yes (Art. 13, criteria in Annex V)"
   },
   {
@@ -2189,6 +3804,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-AUTH-1",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82~art21",
+    "usedBy": "states.it.authority",
     "value": "Agenzia per l'Italia Digitale (AgID)"
   },
   {
@@ -2199,6 +3815,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-AUTH-2",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82~art17",
+    "usedBy": "states.it.authority",
     "value": "Ministero dello sviluppo economico (products)"
   },
   {
@@ -2209,6 +3826,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-PEN-1",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82~art24",
+    "usedBy": "states.it.penalties",
     "value": "EUR 5,000 to 40,000 per breach of the accessibility requirements"
   },
   {
@@ -2219,6 +3837,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-PEN-2",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82~art24",
+    "usedBy": "states.it.penalties",
     "value": "EUR 2,500 to 30,000 for ignoring corrective orders or not cooperating"
   },
   {
@@ -2229,7 +3848,140 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "IT-PEN-3",
     "retrieved": "2026-11-03",
     "source": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2022-05-27;82~art24",
+    "usedBy": "none",
     "value": "Entities under Law 4/2004 Art. 3(1-bis) also subject to its Art. 9(1-bis) sanction"
+  },
+  {
+    "claim": "Lithuania transposed the EAA with the Law on Accessibility Requirements for Products and Services, No. XIV-1633, adopted by the Seimas on 2022-12-08 and published in TAR on 2022-12-22, No. 26360 (ELI data.e-tar.lt/eli/valst/ist/tar/2022/26360/op).",
+    "excerpt": "\"Rūšis: Įstatymas Priėmimo data: 2022-12-08 ... Įstaigos suteiktas Nr.: XIV-1633 ... Priėmė: Lietuvos Respublikos Seimas ... Paskelbta: TAR, 2022-12-22, Nr. 26360\" [Type: Law. Adoption date 2022-12-08 ... No. XIV-1633 ... Adopted by the Seimas ... Published: TAR 2022-12-22, No. 26360]",
+    "field": "transposing-law",
+    "file": "states/lt.md",
+    "id": "LT-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.e-tar.lt/portal/lt/legalAct/8869165081dc11ed8df094f359a60216/asr",
+    "usedBy": "states.lt.law",
+    "value": "Lietuvos Respublikos gaminių ir paslaugų prieinamumo reikalavimų įstatymas, No. XIV-1633 (TAR 2022-12-22, Nr. 26360)"
+  },
+  {
+    "claim": "Annex 3 of the law, listing the EU acts it implements, names Directive (EU) 2019/882.",
+    "excerpt": "\"ĮGYVENDINAMI EUROPOS SĄJUNGOS TEISĖS AKTAI ... 2019 m. balandžio 17 d. Europos Parlamento ir Tarybos direktyva (ES) 2019/882 dėl gaminių ir paslaugų prieinamumo reikalavimų.\" [EU legal acts implemented ... Directive (EU) 2019/882 of 17 April 2019 on accessibility requirements for products and services.]",
+    "field": "transposing-law",
+    "file": "states/lt.md",
+    "id": "LT-LAW-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.e-tar.lt/portal/lt/legalAct/8869165081dc11ed8df094f359a60216/asr",
+    "usedBy": "states.lt.law",
+    "value": "Implements Directive (EU) 2019/882 (Annex 3)"
+  },
+  {
+    "claim": "The law enters into force on 28 June 2025, except one paragraph of its Article 30.",
+    "excerpt": "\"1. Šis įstatymas, išskyrus šio straipsnio 2 dalį, įsigalioja 2025 m. birželio 28 d.\" [This law, except paragraph 2 of this article, enters into force on 28 June 2025.]",
+    "field": "applies-from",
+    "file": "states/lt.md",
+    "id": "LT-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.e-tar.lt/portal/lt/legalAct/8869165081dc11ed8df094f359a60216/asr",
+    "usedBy": "states.lt.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "Article 2(2) covers consumer general-purpose computer hardware and operating systems, self-service terminals (payment terminals, ATMs, ticketing and check-in machines and others), and the other EAA product categories.",
+    "excerpt": "\"2. Šis įstatymas taikomas šiems rinkai pateikiamiems gaminiams: 1) vartotojų bendrosios paskirties kompiuterių aparatinės įrangos sistemoms ir joms skirtoms operacinėms sistemoms;\" [This law applies to the following products placed on the market: 1) consumer general-purpose computer hardware systems and their operating systems]",
+    "field": "scope-products",
+    "file": "states/lt.md",
+    "id": "LT-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.e-tar.lt/portal/lt/legalAct/8869165081dc11ed8df094f359a60216/asr",
+    "usedBy": "states.lt.scope.products",
+    "value": "Computers and OS, self-service and payment terminals, and the other EAA product categories"
+  },
+  {
+    "claim": "Article 2(4) applies the law to listed services provided to consumers, starting with electronic communications services and ending with e-commerce services (point 6).",
+    "excerpt": "\"4. Šis įstatymas taikomas šioms paslaugoms, teikiamoms vartotojams: 1) elektroninių ryšių paslaugoms, išskyrus perdavimo (siuntimo) paslaugas, naudojamas įrenginių tarpusavio sąveikos paslaugoms teikti;\" [This law applies to the following services provided to consumers: 1) electronic communications services, except transmission services used for machine-to-machine services]",
+    "field": "scope-services",
+    "file": "states/lt.md",
+    "id": "LT-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.e-tar.lt/portal/lt/legalAct/8869165081dc11ed8df094f359a60216/asr",
+    "usedBy": "states.lt.scope.services",
+    "value": "Electronic communications and the other EAA service categories, incl. e-commerce"
+  },
+  {
+    "claim": "Article 2(4) point 6 covers e-commerce services; Article 3 point 6 defines them as distance services via websites and mobile devices at the consumer's individual request with a view to concluding a consumer contract.",
+    "excerpt": "\"6) elektroninės prekybos paslaugoms.\" / \"6. Elektroninės prekybos paslaugos – paslaugos, teikiamos nuotoliniu būdu, naudojant interneto svetaines ir nešiojamuosius prietaisus, elektroninėmis priemonėmis ir individualiu vartotojo prašymu siekiant sudaryti vartojimo sutartį.\" [6) e-commerce services. / E-commerce services: services provided at a distance through websites and mobile devices, by electronic means, at the individual request of a consumer with a view to concluding a consumer contract.]",
+    "field": "scope-ecommerce",
+    "file": "states/lt.md",
+    "id": "LT-ECOM-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.e-tar.lt/portal/lt/legalAct/8869165081dc11ed8df094f359a60216/asr",
+    "usedBy": "states.lt.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "Article 7(1) exempts very small enterprises (labai mažos įmonės) providing services from the accessibility requirements and related obligations. The sentence is in the original 2022 text and in the consolidated version in force from 2026-06-30. Article 3 point 10 defines \"very small enterprise\" by reference to the Law on Small and Medium-Sized Business Development, which was not fetched.",
+    "excerpt": "\"Paslaugas teikiančios labai mažos įmonės atleidžiamos nuo prieinamumo reikalavimų laikymosi ir pareigų, susijusių su prieinamumo reikalavimų laikymusi.\" [Very small enterprises providing services are exempt from complying with the accessibility requirements and from the obligations related to such compliance.]",
+    "field": "microenterprise-exemption",
+    "file": "states/lt.md",
+    "id": "LT-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.e-tar.lt/portal/lt/legalAct/8869165081dc11ed8df094f359a60216/asr",
+    "usedBy": "states.lt.exemptions.micro",
+    "value": "yes (service microenterprises exempt; definition in the SME Development Law)"
+  },
+  {
+    "claim": "Article 14 (fundamental alteration and disproportionate burden) transposes the disproportionate burden exception.",
+    "excerpt": "\"14 straipsnis. Esminis keitimas ir neproporcinga našta ... 2) nebūtų sukelta neproporcinga našta atitinkamiems ekonominės veiklos vykdytojams.\" [Article 14. Fundamental alteration and disproportionate burden ... 2) no disproportionate burden would be imposed on the economic operators concerned.]",
+    "field": "disproportionate-burden",
+    "file": "states/lt.md",
+    "id": "LT-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.e-tar.lt/portal/lt/legalAct/8869165081dc11ed8df094f359a60216/asr",
+    "usedBy": "states.lt.exemptions.burden",
+    "value": "yes (Art. 14)"
+  },
+  {
+    "claim": "Article 6(4) makes the State Consumer Rights Protection Authority (Valstybinė vartotojų teisių apsaugos tarnyba) the market surveillance body for products in Art. 2(2) and for the services in Art. 2(4) points 4 to 6, which include e-commerce (point 6). The services clause was amended by law XV-760 of 2026-03-10.",
+    "excerpt": "\"4. Valstybinė vartotojų teisių apsaugos tarnyba vykdo rinkos priežiūros funkcijas šio įstatymo: 1) 2 straipsnio 2 dalyje nurodytų gaminių atžvilgiu; ... 2) 2 straipsnio 4 dalies 4–6 punktuose nurodytų paslaugų atžvilgiu.\" [The State Consumer Rights Protection Authority performs market surveillance under this law: 1) for products in Art. 2(2); ... 2) for services in Art. 2(4) points 4 to 6.]",
+    "field": "authority",
+    "file": "states/lt.md",
+    "id": "LT-AUTH-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.e-tar.lt/portal/lt/legalAct/8869165081dc11ed8df094f359a60216/asr",
+    "usedBy": "states.lt.authority",
+    "value": "Valstybinė vartotojų teisių apsaugos tarnyba (State Consumer Rights Protection Authority)"
+  },
+  {
+    "claim": "Article 6 assigns other services to sector bodies, including the Lithuanian Transport Safety Administration (passenger transport, Art. 6(5)) and the Communications Regulatory Authority (electronic communications, Art. 6(6)).",
+    "excerpt": "\"6. Lietuvos Respublikos ryšių reguliavimo tarnyba prižiūri, kaip elektroninių ryšių paslaugų teikėjai laikosi šio įstatymo 2 straipsnio 4 dalies 1 punkte nurodytoms paslaugoms taikomų prieinamumo reik\" [The Communications Regulatory Authority supervises how electronic communications providers comply with the accessibility requirements for the services in Art. 2(4) point 1]",
+    "field": "authority",
+    "file": "states/lt.md",
+    "id": "LT-AUTH-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.e-tar.lt/portal/lt/legalAct/8869165081dc11ed8df094f359a60216/asr",
+    "usedBy": "states.lt.authority",
+    "value": "Lietuvos transporto saugos administracija (transport); Ryšių reguliavimo tarnyba (electronic communications)"
+  },
+  {
+    "claim": "Article 23(1) fines an economic operator that provides a non-conforming service (or places a non-conforming product on the market) EUR 500 to 2,500.",
+    "excerpt": "\"1. Ekonominės veiklos vykdytojui, pateikusiam ar tiekiančiam rinkai prieinamumo reikalavimų neatitinkantį gaminį, suteikusiam ar teikiančiam prieinamumo reikalavimų neatitinkančią paslaugą skiriama bauda nuo 500 iki 2 500 eurų.\" [An economic operator that placed or supplies a non-conforming product, or provided or provides a non-conforming service, is fined EUR 500 to 2,500.]",
+    "field": "penalties",
+    "file": "states/lt.md",
+    "id": "LT-PEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.e-tar.lt/portal/lt/legalAct/8869165081dc11ed8df094f359a60216/asr",
+    "usedBy": "states.lt.penalties",
+    "value": "EUR 500 to 2,500 for a non-conforming product or service"
+  },
+  {
+    "claim": "Article 23(2) and (3) set EUR 1,000 to 6,500 for continuing a non-conforming service after the authority ordered it stopped (or ignoring product bans or withdrawals), and EUR 2,500 to 15,000 where non-conforming products or services harmed a consumer's or end user's health.",
+    "excerpt": "\"arba toliau teikiančiam prieinamumo reikalavimų neatitinkančią paslaugą, jeigu rinkos priežiūros institucija yra nurodžiusi nebeteikti paslaugos, skiriama bauda nuo 1 000 iki 6 500 eurų.\" [or that continues to provide a non-conforming service after the market surveillance authority has ordered it to stop, is fined EUR 1,000 to 6,500.]",
+    "field": "penalties",
+    "file": "states/lt.md",
+    "id": "LT-PEN-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.e-tar.lt/portal/lt/legalAct/8869165081dc11ed8df094f359a60216/asr",
+    "usedBy": "states.lt.penalties",
+    "value": "EUR 1,000 to 6,500 for ignoring orders; EUR 2,500 to 15,000 where health was harmed"
   },
   {
     "claim": "Luxembourg transposed the EAA with the Loi du 8 mars 2023 relative aux exigences en matière d'accessibilité applicables aux produits et services, published in the Journal officiel (ELI etat/leg/loi/2023/03/08/a133/jo), amended by the Loi du 29 août 2023.",
@@ -2239,6 +3991,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LU-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://data.legilux.public.lu/filestore/eli/etat/leg/loi/2023/03/08/a133/jo/fr/html/eli-etat-leg-loi-2023-03-08-a133-jo-fr-html.html",
+    "usedBy": "states.lu.law",
     "value": "Loi du 8 mars 2023 relative aux exigences en matière d'accessibilité applicables aux produits et services (ELI /eli/etat/leg/loi/2023/03/08/a133/jo)"
   },
   {
@@ -2249,6 +4002,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LU-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://data.legilux.public.lu/filestore/eli/etat/leg/loi/2023/03/08/a133/jo/fr/html/eli-etat-leg-loi-2023-03-08-a133-jo-fr-html.html",
+    "usedBy": "states.lu.appliesFrom",
     "value": "2025-06-28"
   },
   {
@@ -2259,6 +4013,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LU-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://data.legilux.public.lu/filestore/eli/etat/leg/loi/2023/03/08/a133/jo/fr/html/eli-etat-leg-loi-2023-03-08-a133-jo-fr-html.html",
+    "usedBy": "states.lu.scope.products",
     "value": "Computers and OS, payment and self-service terminals, telecom and AV media terminal equipment, e-readers"
   },
   {
@@ -2269,6 +4024,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LU-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://data.legilux.public.lu/filestore/eli/etat/leg/loi/2023/03/08/a133/jo/fr/html/eli-etat-leg-loi-2023-03-08-a133-jo-fr-html.html",
+    "usedBy": "states.lu.scope.services",
     "value": "Electronic communications, AV media access, passenger transport elements, consumer banking, e-books, e-commerce"
   },
   {
@@ -2279,6 +4035,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LU-ECOM-1",
     "retrieved": "2026-11-03",
     "source": "https://data.legilux.public.lu/filestore/eli/etat/leg/loi/2023/03/08/a133/jo/fr/html/eli-etat-leg-loi-2023-03-08-a133-jo-fr-html.html",
+    "usedBy": "states.lu.scope.ecommerce",
     "value": "yes"
   },
   {
@@ -2289,6 +4046,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LU-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://data.legilux.public.lu/filestore/eli/etat/leg/loi/2023/03/08/a133/jo/fr/html/eli-etat-leg-loi-2023-03-08-a133-jo-fr-html.html",
+    "usedBy": "states.lu.exemptions.micro",
     "value": "yes (service microenterprises exempt)"
   },
   {
@@ -2299,6 +4057,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LU-MICRO-2",
     "retrieved": "2026-11-03",
     "source": "https://data.legilux.public.lu/filestore/eli/etat/leg/loi/2023/03/08/a133/jo/fr/html/eli-etat-leg-loi-2023-03-08-a133-jo-fr-html.html",
+    "usedBy": "states.lu.exemptions.micro",
     "value": "Fewer than 10 employees and turnover or balance sheet at most EUR 2 million"
   },
   {
@@ -2309,6 +4068,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LU-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://data.legilux.public.lu/filestore/eli/etat/leg/loi/2023/03/08/a133/jo/fr/html/eli-etat-leg-loi-2023-03-08-a133-jo-fr-html.html",
+    "usedBy": "states.lu.exemptions.burden",
     "value": "yes (Art. 16)"
   },
   {
@@ -2319,6 +4079,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LU-AUTH-1",
     "retrieved": "2026-11-03",
     "source": "https://data.legilux.public.lu/filestore/eli/etat/leg/loi/2023/03/08/a133/jo/fr/html/eli-etat-leg-loi-2023-03-08-a133-jo-fr-html.html",
+    "usedBy": "states.lu.authority",
     "value": "Office de la surveillance de l'accessibilité des produits et services (OSAPS)"
   },
   {
@@ -2329,6 +4090,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LU-PEN-1",
     "retrieved": "2026-11-03",
     "source": "https://data.legilux.public.lu/filestore/eli/etat/leg/loi/2023/03/08/a133/jo/fr/html/eli-etat-leg-loi-2023-03-08-a133-jo-fr-html.html",
+    "usedBy": "states.lu.penalties",
     "value": "Criminal fine EUR 251 to 500,000; EUR 500 to 1,000,000 for repeat offences"
   },
   {
@@ -2339,6 +4101,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LU-PEN-2",
     "retrieved": "2026-11-03",
     "source": "https://data.legilux.public.lu/filestore/eli/etat/leg/loi/2023/03/08/a133/jo/fr/html/eli-etat-leg-loi-2023-03-08-a133-jo-fr-html.html",
+    "usedBy": "states.lu.penalties",
     "value": "Administrative fine EUR 250 to 15,000 (non-cooperation, ignoring OSAPS decisions)"
   },
   {
@@ -2349,6 +4112,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LV-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://likumi.lv/ta/id/340554-precu-un-pakalpojumu-pieklustamibas-likums",
+    "usedBy": "states.lv.law",
     "value": "Preču un pakalpojumu piekļūstamības likums, Latvijas Vēstnesis 62, 28.03.2023 (OP 2023/62.2)"
   },
   {
@@ -2359,6 +4123,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LV-LAW-2",
     "retrieved": "2026-11-03",
     "source": "https://likumi.lv/ta/id/340554-precu-un-pakalpojumu-pieklustamibas-likums",
+    "usedBy": "states.lv.law",
     "value": "Implements Directive (EU) 2019/882"
   },
   {
@@ -2369,6 +4134,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LV-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://likumi.lv/ta/id/340554-precu-un-pakalpojumu-pieklustamibas-likums",
+    "usedBy": "states.lv.appliesFrom",
     "value": "2025-06-28 (112 provisions from 2027-06-28)"
   },
   {
@@ -2379,6 +4145,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LV-APPLIES-2",
     "retrieved": "2026-11-03",
     "source": "https://likumi.lv/ta/id/340554-precu-un-pakalpojumu-pieklustamibas-likums",
+    "usedBy": "states.lv.appliesFrom",
     "value": "Pre-existing contracts and products: until 2030-06-27"
   },
   {
@@ -2389,6 +4156,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LV-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://likumi.lv/ta/id/340554-precu-un-pakalpojumu-pieklustamibas-likums",
+    "usedBy": "states.lv.scope.products",
     "value": "Computers and OS, self-service terminals, and the other EAA product categories"
   },
   {
@@ -2399,6 +4167,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LV-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://likumi.lv/ta/id/340554-precu-un-pakalpojumu-pieklustamibas-likums",
+    "usedBy": "states.lv.scope.services",
     "value": "Electronic communications, AV media access, passenger transport elements, consumer financial services, e-books, e-commerce"
   },
   {
@@ -2409,6 +4178,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LV-ECOM-1",
     "retrieved": "2026-11-03",
     "source": "https://likumi.lv/ta/id/340554-precu-un-pakalpojumu-pieklustamibas-likums",
+    "usedBy": "states.lv.scope.ecommerce",
     "value": "yes"
   },
   {
@@ -2419,6 +4189,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LV-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://likumi.lv/ta/id/340554-precu-un-pakalpojumu-pieklustamibas-likums",
+    "usedBy": "states.lv.exemptions.micro",
     "value": "yes (service microenterprises exempt: fewer than 10 employees, turnover or balance sheet at most EUR 2 million)"
   },
   {
@@ -2429,6 +4200,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LV-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://likumi.lv/ta/id/340554-precu-un-pakalpojumu-pieklustamibas-likums",
+    "usedBy": "states.lv.exemptions.burden",
     "value": "yes (Art. 13, criteria in Art. 14)"
   },
   {
@@ -2439,6 +4211,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LV-AUTH-1",
     "retrieved": "2026-11-03",
     "source": "https://likumi.lv/ta/id/340554-precu-un-pakalpojumu-pieklustamibas-likums",
+    "usedBy": "states.lv.authority",
     "value": "Patērētāju tiesību aizsardzības centrs (Consumer Rights Protection Centre) for e-commerce"
   },
   {
@@ -2449,6 +4222,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LV-AUTH-2",
     "retrieved": "2026-11-03",
     "source": "https://likumi.lv/ta/id/340554-precu-un-pakalpojumu-pieklustamibas-likums",
+    "usedBy": "states.lv.authority",
     "value": "Sector bodies per Art. 22 (SPRK, NEPLP, CAA, ATD, VDzA, municipalities)"
   },
   {
@@ -2459,7 +4233,272 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "LV-PEN-1",
     "retrieved": "2026-11-03",
     "source": "https://likumi.lv/ta/id/340554-precu-un-pakalpojumu-pieklustamibas-likums",
+    "usedBy": "states.lv.penalties",
     "value": "unknown"
+  },
+  {
+    "claim": "Malta transposed the EAA with the Accessibility Measures (European Accessibility Act) Regulations, Subsidiary Legislation 627.03, made by Legal Notice 214 of 2022 and amended by Legal Notice 258 of 2026.",
+    "excerpt": "\"LEGAL NOTICE 214 of 2022, as amended by Legal Notice 258 of 2026.\"",
+    "field": "transposing-law",
+    "file": "states/mt.md",
+    "id": "MT-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://legislation.mt/eli/sl/627.3/eng/pdf",
+    "usedBy": "states.mt.law",
+    "value": "Accessibility Measures (European Accessibility Act) Regulations, S.L. 627.03 (L.N. 214 of 2022)"
+  },
+  {
+    "claim": "Regulation 1(2) states that the regulations transpose Directive (EU) 2019/882.",
+    "excerpt": "\"(2) The scope of these regulations is to transpose Directive (EU) 2019/882 of the European Parliament and of the Council of 17 April 2019 on the accessibility requirements for products and services.\"",
+    "field": "transposing-law",
+    "file": "states/mt.md",
+    "id": "MT-LAW-2",
+    "retrieved": "2026-11-03",
+    "source": "https://legislation.mt/eli/sl/627.3/eng/pdf",
+    "usedBy": "states.mt.law",
+    "value": "S.L. 627.03 transposes Directive (EU) 2019/882"
+  },
+  {
+    "claim": "Regulation 1(3) brings the regulations into force on 28 June 2025; the 112 obligations in regulation 4(8) apply from 28 June 2027.",
+    "excerpt": "\"(3) These regulations shall come into force on 28 June 2025:\"",
+    "field": "applies-from",
+    "file": "states/mt.md",
+    "id": "MT-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://legislation.mt/eli/sl/627.3/eng/pdf",
+    "usedBy": "states.mt.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "Regulation 3(1) covers the EAA product list: consumer general-purpose computer hardware and operating systems, self-service terminals, consumer terminal equipment for electronic communications and audiovisual media, and e-readers.",
+    "excerpt": "\"(d) consumer terminal equipment with interactive computing capability, used for accessing audiovisual media services; and (e) e-readers.\"",
+    "field": "scope-products",
+    "file": "states/mt.md",
+    "id": "MT-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://legislation.mt/eli/sl/627.3/eng/pdf",
+    "usedBy": "states.mt.scope.products",
+    "value": "EAA Art. 2(1) products"
+  },
+  {
+    "claim": "Regulation 3(2) covers services provided to consumers after 28 June 2025: electronic communications, access to audiovisual media, passenger transport elements, consumer banking, e-books and dedicated software, and e-commerce.",
+    "excerpt": "\"(2) Without prejudice to regulation 1(3), these regulations apply to the following services provided to consumers after 28 June 2025:\"",
+    "field": "scope-services",
+    "file": "states/mt.md",
+    "id": "MT-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://legislation.mt/eli/sl/627.3/eng/pdf",
+    "usedBy": "states.mt.scope.services",
+    "value": "EAA Art. 2(2) services"
+  },
+  {
+    "claim": "Regulation 3(2)(f) lists e-commerce services among the consumer services in scope.",
+    "excerpt": "\"(e) e-books and dedicated software; and (f) e-commerce services.\"",
+    "field": "scope-ecommerce",
+    "file": "states/mt.md",
+    "id": "MT-ECOMMERCE-1",
+    "retrieved": "2026-11-03",
+    "source": "https://legislation.mt/eli/sl/627.3/eng/pdf",
+    "usedBy": "states.mt.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "Regulation 4(5) exempts microenterprises providing services from the service accessibility requirements and related obligations.",
+    "excerpt": "\"(5) Microenterprises providing services shall be exempt from complying with the accessibility requirements\"",
+    "field": "microenterprise-exemption",
+    "file": "states/mt.md",
+    "id": "MT-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://legislation.mt/eli/sl/627.3/eng/pdf",
+    "usedBy": "states.mt.exemptions.micro",
+    "value": "yes, services microenterprises exempt"
+  },
+  {
+    "claim": "Regulation 2 defines a microenterprise as an enterprise employing fewer than ten persons with annual turnover or balance sheet total not exceeding EUR 2 million.",
+    "excerpt": "\"means an enterprise which employs fewer than ten (10) persons and which has an annual turnover not exceeding EUR 2 million or an annual balance sheet total not exceeding EUR 2 million;\"",
+    "field": "microenterprise-exemption",
+    "file": "states/mt.md",
+    "id": "MT-MICRO-2",
+    "retrieved": "2026-11-03",
+    "source": "https://legislation.mt/eli/sl/627.3/eng/pdf",
+    "usedBy": "states.mt.exemptions.micro",
+    "value": "fewer than 10 persons and turnover or balance sheet up to EUR 2 million"
+  },
+  {
+    "claim": "Regulation 14 transposes the fundamental-alteration and disproportionate-burden exception.",
+    "excerpt": "\"(b) does not result in the imposition of a disproportionate burden on the economic operators concerned.\"",
+    "field": "disproportionate-burden",
+    "file": "states/mt.md",
+    "id": "MT-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://legislation.mt/eli/sl/627.3/eng/pdf",
+    "usedBy": "states.mt.exemptions.burden",
+    "value": "yes (regulation 14)"
+  },
+  {
+    "claim": "The market surveillance authority under the regulations is the Commission for the Rights of Persons with Disability (CRPD), designated by article 22(1)(v) of the Equal Opportunities (Persons with Disability) Act (Cap. 413); under regulation 23 it also checks compliance of services.",
+    "excerpt": "\"means the Commission for the Rights of Persons with Disability, in its role as market surveillance authority in respect of the Directive\"",
+    "field": "authority",
+    "file": "states/mt.md",
+    "id": "MT-AUTHORITY-1",
+    "retrieved": "2026-11-03",
+    "source": "https://legislation.mt/eli/sl/627.3/eng/pdf",
+    "usedBy": "states.mt.authority",
+    "value": "Commission for the Rights of Persons with Disability (CRPD)"
+  },
+  {
+    "claim": "Regulation 27 states no fine amounts; penalties are to be prescribed and enforced by the market surveillance authority under article 32 of the Equal Opportunities (Persons with Disability) Act (Cap. 413), which was not fetched. Amounts are unknown from this source.",
+    "excerpt": "\"shall be prescribed, and necessary measures to ensure their implementation shall be undertaken by said market surveillance authority, in terms of article 32 of the Equal Opportunities (Persons with Disability) Act.\"",
+    "field": "penalties",
+    "file": "states/mt.md",
+    "id": "MT-PENALTIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://legislation.mt/eli/sl/627.3/eng/pdf",
+    "usedBy": "states.mt.penalties",
+    "value": "unknown (by reference to article 32 of Cap. 413)"
+  },
+  {
+    "claim": "The Netherlands transposed the EAA mainly with the Implementatiewet toegankelijkheidsvoorschriften producten en diensten (Act of 8 April 2024), Staatsblad 2024, 87, which amends several acts. The original publication's title reads \"8 april 2023\"; the re-issue Stb. 2024, 87 n1 corrects it to 8 April 2024.",
+    "excerpt": "\"Deze wet wordt aangehaald als Implementatiewet toegankelijkheidsvoorschriften producten en diensten.\" [This act is cited as the Act implementing accessibility requirements for products and services.]",
+    "field": "transposing-law",
+    "file": "states/nl.md",
+    "id": "NL-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-87.html",
+    "usedBy": "states.nl.law",
+    "value": "Implementatiewet toegankelijkheidsvoorschriften producten en diensten, Stb. 2024, 87"
+  },
+  {
+    "claim": "The re-issue Stb. 2024, 87 n1 corrects the date in the title of the act from 8 April 2023 to 8 April 2024.",
+    "excerpt": "\"1. In het opschrift wordt «Wet van 8 april 2023» gewijzigd in «Wet van 8 april 2024».\" [1. In the title, \"Act of 8 April 2023\" is changed to \"Act of 8 April 2024\".]",
+    "field": "transposing-law",
+    "file": "states/nl.md",
+    "id": "NL-LAW-2",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-87-n1.html",
+    "usedBy": "states.nl.law",
+    "value": "Act of 8 April 2024"
+  },
+  {
+    "claim": "Under the Royal Decree of 9 November 2024 (Stb. 2024, 341), the Implementatiewet enters into force on 28 June 2025.",
+    "excerpt": "\"De Implementatiewet toegankelijkheidsvoorschriften producten en diensten treedt in werking met ingang van 28 juni 2025.\" [The Implementation Act on accessibility requirements for products and services enters into force on 28 June 2025.]",
+    "field": "applies-from",
+    "file": "states/nl.md",
+    "id": "NL-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-341.html",
+    "usedBy": "states.nl.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "Products are covered by the Warenwetbesluit toegankelijkheidsvoorschriften 2024 (Stb. 2024, 123), Art. 2: consumer computer hardware and operating systems, consumer terminal equipment for electronic communications and audiovisual media, self-service terminals (payment terminals, ATMs, ticketing and check-in machines, interactive information terminals) and e-readers, placed on the market after 28 June 2025.",
+    "excerpt": "\"1. Dit besluit is van toepassing op de volgende producten: a. computerapparatuur voor consumenten en besturingssystemen daarvoor,\" [1. This decree applies to the following products: a. consumer computer hardware and operating systems for it,]",
+    "field": "scope-products",
+    "file": "states/nl.md",
+    "id": "NL-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-123.html",
+    "usedBy": "states.nl.scope.products",
+    "value": "EAA Art. 2(1) products (Warenwetbesluit toegankelijkheidsvoorschriften 2024)"
+  },
+  {
+    "claim": "Services are transposed sector by sector across several acts rather than in one list: electronic communications in the Telecommunicatiewet (new Chapter 7A), e-commerce in Book 6 of the Civil Code (new Section 2AB), banking in the Wet op het financieel toezicht, and e-books, audiovisual access and passenger transport under the Wet gelijke behandeling op grond van handicap of chronische ziekte with implementing decrees. A single consolidated list of services is not stated in one provision.",
+    "excerpt": "\"1. Het is verboden elektronische communicatiediensten te verlenen die niet voldoen aan toegankelijkheidsvoorschriften van bijlage I, afdelingen III en IV, onderdeel a, van richtlijn (EU) 2019/882.\" [1. It is prohibited to provide electronic communications services that do not meet the accessibility requirements of Annex I, sections III and IV, point a, of Directive (EU) 2019/882.]",
+    "field": "scope-services",
+    "file": "states/nl.md",
+    "id": "NL-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-87.html",
+    "usedBy": "states.nl.scope.services",
+    "value": "EAA Art. 2(2) services, spread over several acts"
+  },
+  {
+    "claim": "Art. IV of the Implementatiewet inserts Art. 230fb in Book 6 of the Civil Code: a service provider performing e-commerce services towards a consumer must design and provide them in line with the EAA accessibility requirements (Annex I sections III and IV point g, and Annex V).",
+    "excerpt": "\"1. De dienstverlener die e-handelsdiensten verricht jegens een consument ontwerpt en verleent die diensten in overeenstemming met de toegankelijkheidsvoorschriften in bijlage I, afdeling III en IV, onder g, en bijlage V bij richtlijn (EU) 2019/882.\" [1. The service provider performing e-commerce services towards a consumer designs and provides those services in line with the accessibility requirements in Annex I, sections III and IV, point g, and Annex V of Directive (EU) 2019/882.]",
+    "field": "scope-ecommerce",
+    "file": "states/nl.md",
+    "id": "NL-ECOMMERCE-1",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-87.html",
+    "usedBy": "states.nl.scope.ecommerce",
+    "value": "yes (Art. 6:230fb Burgerlijk Wetboek)"
+  },
+  {
+    "claim": "Art. 6:230fc(1) Civil Code exempts enterprises with fewer than 10 employees and annual turnover or balance sheet total of at most EUR 2 million from the e-commerce accessibility duties. The Telecommunicatiewet (Art. 7a.2(3)) has the same threshold for electronic communications services.",
+    "excerpt": "\"1. Artikel 230fb is niet van toepassing op ondernemingen met minder dan 10 werknemers en een jaaromzet of een jaarlijks balanstotaal van ten hoogste 2 miljoen euro.\" [1. Article 230fb does not apply to enterprises with fewer than 10 employees and an annual turnover or annual balance sheet total of at most EUR 2 million.]",
+    "field": "microenterprise-exemption",
+    "file": "states/nl.md",
+    "id": "NL-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-87.html",
+    "usedBy": "states.nl.exemptions.micro",
+    "value": "yes, services microenterprises exempt (under 10 employees, up to EUR 2 million)"
+  },
+  {
+    "claim": "Art. 6:230fc(2) Civil Code transposes the fundamental-alteration and disproportionate-burden exception for e-commerce services; providers that receive external funding for accessibility cannot rely on the burden ground (Art. 6:230fc(3)).",
+    "excerpt": "\"b. geen onevenredige last voor de betrokken dienstverlener oplevert.\" [b. does not impose a disproportionate burden on the service provider concerned.]",
+    "field": "disproportionate-burden",
+    "file": "states/nl.md",
+    "id": "NL-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-87.html",
+    "usedBy": "states.nl.exemptions.burden",
+    "value": "yes (Art. 6:230fc BW for e-commerce)"
+  },
+  {
+    "claim": "For e-commerce, the Implementatiewet only shows that a provider relying on the burden exception must inform the Autoriteit Consument en Markt (ACM), or the Stichting Autoriteit Financiële Markten (AFM), and send its assessment on request (new Art. 8a.1 Wet handhaving consumentenbescherming). Which body enforces Art. 6:230fb BW is set in the Wet handhaving consumentenbescherming itself, which could not be fetched (wetten.overheid.nl and repository.overheid.nl unreachable), so the enforcing authority is unknown from this source.",
+    "excerpt": "\"4. Iedere dienstverlener die een beroep doet op artikel 230fc, tweede lid, van Boek 6 van het Burgerlijk Wetboek verstrekt daarover informatie aan de Autoriteit Consument en Markt onderscheidenlijk de Stichting Autoriteit Financiële Markten.\" [4. Any service provider relying on Art. 230fc(2) of Book 6 Civil Code provides information on it to the ACM or, as the case may be, the AFM.]",
+    "field": "authority",
+    "file": "states/nl.md",
+    "id": "NL-AUTHORITY-1",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-87.html",
+    "usedBy": "states.nl.authority",
+    "value": "unknown (burden notifications go to ACM or AFM)"
+  },
+  {
+    "claim": "Under the new Art. 7a.3 Telecommunicatiewet, the ACM is the competent authority for electronic communications services.",
+    "excerpt": "\"1. De bevoegde nationale autoriteit, bedoeld in artikel 13, vierde en vijfde lid, van richtlijn (EU) 2019/882, is de Autoriteit Consument en Markt.\" [1. The competent national authority referred to in Art. 13(4) and (5) of Directive (EU) 2019/882 is the Authority for Consumers and Markets.]",
+    "field": "authority",
+    "file": "states/nl.md",
+    "id": "NL-AUTHORITY-2",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-87.html",
+    "usedBy": "states.nl.authority",
+    "value": "ACM for electronic communications services"
+  },
+  {
+    "claim": "Under the new Arts. 8a.2 and 8a.3 of the Wet handhaving consumentenbescherming, the Commissariaat voor de Media supervises e-books and audiovisual access services, and officials designated by the Minister of Infrastructure and Water Management (annex Part h: Inspectie Leefomgeving en Transport) supervise passenger transport services.",
+    "excerpt": "\"Onderdeel h; handhaving door de Inspectie Leefomgeving en Transport\" [Part h: enforcement by the Human Environment and Transport Inspectorate]",
+    "field": "authority",
+    "file": "states/nl.md",
+    "id": "NL-AUTHORITY-3",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-87.html",
+    "usedBy": "states.nl.authority",
+    "value": "Commissariaat voor de Media (e-books, AV access); ILT (passenger transport)"
+  },
+  {
+    "claim": "For e-commerce, the Implementatiewet sets no fine amount; enforcement runs through the Wet handhaving consumentenbescherming, whose fine levels were not fetched. Amounts are unknown from this source.",
+    "excerpt": "\"Een dienstverlener, die een e-handelsdienst verricht, neemt artikel 230fb van Boek 6 van het Burgerlijk Wetboek in acht.\" [A service provider performing an e-commerce service observes Art. 230fb of Book 6 of the Civil Code.]",
+    "field": "penalties",
+    "file": "states/nl.md",
+    "id": "NL-PENALTIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-87.html",
+    "usedBy": "states.nl.penalties",
+    "value": "unknown"
+  },
+  {
+    "claim": "For e-books, audiovisual access and passenger transport, the Commissariaat voor de Media and the Minister of Infrastructure and Water Management may impose an administrative fine of at most the fifth-category fine of Art. 23 of the Dutch Criminal Code. The act states the cap only by reference to that category, not as an amount.",
+    "excerpt": "\"3. De in het tweede lid bedoelde bestuurlijke boete bedraagt ten hoogste het bedrag van de vijfde categorie geldboete, bedoeld in artikel 23 van het Wetboek van Strafrecht.\" [3. The administrative fine referred to in para. 2 is at most the fifth-category fine referred to in Art. 23 of the Criminal Code.]",
+    "field": "penalties",
+    "file": "states/nl.md",
+    "id": "NL-PENALTIES-2",
+    "retrieved": "2026-11-03",
+    "source": "https://zoek.officielebekendmakingen.nl/stb-2024-87.html",
+    "usedBy": "states.nl.penalties",
+    "value": "up to the fifth-category fine (Art. 23 Wetboek van Strafrecht), e-books/AV/transport"
   },
   {
     "claim": "Poland transposed the EAA with the Act of 26 April 2024 on ensuring compliance with accessibility requirements of certain products and services by economic operators, published in Dz.U. 2024 poz. 731; its footnote states it implements Directive (EU) 2019/882.",
@@ -2469,6 +4508,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.law",
     "value": "Ustawa z dnia 26 kwietnia 2024 r. o zapewnianiu spełniania wymagań dostępności niektórych produktów i usług przez podmioty gospodarcze (Dz.U. 2024 poz. 731)"
   },
   {
@@ -2479,6 +4519,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-LAW-2",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731",
+    "usedBy": "states.pl.law",
     "value": "Dz.U. 2024 poz. 731"
   },
   {
@@ -2489,6 +4530,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.appliesFrom",
     "value": "2025-06-28"
   },
   {
@@ -2499,6 +4541,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.scope.products",
     "value": "EAA Art. 2(1) products"
   },
   {
@@ -2509,6 +4552,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.scope.services",
     "value": "EAA Art. 2(2) services"
   },
   {
@@ -2519,6 +4563,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-ECOMMERCE-1",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.scope.ecommerce",
     "value": "yes"
   },
   {
@@ -2529,6 +4574,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-ECOMMERCE-2",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.scope.ecommerce",
     "value": "definition matches EAA Art. 3(30)"
   },
   {
@@ -2539,6 +4585,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.exemptions.micro",
     "value": "yes, services microenterprises exempt"
   },
   {
@@ -2549,6 +4596,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.exemptions.burden",
     "value": "yes (Art. 21)"
   },
   {
@@ -2559,6 +4607,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-AUTHORITY-1",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.authority",
     "value": "President of the Board of PFRON plus sector market surveillance authorities"
   },
   {
@@ -2569,6 +4618,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-AUTHORITY-2",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.authority",
     "value": "minister responsible for computerisation (for e-commerce services)"
   },
   {
@@ -2579,6 +4629,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-AUTHORITY-3",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.authority",
     "value": "Rzecznik Finansowy (retail banking); Prezes UKE (telecom, devices, e-books)"
   },
   {
@@ -2589,6 +4640,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-PENALTIES-1",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.penalties",
     "value": "up to 10x average monthly wage (prior year), max 10% of turnover"
   },
   {
@@ -2599,7 +4651,261 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "PL-PENALTIES-2",
     "retrieved": "2026-11-03",
     "source": "https://api.sejm.gov.pl/eli/acts/DU/2024/731/text.html",
+    "usedBy": "states.pl.penalties",
     "value": "max 10% of prior-year turnover"
+  },
+  {
+    "claim": "Portugal transposed the EAA with Decreto-Lei n.º 82/2022, de 6 de dezembro, published in Diário da República n.º 234/2022, Série I, 2022-12-06, rectified by Declaração de Retificação n.º 5/2023.",
+    "excerpt": "\"Transpõe a Diretiva (UE) 2019/882, relativa aos requisitos de acessibilidade de produtos e serviços\" [Transposes Directive (EU) 2019/882 on the accessibility requirements for products and services]",
+    "field": "transposing-law",
+    "file": "states/pt.md",
+    "id": "PT-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872",
+    "usedBy": "states.pt.law",
+    "value": "Decreto-Lei n.º 82/2022, de 6 de dezembro (DR n.º 234/2022, Série I)"
+  },
+  {
+    "claim": "Under Art. 39(1), the decree-law produces effects from 28 June 2025 for products placed on the market and services provided to consumers from that date; the 112 obligations apply from 28 June 2027 (Art. 39(2)). The decree-law itself entered into force the day after publication (Art. 40).",
+    "excerpt": "\"O presente decreto-lei produz efeitos a partir de 28 de junho de 2025 relativamente aos produtos colocados no mercado e aos serviços prestados aos consumidores a partir desta data\" [This decree-law produces effects from 28 June 2025 for products placed on the market and services provided to consumers from that date]",
+    "field": "applies-from",
+    "file": "states/pt.md",
+    "id": "PT-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872",
+    "usedBy": "states.pt.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "Art. 2(1) covers the EAA product list: consumer general-purpose computer hardware and operating systems, self-service terminals (payment terminals, ATMs, ticketing machines, check-in machines, interactive information terminals), consumer terminal equipment for electronic communications and audiovisual media, and e-readers.",
+    "excerpt": "\"a) Equipamentos informáticos para uso geral dos consumidores e sistemas operativos para esses equipamentos informáticos\" [a) General-purpose computer hardware for consumers and operating systems for that hardware]",
+    "field": "scope-products",
+    "file": "states/pt.md",
+    "id": "PT-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872",
+    "usedBy": "states.pt.scope.products",
+    "value": "EAA Art. 2(1) products"
+  },
+  {
+    "claim": "Art. 2(3) covers electronic communications, access to audiovisual media, passenger transport elements, self-service terminals of urban, suburban and regional transport, consumer banking and financial services (credit, investment, payment services, payment accounts, e-money), e-books and dedicated software, and e-commerce services.",
+    "excerpt": "\"o presente decreto-lei é aplicável aos seguintes serviços:\" [this decree-law applies to the following services:]",
+    "field": "scope-services",
+    "file": "states/pt.md",
+    "id": "PT-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872",
+    "usedBy": "states.pt.scope.services",
+    "value": "EAA Art. 2(2) services"
+  },
+  {
+    "claim": "Art. 2(3)(g) lists e-commerce services among the services in scope.",
+    "excerpt": "\"g) Serviços de comércio eletrónico.\" [g) E-commerce services.]",
+    "field": "scope-ecommerce",
+    "file": "states/pt.md",
+    "id": "PT-ECOMMERCE-1",
+    "retrieved": "2026-11-03",
+    "source": "https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872",
+    "usedBy": "states.pt.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "Art. 2(5)(b) states the decree-law does not apply to microenterprises providing the services in Art. 2(3).",
+    "excerpt": "\"b) Às microempresas que prestam os serviços previstos no n.º 3.\" [(This decree-law does not apply) b) to microenterprises providing the services provided for in paragraph 3.]",
+    "field": "microenterprise-exemption",
+    "file": "states/pt.md",
+    "id": "PT-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872",
+    "usedBy": "states.pt.exemptions.micro",
+    "value": "yes, services microenterprises exempt"
+  },
+  {
+    "claim": "Art. 14 transposes the fundamental-alteration and disproportionate-burden exception.",
+    "excerpt": "\"b) Não resulte na imposição de encargos desproporcionados aos operadores económicos.\" [b) does not result in a disproportionate burden on economic operators.]",
+    "field": "disproportionate-burden",
+    "file": "states/pt.md",
+    "id": "PT-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872",
+    "usedBy": "states.pt.exemptions.burden",
+    "value": "yes (Art. 14)"
+  },
+  {
+    "claim": "Under Art. 28(1)(a), the National Communications Authority (ANACOM) supervises the services in Art. 2(3)(a) and (g), that is electronic communications and e-commerce services, plus 112 and some radio or communications equipment.",
+    "excerpt": "\"e aos serviços identificados nas alíneas a) e g) do n.º 3 e ao previsto no n.º 4 do artigo 2.º\" [and the services identified in points a) and g) of paragraph 3 and the provision of paragraph 4 of Article 2]",
+    "field": "authority",
+    "file": "states/pt.md",
+    "id": "PT-AUTHORITY-1",
+    "retrieved": "2026-11-03",
+    "source": "https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872",
+    "usedBy": "states.pt.authority",
+    "value": "ANACOM (for e-commerce and electronic communications services)"
+  },
+  {
+    "claim": "Art. 28(1) splits supervision by sector: ANACOM, ERC (audiovisual access), Autoridade da Mobilidade e dos Transportes and ANAC (transport), IMT (urban and regional transport terminals), Banco de Portugal and CMVM (banking and financial services), ASAE (non-radio computer hardware and other products).",
+    "excerpt": "\"e) Ao Banco de Portugal, no que respeita aos serviços identificados nas subalíneas i), ii), iii) e v) da alínea e) do n.º 3 do artigo 2.º\" [e) to the Bank of Portugal, for the services identified in sub-points i), ii), iii) and v) of point e) of paragraph 3 of Article 2]",
+    "field": "authority",
+    "file": "states/pt.md",
+    "id": "PT-AUTHORITY-2",
+    "retrieved": "2026-11-03",
+    "source": "https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872",
+    "usedBy": "states.pt.authority",
+    "value": "sector bodies: ANACOM, ERC, AMT, ANAC, IMT, Banco de Portugal, CMVM, ASAE"
+  },
+  {
+    "claim": "Under Art. 29(2), a serious administrative offence (contraordenação grave) carries a fine of EUR 650 to 1,500 for natural persons and EUR 12,000 to 24,000 for legal persons.",
+    "excerpt": "\"ii) Tratando-se de pessoa coletiva, de (euro) 12 000 a (euro) 24 000\" [ii) for a legal person, from EUR 12,000 to EUR 24,000]",
+    "field": "penalties",
+    "file": "states/pt.md",
+    "id": "PT-PENALTIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872",
+    "usedBy": "states.pt.penalties",
+    "value": "serious: EUR 650-1,500 (natural), EUR 12,000-24,000 (legal persons)"
+  },
+  {
+    "claim": "A very serious offence (contraordenação muito grave) carries a fine for legal persons from EUR 24,000 up to the maximum threshold in Decreto-Lei n.º 433/82 (natural persons from EUR 2,000). Making non-accessible products or services available and failing to carry out the Art. 14 assessment (Art. 29(1)(a) and (b)) are very serious offences. The upper limit is stated only by reference to Decreto-Lei n.º 433/82.",
+    "excerpt": "\"ii) Tratando-se de pessoa coletiva, de (euro) 24 000 até ao limiar máximo previsto no Decreto-Lei n.º 433/82\" [ii) for a legal person, from EUR 24,000 up to the maximum threshold provided in Decree-Law No. 433/82]",
+    "field": "penalties",
+    "file": "states/pt.md",
+    "id": "PT-PENALTIES-2",
+    "retrieved": "2026-11-03",
+    "source": "https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872",
+    "usedBy": "states.pt.penalties",
+    "value": "very serious: legal persons from EUR 24,000 up to the Decreto-Lei 433/82 maximum"
+  },
+  {
+    "claim": "Art. 29(4)(a) classifies the offences in Art. 29(1)(a) and (b) (non-accessible products or services; missing Art. 14 assessment) as very serious.",
+    "excerpt": "\"Constituem contraordenações muito graves as infrações previstas: a) Nas alíneas a) e b) do n.º 1\" [The following are very serious offences: a) those in points a) and b) of paragraph 1]",
+    "field": "penalties",
+    "file": "states/pt.md",
+    "id": "PT-PENALTIES-3",
+    "retrieved": "2026-11-03",
+    "source": "https://diariodarepublica.pt/dr/detalhe/decreto-lei/82-2022-204379872",
+    "usedBy": "states.pt.penalties",
+    "value": "non-accessible service = very serious offence"
+  },
+  {
+    "claim": "Romania transposed the EAA with the Lege privind cerinţele de accesibilitate aplicabile produselor şi serviciilor, adopted by Parliament (Senate file L284/2022); its closing note states it transposes Directive (EU) 2019/882. The law number and Monitorul Oficial reference are not on the fetched copy; secondary sources and a search-result title on cdep.ro give Legea nr. 232/2022, which is unconfirmed here.",
+    "excerpt": "\"Prezenta lege transpune prevederile Directivei (UE) 2019/882 a Parlamentului European şi a Consiliului din 17 aprilie 2019 privind cerinţele de accesibilitate aplicabile produselor şi serviciilor\" [This law transposes Directive (EU) 2019/882 of the European Parliament and of the Council of 17 April 2019 on the accessibility requirements for products and services]",
+    "field": "transposing-law",
+    "file": "states/ro.md",
+    "id": "RO-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.senat.ro/legis/PDF/2022/22L284LP.pdf",
+    "usedBy": "states.ro.law",
+    "value": "Lege privind cerinţele de accesibilitate aplicabile produselor şi serviciilor (number unconfirmed)"
+  },
+  {
+    "claim": "The official identifier (law number, date, Monitorul Oficial issue) could not be read from a primary source: the adopted text leaves the number blank, legislatie.just.ro was unreachable and the cdep.ro law page returned 404.",
+    "excerpt": "(not retrieved: the adopted text ends \"Bucureşti, Nr.\" with the number blank; legislatie.just.ro dropped connections; https://www.cdep.ro/pls/legis/legis_pck.htp_act?ida=187163 returned 404)",
+    "field": "transposing-law",
+    "file": "states/ro.md",
+    "id": "RO-LAW-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.senat.ro/legis/PDF/2022/22L284LP.pdf",
+    "usedBy": "states.ro.law",
+    "value": "unknown"
+  },
+  {
+    "claim": "Under Art. 30, the law enters into force on 28 June 2025, except Art. 4(8) (112), which enters into force on 28 June 2027.",
+    "excerpt": "\"Art. 30. - Prezenta lege intră în vigoare la data de 28 iunie 2025, cu excepţia prevederilor art. 4 alin. (8), care intră în vigoare la data de 28 iunie 2027.\" [Art. 30. This law enters into force on 28 June 2025, except Art. 4(8), which enters into force on 28 June 2027.]",
+    "field": "applies-from",
+    "file": "states/ro.md",
+    "id": "RO-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.senat.ro/legis/PDF/2022/22L284LP.pdf",
+    "usedBy": "states.ro.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "Art. 2(1)-(2) covers products placed on the market after 28 June 2025: consumer general-purpose hardware and operating systems, consumer terminal equipment for electronic communications and audiovisual media, e-readers, and self-service terminals (payment terminals, ATMs, ticketing and check-in machines, interactive information terminals).",
+    "excerpt": "\"a) sisteme hardware de uz general destinate consumatorilor şi sisteme de operare pentru aceste sisteme hardware;\" [a) general-purpose hardware systems for consumers and operating systems for them;]",
+    "field": "scope-products",
+    "file": "states/ro.md",
+    "id": "RO-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.senat.ro/legis/PDF/2022/22L284LP.pdf",
+    "usedBy": "states.ro.scope.products",
+    "value": "EAA Art. 2(1) products"
+  },
+  {
+    "claim": "Art. 2(3) covers services provided to consumers after 28 June 2025: electronic communications, access to audiovisual media, consumer banking, e-books and dedicated software, and e-commerce; Art. 2(4) adds passenger transport elements.",
+    "excerpt": "\"(3) Prezenta lege se aplică următoarelor servicii furnizate consumatorilor după data de 28 iunie 2025:\" [(3) This law applies to the following services provided to consumers after 28 June 2025:]",
+    "field": "scope-services",
+    "file": "states/ro.md",
+    "id": "RO-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.senat.ro/legis/PDF/2022/22L284LP.pdf",
+    "usedBy": "states.ro.scope.services",
+    "value": "EAA Art. 2(2) services"
+  },
+  {
+    "claim": "Art. 2(3)(e) lists e-commerce services among the consumer services in scope.",
+    "excerpt": "\"d) cărţi electronice şi software dedicat; e) servicii de comerţ electronic.\" [d) e-books and dedicated software; e) e-commerce services.]",
+    "field": "scope-ecommerce",
+    "file": "states/ro.md",
+    "id": "RO-ECOMMERCE-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.senat.ro/legis/PDF/2022/22L284LP.pdf",
+    "usedBy": "states.ro.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "Art. 4(5) exempts microenterprises offering services from the service accessibility requirements and related obligations.",
+    "excerpt": "\"(5) Microîntreprinderile ce oferă servicii sunt scutite de obligaţia de a respecta cerinţele de accesibilitate prevăzute la alin. (3)\" [(5) Microenterprises offering services are exempt from the obligation to meet the accessibility requirements in para. (3)]",
+    "field": "microenterprise-exemption",
+    "file": "states/ro.md",
+    "id": "RO-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.senat.ro/legis/PDF/2022/22L284LP.pdf",
+    "usedBy": "states.ro.exemptions.micro",
+    "value": "yes, services microenterprises exempt"
+  },
+  {
+    "claim": "Art. 14 transposes the fundamental-alteration and disproportionate-burden exception.",
+    "excerpt": "\"b) nu duce la impunerea unei sarcini disproporţionate asupra operatorilor economici în cauză.\" [b) does not result in a disproportionate burden on the economic operators concerned.]",
+    "field": "disproportionate-burden",
+    "file": "states/ro.md",
+    "id": "RO-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.senat.ro/legis/PDF/2022/22L284LP.pdf",
+    "usedBy": "states.ro.exemptions.burden",
+    "value": "yes (Art. 14)"
+  },
+  {
+    "claim": "Under Art. 19(1)(d), the Authority for the Digitalisation of Romania (Autoritatea pentru Digitalizarea României, ADR) is the market surveillance authority for the services in Art. 2(3)(d) and (e), that is e-books and e-commerce, and for some transport elements.",
+    "excerpt": "\"d) Autoritatea pentru Digitalizarea României pentru serviciile prevăzute la art. 2 alin. (3) lit. d) şi e)\" [d) the Authority for the Digitalisation of Romania for the services in Art. 2(3)(d) and (e)]",
+    "field": "authority",
+    "file": "states/ro.md",
+    "id": "RO-AUTHORITY-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.senat.ro/legis/PDF/2022/22L284LP.pdf",
+    "usedBy": "states.ro.authority",
+    "value": "Autoritatea pentru Digitalizarea României (ADR) for e-commerce"
+  },
+  {
+    "claim": "Art. 19(1) splits surveillance: ANPC (consumer protection) for most products and consumer banking, Ministry of Economy for self-service terminals, ANCOM for electronic communications, CNA for audiovisual access, Ministry of Transport for some transport elements, and the Competition Council for Art. 4(7).",
+    "excerpt": "\"c) Autoritatea Naţională pentru Administrare şi Reglementare în Comunicaţii pentru serviciile prevăzute la art. 2 alin. (3) lit. a);\" [c) the National Authority for Management and Regulation in Communications for the services in Art. 2(3)(a);]",
+    "field": "authority",
+    "file": "states/ro.md",
+    "id": "RO-AUTHORITY-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.senat.ro/legis/PDF/2022/22L284LP.pdf",
+    "usedBy": "states.ro.authority",
+    "value": "sector bodies: ANPC, Ministry of Economy, ANCOM, ADR, CNA, Ministry of Transport"
+  },
+  {
+    "claim": "Under Art. 27(1)(f)-(j), service providers breaching Art. 13 face contravention fines between RON 5,000 and 15,000 depending on the provision: RON 6,000-12,000 for Art. 13(1) and 13(3), RON 7,000-15,000 for Art. 13(2)(a)-(e), RON 5,000-10,000 for Art. 13(2)(f)-(g). Amounts are as adopted; later amendments unknown.",
+    "excerpt": "\"g) încălcarea de către furnizorii serviciilor prevăzute de prezenta lege a dispoziţiilor art. 13 alin. (2) lit. a) - d) şi se sancţionează cu amendă de la 7000 lei la 15000 lei;\" [g) breach by service providers of Art. 13(2)(a)-(d) is fined RON 7,000 to 15,000;]",
+    "field": "penalties",
+    "file": "states/ro.md",
+    "id": "RO-PENALTIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.senat.ro/legis/PDF/2022/22L284LP.pdf",
+    "usedBy": "states.ro.penalties",
+    "value": "services: RON 5,000-15,000 by provision"
   },
   {
     "claim": "Sweden transposed the EAA with Lag (2023:254) om vissa produkters och tjänsters tillgänglighet (SFS 2023:254), issued 11 May 2023, with Förordning (2023:676) as the implementing ordinance.",
@@ -2609,6 +4915,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-2023254-om-vissa-produkters-och-tjansters_sfs-2023-254/",
+    "usedBy": "states.se.law",
     "value": "Lag (2023:254) om vissa produkters och tjänsters tillgänglighet (SFS 2023:254)"
   },
   {
@@ -2619,6 +4926,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-2023254-om-vissa-produkters-och-tjansters_sfs-2023-254/",
+    "usedBy": "states.se.appliesFrom",
     "value": "2025-06-28"
   },
   {
@@ -2629,6 +4937,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-2023254-om-vissa-produkters-och-tjansters_sfs-2023-254/",
+    "usedBy": "states.se.scope.products",
     "value": "EAA Art. 2(1) products"
   },
   {
@@ -2639,6 +4948,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-2023254-om-vissa-produkters-och-tjansters_sfs-2023-254/",
+    "usedBy": "states.se.scope.services",
     "value": "EAA Art. 2(2) services"
   },
   {
@@ -2649,6 +4959,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-ECOMMERCE-1",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-2023254-om-vissa-produkters-och-tjansters_sfs-2023-254/",
+    "usedBy": "states.se.scope.ecommerce",
     "value": "yes"
   },
   {
@@ -2659,6 +4970,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-ECOMMERCE-2",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-2023254-om-vissa-produkters-och-tjansters_sfs-2023-254/",
+    "usedBy": "states.se.scope.ecommerce",
     "value": "definition matches EAA Art. 3(30)"
   },
   {
@@ -2669,6 +4981,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-2023254-om-vissa-produkters-och-tjansters_sfs-2023-254/",
+    "usedBy": "states.se.exemptions.micro",
     "value": "yes, services microenterprises exempt"
   },
   {
@@ -2679,6 +4992,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-MICRO-2",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-2023254-om-vissa-produkters-och-tjansters_sfs-2023-254/",
+    "usedBy": "states.se.exemptions.micro",
     "value": "fewer than 10 employees and turnover or balance sheet up to EUR 2 million"
   },
   {
@@ -2689,6 +5003,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-2023254-om-vissa-produkters-och-tjansters_sfs-2023-254/",
+    "usedBy": "states.se.exemptions.burden",
     "value": "yes (§§ 7-8)"
   },
   {
@@ -2699,6 +5014,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-AUTHORITY-1",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/forordning-2023676-om-vissa-produkters-och_sfs-2023-676/",
+    "usedBy": "states.se.authority",
     "value": "Post- och telestyrelsen (PTS) for e-commerce, banking and electronic communications services"
   },
   {
@@ -2709,6 +5025,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-AUTHORITY-2",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/forordning-2023676-om-vissa-produkters-och_sfs-2023-676/",
+    "usedBy": "states.se.authority",
     "value": "Konsumentverket for passenger transport websites, mobile services and e-ticketing (§ 4 p. 3 a-c)"
   },
   {
@@ -2719,6 +5036,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-AUTHORITY-4",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/forordning-2023676-om-vissa-produkters-och_sfs-2023-676/",
+    "usedBy": "states.se.authority",
     "value": "Transportstyrelsen for transport information and self-service terminals (§ 4 p. 3 d-e and 4)"
   },
   {
@@ -2729,6 +5047,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-AUTHORITY-3",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/forordning-2023676-om-vissa-produkters-och_sfs-2023-676/",
+    "usedBy": "states.se.authority",
     "value": "Post- och telestyrelsen (PTS) for products"
   },
   {
@@ -2739,7 +5058,162 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SE-PENALTIES-1",
     "retrieved": "2026-11-03",
     "source": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-2023254-om-vissa-produkters-och-tjansters_sfs-2023-254/",
+    "usedBy": "states.se.penalties",
     "value": "sanction fee SEK 10,000 to 10,000,000"
+  },
+  {
+    "claim": "Slovenia transposed the EAA with the Zakon o dostopnosti do proizvodov in storitev za invalide (ZDPSI), published in Uradni list RS, št. 14/2023 of 3 February 2023, amended by ZDPSI-A (Uradni list RS, št. 14/2026).",
+    "excerpt": "\"238. Zakon o dostopnosti do proizvodov in storitev za invalide (ZDPSI), stran 733.\" [238. Act on the accessibility of products and services for persons with disabilities (ZDPSI), page 733.]",
+    "field": "transposing-law",
+    "file": "states/si.md",
+    "id": "SI-LAW-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238",
+    "usedBy": "states.si.law",
+    "value": "Zakon o dostopnosti do proizvodov in storitev za invalide (ZDPSI), Uradni list RS, št. 14/2023"
+  },
+  {
+    "claim": "ZDPSI was amended by the Zakon o spremembah in dopolnitvah ZDPSI (ZDPSI-A), published in Uradni list RS, št. 14/2026 of 24 February 2026, in force the day after publication. ZDPSI-A adds, among other things, a new Art. 9.a with additional accessibility conditions for e-commerce services.",
+    "excerpt": "\"563. Zakon o spremembah in dopolnitvah Zakona o dostopnosti do proizvodov in storitev za invalide (ZDPSI-A), stran 1538.\" [563. Act amending the Act on the accessibility of products and services for persons with disabilities (ZDPSI-A), page 1538.]",
+    "field": "transposing-law",
+    "file": "states/si.md",
+    "id": "SI-LAW-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2026-01-0563",
+    "usedBy": "states.si.law",
+    "value": "amended by ZDPSI-A, Uradni list RS, št. 14/2026"
+  },
+  {
+    "claim": "Under Art. 46, ZDPSI entered into force on the fifteenth day after publication and applies from 28 June 2025.",
+    "excerpt": "\"Ta zakon začne veljati petnajsti dan po objavi v Uradnem listu Republike Slovenije, uporabljati pa se začne 28. junija 2025.\" [This act enters into force on the fifteenth day after publication in the Official Gazette and applies from 28 June 2025.]",
+    "field": "applies-from",
+    "file": "states/si.md",
+    "id": "SI-APPLIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238",
+    "usedBy": "states.si.appliesFrom",
+    "value": "2025-06-28"
+  },
+  {
+    "claim": "Art. 3(1) ZDPSI covers the EAA product list, ending with consumer terminal equipment for electronic communications and audiovisual media and e-readers.",
+    "excerpt": "\"4. potrošniško terminalno opremo z interaktivnimi računalniškimi zmogljivostmi, ki se uporablja za dostop do avdiovizualnih medijskih storitev; 5. e-bralnike.\" [4. consumer terminal equipment with interactive computing capability used to access audiovisual media services; 5. e-readers.]",
+    "field": "scope-products",
+    "file": "states/si.md",
+    "id": "SI-PRODUCTS-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238",
+    "usedBy": "states.si.scope.products",
+    "value": "EAA Art. 2(1) products"
+  },
+  {
+    "claim": "Art. 3(2) ZDPSI, as amended by ZDPSI-A (Art. 1), covers electronic communications, access to audiovisual media, air, bus, rail and waterborne passenger transport elements, consumer banking, e-books and dedicated software, and e-commerce services. ZDPSI-A replaced point 3 to add rail transport.",
+    "excerpt": "\"»3. storitve zračnega, avtobusnega, železniškega in vodnega potniškega prevoza, in sicer:\" [3. air, bus, rail and waterborne passenger transport services, namely:]",
+    "field": "scope-services",
+    "file": "states/si.md",
+    "id": "SI-SERVICES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2026-01-0563",
+    "usedBy": "states.si.scope.services",
+    "value": "EAA Art. 2(2) services"
+  },
+  {
+    "claim": "Art. 3(2)(6) ZDPSI lists e-commerce services among the services in scope.",
+    "excerpt": "\"4. potrošniške bančne storitve; 5. e-knjige in namensko programsko opremo; 6. storitve e-trgovine.\" [4. consumer banking services; 5. e-books and dedicated software; 6. e-commerce services.]",
+    "field": "scope-ecommerce",
+    "file": "states/si.md",
+    "id": "SI-ECOMMERCE-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238",
+    "usedBy": "states.si.scope.ecommerce",
+    "value": "yes"
+  },
+  {
+    "claim": "ZDPSI defines an e-commerce service as a service provided at a distance, through websites and mobile device services, by electronic means, at the individual request of a consumer, with a view to concluding a consumer contract.",
+    "excerpt": "\"»storitev e-trgovine« je storitev, ki se zagotavlja na daljavo, prek spletišč in storitev na osnovi mobilnih naprav, elektronsko in na posamezno zahtevo potrošnika, z namenom sklenitve potrošniške pogodbe;\" [an \"e-commerce service\" is a service provided at a distance, through websites and mobile device services, by electronic means and at the individual request of a consumer, with a view to concluding a consumer contract;]",
+    "field": "scope-ecommerce",
+    "file": "states/si.md",
+    "id": "SI-ECOMMERCE-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238",
+    "usedBy": "states.si.scope.ecommerce",
+    "value": "definition matches EAA Art. 3(30)"
+  },
+  {
+    "claim": "Art. 4(2) ZDPSI states the act does not apply to microenterprises providing services. ZDPSI-A changes Art. 4(3) only, not Art. 4(2).",
+    "excerpt": "\"(2) Ta zakon se ne uporablja za mikropodjetja, ki zagotavljajo storitve.\" [(2) This act does not apply to microenterprises providing services.]",
+    "field": "microenterprise-exemption",
+    "file": "states/si.md",
+    "id": "SI-MICRO-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238",
+    "usedBy": "states.si.exemptions.micro",
+    "value": "yes, services microenterprises exempt"
+  },
+  {
+    "claim": "ZDPSI defines a microenterprise as an enterprise with fewer than ten employees and an annual turnover or annual balance sheet total not exceeding EUR 2 million.",
+    "excerpt": "\"»mikropodjetje« je podjetje, ki ima manj kot deset zaposlenih in ima letni promet, ki ne presega dveh milijonov eurov, ali letno bilančno vsoto, ki ne presega dveh milijonov eurov;\" [\"microenterprise\" is an enterprise with fewer than ten employees and an annual turnover not exceeding two million euro or an annual balance sheet total not exceeding two million euro;]",
+    "field": "microenterprise-exemption",
+    "file": "states/si.md",
+    "id": "SI-MICRO-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238",
+    "usedBy": "states.si.exemptions.micro",
+    "value": "fewer than 10 employees and turnover or balance sheet up to EUR 2 million"
+  },
+  {
+    "claim": "Art. 22 ZDPSI transposes the fundamental-alteration and disproportionate-burden exception, with criteria set by implementing regulation.",
+    "excerpt": "\"(temeljita sprememba proizvoda ali storitve in nesorazmerno breme)\" [(fundamental alteration of a product or service and disproportionate burden)]",
+    "field": "disproportionate-burden",
+    "file": "states/si.md",
+    "id": "SI-BURDEN-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238",
+    "usedBy": "states.si.exemptions.burden",
+    "value": "yes (Art. 22)"
+  },
+  {
+    "claim": "Under Art. 30 ZDPSI, the Market Inspectorate of the Republic of Slovenia (Tržni inšpektorat Republike Slovenije, TIRS) supervises e-commerce services. ZDPSI-A renumbers this paragraph (from (7) to (8)) without changing its content.",
+    "excerpt": "\"(7) Nadzor nad storitvami e-trgovine izvaja TIRS.\" [(7) Supervision of e-commerce services is carried out by TIRS.]",
+    "field": "authority",
+    "file": "states/si.md",
+    "id": "SI-AUTHORITY-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238",
+    "usedBy": "states.si.authority",
+    "value": "Tržni inšpektorat Republike Slovenije (TIRS) for e-commerce services"
+  },
+  {
+    "claim": "Under Art. 26(2) ZDPSI, TIRS also carries out market surveillance of products.",
+    "excerpt": "\"(2) Nadzor nad proizvodi iz prvega odstavka 3. člena tega zakona izvaja Tržni inšpektorat Republike Slovenije (v nadaljnjem besedilu: TIRS).\" [(2) Supervision of the products in Art. 3(1) is carried out by the Market Inspectorate of the Republic of Slovenia (TIRS).]",
+    "field": "authority",
+    "file": "states/si.md",
+    "id": "SI-AUTHORITY-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238",
+    "usedBy": "states.si.authority",
+    "value": "TIRS for products"
+  },
+  {
+    "claim": "For failing to ensure accessibility of e-commerce services, ZDPSI fines a legal person EUR 500 to 5,000, or EUR 1,000 to 10,000 if it is a medium or large company; sole traders EUR 250 to 2,500; responsible persons EUR 50 to 250.",
+    "excerpt": "\"(1) Z globo od 500 do 5.000 eurov se kaznuje za prekršek pravna oseba, z globo od 1.000 do 10.000 eurov pa pravna oseba, ki se po zakonu, ki ureja gospodarske družbe, šteje za srednjo ali veliko gospodarsko družbo, če ne zagotavlja dostopnosti do e-trgovine\" [(1) A legal person is fined EUR 500 to 5,000, and a legal person that counts as a medium or large company EUR 1,000 to 10,000, if it does not ensure accessibility of e-commerce]",
+    "field": "penalties",
+    "file": "states/si.md",
+    "id": "SI-PENALTIES-1",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238",
+    "usedBy": "states.si.penalties",
+    "value": "e-commerce: EUR 500-5,000 (EUR 1,000-10,000 medium/large companies)"
+  },
+  {
+    "claim": "For products, ZDPSI fines a legal person acting as manufacturer, importer or authorised representative EUR 3,000 to 40,000.",
+    "excerpt": "\"(1) Z globo od 3.000 do 40.000 eurov se za prekršek kaznuje pravna oseba, ki v zvezi z opravljanjem dejavnosti kot proizvajalec, uvoznik ali pooblaščeni zastopnik\" [(1) A legal person acting as manufacturer, importer or authorised representative is fined EUR 3,000 to 40,000]",
+    "field": "penalties",
+    "file": "states/si.md",
+    "id": "SI-PENALTIES-2",
+    "retrieved": "2026-11-03",
+    "source": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238",
+    "usedBy": "states.si.penalties",
+    "value": "products: EUR 3,000-40,000 (manufacturer, importer, representative)"
   },
   {
     "claim": "Slovakia transposed the EAA with Zákon č. 351/2022 Z. z. o prístupnosti výrobkov a služieb pre osoby so zdravotným postihnutím, adopted 4 October 2022; its annex lists Directive (EU) 2019/882 as the transposed act.",
@@ -2749,6 +5223,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SK-LAW-1",
     "retrieved": "2026-11-03",
     "source": "https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html",
+    "usedBy": "states.sk.law",
     "value": "Zákon č. 351/2022 Z. z. o prístupnosti výrobkov a služieb pre osoby so zdravotným postihnutím"
   },
   {
@@ -2759,6 +5234,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SK-APPLIES-1",
     "retrieved": "2026-11-03",
     "source": "https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html",
+    "usedBy": "states.sk.appliesFrom",
     "value": "2025-06-28"
   },
   {
@@ -2769,6 +5245,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SK-PRODUCTS-1",
     "retrieved": "2026-11-03",
     "source": "https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html",
+    "usedBy": "states.sk.scope.products",
     "value": "unknown"
   },
   {
@@ -2779,6 +5256,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SK-SERVICES-1",
     "retrieved": "2026-11-03",
     "source": "https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html",
+    "usedBy": "states.sk.scope.services",
     "value": "transport elements, financial services, e-books, information society services"
   },
   {
@@ -2789,6 +5267,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SK-SERVICES-2",
     "retrieved": "2026-11-03",
     "source": "https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html",
+    "usedBy": "states.sk.scope.services",
     "value": "financial services"
   },
   {
@@ -2799,6 +5278,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SK-ECOMMERCE-1",
     "retrieved": "2026-11-03",
     "source": "https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html",
+    "usedBy": "states.sk.scope.ecommerce",
     "value": "yes, as information society services (Act 22/2004 Coll.)"
   },
   {
@@ -2809,6 +5289,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SK-MICRO-1",
     "retrieved": "2026-11-03",
     "source": "https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html",
+    "usedBy": "states.sk.exemptions.micro",
     "value": "yes, services microenterprises exempt"
   },
   {
@@ -2819,6 +5300,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SK-BURDEN-1",
     "retrieved": "2026-11-03",
     "source": "https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html",
+    "usedBy": "states.sk.exemptions.burden",
     "value": "yes (§ 7)"
   },
   {
@@ -2829,6 +5311,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SK-AUTHORITY-1",
     "retrieved": "2026-11-03",
     "source": "https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html",
+    "usedBy": "states.sk.authority",
     "value": "Slovenská obchodná inšpekcia (SOI)"
   },
   {
@@ -2839,6 +5322,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SK-PENALTIES-1",
     "retrieved": "2026-11-03",
     "source": "https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html",
+    "usedBy": "states.sk.penalties",
     "value": "EUR 200 to 3% of turnover, capped at EUR 6,000 / 20,000 / 30,000 by offence"
   },
   {
@@ -2849,6 +5333,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "SK-PENALTIES-2",
     "retrieved": "2026-11-03",
     "source": "https://static.slov-lex.sk/static/SK/ZZ/2022/351/20260530.html",
+    "usedBy": "states.sk.penalties",
     "value": "caps EUR 6,000 / 20,000 / 30,000"
   }
 ];

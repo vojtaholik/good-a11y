@@ -10,7 +10,7 @@ Automated checks find only part of the issues WCAG covers. A report from this to
 
 Built in layers, each on top of a working one.
 
-1. CLI scan, deterministic checks, report mapped to WCAG and EN 301 549 from the ledger. In progress.
+1. CLI scan, deterministic checks, report mapped to WCAG and EN 301 549 from the ledger. **Done** (`docs/layer-1.md`).
 2. The scan as an XState machine inside a Cloudflare Workflow, on a non-production stage.
 3. A bare page: paste a URL, read the report.
 

@@ -22,6 +22,25 @@ describe("built CLI", () => {
 
     expect(result.status).toBe(0);
     expect(result.stdout).toContain("USAGE");
-    expect(result.stdout).toContain("eaa-check");
+    expect(result.stdout).toContain("scan");
+  });
+
+  it("describes the scan command and its address argument", () => {
+    const result = runCli(["scan", "--help"]);
+
+    expect(result.status).toBe(0);
+    expect(result.stdout).toContain("example.com");
+    expect(result.stdout).toContain("--json");
+  });
+
+  it("refuses a private address with the typed failure, exits one, and makes no request", () => {
+    const result = runCli(["scan", "http://127.0.0.1/"]);
+
+    expect(result.status).toBe(1);
+    expect(result.stdout).toBe("");
+    expect(result.stderr).toContain(
+      "An IP address in place of a domain is not allowed."
+    );
+    expect(result.stderr).toContain('Cannot scan "http://127.0.0.1/"');
   });
 });

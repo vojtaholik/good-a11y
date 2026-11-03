@@ -4,11 +4,20 @@ packages:
   - "apps/*"
   - "packages/*"
 
+# One copy of the D1 client and of the Workers types. Alchemy and Drizzle take
+# both as peers by range; without these pins pnpm installs a second Drizzle
+# beside the store's, and a database built by one is not the other's type.
+overrides:
+  "@cloudflare/workers-types": 5.20260917.1
+  "@effect/sql-d1": 4.0.0
+
 allowBuilds:
   "@google/genai": true
   esbuild: true
   lefthook: true
+  msgpackr-extract: true
   protobufjs: true
+  workerd: true
 
 # Exact fresh pins that pnpm's release-age check would otherwise hold back.
 # One entry per version; a bump replaces its entry rather than adding one.
@@ -26,3 +35,27 @@ minimumReleaseAgeExclude:
   - "@earendil-works/pi-coding-agent@0.86.1"
   - "@earendil-works/pi-telemetry@0.86.1"
   - "@earendil-works/pi-tui@0.86.1"
+  - alchemy@2.0.0-beta.81
+  - "@foldkit/devtools@0.166.0"
+  - "@foldkit/vite-plugin@0.26.1"
+  - foldkit@0.166.0
+  - "@effect/sql-d1@4.0.0"
+  - "@distilled.cloud/aws@1.0.0-rc.13"
+  - "@distilled.cloud/axiom@1.0.0-rc.13"
+  - "@distilled.cloud/cloudflare@1.0.0-rc.13"
+  - "@distilled.cloud/core@1.0.0-rc.13"
+  - "@distilled.cloud/fly-io@1.0.0-rc.13"
+  - "@distilled.cloud/hetzner@1.0.0-rc.13"
+  - "@distilled.cloud/neon@1.0.0-rc.13"
+  - "@distilled.cloud/planetscale@1.0.0-rc.13"
+  - "@distilled.cloud/prisma@1.0.0-rc.13"
+  - "@distilled.cloud/railway@1.0.0-rc.13"
+  - "@distilled.cloud/stripe@1.0.0-rc.13"
+  - "@alchemy.run/cloudflare-runtime@2.0.0-beta.81"
+  - "@alchemy.run/floci@2.0.0-beta.81"
+  - "@alchemy.run/node-utils@2.0.0-beta.81"
+  - "@distilled.cloud/acme@1.0.0-rc.13"
+  - "@distilled.cloud/doppler@1.0.0-rc.13"
+  - "@distilled.cloud/gcp@1.0.0-rc.13"
+  - "@distilled.cloud/infisical@1.0.0-rc.13"
+  - "@distilled.cloud/zerossl@1.0.0-rc.13"

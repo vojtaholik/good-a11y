@@ -1,0 +1,194 @@
+import { ReportSchema, ScanStageSchema, ScanViewSchema } from "@eaa-check/core";
+import type { Report, ScanView } from "@eaa-check/core";
+import { and, desc, eq, inArray, sql } from "drizzle-orm";
+import { Context, Effect, Layer, Option, Schema } from "effect";
+
+import { DAY_MILLIS } from "./daily-window.js";
+import { failedDuring } from "./scan-store-error.js";
+import type { ScanStoreError } from "./scan-store-error.js";
+import { Scans } from "./schema/d1.js";
+import { StoreDatabase } from "./store-database.js";
+
+export interface NewScan {
+  readonly dailyCap: number;
+  readonly requestedAt: number;
+  readonly reuseWithin: number;
+  readonly scanId: string;
+  readonly slug: string;
+  readonly url: string;
+}
+
+export type BeginOutcome =
+  | { readonly kind: "begun" }
+  | { readonly kind: "reused"; readonly scanId: string }
+  | { readonly kind: "cap_reached" };
+
+const UNSETTLED = ["queued", "scanning"];
+
+const ReportJson = Schema.fromJsonString(ReportSchema);
+
+const PersistedScanSchema = Schema.Struct({
+  failure: Schema.NullOr(Schema.String),
+  id: Schema.String,
+  reportJson: Schema.NullOr(ReportJson),
+  requestedAt: Schema.Int,
+  settledAt: Schema.NullOr(Schema.Int),
+  slug: Schema.String,
+  stage: ScanStageSchema,
+  url: Schema.String,
+});
+
+type PersistedScan = typeof PersistedScanSchema.Type;
+
+const isReusable = (scan: PersistedScan, next: NewScan): boolean => {
+  if (scan.url !== next.url) {
+    return false;
+  }
+
+  if (scan.stage === "published") {
+    return (
+      scan.settledAt !== null &&
+      next.requestedAt - scan.settledAt <= next.reuseWithin
+    );
+  }
+
+  return (
+    scan.stage !== "failed" &&
+    next.requestedAt - scan.requestedAt <= next.reuseWithin
+  );
+};
+
+export class ScanStore extends Context.Service<
+  ScanStore,
+  {
+    readonly begin: (
+      scan: NewScan
+    ) => Effect.Effect<BeginOutcome, ScanStoreError>;
+    readonly enter: (
+      scanId: string,
+      stage: "scanning"
+    ) => Effect.Effect<void, ScanStoreError>;
+    readonly fail: (
+      scanId: string,
+      failure: string,
+      settledAt: number
+    ) => Effect.Effect<void, ScanStoreError>;
+    readonly latest: (
+      slug: string
+    ) => Effect.Effect<Option.Option<ScanView>, ScanStoreError>;
+    readonly publish: (
+      scanId: string,
+      report: Report,
+      settledAt: number
+    ) => Effect.Effect<void, ScanStoreError>;
+  }
+>()("@eaa-check/scan-store/ScanStore", {
+  make: Effect.gen(function* makeScanStore() {
+    const db = yield* StoreDatabase;
+
+    const newest = Effect.fn("ScanStore.newest")(function* newest(
+      slug: string
+    ) {
+      const [row] = yield* db
+        .select()
+        .from(Scans)
+        .where(eq(Scans.slug, slug))
+        .orderBy(desc(Scans.requestedAt), desc(Scans.id))
+        .limit(1);
+
+      if (row === undefined) {
+        return Option.none<PersistedScan>();
+      }
+
+      return Option.some(
+        yield* Schema.decodeUnknownEffect(PersistedScanSchema)(row)
+      );
+    });
+
+    return {
+      begin: Effect.fn("ScanStore.begin")(
+        function* begin(scan: NewScan) {
+          const previous = yield* newest(scan.slug);
+
+          if (Option.isSome(previous) && isReusable(previous.value, scan)) {
+            return { kind: "reused", scanId: previous.value.id } as const;
+          }
+
+          const inserted = yield* db.all<{ readonly id: string }>(
+            sql`INSERT OR IGNORE INTO scans (id, slug, url, requested_at, stage) SELECT ${scan.scanId}, ${scan.slug}, ${scan.url}, ${scan.requestedAt}, 'queued' WHERE (SELECT COUNT(*) FROM scans WHERE requested_at > ${scan.requestedAt - DAY_MILLIS}) < ${scan.dailyCap} RETURNING id`
+          );
+
+          if (inserted.length > 0) {
+            return { kind: "begun" } as const;
+          }
+
+          const existing = yield* db
+            .select({ id: Scans.id })
+            .from(Scans)
+            .where(eq(Scans.id, scan.scanId))
+            .limit(1);
+
+          return existing.length > 0
+            ? ({ kind: "begun" } as const)
+            : ({ kind: "cap_reached" } as const);
+        },
+        Effect.mapError(failedDuring("begin"))
+      ),
+      enter: Effect.fn("ScanStore.enter")(
+        function* enter(scanId: string, stage: "scanning") {
+          yield* db
+            .update(Scans)
+            .set({ stage })
+            .where(and(eq(Scans.id, scanId), inArray(Scans.stage, UNSETTLED)));
+        },
+        Effect.mapError(failedDuring("enter"))
+      ),
+      fail: Effect.fn("ScanStore.fail")(
+        function* fail(scanId: string, failure: string, settledAt: number) {
+          yield* db
+            .update(Scans)
+            .set({ failure, settledAt, stage: "failed" })
+            .where(and(eq(Scans.id, scanId), inArray(Scans.stage, UNSETTLED)));
+        },
+        Effect.mapError(failedDuring("fail"))
+      ),
+      latest: Effect.fn("ScanStore.latest")(
+        function* latest(slug: string) {
+          const found = yield* newest(slug);
+
+          if (Option.isNone(found)) {
+            return Option.none<ScanView>();
+          }
+
+          const persisted = found.value;
+
+          const view = yield* Schema.decodeEffect(ScanViewSchema)({
+            failure: persisted.failure,
+            report: persisted.reportJson,
+            requestedAt: persisted.requestedAt,
+            scanId: persisted.id,
+            slug: persisted.slug,
+            stage: persisted.stage,
+            url: persisted.url,
+          });
+
+          return Option.some(view);
+        },
+        Effect.mapError(failedDuring("latest"))
+      ),
+      publish: Effect.fn("ScanStore.publish")(
+        function* publish(scanId: string, report: Report, settledAt: number) {
+          const reportJson = yield* Schema.encodeEffect(ReportJson)(report);
+
+          yield* db
+            .update(Scans)
+            .set({ reportJson, settledAt, stage: "published" })
+            .where(and(eq(Scans.id, scanId), inArray(Scans.stage, UNSETTLED)));
+        },
+        Effect.mapError(failedDuring("publish"))
+      ),
+    };
+  }),
+}) {
+  static readonly layer = Layer.effect(this, this.make);
+}

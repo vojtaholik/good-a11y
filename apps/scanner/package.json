@@ -1,0 +1,36 @@
+{
+  "name": "@eaa-check/scanner",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./worker": {
+      "types": "./src/worker.ts",
+      "import": "./src/worker.ts",
+      "default": "./src/worker.ts"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "check": "pnpm run typecheck",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@eaa-check/capability": "workspace:*",
+    "@eaa-check/core": "workspace:*",
+    "@eaa-check/html-reader": "workspace:*",
+    "@eaa-check/http-transport": "workspace:*",
+    "@eaa-check/scan-store": "workspace:*",
+    "@xstate/effect": "0.1.0-alpha.6",
+    "alchemy": "2.0.0-beta.81",
+    "effect": "4.0.0",
+    "xstate": "6.0.0-alpha.63"
+  },
+  "devDependencies": {
+    "@effect/platform-node": "4.0.0",
+    "@effect/vitest": "4.0.0",
+    "@types/node": "24.13.6",
+    "typescript": "7.0.2",
+    "vitest": "5.0.1"
+  }
+}

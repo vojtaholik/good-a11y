@@ -54,6 +54,14 @@
       "dependsOn": ["build"],
       "outputs": [],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/research/facts/**"]
+    },
+    "@eaa-check/scanner#test": {
+      "dependsOn": ["build"],
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/packages/scan-store/migrations/**"
+      ]
     }
   }
 }

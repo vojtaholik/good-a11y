@@ -1,0 +1,160 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "id": "d318528c-6a5e-4b23-a1c1-029f9fae1292",
+  "prevIds": ["00000000-0000-0000-0000-000000000000"],
+  "ddl": [
+    {
+      "name": "scans",
+      "entityType": "tables"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "failure",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "report_json",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "requested_at",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "settled_at",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "slug",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "stage",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "url",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "columns": ["id"],
+      "nameExplicit": false,
+      "name": "scans_pk",
+      "table": "scans",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        {
+          "value": "slug",
+          "isExpression": false
+        },
+        {
+          "value": "requested_at",
+          "isExpression": false
+        },
+        {
+          "value": "id",
+          "isExpression": false
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "origin": "manual",
+      "name": "scans_slug_recent_idx",
+      "entityType": "indexes",
+      "table": "scans"
+    },
+    {
+      "columns": [
+        {
+          "value": "requested_at",
+          "isExpression": false
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "origin": "manual",
+      "name": "scans_requested_idx",
+      "entityType": "indexes",
+      "table": "scans"
+    },
+    {
+      "value": "\"stage\" IN ('queued', 'scanning', 'published', 'failed')",
+      "name": "scans_stage_check",
+      "entityType": "checks",
+      "table": "scans"
+    },
+    {
+      "value": "(\"stage\" IN ('published', 'failed')) = (\"settled_at\" IS NOT NULL)",
+      "name": "scans_settled_check",
+      "entityType": "checks",
+      "table": "scans"
+    },
+    {
+      "value": "(\"stage\" = 'published') = (\"report_json\" IS NOT NULL)",
+      "name": "scans_report_check",
+      "entityType": "checks",
+      "table": "scans"
+    },
+    {
+      "value": "(\"stage\" = 'failed') = (\"failure\" IS NOT NULL)",
+      "name": "scans_failure_check",
+      "entityType": "checks",
+      "table": "scans"
+    }
+  ],
+  "renames": []
+}

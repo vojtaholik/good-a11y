@@ -17,6 +17,8 @@
   "dependencies": {
     "@eaa-check/capability": "workspace:*",
     "@eaa-check/core": "workspace:*",
+    "@eaa-check/html-reader": "workspace:*",
+    "@eaa-check/http-transport": "workspace:*",
     "@effect/platform-node": "4.0.0",
     "effect": "4.0.0"
   },

@@ -59,6 +59,7 @@ export const VerifiedFactSchema = Schema.Struct({
   id: Schema.String,
   retrieved: Schema.String,
   source: Schema.String,
+  usedBy: Schema.String,
   value: Schema.String,
 });
 

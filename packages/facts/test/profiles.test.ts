@@ -21,6 +21,7 @@ const verified = (
   id,
   retrieved: "2026-11-03",
   source: `https://example.eu/${id}`,
+  usedBy: "none",
   value,
 });
 

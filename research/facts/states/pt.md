@@ -13,8 +13,8 @@ JavaScript, so curl gets no text). Fetched 2026-11-03.
 - excerpt: "Transpõe a Diretiva (UE) 2019/882, relativa aos requisitos de acessibilidade de produtos e serviços" [Transposes Directive (EU) 2019/882 on the accessibility requirements for products and services]
 - retrieved: 2026-11-03
 - used_by: states.pt.law
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: DR page (rendered in browser): DR n.º 234/2022 Série I 2022-12-06, sumário matches, retificado por Declaração de Retificação n.º 5/2023.
 
 ### PT-APPLIES-1
 - claim: Under Art. 39(1), the decree-law produces effects from 28 June 2025 for products placed on the market and services provided to consumers from that date; the 112 obligations apply from 28 June 2027 (Art. 39(2)). The decree-law itself entered into force the day after publication (Art. 40).
@@ -24,8 +24,8 @@ JavaScript, so curl gets no text). Fetched 2026-11-03.
 - excerpt: "O presente decreto-lei produz efeitos a partir de 28 de junho de 2025 relativamente aos produtos colocados no mercado e aos serviços prestados aos consumidores a partir desta data" [This decree-law produces effects from 28 June 2025 for products placed on the market and services provided to consumers from that date]
 - retrieved: 2026-11-03
 - used_by: states.pt.appliesFrom
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 39.º n.º 1-2 and Art. 40.º match.
 
 ### PT-PRODUCTS-1
 - claim: Art. 2(1) covers the EAA product list: consumer general-purpose computer hardware and operating systems, self-service terminals (payment terminals, ATMs, ticketing machines, check-in machines, interactive information terminals), consumer terminal equipment for electronic communications and audiovisual media, and e-readers.
@@ -35,8 +35,8 @@ JavaScript, so curl gets no text). Fetched 2026-11-03.
 - excerpt: "a) Equipamentos informáticos para uso geral dos consumidores e sistemas operativos para esses equipamentos informáticos" [a) General-purpose computer hardware for consumers and operating systems for that hardware]
 - retrieved: 2026-11-03
 - used_by: states.pt.scope.products
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 2.º n.º 1 a)-e) match the claim.
 
 ### PT-SERVICES-1
 - claim: Art. 2(3) covers electronic communications, access to audiovisual media, passenger transport elements, self-service terminals of urban, suburban and regional transport, consumer banking and financial services (credit, investment, payment services, payment accounts, e-money), e-books and dedicated software, and e-commerce services.
@@ -46,8 +46,8 @@ JavaScript, so curl gets no text). Fetched 2026-11-03.
 - excerpt: "o presente decreto-lei é aplicável aos seguintes serviços:" [this decree-law applies to the following services:]
 - retrieved: 2026-11-03
 - used_by: states.pt.scope.services
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 2.º n.º 3 a)-g) match the claim.
 
 ### PT-ECOMMERCE-1
 - claim: Art. 2(3)(g) lists e-commerce services among the services in scope.
@@ -57,8 +57,8 @@ JavaScript, so curl gets no text). Fetched 2026-11-03.
 - excerpt: "g) Serviços de comércio eletrónico." [g) E-commerce services.]
 - retrieved: 2026-11-03
 - used_by: states.pt.scope.ecommerce
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 2.º n.º 3 g) matches verbatim.
 
 ### PT-MICRO-1
 - claim: Art. 2(5)(b) states the decree-law does not apply to microenterprises providing the services in Art. 2(3).
@@ -68,8 +68,8 @@ JavaScript, so curl gets no text). Fetched 2026-11-03.
 - excerpt: "b) Às microempresas que prestam os serviços previstos no n.º 3." [(This decree-law does not apply) b) to microenterprises providing the services provided for in paragraph 3.]
 - retrieved: 2026-11-03
 - used_by: states.pt.exemptions.micro
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 2.º n.º 5 b) matches verbatim.
 
 ### PT-BURDEN-1
 - claim: Art. 14 transposes the fundamental-alteration and disproportionate-burden exception.
@@ -79,8 +79,8 @@ JavaScript, so curl gets no text). Fetched 2026-11-03.
 - excerpt: "b) Não resulte na imposição de encargos desproporcionados aos operadores económicos." [b) does not result in a disproportionate burden on economic operators.]
 - retrieved: 2026-11-03
 - used_by: states.pt.exemptions.burden
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 14.º n.º 1 b) matches; n.º 2 assessment by operator.
 
 ### PT-AUTHORITY-1
 - claim: Under Art. 28(1)(a), the National Communications Authority (ANACOM) supervises the services in Art. 2(3)(a) and (g), that is electronic communications and e-commerce services, plus 112 and some radio or communications equipment.
@@ -90,8 +90,8 @@ JavaScript, so curl gets no text). Fetched 2026-11-03.
 - excerpt: "e aos serviços identificados nas alíneas a) e g) do n.º 3 e ao previsto no n.º 4 do artigo 2.º" [and the services identified in points a) and g) of paragraph 3 and the provision of paragraph 4 of Article 2]
 - retrieved: 2026-11-03
 - used_by: states.pt.authority
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 28.º n.º 1 a) ANACOM text matches incl. radio/communications equipment.
 
 ### PT-AUTHORITY-2
 - claim: Art. 28(1) splits supervision by sector: ANACOM, ERC (audiovisual access), Autoridade da Mobilidade e dos Transportes and ANAC (transport), IMT (urban and regional transport terminals), Banco de Portugal and CMVM (banking and financial services), ASAE (non-radio computer hardware and other products).
@@ -101,8 +101,8 @@ JavaScript, so curl gets no text). Fetched 2026-11-03.
 - excerpt: "e) Ao Banco de Portugal, no que respeita aos serviços identificados nas subalíneas i), ii), iii) e v) da alínea e) do n.º 3 do artigo 2.º" [e) to the Bank of Portugal, for the services identified in sub-points i), ii), iii) and v) of point e) of paragraph 3 of Article 2]
 - retrieved: 2026-11-03
 - used_by: states.pt.authority
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 28.º n.º 1 a)-g) bodies match (ANACOM, ERC, AMT/ANAC, IMT, BdP, CMVM, ASAE).
 
 ### PT-PENALTIES-1
 - claim: Under Art. 29(2), a serious administrative offence (contraordenação grave) carries a fine of EUR 650 to 1,500 for natural persons and EUR 12,000 to 24,000 for legal persons.
@@ -112,8 +112,8 @@ JavaScript, so curl gets no text). Fetched 2026-11-03.
 - excerpt: "ii) Tratando-se de pessoa coletiva, de (euro) 12 000 a (euro) 24 000" [ii) for a legal person, from EUR 12,000 to EUR 24,000]
 - retrieved: 2026-11-03
 - used_by: states.pt.penalties
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 29.º n.º 2 a) i)-ii) match.
 
 ### PT-PENALTIES-2
 - claim: A very serious offence (contraordenação muito grave) carries a fine for legal persons from EUR 24,000 up to the maximum threshold in Decreto-Lei n.º 433/82 (natural persons from EUR 2,000). Making non-accessible products or services available and failing to carry out the Art. 14 assessment (Art. 29(1)(a) and (b)) are very serious offences. The upper limit is stated only by reference to Decreto-Lei n.º 433/82.
@@ -123,8 +123,8 @@ JavaScript, so curl gets no text). Fetched 2026-11-03.
 - excerpt: "ii) Tratando-se de pessoa coletiva, de (euro) 24 000 até ao limiar máximo previsto no Decreto-Lei n.º 433/82" [ii) for a legal person, from EUR 24,000 up to the maximum threshold provided in Decree-Law No. 433/82]
 - retrieved: 2026-11-03
 - used_by: states.pt.penalties
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 29.º n.º 2 b) i)-ii) and n.º 4 a) match.
 
 ### PT-PENALTIES-3
 - claim: Art. 29(4)(a) classifies the offences in Art. 29(1)(a) and (b) (non-accessible products or services; missing Art. 14 assessment) as very serious.
@@ -134,5 +134,5 @@ JavaScript, so curl gets no text). Fetched 2026-11-03.
 - excerpt: "Constituem contraordenações muito graves as infrações previstas: a) Nas alíneas a) e b) do n.º 1" [The following are very serious offences: a) those in points a) and b) of paragraph 1]
 - retrieved: 2026-11-03
 - used_by: states.pt.penalties
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 29.º n.º 4 a) matches verbatim; n.º 1 a)-b) as claimed.

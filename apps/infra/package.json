@@ -1,0 +1,25 @@
+{
+  "name": "@eaa-check/infra",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "check": "pnpm run typecheck",
+    "plan": "alchemy plan",
+    "deploy": "alchemy deploy",
+    "destroy": "alchemy destroy",
+    "dev": "alchemy dev",
+    "logs": "alchemy logs"
+  },
+  "dependencies": {
+    "@eaa-check/scanner": "workspace:*",
+    "@effect/platform-node": "4.0.0",
+    "alchemy": "2.0.0-beta.81",
+    "effect": "4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.6",
+    "typescript": "7.0.2"
+  }
+}

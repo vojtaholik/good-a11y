@@ -2,9 +2,32 @@ import type { Fact, VerifiedFact } from "./fact.js";
 
 export const verifiedOnly = (facts: readonly Fact[]): VerifiedFact[] =>
   facts.flatMap(
-    ({ claim, excerpt, field, file, id, retrieved, source, status, value }) =>
+    ({
+      claim,
+      excerpt,
+      field,
+      file,
+      id,
+      retrieved,
+      source,
+      status,
+      usedBy,
+      value,
+    }) =>
       status === "verified"
-        ? [{ claim, excerpt, field, file, id, retrieved, source, value }]
+        ? [
+            {
+              claim,
+              excerpt,
+              field,
+              file,
+              id,
+              retrieved,
+              source,
+              usedBy,
+              value,
+            },
+          ]
         : []
   );
 

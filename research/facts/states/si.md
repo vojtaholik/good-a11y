@@ -12,8 +12,8 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "238. Zakon o dostopnosti do proizvodov in storitev za invalide (ZDPSI), stran 733." [238. Act on the accessibility of products and services for persons with disabilities (ZDPSI), page 733.]
 - retrieved: 2026-11-03
 - used_by: states.si.law
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Uradni list RS 14/2023 z dne 3. 2. 2023, item 238 ZDPSI stran 733 matches.
 
 ### SI-LAW-2
 - claim: ZDPSI was amended by the Zakon o spremembah in dopolnitvah ZDPSI (ZDPSI-A), published in Uradni list RS, št. 14/2026 of 24 February 2026, in force the day after publication. ZDPSI-A adds, among other things, a new Art. 9.a with additional accessibility conditions for e-commerce services.
@@ -23,8 +23,8 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "563. Zakon o spremembah in dopolnitvah Zakona o dostopnosti do proizvodov in storitev za invalide (ZDPSI-A), stran 1538." [563. Act amending the Act on the accessibility of products and services for persons with disabilities (ZDPSI-A), page 1538.]
 - retrieved: 2026-11-03
 - used_by: states.si.law
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Uradni list RS 14/2026 z dne 24. 2. 2026, item 563 ZDPSI-A matches; in force next day; adds 9.a člen (e-trgovina).
 
 ### SI-APPLIES-1
 - claim: Under Art. 46, ZDPSI entered into force on the fifteenth day after publication and applies from 28 June 2025.
@@ -34,8 +34,8 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "Ta zakon začne veljati petnajsti dan po objavi v Uradnem listu Republike Slovenije, uporabljati pa se začne 28. junija 2025." [This act enters into force on the fifteenth day after publication in the Official Gazette and applies from 28 June 2025.]
 - retrieved: 2026-11-03
 - used_by: states.si.appliesFrom
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 46 matches verbatim.
 
 ### SI-PRODUCTS-1
 - claim: Art. 3(1) ZDPSI covers the EAA product list, ending with consumer terminal equipment for electronic communications and audiovisual media and e-readers.
@@ -45,19 +45,19 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "4. potrošniško terminalno opremo z interaktivnimi računalniškimi zmogljivostmi, ki se uporablja za dostop do avdiovizualnih medijskih storitev; 5. e-bralnike." [4. consumer terminal equipment with interactive computing capability used to access audiovisual media services; 5. e-readers.]
 - retrieved: 2026-11-03
 - used_by: states.si.scope.products
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 3(1) points 4-5 match.
 
 ### SI-SERVICES-1
-- claim: Art. 3(2) ZDPSI covers electronic communications, access to audiovisual media, air, bus and waterborne passenger transport elements, consumer banking, e-books and dedicated software, and e-commerce services.
+- claim: Art. 3(2) ZDPSI, as amended by ZDPSI-A (Art. 1), covers electronic communications, access to audiovisual media, air, bus, rail and waterborne passenger transport elements, consumer banking, e-books and dedicated software, and e-commerce services. ZDPSI-A replaced point 3 to add rail transport.
 - field: scope-services
 - value: EAA Art. 2(2) services
-- source: https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2023-01-0238
-- excerpt: "(2) Ta zakon se uporablja za naslednje storitve:" [(2) This act applies to the following services:]
+- source: https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2026-01-0563
+- excerpt: "»3. storitve zračnega, avtobusnega, železniškega in vodnega potniškega prevoza, in sicer:" [3. air, bus, rail and waterborne passenger transport services, namely:]
 - retrieved: 2026-11-03
 - used_by: states.si.scope.services
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Revised claim matches ZDPSI-A 1. člen (Art. 3(2) point 3 incl. železniškega).
 
 ### SI-ECOMMERCE-1
 - claim: Art. 3(2)(6) ZDPSI lists e-commerce services among the services in scope.
@@ -67,8 +67,8 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "4. potrošniške bančne storitve; 5. e-knjige in namensko programsko opremo; 6. storitve e-trgovine." [4. consumer banking services; 5. e-books and dedicated software; 6. e-commerce services.]
 - retrieved: 2026-11-03
 - used_by: states.si.scope.ecommerce
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 3(2) points 4-6 match; not changed by ZDPSI-A.
 
 ### SI-ECOMMERCE-2
 - claim: ZDPSI defines an e-commerce service as a service provided at a distance, through websites and mobile device services, by electronic means, at the individual request of a consumer, with a view to concluding a consumer contract.
@@ -78,8 +78,8 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "»storitev e-trgovine« je storitev, ki se zagotavlja na daljavo, prek spletišč in storitev na osnovi mobilnih naprav, elektronsko in na posamezno zahtevo potrošnika, z namenom sklenitve potrošniške pogodbe;" [an "e-commerce service" is a service provided at a distance, through websites and mobile device services, by electronic means and at the individual request of a consumer, with a view to concluding a consumer contract;]
 - retrieved: 2026-11-03
 - used_by: states.si.scope.ecommerce
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Definition matches verbatim.
 
 ### SI-MICRO-1
 - claim: Art. 4(2) ZDPSI states the act does not apply to microenterprises providing services. ZDPSI-A changes Art. 4(3) only, not Art. 4(2).
@@ -89,8 +89,8 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "(2) Ta zakon se ne uporablja za mikropodjetja, ki zagotavljajo storitve." [(2) This act does not apply to microenterprises providing services.]
 - retrieved: 2026-11-03
 - used_by: states.si.exemptions.micro
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 4(2) matches; ZDPSI-A 2. člen changes only Art. 4(3).
 
 ### SI-MICRO-2
 - claim: ZDPSI defines a microenterprise as an enterprise with fewer than ten employees and an annual turnover or annual balance sheet total not exceeding EUR 2 million.
@@ -100,8 +100,8 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "»mikropodjetje« je podjetje, ki ima manj kot deset zaposlenih in ima letni promet, ki ne presega dveh milijonov eurov, ali letno bilančno vsoto, ki ne presega dveh milijonov eurov;" ["microenterprise" is an enterprise with fewer than ten employees and an annual turnover not exceeding two million euro or an annual balance sheet total not exceeding two million euro;]
 - retrieved: 2026-11-03
 - used_by: states.si.exemptions.micro
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Definition matches verbatim.
 
 ### SI-BURDEN-1
 - claim: Art. 22 ZDPSI transposes the fundamental-alteration and disproportionate-burden exception, with criteria set by implementing regulation.
@@ -111,8 +111,8 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "(temeljita sprememba proizvoda ali storitve in nesorazmerno breme)" [(fundamental alteration of a product or service and disproportionate burden)]
 - retrieved: 2026-11-03
 - used_by: states.si.exemptions.burden
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 22 heading and (1)-(2) match.
 
 ### SI-AUTHORITY-1
 - claim: Under Art. 30 ZDPSI, the Market Inspectorate of the Republic of Slovenia (Tržni inšpektorat Republike Slovenije, TIRS) supervises e-commerce services. ZDPSI-A renumbers this paragraph (from (7) to (8)) without changing its content.
@@ -122,8 +122,8 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "(7) Nadzor nad storitvami e-trgovine izvaja TIRS." [(7) Supervision of e-commerce services is carried out by TIRS.]
 - retrieved: 2026-11-03
 - used_by: states.si.authority
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 30(7) matches; ZDPSI-A 14. člen inserts new (5), so it becomes (8).
 
 ### SI-AUTHORITY-2
 - claim: Under Art. 26(2) ZDPSI, TIRS also carries out market surveillance of products.
@@ -133,8 +133,8 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "(2) Nadzor nad proizvodi iz prvega odstavka 3. člena tega zakona izvaja Tržni inšpektorat Republike Slovenije (v nadaljnjem besedilu: TIRS)." [(2) Supervision of the products in Art. 3(1) is carried out by the Market Inspectorate of the Republic of Slovenia (TIRS).]
 - retrieved: 2026-11-03
 - used_by: states.si.authority
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 26(2) matches verbatim.
 
 ### SI-PENALTIES-1
 - claim: For failing to ensure accessibility of e-commerce services, ZDPSI fines a legal person EUR 500 to 5,000, or EUR 1,000 to 10,000 if it is a medium or large company; sole traders EUR 250 to 2,500; responsible persons EUR 50 to 250.
@@ -144,8 +144,8 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "(1) Z globo od 500 do 5.000 eurov se kaznuje za prekršek pravna oseba, z globo od 1.000 do 10.000 eurov pa pravna oseba, ki se po zakonu, ki ureja gospodarske družbe, šteje za srednjo ali veliko gospodarsko družbo, če ne zagotavlja dostopnosti do e-trgovine" [(1) A legal person is fined EUR 500 to 5,000, and a legal person that counts as a medium or large company EUR 1,000 to 10,000, if it does not ensure accessibility of e-commerce]
 - retrieved: 2026-11-03
 - used_by: states.si.penalties
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 40(1)-(3) match the amounts; ZDPSI-A has no fine changes.
 
 ### SI-PENALTIES-2
 - claim: For products, ZDPSI fines a legal person acting as manufacturer, importer or authorised representative EUR 3,000 to 40,000.
@@ -155,5 +155,5 @@ No official consolidated text was fetched; facts below were checked against ZDPS
 - excerpt: "(1) Z globo od 3.000 do 40.000 eurov se za prekršek kaznuje pravna oseba, ki v zvezi z opravljanjem dejavnosti kot proizvajalec, uvoznik ali pooblaščeni zastopnik" [(1) A legal person acting as manufacturer, importer or authorised representative is fined EUR 3,000 to 40,000]
 - retrieved: 2026-11-03
 - used_by: states.si.penalties
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Excerpt matches; ZDPSI-A has no fine changes.

@@ -1,0 +1,12 @@
+# Task: builder-core, round 2 (lead, 2026-11-03 20:35 CET)
+
+Deadline: the machine sleeps ~00:20 CET. No questions; best call, record it in docs. Same ground rules as `.brain/tasks/builder-core.md`. builder-cloud owns `apps/scanner`, `apps/infra`, `apps/web`, `packages/scan-store` and the core scan-machine files; coordinate any change there with it by hc send.
+
+1. **Legal requirement line** (small, first): `EU-ANNEX-1` and `EU-ANNEX-4` now carry `used_by: report.legal-requirement`. Render them in the report (CLI and the report view model the web uses) as "What the EAA requires" above the reference benchmark, from verified facts only. Then answer your open questions in `docs/layer-1.md` as decided: CLI keeps the DNS gap (record it); the member-state list stays in code, the page never presents it as a legal claim.
+
+2. **Rendered-DOM checks with axe-core** (decision 7 in the brief, `.brain/resources/axe-on-browser-run.svx`, confirmed by Vojta):
+   - A core port `RenderedAudit` (run axe on a URL, return parsed results) and a pure mapping from axe rule results to findings. Only `violations`, only rules tagged `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`; each axe rule maps to SC fact IDs from its `wcag###` tags, then to `STD-SC-*` / `STD-EN-9.*` / `STD-EN4-9.*` the same way as static checks; a rule whose SC has no verified fact is not shown. Store the raw axe JSON as evidence.
+   - An adapter package `packages/browser-audit` for Cloudflare Browser Run via `@cloudflare/puppeteer` and the `browser` binding: fixed viewport and UA, `goto` with `load` + fixed settle, inject the pinned `axe-core` source with `addScriptTag`, `axe.run` with the tags above, close the browser in a finalizer, a hard timeout. Pin exact versions (check they are older than pnpm's minimumReleaseAge or add excludes as webproai does). Record MPL-2.0 for axe-core in PROVENANCE.md.
+   - A daily browser-time budget (about 18 minutes a day) belongs in `packages/scan-store` as one conditional insert like webproai's caps: agree the shape with builder-cloud; it wires the step into the Workflow (axe step after static checks; skipped with a reason when the budget is spent or Browser Run fails; the report says "rendered check skipped" and still shows static findings).
+   - Tests with a recorded axe JSON fixture; no live Browser Run in tests.
+3. Tell the lead at each green milestone. Keep the whole tree compiling; the pre-commit gate is whole-tree.

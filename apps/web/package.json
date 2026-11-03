@@ -1,0 +1,28 @@
+{
+  "name": "@eaa-check/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "build": "vite build",
+    "check": "pnpm run typecheck"
+  },
+  "dependencies": {
+    "@eaa-check/capability": "workspace:*",
+    "@eaa-check/core": "workspace:*",
+    "@eaa-check/scanner": "workspace:*",
+    "@stylexjs/stylex": "0.19.1",
+    "alchemy": "2.0.0-beta.81",
+    "effect": "4.0.0",
+    "flag-icons": "7.6.0",
+    "foldkit": "0.166.0"
+  },
+  "devDependencies": {
+    "@foldkit/vite-plugin": "0.26.1",
+    "@stylexjs/unplugin": "0.19.1",
+    "@types/node": "24.13.6",
+    "typescript": "7.0.2",
+    "vite": "8.0.7"
+  }
+}

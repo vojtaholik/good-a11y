@@ -18,8 +18,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "7.6.2019 EN Official Journal of the European Union L 151/70 DIRECTIVE (EU) 2019/882 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL of 17 April 2019 on the accessibility requirements for products and services"
 - retrieved: 2026-11-03
 - used_by: eu.law
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: CELLAR OJ XHTML of 32019L0882: OJ header and title match.
 
 ### EU-DATE-1
 - claim: Member States had to adopt and publish their transposing measures by 28 June 2022 (Art. 31(1)).
@@ -29,8 +29,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "1. Member States shall adopt and publish, by 28 June 2022, the laws, regulations and administrative provisions necessary to comply with this Directive."
 - retrieved: 2026-11-03
 - used_by: eu.transpositionDeadline
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 31(1) matches verbatim.
 
 ### EU-DATE-2
 - claim: Member States must apply the transposing measures from 28 June 2025 (Art. 31(2)).
@@ -40,8 +40,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "2. They shall apply those measures from 28 June 2025."
 - retrieved: 2026-11-03
 - used_by: eu.appliesFrom
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 31(2) matches verbatim.
 
 ### EU-SCOPE-1
 - claim: The Directive applies to services provided to consumers after 28 June 2025, including e-commerce services, without prejudice to the transitional measures in Art. 32 (Art. 2(2)(f)).
@@ -51,8 +51,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "2. Without prejudice to Article 32, this Directive applies to the following services provided to consumers after 28 June 2025: ... (f) e-commerce services."
 - retrieved: 2026-11-03
 - used_by: eu.scope.ecommerce
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 2(2) chapeau and (f) match.
 
 ### EU-SCOPE-2
 - claim: The services in scope (Art. 2(2)) are: electronic communications services; services providing access to audiovisual media services; listed elements of air, bus, rail and waterborne passenger transport services; consumer banking services; e-books and dedicated software; e-commerce services.
@@ -62,8 +62,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "(a) electronic communications services with the exception of transmission services used for the provision of machine-to-machine services; (b) services providing access to audiovisual media services; ... (d) consumer banking services; (e) e-books and dedicated software; and (f) e-commerce services."
 - retrieved: 2026-11-03
 - used_by: eu.scope.services
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 2(2)(a)-(f) match.
 
 ### EU-DEF-1
 - claim: Art. 3(30) defines e-commerce services as services provided at a distance, through websites and mobile device-based services, by electronic means, at the individual request of a consumer, with a view to concluding a consumer contract.
@@ -73,8 +73,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "‘e-commerce services’ means services provided at a distance, through websites and mobile device-based services by electronic means and at the individual request of a consumer with a view to concluding a consumer contract;"
 - retrieved: 2026-11-03
 - used_by: eu.definition.ecommerce
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 3(30) matches verbatim.
 
 ### EU-DEF-2
 - claim: Art. 3(23) defines a microenterprise as an enterprise with fewer than 10 persons employed and an annual turnover or annual balance sheet total not exceeding EUR 2 million.
@@ -84,8 +84,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "‘microenterprise’ means an enterprise which employs fewer than 10 persons and which has an annual turnover not exceeding EUR 2 million or an annual balance sheet total not exceeding EUR 2 million;"
 - retrieved: 2026-11-03
 - used_by: eu.definition.microenterprise
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 3(23) matches verbatim.
 
 ### EU-MICRO-1
 - claim: Microenterprises providing services are exempt from the service accessibility requirements of Art. 4(3) and related obligations (Art. 4(5)).
@@ -95,8 +95,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "5. Microenterprises providing services shall be exempt from complying with the accessibility requirements referred to in paragraph 3 of this Article and any obligations relating to the compliance with those requirements."
 - retrieved: 2026-11-03
 - used_by: eu.exemption.microenterprise
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 4(5) matches verbatim.
 
 ### EU-REQ-1
 - claim: All services must comply with Annex I Section III (except urban, suburban and regional transport services) and with Annex I Section IV, without prejudice to the microenterprise exemption (Art. 4(3)).
@@ -106,8 +106,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "3. Without prejudice to paragraph 5 of this Article, all services, except for urban and suburban transport services and regional transport services, shall comply with the accessibility requirements set out in Section III of Annex I."
 - retrieved: 2026-11-03
 - used_by: eu.requirements.services
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 4(3) both subparagraphs (Sections III and IV) match.
 
 ### EU-BURDEN-1
 - claim: The accessibility requirements apply only to the extent that compliance does not fundamentally alter the product or service and does not impose a disproportionate burden on the economic operator (Art. 14(1)).
@@ -117,8 +117,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "1. The accessibility requirements referred to in Article 4 shall apply only to the extent that compliance: (a) does not require a significant change in a product or service that results in the fundamental alteration of its basic nature; and (b) does not result in the imposition of a disproportionate burden on the economic operators concerned."
 - retrieved: 2026-11-03
 - used_by: eu.exemption.disproportionateBurden
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 14(1) matches verbatim.
 
 ### EU-BURDEN-2
 - claim: Economic operators must assess fundamental alteration or disproportionate burden against the criteria in Annex VI, document the assessment and keep the results for five years (Art. 14(2) and (3)).
@@ -128,8 +128,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "3. Economic operators shall document the assessment referred to in paragraph 2. Economic operators shall keep all relevant results for a period of five years"
 - retrieved: 2026-11-03
 - used_by: eu.exemption.disproportionateBurden
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 14(2) (Annex VI) and 14(3) (document, five years) match.
 
 ### EU-BURDEN-3
 - claim: Service providers relying on disproportionate burden must renew the assessment when the service changes, when the authorities ask, and at least every five years (Art. 14(5)).
@@ -139,8 +139,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "5. Service providers relying on point (b) of paragraph 1 shall, with regard to each category or type of service, renew their assessment of whether the burden is disproportionate: (a) when the service offered is altered; or (b) when requested to do so by the authorities responsible for checking compliance of services; and (c) in any event, at least every five years."
 - retrieved: 2026-11-03
 - used_by: eu.exemption.disproportionateBurden
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 14(5) matches verbatim.
 
 ### EU-BURDEN-4
 - claim: Economic operators relying on Art. 14(1) must inform the relevant market surveillance or service compliance authorities of the Member State concerned; this does not apply to microenterprises (Art. 14(8)).
@@ -150,8 +150,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "8. Where economic operators rely on paragraph 1 for a specific product or service they shall send information to that effect to the relevant market surveillance authorities, or authorities responsible for checking the compliance of services"
 - retrieved: 2026-11-03
 - used_by: eu.exemption.disproportionateBurden
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 14(8) incl. microenterprise carve-out matches.
 
 ### EU-HS-PRES-1
 - claim: Products and services conforming to harmonised standards whose references are published in the Official Journal are presumed to conform with the accessibility requirements, to the extent the standards cover them (Art. 15(1)).
@@ -161,8 +161,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "1. Products and services which are in conformity with harmonised standards or parts thereof the references of which have been published in the Official Journal of the European Union , shall be presumed to be in conformity with the accessibility requirements of this Directive"
 - retrieved: 2026-11-03
 - used_by: eu.presumption
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 15(1) matches verbatim.
 
 ### EU-TRANS-1
 - claim: Member States must provide a transitional period ending 28 June 2030 during which service providers may keep providing services using products they lawfully used before that date (Art. 32(1)).
@@ -172,8 +172,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "1. Without prejudice to paragraph 2 of this Article, Member States shall provide for a transitional period ending on 28 June 2030 during which service providers may continue to provide their services using products which were lawfully used by them to provide similar services before that date."
 - retrieved: 2026-11-03
 - used_by: eu.transitional
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 32(1) first subparagraph matches.
 
 ### EU-TRANS-2
 - claim: Service contracts agreed before 28 June 2025 may continue unchanged until they expire, but no longer than five years from that date (Art. 32(1), second subparagraph).
@@ -183,8 +183,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "Service contracts agreed before 28 June 2025 may continue without alteration until they expire, but no longer than five years from that date."
 - retrieved: 2026-11-03
 - used_by: eu.transitional
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 32(1) second subparagraph matches.
 
 ### EU-TRANS-3
 - claim: Member States may allow self-service terminals lawfully used before 28 June 2025 to stay in use until the end of their economically useful life, but no longer than 20 years after entry into use (Art. 32(2)).
@@ -194,8 +194,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "2. Member States may provide that self-service terminals lawfully used by service providers for the provision of services before 28 June 2025 may continue to be used in the provision of similar services until the end of their economically useful life, but no longer than 20 years after their entry into use."
 - retrieved: 2026-11-03
 - used_by: eu.transitional
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 32(2) matches verbatim.
 
 ### EU-PEN-1
 - claim: Member States lay down the penalties for infringements of the national transposing provisions; they must be effective, proportionate and dissuasive and accompanied by effective remedial action (Art. 30(1) and (2)).
@@ -205,8 +205,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "1. Member States shall lay down the rules on penalties applicable to infringements of national provisions adopted pursuant to this Directive and shall take all measures necessary to ensure that they are implemented. 2. The penalties provided for shall be effective, proportionate and dissuasive."
 - retrieved: 2026-11-03
 - used_by: eu.penalties
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Art. 30(1)-(2) match incl. remedial action sentence.
 
 ### EU-ANNEX-1
 - claim: Annex I Section III point (c) requires websites, including related online applications, and mobile device-based services to be made accessible in a consistent and adequate way by making them perceivable, operable, understandable and robust.
@@ -215,9 +215,9 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
 - excerpt: "(c) making websites, including the related online applications, and mobile device-based services, including mobile applications, accessible in a consistent and adequate way by making them perceivable, operable, understandable and robust;"
 - retrieved: 2026-11-03
-- used_by: eu.annex.websites
-- status: unverified
-- verifier_note:
+- used_by: eu.annex.websites, report.legal-requirement
+- status: verified
+- verifier_note: Annex I Section III (c) matches verbatim.
 
 ### EU-ANNEX-2
 - claim: Annex I Section III point (b) requires information about the functioning of the service to be provided via more than one sensory channel, understandably, perceivably, in text formats usable for assistive formats, in adequate fonts with sufficient contrast and adjustable spacing, with alternatives for non-text content.
@@ -227,8 +227,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "(v) presenting in fonts of adequate size and suitable shape, taking into account foreseeable conditions of use and using sufficient contrast, as well as adjustable spacing between letters, lines and paragraphs; (vi) supplementing any non-textual content with an alternative presentation of that content;"
 - retrieved: 2026-11-03
 - used_by: eu.annex.information
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Annex I Section III (b)(v)-(vi) match.
 
 ### EU-ANNEX-3
 - claim: Annex I Section III point (d) requires support services, where available, to give information on the accessibility of the service and its compatibility with assistive technologies, in accessible modes of communication.
@@ -238,8 +238,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "(d) where available, support services (help desks, call centres, technical support, relay services and training services) providing information on the accessibility of the service and its compatibility with assistive technologies, in accessible modes of communication."
 - retrieved: 2026-11-03
 - used_by: eu.annex.support
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Annex I Section III (d) matches verbatim.
 
 ### EU-ANNEX-4
 - claim: Annex I Section IV point (g) adds, for e-commerce services: providing accessibility information about products and services sold when the responsible economic operator provides it; and making identification, security and payment functionality, identification methods, electronic signatures and payment services perceivable, operable, understandable and robust.
@@ -248,9 +248,9 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
 - excerpt: "(g) E-Commerce services: (i) providing the information concerning accessibility of the products and services being sold when this information is provided by the responsible economic operator; (ii) ensuring the accessibility of the functionality for identification, security and payment"
 - retrieved: 2026-11-03
-- used_by: eu.annex.ecommerce
-- status: unverified
-- verifier_note:
+- used_by: eu.annex.ecommerce, report.legal-requirement
+- status: verified
+- verifier_note: Annex I Section IV (g) matches.
 
 ### EU-HS-1
 - claim: No harmonised standard reference under Directive (EU) 2019/882 (EN 301 549 or any other) was found in the Official Journal as of 2026-10-30, the latest 2026 decision date in the Publications Office index (EU-HS-4). Method: Publications Office (CELLAR) SPARQL metadata, the data behind EUR-Lex, for CELEX sector 3 decisions of 2019 to 2026 with "2019/882" in the English title; the response is a header with no rows. EUR-Lex itself (eur-lex.europa.eu) returned an empty HTTP 202 bot challenge to scripted requests. The same title method finds Implementing Decision (EU) 2018/2048 when searched for "harmonised standard for websites and mobile applications". This is a negative search result, not a statement by the Commission.
@@ -260,8 +260,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "celex","title"
 - retrieved: 2026-11-03
 - used_by: eu.harmonisedStandard
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Re-ran the SPARQL: header only. Independent checks also empty: no CELEX 3 act based_on 32019L0882; no 2022-2026 decision with accessib* in the title concerning standards. Negative result as of 2026-10-30.
 
 ### EU-HS-2
 - claim: Commission Implementing Decision (EU) 2021/1339 of 11 August 2021 (OJ L 289, 12.8.2021, p. 53) publishes the reference of EN 301 549 V3.2.1 (2021-03) as the harmonised standard under Directive (EU) 2016/2102 (public sector websites and mobile applications), amending Implementing Decision (EU) 2018/2048. It is not a citation under Directive (EU) 2019/882.
@@ -271,8 +271,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "(5) The result of the assessment is that the relevant provisions of the harmonised European standard EN 301 549 v3.2.1 (2021-03) satisfy the requirements which they aim to cover and which are set out in Annex II to Implementing Decision C(2017) 2585. It is therefore appropriate to publish the reference of that standard in the Official Journal of the European Union ."
 - retrieved: 2026-11-03
 - used_by: eu.harmonisedStandard
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: CELLAR text of Implementing Decision (EU) 2021/1339 recital (5) matches.
 
 ### EU-HS-3
 - claim: The standardisation request for harmonised standards under Directive (EU) 2019/882 is M/587, Commission Implementing Decision C(2022) 6456 of 14.9.2022, as identified in EN 301 549 V4.1.1 reference [i.28]. The decision text itself was not fetched: it is not published in the OJ, and the Commission eNorm database page (https://ec.europa.eu/growth/tools-databases/enorm/mandate/587_en) is a JavaScript application whose data API needs an API gateway token.
@@ -282,8 +282,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "[i.28] C(2022)6456 - Standardisation request M/587: "Commission Implementing Decision of 14.9.2022 on a standardisation request to the European standardisation organisations as regards the accessibility requirements of products and services in support of Directive (EU) 2019/882"
 - retrieved: 2026-11-03
 - used_by: eu.harmonisedStandard
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: ETSI EN 301 549 V4.1.1 reference [i.28] matches; claim states the decision text was not fetched.
 
 ### EU-HS-4
 - claim: Control for EU-HS-1: the latest document date among CELEX sector 3 decisions of 2026 in the Publications Office metadata is 2026-10-30.
@@ -293,8 +293,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "latest" 2026-10-30
 - retrieved: 2026-11-03
 - used_by: none
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Re-ran the SPARQL: latest 2026-10-30.
 
 ### EU-HS-5
 - claim: Commission Implementing Decision (EU) 2018/2048 of 20 December 2018 (OJ L 327, 21.12.2018, p. 84) first published EN 301 549 V2.1.2 (2018-08) as the harmonised standard under Directive (EU) 2016/2102.
@@ -304,8 +304,8 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "The reference to harmonised standard for websites and mobile applications drafted in support of Directive (EU) 2016/2102 listed in the Annex to this Decision, is hereby published in the Official Journal of the European Union ."
 - retrieved: 2026-11-03
 - used_by: none
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: CELLAR text of Implementing Decision (EU) 2018/2048 Art. 1 matches.
 
 ### EU-HS-6
 - claim: In the Publications Office metadata, the only act amending Implementing Decision (EU) 2018/2048 is Implementing Decision (EU) 2021/1339, so V3.2.1 is the version cited under Directive (EU) 2016/2102 as of 2026-11-03; V4.1.1 has not been cited there.
@@ -315,5 +315,5 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - excerpt: "celex" "32021D1339"
 - retrieved: 2026-11-03
 - used_by: eu.harmonisedStandard
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Re-ran the SPARQL: only 32021D1339 amends 32018D2048.

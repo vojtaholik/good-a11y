@@ -21,7 +21,7 @@
     "test": "vitest run",
     "build": "tsc -p tsconfig.build.json",
     "check": "pnpm run typecheck",
-    "facts": "pnpm run --silent build && node scripts/generate.ts && pnpm run --silent build",
+    "facts": "pnpm run --silent build > /dev/null; node scripts/generate.ts && pnpm run --silent build",
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {

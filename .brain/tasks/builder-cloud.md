@@ -20,3 +20,9 @@
 6. **Deploy** to a NON-production stage (e.g. `--stage dev`) on the Cloudflare account webproai uses, through the same Alchemy profile mechanism webproai uses (see its AGENTS.md Commands; `pnpm exec varlock run -- pnpm --filter @eaa-check/infra exec alchemy deploy --stage dev --yes --no-input`). Plans must only create resources. Report the workers.dev URL. If auth is missing, tell the lead instead of logging in.
 
 Milestones: (a) store + contracts green, (b) machine in Workflow green with a test, (c) `alchemy dev` serves the page and a scan completes locally, (d) deployed URL. Write `docs/layer-2-3.md` at the end.
+
+## Timing and coordination (lead, 2026-11-03 20:25 CET)
+
+- Hard deadline: the machine sleeps around 00:20 CET. No questions to anyone: make the best call, record it in `docs/layer-2-3.md`, keep going. A deployed bare page that scans one URL end to end beats breadth. Have (d) deployed by 23:30 at the latest.
+- builder-core (hc name `builder-core`) is still finishing `packages/core` (scan capability, checks, report) and `apps/cli` in this same working tree. Start with what does not depend on it: `packages/scan-store`, `apps/infra`, the `apps/scanner` Worker shell, the `apps/web` page shell. Put `startScan`/`getScan` contracts in a new file in core and tell builder-core you did. Before you run `pnpm install` or change the root `package.json`/`pnpm-workspace.yaml`/`turbo.json`, send builder-core a one-line heads-up so you don't install at the same time. The pre-commit gate runs on the whole tree: keep your packages compiling.
+- Cloudflare auth: Alchemy profiles live in `~/.alchemy/profiles` (created for webproai on this machine). Use the default profile the way webproai does. If a deploy needs an interactive login, stop that part, tell the lead, and keep building.
