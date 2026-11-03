@@ -49,11 +49,6 @@ export const ContactForm = Schema.Struct({
   state: ContactState,
 });
 
-export const StartedScan = Schema.Struct({
-  scanId: Schema.String,
-  slug: Schema.String,
-});
-
 export const Model = Schema.Struct({
   contact: ContactForm,
   copy: CopyState,
@@ -61,7 +56,6 @@ export const Model = Schema.Struct({
   route: AppRoute,
   scan: ScanState,
   start: StartState,
-  started: Schema.Option(StartedScan),
   url: Schema.String,
 });
 

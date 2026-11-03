@@ -2,7 +2,7 @@ import { reportOf, runChecks } from "@eaa-check/core";
 import type { ScanView } from "@eaa-check/core";
 import { readPage } from "@eaa-check/html-reader";
 import { describe, expect, it } from "@effect/vitest";
-import { Effect, Option } from "effect";
+import { Effect } from "effect";
 import { renderToString } from "foldkit/experimental/server";
 
 import SHELL from "../index.html?raw";
@@ -43,7 +43,6 @@ const home: AppModel = {
   route: AppRoute.Home(),
   scan: ScanState.Idle(),
   start: StartState.Idle(),
-  started: Option.none(),
   url: "",
 };
 

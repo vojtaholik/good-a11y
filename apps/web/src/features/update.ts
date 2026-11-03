@@ -25,7 +25,7 @@ import {
 import type { AppMessage, AppModel } from "../client/model.js";
 import { pollTarget } from "../client/polling.js";
 import type { ScanApi } from "../client/scan-api.js";
-import { AppRoute, parseRoute, reportRouter } from "./route.js";
+import { AppRoute, parseRoute, reportSlugOf, scanRouter } from "./route.js";
 import type { AppRouteState } from "./route.js";
 
 type AppUpdate = Update.Return<AppModel, AppMessage, ScanApi>;
@@ -48,21 +48,20 @@ const readScan = (model: AppModel, view: ScanView): AppUpdate =>
         }),
       };
 
-const followedScan = (model: AppModel, slug: string): Option.Option<string> => {
-  if (ScanState.isAnyOf(["Running", "Settled"])(model.scan)) {
-    return Option.some(model.scan.view.scanId);
+const followedScan = (model: AppModel): Option.Option<string> => {
+  if (Schema.is(AppRoute.Scan)(model.route)) {
+    return Option.some(model.route.scanId);
   }
 
-  return model.started.pipe(
-    Option.filter((started) => started.slug === slug),
-    Option.map(({ scanId }) => scanId)
-  );
+  return ScanState.isAnyOf(["Running", "Settled"])(model.scan)
+    ? Option.some(model.scan.view.scanId)
+    : Option.none();
 };
 
 const getScanOf = (model: AppModel, slug: string) =>
   GetScan({
     generation: model.generation,
-    maybeScanId: followedScan(model, slug),
+    maybeScanId: followedScan(model),
     slug,
   });
 
@@ -132,24 +131,24 @@ const editContact = (
 
 const enterRoute = (model: AppModel, route: AppRouteState): AppUpdate => {
   const generation = model.generation + 1;
+  const maybeSlug = reportSlugOf(route);
 
   const entered: AppModel = {
     ...model,
     copy: CopyState.Idle(),
     generation,
     route,
-    scan: Schema.is(AppRoute.Report)(route)
-      ? ScanState.Loading()
-      : ScanState.Idle(),
+    scan: Option.isSome(maybeSlug) ? ScanState.Loading() : ScanState.Idle(),
     start: StartState.Idle(),
   };
 
-  return Schema.is(AppRoute.Report)(route)
-    ? {
-        commands: [getScanOf(entered, route.slug.toLowerCase())],
-        model: entered,
-      }
-    : { model: entered };
+  return Option.match(maybeSlug, {
+    onNone: () => ({ model: entered }),
+    onSome: (slug) => ({
+      commands: [getScanOf(entered, slug)],
+      model: entered,
+    }),
+  });
 };
 
 const submitScan = (model: AppModel): AppUpdate => {
@@ -192,7 +191,6 @@ export const init: Runtime.RoutingApplicationInit<
       route: AppRoute.Home(),
       scan: ScanState.Idle(),
       start: StartState.Idle(),
-      started: Option.none(),
       url: "",
     },
     parseRoute(url)
@@ -281,10 +279,8 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
     SucceededStartScan: ({ generation, scanId, slug }) =>
       generation === model.generation
         ? {
-            commands: [Navigate({ url: reportRouter({ slug }) })],
-            model: modifyFields(model, {
-              started: () => Option.some({ scanId, slug }),
-            }),
+            commands: [Navigate({ url: scanRouter({ scanId, slug }) })],
+            model,
           }
         : { model },
     TickedPoll: () =>

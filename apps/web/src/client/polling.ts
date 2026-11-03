@@ -1,7 +1,7 @@
 import { Option, Schema, Stream } from "effect";
 import { Subscription } from "foldkit";
 
-import { AppRoute } from "../features/route.js";
+import { reportSlugOf } from "../features/route.js";
 import { Message, ScanState } from "./model.js";
 import type { AppMessage, AppModel } from "./model.js";
 
@@ -10,9 +10,7 @@ export const POLL_INTERVAL = "2500 millis";
 const isUnsettled = ScanState.isAnyOf(["Loading", "Running"]);
 
 export const pollTarget = (model: AppModel): Option.Option<string> =>
-  Schema.is(AppRoute.Report)(model.route) && isUnsettled(model.scan)
-    ? Option.some(model.route.slug.toLowerCase())
-    : Option.none();
+  isUnsettled(model.scan) ? reportSlugOf(model.route) : Option.none();
 
 export const subscriptions = Subscription.make<AppModel, AppMessage>()(
   (entry) => ({

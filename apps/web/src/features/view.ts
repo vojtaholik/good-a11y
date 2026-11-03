@@ -79,6 +79,7 @@ const titleOf = (model: AppModel): string =>
     Home: () => "eaa-check: automated EU accessibility checks",
     NotFound: () => "Page not found | eaa-check",
     Report: ({ slug }) => `Report for ${slug} | eaa-check`,
+    Scan: ({ slug }) => `Report for ${slug} | eaa-check`,
   });
 
 export const view = (
@@ -94,6 +95,7 @@ export const view = (
         Home: () => homeView(model, h),
         NotFound: () => notFoundView(h),
         Report: ({ slug }) => reportView(model, slug, h),
+        Scan: ({ slug }) => reportView(model, slug, h),
       }),
     ]
   ),
