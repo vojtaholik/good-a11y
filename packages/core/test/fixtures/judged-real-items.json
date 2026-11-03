@@ -1,0 +1,589 @@
+{
+  "note": "Real items from pages scanned in docs/accuracy-qa.md, labelled by hand by builder-core on 2026-11-03. bad = the item does not do what the success criterion asks. Ambiguous items were left out.",
+  "alt": [
+    {
+      "alt": "Counter",
+      "bad": true,
+      "file": "c",
+      "site": "www_arngren_net"
+    },
+    {
+      "alt": "gaver,software,dataspill,mikroskop",
+      "bad": true,
+      "file": "Scanned_Picture_1.mixskycar3.jpg__-190x155.jpg",
+      "site": "www_arngren_net"
+    },
+    {
+      "alt": "logo",
+      "bad": true,
+      "file": "rohlik-logo-small.svg",
+      "site": "www_rohlik_cz"
+    },
+    {
+      "alt": "icon",
+      "bad": true,
+      "file": "dana-icon-chat.svg",
+      "site": "www_emag_ro"
+    },
+    {
+      "alt": "Wikipedia",
+      "bad": false,
+      "file": "wikipedia-wordmark-en-25.svg",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Fortescue Cuming",
+      "bad": false,
+      "file": "lossy-page1-250px-NPG-S_NPG_74_39_2_13Cuming-000001.tif.jpg",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "William Contreras",
+      "bad": false,
+      "file": "120px-William_Contreras_stands_at_home_plate%2C_Aug_05_2022_%28cropped%29.jpg",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Godzilla film poster",
+      "bad": false,
+      "file": "120px-Gojira_1954_Japanese_poster.jpg",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Balkan fritillary",
+      "bad": false,
+      "file": "500px-Balkan_fritillary_%28Boloria_graeca_balcanica%29_Bulgaria.jpg",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "MediaWiki logo",
+      "bad": false,
+      "file": "40px-MediaWiki-2020-icon.svg.png",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Wikibooks logo",
+      "bad": false,
+      "file": "40px-Wikibooks-logo.svg.png",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Wikifunctions logo",
+      "bad": false,
+      "file": "40px-Wikifunctions-logo.svg.png",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Wikisource logo",
+      "bad": false,
+      "file": "40px-Wikisource-logo.svg.png",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Wikispecies logo",
+      "bad": false,
+      "file": "40px-Wikispecies-logo.svg.png",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Wikiversity logo",
+      "bad": false,
+      "file": "60px-Wikiversity_logo_2017.svg.png",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Wikivoyage logo",
+      "bad": false,
+      "file": "40px-Wikivoyage-Logo-v3-icon.svg.png",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Wiktionary logo",
+      "bad": false,
+      "file": "40px-Wiktionary-logo-en-v2.svg.png",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Wikimedia Foundation",
+      "bad": false,
+      "file": "wikimedia.svg",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Powered by MediaWiki",
+      "bad": false,
+      "file": "mediawiki_compact.svg",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "'Breaking' graphic",
+      "bad": false,
+      "file": "537ff930-6139-11ee-b101-6f93d6dfbcc2.png",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "BBC's Lucy Woodham",
+      "bad": false,
+      "file": "086e1a00-d768-11f1-93e1-3b657b665bcf.jpg",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "Man Utd v Roma",
+      "bad": false,
+      "file": "695be260-d7c3-11f1-a719-bf3dc3a3d5b5.jpg",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "Elle",
+      "bad": false,
+      "file": "5a8d0a30-d7ae-11f1-b441-2b33b063138f.jpg",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "Naruto",
+      "bad": false,
+      "file": "fea2c210-d6da-11f1-b441-2b33b063138f.jpg",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "In Our Time",
+      "bad": false,
+      "file": "57ca9f40-c2fc-11f1-babe-4199b0e7ccea.jpg",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "A sudoku puzzle",
+      "bad": false,
+      "file": "df824740-cecd-11f0-8c06-f5d460985095.jpg",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "BBC Scotland logo",
+      "bad": false,
+      "file": "495f8070-b0a6-11ef-a0f2-fd81ae5962f4.png",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "BBC ALBA logo",
+      "bad": false,
+      "file": "5c0536c0-b0a6-11ef-a0f2-fd81ae5962f4.png",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "BBC Cymru logo",
+      "bad": false,
+      "file": "16bc3290-b418-11ec-b548-a7b348f6562f.png",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "GEICO logo",
+      "bad": false,
+      "file": "geicoimg.gif",
+      "site": "www_berkshirehathaway_com"
+    },
+    {
+      "alt": "eMAG",
+      "bad": false,
+      "file": "88362.svg",
+      "site": "www_emag_ro"
+    },
+    {
+      "alt": "sell on emag icon",
+      "bad": false,
+      "file": "ic-sell-button-header.svg",
+      "site": "www_emag_ro"
+    },
+    {
+      "alt": "eMAG Marketplace",
+      "bad": false,
+      "file": "banner_mktp_copy.png",
+      "site": "www_emag_ro"
+    },
+    {
+      "alt": "eMAG Marketplace",
+      "bad": false,
+      "file": "mktp-logo.png",
+      "site": "www_emag_ro"
+    },
+    {
+      "alt": "The Free Encyclopedia",
+      "bad": false,
+      "file": "wikipedia-tagline-en-25.svg",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Title page of the manuscript score",
+      "bad": false,
+      "file": "120px-Johann_Sebastian_Bach_Ich_geh_und_suche_mit_Verlangen%2C_BWV_49_-_cover.jpg",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Frozen yogurt, blueberry-flavored",
+      "bad": false,
+      "file": "250px-Blueberry_frozen_yoghurt_%284937999312%29.jpg",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "Wikimedia Commons logo",
+      "bad": false,
+      "file": "40px-Commons-logo.svg.png",
+      "site": "en_wikipedia_org_wiki_Main_Page"
+    },
+    {
+      "alt": "elektronikk,lysorgel,kamera,oversetter",
+      "bad": true,
+      "file": "Cutout_2.gif",
+      "site": "www_arngren_net"
+    },
+    {
+      "alt": "elektronikk,lysorgel,kamera,oversetter",
+      "bad": true,
+      "file": "Cutout_1.jpgskycom2-240x104.jpg",
+      "site": "www_arngren_net"
+    },
+    {
+      "alt": "elektronikk,lysorgel,kamera,oversetter",
+      "bad": true,
+      "file": "Cutout_1.jpgskycom2-86x45.jpg",
+      "site": "www_arngren_net"
+    },
+    {
+      "alt": "A composite image of Trump and a woman voting",
+      "bad": false,
+      "file": "d5a321d0-d7b0-11f1-b441-2b33b063138f.png",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "A Ryanair plane inspected in Murcia, southern Spain. Screeenshot: 3 November 2026",
+      "bad": false,
+      "file": "79069d70-d79d-11f1-84dd-e55f4bec0ecd.png",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "King charles makes a speech against a blue background in sombre lighting",
+      "bad": false,
+      "file": "42789f10-d7c0-11f1-b441-2b33b063138f.jpg",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "Zara Larsson and Tate McRae on stage",
+      "bad": false,
+      "file": "f5d4bcf0-d7ad-11f1-a701-fddedf244c16.jpg",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "Andrew Mountbatten-Windsor head and shoulders",
+      "bad": false,
+      "file": "37040580-d797-11f1-801d-cf196dc7232c.jpg",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "A destroyed building in Dnipro",
+      "bad": false,
+      "file": "6d097ab0-d7bb-11f1-8a3d-5320e3fab176.jpg",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "Elon Musk in the Oval Office",
+      "bad": false,
+      "file": "c6231050-d7c2-11f1-a701-fddedf244c16.jpg",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "A woman wearing glasses and a coat",
+      "bad": false,
+      "file": "b19a7b20-d7c0-11f1-b441-2b33b063138f.jpg",
+      "site": "www_bbc_co_uk"
+    },
+    {
+      "alt": "A young woman wearing a cap in Georgia",
+      "bad": false,
+      "file": "447a2a80-d7b7-11f1-b441-2b33b063138f.jpg",
+      "site": "www_bbc_co_uk"
+    }
+  ],
+  "headings": [
+    {
+      "bad": true,
+      "site": "www_idnes_cz",
+      "text": "{NADPIS}"
+    },
+    {
+      "bad": true,
+      "site": "www_rohlik_cz",
+      "text": "Načítání textu"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Novinky"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz__noredirect_1",
+      "text": "Joker Show"
+    },
+    {
+      "bad": false,
+      "site": "www_gov_uk",
+      "text": "Research and statistics"
+    },
+    {
+      "bad": false,
+      "site": "www_bbc_co_uk",
+      "text": "More news"
+    },
+    {
+      "bad": false,
+      "site": "www_otto_de",
+      "text": "Deal des Tages"
+    },
+    {
+      "bad": false,
+      "site": "www_craigslist_org",
+      "text": "jobs"
+    },
+    {
+      "bad": false,
+      "site": "en_wikipedia_org_wiki_Main_Page",
+      "text": "Wikipedia languages"
+    },
+    {
+      "bad": false,
+      "site": "www_idnes_cz",
+      "text": "Další weby"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Naše krásná zahrada"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Garáž"
+    },
+    {
+      "bad": false,
+      "site": "www_otto_de",
+      "text": "Willkommen bei OTTO"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz__noredirect_1",
+      "text": "ELLE"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz__noredirect_1",
+      "text": "EGLOPraha"
+    },
+    {
+      "bad": false,
+      "site": "www_otto_de",
+      "text": "Aktionen & Themenwelten"
+    },
+    {
+      "bad": false,
+      "site": "www_bbc_co_uk",
+      "text": "Are Liverpool too meek?"
+    },
+    {
+      "bad": false,
+      "site": "www_idnes_cz",
+      "text": "Mobil"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Proženy"
+    },
+    {
+      "bad": false,
+      "site": "www_rohlik_cz",
+      "text": "Miil Cottage sýr"
+    },
+    {
+      "bad": false,
+      "site": "www_bbc_co_uk",
+      "text": "Latest Sport Audio"
+    },
+    {
+      "bad": false,
+      "site": "www_bbc_co_uk",
+      "text": "BBC Homepage"
+    },
+    {
+      "bad": false,
+      "site": "www_craigslist_org",
+      "text": "for sale"
+    },
+    {
+      "bad": false,
+      "site": "www_idnes_cz",
+      "text": "Premium"
+    },
+    {
+      "bad": false,
+      "site": "www_bbc_co_uk",
+      "text": "Around the UK"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "SMARTmania"
+    },
+    {
+      "bad": false,
+      "site": "www_bbc_co_uk",
+      "text": "Money"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Agroaktuálně"
+    },
+    {
+      "bad": false,
+      "site": "www_idnes_cz",
+      "text": "Velmi krotká ovečka. Nejlepší střelec všech dob v NHL nevídaně strádá"
+    },
+    {
+      "bad": false,
+      "site": "www_rohlik_cz",
+      "text": "Coca-Cola Zero cukru holiday creamy vanilla"
+    },
+    {
+      "bad": false,
+      "site": "www_bbc_co_uk",
+      "text": "Sporting beat Shakhtar day after head coach sacked"
+    },
+    {
+      "bad": false,
+      "site": "www_bbc_co_uk",
+      "text": "The high-tech mission to preserve a 17th-century shipwreck"
+    },
+    {
+      "bad": false,
+      "site": "www_bbc_co_uk",
+      "text": "How to exercise more without trying"
+    },
+    {
+      "bad": false,
+      "site": "www_otto_de",
+      "text": "Daunenmantel mit 2-Way-Zipper und großer Kapuze - aktuelle HW26-Kollektion"
+    },
+    {
+      "bad": false,
+      "site": "www_bbc_co_uk",
+      "text": "Sign up to World of Business"
+    },
+    {
+      "bad": false,
+      "site": "www_gov_uk",
+      "text": "Citizenship and living in the UK"
+    }
+  ],
+  "labels": [
+    {
+      "bad": false,
+      "site": "www_emag_ro",
+      "text": "Nume și prenume"
+    },
+    {
+      "bad": false,
+      "site": "www_emag_ro",
+      "text": "Email"
+    },
+    {
+      "bad": false,
+      "site": "www_gov_uk",
+      "text": "Search"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Hledej v internetu:"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Méně služeb"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Další služby"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Meteoradar"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Zobrazit méně"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Zobrazit více"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Popište, co se vám zdálo"
+    },
+    {
+      "bad": false,
+      "site": "www_seznam_cz",
+      "text": "Zobrazit všechny vaše stanice"
+    },
+    {
+      "bad": false,
+      "site": "www_w3_org_WAI",
+      "text": "Search:"
+    },
+    {
+      "bad": false,
+      "site": "en_wikipedia_org_wiki_Main_Page",
+      "text": "Small"
+    },
+    {
+      "bad": false,
+      "site": "en_wikipedia_org_wiki_Main_Page",
+      "text": "Standard"
+    },
+    {
+      "bad": false,
+      "site": "en_wikipedia_org_wiki_Main_Page",
+      "text": "Large"
+    },
+    {
+      "bad": false,
+      "site": "en_wikipedia_org_wiki_Main_Page",
+      "text": "Wide"
+    },
+    {
+      "bad": false,
+      "site": "en_wikipedia_org_wiki_Main_Page",
+      "text": "Automatic"
+    },
+    {
+      "bad": false,
+      "site": "en_wikipedia_org_wiki_Main_Page",
+      "text": "Light"
+    },
+    {
+      "bad": false,
+      "site": "en_wikipedia_org_wiki_Main_Page",
+      "text": "Dark"
+    },
+    {
+      "bad": false,
+      "site": "www_bbc_co_uk",
+      "text": "Site search"
+    }
+  ]
+}

@@ -73,6 +73,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 ## Needs Vojta
 
+- Privacy notice for the contact form: the page says studio9 keeps the e-mail, name, message and scanned address only to answer and deletes them on request. A proper GDPR notice needs the controller's legal name and contact, and a retention period; give those and the notice is one constant.
+
 - Jev through Cloudflare (`typesafe/jev-1.14.0`) answers HTTP 402 "Insufficient balance; add money to your gateway or use BYOK": it needs AI Gateway credits (Unified Billing) or a TypeSafe key. Judged observations run on Cloudflare's own `@cf/cloudflare/clef` inside the free Workers AI daily allocation instead. To switch to Jev, load AI Gateway credits (or add a key as BYOK) and change one model constant.
 
 - Contact messages are stored in D1 on stage dev and nobody is told. To get them by e-mail, as webproai does, the Stack needs your verified destination address (Cloudflare Email). Read them meanwhile with `wrangler d1 execute` on the dev database or ask an agent.

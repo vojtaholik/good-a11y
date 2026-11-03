@@ -487,12 +487,20 @@
   const walkStart = (): number => {
     walkStyle.push(addStyle(NO_TRANSITIONS_CSS));
 
+    const focusedAtLoad = document.activeElement;
+
+    if (focusedAtLoad instanceof HTMLElement) {
+      focusedAtLoad.blur();
+    }
+
     for (const element of [...document.querySelectorAll(CONTROLS)].slice(
       0,
       MAX_ELEMENTS
     )) {
       if (!element.matches(":disabled") && isRendered(element)) {
-        before.set(element, styleSnapshot(element));
+        if (element !== focusedAtLoad) {
+          before.set(element, styleSnapshot(element));
+        }
 
         candidates.push({
           clippedAway: isClippedAway(element),
@@ -507,10 +515,6 @@
           tabindex: element.getAttribute("tabindex"),
         });
       }
-    }
-
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
     }
 
     document.addEventListener("focusin", onFocus, true);

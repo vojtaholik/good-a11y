@@ -1,0 +1,634 @@
+{
+  "model": "@cf/cloudflare/clef",
+  "recorded": "2026-11-03",
+  "replies": [
+    {
+      "key": "alt-text-describes:en_wikipedia_org_wiki_Main_Page",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "image_1": {
+            "type": "noul",
+            "noul": 0.7115
+          },
+          "image_2": {
+            "type": "noul",
+            "noul": 0.8003
+          },
+          "image_3": {
+            "type": "noul",
+            "noul": 0.6365
+          },
+          "image_4": {
+            "type": "noul",
+            "noul": 0.9159
+          },
+          "image_5": {
+            "type": "noul",
+            "noul": 0.8479
+          },
+          "image_6": {
+            "type": "noul",
+            "noul": 0.3552
+          },
+          "image_7": {
+            "type": "noul",
+            "noul": 0.2644
+          },
+          "image_8": {
+            "type": "noul",
+            "noul": 0.3208
+          },
+          "image_9": {
+            "type": "noul",
+            "noul": 0.375
+          },
+          "image_10": {
+            "type": "noul",
+            "noul": 0.272
+          },
+          "image_11": {
+            "type": "noul",
+            "noul": 0.3277
+          },
+          "image_12": {
+            "type": "noul",
+            "noul": 0.3013
+          },
+          "image_13": {
+            "type": "noul",
+            "noul": 0.5181
+          },
+          "image_14": {
+            "type": "noul",
+            "noul": 0.3931
+          },
+          "image_15": {
+            "type": "noul",
+            "noul": 0.6609
+          },
+          "image_16": {
+            "type": "noul",
+            "noul": 0.5979
+          },
+          "image_17": {
+            "type": "noul",
+            "noul": 0.8786
+          },
+          "image_18": {
+            "type": "noul",
+            "noul": 0.9378
+          },
+          "image_19": {
+            "type": "noul",
+            "noul": 0.235
+          }
+        },
+        "usage": {
+          "input_tokens": 3282,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "alt-text-describes:www_arngren_net",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "image_1": {
+            "type": "noul",
+            "noul": 0.4828
+          },
+          "image_2": {
+            "type": "noul",
+            "noul": 0.4306
+          },
+          "image_3": {
+            "type": "noul",
+            "noul": 0.5193
+          },
+          "image_4": {
+            "type": "noul",
+            "noul": 0.432
+          },
+          "image_5": {
+            "type": "noul",
+            "noul": 0.3151
+          }
+        },
+        "usage": {
+          "input_tokens": 914,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "alt-text-describes:www_bbc_co_uk",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "image_1": {
+            "type": "noul",
+            "noul": 0.7475
+          },
+          "image_2": {
+            "type": "noul",
+            "noul": 0.8673
+          },
+          "image_3": {
+            "type": "noul",
+            "noul": 0.6334
+          },
+          "image_4": {
+            "type": "noul",
+            "noul": 0.4305
+          },
+          "image_5": {
+            "type": "noul",
+            "noul": 0.512
+          },
+          "image_6": {
+            "type": "noul",
+            "noul": 0.417
+          },
+          "image_7": {
+            "type": "noul",
+            "noul": 0.8601
+          },
+          "image_8": {
+            "type": "noul",
+            "noul": 0.5513
+          },
+          "image_9": {
+            "type": "noul",
+            "noul": 0.6264
+          },
+          "image_10": {
+            "type": "noul",
+            "noul": 0.6656
+          },
+          "image_11": {
+            "type": "noul",
+            "noul": 0.9318
+          },
+          "image_12": {
+            "type": "noul",
+            "noul": 0.9297
+          },
+          "image_13": {
+            "type": "noul",
+            "noul": 0.9046
+          },
+          "image_14": {
+            "type": "noul",
+            "noul": 0.8972
+          },
+          "image_15": {
+            "type": "noul",
+            "noul": 0.8307
+          },
+          "image_16": {
+            "type": "noul",
+            "noul": 0.8939
+          },
+          "image_17": {
+            "type": "noul",
+            "noul": 0.8801
+          },
+          "image_18": {
+            "type": "noul",
+            "noul": 0.7976
+          },
+          "image_19": {
+            "type": "noul",
+            "noul": 0.8145
+          }
+        },
+        "usage": {
+          "input_tokens": 3641,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "alt-text-describes:www_berkshirehathaway_com",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "image_1": {
+            "type": "noul",
+            "noul": 0.8925
+          }
+        },
+        "usage": {
+          "input_tokens": 229,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "alt-text-describes:www_emag_ro",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "image_1": {
+            "type": "noul",
+            "noul": 0.0681
+          },
+          "image_2": {
+            "type": "noul",
+            "noul": 0.8684
+          },
+          "image_3": {
+            "type": "noul",
+            "noul": 0.6424
+          },
+          "image_4": {
+            "type": "noul",
+            "noul": 0.6832
+          },
+          "image_5": {
+            "type": "noul",
+            "noul": 0.7272
+          }
+        },
+        "usage": {
+          "input_tokens": 848,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "alt-text-describes:www_rohlik_cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "image_1": {
+            "type": "noul",
+            "noul": 0.386
+          }
+        },
+        "usage": {
+          "input_tokens": 228,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "headings-labels-describe:en_wikipedia_org_wiki_Main_Page",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "heading_1": {
+            "type": "noul",
+            "noul": 0.9229
+          },
+          "label_1": {
+            "type": "noul",
+            "noul": 0.0796
+          },
+          "label_2": {
+            "type": "noul",
+            "noul": 0.2886
+          },
+          "label_3": {
+            "type": "noul",
+            "noul": 0.2504
+          },
+          "label_4": {
+            "type": "noul",
+            "noul": 0.1631
+          },
+          "label_5": {
+            "type": "noul",
+            "noul": 0.336
+          },
+          "label_6": {
+            "type": "noul",
+            "noul": 0.3739
+          },
+          "label_7": {
+            "type": "noul",
+            "noul": 0.5383
+          }
+        },
+        "usage": {
+          "input_tokens": 919,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "headings-labels-describe:www_bbc_co_uk",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "heading_1": {
+            "type": "noul",
+            "noul": 0.7514
+          },
+          "heading_2": {
+            "type": "noul",
+            "noul": 0.9276
+          },
+          "heading_3": {
+            "type": "noul",
+            "noul": 0.7453
+          },
+          "heading_4": {
+            "type": "noul",
+            "noul": 0.5294
+          },
+          "heading_5": {
+            "type": "noul",
+            "noul": 0.7789
+          },
+          "heading_6": {
+            "type": "noul",
+            "noul": 0.6035
+          },
+          "heading_7": {
+            "type": "noul",
+            "noul": 0.8727
+          },
+          "heading_8": {
+            "type": "noul",
+            "noul": 0.8367
+          },
+          "heading_9": {
+            "type": "noul",
+            "noul": 0.85
+          },
+          "heading_10": {
+            "type": "noul",
+            "noul": 0.5799
+          },
+          "label_1": {
+            "type": "noul",
+            "noul": 0.544
+          }
+        },
+        "usage": {
+          "input_tokens": 1533,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "headings-labels-describe:www_craigslist_org",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "heading_1": {
+            "type": "noul",
+            "noul": 0.8823
+          },
+          "heading_2": {
+            "type": "noul",
+            "noul": 0.9133
+          }
+        },
+        "usage": {
+          "input_tokens": 335,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "headings-labels-describe:www_emag_ro",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "label_1": {
+            "type": "noul",
+            "noul": 0.9793
+          },
+          "label_2": {
+            "type": "noul",
+            "noul": 0.9825
+          }
+        },
+        "usage": {
+          "input_tokens": 281,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "headings-labels-describe:www_gov_uk",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "heading_1": {
+            "type": "noul",
+            "noul": 0.9557
+          },
+          "heading_2": {
+            "type": "noul",
+            "noul": 0.9679
+          },
+          "label_1": {
+            "type": "noul",
+            "noul": 0.6328
+          }
+        },
+        "usage": {
+          "input_tokens": 445,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "headings-labels-describe:www_idnes_cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "heading_1": {
+            "type": "noul",
+            "noul": 0.1338
+          },
+          "heading_2": {
+            "type": "noul",
+            "noul": 0.573
+          },
+          "heading_3": {
+            "type": "noul",
+            "noul": 0.4148
+          },
+          "heading_4": {
+            "type": "noul",
+            "noul": 0.3875
+          },
+          "heading_5": {
+            "type": "noul",
+            "noul": 0.7872
+          }
+        },
+        "usage": {
+          "input_tokens": 755,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "headings-labels-describe:www_otto_de",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "heading_1": {
+            "type": "noul",
+            "noul": 0.8126
+          },
+          "heading_2": {
+            "type": "noul",
+            "noul": 0.8387
+          },
+          "heading_3": {
+            "type": "noul",
+            "noul": 0.8147
+          },
+          "heading_4": {
+            "type": "noul",
+            "noul": 0.852
+          }
+        },
+        "usage": {
+          "input_tokens": 630,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "headings-labels-describe:www_rohlik_cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "heading_1": {
+            "type": "noul",
+            "noul": 0.1849
+          },
+          "heading_2": {
+            "type": "noul",
+            "noul": 0.9061
+          },
+          "heading_3": {
+            "type": "noul",
+            "noul": 0.5971
+          }
+        },
+        "usage": {
+          "input_tokens": 482,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "headings-labels-describe:www_seznam_cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "heading_1": {
+            "type": "noul",
+            "noul": 0.6839
+          },
+          "heading_2": {
+            "type": "noul",
+            "noul": 0.8398
+          },
+          "heading_3": {
+            "type": "noul",
+            "noul": 0.497
+          },
+          "heading_4": {
+            "type": "noul",
+            "noul": 0.3303
+          },
+          "heading_5": {
+            "type": "noul",
+            "noul": 0.6033
+          },
+          "heading_6": {
+            "type": "noul",
+            "noul": 0.5549
+          },
+          "label_1": {
+            "type": "noul",
+            "noul": 0.7557
+          },
+          "label_2": {
+            "type": "noul",
+            "noul": 0.012
+          },
+          "label_3": {
+            "type": "noul",
+            "noul": 0.0179
+          },
+          "label_4": {
+            "type": "noul",
+            "noul": 0.0905
+          },
+          "label_5": {
+            "type": "noul",
+            "noul": 0.0104
+          },
+          "label_6": {
+            "type": "noul",
+            "noul": 0.1386
+          },
+          "label_7": {
+            "type": "noul",
+            "noul": 0.8342
+          },
+          "label_8": {
+            "type": "noul",
+            "noul": 0.0578
+          }
+        },
+        "usage": {
+          "input_tokens": 1729,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "headings-labels-describe:www_seznam_cz__noredirect_1",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "heading_1": {
+            "type": "noul",
+            "noul": 0.7953
+          },
+          "heading_2": {
+            "type": "noul",
+            "noul": 0.7662
+          },
+          "heading_3": {
+            "type": "noul",
+            "noul": 0.6044
+          }
+        },
+        "usage": {
+          "input_tokens": 470,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "headings-labels-describe:www_w3_org_WAI",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "label_1": {
+            "type": "noul",
+            "noul": 0.9175
+          }
+        },
+        "usage": {
+          "input_tokens": 174,
+          "output_tokens": 0
+        }
+      }
+    }
+  ]
+}
