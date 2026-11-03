@@ -81,7 +81,7 @@ Each rendered audit took 9 to 17 seconds end to end, including the static step. 
 - `step` in `packages/browser-audit/src/browser-session.ts` handed its function to `Effect.tryPromise`, which calls it with an AbortSignal. The bound `page.setUserAgent(userAgent)` then received the signal as its `userAgentMetadata`, and Chrome refused the call ("Failed to deserialize params.userAgentMetadata.architecture"). Every rendered audit failed with "The browser service failed". Now the function is called with no argument; test in `packages/browser-audit/test/browser-session.test.ts`.
 - `axe.source` is `axeFunction.toString()`. Alchemy's Rolldown build wraps axe-core's CommonJS, renames `module` to `u` and minifies `typeof module === "undefined"` to `u === void 0`, so the injected script threw "u is not defined". The adapter now injects axe-core's shipped `axe.min.js` as text (`?raw` import, Vite in tests, `apps/scanner/src/raw-text-plugin.ts` in the Worker build), which no bundler transforms.
 
-## Browser Run on statically refused shops (partial)
+## Browser Run on statically refused shops
 
 Measured 2026-11-03 around 21:15 CET by builder-cloud on stage `dev`, after the lead approved running the rendered check on refused static reports (Browser Run is an honest Cloudflare browser with the scanner's own user agent, so it is no evasion). One new scan per shop on the `www.` address, because the bare address was reused within the hour. The outcome per shop comes from the Workflow's log line `Rendered check of <url> after a <outcome> fetch: <result>`.
 
@@ -94,8 +94,12 @@ The daily browser budget (1080 seconds, 60 reserved per scan) ran out during thi
 | elcorteingles.es | refused, HTTP 403 | ran |
 | bol.com | refused, HTTP 403 | blocked |
 | fnac.com | refused, DataDome 403 | blocked |
-| decathlon.fr, allegro.pl, notino.cz, mall.cz, booking.com | refused | not tried, budget spent |
+| decathlon.fr | refused | ran |
+| allegro.pl | refused | blocked |
+| notino.cz | refused | ran |
+| mall.cz | refused | blocked |
+| booking.com | refused | ran |
 
-So far 3 of 5 statically refused shops let Browser Run in. With the 6 shops the static fetch read, 9 of 16 shops can get at least a rendered audit. The remaining 5 are to be measured after the budget resets at 00:00 UTC.
+The last 5 rows were measured the same evening after decision 22 (dev budget 5400 seconds a day, measured session time). Result: 6 of 10 statically refused shops let Browser Run in (zalando, cdiscount, elcorteingles, decathlon, notino, booking) and 4 block it too (bol, fnac, allegro, mall). With the 6 shops the static fetch read, 12 of 16 shops get a rendered audit. A rescan of www.notino.cz after the per-probe timeouts (commit 07bde2a) gave rendered findings for reflow, text spacing and target size; its tab walk was not judged.
 
-Gotcha: a scan reserves 60 seconds but a rendered audit took 9 to 25 seconds, so the budget fills about four times faster than the browser is used. Releasing the unused part of a reservation after the audit would give roughly 60 to 100 rendered audits a day in place of 18.
+Gotcha (fixed by decision 22, the unused part is now released): a scan reserved 60 seconds but a rendered audit took 9 to 25 seconds, so the budget fills about four times faster than the browser is used. Releasing the unused part of a reservation after the audit would give roughly 60 to 100 rendered audits a day in place of 18.
