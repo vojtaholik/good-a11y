@@ -61,6 +61,22 @@ Each check has a `shown` flag in `packages/core/src/judged.ts`. A check that is 
 
 The hand-written set above did not predict the failures on real pages. A hidden check comes back only when it reaches precision 0.9 on a set of at least 30 real items, labelled by hand, taken from scanned pages.
 
+## Real-item calibration
+
+`packages/core/test/fixtures/judged-real-items.json` holds items from the pages in docs/accuracy-qa.md, labelled by hand by builder-core on 2026-11-03; ambiguous items were left out. `judged-real-requests.json` is the exact request per site, built with `questionsOf`. builder-cloud sent each request once to `@cf/cloudflare/clef` without opening the labels and recorded `judged-real-replies.json` (17 replies, 19,895 input tokens). `packages/core/test/judged-real-calibration.test.ts` scores it and fails if a check is shown below precision 0.9.
+
+| Check | Items | Bad | Noted | Right | Precision | Result |
+| --- | --- | --- | --- | --- | --- | --- |
+| `alt-text-describes` | 50 | 7 | 4 | 1 | 0.25 | stays hidden |
+| `headings-labels-describe` | 56 | 2 | 12 | 2 | 0.17 | stays hidden |
+
+What it got wrong:
+
+- Alt text: it noted correct logo alts on Wikipedia ("Wikibooks logo", "Wikimedia Commons logo") and missed `alt="logo"`, `alt="Counter"` and the keyword lists on arngren.net. It caught only `alt="icon"`.
+- Headings and labels: it noted ordinary control labels ("Small", "Large", "Wide" on Wikipedia; "Zobrazit více", "Méně služeb", "Meteoradar" on seznam.cz). It caught both bad headings (`{NADPIS}`, "Načítání textu").
+
+Both questions fail the same way: the model does not separate a short but correct name from a missing one. Both checks stay hidden; a new question wording needs a new real set before either comes back.
+
 - `packages/core/test/judged-calibration.test.ts` fails if a check in the report falls below 0.9 on the recorded answers, or a check has no calibration batch.
 
 ## Calibration (2026-11-03)
