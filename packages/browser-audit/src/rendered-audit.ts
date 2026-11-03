@@ -81,8 +81,9 @@ export const renderedAuditWith = (
   onClose: OnClose = () => Effect.void
 ) => ({
   audit: (url: PublicUrl): Effect.Effect<RenderedPage, RenderedAuditFailed> =>
-    Effect.acquireRelease(launch, (session) =>
-      closeReporting(session, onClose)
+    Effect.acquireRelease(
+      launch.pipe(Effect.tapError(() => onClose(false))),
+      (session) => closeReporting(session, onClose)
     ).pipe(
       Effect.flatMap((session) => auditIn(session, url)),
       Effect.scoped,

@@ -48,8 +48,9 @@ The statement now says automated checks find only issues "visible to the checker
 
 - **`evaluate`, not `addScriptTag`.** The task named `addScriptTag`. A script tag is subject to the site's Content Security Policy, so a strict CSP would block axe and every such site would come back "skipped". `page.evaluate` runs through DevTools and is not subject to CSP. `@axe-core/puppeteer` does the same. It does not change how the site sees the visitor, so it is not evasion.
 - **Top frame only.** axe is not injected into iframes. Content inside frames is not checked, which matches the static checks.
-- **The browser navigates on its own.** Redirects inside Browser Run are not vetted by `vetUrl`. The audit starts at the static scan's vetted final URL, and Browser Run cannot reach private networks.
-- **No refund of unused seconds.** About 18 audits a day is the ceiling. A refund would mean a second write after the browser closes, which can fail on its own, for a gain that does not matter at this scale.
+- **What the browser may load.** Every navigation request, in the main frame and in frames, passes `vetUrl` and the redirect cap or is aborted, and the landed URL is vetted after `goto` and after the probes (see `docs/layer-2-3.md`). Service workers are bypassed (`setBypassServiceWorker(true)`), so the page's own requests are the ones interception sees. A new page target such as a popup or a `target=_blank` window is closed as soon as it appears. Subresources, `fetch`, XHR and WebSockets from page scripts are not vetted, and a name that passed `vetUrl` may resolve to any address inside Chrome.
+- **Egress assumption.** Browser Run, like a Worker's `fetch`, sends its traffic out through Cloudflare's network, and we assume that network does not reach private addresses (loopback, RFC 1918, link-local, metadata endpoints). Cloudflare's documentation, searched on 2026-11-03, states no such guarantee for Browser Run. It is an assumption, not a cited fact; if it turns out false, the unvetted subresource and DNS paths above become a high-severity issue.
+- **Unused seconds are released.** A scan reserves 110 seconds and releases what the session did not use, except when the browser failed to launch or to close; then the full reservation is kept (decision 22, review L2 and R8).
 
 ## Tests
 
@@ -65,5 +66,4 @@ The statement now says automated checks find only issues "visible to the checker
 
 ## Open
 
-- Browser Run's block rate on the shop list in `.brain/resources/bot-wall-block-rate.svx` is unmeasured until the deploy.
 - The web view (`apps/web`) does not render `report.rendered` yet. That is builder-cloud's.

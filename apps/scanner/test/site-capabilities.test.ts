@@ -4,6 +4,7 @@ import { describe, expect, it } from "@effect/vitest";
 import { Effect, Layer, Ref } from "effect";
 import { TestClock } from "effect/testing";
 
+import { Caller } from "../src/caller.js";
 import { getScan, sendMessage, startScan } from "../src/capabilities/index.js";
 import { ScanLauncher } from "../src/scan-launcher.js";
 
@@ -11,6 +12,7 @@ const launched = Ref.makeUnsafe<readonly ScanJob[]>([]);
 
 const site = Layer.mergeAll(
   localStores,
+  Layer.succeed(Caller, Caller.of({ key: "203.0.113.7" })),
   Layer.succeed(
     ScanLauncher,
     ScanLauncher.of({

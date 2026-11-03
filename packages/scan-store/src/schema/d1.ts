@@ -10,6 +10,7 @@ import {
 export const Scans = sqliteTable(
   "scans",
   {
+    caller: text("caller").notNull().default(""),
     failure: text("failure"),
     id: text("id").primaryKey().notNull(),
     reportJson: text("report_json"),
@@ -22,6 +23,11 @@ export const Scans = sqliteTable(
   (table) => [
     index("scans_slug_recent_idx").on(table.slug, table.requestedAt, table.id),
     index("scans_requested_idx").on(table.requestedAt),
+    index("scans_site_caller_idx").on(
+      table.slug,
+      table.caller,
+      table.requestedAt
+    ),
     check(
       "scans_stage_check",
       sql`${table.stage} IN ('queued', 'scanning', 'published', 'failed')`

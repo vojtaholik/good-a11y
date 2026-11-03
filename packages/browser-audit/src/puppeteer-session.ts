@@ -1,5 +1,5 @@
-import { launch } from "@cloudflare/puppeteer";
-import type { BrowserWorker, HTTPRequest } from "@cloudflare/puppeteer";
+import { TargetType, launch } from "@cloudflare/puppeteer";
+import type { BrowserWorker, HTTPRequest, Target } from "@cloudflare/puppeteer";
 import {
   AXE_TAGS,
   RenderedAuditFailed,
@@ -143,7 +143,7 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
         request.isNavigationRequest() &&
         request.frame() === page.mainFrame();
 
-      if (!allowed) {
+      if (!allowed && request.frame() === page.mainFrame()) {
         refused.push(request.url());
       }
 
@@ -158,11 +158,26 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
       ]);
     };
 
+    // @effect-diagnostics-next-line asyncFunction:off -- Puppeteer calls this target listener itself and awaits nothing; a popup it cannot close is left to the browser's own close.
+    const closePopup = async (target: Target): Promise<void> => {
+      const opened =
+        target.type() === TargetType.PAGE ? await target.page() : null;
+
+      if (opened !== null && opened !== page) {
+        await Promise.allSettled([opened.close()]);
+      }
+    };
+
+    browser.on("targetcreated", (target: Target) => {
+      void closePopup(target);
+    });
+
     const session: BrowserSession = {
       close,
       html: step("browser", page.content.bind(page)),
       open: (url) =>
         Effect.gen(function* openPage() {
+          yield* step("browser", page.setBypassServiceWorker.bind(page, true));
           yield* step("browser", page.setRequestInterception.bind(page, true));
           page.on("request", (request) => {
             void guard(request);

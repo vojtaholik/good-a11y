@@ -2,7 +2,10 @@ import { describe, expect, it } from "@effect/vitest";
 import { Effect } from "effect";
 
 import {
+  CALLER_HEADER,
+  RPC_METHOD_ONLY,
   TOO_MANY,
+  callerKey,
   limitedProcedures,
   websiteHandler,
 } from "../src/server/handler.js";
@@ -25,11 +28,16 @@ const rpcRequest = (tag: string, ip = "203.0.113.7") =>
 
 const handlerWith = (budget: number) => {
   const seen: [LimitedProcedure, string][] = [];
+  const forwarded: (string | null)[] = [];
   const used = new Map<string, number>();
 
   const handle = websiteHandler(
     // @effect-diagnostics-next-line asyncFunction:off -- The fakes stand in for Promise-returning Worker bindings.
-    async () => await Promise.resolve(new Response("rpc")),
+    async (request) => {
+      forwarded.push(request.headers.get(CALLER_HEADER));
+
+      return await Promise.resolve(new Response("rpc"));
+    },
     // @effect-diagnostics-next-line asyncFunction:off -- The fakes stand in for Promise-returning Worker bindings.
     async () => await Promise.resolve(new Response("asset")),
     // @effect-diagnostics-next-line asyncFunction:off -- The fakes stand in for Promise-returning Worker bindings.
@@ -55,7 +63,7 @@ const handlerWith = (budget: number) => {
       )
     );
 
-  return { respond, seen, text };
+  return { forwarded, respond, seen, text };
 };
 
 describe("per-caller limits in the website Worker", () => {
@@ -98,5 +106,55 @@ describe("per-caller limits in the website Worker", () => {
       expect(yield* text(new Request("https://eaa.example/"))).toBe("asset");
       expect(seen).toEqual([]);
     })
+  );
+
+  it.effect("refuses every method other than POST on the RPC path", () =>
+    Effect.gen(function* refusesMethods() {
+      const { respond, seen, text } = handlerWith(100);
+
+      const put = new Request("https://eaa.example/rpc", {
+        body: rpcBody("startScan"),
+        method: "PUT",
+      });
+
+      const refused = yield* respond(put);
+
+      expect(refused.status).toBe(405);
+      expect(
+        yield* text(new Request("https://eaa.example/rpc", { method: "GET" }))
+      ).toBe(RPC_METHOD_ONLY);
+      expect(seen).toEqual([]);
+    })
+  );
+
+  it("keys an IPv6 caller by its /64 and an IPv4 caller by its address", () => {
+    expect(callerKey("203.0.113.7")).toBe("203.0.113.7");
+    expect(callerKey("2001:db8:1:2:aaaa:bbbb:cccc:dddd")).toBe(
+      "2001:db8:1:2::/64"
+    );
+    expect(callerKey("2001:DB8:1:2::1")).toBe("2001:db8:1:2::/64");
+    expect(callerKey("2001:db8::1")).toBe("2001:db8:0:0::/64");
+    expect(callerKey("2001:0db8:0001:0002:0:0:0:9")).toBe("2001:db8:1:2::/64");
+  });
+
+  it.effect(
+    "tells the scanner who called, overriding any header the visitor sent",
+    () =>
+      Effect.gen(function* forwardsCaller() {
+        const { forwarded, respond } = handlerWith(100);
+
+        const spoofed = new Request("https://eaa.example/rpc", {
+          body: rpcBody("startScan"),
+          headers: {
+            "cf-connecting-ip": "2001:db8:1:2::99",
+            [CALLER_HEADER]: "someone-else",
+          },
+          method: "POST",
+        });
+
+        yield* respond(spoofed);
+
+        expect(forwarded).toEqual(["2001:db8:1:2::/64"]);
+      })
   );
 });

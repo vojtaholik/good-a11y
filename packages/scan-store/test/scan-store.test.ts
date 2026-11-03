@@ -24,6 +24,7 @@ const report = reportOf(
 );
 
 const scanAt = (scanId: string, requestedAt: number, dailyCap = 10) => ({
+  caller: "203.0.113.7",
   dailyCap,
   requestedAt,
   reuseWithin: HOUR,
@@ -200,7 +201,7 @@ describe("ScanStore", () => {
     );
 
     scoped.effect(
-      "refuses more scans of one site in a day than its site cap, whatever the query string",
+      "refuses one caller more scans of one site in a day than its site cap, whatever the query string, and still serves another caller",
       () =>
         Effect.gen(function* siteCap() {
           const store = yield* ScanStore;
@@ -220,6 +221,16 @@ describe("ScanStore", () => {
             "begun",
             "site_cap_reached",
           ]);
+
+          expect(
+            yield* store.begin({
+              ...scanAt("site-other", at + 10, 1000),
+              caller: "2001:db8:1:2::/64",
+              siteCap: 2,
+              slug: "busy.example",
+              url: "https://busy.example/?n=9",
+            })
+          ).toEqual({ kind: "begun" });
         })
     );
   });

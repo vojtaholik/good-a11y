@@ -41,8 +41,37 @@ export const limitedProcedures = (
 export const TOO_MANY =
   "Too many requests from your address. Wait a minute and try again.";
 
+const IPV6_PREFIX_GROUPS = 4;
+
+export const callerKey = (address: string): string => {
+  if (!address.includes(":")) {
+    return address;
+  }
+
+  const [head = "", tail = ""] = address.toLowerCase().split("::");
+  const front = head === "" ? [] : head.split(":");
+  const back = tail === "" ? [] : tail.split(":");
+
+  const groups = address.includes("::")
+    ? [
+        ...front,
+        ...Array.from({ length: 8 - front.length - back.length }, () => "0"),
+        ...back,
+      ]
+    : front;
+
+  return `${groups
+    .slice(0, IPV6_PREFIX_GROUPS)
+    .map((group) => group.replace(/^0+(?=.)/u, ""))
+    .join(":")}::/64`;
+};
+
 const callerOf = (request: Request): string =>
-  request.headers.get("cf-connecting-ip") ?? "unknown";
+  callerKey(request.headers.get("cf-connecting-ip") ?? "unknown");
+
+export const CALLER_HEADER = "x-eaa-caller";
+
+export const RPC_METHOD_ONLY = "The RPC endpoint takes POST only.";
 
 export const websiteHandler =
   (rpc: BackendFetch, assets: BackendFetch, allow: CallerLimit): BackendFetch =>
@@ -52,10 +81,14 @@ export const websiteHandler =
       return await assets(request);
     }
 
-    const procedures =
-      request.method === "POST"
-        ? limitedProcedures(await request.clone().text())
-        : [];
+    if (request.method !== "POST") {
+      return new Response(RPC_METHOD_ONLY, {
+        headers: { allow: "POST" },
+        status: 405,
+      });
+    }
+
+    const procedures = limitedProcedures(await request.clone().text());
 
     const caller = callerOf(request);
 
@@ -70,5 +103,9 @@ export const websiteHandler =
       return new Response(TOO_MANY, { status: 429 });
     }
 
-    return await rpc(request);
+    const forwarded = new Request(request);
+
+    forwarded.headers.set(CALLER_HEADER, caller);
+
+    return await rpc(forwarded);
   };

@@ -10,6 +10,7 @@ import { Scans } from "./schema/d1.js";
 import { StoreDatabase } from "./store-database.js";
 
 export interface NewScan {
+  readonly caller: string;
   readonly dailyCap: number;
   readonly requestedAt: number;
   readonly reuseWithin: number;
@@ -172,7 +173,7 @@ export class ScanStore extends Context.Service<
           const runningSince = scan.requestedAt - unsettledWindow(scan);
 
           const inserted = yield* db.all<{ readonly id: string }>(
-            sql`INSERT OR IGNORE INTO scans (id, slug, url, requested_at, stage) SELECT ${scan.scanId}, ${scan.slug}, ${scan.url}, ${scan.requestedAt}, 'queued' WHERE (SELECT COUNT(*) FROM scans WHERE requested_at > ${dayStart}) < ${scan.dailyCap} AND (SELECT COUNT(*) FROM scans WHERE slug = ${scan.slug} AND requested_at > ${dayStart}) < ${scan.siteCap} AND NOT EXISTS (SELECT 1 FROM scans WHERE url = ${scan.url} AND stage IN ('queued', 'scanning') AND requested_at >= ${runningSince}) RETURNING id`
+            sql`INSERT OR IGNORE INTO scans (id, slug, url, caller, requested_at, stage) SELECT ${scan.scanId}, ${scan.slug}, ${scan.url}, ${scan.caller}, ${scan.requestedAt}, 'queued' WHERE (SELECT COUNT(*) FROM scans WHERE requested_at > ${dayStart}) < ${scan.dailyCap} AND (SELECT COUNT(*) FROM scans WHERE slug = ${scan.slug} AND caller = ${scan.caller} AND requested_at > ${dayStart}) < ${scan.siteCap} AND NOT EXISTS (SELECT 1 FROM scans WHERE url = ${scan.url} AND stage IN ('queued', 'scanning') AND requested_at >= ${runningSince}) RETURNING id`
           );
 
           if (inserted.length > 0) {
@@ -185,7 +186,7 @@ export class ScanStore extends Context.Service<
             readonly running: number;
             readonly site: number;
           }>(
-            sql`SELECT (SELECT COUNT(*) FROM scans WHERE id = ${scan.scanId}) AS mine, (SELECT id FROM scans WHERE url = ${scan.url} AND stage IN ('queued', 'scanning') AND requested_at >= ${runningSince} ORDER BY requested_at DESC LIMIT 1) AS id, (SELECT COUNT(*) FROM scans WHERE url = ${scan.url} AND stage IN ('queued', 'scanning') AND requested_at >= ${runningSince}) AS running, (SELECT COUNT(*) FROM scans WHERE slug = ${scan.slug} AND requested_at > ${dayStart}) AS site`
+            sql`SELECT (SELECT COUNT(*) FROM scans WHERE id = ${scan.scanId}) AS mine, (SELECT id FROM scans WHERE url = ${scan.url} AND stage IN ('queued', 'scanning') AND requested_at >= ${runningSince} ORDER BY requested_at DESC LIMIT 1) AS id, (SELECT COUNT(*) FROM scans WHERE url = ${scan.url} AND stage IN ('queued', 'scanning') AND requested_at >= ${runningSince}) AS running, (SELECT COUNT(*) FROM scans WHERE slug = ${scan.slug} AND caller = ${scan.caller} AND requested_at > ${dayStart}) AS site`
           );
 
           if (blocker === undefined || blocker.mine > 0) {

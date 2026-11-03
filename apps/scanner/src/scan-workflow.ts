@@ -263,11 +263,20 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
         );
 
         if (judged.status === "ran") {
-          yield* judgeBudget.settle({
-            day,
-            reserved: tokens,
-            used: judged.inputTokens,
-          });
+          yield* judgeBudget
+            .settle({
+              day,
+              reserved: tokens,
+              used: judged.inputTokens,
+            })
+            .pipe(
+              Effect.tapError((error) =>
+                Effect.logWarning(
+                  `Judge budget settle failed, answers kept: ${error.message}`
+                )
+              ),
+              Effect.ignore
+            );
         }
 
         return judged;

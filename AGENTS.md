@@ -118,6 +118,7 @@ Preserve existing work. Inspect status before editing, stage only files changed 
 - A scan runs in steps, each a Workflow task: `parseScanTarget` turns what was typed into a vetted target, `SafeFetch` fetches the one page, `PageReader.read` turns its HTML into `PageEvidence`, and `report` runs every static check and builds the `Report`. Then `RenderedAudit` opens the page in Browser Run (also when the static fetch was refused, decision 20), runs the pinned axe-core and the rendered probes, and `withRendered` adds their findings, or a skip with its reason, to the `Report`. Then the judged step may add judged observations under its own budget.
 - `SafeFetch` is the only caller of `HopTransport`, and `HopTransport.open` takes a `PublicUrl`. Only `vetUrl` makes one.
 - `vetUrl` vets the name. The address it resolves to is vetted by the transport: on Node by `@eaa-check/http-transport/node`, on Workers by Cloudflare's egress, which does not reach private networks. The Worker code does not vet addresses itself.
+- Browser Run is vetted per navigation (interception with `vetUrl`, landed URL re-vetted, popups closed, service workers bypassed). Its subresource requests and DNS answers are not vetted: like Worker egress, Browser Run egress is Cloudflare's network, assumed not to reach private addresses. Cloudflare documents no such guarantee for Browser Run, so this is an assumption (`docs/rendered-audit.md`).
 
 ## Boundaries and sign-off
 

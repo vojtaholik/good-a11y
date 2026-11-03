@@ -11,6 +11,7 @@ import {
 import { ScanStore } from "@eaa-check/scan-store";
 import { Clock, Effect } from "effect";
 
+import { Caller } from "../caller.js";
 import { ScanLauncher } from "../scan-launcher.js";
 import {
   DAILY_SCAN_CAP,
@@ -22,6 +23,7 @@ import { newId } from "./new-id.js";
 export const startScan = implement(startScanContract, ({ url }) =>
   Effect.gen(function* startScanOfSite() {
     const target = yield* Effect.fromResult(parseScanTarget(url));
+    const caller = yield* Caller;
     const store = yield* ScanStore;
     const launcher = yield* ScanLauncher;
     const requestedAt = yield* Clock.currentTimeMillis;
@@ -30,6 +32,7 @@ export const startScan = implement(startScanContract, ({ url }) =>
 
     const outcome = yield* store
       .begin({
+        caller: caller.key,
         dailyCap: DAILY_SCAN_CAP,
         requestedAt,
         reuseWithin: REUSE_WITHIN_MILLIS,

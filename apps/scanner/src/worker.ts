@@ -9,12 +9,19 @@ import {
   DAILY_BROWSER_SECONDS_NAME,
   dailyBrowserSeconds,
 } from "./browser-limits.js";
+import {
+  CallerMiddleware,
+  callerMiddlewareLayer,
+} from "./caller-middleware.js";
 import { siteCapabilities } from "./capabilities/index.js";
 import { ScanLaunchFailed } from "./scan-launch-failed.js";
 import { ScanLauncher } from "./scan-launcher.js";
 import ScanWorkflow from "./scan-workflow.js";
 
-export const rpcProjection = toRpc(siteCapabilities);
+export const rpcProjection = toRpc(siteCapabilities, {
+  middleware: CallerMiddleware,
+  on: ["startScan"],
+});
 
 export default class Scanner extends Cloudflare.Workers.RpcWorker<Scanner>()(
   "Scanner",
@@ -24,6 +31,7 @@ export default class Scanner extends Cloudflare.Workers.RpcWorker<Scanner>()(
     main: import.meta.url,
     observability: { enabled: true },
     schema: rpcProjection.group,
+    workersDev: false,
   },
   Effect.gen(function* makeScanner() {
     const scans = yield* ScanWorkflow;
@@ -42,6 +50,7 @@ export default class Scanner extends Cloudflare.Workers.RpcWorker<Scanner>()(
 
     const services = Layer.mergeAll(
       rpcProjection.layer,
+      callerMiddlewareLayer,
       RpcSerialization.layerJson
     ).pipe(
       Layer.provide(
