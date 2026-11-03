@@ -1,8 +1,13 @@
-import { SafeFetch } from "@eaa-check/core";
-import { describe, expect, it } from "@effect/vitest";
-import { Effect, Layer } from "effect";
+import type { LookupAddress, LookupOptions } from "node:dns";
+import type { LookupFunction } from "node:net";
 
-import { isPublicAddress, nodeHopTransportLayer } from "../src/node.js";
+import { describe, expect, it } from "@effect/vitest";
+
+import {
+  NOT_PUBLIC_CODE,
+  isPublicAddress,
+  publicLookupWith,
+} from "../src/node.js";
 
 const REFUSED = [
   "127.0.0.1",
@@ -33,6 +38,36 @@ const ALLOWED = [
   "::ffff:1.1.1.1",
 ];
 
+type Answer = readonly [
+  string | undefined,
+  string | LookupAddress[] | undefined,
+  number | undefined,
+];
+
+const answersOf = (
+  lookup: LookupFunction,
+  hostname: string,
+  options: LookupOptions
+): Answer[] => {
+  const answers: Answer[] = [];
+
+  // oxlint-disable-next-line promise/prefer-await-to-callbacks -- node:net's lookup contract is a callback; the fake resolver answers synchronously.
+  lookup(hostname, options, (error, address, family) => {
+    answers.push([error?.code, address, family]);
+  });
+
+  return answers;
+};
+
+const resolving =
+  (addresses: LookupAddress[]) =>
+  (
+    _hostname: string,
+    done: (error: NodeJS.ErrnoException | null, found: LookupAddress[]) => void
+  ) => {
+    done(null, addresses);
+  };
+
 describe("the Node hop transport", () => {
   it.each(REFUSED)("refuses the address %s", (address) => {
     expect(isPublicAddress(address)).toBe(false);
@@ -42,23 +77,34 @@ describe("the Node hop transport", () => {
     expect(isPublicAddress(address)).toBe(true);
   });
 
-  it.effect(
-    "refuses a public name that resolves to loopback, before it connects",
-    () =>
-      Effect.gen(function* refusesLoopback() {
-        const result = yield* SafeFetch.use((safeFetch) =>
-          safeFetch.fetch("https://localtest.me/", {
-            maxBytes: 1000,
-            userAgent: "test-agent",
-          })
-        );
+  it("refuses a name when any address it resolves to is private", () => {
+    const lookup = publicLookupWith(
+      resolving([
+        { address: "93.184.215.14", family: 4 },
+        { address: "127.0.0.1", family: 4 },
+      ])
+    );
 
-        expect(result).toMatchObject({ ok: false, reason: "forbidden_host" });
-      }).pipe(
-        Effect.provide(
-          SafeFetch.layer.pipe(Layer.provide(nodeHopTransportLayer))
-        )
-      ),
-    20_000
-  );
+    expect(answersOf(lookup, "localtest.me", { all: true })[0]?.[0]).toBe(
+      NOT_PUBLIC_CODE
+    );
+  });
+
+  it("hands a public name's vetted address to the socket", () => {
+    const lookup = publicLookupWith(
+      resolving([{ address: "93.184.215.14", family: 4 }])
+    );
+
+    expect(answersOf(lookup, "example.com", {})).toEqual([
+      [undefined, "93.184.215.14", 4],
+    ]);
+  });
+
+  it("passes a DNS failure through", () => {
+    const lookup = publicLookupWith((_hostname, done) => {
+      done(Object.assign(new Error("not found"), { code: "ENOTFOUND" }), []);
+    });
+
+    expect(answersOf(lookup, "never.example", {})[0]?.[0]).toBe("ENOTFOUND");
+  });
 });

@@ -28,18 +28,34 @@ const refusalOf = (
 };
 
 /* oxlint-disable promise/prefer-await-to-callbacks, node/callback-return -- node:net calls a lookup with a callback; this wraps dns.lookup and refuses the name when any address it resolves to is not public. */
-export const publicLookup: LookupFunction = (hostname, options, callback) => {
-  lookup(hostname, { all: true, order: "verbatim" }, (error, addresses) => {
-    const refusal = error ?? refusalOf(hostname, addresses);
-    const [first] = addresses;
+export type Resolve = (
+  hostname: string,
+  done: (
+    error: NodeJS.ErrnoException | null,
+    addresses: LookupAddress[]
+  ) => void
+) => void;
 
-    if (refusal !== null || first === undefined) {
-      callback(refusal, "");
-    } else if (options.all === true) {
-      callback(null, addresses);
-    } else {
-      callback(null, first.address, first.family);
-    }
-  });
+const resolveAll: Resolve = (hostname, done) => {
+  lookup(hostname, { all: true, order: "verbatim" }, done);
 };
+
+export const publicLookupWith =
+  (resolve: Resolve): LookupFunction =>
+  (hostname, options, callback) => {
+    resolve(hostname, (error, addresses) => {
+      const refusal = error ?? refusalOf(hostname, addresses);
+      const [first] = addresses;
+
+      if (refusal !== null || first === undefined) {
+        callback(refusal, "");
+      } else if (options.all === true) {
+        callback(null, addresses);
+      } else {
+        callback(null, first.address, first.family);
+      }
+    });
+  };
+
+export const publicLookup: LookupFunction = publicLookupWith(resolveAll);
 /* oxlint-enable promise/prefer-await-to-callbacks, node/callback-return */
