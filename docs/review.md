@@ -153,3 +153,23 @@ Fix: the website already parses every message (`limitedProcedures`). Reject with
 Carried, not claimed in 2254bf6: **R6** (shared or reloaded report link still shows the newest scan of the host) and **R10** (node transport test needs live DNS for `localtest.me`).
 
 Accepted residual, recorded: the global caps (200 scans, browser seconds, judge tokens, 50 messages a day) can still be used up by a caller with many IPs or many /64s. Per-IP limits slow that down; Turnstile (decision 14) is the remaining control.
+
+## Re-review 3 (22:50 CET) of 09b944b, 49d240b, 9e3693b
+
+Read the three diffs, checked the dev stage with read-only `getScan` calls and page GETs, and ran the built CLI.
+
+Counts: **0 high, 1 medium, 1 low**. R6, R10 and R11 are fixed; R12 is narrowed, with a residual. The medium is a crash that has been in the Node lookup since 26fc8be and that the R10 refactor kept.
+
+### Verified fixed
+
+- **R11**, live: a `getScan` message with `headers: []` answers 200. With `[["x-eaa-caller","spoof"]]`, with `[["X-EAA-Caller","spoof"]]`, with headers as an object, and in the array-of-messages form, it answers 400. Code: `readRpcBody` decodes every message's `headers` and refuses any name equal to `x-eaa-caller` after lowercasing. Any `headers` shape it cannot decode makes the body unreadable, and an unreadable body also gets 400, so the check fails closed.
+- **R6**, live and code: a started scan navigates to `/report/<host>/<scanId>` (`scanRouter`), which reads that scan by ID; `GET /report/example.com/scan-x` serves the app (200, `text/html`). `/report/<host>` still shows the newest scan, as intended.
+- **R10**: `publicLookupWith(resolve)` takes an injected resolver, and the test drives it with fixed answers, so the gate no longer needs live DNS.
+
+### Medium
+
+**R13. The Node transport crashes the CLI on any DNS failure.** `packages/http-transport/src/public-lookup.ts` (`publicLookupWith`): when the resolver fails, Node calls back with `addresses` undefined, and `const [first] = addresses` throws before the refusal is passed on. The throw happens inside a DNS callback, so it is an uncaught exception, not a typed `dns` failure. Reproduced with the built CLI: `node apps/cli/dist/cli.js scan no-such-host-zz9-eaa.com --json` dies with `TypeError: addresses is not iterable`, where it should report "The domain was not found in DNS." A mistyped domain crashes the process, which breaks "errors are part of the interface". It is present since 26fc8be, and 9e3693b kept the line. The Worker transport is not affected. Fix: `if (error !== null) { callback(error, ""); return; }` before destructuring (or `addresses ?? []`), plus a test where the injected resolver fails with `ENOTFOUND` and `SafeFetch` returns `reason: "dns"`.
+
+### Low
+
+**R12, residual.** `NO_POPUPS` replaces `window.open` in each new document, so the main frame's `window.open` no longer starts a popup. Popups still start from page script by other routes: `a.click()` on a `target="_blank"` link, a form with `target="_blank"`, or `open` taken from a fresh same-origin `about:blank` iframe's `contentWindow`, which the init script may not reach before the page uses it. The `targetcreated` close is still the backstop, so what remains is the same single blind request per popup as before, under the recorded egress assumption. Fix if wanted: guard new targets with the same interception before closing them; otherwise record it as accepted next to the egress assumption.
