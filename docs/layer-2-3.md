@@ -69,3 +69,7 @@ Every settled report, refused ones included, ends with the studio9 contact text 
 - The browser bundle is 650 kB: `@eaa-check/core/contracts` pulls the facts ledger. Splitting the page's schemas from the ledger is a later change.
 - Old rows on stage `dev` from before the Report schema changes read as outdated; nothing migrates them, by design.
 - Alchemy reports `2.0.0-beta.85` is available; the repo stays on the pinned `beta.81`.
+
+## Browser navigation is vetted (review H1)
+
+Browser Run follows redirects, meta refreshes and script navigations itself, so `SafeFetch` never sees those hops. The session therefore turns on request interception. Every navigation request, in the main frame and in frames, goes through `navigationAllowed`: it must pass `vetUrl` (which also refuses other schemes than http and https) and have at most `DEFAULT_MAX_REDIRECTS` redirects behind it, or it is aborted. Other requests, such as images and scripts, continue unchanged. After `goto` and again after the probes, the page's URL is vetted once more. A refused hop or a refused landing fails the audit with the kind `navigation`, and the report says "The page sent the browser to an address the scanner does not open, so the rendered page was not checked." Tests: `packages/browser-audit/test/rendered-audit.test.ts`.

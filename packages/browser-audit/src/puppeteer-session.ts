@@ -1,5 +1,5 @@
 import { launch } from "@cloudflare/puppeteer";
-import type { BrowserWorker } from "@cloudflare/puppeteer";
+import type { BrowserWorker, HTTPRequest } from "@cloudflare/puppeteer";
 import {
   AXE_TAGS,
   RenderedAuditFailed,
@@ -11,7 +11,7 @@ import { Clock, Effect, Result, Schema } from "effect";
 
 import { axeSource, probesSource } from "#page-scripts";
 
-import { step } from "./browser-session.js";
+import { navigationAllowed, step } from "./browser-session.js";
 import type { BrowserSession, LaunchSession } from "./browser-session.js";
 
 export const VIEWPORT = { height: 800, width: 1280 } as const;
@@ -101,11 +101,36 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
       Effect.tapError(() => close)
     );
 
+    const refused: string[] = [];
+
+    // @effect-diagnostics-next-line asyncFunction:off -- Puppeteer calls this request listener itself and awaits nothing, so it settles each paused request with a promise that never rejects.
+    const guard = async (request: HTTPRequest): Promise<void> => {
+      if (request.isInterceptResolutionHandled()) {
+        return;
+      }
+
+      const allowed =
+        !request.isNavigationRequest() ||
+        navigationAllowed(request.url(), request.redirectChain().length);
+
+      if (!allowed) {
+        refused.push(request.url());
+      }
+
+      await Promise.allSettled([
+        allowed ? request.continue() : request.abort("blockedbyclient"),
+      ]);
+    };
+
     const session: BrowserSession = {
       close,
       html: step("browser", page.content.bind(page)),
       open: (url) =>
         Effect.gen(function* openPage() {
+          yield* step("browser", page.setRequestInterception.bind(page, true));
+          page.on("request", (request) => {
+            void guard(request);
+          });
           yield* step("browser", page.setViewport.bind(page, VIEWPORT));
           yield* step(
             "browser",
@@ -118,6 +143,15 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
               timeout: NAVIGATION_TIMEOUT_MS,
               waitUntil: "load",
             })
+          ).pipe(
+            Effect.mapError((failure) =>
+              refused.length === 0
+                ? failure
+                : new RenderedAuditFailed({
+                    detail: `The browser was sent to ${refused[0]?.slice(0, 200)}, which vetUrl refuses.`,
+                    kind: "navigation",
+                  })
+            )
           );
 
           return {
@@ -248,6 +282,7 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
       runAxe: step("audit", page.evaluate.bind(page, axeSource)).pipe(
         Effect.andThen(step("audit", page.evaluate.bind(page, AXE_RUN)))
       ),
+      url: Effect.sync(() => page.url()),
     };
 
     return session;

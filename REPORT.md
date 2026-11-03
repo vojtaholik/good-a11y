@@ -62,6 +62,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 ## Open decisions
 
+- A few state-profile values read as fragments without their claim (audit 2, D6: e.g. DE-LAW-2 "Implements Directive (EU) 2019/882"). True and sourced; tidy the ledger wording in a later research pass.
+
 - Contact CTA wording (placeholder, shown to users now without a TODO marker): "studio9 can review this page by hand, explain what the findings mean for your site, and fix them. Get in touch with studio9." Blocked sites: "studio9 can review it by hand." Vojta to rewrite; it is one constant in `packages/core/src/report.ts`. There is no contact form or link target yet.
 
 - Bot walls: 9 of 16 large EU shops block a plain fetch (Cloudflare, DataDome, AWS WAF, Baleen). Product shows a clear blocked report with the CTA; no evasion. Browser Run block rate pending (decision 11).
@@ -83,6 +85,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 ## Log
 
 Times are CET, from the machine clock.
+
+- 21:55 Code review (`docs/review.md`): 2 high (Browser Run navigations not vetted; no per-caller limits), 3 medium, 3 low; facts gate and report honesty clean. Second product-text audit (`docs/product-text-audit-2.md`): 8 defects, 0 blockers. All routed to builders.
 
 - 21:45 Accuracy QA on 21 sites (`docs/accuracy-qa.md`): 5 false-positive causes fixed (charset, svg names in buttons, hidden iframes, shadow-DOM links, Akamai wall); static checks precise on every site where they fired; axe contrast 12/14. Two judged checks hidden for low real precision (decision 23). Vojta moved the deadline to ~01:40, all decisions on the lead.
 

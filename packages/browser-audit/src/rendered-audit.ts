@@ -7,6 +7,7 @@ import type { PublicUrl, RenderedPage } from "@eaa-check/core";
 import { Effect, Layer, Result, Schema } from "effect";
 import type { Duration } from "effect";
 
+import { landedOn } from "./browser-session.js";
 import type { BrowserSession, LaunchSession } from "./browser-session.js";
 
 export const SETTLE: Duration.Input = "2 seconds";
@@ -20,6 +21,8 @@ const auditIn = Effect.fn("RenderedAudit.auditIn")(function* auditIn(
   url: PublicUrl
 ) {
   const landing = yield* session.open(url);
+
+  yield* landedOn(session);
 
   yield* Effect.sleep(SETTLE);
 
@@ -44,6 +47,8 @@ const auditIn = Effect.fn("RenderedAudit.auditIn")(function* auditIn(
     ),
     Effect.orElseSucceed(() => null)
   );
+
+  yield* landedOn(session);
 
   const page: RenderedPage = {
     axe: text.success,

@@ -4,7 +4,7 @@ export class RenderedAuditFailed extends Schema.TaggedError<RenderedAuditFailed>
   "RenderedAuditFailed",
   {
     detail: Schema.String,
-    kind: Schema.Literals(["timeout", "browser", "audit"]),
+    kind: Schema.Literals(["timeout", "browser", "audit", "navigation"]),
   }
 ) {
   override get message(): string {

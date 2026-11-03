@@ -216,6 +216,8 @@ export const renderedFrom = (outcome: RenderedOutcome): Rendered => {
 const FAILURE_REASONS: Readonly<Record<RenderedAuditFailed["kind"], string>> = {
   audit: "The accessibility engine failed on the rendered page.",
   browser: "The browser service failed, so the rendered page was not checked.",
+  navigation:
+    "The page sent the browser to an address the scanner does not open, so the rendered page was not checked.",
   timeout: "The page took too long to render, so it was not checked.",
 };
 

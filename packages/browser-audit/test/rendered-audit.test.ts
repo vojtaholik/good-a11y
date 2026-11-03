@@ -4,7 +4,11 @@ import { describe, expect, it } from "@effect/vitest";
 import { Effect, Fiber, Ref, Result } from "effect";
 import { TestClock } from "effect/testing";
 
-import { HARD_TIMEOUT, renderedAuditWith } from "../src/index.js";
+import {
+  HARD_TIMEOUT,
+  navigationAllowed,
+  renderedAuditWith,
+} from "../src/index.js";
 import type { BrowserSession } from "../src/index.js";
 
 const URL: PublicUrl = Result.getOrThrow(vetUrl("https://www.example.com/"));
@@ -18,6 +22,7 @@ const fakeSession = (
   open: () => Effect.succeed({ headers: { server: "x" }, status: 200 }),
   probe: Effect.succeed('{"probes":true}'),
   runAxe: Effect.succeed('{"violations":[]}'),
+  url: Effect.succeed("https://www.example.com/"),
   ...overrides,
 });
 
@@ -135,5 +140,84 @@ describe("the rendered audit", () => {
 
       expect((yield* Fiber.join(fiber)).kind).toBe("audit");
     })
+  );
+
+  it.effect(
+    "refuses the rendered result when the page sends the browser to a forbidden host, and closes the browser",
+    () =>
+      Effect.gen(function* refusesForbiddenLanding() {
+        const closed = yield* Ref.make(0);
+
+        const fiber = yield* Effect.forkChild(
+          Effect.result(
+            auditWith(
+              fakeSession(closed, {
+                url: Effect.succeed("http://169.254.169.254/latest/meta-data/"),
+              })
+            )
+          )
+        );
+
+        yield* TestClock.adjust("3 seconds");
+
+        const result = yield* Fiber.join(fiber);
+
+        expect(Result.isFailure(result) ? result.failure.kind : "ran").toBe(
+          "navigation"
+        );
+        expect(yield* Ref.get(closed)).toBe(1);
+      })
+  );
+
+  it.effect(
+    "refuses the rendered result when the probes navigated to a forbidden host",
+    () =>
+      Effect.gen(function* refusesAfterProbes() {
+        const closed = yield* Ref.make(0);
+        const visits = yield* Ref.make(0);
+
+        const fiber = yield* Effect.forkChild(
+          Effect.result(
+            auditWith(
+              fakeSession(closed, {
+                url: Ref.getAndUpdate(visits, (count) => count + 1).pipe(
+                  Effect.map((count) =>
+                    count === 0
+                      ? "https://www.example.com/"
+                      : "http://intranet.local/"
+                  )
+                ),
+              })
+            )
+          )
+        );
+
+        yield* TestClock.adjust("3 seconds");
+
+        const result = yield* Fiber.join(fiber);
+
+        expect(Result.isFailure(result) ? result.failure.kind : "ran").toBe(
+          "navigation"
+        );
+      })
+  );
+
+  it.effect(
+    "lets a navigation through only to a vetted address within the redirect cap",
+    () =>
+      Effect.sync(() => {
+        expect(navigationAllowed("https://www.example.com/next", 1)).toBe(true);
+        expect(navigationAllowed("https://www.example.com/next", 6)).toBe(
+          false
+        );
+        expect(navigationAllowed("http://127.0.0.1/", 0)).toBe(false);
+        expect(navigationAllowed("http://169.254.169.254.local/", 0)).toBe(
+          false
+        );
+        expect(navigationAllowed("file:///etc/passwd", 0)).toBe(false);
+        expect(navigationAllowed("https://shop.example.com:8443/", 0)).toBe(
+          false
+        );
+      })
   );
 });

@@ -9,6 +9,8 @@ export type {
   LaunchSession,
 } from "./browser-session.js";
 
+export { landedOn, navigationAllowed } from "./browser-session.js";
+
 export {
   HARD_TIMEOUT,
   SETTLE,
