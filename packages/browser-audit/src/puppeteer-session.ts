@@ -389,6 +389,19 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
           evaluate("__eaaProbes.textSpacing()")
         );
 
+        const reflow = yield* optional(
+          step("audit", page.setViewport.bind(page, REFLOW_VIEWPORT)).pipe(
+            Effect.andThen(Effect.sleep(REFLOW_SETTLE)),
+            Effect.andThen(evaluate("__eaaProbes.reflow()")),
+            Effect.ensuring(
+              step("audit", page.setViewport.bind(page, VIEWPORT)).pipe(
+                Effect.andThen(Effect.sleep(REFLOW_SETTLE)),
+                Effect.ignore
+              )
+            )
+          )
+        );
+
         holding.navigations = true;
 
         const walkedRaw = yield* walk.pipe(
@@ -425,18 +438,6 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
 
         const targetSize = stayed
           ? yield* optional(evaluate(TARGET_SIZE_RUN))
-          : null;
-
-        const reflow = stayed
-          ? yield* optional(
-              evaluate("document.activeElement?.blur()").pipe(
-                Effect.andThen(
-                  step("audit", page.setViewport.bind(page, REFLOW_VIEWPORT))
-                ),
-                Effect.andThen(Effect.sleep(REFLOW_SETTLE)),
-                Effect.andThen(evaluate("__eaaProbes.reflow()"))
-              )
-            )
           : null;
 
         return JSON.stringify({

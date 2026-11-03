@@ -81,6 +81,10 @@ export const judgedSection = (
     0
   );
 
+  if (asked === 0) {
+    return [];
+  }
+
   return [
     h.section(
       [sx(h, styles.section), h.AriaLabelledBy("judged")],

@@ -122,4 +122,39 @@ describe("our own page", () => {
       expect(failing(html)).toEqual([]);
     })
   );
+
+  it.effect(
+    "leaves the judged section out when the model was asked nothing",
+    () =>
+      Effect.gen(function* reportPage() {
+        const scan = publishedScan();
+
+        const html = yield* pageOf({
+          ...home,
+          route: AppRoute.Report({ slug: "example.com" }),
+          scan: ScanState.Settled({
+            view: {
+              ...scan,
+              report:
+                scan.report === null
+                  ? null
+                  : {
+                      ...scan.report,
+                      judged: {
+                        inputTokens: 0,
+                        label: "Judged by a model",
+                        model: "@cf/cloudflare/clef",
+                        observations: [],
+                        status: "ran",
+                      },
+                    },
+            },
+          }),
+        });
+
+        expect(html).toContain("Where the EAA applies");
+        expect(html).not.toContain('id="judged"');
+        expect(html).not.toContain("it was asked about");
+      })
+  );
 });
