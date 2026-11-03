@@ -378,6 +378,23 @@
     });
   };
 
+  const containedWithin = (element: Element, limit: number): boolean => {
+    for (
+      let ancestor = element.parentElement;
+      ancestor !== null && ancestor !== document.body;
+      ancestor = ancestor.parentElement
+    ) {
+      if (
+        getComputedStyle(ancestor).overflowX !== "visible" &&
+        ancestor.getBoundingClientRect().right <= limit
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
   const reflow = () => {
     const root = document.scrollingElement ?? document.documentElement;
     const limit = root.clientWidth + 1;
@@ -386,7 +403,11 @@
       .filter((element) => {
         const rect = element.getBoundingClientRect();
 
-        return rect.right > limit && isRendered(element);
+        return (
+          rect.right > limit &&
+          isRendered(element) &&
+          !containedWithin(element, limit)
+        );
       })
       .map((element) => {
         const frame = element.closest("iframe");

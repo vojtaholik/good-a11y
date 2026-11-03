@@ -1,0 +1,512 @@
+{
+  "alt": [
+    { "alt": "IMG_2041.jpg", "file": "IMG_2041.jpg", "bad": true },
+    { "alt": "IMG_2041", "file": "IMG_2041.jpg", "bad": true },
+    { "alt": "DSC00123.JPG", "file": "DSC00123.JPG", "bad": true },
+    { "alt": "image", "file": "hero.jpg", "bad": true },
+    { "alt": "photo", "file": "media-0417.jpg", "bad": true },
+    { "alt": "picture", "file": "media-0418.jpg", "bad": true },
+    { "alt": "banner", "file": "banner-autumn.jpg", "bad": true },
+    { "alt": "icon", "file": "icon-cart.svg", "bad": true },
+    { "alt": "logo", "file": "logo.svg", "bad": true },
+    { "alt": "hero-image", "file": "hero-image.webp", "bad": true },
+    { "alt": "placeholder", "file": "placeholder.png", "bad": true },
+    { "alt": "alt", "file": "media-0419.jpg", "bad": true },
+    { "alt": "image1", "file": "image1.png", "bad": true },
+    { "alt": "untitled", "file": "untitled-1.png", "bad": true },
+    { "alt": "Bild", "file": "media-0420.jpg", "bad": true },
+    { "alt": "obrázek", "file": "media-0421.jpg", "bad": true },
+    { "alt": "foto", "file": "media-0422.jpg", "bad": true },
+    { "alt": "screenshot", "file": "screenshot-2026.png", "bad": true },
+    { "alt": "graphic", "file": "media-0423.png", "bad": true },
+    { "alt": "spacer", "file": "spacer.gif", "bad": true },
+    {
+      "alt": "product-image-1.png",
+      "file": "product-image-1.png",
+      "bad": true
+    },
+    { "alt": "header_bg", "file": "header_bg.jpg", "bad": true },
+    { "alt": "thumbnail", "file": "thumb-0424.jpg", "bad": true },
+    { "alt": "img", "file": "media-0425.jpg", "bad": true },
+    { "alt": "image of", "file": "media-0426.jpg", "bad": true },
+    {
+      "alt": "banner-2026-summer.jpg",
+      "file": "banner-2026-summer.jpg",
+      "bad": true
+    },
+    { "alt": "default", "file": "default.png", "bad": true },
+    { "alt": "Produktbild", "file": "media-0427.jpg", "bad": true },
+    { "alt": "photo 3", "file": "media-0428.jpg", "bad": true },
+    { "alt": "TODO alt text", "file": "media-0429.jpg", "bad": true },
+    {
+      "alt": "Red cotton T-shirt with a round neck, front view",
+      "file": "media-0430.jpg",
+      "bad": false
+    },
+    {
+      "alt": "A mechanic adjusting the brakes of a blue city bike",
+      "file": "workshop.jpg",
+      "bad": false
+    },
+    { "alt": "Sunny Bikes", "file": "logo.svg", "bad": false },
+    {
+      "alt": "Map of the shop's location next to Brno main station",
+      "file": "map.png",
+      "bad": false
+    },
+    {
+      "alt": "Chart: sales grew from 2 to 5 million euros between 2021 and 2025",
+      "file": "chart.png",
+      "bad": false
+    },
+    {
+      "alt": "Woman holding a smartphone showing the order tracking screen",
+      "file": "media-0431.jpg",
+      "bad": false
+    },
+    {
+      "alt": "Pair of brown leather hiking boots",
+      "file": "boots-1.jpg",
+      "bad": false
+    },
+    {
+      "alt": "Visa, Mastercard and PayPal accepted",
+      "file": "payments.png",
+      "bad": false
+    },
+    { "alt": "Shopping cart", "file": "icon-cart.svg", "bad": false },
+    { "alt": "Search", "file": "icon-search.svg", "bad": false },
+    { "alt": "Close menu", "file": "icon-close.svg", "bad": false },
+    {
+      "alt": "Free shipping on orders over 50 euros",
+      "file": "banner-shipping.jpg",
+      "bad": false
+    },
+    {
+      "alt": "Portrait of Jana Novák, head of customer service",
+      "file": "team-jana.jpg",
+      "bad": false
+    },
+    {
+      "alt": "Ceramic coffee mug in matte green glaze",
+      "file": "mug-green.jpg",
+      "bad": false
+    },
+    {
+      "alt": "Rotes Baumwoll-T-Shirt mit Rundhalsausschnitt",
+      "file": "media-0432.jpg",
+      "bad": false
+    },
+    {
+      "alt": "Modrá dámská bunda s kapucí",
+      "file": "media-0433.jpg",
+      "bad": false
+    },
+    {
+      "alt": "Step 2: insert the battery with the plus sign facing up",
+      "file": "manual-2.png",
+      "bad": false
+    },
+    {
+      "alt": "Wooden dining table with six chairs in a bright room",
+      "file": "media-0434.jpg",
+      "bad": false
+    },
+    {
+      "alt": "Trustpilot rating: 4.7 out of 5",
+      "file": "rating.svg",
+      "bad": false
+    },
+    {
+      "alt": "Child's bicycle with training wheels, yellow frame",
+      "file": "kids-bike.jpg",
+      "bad": false
+    },
+    {
+      "alt": "Download on the App Store",
+      "file": "app-store.svg",
+      "bad": false
+    },
+    { "alt": "Facebook", "file": "icon-fb.svg", "bad": false },
+    {
+      "alt": "Organic olive oil, 500 ml glass bottle",
+      "file": "oil.jpg",
+      "bad": false
+    },
+    {
+      "alt": "Floor plan of the two-bedroom apartment",
+      "file": "plan.png",
+      "bad": false
+    },
+    {
+      "alt": "Our warehouse team packing orders",
+      "file": "media-0435.jpg",
+      "bad": false
+    },
+    {
+      "alt": "Le logo de la Maison Dupont",
+      "file": "logo-dupont.png",
+      "bad": false
+    },
+    {
+      "alt": "Size guide: measure your chest at its widest point",
+      "file": "size-guide.png",
+      "bad": false
+    },
+    {
+      "alt": "Black office chair with mesh back and adjustable armrests",
+      "file": "chair.jpg",
+      "bad": false
+    },
+    {
+      "alt": "Warning: this product contains small parts",
+      "file": "warning.png",
+      "bad": false
+    },
+    {
+      "alt": "Two runners on a forest trail at sunrise",
+      "file": "media-0436.jpg",
+      "bad": false
+    }
+  ],
+  "links": [
+    { "text": "More", "context": "More", "bad": true },
+    { "text": "Read more", "context": "Read more", "bad": true },
+    { "text": "click here", "context": "click here", "bad": true },
+    { "text": "here", "context": "Click here.", "bad": true },
+    { "text": "Link", "context": "Link", "bad": true },
+    { "text": "Details", "context": "Details", "bad": true },
+    { "text": "Learn more", "context": "Learn more", "bad": true },
+    { "text": "Continue", "context": "Continue", "bad": true },
+    { "text": "Go", "context": "", "bad": true },
+    { "text": "This", "context": "This", "bad": true },
+    { "text": "Click", "context": "", "bad": true },
+    { "text": "Mehr", "context": "Mehr", "bad": true },
+    { "text": "Více", "context": "Více", "bad": true },
+    { "text": "En savoir", "context": "En savoir plus", "bad": true },
+    { "text": "Weiterlesen", "context": "Weiterlesen", "bad": true },
+    { "text": "More info", "context": "More info", "bad": true },
+    { "text": "See more", "context": "", "bad": true },
+    { "text": "click", "context": "Please click", "bad": true },
+    { "text": "Open", "context": "Open", "bad": true },
+    { "text": "Here", "context": "Here", "bad": true },
+    { "text": "...", "context": "...", "bad": true },
+    { "text": "»", "context": "»", "bad": true },
+    {
+      "text": "Read more",
+      "context": "Lorem ipsum dolor sit amet. Read more",
+      "bad": true
+    },
+    { "text": "click here", "context": "For more, click here.", "bad": true },
+    { "text": "View", "context": "View", "bad": true },
+    { "text": "Download", "context": "Download", "bad": true },
+    { "text": "Info", "context": "Info", "bad": true },
+    { "text": "Next", "context": "", "bad": true },
+    { "text": "Více informací", "context": "Více informací", "bad": true },
+    { "text": "Leer más", "context": "Leer más", "bad": true },
+    { "text": "Contact us", "context": "Contact us", "bad": false },
+    { "text": "Shipping", "context": "Shipping", "bad": false },
+    { "text": "Returns policy", "context": "Returns policy", "bad": false },
+    { "text": "Privacy policy", "context": "", "bad": false },
+    {
+      "text": "Read more",
+      "context": "Our spring service checks brakes, gears, tyres and lights for a fixed price. Read more",
+      "bad": false
+    },
+    {
+      "text": "click here",
+      "context": "To see our holiday closing days, click here.",
+      "bad": false
+    },
+    {
+      "text": "here",
+      "context": "You can download the 2025 annual report as a PDF here.",
+      "bad": false
+    },
+    {
+      "text": "More",
+      "context": "Winter jackets: warm, waterproof and made in Portugal. More",
+      "bad": false
+    },
+    { "text": "Men's shoes", "context": "Men's shoes", "bad": false },
+    { "text": "Gift cards", "context": "Gift cards", "bad": false },
+    {
+      "text": "Size guide",
+      "context": "Not sure which size fits? Size guide",
+      "bad": false
+    },
+    { "text": "Track order", "context": "Track order", "bad": false },
+    { "text": "Kontakt", "context": "Kontakt", "bad": false },
+    {
+      "text": "Obchodní podmínky",
+      "context": "Obchodní podmínky",
+      "bad": false
+    },
+    {
+      "text": "Livraison gratuite",
+      "context": "Livraison gratuite",
+      "bad": false
+    },
+    { "text": "Datenschutz", "context": "Datenschutz", "bad": false },
+    { "text": "Sign in", "context": "Sign in", "bad": false },
+    { "text": "My account", "context": "", "bad": false },
+    { "text": "FAQ", "context": "FAQ", "bad": false },
+    {
+      "text": "Accessibility statement",
+      "context": "Accessibility statement",
+      "bad": false
+    },
+    {
+      "text": "Download",
+      "context": "Assembly instructions for the Oslo bookcase (PDF, 2 MB): Download",
+      "bad": false
+    },
+    {
+      "text": "details",
+      "context": "Free delivery on orders over 50 euros, see details.",
+      "bad": false
+    },
+    {
+      "text": "Learn more",
+      "context": "Pay in three instalments with Klarna. Learn more",
+      "bad": false
+    },
+    { "text": "Store finder", "context": "Store finder", "bad": false },
+    { "text": "Careers", "context": "Careers", "bad": false },
+    { "text": "Sale", "context": "Sale", "bad": false },
+    { "text": "Newsletter", "context": "Newsletter", "bad": false },
+    {
+      "text": "this form",
+      "context": "To return an item, fill in this form within 30 days.",
+      "bad": false
+    },
+    { "text": "Opening hours", "context": "Opening hours", "bad": false },
+    { "text": "Cookie settings", "context": "Cookie settings", "bad": false }
+  ],
+  "headings": [
+    { "text": "Section 1", "bad": true },
+    { "text": "Untitled", "bad": true },
+    { "text": "Heading", "bad": true },
+    { "text": "Title", "bad": true },
+    { "text": "Lorem ipsum dolor", "bad": true },
+    { "text": "New section", "bad": true },
+    { "text": "Text", "bad": true },
+    { "text": "Header 2", "bad": true },
+    { "text": "Block", "bad": true },
+    { "text": "Content", "bad": true },
+    { "text": "Heading goes here", "bad": true },
+    { "text": "Überschrift", "bad": true },
+    { "text": "Nadpis", "bad": true },
+    { "text": "Section title", "bad": true },
+    { "text": "H2", "bad": true },
+    { "text": "Opening hours", "bad": false },
+    { "text": "Shipping and returns", "bad": false },
+    { "text": "Our team", "bad": false },
+    { "text": "Frequently asked questions", "bad": false },
+    { "text": "Kontakt", "bad": false },
+    { "text": "Zahlungsarten", "bad": false },
+    { "text": "Customer reviews", "bad": false },
+    { "text": "Product details", "bad": false },
+    { "text": "Size and fit", "bad": false },
+    { "text": "Doprava a platba", "bad": false },
+    { "text": "Related products", "bad": false },
+    { "text": "Sunny Bikes", "bad": false },
+    { "text": "How to care for leather boots", "bad": false },
+    { "text": "Livraison et retours", "bad": false },
+    { "text": "Accessibility statement", "bad": false },
+    { "text": "Your basket", "bad": false },
+    { "text": "Winter sale: up to 40% off", "bad": false },
+    { "text": "Contact information", "bad": false },
+    { "text": "Payment methods", "bad": false },
+    { "text": "About us", "bad": false },
+    { "text": "Technical specifications", "bad": false }
+  ],
+  "labels": [
+    { "text": "Field 2", "bad": true },
+    { "text": "Field", "bad": true },
+    { "text": "Input", "bad": true },
+    { "text": "Label", "bad": true },
+    { "text": "Text", "bad": true },
+    { "text": "Value", "bad": true },
+    { "text": "Enter", "bad": true },
+    { "text": "Untitled field", "bad": true },
+    { "text": "label_1", "bad": true },
+    { "text": "*", "bad": true },
+    { "text": "Type here", "bad": true },
+    { "text": "Pole", "bad": true },
+    { "text": "Email address", "bad": false },
+    { "text": "Postcode", "bad": false },
+    { "text": "Card number", "bad": false },
+    { "text": "Your message", "bad": false },
+    { "text": "Telefonní číslo", "bad": false },
+    { "text": "First name", "bad": false },
+    { "text": "Date of birth (DD/MM/YYYY)", "bad": false },
+    { "text": "Quantity", "bad": false },
+    { "text": "Passwort", "bad": false },
+    { "text": "Search products", "bad": false },
+    { "text": "Country", "bad": false },
+    { "text": "Street and house number", "bad": false }
+  ],
+  "language": [
+    {
+      "lang": "en",
+      "text": "Vyrábíme a opravujeme městská kola v Brně. Každé kolo ručně skládáme v naší dílně a před předáním ho otestujeme na silnici. Naši mechanici servisují všechny hlavní značky a většinu oprav zvládneme do dvou pracovních dnů. Objednávky nad tisíc korun doručujeme zdarma.",
+      "bad": true
+    },
+    {
+      "lang": "en",
+      "text": "Wir bauen und reparieren Stadträder in Wien. Jedes Rad wird in unserer Werkstatt von Hand montiert und vor der Übergabe auf der Straße getestet. Unsere Mechaniker warten alle großen Marken, und die meisten Reparaturen sind innerhalb von zwei Werktagen erledigt.",
+      "bad": true
+    },
+    {
+      "lang": "de",
+      "text": "We build and repair city bikes in Vienna. Every bike is assembled by hand in our workshop and road-tested before it leaves the shop. Our mechanics service all major brands, and most repairs are done within two working days. Orders over fifty euros ship free.",
+      "bad": true
+    },
+    {
+      "lang": "cs",
+      "text": "Nous fabriquons et réparons des vélos de ville à Lyon. Chaque vélo est monté à la main dans notre atelier et testé sur route avant de quitter la boutique. Nos mécaniciens entretiennent toutes les grandes marques et la plupart des réparations sont faites en deux jours ouvrés.",
+      "bad": true
+    },
+    {
+      "lang": "en",
+      "text": "Fabricamos y reparamos bicicletas urbanas en Valencia. Cada bicicleta se monta a mano en nuestro taller y se prueba en carretera antes de salir de la tienda. Nuestros mecánicos atienden todas las marcas principales y la mayoría de las reparaciones se hacen en dos días laborables.",
+      "bad": true
+    },
+    {
+      "lang": "en",
+      "text": "Produkujemy i naprawiamy rowery miejskie w Krakowie. Każdy rower jest składany ręcznie w naszym warsztacie i testowany na drodze, zanim opuści sklep. Nasi mechanicy serwisują wszystkie główne marki, a większość napraw wykonujemy w ciągu dwóch dni roboczych.",
+      "bad": true
+    },
+    {
+      "lang": "fr",
+      "text": "Costruiamo e ripariamo biciclette da città a Bologna. Ogni bicicletta viene montata a mano nella nostra officina e provata su strada prima di lasciare il negozio. I nostri meccanici assistono tutti i principali marchi e la maggior parte delle riparazioni si completa in due giorni lavorativi.",
+      "bad": true
+    },
+    {
+      "lang": "en",
+      "text": "Wij bouwen en repareren stadsfietsen in Utrecht. Elke fiets wordt met de hand in onze werkplaats gemonteerd en op de weg getest voordat hij de winkel verlaat. Onze monteurs onderhouden alle grote merken en de meeste reparaties zijn binnen twee werkdagen klaar.",
+      "bad": true
+    },
+    {
+      "lang": "de",
+      "text": "Vi bygger och reparerar stadscyklar i Göteborg. Varje cykel monteras för hand i vår verkstad och provkörs på vägen innan den lämnar butiken. Våra mekaniker servar alla stora märken och de flesta reparationer är klara inom två arbetsdagar.",
+      "bad": true
+    },
+    {
+      "lang": "sk",
+      "text": "Ihre Bestellung wird innerhalb von drei Werktagen versandt. Sie erhalten eine E-Mail mit der Sendungsnummer, sobald das Paket unser Lager verlässt. Rücksendungen sind innerhalb von dreißig Tagen kostenlos möglich, nutzen Sie dazu bitte das beiliegende Etikett.",
+      "bad": true
+    },
+    {
+      "lang": "en",
+      "text": "Vaše objednávka bude odeslána do tří pracovních dnů. Jakmile balík opustí náš sklad, dostanete e-mail s číslem zásilky. Vrácení zboží je do třiceti dnů zdarma, použijte prosím přiložený štítek. Na veškeré zboží poskytujeme záruku dvacet čtyři měsíců.",
+      "bad": true
+    },
+    {
+      "lang": "pl",
+      "text": "Your order ships within three working days. You will get an email with the tracking number as soon as the parcel leaves our warehouse. Returns are free within thirty days; please use the label enclosed in the box. All goods come with a twenty-four month warranty.",
+      "bad": true
+    },
+    {
+      "lang": "en",
+      "text": "Votre commande est expédiée sous trois jours ouvrés. Vous recevrez un e-mail avec le numéro de suivi dès que le colis quitte notre entrepôt. Les retours sont gratuits sous trente jours ; utilisez l'étiquette jointe dans le carton. Tous nos produits sont garantis vingt-quatre mois.",
+      "bad": true
+    },
+    {
+      "lang": "it",
+      "text": "Su pedido se envía en un plazo de tres días laborables. Recibirá un correo con el número de seguimiento en cuanto el paquete salga de nuestro almacén. Las devoluciones son gratuitas durante treinta días; use la etiqueta incluida en la caja.",
+      "bad": true
+    },
+    {
+      "lang": "en",
+      "text": "Rendelését három munkanapon belül feladjuk. Amint a csomag elhagyja raktárunkat, e-mailben elküldjük a nyomkövetési számot. A visszaküldés harminc napon belül ingyenes, kérjük, használja a dobozban található címkét. Minden termékre huszonnégy hónap garanciát adunk.",
+      "bad": true
+    },
+    {
+      "lang": "en",
+      "text": "We build and repair city bikes in Brno. Every bike is assembled by hand in our workshop and tested on the road before it leaves the shop. Our mechanics service all major brands and most repairs are done within two working days. Orders over fifty euros ship free.",
+      "bad": false
+    },
+    {
+      "lang": "cs",
+      "text": "Vyrábíme a opravujeme městská kola v Brně. Každé kolo ručně skládáme v naší dílně a před předáním ho otestujeme na silnici. Naši mechanici servisují všechny hlavní značky a většinu oprav zvládneme do dvou pracovních dnů. Objednávky nad tisíc korun doručujeme zdarma.",
+      "bad": false
+    },
+    {
+      "lang": "de",
+      "text": "Wir bauen und reparieren Stadträder in Wien. Jedes Rad wird in unserer Werkstatt von Hand montiert und vor der Übergabe auf der Straße getestet. Unsere Mechaniker warten alle großen Marken, und die meisten Reparaturen sind innerhalb von zwei Werktagen erledigt.",
+      "bad": false
+    },
+    {
+      "lang": "fr",
+      "text": "Nous fabriquons et réparons des vélos de ville à Lyon. Chaque vélo est monté à la main dans notre atelier et testé sur route avant de quitter la boutique. Nos mécaniciens entretiennent toutes les grandes marques et la plupart des réparations sont faites en deux jours ouvrés.",
+      "bad": false
+    },
+    {
+      "lang": "es",
+      "text": "Fabricamos y reparamos bicicletas urbanas en Valencia. Cada bicicleta se monta a mano en nuestro taller y se prueba en carretera antes de salir de la tienda. Nuestros mecánicos atienden todas las marcas principales y la mayoría de las reparaciones se hacen en dos días laborables.",
+      "bad": false
+    },
+    {
+      "lang": "pl",
+      "text": "Produkujemy i naprawiamy rowery miejskie w Krakowie. Każdy rower jest składany ręcznie w naszym warsztacie i testowany na drodze, zanim opuści sklep. Nasi mechanicy serwisują wszystkie główne marki, a większość napraw wykonujemy w ciągu dwóch dni roboczych.",
+      "bad": false
+    },
+    {
+      "lang": "it",
+      "text": "Costruiamo e ripariamo biciclette da città a Bologna. Ogni bicicletta viene montata a mano nella nostra officina e provata su strada prima di lasciare il negozio. I nostri meccanici assistono tutti i principali marchi e la maggior parte delle riparazioni si completa in due giorni lavorativi.",
+      "bad": false
+    },
+    {
+      "lang": "nl",
+      "text": "Wij bouwen en repareren stadsfietsen in Utrecht. Elke fiets wordt met de hand in onze werkplaats gemonteerd en op de weg getest voordat hij de winkel verlaat. Onze monteurs onderhouden alle grote merken en de meeste reparaties zijn binnen twee werkdagen klaar.",
+      "bad": false
+    },
+    {
+      "lang": "sv",
+      "text": "Vi bygger och reparerar stadscyklar i Göteborg. Varje cykel monteras för hand i vår verkstad och provkörs på vägen innan den lämnar butiken. Våra mekaniker servar alla stora märken och de flesta reparationer är klara inom två arbetsdagar.",
+      "bad": false
+    },
+    {
+      "lang": "de-AT",
+      "text": "Ihre Bestellung wird innerhalb von drei Werktagen versandt. Sie erhalten eine E-Mail mit der Sendungsnummer, sobald das Paket unser Lager verlässt. Rücksendungen sind innerhalb von dreißig Tagen kostenlos möglich, nutzen Sie dazu bitte das beiliegende Etikett.",
+      "bad": false
+    },
+    {
+      "lang": "cs-CZ",
+      "text": "Vaše objednávka bude odeslána do tří pracovních dnů. Jakmile balík opustí náš sklad, dostanete e-mail s číslem zásilky. Vrácení zboží je do třiceti dnů zdarma, použijte prosím přiložený štítek. Na veškeré zboží poskytujeme záruku dvacet čtyři měsíců.",
+      "bad": false
+    },
+    {
+      "lang": "en-GB",
+      "text": "Your order ships within three working days. You will get an email with the tracking number as soon as the parcel leaves our warehouse. Returns are free within thirty days; please use the label enclosed in the box. All goods come with a twenty-four month warranty.",
+      "bad": false
+    },
+    {
+      "lang": "fr-BE",
+      "text": "Votre commande est expédiée sous trois jours ouvrés. Vous recevrez un e-mail avec le numéro de suivi dès que le colis quitte notre entrepôt. Les retours sont gratuits sous trente jours ; utilisez l'étiquette jointe dans le carton. Tous nos produits sont garantis vingt-quatre mois.",
+      "bad": false
+    },
+    {
+      "lang": "es",
+      "text": "Su pedido se envía en un plazo de tres días laborables. Recibirá un correo con el número de seguimiento en cuanto el paquete salga de nuestro almacén. Las devoluciones son gratuitas durante treinta días; use la etiqueta incluida en la caja.",
+      "bad": false
+    },
+    {
+      "lang": "hu",
+      "text": "Rendelését három munkanapon belül feladjuk. Amint a csomag elhagyja raktárunkat, e-mailben elküldjük a nyomkövetési számot. A visszaküldés harminc napon belül ingyenes, kérjük, használja a dobozban található címkét. Minden termékre huszonnégy hónap garanciát adunk.",
+      "bad": false
+    },
+    {
+      "lang": "en",
+      "text": "Home Shop Bikes Repairs Contact Cookie settings We build and repair city bikes. Kontakt Impressum Datenschutz. Every bike is assembled by hand in our workshop and tested on the road before it leaves the shop. Our mechanics service all major brands.",
+      "bad": false
+    },
+    {
+      "lang": "de",
+      "text": "Startseite Shop Kontakt. Wir bauen und reparieren Stadträder. Cookie settings Accept all. Jedes Rad wird in unserer Werkstatt von Hand montiert und vor der Übergabe auf der Straße getestet. Unsere Mechaniker warten alle großen Marken.",
+      "bad": false
+    }
+  ]
+}

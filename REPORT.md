@@ -4,6 +4,8 @@ Durable record of tonight's build (2026-11-03). Newest first within each section
 
 ## What works
 
+- Report UX per Vojta (21:30): headline + coverage, issues first (one card per concern, static and rendered samples merged and tagged), Copy fix prompt on every issue with a fallback, judged observations in their own labelled section (Cloudflare Clef, never counted), one 'Where the EAA applies' section with all 27 states as flags opening to verified profiles (law, scope, dates, authority, penalties, micro exemption, each with a source link), passes collapsed, rules + statement + contact form last. Foldkit audit-program run.
+- Checks: 12 static (incl. autocomplete 1.3.5, BCP 47 lang, alt placeholder 1.1.1, generic title 2.4.2), axe-core 4.14 on Browser Run (also when the static fetch was refused), 4 judged observations (alt describes, link purpose, headings/labels, language match). Rendered probes (reflow, tab walk for focus visible / keyboard / trap, text spacing, target size) in progress. Coverage plan for all 56 SCs: `docs/sc-coverage-plan.md` (40 stay manual).
 - Live page on stage dev: paste a URL, the scan runs in a Cloudflare Workflow (XState machine), the report shows: what the EAA requires (Annex I, EU-ANNEX-1/4), the reference benchmark (EN 301 549 V3.2.1 / WCAG 2.1 AA) and that no EN 301 549 version is cited in the OJ under the EAA (EU-HS-1), a coverage line (9 checks touch 8 of 50 WCAG 2.1 A/AA SCs), findings with SC and clause, the member states where the EAA covers e-commerce services (flags, unknowns named) with the sourced microenterprise exemption, the automated-checks statement, and the contact CTA. Bot walls get a 'blocked automated checks' report. Our own page passes our own checks (test).
 - Product-text audit by the verifier (`docs/product-text-audit.md`): 8 defects found, all fixed.
 - `pnpm cli scan <url>`: hardened fetch, 9 deterministic static-HTML checks (lang, title, image alt, form labels, link name, button name, frame title, zoom, meta refresh), each mapped to WCAG 2.1 SC + EN 301 549 V3.2.1 clause (+ V4.1.1 as upcoming) from verified facts, per-state applicability (23 apply, 4 unknown), the automated-checks disclaimer (STD-AUTO-1), no "compliant" anywhere (tested), studio9 CTA placeholder. Bot walls (Cloudflare, DataDome) read as "refused".
@@ -79,6 +81,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 ## Log
 
 Times are CET, from the machine clock.
+
+- 21:30 Report redesign live on dev (adc00e5, 9881eb2). Judged observations built on Clef. Browser budget per stage (dev 90 min/day). builder-core running accuracy QA on ~10 real sites.
 
 - 21:15 Vojta (afk after): issues first + smarter states UX, copy-fix-prompt per issue, Foldkit skills for UI, and test almost everything accurately, Jev via Cloudflare for decisions. Now running: builder-core (report UX + fix prompts), builder-cloud (Browser Run deploy, block rate, rendered probes: reflow, text spacing, focus visible, target size), builder-judge (Jev-judged checks via Workers AI binding), verifier (SC coverage plan for all 50 + 6 SCs). Decisions 15-18.
 

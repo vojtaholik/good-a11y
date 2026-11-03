@@ -31,6 +31,27 @@ describe("BrowserBudget", () => {
       })
     );
 
+    scoped.effect(
+      "gives back the unused part of a reservation, never below nothing",
+      () =>
+        Effect.gen(function* releases() {
+          expect(yield* reserveOn("2026-11-06", 100)).toBe(true);
+          expect(yield* reserveOn("2026-11-06", 60)).toBe(false);
+
+          yield* BrowserBudget.use((budget) =>
+            budget.release({ day: "2026-11-06", seconds: 80 })
+          );
+
+          expect(yield* reserveOn("2026-11-06", 100)).toBe(true);
+
+          yield* BrowserBudget.use((budget) =>
+            budget.release({ day: "2026-11-06", seconds: 500 })
+          );
+
+          expect(yield* reserveOn("2026-11-06", DAILY)).toBe(true);
+        })
+    );
+
     scoped.effect("refuses a reservation larger than a whole day", () =>
       Effect.gen(function* tooLarge() {
         expect(yield* reserveOn("2026-11-05", DAILY + 1)).toBe(false);

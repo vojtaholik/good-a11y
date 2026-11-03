@@ -81,7 +81,17 @@ const declaredCharset = (contentType: string, bytes: Uint8Array): string => {
     bytes.subarray(0, META_SNIFF_BYTES)
   );
 
-  return META_CHARSET.exec(head)?.groups?.charset?.toLowerCase() ?? "utf-8";
+  const fromMeta = META_CHARSET.exec(head)?.groups?.charset?.toLowerCase();
+
+  if (fromMeta === undefined) {
+    return "utf-8";
+  }
+
+  const encoding = Result.try(() => new TextDecoder(fromMeta).encoding);
+
+  return Result.isSuccess(encoding) && encoding.success.startsWith("utf-16")
+    ? "utf-8"
+    : fromMeta;
 };
 
 export const decodeBody = (

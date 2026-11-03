@@ -44,8 +44,9 @@ import {
 import { scanStoreD1 } from "@eaa-check/scan-store/d1";
 import * as Cloudflare from "alchemy/Cloudflare";
 import type { RuntimeContext } from "alchemy/RuntimeContext";
-import { Clock, Context, Effect, Layer, Result, Schema } from "effect";
+import { Clock, Config, Context, Effect, Layer, Result, Schema } from "effect";
 
+import { DAILY_BROWSER_SECONDS_NAME, secondsUsed } from "./browser-limits.js";
 import {
   EvidenceArchive,
   axeEvidenceKey,
@@ -73,7 +74,7 @@ const RENDERS: ReadonlySet<Report["outcome"]> = new Set(["checked", "refused"]);
 
 const RENDER_PATIENCE = {
   retries: { delay: "3 seconds", limit: 0 },
-  timeout: "90 seconds",
+  timeout: "120 seconds",
 } as const;
 
 const spentIn =
@@ -91,6 +92,11 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
     const judgeBudget = Context.get(stores, JudgeBudget);
     const ai = yield* Cloudflare.Workers.AI();
     const browser = yield* Cloudflare.Browser("BROWSER");
+
+    const dailySeconds = yield* Config.Int(DAILY_BROWSER_SECONDS_NAME).pipe(
+      Config.withDefault(DAILY_BROWSER_SECONDS)
+    );
+
     const archive = yield* Cloudflare.R2.ReadWriteBucket(EvidenceArchive);
     const domain = yield* Layer.build(scanDomainLayer);
 
@@ -113,18 +119,8 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
         Effect.mapError(spentIn(job, "scan"))
       );
 
-    const audit = (job: ScanJob, report: Report) =>
-      Effect.gen(function* auditStep() {
-        const reserved = yield* budget.reserve({
-          dailySeconds: DAILY_BROWSER_SECONDS,
-          day: utcDayOf(yield* Clock.currentTimeMillis),
-          seconds: RENDERED_AUDIT_RESERVE_SECONDS,
-        });
-
-        if (!reserved) {
-          return { skipped: BUDGET_SPENT };
-        }
-
+    const session = (job: ScanJob, report: Report) =>
+      Effect.gen(function* browserSession() {
         const vetted = vetUrl(report.finalUrl ?? job.target.url);
 
         if (Result.isFailure(vetted)) {
@@ -154,6 +150,39 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
         );
 
         return outcome;
+      });
+
+    const audit = (job: ScanJob, report: Report) =>
+      Effect.gen(function* auditStep() {
+        const day = utcDayOf(yield* Clock.currentTimeMillis);
+
+        const reserved = yield* budget.reserve({
+          dailySeconds,
+          day,
+          seconds: RENDERED_AUDIT_RESERVE_SECONDS,
+        });
+
+        if (!reserved) {
+          return { skipped: BUDGET_SPENT };
+        }
+
+        const startedAt = yield* Clock.currentTimeMillis;
+
+        return yield* session(job, report).pipe(
+          Effect.ensuring(
+            Clock.currentTimeMillis.pipe(
+              Effect.flatMap((endedAt) =>
+                budget.release({
+                  day,
+                  seconds:
+                    RENDERED_AUDIT_RESERVE_SECONDS -
+                    secondsUsed(startedAt, endedAt),
+                })
+              ),
+              Effect.ignore
+            )
+          )
+        );
       });
 
     const render = (job: ScanJob, report: Report) =>

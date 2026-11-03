@@ -11,7 +11,7 @@ import type { BrowserSession, LaunchSession } from "./browser-session.js";
 
 export const SETTLE: Duration.Input = "2 seconds";
 
-export const HARD_TIMEOUT: Duration.Input = "50 seconds";
+export const HARD_TIMEOUT: Duration.Input = "80 seconds";
 
 const decodeText = Schema.decodeUnknownResult(Schema.String);
 

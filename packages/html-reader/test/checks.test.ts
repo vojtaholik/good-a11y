@@ -229,6 +229,49 @@ const cases: readonly (readonly [CheckId, string, CheckStatus, number?])[] = [
     "fail",
     1,
   ],
+  [
+    "button-name",
+    doc(
+      "",
+      '<button><span><svg aria-label="Submit Search"><use href="#s"></use></svg></span></button>'
+    ),
+    "pass",
+  ],
+  [
+    "link-name",
+    doc("", '<a href="/"><span aria-label="Home"></span></a>'),
+    "pass",
+  ],
+  [
+    "frame-title",
+    doc("", '<iframe src="/store.html" style="display:none;"></iframe>'),
+    "not_applicable",
+  ],
+  [
+    "image-alt",
+    doc("", '<img src="a.png" style="visibility: hidden">'),
+    "not_applicable",
+  ],
+  [
+    "image-alt",
+    doc("", '<div style="display: none"><img src="a.png"></div>'),
+    "fail",
+    1,
+  ],
+  [
+    "link-name",
+    doc("", '<a href="/"><shop-card label="Sale"></shop-card></a>'),
+    "pass",
+  ],
+  [
+    "link-name",
+    doc(
+      "",
+      '<a href="/"><div aria-hidden="true"><shop-icon></shop-icon></div></a>'
+    ),
+    "fail",
+    1,
+  ],
   ["form-labels", doc("", ""), "not_applicable"],
   [
     "form-labels",

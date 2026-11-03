@@ -5,6 +5,10 @@ import * as Cloudflare from "alchemy/Cloudflare";
 import { Effect, Layer, Schema } from "effect";
 import { RpcSerialization, RpcServer } from "effect/rpc";
 
+import {
+  DAILY_BROWSER_SECONDS_NAME,
+  dailyBrowserSeconds,
+} from "./browser-limits.js";
 import { siteCapabilities } from "./capabilities/index.js";
 import { ScanLaunchFailed } from "./scan-launch-failed.js";
 import { ScanLauncher } from "./scan-launcher.js";
@@ -16,6 +20,7 @@ export default class Scanner extends Cloudflare.Workers.RpcWorker<Scanner>()(
   "Scanner",
   {
     compatibility: { date: "2026-09-01" },
+    env: { [DAILY_BROWSER_SECONDS_NAME]: dailyBrowserSeconds },
     main: import.meta.url,
     observability: { enabled: true },
     schema: rpcProjection.group,

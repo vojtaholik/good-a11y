@@ -22,7 +22,7 @@ type Attributes = Map<string, string>;
 
 interface NameRegion {
   readonly depth: number;
-  readonly labelled: boolean;
+  labelled: boolean;
   parts: string[];
   size: number;
   readonly snippet: string;
@@ -101,6 +101,7 @@ const KEPT_ATTRIBUTES = new Set([
   "placeholder",
   "role",
   "src",
+  "style",
   "tabindex",
   "title",
   "type",
@@ -123,6 +124,8 @@ const SNIPPET_ATTRIBUTES = [
 ] as const;
 
 const MAX_ATTRIBUTE_IN_SNIPPET = 40;
+
+const MAX_STYLE = 1000;
 
 const VOID = new Set([
   "area",
@@ -345,9 +348,15 @@ const closeNearest = (reading: Reading, tag: string) => {
   }
 };
 
+const HIDDEN_STYLE =
+  /(?:^|;)\s*(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*(?:!important\s*)?(?:;|$)/iu;
+
 const isHidden = (attributes: Attributes): boolean =>
   attributes.has("hidden") ||
   (attributes.get("aria-hidden") ?? "").trim().toLowerCase() === "true";
+
+const isStyledHidden = (attributes: Attributes): boolean =>
+  HIDDEN_STYLE.test(capped(attributes.get("style") ?? "", MAX_STYLE));
 
 const readMeta = (reading: Reading, attributes: Attributes) => {
   const content = capped(attribute(attributes, "content") ?? "", MAX_NAME);
@@ -491,8 +500,27 @@ const openTextRegions = (reading: Reading, tag: string) => {
   }
 };
 
+const addDescendantName = (
+  reading: Reading,
+  tag: string,
+  attributes: Attributes
+) => {
+  if (tag.includes("-")) {
+    for (const region of [reading.link, reading.button]) {
+      if (region !== undefined) {
+        region.labelled = true;
+      }
+    }
+  }
+
+  if (tag !== "a" && tag !== "button" && filled(attributes, "aria-label")) {
+    addName(reading, ` ${attribute(attributes, "aria-label") ?? ""} `);
+  }
+};
+
 const readElement = (reading: Reading, tag: string, attributes: Attributes) => {
   openTextRegions(reading, tag);
+  addDescendantName(reading, tag, attributes);
 
   if (tag === "img") {
     readImage(reading, attributes);
@@ -550,7 +578,7 @@ const openElement = (reading: Reading, selfClosed: boolean) => {
     reading.hiddenFrom = reading.open.length;
   }
 
-  if (reading.hiddenFrom === undefined) {
+  if (reading.hiddenFrom === undefined && !isStyledHidden(attributes)) {
     readElement(reading, tag, attributes);
   }
 
