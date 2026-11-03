@@ -1652,6 +1652,17 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "value": "EN 301 549 V4.1.1 clause 9.1.3.1"
   },
   {
+    "claim": "EN 301 549 V4.1.1 (2026-09) clause 9.1.3.5 (Identify input purpose) requires web pages to satisfy WCAG 2.2 Success Criterion 1.3.5.",
+    "excerpt": "\"9.1.3.5 Identify input purpose Where ICT is, or includes, a web page, the web page shall satisfy WCAG 2.2 Success Criterion 1.3.5 Identify Input Purpose.\"",
+    "field": "other",
+    "file": "standards.md",
+    "id": "STD-EN4-9.1.3.5",
+    "retrieved": "2026-11-03",
+    "source": "https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf",
+    "usedBy": "checks.catalogue",
+    "value": "EN 301 549 V4.1.1 clause 9.1.3.5"
+  },
+  {
     "claim": "EN 301 549 V4.1.1 (2026-09) clause 9.1.4.3 (Contrast (minimum)) requires web pages to satisfy WCAG 2.2 Success Criterion 1.4.3.",
     "excerpt": "\"9.1.4.3 Contrast (minimum) Where ICT is, or includes, a web page, the web page shall satisfy WCAG 2.2 Success Criterion 1.4.3 Contrast (Minimum).\"",
     "field": "other",

@@ -14,6 +14,7 @@ export const CheckIdSchema = Schema.Literals([
   "frame-title",
   "meta-viewport-zoom",
   "meta-refresh",
+  "autocomplete-valid",
 ]);
 
 export type CheckId = typeof CheckIdSchema.Type;

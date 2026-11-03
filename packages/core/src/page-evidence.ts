@@ -23,6 +23,7 @@ export const ImageEvidenceSchema = Schema.Struct({
 export type ImageEvidence = typeof ImageEvidenceSchema.Type;
 
 export const ControlEvidenceSchema = Schema.Struct({
+  autocomplete: OptionalText,
   id: OptionalText,
   insideLabel: Schema.Boolean,
   labelled: Schema.Boolean,

@@ -1,4 +1,5 @@
 import type { Check, CheckId } from "./check.js";
+import { autocompleteValid } from "./checks/autocomplete-valid.js";
 import { buttonName } from "./checks/button-name.js";
 import { documentTitle } from "./checks/document-title.js";
 import { formLabels } from "./checks/form-labels.js";
@@ -32,6 +33,7 @@ export const CATALOGUE: readonly CatalogueEntry[] = [
   { check: frameTitle, criteria: ["4.1.2"] },
   { check: metaViewportZoom, criteria: ["1.4.4"] },
   { check: metaRefresh, criteria: ["2.2.1"] },
+  { check: autocompleteValid, criteria: ["1.3.5"] },
 ];
 
 export const CHECKS: readonly Check[] = CATALOGUE.map(({ check }) => check);

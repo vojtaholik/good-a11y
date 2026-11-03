@@ -44,7 +44,13 @@ const FAILING: PageEvidence = {
   ...NOTHING,
   buttons: [{ labelled: false, snippet: "<button>", text: "" }],
   controls: [
-    { id: null, insideLabel: false, labelled: false, snippet: "<input>" },
+    {
+      autocomplete: "nope",
+      id: null,
+      insideLabel: false,
+      labelled: false,
+      snippet: "<input>",
+    },
   ],
   frames: [{ labelled: false, snippet: "<iframe>" }],
   images: [

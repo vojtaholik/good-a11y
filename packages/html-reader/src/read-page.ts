@@ -49,11 +49,14 @@ interface Reading {
 
 const KEPT_ATTRIBUTES = new Set([
   "alt",
+  "aria-disabled",
   "aria-hidden",
   "aria-label",
   "aria-labelledby",
+  "autocomplete",
   "class",
   "content",
+  "disabled",
   "for",
   "hidden",
   "href",
@@ -64,6 +67,7 @@ const KEPT_ATTRIBUTES = new Set([
   "placeholder",
   "role",
   "src",
+  "tabindex",
   "title",
   "type",
   "value",
@@ -81,6 +85,7 @@ const SNIPPET_ATTRIBUTES = [
   "aria-label",
   "title",
   "for",
+  "autocomplete",
 ] as const;
 
 const MAX_ATTRIBUTE_IN_SNIPPET = 40;
@@ -272,10 +277,36 @@ const readImage = (reading: Reading, attributes: Attributes) => {
   }
 };
 
-const readControl = (reading: Reading, tag: string, attributes: Attributes) => {
+const FIXED_VALUE = new Set(["checkbox", "file", "radio"]);
+
+const takesAutofill = (attributes: Attributes, type: string): boolean =>
+  !FIXED_VALUE.has(type) &&
+  !attributes.has("disabled") &&
+  (attribute(attributes, "aria-disabled") ?? "").trim().toLowerCase() !==
+    "true" &&
+  !(Number(attribute(attributes, "tabindex") ?? "0") < 0);
+
+const autocompleteOf = (
+  attributes: Attributes,
+  type: string
+): string | null => {
+  const value = attribute(attributes, "autocomplete");
+
+  return value === null || !takesAutofill(attributes, type)
+    ? null
+    : capped(collapse(value), MAX_NAME);
+};
+
+const readControl = (
+  reading: Reading,
+  tag: string,
+  attributes: Attributes,
+  type: string
+) => {
   const id = attribute(attributes, "id");
 
   keep(reading, reading.controls, {
+    autocomplete: autocompleteOf(attributes, type),
     id: id === null ? null : capped(id, MAX_NAME),
     insideLabel: reading.labelFrom !== undefined,
     labelled:
@@ -322,7 +353,7 @@ const readInput = (reading: Reading, attributes: Attributes) => {
     return;
   }
 
-  readControl(reading, "input", attributes);
+  readControl(reading, "input", attributes, type);
 };
 
 const regionOf = (
@@ -343,7 +374,7 @@ const readElement = (reading: Reading, tag: string, attributes: Attributes) => {
   } else if (tag === "input") {
     readInput(reading, attributes);
   } else if (tag === "select" || tag === "textarea") {
-    readControl(reading, tag, attributes);
+    readControl(reading, tag, attributes, tag);
   } else if (tag === "button") {
     endButton(reading);
     reading.button = regionOf(reading, tag, attributes);

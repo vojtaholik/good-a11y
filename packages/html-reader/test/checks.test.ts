@@ -23,6 +23,76 @@ const cases: readonly (readonly [CheckId, string, CheckStatus, number?])[] = [
   ["html-lang", doc("", "", '<html lang="">'), "fail", 1],
   ["html-lang", doc("", "", '<html lang="english language">'), "fail", 1],
   ["html-lang", doc("", "", '<html lang="pt-BR">'), "pass"],
+  ["html-lang", doc("", "", '<html lang="zh-Hant-TW">'), "pass"],
+  ["html-lang", doc("", "", '<html lang="es-419">'), "pass"],
+  ["html-lang", doc("", "", '<html lang="de-CH-1996">'), "pass"],
+  ["html-lang", doc("", "", '<html lang="EN">'), "pass"],
+  ["html-lang", doc("", "", '<html lang="en_US">'), "fail", 1],
+  ["html-lang", doc("", "", '<html lang="english">'), "fail", 1],
+  ["html-lang", doc("", "", '<html lang="en-">'), "fail", 1],
+  ["html-lang", doc("", "", '<html lang="en-a">'), "fail", 1],
+  ["autocomplete-valid", doc("", '<input name="q">'), "not_applicable"],
+  [
+    "autocomplete-valid",
+    doc("", '<input autocomplete="off">'),
+    "not_applicable",
+  ],
+  [
+    "autocomplete-valid",
+    doc("", '<input autocomplete=" ON ">'),
+    "not_applicable",
+  ],
+  ["autocomplete-valid", doc("", '<input autocomplete="email">'), "pass"],
+  [
+    "autocomplete-valid",
+    doc("", '<input autocomplete="section-blue shipping street-address">'),
+    "pass",
+  ],
+  [
+    "autocomplete-valid",
+    doc("", '<input autocomplete="billing work tel">'),
+    "pass",
+  ],
+  [
+    "autocomplete-valid",
+    doc("", '<input autocomplete="username webauthn">'),
+    "pass",
+  ],
+  [
+    "autocomplete-valid",
+    doc(
+      "",
+      '<select autocomplete="country"></select><textarea autocomplete="Street-Address"></textarea>'
+    ),
+    "pass",
+  ],
+  ["autocomplete-valid", doc("", '<input autocomplete="nope">'), "fail", 1],
+  [
+    "autocomplete-valid",
+    doc("", '<input autocomplete="home name">'),
+    "fail",
+    1,
+  ],
+  [
+    "autocomplete-valid",
+    doc("", '<input autocomplete="email email">'),
+    "fail",
+    1,
+  ],
+  [
+    "autocomplete-valid",
+    doc("", '<textarea autocomplete="badname"></textarea>'),
+    "fail",
+    1,
+  ],
+  [
+    "autocomplete-valid",
+    doc(
+      "",
+      '<input autocomplete="badname" disabled><input autocomplete="badname" aria-disabled="true"><input type="checkbox" autocomplete="badname"><input autocomplete="badname" tabindex="-1"><input type="hidden" autocomplete="badname"><div hidden><input autocomplete="badname"></div>'
+    ),
+    "not_applicable",
+  ],
   ["document-title", doc("", ""), "pass"],
   [
     "document-title",
