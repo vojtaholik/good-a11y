@@ -127,6 +127,8 @@ export const autocompleteValid: Check = {
       ({ autocomplete }) => !isAutofillDetail(autocomplete ?? ""),
       ({ snippet }) => snippet
     ),
+  howToFix:
+    "Use a valid autofill value, such as email or given-name, or remove the attribute.",
   id: "autocomplete-valid",
   title: "Autocomplete values on form fields are valid",
   whatFails:

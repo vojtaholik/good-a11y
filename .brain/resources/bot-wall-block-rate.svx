@@ -40,3 +40,43 @@ booking.com (HTTP 202) and cdiscount.com (HTTP 200) answered with challenge page
 - More than half of large shops refuse a plain fetch from a scanner that names itself. Static checks alone will tell most big e-commerce visitors "this site blocked automated checks".
 - Whether Browser Run gets further is untested here: it needs the deployed Worker. Cloudflare-fronted shops may treat Cloudflare's own browser differently from a residential fetch; DataDome, AWS WAF and Baleen run JavaScript challenges that a real browser may pass on its own. Repeat this list through Browser Run after the deploy, same one-request rule, and record it below this table.
 - Never evade: no user-agent spoofing, no challenge solving, no retries to wear a wall down.
+
+## Through the deployed product, with Browser Run
+
+Measured 2026-11-03 around 21:10 CET by builder-cloud, on stage `dev` (scanner commit `f3eaa24` plus two adapter fixes, see below): one `startScan` per site through the page's RPC, then polling `getScan`. Same rules: the scanner's own user agent, one scan each, no retries, no evasion. The static fetch now leaves from Cloudflare's network, not a residential line. The rendered step runs only when the static report is `checked`, so Browser Run was tried on the 6 sites the static fetch read.
+
+### Result
+
+6 of 16 shops got a rendered audit. Browser Run was not blocked on any of the 6 it opened. The other 10 refused the static fetch from Cloudflare, so the browser was never tried on them.
+
+| Site | Static from Cloudflare | Residential (above) | Browser Run | axe rules failing |
+| --- | --- | --- | --- | --- |
+| zalando.de | refused, HTTP 403 | checked | not tried | |
+| otto.de | checked | checked | ran | color-contrast, image-alt, label-content-name-mismatch, link-name |
+| bol.com | refused, HTTP 403 | refused | not tried | |
+| cdiscount.com | refused, Baleen | refused | not tried | |
+| fnac.com | refused, DataDome 403 | checked | not tried | |
+| elcorteingles.es | refused, HTTP 403 | checked | not tried | |
+| mediamarkt.de | checked | refused, Cloudflare | ran | aria-required-children, aria-required-parent, label-content-name-mismatch, link-name, listitem |
+| ikea.com | checked | checked | ran | label-content-name-mismatch, list |
+| decathlon.fr | refused, Cloudflare 403 | refused | not tried | |
+| allegro.pl | refused, DataDome 403 | refused | not tried | |
+| emag.ro | checked, HTTP 511 | checked | ran | color-contrast, label-content-name-mismatch |
+| alza.cz | checked | refused, Cloudflare | ran | color-contrast |
+| notino.cz | refused, Cloudflare 403 | refused | not tried | |
+| mall.cz | refused, DataDome 403 | refused | not tried | |
+| rohlik.cz | checked | checked | ran | color-contrast, label-content-name-mismatch, list |
+| booking.com | refused, AWS WAF 202 | refused | not tried | |
+
+Each rendered audit took 9 to 17 seconds end to end, including the static step. Six reservations of 60 seconds used 360 of the 1080 daily browser seconds.
+
+### What it means
+
+- Leaving from Cloudflare changes who blocks, not how many: 10 of 16 refused, against 9 of 16 residential. Two Cloudflare-fronted shops (mediamarkt.de, alza.cz) let the Worker through and refused the residential line; three shops that let the residential line through (zalando.de, fnac.com, elcorteingles.es) refuse Cloudflare's addresses.
+- zalando.de sent an empty JavaScript shell residentially. Behind a real browser it would be the most useful case for the rendered check, and from Cloudflare it is refused before the browser is tried.
+- Whether Browser Run passes the walls that refuse the static fetch is still unmeasured. Proposal for the lead and Vojta: run the rendered step on a `refused` static report too, within the same budget, and show its findings when the browser got the page. It costs browser seconds on sites likely to block, and it changes what a refused report shows, so it is a product call. One more measurement on these 10 sites would answer it.
+
+### Fixed on the way
+
+- `step` in `packages/browser-audit/src/browser-session.ts` handed its function to `Effect.tryPromise`, which calls it with an AbortSignal. The bound `page.setUserAgent(userAgent)` then received the signal as its `userAgentMetadata`, and Chrome refused the call ("Failed to deserialize params.userAgentMetadata.architecture"). Every rendered audit failed with "The browser service failed". Now the function is called with no argument; test in `packages/browser-audit/test/browser-session.test.ts`.
+- `axe.source` is `axeFunction.toString()`. Alchemy's Rolldown build wraps axe-core's CommonJS, renames `module` to `u` and minifies `typeof module === "undefined"` to `u === void 0`, so the injected script threw "u is not defined". The adapter now injects axe-core's shipped `axe.min.js` as text (`?raw` import, Vite in tests, `apps/scanner/src/raw-text-plugin.ts` in the Worker build), which no bundler transforms.

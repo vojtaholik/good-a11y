@@ -1,7 +1,9 @@
+// oxlint-disable-next-line typescript/triple-slash-reference -- A wildcard ambient module for ?raw imports cannot be imported; every package that typechecks this source needs the reference.
+/// <reference path="./raw-text.d.ts" />
 import { launch } from "@cloudflare/puppeteer";
 import type { BrowserWorker } from "@cloudflare/puppeteer";
 import { AXE_TAGS, SCANNER_USER_AGENT } from "@eaa-check/core";
-import axe from "axe-core";
+import axeScript from "axe-core/axe.min.js?raw";
 import { Effect } from "effect";
 
 import { step } from "./browser-session.js";
@@ -50,7 +52,7 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
             status: response?.status() ?? null,
           };
         }),
-      runAxe: step("audit", page.evaluate.bind(page, axe.source)).pipe(
+      runAxe: step("audit", page.evaluate.bind(page, axeScript)).pipe(
         Effect.andThen(step("audit", page.evaluate.bind(page, AXE_RUN)))
       ),
     };

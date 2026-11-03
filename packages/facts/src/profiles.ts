@@ -52,12 +52,17 @@ const valueOf = (
     : { factId: fact.id, known: true, source: fact.source, value: fact.value };
 };
 
+export const factsOfState = (
+  facts: readonly VerifiedFact[],
+  code: StateCode
+): readonly VerifiedFact[] => facts.filter((fact) => stateOf(fact) === code);
+
 export const profileFrom = (
   facts: readonly VerifiedFact[],
   code: StateCode,
   name: string
 ): StateProfile => {
-  const own = facts.filter((fact) => stateOf(fact) === code);
+  const own = factsOfState(facts, code);
 
   return {
     code,

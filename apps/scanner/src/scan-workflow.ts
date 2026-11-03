@@ -95,9 +95,9 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
           Effect.provide(browserRenderedAuditLayer(worker)),
           Effect.matchEffect({
             onFailure: (failure) =>
-              Effect.logWarning("Rendered audit failed", failure).pipe(
-                Effect.as({ skipped: skippedBecause(failure) })
-              ),
+              Effect.logWarning(
+                `Rendered audit failed (${failure.kind}): ${failure.detail}`
+              ).pipe(Effect.as({ skipped: skippedBecause(failure) })),
             onSuccess: (page) =>
               archive
                 .put(axeEvidenceKey(job), page.axe)

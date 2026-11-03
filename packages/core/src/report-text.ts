@@ -1,13 +1,11 @@
 import type { StateRef } from "./applicability.js";
-import type { CheckStatus } from "./check.js";
+import { METHOD_NAMES } from "./coverage.js";
+import type { FindingReference } from "./finding-reference.js";
 import { NEWER_VERSION_LABEL } from "./reference.js";
-import type { Finding, FindingReference, Report } from "./report.js";
-
-const MARKS: Readonly<Record<CheckStatus, string>> = {
-  fail: "✗ issue found",
-  not_applicable: "– nothing to check",
-  pass: "· no issue found",
-};
+import type { Sourced } from "./reference.js";
+import { issuesOf, quietChecksOf, quietSummary } from "./report-sections.js";
+import type { Issue } from "./report-sections.js";
+import type { Report } from "./report.js";
 
 const KIND_LABELS: Readonly<Record<FindingReference["kind"], string>> = {
   "en-newer": NEWER_VERSION_LABEL,
@@ -15,75 +13,115 @@ const KIND_LABELS: Readonly<Record<FindingReference["kind"], string>> = {
   wcag: "WCAG 2.1",
 };
 
+const QUIET_MARKS = {
+  not_applicable: "– nothing to check",
+  pass: "· no issue found",
+} as const;
+
 const codes = (states: readonly StateRef[]): string =>
   states.length === 0
     ? "none"
     : states.map((state) => state.code.toUpperCase()).join(" ");
 
-const countLine = (finding: Finding): string =>
-  finding.status === "not_applicable"
-    ? ""
-    : `  ${finding.failing} of ${finding.checked} failing`;
+const sourced = (label: string, value: Sourced | null): string[] =>
+  value === null ? [] : [`  ${label}: ${value.text}  (${value.factId})`];
 
-const statesLines = (report: Report): string[] => [
-  `      The EAA covers e-commerce services in (${report.applicability.applies.length}): ${codes(report.applicability.applies)}`,
-  ...(report.applicability.exemption === null
+const countOf = (issue: Issue): string =>
+  issue.checked === null
+    ? `${issue.failing} ${issue.failing === 1 ? "element" : "elements"}`
+    : `${issue.failing} of ${issue.checked} failing`;
+
+const issueLines = (issue: Issue): string[] => [
+  `  ✗ ${issue.title}  [${issue.key}]  ${countOf(issue)}`,
+  ...(issue.whatFails === null ? [] : [`      What fails: ${issue.whatFails}`]),
+  ...(issue.howToFix === null ? [] : [`      How to fix: ${issue.howToFix}`]),
+  ...issue.samples.map((sample) => `      · ${sample}`),
+  ...issue.references.map(
+    (reference) =>
+      `      ${KIND_LABELS[reference.kind]}: ${reference.text}  (${reference.factId})`
+  ),
+  ...(issue.helpUrl === null ? [] : [`      More: ${issue.helpUrl}`]),
+];
+
+const issuesBlock = (report: Report): string[] => {
+  const issues = issuesOf(report);
+
+  return issues.length === 0
     ? []
     : [
-        `      ${report.applicability.exemption.text}  (${report.applicability.exemption.factId})`,
-      ]),
-  `      Unknown (${report.applicability.unknown.length}): ${codes(report.applicability.unknown)}`,
-];
+        `Issues (${issues.length}), worst first:`,
+        ...issues.flatMap(issueLines),
+        "",
+      ];
+};
 
-const referenceLine = (reference: FindingReference): string =>
-  `      ${KIND_LABELS[reference.kind]}: ${reference.text}  (${reference.factId})`;
-
-const findingLines = (finding: Finding, report: Report): string[] => [
-  `  ${MARKS[finding.status]}: ${finding.title}  [${finding.id}]${countLine(finding)}`,
-  ...finding.references.map(referenceLine),
-  ...(finding.status === "fail"
-    ? [
-        `      What fails: ${finding.whatFails}`,
-        ...finding.samples.map((sample) => `      · ${sample}`),
-        ...statesLines(report),
-      ]
-    : []),
-];
-
-const renderedLines = (report: Report): string[] => {
-  const { rendered } = report;
-
-  if (rendered === null) {
-    return [];
-  }
-
-  if (rendered.status === "skipped") {
-    return [`Rendered page check skipped: ${rendered.reason}`, ""];
-  }
+const statesBlock = (report: Report): string[] => {
+  const { applies, exemption, unknown } = report.applicability;
 
   return [
-    `Rendered page checks (${rendered.engine}): ${rendered.rules} rules run, ${rendered.findings.length} found issues`,
-    ...rendered.findings.flatMap((finding) => [
-      `  ${MARKS.fail}: ${finding.help}  [axe:${finding.rule}]  ${finding.failing} elements`,
-      ...finding.references.map(referenceLine),
-      ...finding.samples.map((sample) => `      · ${sample}`),
-      `      More: ${finding.helpUrl}`,
-      ...statesLines(report),
-    ]),
+    "Where the EAA applies (the same for every issue):",
+    `  Covers e-commerce services (${applies.length}): ${codes(applies)}`,
+    ...sourced("Exemption", exemption),
+    `  Unknown (${unknown.length}):`,
+    ...unknown.map(
+      (state) =>
+        `    ${state.code.toUpperCase()} ${state.name}: ${state.reason ?? ""}`
+    ),
     "",
   ];
 };
 
-const sourcedLine = (
-  label: string,
-  sourced: Report["reference"]["benchmark"]
-): string[] =>
-  sourced === null ? [] : [`${label}: ${sourced.text}  (${sourced.factId})`];
+const quietBlock = (report: Report): string[] => {
+  const quiet = quietChecksOf(report);
+
+  return quiet.length === 0
+    ? []
+    : [
+        `${quietSummary(quiet)}:`,
+        ...quiet.map(
+          (finding) =>
+            `  ${QUIET_MARKS[finding.status === "pass" ? "pass" : "not_applicable"]}: ${finding.title}  [${finding.id}]`
+        ),
+        "",
+      ];
+};
+
+const renderedBlock = (report: Report): string[] =>
+  report.rendered?.status === "skipped"
+    ? [`Rendered page check skipped: ${report.rendered.reason}`, ""]
+    : [];
+
+const rulesBlock = (report: Report): string[] => {
+  const { benchmark, citation, newerVersion, requirements } = report.reference;
+
+  return [
+    "About the rules:",
+    ...requirements.map(
+      (requirement) =>
+        `  What the EAA requires: ${requirement.text}  (${requirement.factId})`
+    ),
+    ...sourced("Reference benchmark", benchmark),
+    ...sourced(
+      "Official Journal citation of EN 301 549 under the EAA",
+      citation
+    ),
+    ...(newerVersion === null
+      ? []
+      : [`  ${newerVersion.label}  (${newerVersion.factIds.join(", ")})`]),
+    "",
+  ];
+};
+
+const methodLine = (report: Report): string[] =>
+  report.coverage === null
+    ? []
+    : [`Checks run: ${METHOD_NAMES[report.coverage.method]}`];
 
 export const formatReport = (report: Report): string =>
   [
     `Page: ${report.finalUrl ?? report.requestedUrl}`,
     `Scanned: ${report.scannedAt}${report.httpStatus === null ? "" : `  HTTP ${report.httpStatus}`}`,
+    ...methodLine(report),
     "",
     report.headline,
     ...(report.coverage === null ? [] : [report.coverage.text]),
@@ -94,30 +132,11 @@ export const formatReport = (report: Report): string =>
         ]
       : []),
     "",
-    ...(report.reference.requirements.length === 0
-      ? []
-      : [
-          "What the EAA requires:",
-          ...report.reference.requirements.map(
-            (requirement) => `  ${requirement.text}  (${requirement.factId})`
-          ),
-        ]),
-    ...sourcedLine("Reference benchmark", report.reference.benchmark),
-    ...sourcedLine(
-      "Official Journal citation of EN 301 549 under the EAA",
-      report.reference.citation
-    ),
-    "",
-    ...(report.findings.length === 0
-      ? []
-      : [
-          `Checks run: ${report.findings.length}`,
-          ...report.findings.flatMap((finding) =>
-            findingLines(finding, report)
-          ),
-          "",
-        ]),
-    ...renderedLines(report),
+    ...issuesBlock(report),
+    ...(report.outcome === "checked" ? statesBlock(report) : []),
+    ...quietBlock(report),
+    ...renderedBlock(report),
+    ...rulesBlock(report),
     report.statement.factId === null
       ? report.statement.text
       : `${report.statement.text}  (${report.statement.factId})`,

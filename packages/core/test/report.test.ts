@@ -4,6 +4,7 @@ import { describe, expect, it } from "@effect/vitest";
 import { Schema } from "effect";
 
 import {
+  APPLICABILITY,
   AUTOMATED_LIMIT,
   BLOCKED_CONTACT_TEXT,
   BLOCKED_HEADLINE,
@@ -14,7 +15,10 @@ import {
   applicabilityFrom,
   coverageFrom,
   formatReport,
+  issuesOf,
   judgePage,
+  quietChecksOf,
+  quietSummary,
   referenceFrom,
   referencesOf,
   testedBy,
@@ -209,7 +213,7 @@ describe("an empty bill of health", () => {
     expect(report.coverage?.text).toBeDefined();
     expect(text.indexOf(report.coverage?.text ?? "?")).toBeGreaterThan(-1);
     expect(text.indexOf(report.coverage?.text ?? "?")).toBeLessThan(
-      text.indexOf("Checks run")
+      text.indexOf("checks found no issues")
     );
     expect(text).not.toContain("✓");
     expect(text).toContain("no issue found");
@@ -234,6 +238,85 @@ describe("an empty bill of health", () => {
     expect(coverage.ofCriteria).toBe(3);
     expect(coverage.checks).toBe(CATALOGUE.length);
     expect(coverage.text).toContain("touch 2 of the 3 WCAG 2.1");
+  });
+});
+
+describe("the report order", () => {
+  const [, failing] = reports;
+
+  const text = failing === undefined ? "" : formatReport(failing);
+
+  it("puts issues first, then where the EAA applies, then the quiet checks, then the rules", () => {
+    const at = [
+      "Issues (",
+      "Where the EAA applies",
+      "About the rules",
+      AUTOMATED_LIMIT,
+    ].map((marker) => text.indexOf(marker));
+
+    expect(at.every((index) => index >= 0)).toBe(true);
+    expect(at).toEqual(at.toSorted((left, right) => left - right));
+  });
+
+  it("sorts issues by failing instances, Level A before AA on a tie", () => {
+    const base = judgePage(page(), readerOf(FAILING), AT);
+
+    const issues = issuesOf({
+      ...base,
+      findings: base.findings.map((finding, index) => ({
+        ...finding,
+        failing: finding.id === "meta-viewport-zoom" ? 9 : index % 2,
+      })),
+    }).filter((issue) => issue.failing > 0);
+
+    expect(issues[0]?.key).toBe("meta-viewport-zoom");
+
+    for (const [index, issue] of issues.entries()) {
+      const next = issues[index + 1];
+
+      if (next !== undefined && next.failing === issue.failing) {
+        expect(issue.level === "AA" && next.level === "A").toBe(false);
+      }
+    }
+  });
+
+  it("collapses checks with no issue into one summary line", () => {
+    const [empty] = reports;
+
+    expect(
+      quietSummary(empty === undefined ? [] : quietChecksOf(empty))
+    ).toMatch(/had nothing to check/u);
+  });
+});
+
+describe("state profiles", () => {
+  const { applies, unknown } = APPLICABILITY;
+
+  it("give every unknown state a reason and every applying state none", () => {
+    for (const state of unknown) {
+      expect(state.reason).toMatch(/\S/u);
+    }
+
+    for (const state of applies) {
+      expect(state.reason).toBeNull();
+    }
+  });
+
+  it("show only verified facts of that state, each with its source", () => {
+    const verified = new Map(VERIFIED_FACTS.map((fact) => [fact.id, fact]));
+
+    for (const state of [...applies, ...unknown]) {
+      for (const line of state.profile) {
+        for (const value of line.values) {
+          const fact = verified.get(value.factId);
+
+          expect(fact?.value).toBe(value.text);
+          expect(fact?.source).toBe(value.source);
+          expect(fact?.file).toBe(`states/${state.code}.md`);
+          expect(value.text).not.toBe("unknown");
+        }
+      }
+    }
   });
 });
 

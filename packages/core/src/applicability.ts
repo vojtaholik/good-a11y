@@ -1,14 +1,27 @@
-import { STATE_PROFILES } from "@eaa-check/facts";
-import type { StateProfile } from "@eaa-check/facts";
+import { STATE_PROFILES, VERIFIED_FACTS, factsOfState } from "@eaa-check/facts";
+import type {
+  ProfileField,
+  StateProfile,
+  VerifiedFact,
+} from "@eaa-check/facts";
 import { Schema } from "effect";
 
 import { SourcedSchema, verifiedText } from "./reference.js";
 import type { Sourced } from "./reference.js";
 
+export const ProfileLineSchema = Schema.Struct({
+  label: Schema.String,
+  values: Schema.Array(SourcedSchema),
+});
+
+export type ProfileLine = typeof ProfileLineSchema.Type;
+
 export const StateRefSchema = Schema.Struct({
   code: Schema.String,
   factIds: Schema.Array(Schema.String),
   name: Schema.String,
+  profile: Schema.Array(ProfileLineSchema),
+  reason: Schema.NullOr(Schema.String),
 });
 
 export type StateRef = typeof StateRefSchema.Type;
@@ -25,6 +38,46 @@ const ECOMMERCE_IN_SCOPE = "yes";
 
 export const MICROENTERPRISE_FACT = "EU-MICRO-1";
 
+export const PROFILE_LABELS: readonly (readonly [ProfileField, string])[] = [
+  ["transposing-law", "Transposing law"],
+  ["scope-ecommerce", "E-commerce services in scope"],
+  ["applies-from", "Applies from"],
+  ["authority", "Enforcement body"],
+  ["penalties", "Penalties"],
+  ["microenterprise-exemption", "Microenterprise exemption"],
+];
+
+const profileLines = (
+  facts: readonly VerifiedFact[],
+  profile: StateProfile
+): ProfileLine[] => {
+  const own = factsOfState(facts, profile.code);
+
+  return PROFILE_LABELS.map(([field, label]) => ({
+    label,
+    values: own.flatMap((fact) =>
+      fact.field === field && fact.value !== "unknown"
+        ? [{ factId: fact.id, source: fact.source, text: fact.value }]
+        : []
+    ),
+  }));
+};
+
+const unknownReason = (profile: StateProfile): string => {
+  const law = profile.fields["transposing-law"];
+  const ecommerce = profile.fields["scope-ecommerce"];
+
+  if (!law.known) {
+    return "No verified source yet for its transposing law.";
+  }
+
+  if (!ecommerce.known) {
+    return "No verified source yet on whether e-commerce services are in scope.";
+  }
+
+  return `E-commerce scope is recorded as "${ecommerce.value}", not a plain yes.`;
+};
+
 const appliesIn = (profile: StateProfile): readonly string[] | undefined => {
   const law = profile.fields["transposing-law"];
   const ecommerce = profile.fields["scope-ecommerce"];
@@ -38,7 +91,8 @@ const appliesIn = (profile: StateProfile): readonly string[] | undefined => {
 
 export const applicabilityFrom = (
   profiles: readonly StateProfile[],
-  exemption: Sourced | null
+  exemption: Sourced | null,
+  facts: readonly VerifiedFact[] = []
 ): Applicability => {
   const applies: StateRef[] = [];
   const unknown: StateRef[] = [];
@@ -46,10 +100,16 @@ export const applicabilityFrom = (
   for (const profile of profiles) {
     const factIds = appliesIn(profile);
 
+    const state = {
+      code: profile.code,
+      name: profile.name,
+      profile: profileLines(facts, profile),
+    };
+
     if (factIds === undefined) {
-      unknown.push({ code: profile.code, factIds: [], name: profile.name });
+      unknown.push({ ...state, factIds: [], reason: unknownReason(profile) });
     } else {
-      applies.push({ code: profile.code, factIds, name: profile.name });
+      applies.push({ ...state, factIds, reason: null });
     }
   }
 
@@ -58,5 +118,6 @@ export const applicabilityFrom = (
 
 export const APPLICABILITY: Applicability = applicabilityFrom(
   STATE_PROFILES,
-  verifiedText(MICROENTERPRISE_FACT)
+  verifiedText(MICROENTERPRISE_FACT),
+  VERIFIED_FACTS
 );

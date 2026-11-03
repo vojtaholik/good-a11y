@@ -32,6 +32,7 @@ export {
 export {
   PROFILE_FIELDS,
   STATE_PROFILES,
+  factsOfState,
   profileFrom,
   type ProfileField,
   type ProfileValue,

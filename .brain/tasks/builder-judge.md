@@ -1,0 +1,18 @@
+# Task: builder-judge (lead, 21:15 CET)
+
+Read `AGENTS.md`, `VISION.md`, `.brain/projects/eaa-checker/eaa-checker-brief.svx` (decisions 15-17 especially), `research/facts/README.md`, `docs/layer-1.md`, `docs/layer-2-3.md`, `docs/rendered-audit.md`. Deadline ~00:20 CET; no questions, best call, record it. Do not start agents. Commit and push yourself when the whole gate is green (`pnpm facts`, `git add -A`, message ending with `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`, never bypass hooks). Two other builders work in this tree (`builder-core`: report UX in apps/web report views and core report model; `builder-cloud`: Browser Run probes in packages/browser-audit and apps/scanner). Tell them by `hc send` before touching their files or the root config, and before `pnpm install`. Report to the lead `t1t` at each milestone.
+
+## Goal
+
+Model-judged checks with TypeSafe Jev, called through Cloudflare (Vojta: "ideally we would use it via cloudflare"): the Workers AI binding `env.AI.run("typesafe/jev-1.14.0", ...)` routed through AI Gateway (docs: developers.cloudflare.com/ai/models/typesafe/jev-1.14.0/ and the AI Gateway unified API; read the model page for the exact input/output shape on the binding). Pin `jev-1.14.0`. Note Cloudflare's own `@cf/cloudflare/clef` decision model with the same System One API as a possible fallback; record, do not build it unless Jev is unreachable.
+
+1. **Core port** `Judge` (one typed call: state + named Noul/Choice/Score questions -> typed answers with probabilities), pure decision functions from answers to findings with fixed thresholds in code, and a `judged` finding kind that the report shows apart: "Judged by a model (Jev 1.14.0); may be wrong", with the confidence. Judged findings never count in the deterministic "issues found" number; they get their own count.
+2. **Adapter** `packages/jev-judge` over the `AI` binding (Effect service, hard timeout, typed failure `JudgeUnavailable`; nothing a server wrote is shown to a user). Without the binding or on failure: the judged step is skipped and the report says why.
+3. **First judged checks** (text only first; images only if time allows, they are a "danger zone" feature): 
+   - `alt-text-describes` (1.1.1): for images with non-empty alt: is the alt text a description of the image's purpose rather than a file name, placeholder or generic word? Text-only version: Noul over the alt text plus the image file name and surrounding text; with image (later): include the image.
+   - `link-purpose` (2.4.4): links whose text alone is ambiguous ("click here", "more", "read more"): is the purpose clear from the link text together with its programmatic context (sentence, list item, heading)?
+   - `headings-labels-describe` (2.4.6): do the page's headings and form labels describe their topic or purpose?
+   - `page-language-matches` (3.1.1): does the declared `lang` match the language of the main text? Choice over a short list of EU languages plus "other".
+   Use the evidence the static reader already collects (extend `packages/html-reader` minimally, tell builder-core). Cap questions per scan (e.g. at most 20 items per check, sampled deterministically) to bound cost.
+4. **Workflow**: one Workflow task after the static checks (coordinate with builder-cloud: it owns apps/scanner), the `ai` binding in the Stack (plan must be creates/updates only), deploy dev, run a real scan, record cost per scan from the response usage.
+5. Tests with recorded answers (no live calls in tests). Map each judged check to `STD-SC-*` / `STD-EN-9.*` facts. Write `docs/judged-checks.md`: method, thresholds, what a fail means, cost per scan, known failure modes.

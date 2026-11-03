@@ -15,6 +15,7 @@ export const formLabels: Check = {
       (control) => control.snippet
     );
   },
+  howToFix: "Give each field a <label>, or an aria-label or aria-labelledby.",
   id: "form-labels",
   title: "Form fields have an accessible name",
   whatFails:

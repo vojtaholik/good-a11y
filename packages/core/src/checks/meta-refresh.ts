@@ -17,6 +17,7 @@ export const metaRefresh: Check = {
       refreshesLater,
       (content) => `<meta http-equiv="refresh" content="${content}">`
     ),
+  howToFix: "Remove the timed refresh, or set its delay to 0.",
   id: "meta-refresh",
   title: "The page does not refresh or redirect on a timer",
   whatFails:

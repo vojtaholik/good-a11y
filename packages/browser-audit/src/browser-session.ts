@@ -26,5 +26,6 @@ export const step = <A>(
         detail: cause instanceof Error ? cause.message : String(cause),
         kind,
       }),
-    try: run,
+    // @effect-diagnostics-next-line asyncFunction:off -- Calls the bound puppeteer method with no argument, so tryPromise's abort signal never lands in an optional parameter such as setUserAgent's metadata.
+    try: async () => await run(),
   });

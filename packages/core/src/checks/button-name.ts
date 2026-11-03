@@ -9,6 +9,7 @@ export const buttonName: Check = {
       (button) => blank(button.text) && !button.labelled,
       (button) => button.snippet
     ),
+  howToFix: "Give each button text, or an aria-label.",
   id: "button-name",
   title: "Buttons have a name",
   whatFails:

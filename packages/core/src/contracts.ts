@@ -21,11 +21,20 @@ export const scanContract = defineContract("scan", {
   output: ReportSchema,
 });
 
-export type { Applicability, StateRef } from "./applicability.js";
+export type { Applicability, ProfileLine, StateRef } from "./applicability.js";
+
+export {
+  issuesOf,
+  quietChecksOf,
+  quietSummary,
+  type Issue,
+} from "./report-sections.js";
 
 export type { FindingReference } from "./report.js";
 
-export { NEWER_VERSION_LABEL } from "./reference.js";
+export { NEWER_VERSION_LABEL, type Sourced } from "./reference.js";
+
+export { METHOD_NAMES } from "./coverage.js";
 
 export type { Rendered, RenderedFinding } from "./rendered.js";
 

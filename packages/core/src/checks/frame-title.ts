@@ -9,6 +9,7 @@ export const frameTitle: Check = {
       (frame) => !frame.labelled,
       (frame) => frame.snippet
     ),
+  howToFix: "Give each frame a title attribute.",
   id: "frame-title",
   title: "Frames have a title",
   whatFails:

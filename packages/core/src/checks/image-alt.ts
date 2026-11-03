@@ -10,6 +10,7 @@ const unnamed = (image: ImageEvidence): boolean =>
 export const imageAlt: Check = {
   evaluate: ({ images }) =>
     counted("image-alt", images, unnamed, (image) => image.snippet),
+  howToFix: 'Give each image an alt text, or alt="" if it is decorative.',
   id: "image-alt",
   title: "Images have a text alternative",
   whatFails:

@@ -1,3 +1,13 @@
 body {
   margin: 0;
 }
+
+[data-states] > li:has(> details[open]) {
+  grid-column: 1 / -1;
+}
+
+summary:focus-visible,
+a:focus-visible {
+  outline: max(2px, 0.08em) solid currentColor;
+  outline-offset: 0.2em;
+}

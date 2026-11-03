@@ -165,7 +165,9 @@ describe("withRendered", () => {
     expect(report.coverage?.method).toBe("static_html_and_rendered");
     expect(report.coverage?.criteria).toBeGreaterThan(STATIC_COVERAGE.criteria);
     expect(report.coverage?.text).toContain("static HTML + rendered page");
-    expect(report.headline).toContain("found issues in 6 of");
+    expect(report.headline).toMatch(
+      /^6 issues found by \d+ automated checks$/u
+    );
     expect(formatReport(report)).toContain("[axe:image-alt]");
   });
 

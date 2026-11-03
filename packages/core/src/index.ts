@@ -2,9 +2,12 @@ export {
   APPLICABILITY,
   ApplicabilitySchema,
   MICROENTERPRISE_FACT,
+  PROFILE_LABELS,
+  ProfileLineSchema,
   StateRefSchema,
   applicabilityFrom,
   type Applicability,
+  type ProfileLine,
   type StateRef,
 } from "./applicability.js";
 
@@ -150,6 +153,16 @@ export {
 } from "./report.js";
 
 export { formatReport } from "./report-text.js";
+
+export {
+  ISSUE_SAMPLES,
+  issuesOf,
+  levelOf,
+  quietChecksOf,
+  quietSummary,
+  type Issue,
+  type Level,
+} from "./report-sections.js";
 
 export {
   AxeResultsJson,

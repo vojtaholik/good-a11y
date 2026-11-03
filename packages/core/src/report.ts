@@ -53,6 +53,7 @@ export {
 
 export const FindingSchema = Schema.Struct({
   ...CheckResultSchema.fields,
+  howToFix: Schema.String,
   id: CheckIdSchema,
   references: Schema.Array(FindingReferenceSchema),
   status: CheckStatusSchema,
@@ -109,6 +110,7 @@ const findingOf = (
   reference: Reference
 ): Finding => ({
   ...result,
+  howToFix: entry.check.howToFix,
   references: referencesOf(entry, reference),
   title: entry.check.title,
   whatFails: entry.check.whatFails,
@@ -161,9 +163,11 @@ const headlineOf = (outcome: Outcome, { checks, failing }: Tally): string => {
     return UNREACHABLE_HEADLINE;
   }
 
-  return failing === 0
-    ? "The automated checks found no issues of the kinds they look for."
-    : `The automated checks found issues in ${failing} of ${checks} checks.`;
+  if (failing === 0) {
+    return `No issues found by ${checks} automated checks, of the kinds they look for.`;
+  }
+
+  return `${failing} ${failing === 1 ? "issue" : "issues"} found by ${checks} automated checks`;
 };
 
 export const reportOf = (

@@ -41,6 +41,7 @@ export type CheckResult = typeof CheckResultSchema.Type;
 
 export interface Check {
   readonly evaluate: (evidence: PageEvidence) => CheckResult;
+  readonly howToFix: string;
   readonly id: CheckId;
   readonly title: string;
   readonly whatFails: string;

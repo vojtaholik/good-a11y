@@ -80,7 +80,17 @@ describe("our own page", () => {
         scan: ScanState.Settled({ view: publishedScan() }),
       });
 
-      expect(html).toContain("Issue found");
+      const order = [
+        "issues found by",
+        "Issues (",
+        "Where the EAA applies",
+        "had nothing to check",
+        "About the rules",
+        "Send message",
+      ].map((marker) => html.indexOf(marker));
+
+      expect(order.map((index) => index >= 0)).toEqual(order.map(() => true));
+      expect(order).toEqual(order.toSorted((left, right) => left - right));
       expect(html).toContain("Send message");
       expect(html.toLowerCase()).not.toContain("compliant");
       expect(failing(html)).toEqual([]);

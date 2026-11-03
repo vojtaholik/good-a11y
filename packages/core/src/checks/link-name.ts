@@ -9,6 +9,7 @@ export const linkName: Check = {
       (link) => blank(link.text) && !link.labelled,
       (link) => link.snippet
     ),
+  howToFix: "Give each link text, or an aria-label.",
   id: "link-name",
   title: "Links have a name",
   whatFails:

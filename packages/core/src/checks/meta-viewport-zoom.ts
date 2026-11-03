@@ -35,6 +35,8 @@ export const metaViewportZoom: Check = {
       blocksZoom,
       (content) => `<meta name="viewport" content="${content}">`
     ),
+  howToFix:
+    "Remove user-scalable=no and any maximum-scale below 2 from the viewport meta tag.",
   id: "meta-viewport-zoom",
   title: "Zoom is not blocked",
   whatFails:

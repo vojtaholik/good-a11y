@@ -71,12 +71,16 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 ## Needs Vojta
 
+- Jev via Cloudflare bills through AI Gateway (Unified Billing). If the account has no AI Gateway credits loaded, judged checks are skipped and the report says so; load credits to turn them on.
+
 - Contact messages are stored in D1 on stage dev and nobody is told. To get them by e-mail, as webproai does, the Stack needs your verified destination address (Cloudflare Email). Read them meanwhile with `wrangler d1 execute` on the dev database or ask an agent.
 - Turnstile on the scan and contact forms needs a site key for the final hostname; not set up.
 
 ## Log
 
 Times are CET, from the machine clock.
+
+- 21:15 Vojta (afk after): issues first + smarter states UX, copy-fix-prompt per issue, Foldkit skills for UI, and test almost everything accurately, Jev via Cloudflare for decisions. Now running: builder-core (report UX + fix prompts), builder-cloud (Browser Run deploy, block rate, rendered probes: reflow, text spacing, focus visible, target size), builder-judge (Jev-judged checks via Workers AI binding), verifier (SC coverage plan for all 50 + 6 SCs). Decisions 15-18.
 
 - 20:50 Audit fixes committed and pushed (7dfac2b, 2a7a291); live crash on outdated D1 rows fixed and verified live. axe adapter in progress.
 

@@ -14,6 +14,8 @@ export const htmlLang: Check = {
       lang === null ? "<html> has no lang attribute" : `<html lang="${value}">`
     );
   },
+  howToFix:
+    'Add a lang attribute with the page\'s language to the <html> element, for example lang="en".',
   id: "html-lang",
   title: "The page states its language",
   whatFails: `The <html> element has no lang attribute, or its value is not a well-formed BCP 47 language tag (for example "en" or "de-AT").`,
