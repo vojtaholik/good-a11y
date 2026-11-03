@@ -1,5 +1,7 @@
 export { BrowserBudget, utcDayOf, type Reservation } from "./browser-budget.js";
 
+export { JudgeBudget, type TokenReservation } from "./judge-budget.js";
+
 export {
   MessageStore,
   type KeepOutcome,

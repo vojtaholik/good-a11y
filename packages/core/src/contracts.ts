@@ -23,16 +23,29 @@ export const scanContract = defineContract("scan", {
 
 export type { Applicability, ProfileLine, StateRef } from "./applicability.js";
 
+export { fixPromptFor } from "./fix-prompt.js";
+
 export {
+  isTested,
+  SAMPLE_SOURCE_LABELS,
+  SAME_CONCERN,
+  concernOf,
+  issuesFrom,
   issuesOf,
   quietChecksOf,
   quietSummary,
   type Issue,
+  type IssueSample,
+  type SampleSource,
 } from "./report-sections.js";
 
 export type { FindingReference } from "./report.js";
 
-export { NEWER_VERSION_LABEL, type Sourced } from "./reference.js";
+export {
+  NEWER_VERSION_LABEL,
+  NEWER_WCAG_LABEL,
+  type Sourced,
+} from "./reference.js";
 
 export { METHOD_NAMES } from "./coverage.js";
 
@@ -59,3 +72,5 @@ export { ScanViewSchema, type ScanView } from "./scan-view.js";
 export { ScanUnavailable } from "./scan-unavailable.js";
 
 export { UnknownScan } from "./unknown-scan.js";
+
+export type { Judged, Observation } from "./judged.js";

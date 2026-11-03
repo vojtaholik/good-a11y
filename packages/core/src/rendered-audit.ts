@@ -17,6 +17,7 @@ export interface RenderedPage {
   readonly axe: string;
   readonly headers: HeaderMap;
   readonly html: string;
+  readonly probes: string | null;
   readonly status: number | null;
 }
 

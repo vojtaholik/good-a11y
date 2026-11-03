@@ -10,7 +10,7 @@ Audience: people who own or run e-commerce and service websites sold across the 
 
 - Every legal and normative claim traces to a primary source through a verified fact in `research/facts/`. A claim without one is shown as "unknown" or left out.
 - The report never says a site is "compliant". It says plainly that automated checks find only part of the issues WCAG covers and that a manual review is needed.
-- Findings come from deterministic checks only. Nothing a model says changes a finding.
+- Findings come from deterministic checks only. Nothing a model says changes a finding. A decision model may add judged observations, shown apart, labelled as a model's judgement and never counted as issues.
 - Evidence is kept, so a stored scan can be re-checked under a newer catalogue.
 - A site that refuses the scanner gets that said, with no findings.
 

@@ -1,8 +1,16 @@
-import { MAX_ELEMENTS_PER_KIND, MAX_NAME, MAX_SNIPPET } from "@eaa-check/core";
+import {
+  MAX_CONTEXT,
+  MAX_ELEMENTS_PER_KIND,
+  MAX_NAME,
+  MAX_SNIPPET,
+  MAX_TEXT_SAMPLE,
+} from "@eaa-check/core";
 import type {
   ControlEvidence,
   FrameEvidence,
+  HeadingEvidence,
   ImageEvidence,
+  LinkEvidence,
   NamedEvidence,
   PageEvidence,
 } from "@eaa-check/core";
@@ -20,25 +28,51 @@ interface NameRegion {
   readonly snippet: string;
 }
 
+interface TextRegion {
+  readonly depth: number;
+  parts: string[];
+  size: number;
+}
+
+interface HeadingRegion extends TextRegion {
+  readonly level: number;
+}
+
+interface LinkRegion extends NameRegion {
+  readonly context: TextRegion | undefined;
+}
+
+interface PendingLink {
+  readonly context: TextRegion | undefined;
+  readonly evidence: NamedEvidence;
+}
+
 interface Reading {
   attributeName: string | undefined;
   attributeParts: string[];
   attributes: Attributes;
   readonly buttons: NamedEvidence[];
   button: NameRegion | undefined;
+  readonly contexts: TextRegion[];
   readonly controls: ControlEvidence[];
   foreignFrom: number | undefined;
   readonly frames: FrameEvidence[];
+  heading: HeadingRegion | undefined;
+  readonly headings: HeadingEvidence[];
   hiddenFrom: number | undefined;
   readonly images: ImageEvidence[];
+  label: TextRegion | undefined;
   labelFrom: number | undefined;
   readonly labelTargets: string[];
+  readonly labels: string[];
   lang: string | null;
-  link: NameRegion | undefined;
-  readonly links: NamedEvidence[];
+  link: LinkRegion | undefined;
+  readonly links: PendingLink[];
   readonly open: string[];
   readonly openCount: Map<string, number>;
   readonly refreshes: string[];
+  readonly sample: string[];
+  sampleSize: number;
   sawHtml: boolean;
   tag: string;
   title: string[] | undefined;
@@ -108,6 +142,25 @@ const VOID = new Set([
   "wbr",
 ]);
 
+const CONTEXT_BLOCKS = new Set([
+  "caption",
+  "dd",
+  "dt",
+  "figcaption",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "li",
+  "p",
+  "td",
+  "th",
+]);
+
+const HEADING = /^h(?<level>[1-6])$/u;
+
 const FOREIGN = new Set(["math", "svg"]);
 
 const SILENT = new Set(["noscript", "template"]);
@@ -176,6 +229,40 @@ const addName = (reading: Reading, text: string) => {
   }
 };
 
+const addTo = (region: TextRegion | undefined, text: string, most: number) => {
+  if (region !== undefined && region.size < most * 2) {
+    region.parts.push(text);
+    region.size += text.length;
+  }
+};
+
+const addText = (reading: Reading, text: string) => {
+  addName(reading, text);
+  addTo(reading.heading, text, MAX_NAME);
+  addTo(reading.label, text, MAX_NAME);
+  addTo(reading.contexts.at(-1), text, MAX_CONTEXT);
+
+  const words = collapse(text);
+
+  if (words !== "" && reading.sampleSize < MAX_TEXT_SAMPLE) {
+    reading.sample.push(words);
+    reading.sampleSize += words.length + 1;
+  }
+};
+
+const textOf = (region: TextRegion, most: number): string =>
+  capped(collapse(region.parts.join("")), most);
+
+const fileOf = (src: string | null): string | null => {
+  if (src === null || src.trim().startsWith("data:")) {
+    return null;
+  }
+
+  const path = src.split(/[?#]/u, 1)[0] ?? "";
+
+  return capped(path.slice(path.lastIndexOf("/") + 1), MAX_NAME);
+};
+
 const nameOf = (region: NameRegion): NamedEvidence => ({
   labelled: region.labelled,
   snippet: region.snippet,
@@ -184,7 +271,10 @@ const nameOf = (region: NameRegion): NamedEvidence => ({
 
 const endLink = (reading: Reading) => {
   if (reading.link !== undefined) {
-    keep(reading, reading.links, nameOf(reading.link));
+    keep(reading, reading.links, {
+      context: reading.link.context,
+      evidence: nameOf(reading.link),
+    });
     reading.link = undefined;
   }
 };
@@ -207,6 +297,23 @@ const endRegions = (reading: Reading, depth: number) => {
 
   if (reading.labelFrom !== undefined && reading.labelFrom >= depth) {
     reading.labelFrom = undefined;
+  }
+
+  if (reading.label !== undefined && reading.label.depth >= depth) {
+    keep(reading, reading.labels, textOf(reading.label, MAX_NAME));
+    reading.label = undefined;
+  }
+
+  if (reading.heading !== undefined && reading.heading.depth >= depth) {
+    keep(reading, reading.headings, {
+      level: reading.heading.level,
+      text: textOf(reading.heading, MAX_NAME),
+    });
+    reading.heading = undefined;
+  }
+
+  while ((reading.contexts.at(-1)?.depth ?? -1) >= depth) {
+    reading.contexts.pop();
   }
 
   if (reading.hiddenFrom !== undefined && reading.hiddenFrom >= depth) {
@@ -264,6 +371,7 @@ const readImage = (reading: Reading, attributes: Attributes) => {
 
   keep(reading, reading.images, {
     alt: alt === null ? null : capped(alt, MAX_NAME),
+    file: fileOf(attribute(attributes, "src")),
     kind: "img",
     labelled: labelledByAria(attributes) || filled(attributes, "title"),
     presentational: PRESENTATIONAL.has(
@@ -329,6 +437,7 @@ const readInput = (reading: Reading, attributes: Attributes) => {
 
     keep(reading, reading.images, {
       alt: alt === null ? null : capped(alt, MAX_NAME),
+      file: fileOf(attribute(attributes, "src")),
       kind: "input-image",
       labelled: labelledByAria(attributes) || filled(attributes, "title"),
       presentational: false,
@@ -368,7 +477,23 @@ const regionOf = (
   snippet: snippetOf(tag, attributes),
 });
 
+const openTextRegions = (reading: Reading, tag: string) => {
+  const depth = reading.open.length;
+
+  if (CONTEXT_BLOCKS.has(tag)) {
+    reading.contexts.push({ depth, parts: [], size: 0 });
+  }
+
+  const level = HEADING.exec(tag)?.groups?.level;
+
+  if (level !== undefined && reading.heading === undefined) {
+    reading.heading = { depth, level: Number(level), parts: [], size: 0 };
+  }
+};
+
 const readElement = (reading: Reading, tag: string, attributes: Attributes) => {
+  openTextRegions(reading, tag);
+
   if (tag === "img") {
     readImage(reading, attributes);
   } else if (tag === "input") {
@@ -380,11 +505,15 @@ const readElement = (reading: Reading, tag: string, attributes: Attributes) => {
     reading.button = regionOf(reading, tag, attributes);
   } else if (tag === "a" && attributes.has("href")) {
     endLink(reading);
-    reading.link = regionOf(reading, tag, attributes);
+    reading.link = {
+      ...regionOf(reading, tag, attributes),
+      context: reading.contexts.at(-1),
+    };
   } else if (tag === "label") {
     const target = attribute(attributes, "for");
 
     reading.labelFrom ??= reading.open.length;
+    reading.label ??= { depth: reading.open.length, parts: [], size: 0 };
 
     if (target !== null && target.trim() !== "") {
       keep(reading, reading.labelTargets, capped(target.trim(), MAX_NAME));
@@ -459,7 +588,7 @@ const say = (reading: Reading, text: string) => {
   }
 
   if (reading.hiddenFrom === undefined && !NOT_TEXT.has(top)) {
-    addName(reading, text);
+    addText(reading, text);
   }
 };
 
@@ -538,25 +667,37 @@ const blank = (): Reading => ({
   attributes: new Map(),
   button: undefined,
   buttons: [],
+  contexts: [],
   controls: [],
   foreignFrom: undefined,
   frames: [],
+  heading: undefined,
+  headings: [],
   hiddenFrom: undefined,
   images: [],
+  label: undefined,
   labelFrom: undefined,
   labelTargets: [],
+  labels: [],
   lang: null,
   link: undefined,
   links: [],
   open: [],
   openCount: new Map(),
   refreshes: [],
+  sample: [],
+  sampleSize: 0,
   sawHtml: false,
   tag: "",
   title: undefined,
   titleDone: false,
   truncated: false,
   viewports: [],
+});
+
+const linkOf = ({ context, evidence }: PendingLink): LinkEvidence => ({
+  ...evidence,
+  context: context === undefined ? "" : textOf(context, MAX_CONTEXT),
 });
 
 export const readPage = (html: string): PageEvidence => {
@@ -570,11 +711,14 @@ export const readPage = (html: string): PageEvidence => {
     buttons: reading.buttons,
     controls: reading.controls,
     frames: reading.frames,
+    headings: reading.headings,
     images: reading.images,
     labelTargets: reading.labelTargets,
+    labels: reading.labels,
     lang: reading.lang === null ? null : capped(reading.lang, MAX_NAME),
-    links: reading.links,
+    links: reading.links.map(linkOf),
     refreshes: reading.refreshes,
+    textSample: capped(reading.sample.join(" "), MAX_TEXT_SAMPLE),
     title:
       reading.title === undefined
         ? null

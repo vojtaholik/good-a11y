@@ -16,6 +16,7 @@ const fakeSession = (
   close: Ref.update(closed, (count) => count + 1),
   html: Effect.succeed("<html>Shop</html>"),
   open: () => Effect.succeed({ headers: { server: "x" }, status: 200 }),
+  probe: Effect.succeed('{"probes":true}'),
   runAxe: Effect.succeed('{"violations":[]}'),
   ...overrides,
 });
@@ -40,8 +41,38 @@ describe("the rendered audit", () => {
           axe: '{"violations":[]}',
           headers: { server: "x" },
           html: "<html>Shop</html>",
+          probes: '{"probes":true}',
           status: 200,
         });
+        expect(yield* Ref.get(closed)).toBe(1);
+      })
+  );
+
+  it.effect(
+    "keeps the axe results when the probes fail, and closes the browser",
+    () =>
+      Effect.gen(function* keepsAxe() {
+        const closed = yield* Ref.make(0);
+
+        const fiber = yield* Effect.forkChild(
+          auditWith(
+            fakeSession(closed, {
+              probe: Effect.fail(
+                new RenderedAuditFailed({
+                  detail: "Execution context was destroyed.",
+                  kind: "audit",
+                })
+              ),
+            })
+          )
+        );
+
+        yield* TestClock.adjust("3 seconds");
+
+        const page = yield* Fiber.join(fiber);
+
+        expect(page.axe).toBe('{"violations":[]}');
+        expect(page.probes).toBeNull();
         expect(yield* Ref.get(closed)).toBe(1);
       })
   );

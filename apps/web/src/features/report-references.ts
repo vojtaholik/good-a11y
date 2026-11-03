@@ -1,4 +1,3 @@
-import { NEWER_VERSION_LABEL } from "@eaa-check/core/contracts";
 import type { FindingReference } from "@eaa-check/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
@@ -8,11 +7,19 @@ import { sx } from "./sx.js";
 
 type Child = Html | string;
 
-const KIND: Readonly<Record<FindingReference["kind"], string>> = {
-  "en-newer": NEWER_VERSION_LABEL,
-  "en-reference": "EN 301 549",
-  wcag: "WCAG 2.1",
-};
+const SEPARATOR = " · ";
+
+const LEVEL = /\(Level (?<level>AA?)\)/u;
+
+const CLAUSE = / clause /u;
+
+const shortText = (reference: FindingReference): string =>
+  reference.text
+    .replace(LEVEL, (_match, level: string) => `(${level})`)
+    .replace(CLAUSE, " ");
+
+const startsGroup = (reference: FindingReference): boolean =>
+  reference.kind === "wcag" || reference.kind === "wcag-newer";
 
 export const byCriterion = (
   references: readonly FindingReference[]
@@ -22,7 +29,7 @@ export const byCriterion = (
   for (const reference of references) {
     const last = groups.at(-1);
 
-    if (reference.kind === "wcag" || last === undefined) {
+    if (startsGroup(reference) || last === undefined) {
       groups.push([reference]);
     } else {
       last.push(reference);
@@ -32,13 +39,43 @@ export const byCriterion = (
   return groups;
 };
 
-const referenceLink = (
+const linked = (
   reference: FindingReference,
   h: HtmlBuilder<AppMessage>
-): Child[] => [
-  `${KIND[reference.kind]}: `,
-  h.a([h.Href(reference.source), sx(h, styles.link)], [reference.text]),
-];
+): Html =>
+  h.a([h.Href(reference.source), sx(h, styles.link)], [shortText(reference)]);
+
+const mainLine = (
+  group: readonly FindingReference[],
+  h: HtmlBuilder<AppMessage>
+): Child[] => {
+  const main = group.filter((reference) => reference.kind !== "en-newer");
+
+  const lead = main[0]?.kind === "wcag-newer" ? "WCAG 2.2" : "WCAG 2.1";
+
+  return [
+    lead,
+    ...main.flatMap((reference) => [SEPARATOR, linked(reference, h)]),
+    ...(main[0]?.kind === "wcag-newer"
+      ? [`${SEPARATOR}newer, not yet required by the cited EN 301 549`]
+      : []),
+  ];
+};
+
+const newerLine = (
+  group: readonly FindingReference[],
+  h: HtmlBuilder<AppMessage>
+): Html[] =>
+  group.flatMap((reference) =>
+    reference.kind === "en-newer"
+      ? [
+          h.span(
+            [sx(h, styles.refNewer)],
+            ["also ", linked(reference, h), ", published, not cited in the OJ"]
+          ),
+        ]
+      : []
+  );
 
 export const referenceList = (
   references: readonly FindingReference[],
@@ -52,10 +89,10 @@ export const referenceList = (
           byCriterion(references).map((group) =>
             h.li(
               [],
-              group.flatMap((reference, index) => [
-                ...(index === 0 ? [] : ["; "]),
-                ...referenceLink(reference, h),
-              ])
+              [
+                h.span([], mainLine(group, h)),
+                ...newerLine(group, h).flatMap((line) => [h.br([]), line]),
+              ]
             )
           )
         ),

@@ -318,6 +318,9 @@ importers:
       '@cloudflare/puppeteer':
         specifier: 1.4.0
         version: 1.4.0
+      '@eaa-check/ai-judge':
+        specifier: workspace:*
+        version: link:../../packages/ai-judge
       '@eaa-check/browser-audit':
         specifier: workspace:*
         version: link:../../packages/browser-audit
@@ -416,6 +419,28 @@ importers:
       vitest:
         specifier: 5.0.1
         version: 5.0.1(@types/node@24.13.6)(vite@8.0.7(@types/node@24.13.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))
+
+  packages/ai-judge:
+    dependencies:
+      '@eaa-check/core':
+        specifier: workspace:*
+        version: link:../core
+      effect:
+        specifier: 4.0.0
+        version: 4.0.0
+    devDependencies:
+      '@effect/vitest':
+        specifier: 4.0.0
+        version: 4.0.0(effect@4.0.0)(vitest@5.0.1(@types/node@24.13.6)(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0)))
+      '@types/node':
+        specifier: 24.13.6
+        version: 24.13.6
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
+      vitest:
+        specifier: 5.0.1
+        version: 5.0.1(@types/node@24.13.6)(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))
 
   packages/browser-audit:
     dependencies:

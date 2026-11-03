@@ -44,23 +44,32 @@ export const fetchPage = (target: ScanTarget) =>
     return unmaskedAtTheTestedAddress(fetched);
   });
 
-export const judgePage = (
+export interface Inspection {
+  readonly evidence: PageEvidence | null;
+  readonly report: Report;
+}
+
+const unread = (report: Report): Inspection => ({ evidence: null, report });
+
+export const inspectPage = (
   fetched: FetchResult,
   reader: PageReading,
   scannedAt: string
-): Report => {
+): Inspection => {
   if (!fetched.ok) {
-    return reportOf(
-      {
-        finalUrl: null,
-        httpStatus: fetched.status ?? null,
-        outcome: fetched.reason === "blocked" ? "refused" : "unreachable",
-        outcomeDetail: fetched.detail,
-        requestedUrl: fetched.requestedUrl,
-        scannedAt,
-        truncated: false,
-      },
-      []
+    return unread(
+      reportOf(
+        {
+          finalUrl: null,
+          httpStatus: fetched.status ?? null,
+          outcome: fetched.reason === "blocked" ? "refused" : "unreachable",
+          outcomeDetail: fetched.detail,
+          requestedUrl: fetched.requestedUrl,
+          scannedAt,
+          truncated: false,
+        },
+        []
+      )
     );
   }
 
@@ -73,19 +82,21 @@ export const judgePage = (
   };
 
   if (!isHtml(fetched.contentType)) {
-    return reportOf(
-      {
-        ...visit,
-        outcome: "not_html",
-        outcomeDetail: `The address answered with ${fetched.contentType}, not an HTML page.`,
-      },
-      []
+    return unread(
+      reportOf(
+        {
+          ...visit,
+          outcome: "not_html",
+          outcomeDetail: `The address answered with ${fetched.contentType}, not an HTML page.`,
+        },
+        []
+      )
     );
   }
 
   const evidence = reader.read(fetched.body);
 
-  return reportOf(
+  const report = reportOf(
     {
       ...visit,
       outcome: "checked",
@@ -99,20 +110,33 @@ export const judgePage = (
     },
     runChecks(evidence)
   );
+
+  return { evidence, report };
 };
 
-export const scanUrl = Effect.fn("scanUrl")(function* scanUrl(url: string) {
+export const judgePage = (
+  fetched: FetchResult,
+  reader: PageReading,
+  scannedAt: string
+): Report => inspectPage(fetched, reader, scannedAt).report;
+
+export const inspectUrl = Effect.fn("inspectUrl")(function* inspectUrl(
+  url: string
+) {
   const target = yield* Effect.fromResult(parseScanTarget(url));
   const fetched = yield* fetchPage(target);
   const reader = yield* PageReader;
   const now = yield* Clock.currentTimeMillis;
 
-  return judgePage(
+  return inspectPage(
     fetched,
     reader,
     DateTime.formatIso(DateTime.makeUnsafe(now))
   );
 });
+
+export const scanUrl = (url: string) =>
+  inspectUrl(url).pipe(Effect.map(({ report }) => report));
 
 export const scan = implement(scanContract, ({ url }) => scanUrl(url));
 

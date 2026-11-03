@@ -1,0 +1,323 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "id": "5fba8581-e424-4e20-b149-7db82b2b859f",
+  "prevIds": ["9f70e3b5-8944-40ea-bf1e-4ef425b40fd2"],
+  "ddl": [
+    {
+      "name": "browser_budget",
+      "entityType": "tables"
+    },
+    {
+      "name": "judge_budget",
+      "entityType": "tables"
+    },
+    {
+      "name": "messages",
+      "entityType": "tables"
+    },
+    {
+      "name": "scans",
+      "entityType": "tables"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "day",
+      "entityType": "columns",
+      "table": "browser_budget"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "reserved_seconds",
+      "entityType": "columns",
+      "table": "browser_budget"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "day",
+      "entityType": "columns",
+      "table": "judge_budget"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "reserved_tokens",
+      "entityType": "columns",
+      "table": "judge_budget"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "email",
+      "entityType": "columns",
+      "table": "messages"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "messages"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "message",
+      "entityType": "columns",
+      "table": "messages"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "name",
+      "entityType": "columns",
+      "table": "messages"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "received_at",
+      "entityType": "columns",
+      "table": "messages"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "url",
+      "entityType": "columns",
+      "table": "messages"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "failure",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "report_json",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "requested_at",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "settled_at",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "slug",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "stage",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "url",
+      "entityType": "columns",
+      "table": "scans"
+    },
+    {
+      "columns": ["day"],
+      "nameExplicit": false,
+      "name": "browser_budget_pk",
+      "table": "browser_budget",
+      "entityType": "pks"
+    },
+    {
+      "columns": ["day"],
+      "nameExplicit": false,
+      "name": "judge_budget_pk",
+      "table": "judge_budget",
+      "entityType": "pks"
+    },
+    {
+      "columns": ["id"],
+      "nameExplicit": false,
+      "name": "messages_pk",
+      "table": "messages",
+      "entityType": "pks"
+    },
+    {
+      "columns": ["id"],
+      "nameExplicit": false,
+      "name": "scans_pk",
+      "table": "scans",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        {
+          "value": "received_at",
+          "isExpression": false
+        },
+        {
+          "value": "id",
+          "isExpression": false
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "origin": "manual",
+      "name": "messages_received_idx",
+      "entityType": "indexes",
+      "table": "messages"
+    },
+    {
+      "columns": [
+        {
+          "value": "slug",
+          "isExpression": false
+        },
+        {
+          "value": "requested_at",
+          "isExpression": false
+        },
+        {
+          "value": "id",
+          "isExpression": false
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "origin": "manual",
+      "name": "scans_slug_recent_idx",
+      "entityType": "indexes",
+      "table": "scans"
+    },
+    {
+      "columns": [
+        {
+          "value": "requested_at",
+          "isExpression": false
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "origin": "manual",
+      "name": "scans_requested_idx",
+      "entityType": "indexes",
+      "table": "scans"
+    },
+    {
+      "value": "\"reserved_seconds\" >= 0",
+      "name": "browser_budget_seconds_check",
+      "entityType": "checks",
+      "table": "browser_budget"
+    },
+    {
+      "value": "\"reserved_tokens\" >= 0",
+      "name": "judge_budget_tokens_check",
+      "entityType": "checks",
+      "table": "judge_budget"
+    },
+    {
+      "value": "\"stage\" IN ('queued', 'scanning', 'published', 'failed')",
+      "name": "scans_stage_check",
+      "entityType": "checks",
+      "table": "scans"
+    },
+    {
+      "value": "(\"stage\" IN ('published', 'failed')) = (\"settled_at\" IS NOT NULL)",
+      "name": "scans_settled_check",
+      "entityType": "checks",
+      "table": "scans"
+    },
+    {
+      "value": "(\"stage\" = 'published') = (\"report_json\" IS NOT NULL)",
+      "name": "scans_report_check",
+      "entityType": "checks",
+      "table": "scans"
+    },
+    {
+      "value": "(\"stage\" = 'failed') = (\"failure\" IS NOT NULL)",
+      "name": "scans_failure_check",
+      "entityType": "checks",
+      "table": "scans"
+    }
+  ],
+  "renames": []
+}

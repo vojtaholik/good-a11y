@@ -5,8 +5,21 @@ import type { AxeResults, AxeRule } from "./axe-results.js";
 import { criterion } from "./catalogue.js";
 import { challengeIn } from "./challenge.js";
 import { MAX_SAMPLES } from "./check.js";
-import { FindingReferenceSchema, referencesFor } from "./finding-reference.js";
+import {
+  FindingReferenceSchema,
+  newerReferencesFor,
+  referencesFor,
+} from "./finding-reference.js";
 import { MAX_SNIPPET } from "./page-evidence.js";
+import {
+  PROBES,
+  ProbeResultSchema,
+  ProbesJson,
+  probeFact,
+  probeResults,
+  scFactOf,
+} from "./probes.js";
+import type { ProbeResult } from "./probes.js";
 import { REFERENCE, verifiedText } from "./reference.js";
 import type { Reference } from "./reference.js";
 import { refusesAPlainRequest } from "./refusal.js";
@@ -33,7 +46,8 @@ export const RenderedSchema = Schema.Union([
     criteria: Schema.Array(Schema.String),
     engine: Schema.String,
     findings: Schema.Array(RenderedFindingSchema),
-    rules: Count,
+    probes: Schema.Array(ProbeResultSchema),
+    rules: Schema.Array(Schema.String),
     status: Schema.Literal("ran"),
   }),
   Schema.Struct({
@@ -95,9 +109,36 @@ const findingOf = (
     .map((node) => node.html.slice(0, MAX_SNIPPET)),
 });
 
+const probeFindingOf = (
+  probe: ProbeResult,
+  reference: Reference
+): RenderedFinding[] => {
+  const fact = probeFact(probe.probe);
+
+  return probe.status !== "fail" || fact === null
+    ? []
+    : [
+        {
+          failing: probe.failing,
+          help: PROBES[probe.probe].help,
+          helpUrl: fact.source,
+          impact: null,
+          references: probe.newer
+            ? newerReferencesFor(scFactOf(probe.probe))
+            : referencesFor([criterion(probe.criterion)], reference),
+          rule: probe.probe,
+          samples: probe.samples.map((sample) => sample.slice(0, MAX_SNIPPET)),
+        },
+      ];
+};
+
+const byNumber = (left: string, right: string): number =>
+  left.localeCompare(right, "en", { numeric: true });
+
 export const renderedOf = (
   results: AxeResults,
-  reference: Reference = REFERENCE
+  reference: Reference = REFERENCE,
+  probes: readonly ProbeResult[] = []
 ): Rendered => {
   const ran = [
     ...results.violations,
@@ -106,19 +147,29 @@ export const renderedOf = (
     ...results.inapplicable,
   ].filter((rule) => verifiedCriteria(rule).length > 0);
 
-  return {
-    criteria: [...new Set(ran.flatMap(verifiedCriteria))].toSorted(
-      (left, right) => left.localeCompare(right, "en", { numeric: true })
-    ),
-    engine: `${results.testEngine.name} ${results.testEngine.version}`,
-    findings: results.violations.flatMap((rule) => {
-      const criteria = verifiedCriteria(rule);
+  const kept = probes.filter((probe) => probeFact(probe.probe) !== null);
 
-      return criteria.length === 0 || rule.nodes.length === 0
-        ? []
-        : [findingOf(rule, criteria, reference)];
-    }),
-    rules: new Set(ran.map((rule) => rule.id)).size,
+  const probedCriteria = kept.flatMap((probe) =>
+    probe.newer || probe.status === "not_applicable" ? [] : [probe.criterion]
+  );
+
+  return {
+    criteria: [
+      ...new Set([...ran.flatMap(verifiedCriteria), ...probedCriteria]),
+    ].toSorted(byNumber),
+    engine: `${results.testEngine.name} ${results.testEngine.version}`,
+    findings: [
+      ...results.violations.flatMap((rule) => {
+        const criteria = verifiedCriteria(rule);
+
+        return criteria.length === 0 || rule.nodes.length === 0
+          ? []
+          : [findingOf(rule, criteria, reference)];
+      }),
+      ...kept.flatMap((probe) => probeFindingOf(probe, reference)),
+    ],
+    probes: kept,
+    rules: [...new Set(ran.map((rule) => rule.id))].toSorted(),
     status: "ran",
   };
 };
@@ -129,6 +180,18 @@ const blocked = (page: RenderedPage): boolean =>
   challengeIn(page.headers, page.html) !== undefined;
 
 const decodeAxe = Schema.decodeUnknownResult(AxeResultsJson);
+
+const decodeProbes = Schema.decodeUnknownResult(ProbesJson);
+
+const probesOf = (json: string | null): readonly ProbeResult[] => {
+  if (json === null) {
+    return [];
+  }
+
+  const decoded = decodeProbes(json);
+
+  return Result.isSuccess(decoded) ? probeResults(decoded.success) : [];
+};
 
 export const renderedFrom = (outcome: RenderedOutcome): Rendered => {
   if ("skipped" in outcome) {
@@ -142,7 +205,7 @@ export const renderedFrom = (outcome: RenderedOutcome): Rendered => {
   const decoded = decodeAxe(outcome.ran.axe);
 
   return Result.isSuccess(decoded)
-    ? renderedOf(decoded.success)
+    ? renderedOf(decoded.success, REFERENCE, probesOf(outcome.ran.probes))
     : { reason: RENDERED_UNREADABLE, status: "skipped" };
 };
 

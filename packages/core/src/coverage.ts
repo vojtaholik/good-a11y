@@ -8,11 +8,13 @@ import type { CatalogueEntry } from "./catalogue.js";
 export const MethodSchema = Schema.Literals([
   "static_html",
   "static_html_and_rendered",
+  "rendered_page",
 ]);
 
 export type Method = typeof MethodSchema.Type;
 
 export const METHOD_NAMES: Readonly<Record<Method, string>> = {
+  rendered_page: "rendered page only",
   static_html: "static HTML only",
   static_html_and_rendered: "static HTML + rendered page",
 };

@@ -5,7 +5,7 @@ export class ScanStepFailed extends Schema.TaggedError<ScanStepFailed>()(
   {
     detail: Schema.String,
     scanId: Schema.String,
-    step: Schema.Literals(["scan", "render", "store", "fail"]),
+    step: Schema.Literals(["scan", "render", "judge", "store", "fail"]),
   }
 ) {
   override get message(): string {

@@ -102,7 +102,8 @@ Preserve existing work. Inspect status before editing, stage only files changed 
 - One contract, every kept surface. Define schemas with `defineContract`, bind a handler with `implement`, add the capability to `capabilities`.
 - Schemas are the contract. Input, output, and failure are Effect `Schema`. Parse every outside value at its boundary.
 - Findings come from deterministic checks only. A check is a pure function of the evidence a scan collected. No model output changes a finding.
-- A check reports `pass`, `fail` or `not_applicable` with counted instances and a few samples. Fewer reliable checks beat many noisy ones: a check that cannot be judged from static HTML is not in the catalogue.
+- A **judged observation** is the one thing a model may produce: a typed answer from a decision model (`@cf/cloudflare/clef`, or TypeSafe Jev where callable) about evidence the scan collected, turned into an observation by a pure function with fixed thresholds. Observations are their own list in the report, labelled as judged by a model with the model's version and confidence. They are never counted as issues, never change a finding, and are never presented as fact-backed: no "issue" wording, and their WCAG mapping reads as what the question relates to. Model use stays inside a daily budget held in `packages/scan-store`; without the binding or budget the judged step is skipped and the report says so (decisions 15, 18, 19 in the brief).
+- A check reports `pass`, `fail` or `not_applicable` with counted instances and a few samples. Fewer reliable checks beat many noisy ones: a check that cannot be decided reliably from the evidence the scan collected (static HTML or the rendered page) is not in the catalogue.
 - The network is hostile. Every outbound request goes through `SafeFetch`, which vets each hop with `vetUrl`, follows redirects by hand, caps the body while it streams, and returns failures as typed values.
 - A scanned site controls every byte we read. No input within the size caps may make the reader or a check take more than linear time or throw.
 - Tautological and change-detector tests are harmful. Test behavior at seams and with fixtures.
@@ -114,7 +115,7 @@ Preserve existing work. Inspect status before editing, stage only files changed 
 
 - `rat-stack-boundaries/no-core-adapters` keeps adapters out of core. Core may import `packages/capability`, `packages/facts`, Effect and XState. `packages/facts` is pure data and domain parsing, so it is allowed; HTTP clients and parsers are not.
 - `rat-stack-boundaries/no-cross-layer-imports` enforces dependency direction: apps → `packages/core` → `packages/facts`, `packages/capability` → Effect. Packages do not import apps.
-- A scan is three calls: `parseScanTarget` turns what was typed into a vetted target, `SafeFetch` fetches the one page, `PageReader.read` turns its HTML into `PageEvidence`, and `report` runs every check and builds the `Report`.
+- A scan runs in steps, each a Workflow task: `parseScanTarget` turns what was typed into a vetted target, `SafeFetch` fetches the one page, `PageReader.read` turns its HTML into `PageEvidence`, and `report` runs every static check and builds the `Report`. Then `RenderedAudit` opens the page in Browser Run (also when the static fetch was refused, decision 20), runs the pinned axe-core and the rendered probes, and `withRendered` adds their findings, or a skip with its reason, to the `Report`. Then the judged step may add judged observations under its own budget.
 - `SafeFetch` is the only caller of `HopTransport`, and `HopTransport.open` takes a `PublicUrl`. Only `vetUrl` makes one.
 
 ## Boundaries and sign-off

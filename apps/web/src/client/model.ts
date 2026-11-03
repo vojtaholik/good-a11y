@@ -23,6 +23,12 @@ export const ScanState = defineTaggedUnion({
   Unknown: {},
 });
 
+export const CopyState = defineTaggedUnion({
+  Copied: { key: Schema.String },
+  Failed: { key: Schema.String, text: Schema.String },
+  Idle: {},
+});
+
 export const ContactField = Schema.Literals(["email", "message"]);
 
 export type ContactFieldName = typeof ContactField.Type;
@@ -45,6 +51,7 @@ export const ContactForm = Schema.Struct({
 
 export const Model = Schema.Struct({
   contact: ContactForm,
+  copy: CopyState,
   generation: Schema.Int,
   route: AppRoute,
   scan: ScanState,
@@ -56,9 +63,11 @@ export type AppModel = typeof Model.Type;
 
 export const Message = defineMessageUnion({
   ChangedUrl: { url: Url },
+  ClickedCopyFixPrompt: { key: Schema.String },
   ClickedLink: { request: UrlRequest },
   CompletedLoadExternal: {},
   CompletedNavigate: {},
+  FailedCopyFixPrompt: { key: Schema.String, text: Schema.String },
   FailedGetScan: { generation: Schema.Int, unknown: Schema.Boolean },
   FailedSendMessage: { maybeMessage: Schema.Option(Schema.String) },
   FailedStartScan: {
@@ -67,6 +76,7 @@ export const Message = defineMessageUnion({
   },
   SubmittedContactForm: { url: Schema.String },
   SubmittedScanForm: {},
+  SucceededCopyFixPrompt: { key: Schema.String },
   SucceededGetScan: { generation: Schema.Int, view: ScanViewSchema },
   SucceededSendMessage: {},
   SucceededStartScan: { generation: Schema.Int, slug: Schema.String },

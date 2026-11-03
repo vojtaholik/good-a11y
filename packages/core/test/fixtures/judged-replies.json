@@ -1,0 +1,154 @@
+{
+  "model": "@cf/cloudflare/clef",
+  "recorded": "2026-11-03",
+  "replies": [
+    {
+      "id": "alt-text-describes",
+      "reply": {
+        "answers": {
+          "image_1": {
+            "noul": 0.0364,
+            "type": "noul"
+          },
+          "image_2": {
+            "noul": 0.9693,
+            "type": "noul"
+          },
+          "image_3": {
+            "noul": 0.0359,
+            "type": "noul"
+          },
+          "image_4": {
+            "noul": 0.5298,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 700,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "link-purpose",
+      "reply": {
+        "answers": {
+          "link_1": {
+            "noul": 0.3427,
+            "type": "noul"
+          },
+          "link_2": {
+            "noul": 0.8461,
+            "type": "noul"
+          },
+          "link_3": {
+            "noul": 0.9391,
+            "type": "noul"
+          },
+          "link_4": {
+            "noul": 0.6196,
+            "type": "noul"
+          },
+          "link_5": {
+            "noul": 0.4353,
+            "type": "noul"
+          },
+          "link_6": {
+            "noul": 0.0179,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 846,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "headings-labels-describe",
+      "reply": {
+        "answers": {
+          "heading_1": {
+            "noul": 0.8513,
+            "type": "noul"
+          },
+          "heading_2": {
+            "noul": 0.0216,
+            "type": "noul"
+          },
+          "heading_3": {
+            "noul": 0.7584,
+            "type": "noul"
+          },
+          "heading_4": {
+            "noul": 0.0201,
+            "type": "noul"
+          },
+          "label_1": {
+            "noul": 0.9746,
+            "type": "noul"
+          },
+          "label_2": {
+            "noul": 0.0205,
+            "type": "noul"
+          },
+          "label_3": {
+            "noul": 0.9569,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 912,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "page-language-matches",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.7626,
+            "probabilities": {
+              "bg": 0.0024,
+              "cs": 0.0518,
+              "da": 0.003,
+              "de": 0.0056,
+              "el": 0.0023,
+              "en": 0.877,
+              "es": 0.0033,
+              "et": 0.0038,
+              "fi": 0.0027,
+              "fr": 0.0028,
+              "ga": 0.0019,
+              "hr": 0.003,
+              "hu": 0.0022,
+              "it": 0.0023,
+              "lt": 0.0021,
+              "lv": 0.0022,
+              "mt": 0.0018,
+              "nl": 0.0035,
+              "other": 0.0046,
+              "pl": 0.0027,
+              "pt": 0.0019,
+              "ro": 0.0022,
+              "sk": 0.0091,
+              "sl": 0.0032,
+              "sv": 0.0026
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 656,
+          "output_tokens": 0
+        }
+      }
+    }
+  ]
+}

@@ -11,6 +11,7 @@ export interface BrowserSession {
   readonly close: Effect.Effect<void>;
   readonly html: Effect.Effect<string, RenderedAuditFailed>;
   readonly open: (url: string) => Effect.Effect<Landing, RenderedAuditFailed>;
+  readonly probe: Effect.Effect<string, RenderedAuditFailed>;
   readonly runAxe: Effect.Effect<unknown, RenderedAuditFailed>;
 }
 

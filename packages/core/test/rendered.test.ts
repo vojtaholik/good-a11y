@@ -9,12 +9,14 @@ import { Schema } from "effect";
 import {
   AxeResultsJson,
   BUDGET_SPENT,
+  REFUSED_THEN_RENDERED,
   RENDERED_BLOCKED,
   RENDERED_UNREADABLE,
   RenderedAuditFailed,
   ReportSchema,
   STATIC_COVERAGE,
   formatReport,
+  issuesOf,
   judgePage,
   renderedOf,
   skippedBecause,
@@ -56,11 +58,14 @@ const reader: PageReading = {
     buttons: [],
     controls: [],
     frames: [],
+    headings: [],
     images: [],
     labelTargets: [],
+    labels: [],
     lang: "en",
     links: [],
     refreshes: [],
+    textSample: "",
     title: "Shop",
     truncated: false,
     viewports: [],
@@ -73,6 +78,7 @@ const page = (overrides: Partial<RenderedPage> = {}): RenderedPage => ({
   axe: RAW,
   headers: {},
   html: "<html><body>Shop</body></html>",
+  probes: null,
   status: 200,
   ...overrides,
 });
@@ -168,7 +174,42 @@ describe("withRendered", () => {
     expect(report.headline).toMatch(
       /^6 issues found by \d+ automated checks$/u
     );
-    expect(formatReport(report)).toContain("[axe:image-alt]");
+    expect(formatReport(report)).toContain("[axe:color-contrast]");
+  });
+
+  it("merges an axe rule into the static check for the same concern, with samples from both", () => {
+    const merged = issuesOf(
+      withRendered(
+        judgePage(
+          fetched,
+          {
+            read: () => ({
+              ...reader.read(""),
+              images: [
+                {
+                  alt: null,
+                  file: "served.png",
+                  kind: "img",
+                  labelled: false,
+                  presentational: false,
+                  snippet: '<img src="served.png">',
+                },
+              ],
+            }),
+          },
+          AT
+        ),
+        { ran: page() }
+      )
+    );
+
+    const images = merged.filter((issue) => issue.key.includes("image-alt"));
+
+    expect(images.map((issue) => issue.key)).toEqual(["image-alt"]);
+    expect(images[0]?.sources).toEqual(["static", "rendered"]);
+    expect(new Set(images[0]?.samples.map((sample) => sample.source))).toEqual(
+      new Set(["static", "rendered"])
+    );
   });
 
   it("says the rendered check was skipped, with the reason, and keeps the static findings", () => {
@@ -209,6 +250,38 @@ describe("withRendered", () => {
     expect(
       skippedBecause(new RenderedAuditFailed({ detail: "x", kind: "timeout" }))
     ).toContain("too long");
+  });
+
+  it("shows the rendered findings on a refused report when the browser got through", () => {
+    const refused = judgePage(
+      {
+        detail: "The server refused the request (HTTP 403).",
+        observedAt: AT,
+        ok: false,
+        reason: "blocked",
+        redirects: [],
+        requestedUrl: "https://shop.example/",
+        status: 403,
+      },
+      reader,
+      AT
+    );
+
+    const report = withRendered(refused, { ran: page() });
+
+    expect(report.outcome).toBe("refused");
+    expect(report.headline).toMatch(
+      /^6 issues found by \d+ automated checks$/u
+    );
+    expect(report.coverage?.method).toBe("rendered_page");
+    expect(report.outcomeDetail).toContain(REFUSED_THEN_RENDERED);
+    expect(formatReport(report)).toContain("Where the EAA applies");
+    expect(report.contact.text).not.toBe(refused.contact.text);
+
+    expect(withRendered(refused, { ran: page({ status: 403 }) })).toEqual(
+      refused
+    );
+    expect(withRendered(refused, { skipped: BUDGET_SPENT })).toEqual(refused);
   });
 
   it("never says compliant, in text or JSON", () => {

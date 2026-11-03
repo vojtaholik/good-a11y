@@ -19,11 +19,14 @@ import {
 } from "./coverage.js";
 import { FindingReferenceSchema, referencesFor } from "./finding-reference.js";
 import type { FindingReference } from "./finding-reference.js";
+import { JudgedSchema } from "./judged.js";
+import type { Judged } from "./judged.js";
 import type { PageEvidence } from "./page-evidence.js";
 import { REFERENCE, ReferenceSchema, verifiedText } from "./reference.js";
 import type { Reference } from "./reference.js";
 import { RenderedSchema, renderedFrom } from "./rendered.js";
 import type { Rendered, RenderedOutcome } from "./rendered.js";
+import { concernsRun, issuesFrom } from "./report-sections.js";
 
 export const AUTOMATED_LIMIT_FACT = "STD-AUTO-1";
 
@@ -35,6 +38,9 @@ export const CONTACT_TEXT =
 
 export const BLOCKED_CONTACT_TEXT =
   "studio9 can review it by hand. Get in touch with studio9.";
+
+export const REFUSED_THEN_RENDERED =
+  "The plain fetch was refused, so a browser opened the page and only the rendered page checks ran.";
 
 export const BLOCKED_HEADLINE =
   "This site blocked automated checks, so nothing was tested.";
@@ -84,6 +90,7 @@ export const ReportSchema = Schema.Struct({
   findings: Schema.Array(FindingSchema),
   headline: Schema.String,
   httpStatus: Schema.NullOr(Schema.Int),
+  judged: Schema.NullOr(JudgedSchema),
   outcome: OutcomeSchema,
   outcomeDetail: Schema.String,
   reference: ReferenceSchema,
@@ -139,16 +146,13 @@ interface Tally {
 const tallyOf = (
   findings: readonly Finding[],
   rendered: Rendered | null
-): Tally => {
-  const failing = findings.filter((finding) => finding.status === "fail");
-
-  return rendered?.status === "ran"
-    ? {
-        checks: findings.length + rendered.rules,
-        failing: failing.length + rendered.findings.length,
-      }
-    : { checks: findings.length, failing: failing.length };
-};
+): Tally => ({
+  checks: concernsRun(
+    findings.map((finding) => finding.id),
+    rendered
+  ),
+  failing: issuesFrom(findings, rendered).length,
+});
 
 const headlineOf = (outcome: Outcome, { checks, failing }: Tally): string => {
   if (outcome === "refused") {
@@ -185,6 +189,7 @@ export const reportOf = (
   coverage: visit.outcome === "checked" ? STATIC_COVERAGE : null,
   findings,
   headline: headlineOf(visit.outcome, tallyOf(findings, null)),
+  judged: null,
   reference: REFERENCE,
   rendered: null,
   statement: {
@@ -197,7 +202,10 @@ const renderedCoverage = (rendered: Rendered) =>
   rendered.status === "ran"
     ? coverageFrom(
         {
-          checks: STATIC_TESTED.checks + rendered.rules,
+          checks: concernsRun(
+            CATALOGUE.map(({ check }) => check.id),
+            rendered
+          ),
           criteria: [
             ...STATIC_TESTED.criteria,
             ...rendered.criteria.map((number) => `STD-SC-${number}`),
@@ -208,10 +216,33 @@ const renderedCoverage = (rendered: Rendered) =>
       )
     : STATIC_COVERAGE;
 
+const renderedAfterRefusal = (report: Report, rendered: Rendered): Report =>
+  rendered.status === "ran"
+    ? {
+        ...report,
+        contact: { ...report.contact, text: CONTACT_TEXT },
+        coverage: coverageFrom(
+          {
+            checks: concernsRun([], rendered),
+            criteria: rendered.criteria.map((number) => `STD-SC-${number}`),
+          },
+          VERIFIED_FACTS,
+          "rendered_page"
+        ),
+        headline: headlineOf("checked", tallyOf([], rendered)),
+        outcomeDetail: `${REFUSED_THEN_RENDERED} ${report.outcomeDetail}`,
+        rendered,
+      }
+    : report;
+
 export const withRendered = (
   report: Report,
   outcome: RenderedOutcome
 ): Report => {
+  if (report.outcome === "refused") {
+    return renderedAfterRefusal(report, renderedFrom(outcome));
+  }
+
   if (report.outcome !== "checked") {
     return report;
   }
@@ -225,3 +256,8 @@ export const withRendered = (
     rendered,
   };
 };
+
+export const withJudged = (report: Report, judged: Judged): Report => ({
+  ...report,
+  judged,
+});

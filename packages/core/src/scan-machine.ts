@@ -42,6 +42,16 @@ const render = fromEffect({
   schemas: { input: StoreInput, output: ReportSchema },
 });
 
+const judge = fromEffect({
+  effect: ({ input: { job, report } }) =>
+    report === undefined
+      ? Effect.die(
+          new Error(`Scan ${job.scanId} reached judging without a report`)
+        )
+      : ScanSteps.use((steps) => steps.judge(job, report)),
+  schemas: { input: StoreInput, output: ReportSchema },
+});
+
 const store = fromEffect({
   effect: ({ input: { job, report } }) =>
     report === undefined
@@ -59,7 +69,7 @@ const settleFailed = fromEffect({
 });
 
 export const scanMachine = setupEffect({
-  actors: { render, scan, settleFailed, store },
+  actors: { judge, render, scan, settleFailed, store },
   schemas: {
     context: types<ScanContext>(),
     input: ScanJobSchema,
@@ -80,8 +90,7 @@ export const scanMachine = setupEffect({
         src: "settleFailed",
       },
     },
-    published: { type: "final" },
-    rendering: {
+    judging: {
       invoke: {
         input: ({ context }) => ({ job: context.job, report: context.report }),
         onDone: {
@@ -92,6 +101,21 @@ export const scanMachine = setupEffect({
           target: "storing",
         },
         onError: { target: "storing" },
+        src: "judge",
+      },
+    },
+    published: { type: "final" },
+    rendering: {
+      invoke: {
+        input: ({ context }) => ({ job: context.job, report: context.report }),
+        onDone: {
+          context: ({ context, event }) => ({
+            ...context,
+            report: event.output,
+          }),
+          target: "judging",
+        },
+        onError: { target: "judging" },
         src: "render",
       },
     },

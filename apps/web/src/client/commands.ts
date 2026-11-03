@@ -15,6 +15,20 @@ const isRefusal = Schema.is(
   Schema.Union([ScanTargetRejected, DailyCapReached, ScanUnavailable])
 );
 
+export const CopyText = Command.define("CopyText", {
+  args: { key: Schema.String, text: Schema.String },
+  execute: ({ key, text }) =>
+    Effect.tryPromise(
+      navigator.clipboard.writeText.bind(navigator.clipboard, text)
+    ).pipe(
+      Effect.match({
+        onFailure: () => Message.FailedCopyFixPrompt({ key, text }),
+        onSuccess: () => Message.SucceededCopyFixPrompt({ key }),
+      })
+    ),
+  messages: [Message.SucceededCopyFixPrompt, Message.FailedCopyFixPrompt],
+});
+
 export const StartScan = Command.define("StartScan", {
   args: { generation: Schema.Int, url: Schema.String },
   execute: ({ generation, url }) =>

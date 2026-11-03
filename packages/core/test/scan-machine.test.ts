@@ -28,7 +28,12 @@ const rendered = (scanned: Report): Report => ({
   headline: "rendered",
 });
 
-type Step = "scan" | "render" | "store" | "fail";
+type Step = "scan" | "render" | "judge" | "store" | "fail";
+
+const judged = (scanned: Report): Report => ({
+  ...scanned,
+  judged: { reason: "generated", status: "skipped" },
+});
 
 const hostWhere = (failing: readonly Step[]) =>
   Effect.gen(function* buildHost() {
@@ -52,6 +57,8 @@ const hostWhere = (failing: readonly Step[]) =>
 
     const steps = ScanSteps.of({
       fail: () => record("fail"),
+      judge: (_job, scanned) =>
+        record("judge").pipe(Effect.as(judged(scanned))),
       render: (_job, scanned) =>
         record("render").pipe(Effect.as(rendered(scanned))),
       scan: () => record("scan").pipe(Effect.as(report)),
@@ -72,7 +79,20 @@ describe("runScan", () => {
       );
 
       expect(outcome.stage).toBe("published");
-      expect(yield* Ref.get(host.kept)).toEqual(report);
+      expect(yield* Ref.get(host.kept)).toEqual(judged(report));
+    })
+  );
+
+  it.effect("publishes the rendered report when judging is spent", () =>
+    Effect.gen(function* judgeSpent() {
+      const host = yield* hostWhere(["judge"]);
+
+      const outcome = yield* runScan(job).pipe(
+        Effect.provideService(ScanSteps, host.steps)
+      );
+
+      expect(outcome.stage).toBe("published");
+      expect(yield* Ref.get(host.kept)).toEqual(rendered(report));
     })
   );
 
@@ -85,8 +105,13 @@ describe("runScan", () => {
       );
 
       expect(outcome.stage).toBe("published");
-      expect(yield* Ref.get(host.calls)).toEqual(["scan", "render", "store"]);
-      expect(yield* Ref.get(host.kept)).toEqual(rendered(report));
+      expect(yield* Ref.get(host.calls)).toEqual([
+        "scan",
+        "render",
+        "judge",
+        "store",
+      ]);
+      expect(yield* Ref.get(host.kept)).toEqual(judged(rendered(report)));
     })
   );
 
@@ -115,6 +140,7 @@ describe("runScan", () => {
       expect(yield* Ref.get(host.calls)).toEqual([
         "scan",
         "render",
+        "judge",
         "store",
         "fail",
       ]);

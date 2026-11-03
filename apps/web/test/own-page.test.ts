@@ -6,7 +6,12 @@ import { Effect } from "effect";
 import { renderToString } from "foldkit/experimental/server";
 
 import SHELL from "../index.html?raw";
-import { ContactState, ScanState, StartState } from "../src/client/model.js";
+import {
+  ContactState,
+  CopyState,
+  ScanState,
+  StartState,
+} from "../src/client/model.js";
 import type { AppModel } from "../src/client/model.js";
 import { AppRoute } from "../src/features/route.js";
 import { view } from "../src/features/view.js";
@@ -33,6 +38,7 @@ const pageOf = (model: AppModel) =>
 
 const home: AppModel = {
   contact: { email: "", message: "", name: "", state: ContactState.Editing() },
+  copy: CopyState.Idle(),
   generation: 0,
   route: AppRoute.Home(),
   scan: ScanState.Idle(),

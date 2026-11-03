@@ -8,6 +8,7 @@ export const ReferenceKindSchema = Schema.Literals([
   "wcag",
   "en-reference",
   "en-newer",
+  "wcag-newer",
 ]);
 
 export const FindingReferenceSchema = Schema.Struct({
@@ -39,3 +40,6 @@ export const referencesFor = (
           ...(reference.newerVersion === null ? [] : withKind("en-newer", en4)),
         ]),
   ]);
+
+export const newerReferencesFor = (scFact: string): FindingReference[] =>
+  withKind("wcag-newer", scFact);

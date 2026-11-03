@@ -36,10 +36,20 @@ const auditIn = Effect.fn("RenderedAudit.auditIn")(function* auditIn(
 
   const html = yield* session.html;
 
+  const probes = yield* session.probe.pipe(
+    Effect.tapError((failure) =>
+      Effect.logWarning(
+        `Rendered probes failed (${failure.kind}): ${failure.detail}`
+      )
+    ),
+    Effect.orElseSucceed(() => null)
+  );
+
   const page: RenderedPage = {
     axe: text.success,
     headers: landing.headers,
     html: html.slice(0, RENDERED_HTML_CHARACTERS),
+    probes,
     status: landing.status,
   };
 

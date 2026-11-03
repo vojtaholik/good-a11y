@@ -1,4 +1,8 @@
-import { MAX_ELEMENTS_PER_KIND, runChecks } from "@eaa-check/core";
+import {
+  MAX_ELEMENTS_PER_KIND,
+  questionsFor,
+  runChecks,
+} from "@eaa-check/core";
 import { describe, expect, it } from "@effect/vitest";
 
 import { readPage } from "../src/index.js";
@@ -34,6 +38,10 @@ const HOSTILE_UNITS = [
   "<input>",
   "<svg><title>",
   "<div hidden>",
+  "<p>",
+  "<li><a href=x>",
+  "<h2>",
+  "<td><p><a href=x>",
   "<title>",
   "<meta name=viewport content=x>",
   '<a href="',
@@ -49,7 +57,10 @@ describe("hostile input at the size cap", () => {
 
       expect(
         withinBudget(() => {
-          runChecks(readPage(html));
+          const evidence = readPage(html);
+
+          runChecks(evidence);
+          questionsFor(evidence);
         })
       ).toBe(true);
     }

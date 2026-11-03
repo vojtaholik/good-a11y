@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@cloudflare/puppeteer": "1.4.0",
+    "@eaa-check/ai-judge": "workspace:*",
     "@eaa-check/browser-audit": "workspace:*",
     "@eaa-check/capability": "workspace:*",
     "@eaa-check/core": "workspace:*",

@@ -1,0 +1,17 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": [],
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "moduleDetection": "legacy",
+    "isolatedModules": false,
+    "verbatimModuleSyntax": false,
+    "noEmit": false,
+    "outDir": "../dist/page",
+    "rootDir": ".",
+    "plugins": []
+  },
+  "include": ["*.ts"]
+}

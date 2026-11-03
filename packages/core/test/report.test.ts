@@ -34,11 +34,14 @@ const NOTHING: PageEvidence = {
   buttons: [],
   controls: [],
   frames: [],
+  headings: [],
   images: [],
   labelTargets: [],
+  labels: [],
   lang: null,
   links: [],
   refreshes: [],
+  textSample: "",
   title: null,
   truncated: false,
   viewports: [],
@@ -60,13 +63,14 @@ const FAILING: PageEvidence = {
   images: [
     {
       alt: null,
+      file: null,
       kind: "img",
       labelled: false,
       presentational: false,
       snippet: "<img>",
     },
   ],
-  links: [{ labelled: false, snippet: '<a href="/">', text: "" }],
+  links: [{ context: "", labelled: false, snippet: '<a href="/">', text: "" }],
   refreshes: ["5; url=/next"],
   viewports: ["width=device-width, user-scalable=no"],
 };
@@ -201,7 +205,9 @@ describe("an empty bill of health", () => {
   const allPass: PageEvidence = {
     ...NOTHING,
     lang: "en",
-    links: [{ labelled: false, snippet: '<a href="/">', text: "Home" }],
+    links: [
+      { context: "", labelled: false, snippet: '<a href="/">', text: "Home" },
+    ],
     title: "Shop",
   };
 

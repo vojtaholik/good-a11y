@@ -71,7 +71,7 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 ## Needs Vojta
 
-- Jev via Cloudflare bills through AI Gateway (Unified Billing). If the account has no AI Gateway credits loaded, judged checks are skipped and the report says so; load credits to turn them on.
+- Jev through Cloudflare (`typesafe/jev-1.14.0`) answers HTTP 402 "Insufficient balance; add money to your gateway or use BYOK": it needs AI Gateway credits (Unified Billing) or a TypeSafe key. Judged observations run on Cloudflare's own `@cf/cloudflare/clef` inside the free Workers AI daily allocation instead. To switch to Jev, load AI Gateway credits (or add a key as BYOK) and change one model constant.
 
 - Contact messages are stored in D1 on stage dev and nobody is told. To get them by e-mail, as webproai does, the Stack needs your verified destination address (Cloudflare Email). Read them meanwhile with `wrangler d1 execute` on the dev database or ask an agent.
 - Turnstile on the scan and contact forms needs a site key for the final hostname; not set up.

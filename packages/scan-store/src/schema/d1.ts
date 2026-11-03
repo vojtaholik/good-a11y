@@ -52,6 +52,17 @@ export const BrowserBudget = sqliteTable(
   ]
 );
 
+export const JudgeBudget = sqliteTable(
+  "judge_budget",
+  {
+    day: text("day").primaryKey().notNull(),
+    reservedTokens: integer("reserved_tokens").notNull(),
+  },
+  (table) => [
+    check("judge_budget_tokens_check", sql`${table.reservedTokens} >= 0`),
+  ]
+);
+
 export const Messages = sqliteTable(
   "messages",
   {

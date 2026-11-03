@@ -1,0 +1,131 @@
+{
+  "buttons": [],
+  "controls": [
+    {
+      "autocomplete": null,
+      "id": "email",
+      "insideLabel": false,
+      "labelled": false,
+      "snippet": "<input id=\"email\" type=\"email\">"
+    },
+    {
+      "autocomplete": null,
+      "id": "f2",
+      "insideLabel": false,
+      "labelled": false,
+      "snippet": "<input id=\"f2\">"
+    },
+    {
+      "autocomplete": null,
+      "id": "msg",
+      "insideLabel": false,
+      "labelled": false,
+      "snippet": "<textarea id=\"msg\">"
+    }
+  ],
+  "frames": [],
+  "headings": [
+    {
+      "level": 1,
+      "text": "Sunny Bikes"
+    },
+    {
+      "level": 2,
+      "text": "Section 1"
+    },
+    {
+      "level": 2,
+      "text": "Opening hours"
+    },
+    {
+      "level": 3,
+      "text": "Untitled"
+    }
+  ],
+  "images": [
+    {
+      "alt": "IMG_2041.jpg",
+      "file": "IMG_2041.jpg",
+      "kind": "img",
+      "labelled": false,
+      "presentational": false,
+      "snippet": "<img src=\"/media/IMG_2041.jpg\" alt=\"IMG_2041.jpg\">"
+    },
+    {
+      "alt": "A mechanic adjusting the brakes of a blue city bike in our workshop",
+      "file": "workshop.jpg",
+      "kind": "img",
+      "labelled": false,
+      "presentational": false,
+      "snippet": "<img src=\"/media/workshop.jpg\" alt=\"A mechanic adjusting the brakes of a blu\">"
+    },
+    {
+      "alt": "image",
+      "file": "hero-banner.png",
+      "kind": "img",
+      "labelled": false,
+      "presentational": false,
+      "snippet": "<img src=\"/media/hero-banner.png\" alt=\"image\">"
+    },
+    {
+      "alt": "Sunny Bikes",
+      "file": "logo.svg",
+      "kind": "img",
+      "labelled": false,
+      "presentational": false,
+      "snippet": "<img src=\"/media/logo.svg\" alt=\"Sunny Bikes\">"
+    }
+  ],
+  "labelTargets": ["email", "f2", "msg"],
+  "labels": ["Email address", "Field 2", "Your message"],
+  "lang": "de",
+  "links": [
+    {
+      "labelled": false,
+      "snippet": "<a href=\"/bikes\">",
+      "text": "City bikes",
+      "context": "City bikes"
+    },
+    {
+      "labelled": false,
+      "snippet": "<a href=\"/repairs\">",
+      "text": "Repairs",
+      "context": "Repairs"
+    },
+    {
+      "labelled": false,
+      "snippet": "<a href=\"/contact\">",
+      "text": "Contact",
+      "context": "Contact"
+    },
+    {
+      "labelled": false,
+      "snippet": "<a href=\"/spring-service\">",
+      "text": "Read more",
+      "context": "Our spring service checks brakes, gears, tyres and lights for a fixed price. Read more"
+    },
+    {
+      "labelled": false,
+      "snippet": "<a href=\"/holidays\">",
+      "text": "click here",
+      "context": "Monday to Friday, 9:00 to 18:00. To see our holiday closures, click here."
+    },
+    {
+      "labelled": false,
+      "snippet": "<a href=\"/news/1\">",
+      "text": "More",
+      "context": "More"
+    },
+    {
+      "labelled": false,
+      "snippet": "<a href=\"/news/2\">",
+      "text": "More",
+      "context": "More"
+    }
+  ],
+  "refreshes": [],
+  "textSample": "City bikes Repairs Contact Sunny Bikes We build and repair city bikes in Brno. Every bike is assembled by hand in our workshop and tested on the road before it leaves the shop. Our mechanics service all major brands and most repairs are done within two working days. Section 1 Our spring service checks brakes, gears, tyres and lights for a fixed price. Read more Opening hours Monday to Friday, 9:00 to 18:00. To see our holiday closures, click here . More More Untitled Email address Field 2 Your message",
+  "title": "Sunny Bikes - city bikes and repairs",
+  "truncated": false,
+  "viewports": []
+}

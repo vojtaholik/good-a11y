@@ -30,6 +30,27 @@ export const report = stylex.create({
     fontSize: "1.0625rem",
     margin: 0,
   },
+  copy: {
+    alignSelf: "start",
+    backgroundColor: {
+      ":active": "oklch(0.3 0.12 265)",
+      default: ACCENT,
+    },
+    borderColor: ACCENT,
+    borderRadius: "0.375rem",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    color: "oklch(1 0 none)",
+    cursor: "pointer",
+    font: "inherit",
+    fontSize: "0.875rem",
+    minBlockSize: "2.75rem",
+    outlineColor: { ":focus-visible": ACCENT, default: "transparent" },
+    outlineOffset: "2px",
+    outlineStyle: "solid",
+    outlineWidth: "2px",
+    paddingInline: "0.875rem",
+  },
   count: {
     color: ISSUE,
     fontVariantNumeric: "tabular-nums",
@@ -81,6 +102,19 @@ export const report = stylex.create({
     fontSize: "0.875rem",
     margin: 0,
   },
+  prompt: {
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+    fontSize: "0.8125rem",
+    marginBlock: "0.5rem 0",
+    maxBlockSize: "20rem",
+    overflow: "auto",
+    overflowWrap: "anywhere",
+    userSelect: "all",
+    whiteSpace: "pre-wrap",
+  },
+  refNewer: {
+    fontSize: "0.75rem",
+  },
   refs: {
     color: MUTED,
     display: "flex",
@@ -102,6 +136,11 @@ export const report = stylex.create({
     paddingInline: "0.5rem",
     whiteSpace: "pre-wrap",
   },
+  sampleTag: {
+    color: MUTED,
+    display: "block",
+    fontSize: "0.75rem",
+  },
   samples: {
     display: "flex",
     flexDirection: "column",
@@ -119,6 +158,10 @@ export const report = stylex.create({
   sectionTitle: {
     fontSize: "1.25rem",
     margin: 0,
+  },
+  sourceLink: {
+    color: ACCENT,
+    fontSize: "0.8125rem",
   },
   state: {
     alignItems: "center",
@@ -164,5 +207,14 @@ export const report = stylex.create({
     display: "flex",
     flexDirection: "column",
     gap: "0.5rem",
+  },
+  visuallyHidden: {
+    blockSize: "1px",
+    clipPath: "inset(50%)",
+    inlineSize: "1px",
+    margin: 0,
+    overflow: "clip",
+    position: "absolute",
+    whiteSpace: "nowrap",
   },
 });

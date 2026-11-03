@@ -1,5 +1,6 @@
 import {
   METHOD_NAMES,
+  isTested,
   quietChecksOf,
   quietSummary,
 } from "@eaa-check/core/contracts";
@@ -10,6 +11,7 @@ import { ScanState } from "../client/model.js";
 import type { AppMessage, AppModel } from "../client/model.js";
 import { contactView } from "./contact-view.js";
 import { issuesSection } from "./report-issues.js";
+import { judgedSection } from "./report-judged.js";
 import { statesSection } from "./report-states.js";
 import { report as local } from "./report-styles.js";
 import { homeRouter } from "./route.js";
@@ -151,11 +153,16 @@ const closingView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] => [
   h.aside([sx(h, styles.contact)], [h.p([], [report.contact.text])]),
 ];
 
-const publishedView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] =>
-  report.outcome === "checked"
+const publishedView = (
+  model: AppModel,
+  report: Report,
+  h: HtmlBuilder<AppMessage>
+): Html[] =>
+  isTested(report)
     ? [
         topView(report, h),
-        ...issuesSection(report, h),
+        ...issuesSection(model, report, h),
+        ...judgedSection(report, h),
         statesSection(report, h),
         ...quietView(report, h),
         rulesView(report, h),
@@ -192,7 +199,7 @@ export const reportView = (
                 h.p([], [h.a([h.Href(homeRouter())], ["Start a new scan"])]),
               ]
             : [
-                ...publishedView(view.report, h),
+                ...publishedView(model, view.report, h),
                 contactView(model, view.url, h),
               ],
         Unavailable: () => [

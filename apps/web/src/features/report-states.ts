@@ -21,7 +21,10 @@ const lineView = (line: ProfileLine, h: HtmlBuilder<AppMessage>): Html[] => [
     : line.values.map((value) =>
         h.dd(
           [sx(h, styles.factValue)],
-          [h.a([h.Href(value.source), sx(h, styles.link)], [value.text])]
+          [
+            `${value.text} `,
+            h.a([h.Href(value.source), sx(h, styles.sourceLink)], ["source"]),
+          ]
         )
       )),
 ];

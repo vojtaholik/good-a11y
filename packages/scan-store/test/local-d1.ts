@@ -7,6 +7,7 @@ import initSqlJs from "sql.js";
 import type { Database, SqlValue } from "sql.js";
 
 import { BrowserBudget } from "../src/browser-budget.js";
+import { JudgeBudget } from "../src/judge-budget.js";
 import { MessageStore } from "../src/message-store.js";
 import { scanStoreMigrationDirectory } from "../src/migrations.js";
 import { ScanStore } from "../src/scan-store.js";
@@ -113,5 +114,6 @@ const localDatabase = Layer.effect(
 export const localStores = Layer.mergeAll(
   ScanStore.layer,
   BrowserBudget.layer,
+  JudgeBudget.layer,
   MessageStore.layer
 ).pipe(Layer.provideMerge(localDatabase));

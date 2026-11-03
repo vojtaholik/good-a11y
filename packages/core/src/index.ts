@@ -111,6 +111,7 @@ export {
   LEGAL_REQUIREMENT_USE,
   NEWER_PUBLISHED_FACT,
   NEWER_VERSION_LABEL,
+  NEWER_WCAG_LABEL,
   NO_CITATION_FACT,
   NewerVersionSchema,
   REFERENCE,
@@ -137,6 +138,7 @@ export {
   BLOCKED_HEADLINE,
   CONTACT_TEXT,
   NOT_HTML_HEADLINE,
+  REFUSED_THEN_RENDERED,
   UNREACHABLE_HEADLINE,
   FindingSchema,
   OutcomeSchema,
@@ -154,13 +156,22 @@ export {
 
 export { formatReport } from "./report-text.js";
 
+export { QUOTE_MARK, fixPromptFor, fixPromptOf } from "./fix-prompt.js";
+
 export {
   ISSUE_SAMPLES,
+  isTested,
+  SAMPLE_SOURCE_LABELS,
+  SAME_CONCERN,
+  concernOf,
+  issuesFrom,
   issuesOf,
   levelOf,
   quietChecksOf,
   quietSummary,
   type Issue,
+  type IssueSample,
+  type SampleSource,
   type Level,
 } from "./report-sections.js";
 
@@ -211,7 +222,10 @@ export {
   SCANNER_USER_AGENT,
   capabilities,
   fetchPage,
+  inspectPage,
+  inspectUrl,
   judgePage,
+  type Inspection,
   scan,
   scanUrl,
 } from "./scan.js";
@@ -268,3 +282,66 @@ export {
 export { ScanUnavailable } from "./scan-unavailable.js";
 
 export { UnknownScan } from "./unknown-scan.js";
+
+export {
+  HeadingEvidenceSchema,
+  LinkEvidenceSchema,
+  MAX_CONTEXT,
+  MAX_TEXT_SAMPLE,
+  type HeadingEvidence,
+  type LinkEvidence,
+} from "./page-evidence.js";
+
+export {
+  Judge,
+  JUDGE_MODEL,
+  JUDGE_MODEL_NAME,
+  JudgeReplySchema,
+  JudgeRequestSchema,
+  type Answer,
+  type JudgeReply,
+  type JudgeRequest,
+  type Question,
+} from "./judge.js";
+
+export {
+  DAILY_JUDGE_TOKENS,
+  EU_LANGUAGES,
+  JUDGE_BUDGET_SPENT,
+  JUDGE_FAILED,
+  JUDGE_NOT_CHECKED,
+  JUDGE_UNBOUND,
+  JUDGED_CHECKS,
+  JUDGED_LABEL,
+  JudgedIdSchema,
+  JudgedSchema,
+  MAX_JUDGED_ITEMS,
+  NOTE_AT,
+  ObservationSchema,
+  judgedOf,
+  judgedSkipped,
+  questionsFor,
+  tokensToReserve,
+  type Answered,
+  type Asked,
+  type Judged,
+  type JudgedId,
+  type Observation,
+} from "./judged.js";
+
+export { withJudged } from "./report.js";
+
+export { JudgeUnavailable } from "./judge-unavailable.js";
+
+export {
+  FOCUS_JUDGED_STOPS,
+  PROBES,
+  ProbeResultSchema,
+  ProbesJson,
+  ProbesMeasuredSchema,
+  TRAP_PRESSES,
+  TRAP_SIZE,
+  probeResults,
+} from "./probes.js";
+
+export type { ProbeId, ProbeResult, ProbesMeasured } from "./probes.js";

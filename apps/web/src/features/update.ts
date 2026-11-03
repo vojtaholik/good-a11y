@@ -1,4 +1,4 @@
-import { ContactMessageSchema } from "@eaa-check/core/contracts";
+import { ContactMessageSchema, fixPromptFor } from "@eaa-check/core/contracts";
 import type { ScanView } from "@eaa-check/core/contracts";
 import { Option, Schema } from "effect";
 import type { Runtime, Update } from "foldkit";
@@ -7,6 +7,7 @@ import { modifyFields } from "foldkit/struct";
 import { toString as urlToString } from "foldkit/url";
 
 import {
+  CopyText,
   GetScan,
   LoadExternal,
   Navigate,
@@ -16,6 +17,7 @@ import {
 import {
   ContactField,
   ContactState,
+  CopyState,
   Message,
   ScanState,
   StartState,
@@ -115,6 +117,7 @@ const enterRoute = (model: AppModel, route: AppRouteState): AppUpdate => {
 
   const entered: AppModel = {
     ...model,
+    copy: CopyState.Idle(),
     generation,
     route,
     scan: Schema.is(AppRoute.Report)(route)
@@ -166,6 +169,7 @@ export const init: Runtime.RoutingApplicationInit<
         name: "",
         state: ContactState.Editing(),
       },
+      copy: CopyState.Idle(),
       generation: 0,
       route: AppRoute.Home(),
       scan: ScanState.Idle(),
@@ -175,9 +179,22 @@ export const init: Runtime.RoutingApplicationInit<
     parseRoute(url)
   );
 
+const copyFixPrompt = (model: AppModel, key: string): AppUpdate => {
+  const report = Schema.is(ScanState.Settled)(model.scan)
+    ? model.scan.view.report
+    : null;
+
+  const text = report === null ? null : fixPromptFor(report, key);
+
+  return text === null
+    ? { model }
+    : { commands: [CopyText({ key, text })], model };
+};
+
 export const update = (model: AppModel, message: AppMessage): AppUpdate =>
   Message.match<AppUpdate>(message, {
     ChangedUrl: ({ url }) => enterRoute(model, parseRoute(url)),
+    ClickedCopyFixPrompt: ({ key }) => copyFixPrompt(model, key),
     ClickedLink: ({ request }) =>
       UrlRequest.match<AppUpdate>(request, {
         External: ({ href }) => ({ commands: [LoadExternal({ href })], model }),
@@ -188,6 +205,11 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
       }),
     CompletedLoadExternal: () => ({ model }),
     CompletedNavigate: () => ({ model }),
+    FailedCopyFixPrompt: ({ key, text }) => ({
+      model: modifyFields(model, {
+        copy: () => CopyState.Failed({ key, text }),
+      }),
+    }),
     FailedGetScan: ({ generation, unknown }) =>
       generation === model.generation &&
       !Schema.is(ScanState.Settled)(model.scan)
@@ -223,6 +245,9 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
         : { model },
     SubmittedContactForm: ({ url }) => submitContact(model, url),
     SubmittedScanForm: () => submitScan(model),
+    SucceededCopyFixPrompt: ({ key }) => ({
+      model: modifyFields(model, { copy: () => CopyState.Copied({ key }) }),
+    }),
     SucceededGetScan: ({ generation, view }) =>
       generation === model.generation ? readScan(model, view) : { model },
     SucceededSendMessage: () => ({

@@ -1,9 +1,15 @@
 import type { StateRef } from "./applicability.js";
 import { METHOD_NAMES } from "./coverage.js";
 import type { FindingReference } from "./finding-reference.js";
-import { NEWER_VERSION_LABEL } from "./reference.js";
+import { NEWER_VERSION_LABEL, NEWER_WCAG_LABEL } from "./reference.js";
 import type { Sourced } from "./reference.js";
-import { issuesOf, quietChecksOf, quietSummary } from "./report-sections.js";
+import {
+  SAMPLE_SOURCE_LABELS,
+  isTested,
+  issuesOf,
+  quietChecksOf,
+  quietSummary,
+} from "./report-sections.js";
 import type { Issue } from "./report-sections.js";
 import type { Report } from "./report.js";
 
@@ -11,6 +17,7 @@ const KIND_LABELS: Readonly<Record<FindingReference["kind"], string>> = {
   "en-newer": NEWER_VERSION_LABEL,
   "en-reference": "Reference benchmark",
   wcag: "WCAG 2.1",
+  "wcag-newer": NEWER_WCAG_LABEL,
 };
 
 const QUIET_MARKS = {
@@ -35,12 +42,14 @@ const issueLines = (issue: Issue): string[] => [
   `  ✗ ${issue.title}  [${issue.key}]  ${countOf(issue)}`,
   ...(issue.whatFails === null ? [] : [`      What fails: ${issue.whatFails}`]),
   ...(issue.howToFix === null ? [] : [`      How to fix: ${issue.howToFix}`]),
-  ...issue.samples.map((sample) => `      · ${sample}`),
+  ...issue.samples.map(
+    (sample) =>
+      `      · (${SAMPLE_SOURCE_LABELS[sample.source]}) ${sample.text}`
+  ),
   ...issue.references.map(
     (reference) =>
       `      ${KIND_LABELS[reference.kind]}: ${reference.text}  (${reference.factId})`
   ),
-  ...(issue.helpUrl === null ? [] : [`      More: ${issue.helpUrl}`]),
 ];
 
 const issuesBlock = (report: Report): string[] => {
@@ -133,7 +142,7 @@ export const formatReport = (report: Report): string =>
       : []),
     "",
     ...issuesBlock(report),
-    ...(report.outcome === "checked" ? statesBlock(report) : []),
+    ...(isTested(report) ? statesBlock(report) : []),
     ...quietBlock(report),
     ...renderedBlock(report),
     ...rulesBlock(report),
