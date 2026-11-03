@@ -1,0 +1,33 @@
+---
+title: "axe-core on Cloudflare Browser Run"
+type: "resource"
+created_at: "2026-11-03"
+---
+
+# axe-core on Cloudflare Browser Run
+
+Browser Rendering was renamed Browser Run on 2026-04-15 (Cloudflare changelog, "Browser Rendering is now Browser Run").
+
+## What Cloudflare documents (read 2026-11-03)
+
+- Pricing (developers.cloudflare.com/changelog/post/2025-07-28-br-pricing/, /browser-run/pricing/): Workers Paid includes 10 browser hours a month and 10 concurrent browsers averaged monthly; beyond that $0.09 per browser hour and $2.00 per extra concurrent browser (Workers binding).
+- Limits (/browser-run/limits/, updated 2026-10-14): Workers Paid 200 concurrent browsers, 3 new instances a second, 60 s browser timeout by default.
+- A Worker reaches it through a `browser` binding and `@cloudflare/puppeteer` (`puppeteer.launch(env.BROWSER)`), so `page.addScriptTag({ content: axeSource })` then `page.evaluate(() => axe.run(...))` is ordinary Puppeteer. Quick Actions (`snapshot` with `addScriptTag`) exist too, but return HTML/screenshot, not a script result.
+- Local dev: the Puppeteer binding works in `wrangler dev`; Quick Actions need remote mode.
+
+## Assessment
+
+- **Feasible**: yes, axe-core is a single self-contained script (MPL-2.0) injected into the page; results are JSON.
+- **Determinism**: axe's rules are deterministic over a given DOM. The rendered DOM is not fully stable (timers, A/B tests, consent banners). Pin the axe-core version, fixed viewport and user agent, wait for `load` plus a fixed settle time, run only the `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa` tags, report `violations` only (never `incomplete` as a finding), and store the raw axe JSON as evidence so a scan can be re-scored.
+- **Cost**: a page with axe takes roughly 10-20 s of browser time, so the included 10 hours cover about 1,800-3,600 scans a month. webproai does not use Browser Run, but it is part of the Workers Paid plan webproai's account already pays for; only use past the included hours costs extra.
+- **Value**: axe covers rendered-only issues static HTML cannot see: colour contrast (1.4.3), ARIA validity on JS-built UI, landmarks and names on client-rendered apps. Most large e-commerce sites render client-side, so static-only checks miss much of their UI.
+
+## Decision (lead, 2026-11-03)
+
+Adopt axe-core on Browser Run as a later layer, after the static slice and the Workflow work end to end:
+
+1. Static HTML checks stay the baseline and run on every scan.
+2. The rendered-DOM step is one Workflow task that runs axe once per scan, with a daily browser-time budget in the store sized to stay inside the included 10 hours a month (about 18 minutes a day). When the budget is spent, the report says the rendered check was skipped and shows static results only.
+3. Each axe rule used is mapped to its WCAG SC and EN 301 549 clause through the facts ledger, like every other check; unmapped axe rules are not shown.
+
+Why: it is the only way to see what a JS-rendered shop shows a user, it stays within what the account already includes, and the budget makes overage impossible by construction. Needs Vojta: confirm that using Browser Run within the included hours is acceptable under "no paid services beyond what webproai already uses".
