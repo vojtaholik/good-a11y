@@ -58,6 +58,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 ## Open decisions
 
+- Bot walls: 9 of 16 large EU shops block a plain fetch (Cloudflare, DataDome, AWS WAF, Baleen). Product shows a clear blocked report with the CTA; no evasion. Browser Run block rate pending (decision 11).
+
 - Rendered-DOM checks: decided and confirmed by Vojta (axe-core on Browser Run, budgeted to the included hours, later layer). `.brain/resources/axe-on-browser-run.svx`.
 
 - Contact CTA wording is a placeholder for Vojta.
@@ -70,6 +72,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 ## Log
 
 Times are CET, from the machine clock.
+
+- 20:58 Coverage line, blocked-site report and EAA requirement line committed (4f0e416). Block rate: 9/16 big shops refuse. builder-core on axe; verifier auditing product text.
 
 - 20:50 Deployed to stage dev; lead scanned wikipedia.org through the live page, report correct. Fixes queued: our own URL field needs a real label, OJ citation line on the page.
 
