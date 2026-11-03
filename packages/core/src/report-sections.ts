@@ -167,11 +167,18 @@ export const issuesFrom = (
 
   const staticIds = new Set<string>(findings.map((finding) => finding.id));
 
+  const passedConcerns = new Set(
+    rendered?.status === "ran" ? rendered.passed.map(concernOf) : []
+  );
+
   return [
     ...findings.flatMap((finding) => {
       const issue = staticIssue(finding, ofConcern(finding.id));
 
-      return issue.failing === 0 ? [] : [issue];
+      return issue.failing === 0 ||
+        (passedConcerns.has(finding.id) && !issue.sources.includes("rendered"))
+        ? []
+        : [issue];
     }),
     ...renderedFindings
       .filter((finding) => !staticIds.has(concernOf(finding.rule)))

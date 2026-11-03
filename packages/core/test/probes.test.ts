@@ -285,6 +285,25 @@ describe("the tab walk", () => {
     ).toBe("not_applicable");
   });
 
+  it("does not judge keyboard reach when a consent dialog holds most of the cycle, but still does for a fixed header", () => {
+    const heldBy = (modalKeys: readonly number[]) =>
+      resultOf(
+        {
+          walk: walk({
+            candidates: Array.from({ length: 10 }, (_, key) => candidate(key)),
+            forward: cycle(4).map((visited) => ({
+              ...visited,
+              modal: modalKeys.includes(visited.key),
+            })),
+          }),
+        },
+        "keyboard-reach"
+      );
+
+    expect(heldBy([1, 2, 3])?.status).toBe("not_applicable");
+    expect(heldBy([0])).toMatchObject({ failing: 6, status: "fail" });
+  });
+
   const trapped = Array.from({ length: 60 }, (_, press) => stop(press % 2));
 
   it("fails a keyboard trap when focus cycles among two controls in both directions", () => {

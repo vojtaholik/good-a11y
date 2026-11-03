@@ -293,7 +293,8 @@ export const decideKeyboardReach = (walk: WalkMeasured): ProbeResult => {
   if (
     !walk.cycled ||
     walk.candidates.length === 0 ||
-    reachedStops.every((stop) => stop.modal === true)
+    reachedStops.filter((stop) => stop.modal === true).length * 2 >=
+      reachedStops.length
   ) {
     return notApplicable("keyboard-reach");
   }

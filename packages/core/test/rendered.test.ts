@@ -216,6 +216,49 @@ describe("withRendered", () => {
     );
   });
 
+  it("drops a served-HTML failure when the rendered page passes the same concern, and keeps it when axe could not decide", () => {
+    const servedOnly = judgePage(
+      fetched,
+      {
+        read: () => ({
+          ...reader.read(""),
+          images: [
+            {
+              alt: null,
+              file: "named-by-script.png",
+              kind: "img",
+              labelled: false,
+              presentational: false,
+              snippet: '<img src="named-by-script.png">',
+            },
+          ],
+        }),
+      },
+      AT
+    );
+
+    const withoutImageAlt = (where: "incomplete" | "passes") =>
+      JSON.stringify({
+        ...RESULTS,
+        incomplete: [],
+        passes: [],
+        violations: RESULTS.violations.filter(
+          (violation) => violation.id !== "image-alt"
+        ),
+        [where]: [rule({ id: "image-alt" })],
+      });
+
+    const imageIssues = (where: "incomplete" | "passes") =>
+      issuesOf(
+        withRendered(servedOnly, { ran: page({ axe: withoutImageAlt(where) }) })
+      ).filter((issue) => issue.key === "image-alt");
+
+    expect(imageIssues("passes")).toEqual([]);
+    expect(imageIssues("incomplete").map((issue) => issue.sources)).toEqual([
+      ["static"],
+    ]);
+  });
+
   it("says the rendered check was skipped, with the reason, and keeps the static findings", () => {
     const report = withRendered(STATIC, { skipped: BUDGET_SPENT });
 
