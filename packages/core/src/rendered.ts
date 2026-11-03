@@ -140,6 +140,11 @@ const probeFindingOf = (
 const byNumber = (left: string, right: string): number =>
   left.localeCompare(right, "en", { numeric: true });
 
+const trustedNodes = (rule: AxeRule): AxeRule =>
+  rule.id === "color-contrast"
+    ? { ...rule, nodes: rule.nodes.filter((node) => node.inComponent !== true) }
+    : rule;
+
 export const renderedOf = (
   results: AxeResults,
   reference: Reference = REFERENCE,
@@ -168,7 +173,7 @@ export const renderedOf = (
     ].toSorted(byNumber),
     engine: `${results.testEngine.name} ${results.testEngine.version}`,
     findings: [
-      ...results.violations.flatMap((rule) => {
+      ...results.violations.map(trustedNodes).flatMap((rule) => {
         const criteria = verifiedCriteria(rule);
 
         return criteria.length === 0 || rule.nodes.length === 0

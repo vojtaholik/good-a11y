@@ -2,6 +2,7 @@ import { Schema } from "effect";
 
 export const AxeNodeSchema = Schema.Struct({
   html: Schema.String,
+  inComponent: Schema.optionalKey(Schema.Boolean),
 });
 
 export const AxeRuleSchema = Schema.Struct({

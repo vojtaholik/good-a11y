@@ -32,6 +32,16 @@ const ReflowJson = Schema.fromJsonString(
   })
 );
 
+const MarkedJson = Schema.fromJsonString(
+  Schema.Struct({
+    violations: Schema.Array(
+      Schema.Struct({
+        nodes: Schema.Array(Schema.Struct({ inComponent: Schema.Boolean })),
+      })
+    ),
+  })
+);
+
 const pageWith = (html: string) => {
   const window = new Window({
     settings: {
@@ -153,5 +163,33 @@ describe("reflow in the page", () => {
         window.eval("JSON.stringify(__eaaProbes.reflow())")
       )
     ).toMatchObject({ offenderCount: 8, offenders: { length: 5 } });
+  });
+});
+
+describe("contrast results in web components", () => {
+  it("marks contrast nodes that sit in a shadow root or are slotted into one", () => {
+    const window = pageWith(
+      `<div id="plain">Plain</div><card-box id="card"><span id="slotted" slot="title">Slotted</span></card-box>`
+    );
+
+    window.eval(probesSource);
+    window.eval(`
+      const card = document.querySelector("#card");
+      card.attachShadow({ mode: "open" }).innerHTML = '<slot name="title"></slot><p id="inner">Inner</p>';
+    `);
+
+    expect(
+      Schema.decodeUnknownSync(MarkedJson)(
+        window.eval(`JSON.stringify(__eaaProbes.markComponents({
+          violations: [
+            { id: "color-contrast", nodes: [
+              { target: ["#plain"] },
+              { target: ["#slotted"] },
+              { target: [["#card", "#inner"]] },
+            ] },
+          ],
+        }))`)
+      ).violations[0]?.nodes.map((node) => node.inComponent)
+    ).toEqual([false, true, true]);
   });
 });

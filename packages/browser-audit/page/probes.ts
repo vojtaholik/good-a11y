@@ -652,7 +652,83 @@
     return { candidates };
   };
 
+  type AxeTarget = readonly (string | readonly string[])[];
+
+  interface AxeNode {
+    inComponent?: boolean;
+    readonly target?: AxeTarget;
+  }
+
+  interface AxeRun {
+    readonly violations: readonly {
+      readonly id: string;
+      readonly nodes: readonly AxeNode[];
+    }[];
+  }
+
+  const resolveTarget = (target: AxeTarget): Element | null => {
+    const [first] = target;
+
+    if (first === undefined) {
+      return null;
+    }
+
+    const path = [first].flat();
+    let element: Element | null = null;
+    let root: Document | ShadowRoot | null = document;
+
+    for (const selector of path) {
+      element = root?.querySelector(selector) ?? null;
+      root = element?.shadowRoot ?? null;
+    }
+
+    return element;
+  };
+
+  const inComponent = (element: Element): boolean => {
+    if (element.getRootNode() instanceof ShadowRoot) {
+      return true;
+    }
+
+    for (
+      let node: Element | null = element;
+      node !== null;
+      node = node.parentElement
+    ) {
+      if (
+        node.assignedSlot instanceof HTMLSlotElement ||
+        node.parentElement?.shadowRoot instanceof ShadowRoot
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  const markComponents = (results: AxeRun): AxeRun => {
+    for (const rule of results.violations) {
+      if (rule.id === "color-contrast") {
+        for (const node of rule.nodes) {
+          const element =
+            node.target === undefined ? null : resolveTarget(node.target);
+
+          node.inComponent = element !== null && inComponent(element);
+        }
+      }
+    }
+
+    return results;
+  };
+
   Object.assign(globalThis, {
-    __eaaProbes: { reflow, textSpacing, walkEnd, walkStart, walkStops },
+    __eaaProbes: {
+      markComponents,
+      reflow,
+      textSpacing,
+      walkEnd,
+      walkStart,
+      walkStops,
+    },
   });
 }

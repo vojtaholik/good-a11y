@@ -27,7 +27,7 @@ const NO_POPUPS =
 const AXE_RUN = `axe.run(document, ${JSON.stringify({
   resultTypes: ["violations"],
   runOnly: { type: "tag", values: AXE_TAGS },
-})}).then((results) => JSON.stringify(results))`;
+})}).then((results) => JSON.stringify(__eaaProbes.markComponents(results)))`;
 
 export const REFLOW_VIEWPORT = { height: 256, width: 320 } as const;
 
@@ -459,6 +459,7 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
         })
       ),
       runAxe: step("audit", page.evaluate.bind(page, axeSource)).pipe(
+        Effect.andThen(step("audit", page.evaluate.bind(page, probesSource))),
         Effect.andThen(step("audit", page.evaluate.bind(page, AXE_RUN)))
       ),
       url: Effect.sync(() => page.url()),

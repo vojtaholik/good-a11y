@@ -95,6 +95,11 @@ const rule = (overrides: Partial<AxeRule>): AxeRule => ({
 
 const VERIFIED = new Map(VERIFIED_FACTS.map((fact) => [fact.id, fact]));
 
+const contrastFindingIn = (result: ReturnType<typeof renderedOf>) =>
+  result.status === "ran"
+    ? result.findings.find((finding) => finding.rule === "color-contrast")
+    : undefined;
+
 describe("rendered findings from a recorded axe-core run", () => {
   const rendered = renderedOf(RESULTS);
 
@@ -117,6 +122,29 @@ describe("rendered findings from a recorded axe-core run", () => {
         ? rendered.findings.flatMap((finding) => finding.samples)
         : []
     ).toContain('<img src="rendered.png">');
+  });
+
+  it("leaves out contrast results on content inside or slotted into a web component", () => {
+    const contrast = (inComponent: readonly boolean[]) =>
+      renderedOf({
+        ...RESULTS,
+        violations: [
+          rule({
+            id: "color-contrast",
+            nodes: inComponent.map((flag, index) => ({
+              html: `<span id="text-${index}">`,
+              inComponent: flag,
+            })),
+            tags: ["wcag2aa", "wcag143"],
+          }),
+        ],
+      });
+
+    expect(contrastFindingIn(contrast([true, false, true]))).toMatchObject({
+      failing: 1,
+      samples: ['<span id="text-1">'],
+    });
+    expect(contrastFindingIn(contrast([true, true]))).toBeUndefined();
   });
 
   it("shows a criterion or clause only from a verified fact", () => {
