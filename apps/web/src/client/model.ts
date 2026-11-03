@@ -49,6 +49,11 @@ export const ContactForm = Schema.Struct({
   state: ContactState,
 });
 
+export const StartedScan = Schema.Struct({
+  scanId: Schema.String,
+  slug: Schema.String,
+});
+
 export const Model = Schema.Struct({
   contact: ContactForm,
   copy: CopyState,
@@ -56,6 +61,7 @@ export const Model = Schema.Struct({
   route: AppRoute,
   scan: ScanState,
   start: StartState,
+  started: Schema.Option(StartedScan),
   url: Schema.String,
 });
 
@@ -79,7 +85,11 @@ export const Message = defineMessageUnion({
   SucceededCopyFixPrompt: { key: Schema.String },
   SucceededGetScan: { generation: Schema.Int, view: ScanViewSchema },
   SucceededSendMessage: {},
-  SucceededStartScan: { generation: Schema.Int, slug: Schema.String },
+  SucceededStartScan: {
+    generation: Schema.Int,
+    scanId: Schema.String,
+    slug: Schema.String,
+  },
   TickedPoll: {},
   UpdatedContactEmail: { value: Schema.String },
   UpdatedContactMessage: { value: Schema.String },

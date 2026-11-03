@@ -48,6 +48,24 @@ const readScan = (model: AppModel, view: ScanView): AppUpdate =>
         }),
       };
 
+const followedScan = (model: AppModel, slug: string): Option.Option<string> => {
+  if (ScanState.isAnyOf(["Running", "Settled"])(model.scan)) {
+    return Option.some(model.scan.view.scanId);
+  }
+
+  return model.started.pipe(
+    Option.filter((started) => started.slug === slug),
+    Option.map(({ scanId }) => scanId)
+  );
+};
+
+const getScanOf = (model: AppModel, slug: string) =>
+  GetScan({
+    generation: model.generation,
+    maybeScanId: followedScan(model, slug),
+    slug,
+  });
+
 const isValidContactField = {
   email: Schema.is(ContactMessageSchema.fields.email),
   message: Schema.is(ContactMessageSchema.fields.message),
@@ -128,7 +146,7 @@ const enterRoute = (model: AppModel, route: AppRouteState): AppUpdate => {
 
   return Schema.is(AppRoute.Report)(route)
     ? {
-        commands: [GetScan({ generation, slug: route.slug.toLowerCase() })],
+        commands: [getScanOf(entered, route.slug.toLowerCase())],
         model: entered,
       }
     : { model: entered };
@@ -174,6 +192,7 @@ export const init: Runtime.RoutingApplicationInit<
       route: AppRoute.Home(),
       scan: ScanState.Idle(),
       start: StartState.Idle(),
+      started: Option.none(),
       url: "",
     },
     parseRoute(url)
@@ -259,17 +278,19 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
         }),
       }),
     }),
-    SucceededStartScan: ({ generation, slug }) =>
+    SucceededStartScan: ({ generation, scanId, slug }) =>
       generation === model.generation
-        ? { commands: [Navigate({ url: reportRouter({ slug }) })], model }
+        ? {
+            commands: [Navigate({ url: reportRouter({ slug }) })],
+            model: modifyFields(model, {
+              started: () => Option.some({ scanId, slug }),
+            }),
+          }
         : { model },
     TickedPoll: () =>
       Option.match(pollTarget(model), {
         onNone: () => ({ model }),
-        onSome: (slug) => ({
-          commands: [GetScan({ generation: model.generation, slug })],
-          model,
-        }),
+        onSome: (slug) => ({ commands: [getScanOf(model, slug)], model }),
       }),
     UpdatedContactEmail: ({ value }) => editContact(model, "email", value),
     UpdatedContactMessage: ({ value }) => editContact(model, "message", value),

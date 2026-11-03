@@ -41,6 +41,42 @@ describe("site capabilities", () => {
       })
     );
 
+    scoped.effect("reads the visitor's own scan while a newer one runs", () =>
+      Effect.gen(function* followsOwnScan() {
+        const mine = yield* startScan.handler({
+          url: "https://own.example.com/",
+        });
+
+        const theirs = yield* startScan.handler({
+          url: "https://own.example.com/other",
+        });
+
+        const followed = yield* getScan.handler({
+          scanId: mine.scanId,
+          slug: "own.example.com",
+        });
+
+        const newest = yield* getScan.handler({ slug: "own.example.com" });
+
+        expect(followed.scanId).toBe(mine.scanId);
+        expect(newest.scanId).toBe(theirs.scanId);
+      })
+    );
+
+    scoped.effect("does not read a scan ID under another site", () =>
+      Effect.gen(function* otherSite() {
+        const mine = yield* startScan.handler({
+          url: "https://own.example.com/",
+        });
+
+        const error = yield* Effect.flip(
+          getScan.handler({ scanId: mine.scanId, slug: "never.example" })
+        );
+
+        expect(error._tag).toBe("UnknownScan");
+      })
+    );
+
     scoped.effect("refuses an address that is not public", () =>
       Effect.gen(function* refuses() {
         const error = yield* Effect.flip(

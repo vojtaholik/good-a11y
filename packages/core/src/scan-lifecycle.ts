@@ -24,9 +24,15 @@ export const startScanContract = defineContract("startScan", {
 export const getScanContract = defineContract("getScan", {
   annotations: { idempotent: true, readOnly: true },
   description:
-    "Read the newest scan of a site: its stage, and its report once published",
+    "Read one scan of a site, or its newest scan when no scan ID is given: its stage, and its report once published",
   failure: Schema.Union([UnknownScan, ScanUnavailable]),
   input: Schema.Struct({
+    scanId: Schema.optionalKey(
+      Schema.String.annotate({
+        description:
+          "The scan startScan returned. Without it, the newest scan of the site is read",
+      })
+    ),
     slug: Schema.String.annotate({
       description: "The site's hostname without www, for example example.com",
     }),

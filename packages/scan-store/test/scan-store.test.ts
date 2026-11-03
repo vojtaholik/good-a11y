@@ -109,5 +109,35 @@ describe("ScanStore", () => {
           ).toEqual({ kind: "begun" });
         })
     );
+
+    scoped.effect(
+      "reads one scan by ID while a newer scan of the same site runs",
+      () =>
+        Effect.gen(function* oneScan() {
+          const store = yield* ScanStore;
+
+          yield* store.begin({
+            ...scanAt("mine", 10 * HOUR, 100),
+            url: "https://example.com/mine",
+          });
+          yield* store.publish("mine", report, 10 * HOUR + 1);
+          yield* store.begin({
+            ...scanAt("theirs", 10 * HOUR + 2, 100),
+            url: "https://example.com/theirs",
+          });
+
+          const mine = Option.getOrNull(
+            yield* store.one("example.com", "mine")
+          );
+
+          const latest = Option.getOrNull(yield* store.latest("example.com"));
+
+          expect([mine?.scanId, mine?.stage]).toEqual(["mine", "published"]);
+          expect(latest?.scanId).toBe("theirs");
+          expect(Option.isNone(yield* store.one("other.example", "mine"))).toBe(
+            true
+          );
+        })
+    );
   });
 });

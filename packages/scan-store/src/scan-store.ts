@@ -112,6 +112,10 @@ export class ScanStore extends Context.Service<
     readonly latest: (
       slug: string
     ) => Effect.Effect<Option.Option<ScanView>, ScanStoreError>;
+    readonly one: (
+      slug: string,
+      scanId: string
+    ) => Effect.Effect<Option.Option<ScanView>, ScanStoreError>;
     readonly publish: (
       scanId: string,
       report: Report,
@@ -205,6 +209,26 @@ export class ScanStore extends Context.Service<
           return Option.some(view);
         },
         Effect.mapError(failedDuring("latest"))
+      ),
+      one: Effect.fn("ScanStore.one")(
+        function* one(slug: string, scanId: string) {
+          const [row] = yield* db
+            .select()
+            .from(Scans)
+            .where(and(eq(Scans.id, scanId), eq(Scans.slug, slug)))
+            .limit(1);
+
+          if (row === undefined) {
+            return Option.none<ScanView>();
+          }
+
+          return Option.some(
+            yield* viewOf(
+              yield* Schema.decodeUnknownEffect(PersistedScanSchema)(row)
+            )
+          );
+        },
+        Effect.mapError(failedDuring("one"))
       ),
       publish: Effect.fn("ScanStore.publish")(
         function* publish(scanId: string, report: Report, settledAt: number) {

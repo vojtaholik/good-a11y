@@ -9,11 +9,16 @@ import {
 import { ScanStore } from "@eaa-check/scan-store";
 import { Clock, Effect, Option } from "effect";
 
-export const getScan = implement(getScanContract, ({ slug }) =>
+export const getScan = implement(getScanContract, ({ scanId, slug }) =>
   Effect.gen(function* getScanOfSite() {
     const store = yield* ScanStore;
 
-    const latest = yield* store.latest(slugKey(slug)).pipe(
+    const read =
+      scanId === undefined
+        ? store.latest(slugKey(slug))
+        : store.one(slugKey(slug), scanId);
+
+    const latest = yield* read.pipe(
       Effect.tapError((error) =>
         Effect.logError("getScan store failed", error)
       ),

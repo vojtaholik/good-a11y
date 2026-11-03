@@ -42,17 +42,28 @@ export const StartScan = Command.define("StartScan", {
               Option.map((error) => error.message)
             ),
           }),
-        onSuccess: ({ slug }) =>
-          Message.SucceededStartScan({ generation, slug }),
+        onSuccess: ({ scanId, slug }) =>
+          Message.SucceededStartScan({ generation, scanId, slug }),
       })
     ),
   messages: [Message.SucceededStartScan, Message.FailedStartScan],
 });
 
 export const GetScan = Command.define("GetScan", {
-  args: { generation: Schema.Int, slug: Schema.String },
-  execute: ({ generation, slug }) =>
-    ScanApi.use((api) => api.getScan({ slug })).pipe(
+  args: {
+    generation: Schema.Int,
+    maybeScanId: Schema.Option(Schema.String),
+    slug: Schema.String,
+  },
+  execute: ({ generation, maybeScanId, slug }) =>
+    ScanApi.use((api) =>
+      api.getScan(
+        Option.match(maybeScanId, {
+          onNone: () => ({ slug }),
+          onSome: (scanId) => ({ scanId, slug }),
+        })
+      )
+    ).pipe(
       Effect.matchCause({
         onFailure: (cause) =>
           Message.FailedGetScan({
