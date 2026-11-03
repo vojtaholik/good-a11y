@@ -1,7 +1,8 @@
 ---
 title: "Build the CLI Slice"
 type: "step"
-status: "open"
+status: "closed"
+closed_at: "2026-11-03"
 parent: "./eaa-checker-brief.svx"
 created_at: "2026-11-03"
 ---
@@ -11,3 +12,16 @@ created_at: "2026-11-03"
 ## Step
 
 rat-stack skeleton with the full fence, `packages/facts`, `packages/core` (scan capability, hardened fetch, deterministic checks mapped to SC/EN facts, per-state applicability), `apps/cli`. Agent: builder-core.
+
+## Result (2026-11-03)
+
+Done on main (builder-core):
+- The rat-stack skeleton keeps its fence: type-aware lint, the Effect diagnostics, lefthook and CI.
+- `packages/facts` serves verified facts only.
+- `packages/core` holds the `scan` capability; `SafeFetch`, which vets every hop and follows redirects by hand; the static checks; the catalogue, mapped to SC and EN clause facts; and per-state applicability.
+- `pnpm cli scan <url>` and its `--json` output run that same capability.
+
+The CLI's transport (`@eaa-check/http-transport/node`) refuses names that resolve to private or reserved addresses. It connects only to the address it vetted, and decodes gzip, deflate, br and zstd. Accuracy over 21 real sites is in `docs/accuracy-qa.md`: rounds 1, 2 and 5, and the regression run.
+
+Left: nothing for this step. The rendered and judged checks grew on top of it and have their own notes.
+
