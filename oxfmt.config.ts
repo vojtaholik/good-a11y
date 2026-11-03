@@ -9,5 +9,6 @@ export default defineConfig({
     "research/**",
     "BRIEF.md",
     "REPORT.md",
+    "packages/facts/src/ledger.generated.ts",
   ],
 });

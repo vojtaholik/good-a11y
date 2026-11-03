@@ -14,6 +14,7 @@ export default defineConfig({
     ".claude/**",
     "scripts/hooks/**",
     "tools/oxlint/anti-slop/**",
+    "packages/facts/src/ledger.generated.ts",
   ],
   jsPlugins: [
     { name: "foldkit", specifier: "@foldkit/oxlint-plugin" },

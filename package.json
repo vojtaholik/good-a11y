@@ -19,7 +19,8 @@
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
     "typecheck-scripts": "tsc --noEmit -p tsconfig.json",
-    "vendor:agent-sources": "./scripts/vendor-agent-sources.sh"
+    "vendor:agent-sources": "./scripts/vendor-agent-sources.sh",
+    "facts": "pnpm --filter @eaa-check/facts run facts"
   },
   "devDependencies": {
     "@earendil-works/pi-coding-agent": "0.86.1",

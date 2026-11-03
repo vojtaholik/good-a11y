@@ -49,6 +49,11 @@
         "$TURBO_ROOT$/tools/oxlint/**",
         "$TURBO_ROOT$/research/facts/**"
       ]
+    },
+    "@eaa-check/facts#test": {
+      "dependsOn": ["build"],
+      "outputs": [],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/research/facts/**"]
     }
   }
 }

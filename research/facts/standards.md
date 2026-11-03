@@ -71,7 +71,7 @@ hyphenation spacing are normalised.
 - field: other
 - value: EN 301 549 V4.1.1 clause 9 = WCAG 2.2 Level A and AA
 - source: https://www.etsi.org/deliver/etsi_en/301500_301599/301549/04.01.01_60/en_301549v040101p.pdf
-- excerpt: "Conformance with W3C Web Content Accessibility Guidelines (WCAG 2.2) [4] Level AA is equivalent to conforming with all of clauses 9.1 to 9.4 and with the conformance requirements of clause 9.6 of the present document."
+- excerpt: "Conformance with W3C Web Content Accessibility Guidelines (WCAG 2.2) ... Level AA is equivalent to conforming with all of clauses 9.1 to 9.4 and with the conformance requirements of clause 9.6 of the present document."
 - retrieved: 2026-11-03
 - used_by: report.standard
 - status: verified
