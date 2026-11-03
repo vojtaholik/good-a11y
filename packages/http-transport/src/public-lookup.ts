@@ -32,7 +32,7 @@ export type Resolve = (
   hostname: string,
   done: (
     error: NodeJS.ErrnoException | null,
-    addresses: LookupAddress[]
+    addresses?: LookupAddress[]
   ) => void
 ) => void;
 
@@ -44,7 +44,16 @@ export const publicLookupWith =
   (resolve: Resolve): LookupFunction =>
   (hostname, options, callback) => {
     resolve(hostname, (error, addresses) => {
-      const refusal = error ?? refusalOf(hostname, addresses);
+      if (error !== null || addresses === undefined) {
+        callback(
+          error ?? coded(`${hostname} has no address.`, "ENOTFOUND"),
+          ""
+        );
+
+        return;
+      }
+
+      const refusal = refusalOf(hostname, addresses);
       const [first] = addresses;
 
       if (refusal !== null || first === undefined) {

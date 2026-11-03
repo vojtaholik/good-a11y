@@ -63,12 +63,31 @@ const resolving =
   (addresses: LookupAddress[]) =>
   (
     _hostname: string,
-    done: (error: NodeJS.ErrnoException | null, found: LookupAddress[]) => void
+    done: (error: NodeJS.ErrnoException | null, found?: LookupAddress[]) => void
   ) => {
     done(null, addresses);
   };
 
+const failing =
+  (code: string) =>
+  (
+    hostname: string,
+    done: (error: NodeJS.ErrnoException | null, found?: LookupAddress[]) => void
+  ) => {
+    done(Object.assign(new Error(`getaddrinfo ${code} ${hostname}`), { code }));
+  };
+
 describe("the Node hop transport", () => {
+  it("passes a DNS failure on as an error, with no address", () => {
+    expect(
+      answersOf(
+        publicLookupWith(failing("ENOTFOUND")),
+        "no-such-host-zz9-eaa.com",
+        { all: true }
+      )
+    ).toEqual([["ENOTFOUND", "", undefined]]);
+  });
+
   it.each(REFUSED)("refuses the address %s", (address) => {
     expect(isPublicAddress(address)).toBe(false);
   });
