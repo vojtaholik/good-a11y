@@ -421,6 +421,15 @@ export const SHOWN_JUDGED_CHECKS: readonly JudgedCheck[] = JUDGED_CHECKS.filter(
   (check) => check.shown
 );
 
+const SHOWN_IDS: ReadonlySet<JudgedId> = new Set(
+  SHOWN_JUDGED_CHECKS.map((check) => check.id)
+);
+
+export const shownObservations = (
+  observations: readonly Observation[]
+): readonly Observation[] =>
+  observations.filter((observation) => SHOWN_IDS.has(observation.id));
+
 export const judgedCriteria = (): readonly string[] =>
   SHOWN_JUDGED_CHECKS.flatMap((check) => check.criteria);
 

@@ -43,7 +43,7 @@ export type { FindingReference } from "./report.js";
 
 export {
   NEWER_VERSION_LABEL,
-  NEWER_WCAG_LABEL,
+  newerWcagLabel,
   type Sourced,
 } from "./reference.js";
 
@@ -74,3 +74,5 @@ export { ScanUnavailable } from "./scan-unavailable.js";
 export { UnknownScan } from "./unknown-scan.js";
 
 export type { Judged, Observation } from "./judged.js";
+
+export { shownObservations } from "./judged.js";

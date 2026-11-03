@@ -1,7 +1,9 @@
 import { Number } from "effect";
 
+import { AXE_REPORTS, axeTitleOf } from "./axe-titles.js";
 import type { CheckId } from "./check.js";
 import type { FindingReference } from "./finding-reference.js";
+import { PROBES } from "./probes.js";
 import type { Rendered, RenderedFinding } from "./rendered.js";
 import type { Finding, Report } from "./report.js";
 
@@ -124,6 +126,11 @@ const staticIssue = (
   };
 };
 
+const PROBE_IDS: ReadonlySet<string> = new Set(Object.keys(PROBES));
+
+const isProbe = (finding: RenderedFinding): boolean =>
+  PROBE_IDS.has(finding.rule);
+
 const renderedIssue = (finding: RenderedFinding): Issue => ({
   checked: null,
   failing: finding.failing,
@@ -133,8 +140,8 @@ const renderedIssue = (finding: RenderedFinding): Issue => ({
   references: finding.references,
   samples: samplesOf([], tagged("rendered", finding.samples)),
   sources: ["rendered"],
-  title: finding.help,
-  whatFails: null,
+  title: isProbe(finding) ? finding.help : axeTitleOf(finding.rule),
+  whatFails: isProbe(finding) ? null : `${AXE_REPORTS} ${finding.help}`,
 });
 
 const LEVEL_RANK = new Map<Level | null, number>([

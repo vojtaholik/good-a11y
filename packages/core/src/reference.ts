@@ -39,9 +39,6 @@ export const LEGAL_REQUIREMENT_USE = "report.legal-requirement";
 
 export const NEWER_PUBLISHED_FACT = "STD-EN-3";
 
-export const NEWER_WCAG_LABEL =
-  "WCAG 2.2 (newer, not yet required by the cited EN 301 549)";
-
 export const NEWER_VERSION_LABEL =
   "EN 301 549 V4.1.1 (published, not cited in the OJ)";
 
@@ -93,3 +90,10 @@ export const REFERENCE: Reference = referenceFrom(VERIFIED_FACTS);
 
 export const verifiedText = (id: string): Sourced | null =>
   sourced(verifiedFact(id));
+
+export const NEWER_WCAG_FACT = "STD-EN-5";
+
+export const newerWcagLabel = (): string =>
+  verifiedText(NEWER_WCAG_FACT) === null
+    ? "WCAG 2.2"
+    : "WCAG 2.2 (newer than the reference benchmark)";

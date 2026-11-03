@@ -1,7 +1,7 @@
 import type { StateRef } from "./applicability.js";
 import { METHOD_NAMES } from "./coverage.js";
 import type { FindingReference } from "./finding-reference.js";
-import { NEWER_VERSION_LABEL, NEWER_WCAG_LABEL } from "./reference.js";
+import { NEWER_VERSION_LABEL, newerWcagLabel } from "./reference.js";
 import type { Sourced } from "./reference.js";
 import {
   SAMPLE_SOURCE_LABELS,
@@ -17,7 +17,7 @@ const KIND_LABELS: Readonly<Record<FindingReference["kind"], string>> = {
   "en-newer": NEWER_VERSION_LABEL,
   "en-reference": "Reference benchmark",
   wcag: "WCAG 2.1",
-  "wcag-newer": NEWER_WCAG_LABEL,
+  "wcag-newer": newerWcagLabel(),
 };
 
 const QUIET_MARKS = {

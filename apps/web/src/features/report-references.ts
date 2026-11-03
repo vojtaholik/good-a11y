@@ -1,3 +1,4 @@
+import { newerWcagLabel } from "@eaa-check/core/contracts";
 import type { FindingReference } from "@eaa-check/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
@@ -51,14 +52,11 @@ const mainLine = (
 ): Child[] => {
   const main = group.filter((reference) => reference.kind !== "en-newer");
 
-  const lead = main[0]?.kind === "wcag-newer" ? "WCAG 2.2" : "WCAG 2.1";
+  const lead = main[0]?.kind === "wcag-newer" ? newerWcagLabel() : "WCAG 2.1";
 
   return [
     lead,
     ...main.flatMap((reference) => [SEPARATOR, linked(reference, h)]),
-    ...(main[0]?.kind === "wcag-newer"
-      ? [`${SEPARATOR}newer, not yet required by the cited EN 301 549`]
-      : []),
   ];
 };
 

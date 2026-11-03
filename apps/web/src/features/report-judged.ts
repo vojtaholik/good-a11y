@@ -1,3 +1,4 @@
+import { shownObservations } from "@eaa-check/core/contracts";
 import type { Observation, Report } from "@eaa-check/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
@@ -71,11 +72,11 @@ export const judgedSection = (
     ];
   }
 
-  const noted = judged.observations.filter(
-    (observation) => observation.noted > 0
-  );
+  const observations = shownObservations(judged.observations);
 
-  const asked = judged.observations.reduce(
+  const noted = observations.filter((observation) => observation.noted > 0);
+
+  const asked = observations.reduce(
     (total, observation) => total + observation.asked,
     0
   );
