@@ -76,7 +76,6 @@ describe("reflow at 320 CSS pixels", () => {
         {
           reflow: {
             clientWidth: 320,
-            offenderCount: 0,
             offenders: [],
             scrollWidth: 321,
           },
@@ -91,7 +90,6 @@ describe("reflow at 320 CSS pixels", () => {
       {
         reflow: {
           clientWidth: 320,
-          offenderCount: 1,
           offenders: [
             { exempt: false, right: 980, snippet: '<div class="hero">' },
             { exempt: true, right: 700, snippet: "<td>" },
@@ -110,12 +108,11 @@ describe("reflow at 320 CSS pixels", () => {
     });
   });
 
-  it("counts every offender, not only the samples it keeps", () => {
+  it("reports a sideways scroll as one page-level instance, with the widest offenders as samples", () => {
     const result = resultOf(
       {
         reflow: {
           clientWidth: 320,
-          offenderCount: 37,
           offenders: Array.from({ length: 5 }, (_, index) => ({
             exempt: false,
             right: 900 - index,
@@ -127,7 +124,7 @@ describe("reflow at 320 CSS pixels", () => {
       "reflow"
     );
 
-    expect(result).toMatchObject({ failing: 37, status: "fail" });
+    expect(result).toMatchObject({ failing: 1, status: "fail" });
     expect(result?.samples).toHaveLength(5);
   });
 
@@ -137,7 +134,6 @@ describe("reflow at 320 CSS pixels", () => {
         {
           reflow: {
             clientWidth: 320,
-            offenderCount: 0,
             offenders: [{ exempt: true, right: 900, snippet: "<table>" }],
             scrollWidth: 900,
           },
@@ -153,7 +149,6 @@ describe("reflow at 320 CSS pixels", () => {
         {
           reflow: {
             clientWidth: 320,
-            offenderCount: 0,
             offenders: [],
             scrollWidth: 600,
           },
@@ -482,7 +477,6 @@ describe("probes in the rendered result", () => {
       ...NOTHING,
       reflow: {
         clientWidth: 320,
-        offenderCount: 1,
         offenders: [{ exempt: false, right: 980, snippet: "<div>" }],
         scrollWidth: 980,
       },

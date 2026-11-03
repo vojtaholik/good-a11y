@@ -9,7 +9,6 @@ const Count = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0));
 
 const ReflowMeasuredSchema = Schema.Struct({
   clientWidth: Count,
-  offenderCount: Count,
   offenders: Schema.Array(
     Schema.Struct({
       exempt: Schema.Boolean,
@@ -220,7 +219,7 @@ export const decideReflow = (
         .filter((offender) => !offender.exempt)
         .map((offender) => offender.snippet)
     ),
-    failing: measured.offenderCount,
+    failing: 1,
   };
 };
 

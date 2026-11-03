@@ -61,6 +61,8 @@
 
   const CLIPPING = new Set(["clip", "hidden"]);
 
+  const CLIPS_ON_X = new Set(["auto", "clip", "hidden", "scroll"]);
+
   const NO_PAINT = new Set(["", "none"]);
 
   const OUTLINE_DETAILS = new Set([
@@ -507,16 +509,21 @@
     });
   };
 
-  const containedWithin = (element: Element, limit: number): boolean => {
+  const composedParent = (element: Element): Element | null => {
+    const root = element.getRootNode();
+
+    return (
+      element.parentElement ?? (root instanceof ShadowRoot ? root.host : null)
+    );
+  };
+
+  const insideClipOnX = (element: Element): boolean => {
     for (
-      let ancestor = element.parentElement;
-      ancestor !== null && ancestor !== document.body;
-      ancestor = ancestor.parentElement
+      let ancestor = composedParent(element);
+      ancestor !== null && ancestor !== document.documentElement;
+      ancestor = composedParent(ancestor)
     ) {
-      if (
-        getComputedStyle(ancestor).overflowX !== "visible" &&
-        ancestor.getBoundingClientRect().right <= limit
-      ) {
+      if (CLIPS_ON_X.has(getComputedStyle(ancestor).overflowX)) {
         return true;
       }
     }
@@ -525,7 +532,7 @@
   };
 
   const reflow = () => {
-    const root = document.scrollingElement ?? document.documentElement;
+    const root = document.documentElement;
     const limit = root.clientWidth + 1;
 
     const offenders = allElements()
@@ -534,8 +541,9 @@
 
         return (
           rect.right > limit &&
+          rect.right <= root.scrollWidth + 1 &&
           isRendered(element) &&
-          !containedWithin(element, limit)
+          !insideClipOnX(element)
         );
       })
       .map((element) => {
@@ -553,7 +561,6 @@
 
     return {
       clientWidth: root.clientWidth,
-      offenderCount: offenders.filter(({ exempt }) => !exempt).length,
       offenders: offenders.slice(0, SAMPLE_LIMIT),
       scrollWidth: root.scrollWidth,
     };

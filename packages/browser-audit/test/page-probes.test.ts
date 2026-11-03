@@ -27,7 +27,6 @@ const StopsJson = Schema.fromJsonString(
 
 const ReflowJson = Schema.fromJsonString(
   Schema.Struct({
-    offenderCount: Schema.Finite,
     offenders: Schema.Array(Schema.Struct({ snippet: Schema.String })),
   })
 );
@@ -151,18 +150,43 @@ describe("the tab walk in the page", () => {
 });
 
 describe("reflow in the page", () => {
-  it("counts every element past the right edge and keeps five samples", () => {
+  it("leaves out elements inside an ancestor that clips or scrolls sideways", () => {
     const window = pageWith(
-      `<style>div { opacity: 1 }</style>${Array.from({ length: 8 }, (_, index) => `<div id="wide-${index}"></div>`).join("")}`
+      `<style>div { opacity: 1 }</style><div id="wide"></div><div id="track" style="overflow-x: auto"><div id="slide-1"></div><div id="slide-2"></div></div>`
     );
 
+    Object.defineProperty(window.document.documentElement, "scrollWidth", {
+      value: BOX.right,
+    });
     window.eval(probesSource);
 
     expect(
       Schema.decodeUnknownSync(ReflowJson)(
         window.eval("JSON.stringify(__eaaProbes.reflow())")
-      )
-    ).toMatchObject({ offenderCount: 8, offenders: { length: 5 } });
+      ).offenders.map((offender) => offender.snippet)
+    ).toEqual([
+      '<div id="wide"></div>',
+      '<div id="track" style="overflow-x: auto"><div id="slide-1"></div><div id="slide-2"></div></div>',
+    ]);
+  });
+});
+
+describe("reflow offenders past the page's own width", () => {
+  it("are clipped somewhere, so they are not named as the cause", () => {
+    const window = pageWith(
+      `<style>div { opacity: 1 }</style><div id="clipped"></div>`
+    );
+
+    Object.defineProperty(window.document.documentElement, "scrollWidth", {
+      value: BOX.right - 20,
+    });
+    window.eval(probesSource);
+
+    expect(
+      Schema.decodeUnknownSync(ReflowJson)(
+        window.eval("JSON.stringify(__eaaProbes.reflow())")
+      ).offenders
+    ).toEqual([]);
   });
 });
 
