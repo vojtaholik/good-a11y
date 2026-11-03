@@ -69,6 +69,14 @@ const FAILING: PageEvidence = {
       presentational: false,
       snippet: "<img>",
     },
+    {
+      alt: "image",
+      file: "a.png",
+      kind: "img",
+      labelled: false,
+      presentational: false,
+      snippet: '<img src="a.png" alt="image">',
+    },
   ],
   links: [{ context: "", labelled: false, snippet: '<a href="/">', text: "" }],
   refreshes: ["5; url=/next"],
@@ -160,7 +168,9 @@ describe("the report", () => {
 
     expect(report?.outcome).toBe("checked");
     expect(report?.findings.map((finding) => finding.status)).toEqual(
-      CATALOGUE.map(() => "fail")
+      CATALOGUE.map(({ check }) =>
+        check.id === "title-generic" ? "not_applicable" : "fail"
+      )
     );
   });
 

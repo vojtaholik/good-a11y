@@ -6,7 +6,6 @@ import { Effect, Layer, Schema } from "effect";
 import { RpcSerialization, RpcServer } from "effect/rpc";
 
 import { siteCapabilities } from "./capabilities/index.js";
-import { rawTextPlugin } from "./raw-text-plugin.js";
 import { ScanLaunchFailed } from "./scan-launch-failed.js";
 import { ScanLauncher } from "./scan-launcher.js";
 import ScanWorkflow from "./scan-workflow.js";
@@ -16,7 +15,6 @@ export const rpcProjection = toRpc(siteCapabilities);
 export default class Scanner extends Cloudflare.Workers.RpcWorker<Scanner>()(
   "Scanner",
   {
-    build: { input: { plugins: [rawTextPlugin] } },
     compatibility: { date: "2026-09-01" },
     main: import.meta.url,
     observability: { enabled: true },

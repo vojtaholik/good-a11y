@@ -8,6 +8,12 @@
   ],
   "type": "module",
   "types": "./src/index.ts",
+  "imports": {
+    "#page-scripts": {
+      "types": "./src/page-scripts.d.ts",
+      "default": "./dist/page/scripts.js"
+    }
+  },
   "exports": {
     ".": {
       "types": "./src/index.ts",
@@ -18,7 +24,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p page/tsconfig.json",
     "test": "vitest run",
-    "build": "tsc -p tsconfig.build.json && tsc -p page/tsconfig.json",
+    "build": "tsc -p tsconfig.build.json && tsc -p page/tsconfig.json && node scripts/embed-page-scripts.ts",
     "check": "pnpm run typecheck",
     "pretest": "pnpm run --silent build"
   },

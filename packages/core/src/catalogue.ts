@@ -1,4 +1,5 @@
 import type { Check, CheckId } from "./check.js";
+import { altPlaceholder } from "./checks/alt-placeholder.js";
 import { autocompleteValid } from "./checks/autocomplete-valid.js";
 import { buttonName } from "./checks/button-name.js";
 import { documentTitle } from "./checks/document-title.js";
@@ -9,6 +10,7 @@ import { imageAlt } from "./checks/image-alt.js";
 import { linkName } from "./checks/link-name.js";
 import { metaRefresh } from "./checks/meta-refresh.js";
 import { metaViewportZoom } from "./checks/meta-viewport-zoom.js";
+import { titleGeneric } from "./checks/title-generic.js";
 
 export interface CatalogueEntry {
   readonly check: Check;
@@ -26,7 +28,9 @@ export type Criterion = ReturnType<typeof criterion>;
 export const CATALOGUE: readonly CatalogueEntry[] = [
   { check: htmlLang, criteria: ["3.1.1"] },
   { check: documentTitle, criteria: ["2.4.2"] },
+  { check: titleGeneric, criteria: ["2.4.2"] },
   { check: imageAlt, criteria: ["1.1.1"] },
+  { check: altPlaceholder, criteria: ["1.1.1"] },
   { check: formLabels, criteria: ["1.3.1", "4.1.2"] },
   { check: linkName, criteria: ["2.4.4", "4.1.2"] },
   { check: buttonName, criteria: ["4.1.2"] },
