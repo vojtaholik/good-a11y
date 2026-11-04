@@ -1,5 +1,12 @@
+import foldkitRecommended from "@foldkit/oxlint-plugin/recommended.json" with { type: "json" };
 import { defineConfig } from "oxlint";
 import core from "ultracite/oxlint/core";
+
+const foldkitRules = Object.fromEntries(
+  Object.entries(foldkitRecommended.rules).map(
+    ([rule, level]) => [rule, level === "off" ? "off" : "error"] as const
+  )
+);
 
 export default defineConfig({
   extends: [core],
@@ -51,20 +58,7 @@ export default defineConfig({
     },
     {
       files: ["apps/web/src/**/*.ts"],
-      rules: {
-        "foldkit/command-binding-matches-name": "error",
-        "foldkit/command-define-pascal-const": "error",
-        "foldkit/lazy-view-stable-references": "error",
-        "foldkit/mount-factory-must-use-element": "error",
-        "foldkit/no-array-index-view-keys": "error",
-        "foldkit/no-direct-submodel-state-update": "error",
-        "foldkit/no-disabling-dev-guardrails": "error",
-        "foldkit/no-duplicate-onmount-per-element": "error",
-        "foldkit/no-hand-rolled-command-struct": "error",
-        "foldkit/no-prevent-default-in-stream-operator": "error",
-        "foldkit/no-raw-dom-event-attributes": "error",
-        "foldkit/no-switch-on-message-tag": "error",
-      },
+      rules: foldkitRules,
     },
     {
       files: [

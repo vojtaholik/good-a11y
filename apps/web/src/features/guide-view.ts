@@ -4,9 +4,10 @@ import * as stylex from "@stylexjs/stylex";
 import { Array } from "effect";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
-import type { AppMessage } from "../client/model.js";
+import type { AppMessage } from "../client/message.js";
 import { categoryName } from "./guides.js";
 import type { GuidePage } from "./guides.js";
+import { MAIN_ID } from "./landmarks.js";
 import { sx } from "./sx.js";
 
 export const RETRIEVE = "npx -y github:vojtaholik/good-a11y retrieve";
@@ -80,7 +81,7 @@ export const guideView = (
   const [title, ...rest] = viewBlocks(page.document);
 
   return h.main(
-    [],
+    [h.Id(MAIN_ID)],
     [
       h.p([sx(h, local.eyebrow)], [`Guide · ${categoryName(page.category)}`]),
       h.div([h.DataAttribute("prose", "")], title === undefined ? [] : [title]),

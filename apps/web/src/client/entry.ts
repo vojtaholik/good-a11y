@@ -3,7 +3,8 @@ import { Runtime } from "foldkit";
 
 import { init, update } from "../features/update.js";
 import { view } from "../features/view.js";
-import { Flags, Message, Model } from "./model.js";
+import { Message } from "./message.js";
+import { Flags, Model } from "./model.js";
 import { subscriptions } from "./polling.js";
 import { ScanApi } from "./scan-api.js";
 

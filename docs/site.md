@@ -37,6 +37,7 @@ On a report route the Worker reads the scan from the scanner over the service bi
 - **Guide text through `@foldkit/markdown`.** `scripts/guide-pages.ts` is a Vite plugin that parses each guide at build time into Foldkit's Markdown document and serves it as `virtual:guide-pages`, without the demos, so the browser bundle carries about 136 kB of guide text and no demo HTML. Foldkit's parser reads `:1` in `3:1` as a text directive and refuses it; `proseOf` finds those directives with the same remark pipeline and escapes their colon, which only ever lands in prose, never in code.
 - **The demo is isolated twice.** The iframe has `sandbox="allow-scripts allow-forms"` (no same origin), and the demo response carries a CSP sandbox, so opening the demo URL directly is sandboxed as well. `frame-ancestors 'self'` keeps it out of other sites' frames.
 - **Report routes are `/check/<host>[/<id>]`.** `/report/*` and `/checks` are gone, with no redirects (no backward compatibility in this repo). "What we check" is a section of `/check`.
+- **Focus follows navigation.** Foldkit intercepts every same-origin link, in-page `#` links included, so the browser neither moves focus nor scrolls. `changeUrl` in `features/update.ts` does what our `spa-route-change` guide asks: a new page moves focus to its `main h1` (`FocusMainHeading`), a link with a fragment focuses and scrolls to its target without reloading the page (`FocusFragment`), and a change of the query alone leaves focus where it is. Both use `Dom.focus` with `makeFocusable`. The header starts with a "Skip to content" link to `#main`, which every route's `main` carries.
 - **Light only for now.** The report styles use fixed light colors; a dark mode needs them on tokens first.
 
 ## The demo gate
@@ -47,6 +48,10 @@ On a report route the Worker reads the scan from the scanner over the service bi
 
 - `apps/web/test/site.test.ts`: the server-rendered start page and its metadata, Markdown for every route, `llms.txt` and the skill naming every guide, the demo's CSP, 404s, and the `Accept` negotiation.
 - `apps/web/test/own-page.test.ts`: our own checks pass on the start page, `/check`, every guide page and the report.
+- `apps/web/test/story.test.ts`: `update` for starting a scan (refused, started, refused by the scanner), reading a report (unknown scan, a stale answer ignored), focus on navigation and the contact form.
+- `apps/web/test/scene.test.ts`: the rendered start page, the skip link, the empty-address status, the disabled button while a scan starts, a report heading.
+
+`foldkit-skills:audit-program` ran on `apps/web` on 2026-11-04. Its findings are fixed: focus on navigation, the story and scene tests, the full `@foldkit/oxlint-plugin` recommended set on `apps/web/src`, nested `modifyFields` in place of spreads, `aria-invalid` on the contact fields, and `Message` in `client/message.ts`. Left as they are: native `input`, `textarea` and `button` (`@foldkit/ui` is not a dependency, and the native controls with `For`/`Id` are what our guides teach), and `ScanState` as its own union, since `Running`, `Settled` and `Unknown` say more than `AsyncData`.
 
 ## is-agentic
 
@@ -54,4 +59,5 @@ Measured with is-agentic.com's public report API on the dev URL, 2026-11-04 (`GE
 
 - First scan: **90**. Essential 80 of 80 (6 of 6 checks pass), recommended 7 of 20, bonus 2.5. Failed: JSON-LD, agent when-to-use, sitemap, Organization schema, trust pages (About, Contact, Privacy), brand search; partial: `og:image` missing.
 - Fixed since: JSON-LD, the "When to use" section in `llms.txt`, `sitemap.xml` and `robots.txt`, `og:image`.
+- Rescan 2026-11-04T10:22:16Z: **97**. Essential 80 of 80 (6 of 6), recommended 14 of 20 (7 of 10), bonus 2.5 (10 positive signals). Still failing: `brand-search-accuracy`, `org-schema-completeness` (no `Organization` in the JSON-LD), `trust-anchors` (no About, Contact or Privacy page of real length).
 - Left for Vojta, as proposals: Organization schema needs a real contact point and postal address; trust pages need real About, Contact and Privacy text (the contact is hidden by decision 2, and a privacy page states what the scanner stores); brand search needs the domain (decision 12).

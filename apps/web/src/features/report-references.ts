@@ -2,7 +2,7 @@ import { newerWcagLabel } from "@good-a11y/core/contracts";
 import type { FindingReference } from "@good-a11y/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
-import type { AppMessage } from "../client/model.js";
+import type { AppMessage } from "../client/message.js";
 import { report as styles } from "./report-styles.js";
 import { sx } from "./sx.js";
 

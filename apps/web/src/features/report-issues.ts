@@ -8,8 +8,10 @@ import { guidesForCheck } from "@good-a11y/guides/check-guides";
 import { Array, Schema } from "effect";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
-import { CopyState, Message } from "../client/model.js";
-import type { AppMessage, AppModel } from "../client/model.js";
+import { Message } from "../client/message.js";
+import type { AppMessage } from "../client/message.js";
+import { CopyState } from "../client/model.js";
+import type { AppModel } from "../client/model.js";
 import { guidePageOf } from "./guides.js";
 import { referenceList } from "./report-references.js";
 import { report as styles } from "./report-styles.js";

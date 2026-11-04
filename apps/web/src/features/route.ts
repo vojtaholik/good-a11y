@@ -45,6 +45,18 @@ export const reportSlugOf = (route: AppRouteState): Option.Option<string> =>
     ? Option.some(route.slug.toLowerCase())
     : Option.none();
 
+export const isSameRoute = Schema.toEquivalence(AppRoute);
+
+export const pathOf = (route: AppRouteState): string =>
+  AppRoute.match<string>(route, {
+    Check: () => checkRouter({}),
+    Guide: ({ guideId }) => guideRouter({ guideId }),
+    Home: () => homeRouter(),
+    NotFound: ({ path }) => path,
+    Report: ({ slug }) => reportRouter({ slug }),
+    Scan: ({ scanId, slug }) => scanRouter({ scanId, slug }),
+  });
+
 export const parseRoute = Route.parseUrlWithFallback(
   Route.oneOf(scanRouter, reportRouter, checkRouter, guideRouter, homeRouter),
   AppRoute.NotFound

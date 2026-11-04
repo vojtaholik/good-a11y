@@ -5,10 +5,10 @@ import {
   UnknownScan,
 } from "@good-a11y/core/contracts";
 import { Cause, Effect, Option, Schema } from "effect";
-import { Command } from "foldkit";
+import { Command, Dom } from "foldkit";
 import { load, pushUrl } from "foldkit/navigation";
 
-import { Message } from "./model.js";
+import { Message } from "./message.js";
 import { ScanApi } from "./scan-api.js";
 
 const isRefusal = Schema.is(
@@ -68,7 +68,7 @@ export const GetScan = Command.define("GetScan", {
         onFailure: (cause) =>
           Message.FailedGetScan({
             generation,
-            unknown: Option.exists(
+            isUnknownScan: Option.exists(
               Cause.findErrorOption(cause),
               Schema.is(UnknownScan)
             ),
@@ -121,4 +121,31 @@ export const LoadExternal = Command.define("LoadExternal", {
   execute: ({ href }) =>
     load(href).pipe(Effect.as(Message.CompletedLoadExternal())),
   messages: [Message.CompletedLoadExternal],
+});
+
+export const FocusMainHeading = Command.define("FocusMainHeading", {
+  execute: Dom.scrollIntoViewAfterPaint("body", { block: "start" }).pipe(
+    Effect.andThen(
+      Dom.focus("main h1", { makeFocusable: true, preventScroll: true })
+    ),
+    Effect.ignore,
+    Effect.as(Message.CompletedFocusMainHeading())
+  ),
+  messages: [Message.CompletedFocusMainHeading],
+});
+
+export const FocusFragment = Command.define("FocusFragment", {
+  args: { id: Schema.String },
+  execute: ({ id }) =>
+    Dom.scrollIntoViewAfterPaint(`#${CSS.escape(id)}`, { block: "start" }).pipe(
+      Effect.andThen(
+        Dom.focus(`#${CSS.escape(id)}`, {
+          makeFocusable: true,
+          preventScroll: true,
+        })
+      ),
+      Effect.ignore,
+      Effect.as(Message.CompletedFocusFragment())
+    ),
+  messages: [Message.CompletedFocusFragment],
 });

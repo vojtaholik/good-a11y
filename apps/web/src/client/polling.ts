@@ -2,8 +2,10 @@ import { Option, Schema, Stream } from "effect";
 import { Subscription } from "foldkit";
 
 import { reportSlugOf } from "../features/route.js";
-import { Message, ScanState } from "./model.js";
-import type { AppMessage, AppModel } from "./model.js";
+import { Message } from "./message.js";
+import type { AppMessage } from "./message.js";
+import { ScanState } from "./model.js";
+import type { AppModel } from "./model.js";
 
 export const POLL_INTERVAL = "2500 millis";
 

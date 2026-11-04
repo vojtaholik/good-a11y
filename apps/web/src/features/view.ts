@@ -2,11 +2,14 @@ import * as stylex from "@stylexjs/stylex";
 import { Option } from "effect";
 import type { Document, Html, HtmlBuilder } from "foldkit/html";
 
-import { Message, StartState } from "../client/model.js";
-import type { AppMessage, AppModel } from "../client/model.js";
+import { Message } from "../client/message.js";
+import type { AppMessage } from "../client/message.js";
+import { StartState } from "../client/model.js";
+import type { AppModel } from "../client/model.js";
 import { checksView } from "./checks-view.js";
 import { guideView } from "./guide-view.js";
 import { categoryName, guidePageOf, guidesByCategory } from "./guides.js";
+import { MAIN_ID } from "./landmarks.js";
 import { pageMetaOf } from "./page-meta.js";
 import { reportView } from "./report-view.js";
 import {
@@ -14,10 +17,8 @@ import {
   checkRouter,
   guideRouter,
   homeRouter,
-  reportRouter,
-  scanRouter,
+  pathOf,
 } from "./route.js";
-import type { AppRouteState } from "./route.js";
 import { styles } from "./styles.js";
 import { sx } from "./sx.js";
 
@@ -83,6 +84,16 @@ const local = stylex.create({
     gap: "0.5rem 1.25rem",
     marginBlockEnd: "2.5rem",
   },
+  skip: {
+    backgroundColor: "var(--code-bg)",
+    borderRadius: "0.375rem",
+    insetBlockStart: "0.5rem",
+    insetInlineStart: "0.5rem",
+    paddingBlock: "0.5rem",
+    paddingInline: "0.75rem",
+    position: "absolute",
+    transform: { ":focus": "none", default: "translateY(-200%)" },
+  },
 });
 
 const startStatus = (model: AppModel): string =>
@@ -136,7 +147,8 @@ const guideList = (h: HtmlBuilder<AppMessage>): Html[] =>
     h.ul(
       [sx(h, local.guides)],
       pages.map((page) =>
-        h.li(
+        h.keyed("li")(
+          page.id,
           [sx(h, local.guide)],
           [
             h.a(
@@ -155,7 +167,7 @@ const guideList = (h: HtmlBuilder<AppMessage>): Html[] =>
 
 const homeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
   h.main(
-    [],
+    [h.Id(MAIN_ID)],
     [
       h.h1([sx(h, local.hero)], ["Accessibility guides for coding agents"]),
       h.p(
@@ -189,7 +201,7 @@ const homeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
 
 const checkView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
   h.main(
-    [],
+    [h.Id(MAIN_ID)],
     [
       h.h1([sx(h, local.hero)], ["Check a page"]),
       h.p(
@@ -207,7 +219,7 @@ const checkView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
 
 const notFoundView = (h: HtmlBuilder<AppMessage>): Html =>
   h.main(
-    [],
+    [h.Id(MAIN_ID)],
     [
       h.h1([], ["Page not found"]),
       h.p([], [h.a([h.Href(homeRouter())], ["Back to the start"])]),
@@ -228,16 +240,6 @@ const routeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
     Scan: ({ slug }) => reportView(model, slug, h),
   });
 
-export const pathOf = (route: AppRouteState): string =>
-  AppRoute.match<string>(route, {
-    Check: () => checkRouter({}),
-    Guide: ({ guideId }) => guideRouter({ guideId }),
-    Home: () => homeRouter(),
-    NotFound: ({ path }) => path,
-    Report: ({ slug }) => reportRouter({ slug }),
-    Scan: ({ scanId, slug }) => scanRouter({ scanId, slug }),
-  });
-
 export const view = (
   model: AppModel,
   h: HtmlBuilder<AppMessage>
@@ -248,6 +250,7 @@ export const view = (
       h.header(
         [],
         [
+          h.a([h.Href(`#${MAIN_ID}`), sx(h, local.skip)], ["Skip to content"]),
           h.nav(
             [sx(h, local.nav), h.AriaLabel("Site")],
             [

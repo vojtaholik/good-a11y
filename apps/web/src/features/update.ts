@@ -1,31 +1,43 @@
 import { ContactMessageSchema, fixPromptFor } from "@good-a11y/core/contracts";
 import type { ScanView } from "@good-a11y/core/contracts";
-import { Option, Schema } from "effect";
-import type { Runtime, Update } from "foldkit";
+import { Array, Number, Option, Schema } from "effect";
+import { Update } from "foldkit";
+import type { Runtime } from "foldkit";
 import { UrlRequest } from "foldkit/navigation";
 import { modifyFields } from "foldkit/struct";
 import { toString as urlToString } from "foldkit/url";
+import type { Url } from "foldkit/url";
 
 import {
   CopyText,
+  FocusFragment,
+  FocusMainHeading,
   GetScan,
   LoadExternal,
   Navigate,
   SendMessage,
   StartScan,
 } from "../client/commands.js";
+import { Message } from "../client/message.js";
+import type { AppMessage } from "../client/message.js";
 import {
   ContactField,
   ContactState,
   CopyState,
-  Message,
   ScanState,
   StartState,
 } from "../client/model.js";
-import type { AppFlags, AppMessage, AppModel } from "../client/model.js";
+import type { AppFlags, AppModel } from "../client/model.js";
 import { pollTarget } from "../client/polling.js";
 import type { ScanApi } from "../client/scan-api.js";
-import { AppRoute, parseRoute, reportSlugOf, scanRouter } from "./route.js";
+import {
+  AppRoute,
+  isSameRoute,
+  parseRoute,
+  pathOf,
+  reportSlugOf,
+  scanRouter,
+} from "./route.js";
 import type { AppRouteState } from "./route.js";
 
 type AppUpdate = Update.Return<AppModel, AppMessage, ScanApi>;
@@ -39,7 +51,7 @@ const isSettled = (view: ScanView): boolean =>
 const scanStateOf = (view: ScanView) =>
   isSettled(view) ? ScanState.Settled({ view }) : ScanState.Running({ view });
 
-const readScan = (model: AppModel, view: ScanView): AppUpdate =>
+const receiveScanView = (model: AppModel, view: ScanView): AppUpdate =>
   Schema.is(ScanState.Settled)(model.scan)
     ? { model }
     : { model: modifyFields(model, { scan: () => scanStateOf(view) }) };
@@ -66,6 +78,14 @@ const isValidContactField = {
   message: Schema.is(ContactMessageSchema.fields.message),
 };
 
+const withContactState = (
+  model: AppModel,
+  state: typeof ContactState.Type
+): AppModel =>
+  modifyFields(model, {
+    contact: (contact) => modifyFields(contact, { state: () => state }),
+  });
+
 const submitContact = (model: AppModel, url: string): AppUpdate => {
   const { contact } = model;
 
@@ -79,49 +99,41 @@ const submitContact = (model: AppModel, url: string): AppUpdate => {
     name: contact.name.trim(),
   };
 
-  const fields = ContactField.literals.filter(
+  const invalidFields = ContactField.literals.filter(
     (field) => !isValidContactField[field](typed[field])
   );
 
-  if (fields.length > 0) {
-    return {
-      model: modifyFields(model, {
-        contact: () => ({
-          ...contact,
-          state: ContactState.Invalid({ fields }),
+  return Array.match(invalidFields, {
+    onEmpty: () => ({
+      commands: [
+        SendMessage({
+          email: typed.email,
+          maybeName:
+            typed.name === "" ? Option.none() : Option.some(typed.name),
+          message: typed.message,
+          url,
         }),
-      }),
-    };
-  }
-
-  return {
-    commands: [
-      SendMessage({
-        email: typed.email,
-        maybeName: typed.name === "" ? Option.none() : Option.some(typed.name),
-        message: typed.message,
-        url,
-      }),
-    ],
-    model: modifyFields(model, {
-      contact: () => ({ ...contact, state: ContactState.Sending() }),
+      ],
+      model: withContactState(model, ContactState.Sending()),
     }),
-  };
+    onNonEmpty: (fields) => ({
+      model: withContactState(model, ContactState.Invalid({ fields })),
+    }),
+  });
 };
 
 const editContact = (
   model: AppModel,
-  field: "email" | "message" | "name",
-  value: string
+  edit: (contact: AppModel["contact"]) => AppModel["contact"]
 ): AppUpdate => ({
   model: modifyFields(model, {
-    contact: (contact) => ({
-      ...contact,
-      [field]: value,
-      state: Schema.is(ContactState.Sending)(contact.state)
-        ? contact.state
-        : ContactState.Editing(),
-    }),
+    contact: (contact) =>
+      modifyFields(edit(contact), {
+        state: (state) =>
+          Schema.is(ContactState.Sending)(state)
+            ? state
+            : ContactState.Editing(),
+      }),
   }),
 });
 
@@ -130,30 +142,54 @@ const enterRoute = (
   route: AppRouteState,
   maybeView: Option.Option<ScanView> = Option.none()
 ): AppUpdate => {
-  const generation = model.generation + 1;
   const maybeSlug = reportSlugOf(route);
 
-  const entered: AppModel = {
-    ...model,
-    copy: CopyState.Idle(),
-    generation,
-    route,
-    scan: Option.isNone(maybeSlug)
-      ? ScanState.Idle()
-      : Option.match(maybeView, {
-          onNone: () => ScanState.Loading(),
-          onSome: scanStateOf,
-        }),
-    start: StartState.Idle(),
-    url:
+  const entered = modifyFields(model, {
+    copy: () => CopyState.Idle(),
+    generation: Number.increment,
+    route: () => route,
+    scan: () =>
+      Option.isNone(maybeSlug)
+        ? ScanState.Idle()
+        : Option.match(maybeView, {
+            onNone: () => ScanState.Loading(),
+            onSome: scanStateOf,
+          }),
+    start: () => StartState.Idle(),
+    url: (url) =>
       Schema.is(AppRoute.Check)(route) && route.url !== undefined
         ? route.url
-        : model.url,
-  };
+        : url,
+  });
 
   return Option.isSome(maybeSlug) && !Schema.is(ScanState.Settled)(entered.scan)
     ? { commands: [getScanOf(entered, maybeSlug.value)], model: entered }
     : { model: entered };
+};
+
+const focusOn =
+  (focus: NonNullable<AppUpdate["commands"]>[number]) =>
+  (model: AppModel): AppUpdate => ({ commands: [focus], model });
+
+const changeUrl = (model: AppModel, url: Url): AppUpdate => {
+  const route = parseRoute(url);
+
+  return Option.match(url.hash, {
+    onNone: () =>
+      pathOf(route) === pathOf(model.route)
+        ? enterRoute(model, route)
+        : Update.combine(model, [
+            (stepModel) => enterRoute(stepModel, route),
+            focusOn(FocusMainHeading()),
+          ]),
+    onSome: (id) =>
+      isSameRoute(route, model.route)
+        ? focusOn(FocusFragment({ id }))(model)
+        : Update.combine(model, [
+            (stepModel) => enterRoute(stepModel, route),
+            focusOn(FocusFragment({ id })),
+          ]),
+  });
 };
 
 const submitScan = (model: AppModel): AppUpdate => {
@@ -204,20 +240,23 @@ export const init: Runtime.RoutingApplicationInit<
   );
 
 const copyFixPrompt = (model: AppModel, key: string): AppUpdate => {
-  const report = Schema.is(ScanState.Settled)(model.scan)
-    ? model.scan.view.report
-    : null;
+  const maybeText = Schema.is(ScanState.Settled)(model.scan)
+    ? Option.fromNullishOr(model.scan.view.report).pipe(
+        Option.flatMap((report) =>
+          Option.fromNullishOr(fixPromptFor(report, key))
+        )
+      )
+    : Option.none();
 
-  const text = report === null ? null : fixPromptFor(report, key);
-
-  return text === null
-    ? { model }
-    : { commands: [CopyText({ key, text })], model };
+  return Option.match(maybeText, {
+    onNone: () => ({ model }),
+    onSome: (text) => ({ commands: [CopyText({ key, text })], model }),
+  });
 };
 
 export const update = (model: AppModel, message: AppMessage): AppUpdate =>
   Message.match<AppUpdate>(message, {
-    ChangedUrl: ({ url }) => enterRoute(model, parseRoute(url)),
+    ChangedUrl: ({ url }) => changeUrl(model, url),
     ClickedCopyFixPrompt: ({ key }) => copyFixPrompt(model, key),
     ClickedLink: ({ request }) =>
       UrlRequest.match<AppUpdate>(request, {
@@ -227,6 +266,8 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
           model,
         }),
       }),
+    CompletedFocusFragment: () => ({ model }),
+    CompletedFocusMainHeading: () => ({ model }),
     CompletedLoadExternal: () => ({ model }),
     CompletedNavigate: () => ({ model }),
     FailedCopyFixPrompt: ({ key, text }) => ({
@@ -234,26 +275,24 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
         copy: () => CopyState.Failed({ key, text }),
       }),
     }),
-    FailedGetScan: ({ generation, unknown }) =>
+    FailedGetScan: ({ generation, isUnknownScan }) =>
       generation === model.generation &&
       !Schema.is(ScanState.Settled)(model.scan)
         ? {
             model: modifyFields(model, {
               scan: () =>
-                unknown ? ScanState.Unknown() : ScanState.Unavailable(),
+                isUnknownScan ? ScanState.Unknown() : ScanState.Unavailable(),
             }),
           }
         : { model },
     FailedSendMessage: ({ maybeMessage }) => ({
-      model: modifyFields(model, {
-        contact: (contact) => ({
-          ...contact,
-          state: Option.match(maybeMessage, {
-            onNone: () => ContactState.Unavailable(),
-            onSome: (refusal) => ContactState.Refused({ message: refusal }),
-          }),
-        }),
-      }),
+      model: withContactState(
+        model,
+        Option.match(maybeMessage, {
+          onNone: () => ContactState.Unavailable(),
+          onSome: (refusal) => ContactState.Refused({ message: refusal }),
+        })
+      ),
     }),
     FailedStartScan: ({ generation, maybeMessage }) =>
       generation === model.generation
@@ -273,14 +312,16 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
       model: modifyFields(model, { copy: () => CopyState.Copied({ key }) }),
     }),
     SucceededGetScan: ({ generation, view }) =>
-      generation === model.generation ? readScan(model, view) : { model },
+      generation === model.generation
+        ? receiveScanView(model, view)
+        : { model },
     SucceededSendMessage: () => ({
       model: modifyFields(model, {
-        contact: (contact) => ({
-          ...contact,
-          message: "",
-          state: ContactState.Sent(),
-        }),
+        contact: (contact) =>
+          modifyFields(contact, {
+            message: () => "",
+            state: () => ContactState.Sent(),
+          }),
       }),
     }),
     SucceededStartScan: ({ generation, scanId, slug }) =>
@@ -295,9 +336,18 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
         onNone: () => ({ model }),
         onSome: (slug) => ({ commands: [getScanOf(model, slug)], model }),
       }),
-    UpdatedContactEmail: ({ value }) => editContact(model, "email", value),
-    UpdatedContactMessage: ({ value }) => editContact(model, "message", value),
-    UpdatedContactName: ({ value }) => editContact(model, "name", value),
+    UpdatedContactEmail: ({ value }) =>
+      editContact(model, (contact) =>
+        modifyFields(contact, { email: () => value })
+      ),
+    UpdatedContactMessage: ({ value }) =>
+      editContact(model, (contact) =>
+        modifyFields(contact, { message: () => value })
+      ),
+    UpdatedContactName: ({ value }) =>
+      editContact(model, (contact) =>
+        modifyFields(contact, { name: () => value })
+      ),
     UpdatedScanUrl: ({ value }) => ({
       model: modifyFields(model, {
         start: (start) =>

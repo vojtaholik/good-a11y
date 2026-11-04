@@ -15,7 +15,7 @@ export interface PageMeta {
 const HOME_DESCRIPTION =
   "Accessibility guides for coding agents, each with a live demo, and a checker that finds accessibility issues on one page.";
 
-const CHECK_DESCRIPTION =
+export const CHECK_DESCRIPTION =
   "Check one web page for accessibility issues: static HTML checks and axe-core in a real browser, each issue with its WCAG success criterion and a guide to fix it.";
 
 export const pageMetaOf = (route: AppRouteState): PageMeta =>

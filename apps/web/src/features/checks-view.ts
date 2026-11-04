@@ -8,7 +8,7 @@ import type { ScCoverageRow } from "@good-a11y/core/contracts";
 import * as stylex from "@stylexjs/stylex";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
-import type { AppMessage } from "../client/model.js";
+import type { AppMessage } from "../client/message.js";
 import { sx } from "./sx.js";
 
 const MUTED = "#4a5160";

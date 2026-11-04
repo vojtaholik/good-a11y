@@ -10,5 +10,9 @@ const stylexPlugin: Plugin = stylex();
 export default defineConfig({
   define: { __BUILD_ID__: JSON.stringify("test") },
   plugins: [{ ...stylexPlugin, configureServer: undefined }, guidePages()],
-  test: { environment: "node", include: ["test/**/*.test.ts"] },
+  test: {
+    environment: "node",
+    include: ["test/**/*.test.ts"],
+    setupFiles: ["test/vitest-setup.ts"],
+  },
 });

@@ -1,12 +1,10 @@
 import { MAX_MESSAGE_LENGTH } from "@good-a11y/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
-import { ContactState, Message } from "../client/model.js";
-import type {
-  AppMessage,
-  AppModel,
-  ContactFieldName,
-} from "../client/model.js";
+import { Message } from "../client/message.js";
+import type { AppMessage } from "../client/message.js";
+import { ContactState } from "../client/model.js";
+import type { AppModel, ContactFieldName } from "../client/model.js";
 import { styles } from "./styles.js";
 import { sx } from "./sx.js";
 
@@ -75,6 +73,7 @@ export const contactView = (
         h.Autocomplete("email"),
         h.Value(model.contact.email),
         h.AriaDescribedBy("contact-email-problem"),
+        h.AriaInvalid(problemOf(model, "email") !== ""),
         h.OnInput((value) => Message.UpdatedContactEmail({ value })),
         sx(h, styles.input),
       ]),
@@ -86,6 +85,7 @@ export const contactView = (
         h.Rows(5),
         h.Value(model.contact.message),
         h.AriaDescribedBy("contact-message-problem"),
+        h.AriaInvalid(problemOf(model, "message") !== ""),
         h.OnInput((value) => Message.UpdatedContactMessage({ value })),
         sx(h, styles.input),
       ]),

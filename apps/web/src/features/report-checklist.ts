@@ -14,7 +14,7 @@ import type {
 import * as stylex from "@stylexjs/stylex";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
-import type { AppMessage } from "../client/model.js";
+import type { AppMessage } from "../client/message.js";
 import { report as styles } from "./report-styles.js";
 import { checkRouter } from "./route.js";
 import { sx } from "./sx.js";

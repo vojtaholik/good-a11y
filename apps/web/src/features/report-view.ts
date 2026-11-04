@@ -9,9 +9,11 @@ import {
 import type { Finding, Report, Sourced } from "@good-a11y/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
+import type { AppMessage } from "../client/message.js";
 import { ScanState } from "../client/model.js";
-import type { AppMessage, AppModel } from "../client/model.js";
+import type { AppModel } from "../client/model.js";
 import { contactView } from "./contact-view.js";
+import { MAIN_ID } from "./landmarks.js";
 import { checklistSection } from "./report-checklist.js";
 import { issuesSection } from "./report-issues.js";
 import { judgedSection } from "./report-judged.js";
@@ -228,7 +230,7 @@ export const reportView = (
   h: HtmlBuilder<AppMessage>
 ): Html =>
   h.main(
-    [],
+    [h.Id(MAIN_ID)],
     [
       h.h1([], [`Report for ${slug}`]),
       ...ScanState.match<Html[]>(model.scan, {

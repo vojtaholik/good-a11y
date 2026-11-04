@@ -13,7 +13,11 @@ import { Array, Option } from "effect";
 
 import { RETRIEVE, demoPath } from "../features/guide-view.js";
 import { categoryName, guidesByCategory } from "../features/guides.js";
-import { pageMetaOf, SITE_NAME } from "../features/page-meta.js";
+import {
+  CHECK_DESCRIPTION,
+  pageMetaOf,
+  SITE_NAME,
+} from "../features/page-meta.js";
 import { AppRoute, guideRouter } from "../features/route.js";
 import type { AppRouteState } from "../features/route.js";
 import { CLI, SKILL_PATH } from "../features/view.js";
@@ -83,7 +87,7 @@ export const guideMarkdown = (guide: Guide, origin: string): string[] => [
 const checkMarkdown = (): string[] => [
   "# Check a page",
   "",
-  pageMetaOf(AppRoute.Check({})).description,
+  CHECK_DESCRIPTION,
   "",
   `Check a page on your own machine, localhost included: \`${CLI} check localhost:5173\`. It runs the same checks in your own Chrome and prints the issues worst first, each with the guide that fixes it.`,
   "",

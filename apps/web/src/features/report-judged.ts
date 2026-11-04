@@ -2,7 +2,7 @@ import { percent, sectionObservations } from "@good-a11y/core/contracts";
 import type { Observation, Report } from "@good-a11y/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
-import type { AppMessage } from "../client/model.js";
+import type { AppMessage } from "../client/message.js";
 import { judged as judgedStyles } from "./judged-styles.js";
 import { referenceList } from "./report-references.js";
 import { report as styles } from "./report-styles.js";
