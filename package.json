@@ -7,6 +7,10 @@
   "bin": {
     "good-a11y": "apps/good-a11y/bundle/good-a11y.mjs"
   },
+  "files": [
+    "apps/good-a11y/bundle",
+    "skills/good-a11y"
+  ],
   "type": "module",
   "scripts": {
     "build": "turbo run build",
