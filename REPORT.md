@@ -24,6 +24,8 @@ State at 08:50 CET on 2026-11-04, all on `main`, CI green, deployed to stage dev
 
 - Stage `dev` (non-production, workers.dev), Alchemy stack `GoodA11y` since 2026-11-04: https://gooda11y-website-dev-s2azigohuevma2wl.vojtaholik.workers.dev (canary: https://gooda11y-canary-dev-hrahc5q6lporawvt.vojtaholik.workers.dev). Checked end to end on 2026-11-04 10:33: a gov.uk scan published with the rendered and judged steps run. The old `EaaCheck` dev stack (https://eaacheck-website-dev-x6ihepvlvg74r7cg.vojtaholik.workers.dev) is still up until it is destroyed. At first deploy the Alchemy plan was 5 creates, 0 updates or deletes (Website Worker, Scanner Worker, ScanWorkflow, D1 ScanDatabase, migrations). A scan runs through the XState machine inside the Cloudflare Workflow and the page shows the report.
 
+- Stage `prod`: https://good-a11y.com (www redirects to the apex), deployed 2026-11-04 from 71703de by the lead; future prod deploys are run or approved by Vojta. is-agentic 97/100 on the domain (13:19 UTC); still failing are Organization schema completeness (needs a real contact point and address) and trust pages (About, Contact, Privacy, which the design work adds; Contact stays hidden by decision 2).
+
 ## Facts ledger coverage
 
 All 485 facts verified by a second agent against their primary source (0 open rejects). 27 of 27 member states researched.
@@ -87,6 +89,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 ## Log
 
 Times are CET, from the machine clock.
+
+- 14:25 (11-04) Prod live on https://good-a11y.com. is-agentic 97 on the domain; brand search now passes; Organization schema and trust pages remain.
 
 - 13:32 (11-04) Eval round 1 final (`docs/evals.md`). Guides ship for both agents: form-errors-validation, skip-link-landmarks, menu-button, image-alt, status-messages-toast; Claude only: tabs, focus-visible; Codex only: combobox-autocomplete, disclosure-accordion, spa-route-change. Not needed (both pass unguided): reduced-motion, custom-select, dialog-modal, icon-buttons, required-and-hints. Codex was re-run clean after its first runs read the user's personal skills. Three weak results were grader or task bugs (fixed); toast and image-alt guides fixed (Claude guided 1/6 to 6/6 and 3/6 to 6/6). Retrieval was 94/95 (Claude) and 90/90 (Codex) once the transcript reader followed shell variables. Codex keeps an explicit requested toast time over the guide, so the toast prompts no longer name one; re-run, toast guided is 6/6 for both (unguided Claude 3/6, Codex 0/6).
 
