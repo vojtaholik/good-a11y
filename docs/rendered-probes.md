@@ -58,6 +58,14 @@ The same session also collects evidence that only a model can judge. It is not a
 
 ### Submitting forms without sending anything
 
+**Off by default (R2-M1, 2026-11-04).** No shown check reads the empty submits, so the scanner skips them and `emptySubmits` is `null`. They run only when the scanner Worker is deployed with `EMPTY_SUBMITS=true` (declared in `.env.schema`, read at deploy by `emptySubmitsSetting` in `apps/scanner/src/browser-limits.ts`, then by the render step). To turn them on for a 3.3.1/3.3.3 calibration run on stage dev:
+
+```sh
+EMPTY_SUBMITS=true pnpm exec varlock run -- pnpm --filter @eaa-check/infra exec alchemy deploy --stage dev --yes --no-input
+```
+
+Run the scans, archive their `rendered-evidence.json`, and deploy again without the variable to turn them off. While they are on, every dev scan of a page with forms submits up to three of them, under the blocking below.
+
 The empty submits run last, after axe, the tab walk and target size, and only when the page is still where it landed. Two things hold for the whole session, from the first document on: `Navigator.prototype.serviceWorker` is deleted, so the page cannot register a service worker or reach one (a worker's own fetches are outside page interception and offline mode; R2-H1), and `window.open` returns nothing. Before the first submit the session:
 
 1. turns on the Fetch domain on the browser target (`browser.target().createCDPSession()`, `Fetch.enable` with the pattern `*`), which pauses every request of every target, popups and workers included. A paused navigation (`resourceType` `Document`) is answered with a local 204, which Chrome treats as "stay on the current page"; every other request is failed with `BlockedByClient`. It stays on until the browser closes;

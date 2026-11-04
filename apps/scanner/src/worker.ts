@@ -7,7 +7,9 @@ import { RpcSerialization, RpcServer } from "effect/rpc";
 
 import {
   DAILY_BROWSER_SECONDS_NAME,
+  EMPTY_SUBMITS_NAME,
   dailyBrowserSeconds,
+  emptySubmitsSetting,
 } from "./browser-limits.js";
 import {
   CallerMiddleware,
@@ -31,6 +33,7 @@ export default class Scanner extends Cloudflare.Workers.RpcWorker<Scanner>()(
     env: {
       [DAILY_BROWSER_SECONDS_NAME]: dailyBrowserSeconds,
       [DAILY_JUDGE_TOKENS_NAME]: dailyJudgeTokens,
+      [EMPTY_SUBMITS_NAME]: emptySubmitsSetting,
     },
     main: import.meta.url,
     observability: { enabled: true },

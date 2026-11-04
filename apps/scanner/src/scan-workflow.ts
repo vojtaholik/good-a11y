@@ -60,7 +60,11 @@ import {
   Schema,
 } from "effect";
 
-import { DAILY_BROWSER_SECONDS_NAME, secondsUsed } from "./browser-limits.js";
+import {
+  DAILY_BROWSER_SECONDS_NAME,
+  EMPTY_SUBMITS_NAME,
+  secondsUsed,
+} from "./browser-limits.js";
 import {
   EvidenceArchive,
   axeEvidenceKey,
@@ -199,10 +203,16 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
         // oxlint-disable-next-line typescript/no-unsafe-type-assertion, anti-slop/no-chained-type-assertions -- One runtime binding typed by two libraries with different Request and Blob types; no shape check is possible across them.
         const worker = binding as unknown as BrowserWorker;
 
+        const emptySubmits = yield* Config.Boolean(EMPTY_SUBMITS_NAME).pipe(
+          Config.withDefault(false)
+        );
+
         const outcome: RenderedOutcome = yield* RenderedAudit.use((auditor) =>
           auditor.audit(vetted.success)
         ).pipe(
-          Effect.provide(browserRenderedAuditLayer(worker, onClose)),
+          Effect.provide(
+            browserRenderedAuditLayer(worker, { emptySubmits }, onClose)
+          ),
           Effect.matchEffect({
             onFailure: (failure) =>
               Effect.logWarning(

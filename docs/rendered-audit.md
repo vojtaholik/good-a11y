@@ -37,7 +37,7 @@ The statement now says automated checks find only issues "visible to the checker
 
 ## Adapter (`packages/browser-audit`)
 
-- `browserRenderedAuditLayer(env.BROWSER)` provides `RenderedAudit`.
+- `browserRenderedAuditLayer(env.BROWSER, { emptySubmits })` provides `RenderedAudit`.
 - One `launch` per audit, viewport 1280×800, user agent `SCANNER_USER_AGENT`.
 - `goto` waits for `load`, with a 30 s navigation timeout, then a fixed 2 s settle.
 - axe-core is evaluated from its own `axe.source`, then `axe.run(document, { runOnly: tags, resultTypes: ["violations"] })`. `resultTypes` keeps one node per non-violation rule, which keeps the JSON small.

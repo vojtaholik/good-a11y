@@ -132,7 +132,14 @@ export const walkState = (keys: readonly number[], candidates: number) => {
   };
 };
 
-export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
+export interface SessionOptions {
+  readonly emptySubmits: boolean;
+}
+
+export const puppeteerSession = (
+  binding: BrowserWorker,
+  options: SessionOptions
+): LaunchSession =>
   Effect.gen(function* launchPuppeteer() {
     const browser = yield* step(
       "browser",
@@ -565,9 +572,10 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
           return { forms, submissions };
         });
 
-        const emptySubmits = stayed
-          ? yield* optionalWithin(SUBMIT_TIMEOUT, submitAll)
-          : null;
+        const emptySubmits =
+          options.emptySubmits && stayed
+            ? yield* optionalWithin(SUBMIT_TIMEOUT, submitAll)
+            : null;
 
         return JSON.stringify({
           evidence: {

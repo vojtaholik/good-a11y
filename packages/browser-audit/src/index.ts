@@ -2,6 +2,7 @@ import type { BrowserWorker } from "@cloudflare/puppeteer";
 
 import type { OnClose } from "./browser-session.js";
 import { puppeteerSession } from "./puppeteer-session.js";
+import type { SessionOptions } from "./puppeteer-session.js";
 import { renderedAuditLayer } from "./rendered-audit.js";
 
 export type {
@@ -20,6 +21,8 @@ export {
   renderedAuditWith,
 } from "./rendered-audit.js";
 
+export type { SessionOptions } from "./puppeteer-session.js";
+
 export {
   KEEP_ALIVE_MS,
   NAVIGATION_TIMEOUT_MS,
@@ -29,5 +32,6 @@ export {
 
 export const browserRenderedAuditLayer = (
   binding: BrowserWorker,
+  options: SessionOptions,
   onClose?: OnClose
-) => renderedAuditLayer(puppeteerSession(binding), onClose);
+) => renderedAuditLayer(puppeteerSession(binding, options), onClose);
