@@ -117,7 +117,8 @@
       rect.width > 1 &&
       rect.height > 1 &&
       style.visibility !== "hidden" &&
-      Number(style.opacity) > 0
+      Number(style.opacity) > 0 &&
+      element.checkVisibility()
     );
   };
 

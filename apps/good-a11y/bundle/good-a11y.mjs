@@ -339,7 +339,8 @@ ${r}`},Ast=e=>e.checked===null?`${e.failing} failing`:`${e.failing} of ${e.check
         return (rect.width > 1 &&
             rect.height > 1 &&
             style.visibility !== "hidden" &&
-            Number(style.opacity) > 0);
+            Number(style.opacity) > 0 &&
+            element.checkVisibility());
     };
     const outside = (rect, box) => rect.right <= box.left ||
         rect.left >= box.right ||

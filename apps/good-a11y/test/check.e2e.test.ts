@@ -29,7 +29,14 @@ const pageServer = Effect.acquireRelease(
         hits.push(name);
       }
 
-      if (!["broken.html", "clean.html", "form.html"].includes(name)) {
+      if (
+        ![
+          "broken.html",
+          "clean.html",
+          "form.html",
+          "hidden-content.html",
+        ].includes(name)
+      ) {
         response.writeHead(404).end();
 
         return;
@@ -147,6 +154,34 @@ describe("good-a11y check", () => {
         expect(hits).toStrictEqual([]);
         expect(markdown.stdout).toContain("`error-identified`");
         expect(markdown.stdout).toContain("Wrong.");
+      }).pipe(Effect.scoped)
+  );
+
+  it.live(
+    "reports a link Tab never reaches, but not links in closed details, hidden=until-found or content-visibility: hidden",
+    () =>
+      Effect.gen(function* checksHiddenContent() {
+        const port = yield* pageServer;
+
+        const run = yield* runBundle([
+          "check",
+          `localhost:${port}/hidden-content.html`,
+        ]);
+
+        const [, keyboardReach = ""] = run.stdout.split(
+          "Controls the Tab key never reaches `axe:keyboard-reach`"
+        );
+
+        const [section = ""] = keyboardReach.split("\n### ");
+
+        expect(run.status).toBe(0);
+        expect(section).toContain("1 failing element");
+        expect(section).toContain(
+          '> <a href="/contact" tabindex="-1">Contact the shop</a>'
+        );
+        expect(section).not.toContain("/holidays");
+        expect(section).not.toContain("/repairs");
+        expect(section).not.toContain("/rentals");
       }).pipe(Effect.scoped)
   );
 
