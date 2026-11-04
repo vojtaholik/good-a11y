@@ -214,6 +214,7 @@ export const llmsTxt = (origin: string): string =>
     "",
     `- [good-a11y skill](${origin}${SKILL_PATH}): triggers and the search, retrieve, build and check loop`,
     `- [Check a page](${origin}/check): what the checker tests, per WCAG success criterion`,
+    `- [About](${origin}${aboutRouter()}): who makes good-a11y and how the guides are tested`,
     `- [Privacy](${origin}${privacyRouter()}): what the checker stores and for how long`,
     "",
     "## Guides",

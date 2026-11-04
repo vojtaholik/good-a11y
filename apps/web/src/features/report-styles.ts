@@ -178,7 +178,7 @@ export const report = stylex.create({
     flexDirection: "column",
     gap: "40px",
     marginInline: "auto",
-    maxInlineSize: "1280px",
+    maxInlineSize: layout["--page"],
     paddingBlock: "clamp(32px, 4cqi, 64px) clamp(48px, 6cqi, 96px)",
     paddingInline: layout["--gutter"],
   },

@@ -17,9 +17,9 @@ Built 2026-11-04 by check for decision 11 of the good-a11y brief. `apps/web` is 
 | `/skills/good-a11y/references/<id>.md` | none | The guide, as the guide page's Markdown |
 | `/sitemap.xml`, `/robots.txt` | none | `/`, `/check`, `/about`, `/privacy` and every guide; robots allows all and names the sitemap |
 
-Unknown paths and unknown guides answer 404 in both forms.
+Unknown paths and unknown guides answer 404 in both forms. Reports carry `robots: noindex` and `cache-control: no-store`; the other pages are cached for five minutes.
 
-About and Privacy are proposals for Vojta, written 2026-11-04 by check. Privacy states what the code stores: the scan row in D1 (address, report with failing samples, the caller key: the IPv4 address or the IPv6 /64, used for the per-site daily cap) with no expiry, so "until the report is removed"; the evidence in R2, deleted after 30 days by the bucket's lifecycle rule; the scanner's Workers Logs; the judged step's page text sent to Cloudflare Clef. Contact messages are left out while `CONTACT_SHOWN` is off. Removal is by a public GitHub issue, since the site has no contact channel. About names Vojta as maker and makes no claim about screen-reader testing. Change either when the facts change. Reports carry `robots: noindex` and `cache-control: no-store`; the other pages are cached for five minutes.
+About and Privacy are proposals for Vojta, written 2026-11-04 by check. Privacy states what the code stores: the scan row in D1 (address, report with failing samples) with no expiry, so "until the report is removed"; the caller key, the IPv4 address or the IPv6 /64 the per-site daily cap reads, is blanked by the first check started 24 hours or more after it (2e8875b); the evidence in R2, deleted after 30 days by the bucket's lifecycle rule; the scanner's Workers Logs; the judged step's page text sent to Cloudflare Clef. Contact messages are left out while `CONTACT_SHOWN` is off. Removal is by a public GitHub issue, since the site has no contact channel. About names Vojta as maker and makes no claim about screen-reader testing. Change either when the facts change.
 
 ## How a request is answered
 

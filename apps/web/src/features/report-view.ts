@@ -3,6 +3,7 @@ import {
   METHOD_NAMES,
   verdictDetail,
   isTested,
+  issueGroupsOf,
   quietChecksOf,
   quietSummary,
 } from "@good-a11y/core/contracts";
@@ -131,6 +132,20 @@ const metaRow = (
   h.dd([sx(h, local.metaValue, isMono ? local.mono : null)], [...value]),
 ];
 
+const issuesCounted = (count: number): string =>
+  `${count} ${count === 1 ? "issue" : "issues"}`;
+
+const issueCountLine = (report: Report): string => {
+  const { benchmark, newer } = issueGroupsOf(report);
+
+  const more =
+    newer.length === 0 ? "" : ` ${newer.length} more against WCAG 2.2.`;
+
+  return benchmark.length === 0
+    ? `No issues on this page against WCAG 2.1 Level A and AA.${more}`
+    : `${issuesCounted(benchmark.length)} on this page against WCAG 2.1 Level A and AA, worst first.${more}`;
+};
+
 const topView = (
   report: Report,
   slug: string,
@@ -174,8 +189,9 @@ const topView = (
           ...(report.coverage === null
             ? []
             : [
+                h.p([sx(h, local.headline)], [issueCountLine(report)]),
                 h.p(
-                  [sx(h, local.headline)],
+                  [sx(h, local.text)],
                   [
                     `${report.coverage.text} `,
                     h.a(

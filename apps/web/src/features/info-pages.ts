@@ -109,7 +109,7 @@ export const PRIVACY: InfoPage = {
             [
               "Your IP address, for the daily limit",
               "Each address may check one site a limited number of times a day. For IPv6 we keep only the first 64 bits.",
-              "Until the report is removed",
+              "About 24 hours: removed by the first check started after 24 hours have passed",
             ],
           ],
         }),
@@ -133,7 +133,7 @@ export const PRIVACY: InfoPage = {
       blocks: [
         Blocks.Link({
           before:
-            "To remove a report, with its evidence and the IP address stored with it, open an issue with the report's address. Issues are public, so leave out anything personal. Open one on",
+            "To remove a report and its evidence, open an issue with the report's address. Issues are public, so leave out anything personal. Open one on",
           href: ISSUES_URL,
           label: "GitHub issues",
         }),
