@@ -10,10 +10,11 @@ import type { Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/message.js";
 import { sx } from "./sx.js";
+import { colors } from "./tokens.stylex.js";
 
-const MUTED = "#4a5160";
+const MUTED = colors["--ink-muted"];
 
-const RULE = "#d5d9e2";
+const RULE = colors["--line"];
 
 const local = stylex.create({
   cell: {

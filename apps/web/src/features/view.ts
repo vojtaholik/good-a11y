@@ -21,6 +21,7 @@ import {
 } from "./route.js";
 import { styles } from "./styles.js";
 import { sx } from "./sx.js";
+import { colors, size } from "./tokens.stylex.js";
 
 export const CLI = "npx -y github:vojtaholik/good-a11y";
 
@@ -28,7 +29,7 @@ export const SKILL_PATH = "/skills/good-a11y/SKILL.md";
 
 const local = stylex.create({
   agents: {
-    backgroundColor: "var(--code-bg)",
+    backgroundColor: colors["--sunken"],
     borderRadius: "0.375rem",
     marginBlock: "1.5rem 0",
     paddingBlock: "0.75rem",
@@ -41,7 +42,7 @@ const local = stylex.create({
     textDecoration: "none",
   },
   category: {
-    color: "var(--muted)",
+    color: colors["--ink-muted"],
     fontSize: "0.875rem",
     fontWeight: 600,
     letterSpacing: "0.02em",
@@ -54,13 +55,13 @@ const local = stylex.create({
     overflowWrap: "anywhere",
   },
   guide: {
-    borderBlockStartColor: "var(--rule)",
+    borderBlockStartColor: colors["--line"],
     borderBlockStartStyle: "solid",
     borderBlockStartWidth: "1px",
     paddingBlock: "0.75rem",
   },
   guideDescription: {
-    color: "var(--muted)",
+    color: colors["--ink-muted"],
     display: "block",
   },
   guideName: {
@@ -73,7 +74,7 @@ const local = stylex.create({
     padding: 0,
   },
   hero: {
-    fontSize: "var(--text-hero)",
+    fontSize: size["--size-display"],
     lineHeight: 1.15,
     marginBlock: "0 0.75rem",
   },
@@ -85,7 +86,7 @@ const local = stylex.create({
     marginBlockEnd: "2.5rem",
   },
   skip: {
-    backgroundColor: "var(--code-bg)",
+    backgroundColor: colors["--sunken"],
     borderRadius: "0.375rem",
     insetBlockStart: "0.5rem",
     insetInlineStart: "0.5rem",

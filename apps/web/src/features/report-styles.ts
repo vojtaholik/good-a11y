@@ -1,5 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
+import { font } from "./tokens.stylex.js";
+
 const INK = "oklch(0.24 0.03 265)";
 
 const MUTED = "oklch(0.47 0.02 265)";
@@ -103,7 +105,7 @@ export const report = stylex.create({
     margin: 0,
   },
   prompt: {
-    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+    fontFamily: font["--font-code"],
     fontSize: "0.8125rem",
     marginBlock: "0.5rem 0",
     maxBlockSize: "20rem",
@@ -129,7 +131,7 @@ export const report = stylex.create({
     backgroundColor: TINT,
     borderRadius: "0.25rem",
     display: "block",
-    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+    fontFamily: font["--font-code"],
     fontSize: "0.8125rem",
     overflowWrap: "anywhere",
     paddingBlock: "0.25rem",

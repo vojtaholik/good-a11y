@@ -1,33 +1,35 @@
 import * as stylex from "@stylexjs/stylex";
 
+import { colors, font } from "./tokens.stylex.js";
+
 export const styles = stylex.create({
   button: {
-    backgroundColor: "#1d3b8b",
-    borderColor: "#1d3b8b",
+    backgroundColor: colors["--accent"],
+    borderColor: colors["--accent"],
     borderRadius: "0.25rem",
     borderStyle: "solid",
     borderWidth: "1px",
-    color: "#fff",
+    color: colors["--on-accent"],
     cursor: "pointer",
     font: "inherit",
     paddingBlock: "0.5rem",
     paddingInline: "1rem",
   },
   contact: {
-    backgroundColor: "#f3f5fa",
+    backgroundColor: colors["--sunken"],
     borderRadius: "0.5rem",
     marginBlockStart: "2rem",
     padding: "1rem",
   },
   finding: {
-    borderBlockStartColor: "#d5d9e2",
+    borderBlockStartColor: colors["--line"],
     borderBlockStartStyle: "solid",
     borderBlockStartWidth: "1px",
     paddingBlock: "1rem",
   },
   flag: {
     blockSize: "0.75rem",
-    borderColor: "#d5d9e2",
+    borderColor: colors["--line"],
     borderStyle: "solid",
     borderWidth: "1px",
     inlineSize: "1rem",
@@ -47,8 +49,8 @@ export const styles = stylex.create({
     padding: "0.5rem",
   },
   page: {
-    color: "#1b1f29",
-    fontFamily: "system-ui, sans-serif",
+    color: colors["--ink"],
+    fontFamily: font["--font-text"],
     lineHeight: 1.5,
     marginInline: "auto",
     maxInlineSize: "46rem",
@@ -66,8 +68,8 @@ export const styles = stylex.create({
     whiteSpace: "nowrap",
   },
   statement: {
-    backgroundColor: "#fff7e0",
-    borderInlineStartColor: "#b88a00",
+    backgroundColor: colors["--notice-soft"],
+    borderInlineStartColor: colors["--notice"],
     borderInlineStartStyle: "solid",
     borderInlineStartWidth: "4px",
     paddingBlock: "0.75rem",

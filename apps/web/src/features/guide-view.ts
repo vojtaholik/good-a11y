@@ -9,6 +9,7 @@ import { categoryName } from "./guides.js";
 import type { GuidePage } from "./guides.js";
 import { MAIN_ID } from "./landmarks.js";
 import { sx } from "./sx.js";
+import { colors } from "./tokens.stylex.js";
 
 export const RETRIEVE = "npx -y github:vojtaholik/good-a11y retrieve";
 
@@ -16,7 +17,7 @@ export const demoPath = (id: string): string => `/guides/${id}/demo.html`;
 
 const local = stylex.create({
   agents: {
-    backgroundColor: "var(--code-bg)",
+    backgroundColor: colors["--sunken"],
     borderRadius: "0.375rem",
     marginBlock: "1.5rem",
     paddingBlock: "0.75rem",
@@ -33,7 +34,7 @@ const local = stylex.create({
   },
   demo: {
     blockSize: "28rem",
-    borderColor: "var(--rule)",
+    borderColor: colors["--line"],
     borderRadius: "0.375rem",
     borderStyle: "solid",
     borderWidth: "1px",
@@ -41,7 +42,7 @@ const local = stylex.create({
     resize: "vertical",
   },
   eyebrow: {
-    color: "var(--muted)",
+    color: colors["--ink-muted"],
     fontSize: "0.875rem",
     marginBlock: "0 0.25rem",
   },

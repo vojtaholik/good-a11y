@@ -33,3 +33,4 @@ env.d.ts
 evals/results/**
 !evals/results/**/
 !evals/results/**/summary.md
+design/
