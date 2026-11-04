@@ -443,10 +443,6 @@ export const puppeteerSession = (
             ? null
             : yield* read("__eaaEvidence.foreignBlocks()");
 
-        const textSpacing = yield* optional(
-          evaluate("__eaaProbes.textSpacing()")
-        );
-
         const reflow = yield* optional(
           step("audit", page.setViewport.bind(page, REFLOW_VIEWPORT)).pipe(
             Effect.andThen(Effect.sleep(REFLOW_SETTLE)),
@@ -586,7 +582,6 @@ export const puppeteerSession = (
           },
           reflow,
           targetSize: Result.getOrNull(decodeText(targetSize)),
-          textSpacing,
           walk: walked,
         });
       }).pipe(

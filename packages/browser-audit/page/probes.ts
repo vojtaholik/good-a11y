@@ -1,7 +1,6 @@
 /* oxlint-disable unicorn/consistent-function-scoping -- This script is evaluated in the scanned page; one block keeps every name out of the page's global scope. */
 {
   const MAX_SNIPPET = 200;
-  const MAX_TEXT = 120;
   const MAX_ELEMENTS = 4000;
   const SAMPLE_LIMIT = 5;
   const MAX_DEEP_ELEMENTS = 20_000;
@@ -59,8 +58,6 @@
     "treegrid",
   ]);
 
-  const CLIPPING = new Set(["clip", "hidden"]);
-
   const CLIPS_ON_X = new Set(["auto", "clip", "hidden", "scroll"]);
 
   const NO_PAINT = new Set(["", "none"]);
@@ -70,15 +67,6 @@
     "outline-color",
     "outline-offset",
   ]);
-
-  const SPACING_CSS = [
-    "*, *::before, *::after {",
-    "line-height: 1.5 !important;",
-    "letter-spacing: 0.12em !important;",
-    "word-spacing: 0.16em !important;",
-    "}",
-    "p { margin-bottom: 2em !important; }",
-  ].join("\n");
 
   const NO_TRANSITIONS_CSS =
     "*, *::before, *::after { transition: none !important; }";
@@ -105,12 +93,6 @@
 
   const snippetOf = (element: Element): string =>
     element.outerHTML.slice(0, MAX_SNIPPET);
-
-  const textOf = (element: Element): string =>
-    (element.textContent ?? "")
-      .replaceAll(/\s+/gu, " ")
-      .trim()
-      .slice(0, MAX_TEXT);
 
   const addStyle = (
     css: string,
@@ -359,17 +341,6 @@
           obscuredBy: snippetOf(cover),
         };
 
-  const clipped = (element: Element): boolean => {
-    const style = getComputedStyle(element);
-
-    return (
-      (CLIPPING.has(style.overflowX) &&
-        element.scrollWidth > element.clientWidth + 1) ||
-      (CLIPPING.has(style.overflowY) &&
-        element.scrollHeight > element.clientHeight + 1)
-    );
-  };
-
   const before = new Map<Element, readonly string[]>();
   const candidates: Candidate[] = [];
   const keys = new Map<Element, number>();
@@ -566,36 +537,6 @@
     };
   };
 
-  const textSpacing = () => {
-    const containers = allElements().filter((element) => {
-      const style = getComputedStyle(element);
-
-      return (
-        (CLIPPING.has(style.overflowX) || CLIPPING.has(style.overflowY)) &&
-        textOf(element) !== "" &&
-        isRendered(element)
-      );
-    });
-
-    const clippedBefore = new Set(containers.filter(clipped));
-    const style = addStyle(SPACING_CSS);
-
-    const newlyClipped = containers.filter(
-      (element) => !clippedBefore.has(element) && clipped(element)
-    );
-
-    style.remove();
-
-    return {
-      checked: containers.length,
-      newlyClipped: newlyClipped.slice(0, SAMPLE_LIMIT).map((element) => ({
-        snippet: snippetOf(element),
-        text: textOf(element),
-      })),
-      newlyClippedCount: newlyClipped.length,
-    };
-  };
-
   const walkStart = (): number => {
     walkStyle.push(addStyle(NO_TRANSITIONS_CSS));
 
@@ -732,7 +673,6 @@
     __eaaProbes: {
       markComponents,
       reflow,
-      textSpacing,
       walkEnd,
       walkStart,
       walkStops,
