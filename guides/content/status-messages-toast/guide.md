@@ -41,7 +41,31 @@ Clearing and setting after a short delay makes the same message announce again w
 
 ## The second rule agents break: a toast that leaves too soon
 
-An auto-dismissing toast stays on screen for at least 6000 ms (more than 5 seconds), even when the request asks for less, such as "disappears after 4 seconds". Use 6000 ms and tell the user why in your reply: people who read slowly, magnify the screen or look away lose a message that leaves sooner. This is the one place to override the requested number.
+An auto-dismissing toast, snackbar or "copied" message stays on screen for at least 6000 ms (more than 5 seconds), even when the request asks for less, such as "disappears after 4 seconds". Use 6000 ms and tell the user why in your reply: people who read slowly, magnify the screen or look away lose a message that leaves sooner. This is the one place to override the requested number.
+
+The timer also stops while the pointer is over the message or focus is inside it, and starts again when both leave. A fade-out counts as leaving: start it only when the timer runs out. In plain JavaScript:
+
+```js
+const TOAST_MS = 6000;
+let timer;
+
+function startTimer() {
+  clearTimeout(timer);
+  timer = setTimeout(() => toast.classList.remove("is-visible"), TOAST_MS);
+}
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("is-visible");
+  announce(message);
+  startTimer();
+}
+
+toast.addEventListener("mouseenter", () => clearTimeout(timer));
+toast.addEventListener("mouseleave", startTimer);
+toast.addEventListener("focusin", () => clearTimeout(timer));
+toast.addEventListener("focusout", startTimer);
+```
 
 ## Polite or assertive
 
