@@ -3,9 +3,14 @@ import { entryOf } from "./catalogue.js";
 import type { FindingReference } from "./finding-reference.js";
 import type { Report } from "./report.js";
 
+export interface EmptyByMethod {
+  readonly rendered: ReadonlySet<string> | null;
+  readonly served: ReadonlySet<string> | null;
+}
+
 export interface Decided {
   readonly decided: ReadonlySet<string>;
-  readonly empty: ReadonlySet<string>;
+  readonly empty: EmptyByMethod;
   readonly undecided: ReadonlySet<string>;
 }
 
@@ -51,24 +56,40 @@ export const decidedOf = (report: Report): Decided => {
     ...(rendered?.inapplicable ?? []),
   ]);
 
-  const empty = new Set(
-    [
-      ...served.flatMap((finding) =>
-        finding.status === "not_applicable"
-          ? (entryOf(finding.id)?.criteria ?? [])
-          : []
-      ),
-      ...ruleCriteria(rendered?.inapplicable ?? []),
-      ...(rendered?.probes ?? []).flatMap((probe) =>
-        probe.status === "not_applicable" ? [probe.criterion] : []
-      ),
-    ].filter((number) => !decided.has(number))
-  );
+  const undecidedOnly = (numbers: readonly string[]): ReadonlySet<string> =>
+    new Set(numbers.filter((number) => !decided.has(number)));
+
+  const empty: EmptyByMethod = {
+    rendered:
+      rendered === null
+        ? null
+        : undecidedOnly([
+            ...ruleCriteria(rendered.inapplicable),
+            ...rendered.probes.flatMap((probe) =>
+              probe.status === "not_applicable" ? [probe.criterion] : []
+            ),
+          ]),
+    served:
+      report.outcome === "checked"
+        ? undecidedOnly(
+            served.flatMap((finding) =>
+              finding.status === "not_applicable"
+                ? (entryOf(finding.id)?.criteria ?? [])
+                : []
+            )
+          )
+        : null,
+  };
+
+  const anyEmpty = new Set([
+    ...(empty.served ?? []),
+    ...(empty.rendered ?? []),
+  ]);
 
   const undecided = new Set(
     ruleCriteria(
       (rendered?.rules ?? []).filter((rule) => !settled.has(rule))
-    ).filter((number) => !decided.has(number) && !empty.has(number))
+    ).filter((number) => !decided.has(number) && !anyEmpty.has(number))
   );
 
   return { decided, empty, undecided };

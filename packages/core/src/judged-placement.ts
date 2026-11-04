@@ -42,7 +42,7 @@ export const sellsLine = (report: Report): string | null => {
 export const ECOMMERCE_DEFINITION_FACT = "EU-DEF-1";
 
 export const NOT_SELLING_LEAD =
-  "The EAA's e-commerce rules cover services provided with a view to concluding a consumer contract, so they may not apply to this site.";
+  "If the model is right, the EAA's e-commerce rules may not apply to this site: they cover services provided with a view to concluding a consumer contract.";
 
 export const notSellingBasis = (report: Report): Sourced | null => {
   const [note] = placedObservation(report, "sells-to-consumers")?.notes ?? [];

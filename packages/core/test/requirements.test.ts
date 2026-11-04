@@ -11,6 +11,7 @@ import {
   requirementsOf,
   tallyText,
   withJudged,
+  withRendered,
 } from "../src/index.js";
 import type {
   FetchResult,
@@ -67,6 +68,15 @@ const PAGE: FetchResult = {
 
 const report = judgePage(PAGE, { read: () => EVIDENCE }, AT);
 
+const inapplicableRule = (id: string, tags: readonly string[]) => ({
+  help: id,
+  helpUrl: `https://dequeuniversity.com/rules/axe/4.14/${id}`,
+  id,
+  impact: null,
+  nodes: [],
+  tags,
+});
+
 const statusOf = (
   scanned: Report,
   key: string
@@ -122,9 +132,33 @@ describe("the requirement checklist", () => {
     expect(statusOf(report, "2.3.1")).toBe("needs_person");
   });
 
-  it("says nothing to check, not no failure found, for a criterion whose checks found no item, and counts it as left for a person", () => {
-    expect(statusOf(report, "2.2.1")).toBe("nothing_to_check");
-    expect(statusOf(report, "2.4.4")).toBe("nothing_to_check");
+  it("says not checked, never nothing to check, when the static check found no item but the rendered page was not checked", () => {
+    expect(statusOf(report, "2.4.4")).toBe("not_checked");
+  });
+
+  it("says nothing to check only when every method that tests the criterion ran and found no item", () => {
+    const rendered = withRendered(report, {
+      ran: {
+        axe: JSON.stringify({
+          inapplicable: [
+            inapplicableRule("link-name", ["wcag2a", "wcag244", "wcag412"]),
+          ],
+          incomplete: [],
+          passes: [],
+          testEngine: { name: "axe-core", version: "4.14.0" },
+          violations: [],
+        }),
+        headers: {},
+        html: "<html><body>Shop</body></html>",
+        probes: null,
+        status: 200,
+      },
+    });
+
+    expect(statusOf(rendered, "2.4.4")).toBe("nothing_to_check");
+  });
+
+  it("counts only failures and no failure found as covered", () => {
     expect(report.coverage?.criteria).toBe(
       requirementsOf(report).filter(
         (row) =>

@@ -6,7 +6,7 @@ Decisions 25 and 26 in the brief. Owner: builder-core. Code: `packages/core/src/
 
 The headline of a tested report says one of two things.
 
-- **A Level A or AA check fails:** "This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found N failures." Backed by `STD-WCAG21-3` (WCAG 2.1, 5.2.1: Level AA conformance needs every Level A and AA criterion satisfied). The CLI prints the fact ID after the headline; the page links its source under the headline.
+- **A Level A or AA check fails:** "This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found N failing criteria." N counts WCAG 2.1 criteria, so it matches the checklist's "N fail"; one issue can fail several criteria (a link with no name fails 2.4.4 and 4.1.2). The line under it starts with the issue split: "2 issues below fail WCAG 2.1 Level A or AA and 2 are against the newer WCAG 2.2." (navlacil.cz read "2 failures" over 4 issues and "3 fail") Backed by `STD-WCAG21-3` (WCAG 2.1, 5.2.1: Level AA conformance needs every Level A and AA criterion satisfied). The CLI prints the fact ID after the headline; the page links its source under the headline.
 - **No such failure:** "Automated checks found no failures against WCAG 2.1 Level AA. That is not a pass: K of 50 criteria still need a person."
 
 Both headlines are two short sentences (lead review of the gov.uk screenshot). The line under either one gives the split: "Of the 50 WCAG 2.1 Level A and AA success criteria, M were not checked automatically on this scan and N only in part, so a person needs to review those K." plus "4.1.1 Parsing is always met by HTML." when that applies. Checklist tallies say "need a person" and "fail" for counts other than one.
@@ -37,14 +37,15 @@ Status of a WCAG row, first match wins:
 1. **Fails**: an issue on this report (static or rendered) references the criterion.
 2. **Judged by a model**: a shown judged observation relates to it and noted something.
 3. **No failure found**: a deterministic check for it ran on this scan (a static check when the served HTML was checked; an axe rule or probe when the rendered page ran).
-4. **Judged by a model**: a shown observation relates to it and noted nothing.
-5. **Not checked on this scan**: the criterion has an automated test, but it did not run (for example the rendered check was skipped).
-6. **Needs a person**: no automated test exists; the `/checks` note says why.
+4. **Nothing to check on this page**: every method that tests the criterion ran and found nothing to test: the static check was not applicable and, when the criterion has a rendered test, axe found the rule inapplicable or the probe not applicable. One method that did not run (a refused page, a skipped rendered step) makes the row "Not checked on this scan" instead (review R2-M3: a script-built page with no `<img>` in its served HTML is not a page with nothing to check).
+5. **Judged by a model**: a shown observation relates to it and noted nothing.
+6. **Not checked on this scan**: the criterion has an automated test, but it did not run (for example the rendered check was skipped).
+7. **Needs a person**: no automated test exists; the `/checks` note says why.
 
 EAA rows are "Needs a person" unless a judged question covers them (decisions 27, 29). Placement of builder-judge's observations (`packages/core/src/judged-placement.ts`):
 
-- **statement-annex-v** sets the three Annex V rows (Art. 13 and Annex V, point 1(a) to 1(c)) to "Judged by a model" when the model read a statement. Under each row: "the model judged this point missing from the statement (confidence N%)" when it noted the item `statement_N`, else "the model found this point in the statement, or was not sure". With no statement read, the rows stay "Needs a person".
-- **sells-to-consumers** is one line beside the state list: the model's answer (`SELLS` or `DOES_NOT_SELL`) with its confidence, labelled as not used for the list. The states come only from verified facts. When the answer is `DOES_NOT_SELL`, one more line says the EAA's e-commerce rules cover services provided with a view to concluding a consumer contract, so they may not apply to this site, linked to the definition in Art. 3(30) (`EU-DEF-1`). The lead's message cited EU-DEF-2, which is the microenterprise definition; EU-DEF-1 holds the quoted words.
+- **statement-annex-v** sets an Annex V row (Art. 13 and Annex V, point 1(a) to 1(c)) to "Judged by a model" only when the model judged that point missing (it noted the item `statement_N`), with "the model judged this point missing from the statement (confidence N%)". A point it found, or could not tell, leaves the row at "Needs a person": the observation does not tell those two apart, and merging them misled (verifier S2).
+- **sells-to-consumers** is one line beside the state list: the model's answer (`SELLS` or `DOES_NOT_SELL`) with its confidence, labelled as not used for the list. The states come only from verified facts. When the answer is `DOES_NOT_SELL`, one more line, tied to the judgement (verifier S1): "If the model is right, the EAA's e-commerce rules may not apply to this site: they cover services provided with a view to concluding a consumer contract.", linked to the definition in Art. 3(30) (`EU-DEF-1`). The lead's message cited EU-DEF-2, which is the microenterprise definition; EU-DEF-1 holds the quoted words.
 - Both are left out of the judged section; the other shown observations stay there. IV (g)(i) stays "Needs a person" (below).
 
 A judged status is never "Fails": model output stays out of the deterministic result.

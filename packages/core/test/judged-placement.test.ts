@@ -109,22 +109,23 @@ describe("placing judged observations", () => {
     expect(notSellingBasis(notSelling)?.factId).toBe("EU-DEF-1");
     expect(notSelling.applicability).toEqual(checked.applicability);
     expect(formatReport(notSelling)).toContain(
-      "with a view to concluding a consumer contract, so they may not apply to this site."
+      "If the model is right, the EAA's e-commerce rules may not apply to this site"
     );
     expect(formatReport(notSelling)).toContain("(EU-DEF-1)");
   });
 
-  it("marks each Annex V row as judged, saying which point the model found missing", () => {
+  it("marks only the Annex V points the model judged missing, and leaves the others with a person", () => {
     const rows = statementRows(report);
 
-    expect(rows.length).toBeGreaterThan(0);
-    expect(rows.every((row) => row.status === "judged")).toBe(true);
+    expect(rows.map((row) => [row.key, row.status])).toEqual([
+      ["statement-1", "needs_person"],
+      ["statement-2", "judged"],
+      ["statement-3", "needs_person"],
+    ]);
     expect(rows.find((row) => row.key === "statement-2")?.judged).toBe(
       "Judged by a model, not counted: the model judged this point missing from the statement (confidence 88%)"
     );
-    expect(rows.find((row) => row.key === "statement-1")?.judged).toContain(
-      "found this point in the statement, or was not sure"
-    );
+    expect(rows.find((row) => row.key === "statement-1")?.judged).toBeNull();
   });
 
   it("leaves the Annex V rows with a person when no statement was read", () => {

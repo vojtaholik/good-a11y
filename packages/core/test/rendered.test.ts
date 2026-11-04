@@ -208,8 +208,9 @@ describe("withRendered", () => {
     expect(report.coverage?.criteria).toBeGreaterThan(STATIC_COVERAGE.criteria);
     expect(report.coverage?.text).toContain("static HTML + rendered page");
     expect(report.headline).toBe(
-      "This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found 6 failures."
+      `This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found ${report.verdict?.failingCriteria} failing criteria.`
     );
+    expect(report.verdict?.failingCriteria).toBeGreaterThan(1);
     expect(formatReport(report)).toContain("[axe:color-contrast]");
   });
 
@@ -359,8 +360,9 @@ describe("withRendered", () => {
 
     expect(report.outcome).toBe("refused");
     expect(report.headline).toBe(
-      "This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found 6 failures."
+      `This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found ${report.verdict?.failingCriteria} failing criteria.`
     );
+    expect(report.verdict?.failingCriteria).toBeGreaterThan(1);
     expect(report.coverage?.method).toBe("rendered_page");
     expect(report.outcomeDetail).toContain(REFUSED_THEN_RENDERED);
     expect(formatReport(report)).toContain("Where the EAA applies");

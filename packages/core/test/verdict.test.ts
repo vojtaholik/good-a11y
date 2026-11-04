@@ -15,7 +15,18 @@ const FACT: Sourced = {
   text: "Level AA conformance requires every Level A and AA success criterion to be satisfied",
 };
 
-const issue = (level: Issue["level"], newer = false): Issue => ({
+const wcag = (number: string) => ({
+  factId: `STD-SC-${number}`,
+  kind: "wcag" as const,
+  source: "",
+  text: "",
+});
+
+const issue = (
+  level: Issue["level"],
+  newer = false,
+  criteria: readonly string[] = []
+): Issue => ({
   checked: null,
   failing: 2,
   howToFix: null,
@@ -23,7 +34,7 @@ const issue = (level: Issue["level"], newer = false): Issue => ({
   level,
   references: newer
     ? [{ factId: "STD-SC22-2.5.8", kind: "wcag-newer", source: "", text: "" }]
-    : [],
+    : criteria.map(wcag),
   samples: [],
   sources: ["rendered"],
   title: "An issue",
@@ -33,15 +44,21 @@ const issue = (level: Issue["level"], newer = false): Issue => ({
 describe("the verdict", () => {
   it("says the page does not meet WCAG 2.1 Level AA when a Level A or AA check fails, citing the conformance fact", () => {
     const verdict = verdictFrom(
-      [issue("A"), issue("AA")],
+      [
+        issue("A", false, ["2.4.4", "4.1.2"]),
+        issue("AA", false, ["1.4.3"]),
+        issue(null, true),
+      ],
       STATIC_COVERAGE,
       FACT
     );
 
     expect(verdict.kind).toBe("fails");
-    expect(verdict.failures).toBe(2);
     expect(verdictText(verdict)).toBe(
-      "This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found 2 failures."
+      "This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found 3 failing criteria."
+    );
+    expect(verdictDetail(verdict)).toMatch(
+      /^2 issues below fail WCAG 2\.1 Level A or AA and 1 is against the newer WCAG 2\.2\. Of the 50 /u
     );
   });
 

@@ -112,6 +112,23 @@ const deterministic = (
   return decided.decided.has(row.number) ? "no_failure" : null;
 };
 
+const foundNothingEverywhere = (
+  row: ScCoverageRow,
+  { empty }: Decided
+): boolean => {
+  const methods = row.tests.filter((test) => test.method !== "model");
+
+  return (
+    methods.length > 0 &&
+    methods.every(
+      (test) =>
+        (test.method === "served_html" ? empty.served : empty.rendered)?.has(
+          row.number
+        ) ?? false
+    )
+  );
+};
+
 const fallback = (
   row: ScCoverageRow,
   { decided }: ScanResults
@@ -120,7 +137,7 @@ const fallback = (
     return "always_met";
   }
 
-  if (decided.empty.has(row.number)) {
+  if (foundNothingEverywhere(row, decided)) {
     return "nothing_to_check";
   }
 
@@ -137,7 +154,7 @@ const judgedLine = (observations: readonly Observation[]): string | null =>
     : `${JUDGED_PREFIX} ${observations
         .map(
           (observation) =>
-            `${observation.title}: noted for ${observation.noted} of ${observation.asked}`
+            `${observation.title}: ${observation.noted === 0 ? "none" : observation.noted} of ${observation.asked} noted`
         )
         .join("; ")}`;
 
@@ -261,11 +278,13 @@ const statementRow = (
     (item) => item.item === `statement_${row.key.replace("statement-", "")}`
   );
 
-  return {
-    ...row,
-    judged: `${JUDGED_PREFIX} ${note === undefined ? "the model found this point in the statement, or was not sure" : `the model judged this point missing from the statement (confidence ${percent(note.confidence)})`}`,
-    status: "judged",
-  };
+  return note === undefined
+    ? row
+    : {
+        ...row,
+        judged: `${JUDGED_PREFIX} the model judged this point missing from the statement (confidence ${percent(note.confidence)})`,
+        status: "judged",
+      };
 };
 
 export const requirementsFrom = (

@@ -599,7 +599,8 @@ const statementAnnexV: JudgedCheck = {
   decide: notedWhereNo(NOTE_AT["statement-annex-v"]),
   id: "statement-annex-v",
   shown: true,
-  title: "Points of Annex V the accessibility statement may leave out",
+  title:
+    "Points of Annex V the model judged missing from the accessibility statement",
 };
 
 export const JUDGED_CHECKS: readonly JudgedCheck[] = [
