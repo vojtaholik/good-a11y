@@ -133,3 +133,15 @@ Checked and fine:
 - Fix: two texts, "the model found this point in the statement" and "the model could not tell", or show only the found and missing cases and leave the row at "Needs a person" otherwise.
 
 No other defects. No "compliant" wording; every legal line traces to a verified fact.
+
+## S1/S2 re-check (d510085, 2026-11-04, about 08:05 CET)
+
+Stored report on dev, no new scan (builder-cloud asked for a hold on third-party scans): navlacil.cz, scan `mw1rf9cz-0rso4d5k`, static + rendered + crawl + judged.
+
+- S1 fixed: "If the model is right, the EAA's e-commerce rules may not apply to this site: they cover services provided with a view to concluding a consumer contract." EU-DEF-1 is linked.
+- S2 fixed: Annex V rows are "Judged by a model" only when the model judged a point missing; otherwise "Needs a person" (navlacil.cz: 3 need a person).
+- New headline count is right: "Automated checks found 3 failing criteria" (1.4.3, 2.4.4, 4.1.2), which matches the checklist's "3 fail". The detail line "2 issues below fail WCAG 2.1 Level A or AA and 2 are against the newer WCAG 2.2" matches the 4 issues listed.
+- Still live: "39 elements failing. found in the rendered page" (lowercase after the full stop, on the 2.4.11 and 2.5.8 issues). `ce417ac` fixes this but was not deployed when I read the report. Check after the next deploy.
+- Note, not a text defect: the 1.4.3 samples are `<span class="word">` pieces of an animated heading, which axe may have read mid-animation. The verdict on this page also rests on the empty carousel links (`<a class="carousel-item__prev" href="#">` holding only an SVG, 2.4.4 and 4.1.2), which are real, so the headline holds.
+
+Audit 3: no open text defects once `ce417ac` is deployed.
