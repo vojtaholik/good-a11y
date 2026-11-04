@@ -14,9 +14,34 @@ const valueOf = async (page: Page): Promise<string> =>
       : (node.textContent?.trim() ?? "")
   );
 
+const typeAheadKey = async (page: Page): Promise<string> =>
+  await control(page).evaluate((node) => {
+    if (!(node instanceof HTMLSelectElement)) {
+      return "";
+    }
+
+    const current = node.selectedOptions[0]?.text.trim().charAt(0) ?? "";
+
+    const other = [...node.options].find(
+      (option) =>
+        !option.disabled &&
+        option.text.trim().charAt(0).toLowerCase() !== current.toLowerCase()
+    );
+
+    return other?.text.trim().charAt(0).toLowerCase() ?? "";
+  });
+
 const change = async (page: Page): Promise<string> => {
   const before = await valueOf(page);
+  const key = await typeAheadKey(page);
   await control(page).focus();
+
+  if (key !== "") {
+    await page.keyboard.press(key);
+
+    return before;
+  }
+
   await page.keyboard.press("ArrowDown");
 
   if ((await valueOf(page)) === before) {

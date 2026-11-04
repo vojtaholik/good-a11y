@@ -2,7 +2,8 @@
 import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
-import { open, textOf } from "./task.ts";
+import { accessibleName } from "./name.ts";
+import { open } from "./task.ts";
 
 const list = (page: Page) =>
   page.getByRole("tablist").filter({ visible: true }).first();
@@ -60,7 +61,7 @@ test("E5 the visible panel is named by its tab", async ({ page }) => {
   await tabs(page).first().focus();
   await page.keyboard.press("ArrowRight");
   await tabs(page).nth(1).press("Enter");
-  const name = await textOf(tabs(page).nth(1));
+  const name = await accessibleName(tabs(page).nth(1));
   const panels = page.getByRole("tabpanel").filter({ visible: true });
   await expect(panels).toHaveCount(1);
   await expect(panels).toHaveAccessibleName(name);

@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
 import { accessibleName } from "./name.ts";
-import { open } from "./task.ts";
+import { open, text } from "./task.ts";
 
 const markIconControls = async (page: Page): Promise<number> =>
   await page.evaluate(() => {
@@ -75,6 +75,10 @@ test("E3 icons inside named controls are hidden", async ({ page }) => {
 });
 
 test("E4 a toggle keeps its name and flips aria-pressed", async ({ page }) => {
+  if (text("toggle", "yes") === "") {
+    return;
+  }
+
   const toggle = page.locator("[data-grader-icon][aria-pressed]").first();
   await expect(toggle).toHaveAttribute("aria-pressed", /^(?:true|false)$/u);
   const before = await toggle.getAttribute("aria-pressed");

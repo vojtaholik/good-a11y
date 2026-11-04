@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
 import { accessibleName } from "./name.ts";
-import { open, target, textOf } from "./task.ts";
+import { open, target } from "./task.ts";
 
 const DIALOG = 'dialog[open], [role="dialog"], [role="alertdialog"]';
 
@@ -36,7 +36,7 @@ test("E1 the opener shows a dialog named by its heading", async ({ page }) => {
   const dialog = visibleDialogs(page).first();
 
   const named = {
-    heading: await textOf(
+    heading: await accessibleName(
       dialog.locator("h1, h2, h3, h4, h5, h6, [role=heading]").first()
     ),
     name: await accessibleName(dialog),

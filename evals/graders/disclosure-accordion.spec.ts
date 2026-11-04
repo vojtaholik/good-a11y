@@ -2,7 +2,8 @@
 import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
-import { open, target, textOf } from "./task.ts";
+import { accessibleName } from "./name.ts";
+import { open, target } from "./task.ts";
 import { focusedIsSeen } from "./visible.ts";
 
 const toggle = (page: Page) =>
@@ -49,7 +50,7 @@ test("E4 Tab from a closed toggle never lands on hidden content", async ({
 test("E5 the toggle sits inside a heading of the same name", async ({
   page,
 }) => {
-  const name = await textOf(toggle(page));
+  const name = await accessibleName(toggle(page));
 
   const heading = toggle(page).locator(
     "xpath=ancestor::*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6 or @role='heading']"

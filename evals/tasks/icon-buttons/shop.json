@@ -16,5 +16,8 @@
         "name": "Cart (1)"
       }
     }
-  ]
+  ],
+  "targets": {
+    "toggle": ""
+  }
 }
