@@ -1,0 +1,3670 @@
+{
+  "model": "@cf/cloudflare/clef",
+  "recorded": "2026-11-04",
+  "replies": [
+    {
+      "key": "link-purpose:www_amnesty_org",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.3332, "type": "noul" },
+          "link_10": { "noul": 0.7115, "type": "noul" },
+          "link_11": { "noul": 0.8571, "type": "noul" },
+          "link_12": { "noul": 0.8859, "type": "noul" },
+          "link_13": { "noul": 0.7139, "type": "noul" },
+          "link_14": { "noul": 0.841, "type": "noul" },
+          "link_2": { "noul": 0.6997, "type": "noul" },
+          "link_3": { "noul": 0.668, "type": "noul" },
+          "link_4": { "noul": 0.7964, "type": "noul" },
+          "link_5": { "noul": 0.6369, "type": "noul" },
+          "link_6": { "noul": 0.4283, "type": "noul" },
+          "link_7": { "noul": 0.0946, "type": "noul" },
+          "link_8": { "noul": 0.9036, "type": "noul" },
+          "link_9": { "noul": 0.8601, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1773, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_apotheka_lv",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.3836, "type": "noul" },
+          "link_10": { "noul": 0.7375, "type": "noul" },
+          "link_11": { "noul": 0.6797, "type": "noul" },
+          "link_12": { "noul": 0.1221, "type": "noul" },
+          "link_2": { "noul": 0.0507, "type": "noul" },
+          "link_3": { "noul": 0.2031, "type": "noul" },
+          "link_4": { "noul": 0.751, "type": "noul" },
+          "link_5": { "noul": 0.6782, "type": "noul" },
+          "link_6": { "noul": 0.0793, "type": "noul" },
+          "link_7": { "noul": 0.5654, "type": "noul" },
+          "link_8": { "noul": 0.0857, "type": "noul" },
+          "link_9": { "noul": 0.1757, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1601, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_bbc_co_uk",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.7472, "type": "noul" },
+          "link_10": { "noul": 0.8193, "type": "noul" },
+          "link_11": { "noul": 0.4972, "type": "noul" },
+          "link_12": { "noul": 0.3854, "type": "noul" },
+          "link_13": { "noul": 0.5887, "type": "noul" },
+          "link_14": { "noul": 0.3784, "type": "noul" },
+          "link_15": { "noul": 0.5357, "type": "noul" },
+          "link_16": { "noul": 0.5409, "type": "noul" },
+          "link_17": { "noul": 0.6542, "type": "noul" },
+          "link_18": { "noul": 0.6367, "type": "noul" },
+          "link_19": { "noul": 0.621, "type": "noul" },
+          "link_2": { "noul": 0.874, "type": "noul" },
+          "link_20": { "noul": 0.1839, "type": "noul" },
+          "link_3": { "noul": 0.8432, "type": "noul" },
+          "link_4": { "noul": 0.7111, "type": "noul" },
+          "link_5": { "noul": 0.7833, "type": "noul" },
+          "link_6": { "noul": 0.8126, "type": "noul" },
+          "link_7": { "noul": 0.729, "type": "noul" },
+          "link_8": { "noul": 0.625, "type": "noul" },
+          "link_9": { "noul": 0.1607, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 2548, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_bonprix_de",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.7424, "type": "noul" },
+          "link_10": { "noul": 0.3298, "type": "noul" },
+          "link_11": { "noul": 0.9153, "type": "noul" },
+          "link_12": { "noul": 0.9005, "type": "noul" },
+          "link_13": { "noul": 0.9039, "type": "noul" },
+          "link_14": { "noul": 0.8809, "type": "noul" },
+          "link_15": { "noul": 0.8937, "type": "noul" },
+          "link_16": { "noul": 0.8765, "type": "noul" },
+          "link_17": { "noul": 0.8321, "type": "noul" },
+          "link_2": { "noul": 0.8003, "type": "noul" },
+          "link_3": { "noul": 0.8781, "type": "noul" },
+          "link_4": { "noul": 0.7706, "type": "noul" },
+          "link_5": { "noul": 0.5037, "type": "noul" },
+          "link_6": { "noul": 0.8649, "type": "noul" },
+          "link_7": { "noul": 0.8421, "type": "noul" },
+          "link_8": { "noul": 0.8744, "type": "noul" },
+          "link_9": { "noul": 0.4887, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 2211, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_craigslist_org",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.1095, "type": "noul" },
+          "link_10": { "noul": 0.101, "type": "noul" },
+          "link_11": { "noul": 0.0873, "type": "noul" },
+          "link_12": { "noul": 0.1297, "type": "noul" },
+          "link_13": { "noul": 0.0843, "type": "noul" },
+          "link_14": { "noul": 0.0827, "type": "noul" },
+          "link_15": { "noul": 0.1349, "type": "noul" },
+          "link_16": { "noul": 0.0836, "type": "noul" },
+          "link_17": { "noul": 0.1171, "type": "noul" },
+          "link_18": { "noul": 0.0928, "type": "noul" },
+          "link_19": { "noul": 0.1128, "type": "noul" },
+          "link_2": { "noul": 0.109, "type": "noul" },
+          "link_20": { "noul": 0.0594, "type": "noul" },
+          "link_3": { "noul": 0.5901, "type": "noul" },
+          "link_4": { "noul": 0.7445, "type": "noul" },
+          "link_5": { "noul": 0.608, "type": "noul" },
+          "link_6": { "noul": 0.2415, "type": "noul" },
+          "link_7": { "noul": 0.7952, "type": "noul" },
+          "link_8": { "noul": 0.0655, "type": "noul" },
+          "link_9": { "noul": 0.0703, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 2510, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_czc_cz",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.1289, "type": "noul" },
+          "link_10": { "noul": 0.017, "type": "noul" },
+          "link_11": { "noul": 0.0205, "type": "noul" },
+          "link_12": { "noul": 0.0217, "type": "noul" },
+          "link_13": { "noul": 0.0305, "type": "noul" },
+          "link_14": { "noul": 0.0434, "type": "noul" },
+          "link_15": { "noul": 0.0125, "type": "noul" },
+          "link_16": { "noul": 0.0124, "type": "noul" },
+          "link_17": { "noul": 0.0209, "type": "noul" },
+          "link_18": { "noul": 0.0198, "type": "noul" },
+          "link_19": { "noul": 0.0185, "type": "noul" },
+          "link_2": { "noul": 0.0895, "type": "noul" },
+          "link_20": { "noul": 0.0213, "type": "noul" },
+          "link_3": { "noul": 0.706, "type": "noul" },
+          "link_4": { "noul": 0.737, "type": "noul" },
+          "link_5": { "noul": 0.4365, "type": "noul" },
+          "link_6": { "noul": 0.0244, "type": "noul" },
+          "link_7": { "noul": 0.3665, "type": "noul" },
+          "link_8": { "noul": 0.0121, "type": "noul" },
+          "link_9": { "noul": 0.0178, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 2959, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_datart_cz",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.6422, "type": "noul" },
+          "link_10": { "noul": 0.806, "type": "noul" },
+          "link_11": { "noul": 0.7607, "type": "noul" },
+          "link_12": { "noul": 0.8346, "type": "noul" },
+          "link_13": { "noul": 0.6625, "type": "noul" },
+          "link_14": { "noul": 0.1821, "type": "noul" },
+          "link_15": { "noul": 0.4192, "type": "noul" },
+          "link_16": { "noul": 0.2976, "type": "noul" },
+          "link_17": { "noul": 0.1963, "type": "noul" },
+          "link_18": { "noul": 0.4118, "type": "noul" },
+          "link_19": { "noul": 0.3755, "type": "noul" },
+          "link_2": { "noul": 0.6287, "type": "noul" },
+          "link_20": { "noul": 0.4225, "type": "noul" },
+          "link_3": { "noul": 0.851, "type": "noul" },
+          "link_4": { "noul": 0.7571, "type": "noul" },
+          "link_5": { "noul": 0.7609, "type": "noul" },
+          "link_6": { "noul": 0.5987, "type": "noul" },
+          "link_7": { "noul": 0.6557, "type": "noul" },
+          "link_8": { "noul": 0.6138, "type": "noul" },
+          "link_9": { "noul": 0.3395, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 2609, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_debian_org",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.7185, "type": "noul" },
+          "link_10": { "noul": 0.7788, "type": "noul" },
+          "link_2": { "noul": 0.7133, "type": "noul" },
+          "link_3": { "noul": 0.8247, "type": "noul" },
+          "link_4": { "noul": 0.0639, "type": "noul" },
+          "link_5": { "noul": 0.214, "type": "noul" },
+          "link_6": { "noul": 0.4447, "type": "noul" },
+          "link_7": { "noul": 0.8754, "type": "noul" },
+          "link_8": { "noul": 0.8658, "type": "noul" },
+          "link_9": { "noul": 0.8846, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1284, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_denik_cz",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.4434, "type": "noul" },
+          "link_10": { "noul": 0.7057, "type": "noul" },
+          "link_11": { "noul": 0.5322, "type": "noul" },
+          "link_12": { "noul": 0.2866, "type": "noul" },
+          "link_13": { "noul": 0.5183, "type": "noul" },
+          "link_14": { "noul": 0.8314, "type": "noul" },
+          "link_15": { "noul": 0.8771, "type": "noul" },
+          "link_16": { "noul": 0.5452, "type": "noul" },
+          "link_17": { "noul": 0.9146, "type": "noul" },
+          "link_18": { "noul": 0.0206, "type": "noul" },
+          "link_19": { "noul": 0.04, "type": "noul" },
+          "link_2": { "noul": 0.6626, "type": "noul" },
+          "link_20": { "noul": 0.7788, "type": "noul" },
+          "link_3": { "noul": 0.8007, "type": "noul" },
+          "link_4": { "noul": 0.8348, "type": "noul" },
+          "link_5": { "noul": 0.5641, "type": "noul" },
+          "link_6": { "noul": 0.7408, "type": "noul" },
+          "link_7": { "noul": 0.5395, "type": "noul" },
+          "link_8": { "noul": 0.7206, "type": "noul" },
+          "link_9": { "noul": 0.3562, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 2510, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_euronics_it",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.1402, "type": "noul" },
+          "link_10": { "noul": 0.835, "type": "noul" },
+          "link_11": { "noul": 0.0121, "type": "noul" },
+          "link_12": { "noul": 0.843, "type": "noul" },
+          "link_13": { "noul": 0.9303, "type": "noul" },
+          "link_2": { "noul": 0.4612, "type": "noul" },
+          "link_3": { "noul": 0.5227, "type": "noul" },
+          "link_4": { "noul": 0.3416, "type": "noul" },
+          "link_5": { "noul": 0.6747, "type": "noul" },
+          "link_6": { "noul": 0.5837, "type": "noul" },
+          "link_7": { "noul": 0.8491, "type": "noul" },
+          "link_8": { "noul": 0.8802, "type": "noul" },
+          "link_9": { "noul": 0.8791, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1951, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_mff_cuni_cz",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.6988, "type": "noul" },
+          "link_10": { "noul": 0.1939, "type": "noul" },
+          "link_11": { "noul": 0.7633, "type": "noul" },
+          "link_12": { "noul": 0.8631, "type": "noul" },
+          "link_13": { "noul": 0.8535, "type": "noul" },
+          "link_14": { "noul": 0.8839, "type": "noul" },
+          "link_15": { "noul": 0.8602, "type": "noul" },
+          "link_16": { "noul": 0.1875, "type": "noul" },
+          "link_17": { "noul": 0.5635, "type": "noul" },
+          "link_18": { "noul": 0.6877, "type": "noul" },
+          "link_19": { "noul": 0.7675, "type": "noul" },
+          "link_2": { "noul": 0.8032, "type": "noul" },
+          "link_20": { "noul": 0.8827, "type": "noul" },
+          "link_3": { "noul": 0.6092, "type": "noul" },
+          "link_4": { "noul": 0.76, "type": "noul" },
+          "link_5": { "noul": 0.7655, "type": "noul" },
+          "link_6": { "noul": 0.7097, "type": "noul" },
+          "link_7": { "noul": 0.505, "type": "noul" },
+          "link_8": { "noul": 0.8707, "type": "noul" },
+          "link_9": { "noul": 0.666, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 2525, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_mvcr_cz",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.6968, "type": "noul" },
+          "link_2": { "noul": 0.7183, "type": "noul" },
+          "link_3": { "noul": 0.4841, "type": "noul" },
+          "link_4": { "noul": 0.5752, "type": "noul" },
+          "link_5": { "noul": 0.1172, "type": "noul" },
+          "link_6": { "noul": 0.8425, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 854, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_martinus_sk",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.0229, "type": "noul" },
+          "link_10": { "noul": 0.5387, "type": "noul" },
+          "link_2": { "noul": 0.7535, "type": "noul" },
+          "link_3": { "noul": 0.805, "type": "noul" },
+          "link_4": { "noul": 0.7597, "type": "noul" },
+          "link_5": { "noul": 0.7722, "type": "noul" },
+          "link_6": { "noul": 0.3394, "type": "noul" },
+          "link_7": { "noul": 0.8375, "type": "noul" },
+          "link_8": { "noul": 0.8019, "type": "noul" },
+          "link_9": { "noul": 0.4781, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1319, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "link-purpose:www_idnes_cz",
+      "reply": {
+        "answers": {
+          "link_1": { "noul": 0.126, "type": "noul" },
+          "link_10": { "noul": 0.2394, "type": "noul" },
+          "link_11": { "noul": 0.3988, "type": "noul" },
+          "link_12": { "noul": 0.8226, "type": "noul" },
+          "link_13": { "noul": 0.7863, "type": "noul" },
+          "link_14": { "noul": 0.8045, "type": "noul" },
+          "link_15": { "noul": 0.726, "type": "noul" },
+          "link_16": { "noul": 0.453, "type": "noul" },
+          "link_17": { "noul": 0.6856, "type": "noul" },
+          "link_18": { "noul": 0.8703, "type": "noul" },
+          "link_19": { "noul": 0.6352, "type": "noul" },
+          "link_2": { "noul": 0.8825, "type": "noul" },
+          "link_20": { "noul": 0.5493, "type": "noul" },
+          "link_3": { "noul": 0.791, "type": "noul" },
+          "link_4": { "noul": 0.8717, "type": "noul" },
+          "link_5": { "noul": 0.5086, "type": "noul" },
+          "link_6": { "noul": 0.0096, "type": "noul" },
+          "link_7": { "noul": 0.7132, "type": "noul" },
+          "link_8": { "noul": 0.101, "type": "noul" },
+          "link_9": { "noul": 0.66, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 2586, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_ah_nl",
+      "reply": {
+        "answers": { "sells": { "noul": 0.7991, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 469, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_airbnb_com",
+      "reply": {
+        "answers": { "sells": { "noul": 0.7578, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 347, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_apotheka_lv",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9874, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 1003, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_bonprix_de",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9305, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 794, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_coolblue_nl",
+      "reply": {
+        "answers": { "sells": { "noul": 0.4285, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 282, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_czc_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9761, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 779, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_datart_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.98, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 816, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_emag_ro",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9841, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 654, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_empik_com",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9894, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 1209, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_euronics_it",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9813, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 857, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_footshop_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9696, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 667, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_ikea_com_cz_cs_",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9728, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 827, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_jumbo_com",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9825, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 733, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_jysk_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9651, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 719, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_knihydobrovsky_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9863, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 1160, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_lidl_de",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9277, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 577, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_martinus_sk",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9838, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 889, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_mironet_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9885, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 834, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_netflix_com",
+      "reply": {
+        "answers": { "sells": { "noul": 0.8157, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 526, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_o2_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.22, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 678, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_otto_de",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9418, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 567, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_pilulka_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.978, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 822, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_power_dk",
+      "reply": {
+        "answers": { "sells": { "noul": 0.2685, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 277, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_rohlik_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9666, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 708, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_sportisimo_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9871, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 709, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_spotify_com_cz_",
+      "reply": {
+        "answers": { "sells": { "noul": 0.2302, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 595, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_tchibo_de",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9826, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 574, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_thomann_de",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9831, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 664, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_unieuro_it",
+      "reply": {
+        "answers": { "sells": { "noul": 0.978, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 561, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_verkkokauppa_com",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9679, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 685, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_vinted_fr",
+      "reply": {
+        "answers": { "sells": { "noul": 0.6737, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 547, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_vodafone_de",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9596, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 655, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_zooplus_de",
+      "reply": {
+        "answers": { "sells": { "noul": 0.9866, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 551, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_ing_de",
+      "reply": {
+        "answers": { "sells": { "noul": 0.1988, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 596, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:en_wikipedia_org_wiki_Main_Page",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0061, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 502, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:european-union_europa_eu",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0061, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 337, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:info_cern_ch",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0061, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 301, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_amnesty_org",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0231, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 500, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_apache_org",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0388, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 487, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_arxiv_org",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0187, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 496, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_bbc_co_uk",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0146, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 561, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_berkshirehathaway_com",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0078, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 544, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_brno_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0067, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 627, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_bundesregierung_de",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0065, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 473, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_ceskatelevize_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0119, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 635, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_debian_org",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0064, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 566, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_ecb_europa_eu",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0371, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 474, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_eff_org",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0744, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 452, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_elysee_fr",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0264, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 542, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_gov_uk",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0088, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 472, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_kernel_org",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0057, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 717, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_mff_cuni_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0076, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 647, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_mit_edu",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0072, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 482, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_mozilla_org",
+      "reply": {
+        "answers": { "sells": { "noul": 0.012, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 512, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_mvcr_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0061, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 646, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_praha_eu",
+      "reply": {
+        "answers": { "sells": { "noul": 0.2429, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 693, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_python_org",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0115, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 584, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_rijksoverheid_nl",
+      "reply": {
+        "answers": { "sells": { "noul": 0.058, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 617, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_rozhlas_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0198, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 663, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_seznam_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.2175, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 676, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_spacejam_com_1996_",
+      "reply": {
+        "answers": { "sells": { "noul": 0.013, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 277, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_studio9_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0192, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 616, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_ted_com",
+      "reply": {
+        "answers": { "sells": { "noul": 0.037, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 493, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_un_org",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0069, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 340, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_uni-heidelberg_de",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0066, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 461, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_unicef_org",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0993, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 472, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_vut_cz",
+      "reply": {
+        "answers": { "sells": { "noul": 0.007, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 618, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_w3_org_WAI_",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0216, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 527, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_who_int",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0057, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 479, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_wien_gv_at",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0251, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 509, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "sells-to-consumers:www_wikimedia_org",
+      "reply": {
+        "answers": { "sells": { "noul": 0.0081, "type": "noul" } },
+        "model": "clef",
+        "usage": { "input_tokens": 454, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:en_wikipedia_org_wiki_Main_Page",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9347,
+            "probabilities": {
+              "bg": 0.0012,
+              "cs": 0.0012,
+              "da": 0.0013,
+              "de": 0.0015,
+              "el": 0.0014,
+              "en": 0.9681,
+              "es": 0.0017,
+              "et": 0.0017,
+              "fi": 0.0013,
+              "fr": 0.0015,
+              "ga": 0.001,
+              "hr": 0.0012,
+              "hu": 0.0012,
+              "it": 0.0014,
+              "lt": 0.0012,
+              "lv": 0.0013,
+              "mt": 0.0011,
+              "nl": 0.0013,
+              "other": 0.0018,
+              "pl": 0.0012,
+              "pt": 0.0012,
+              "ro": 0.0013,
+              "sk": 0.0011,
+              "sl": 0.0014,
+              "sv": 0.0014
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 772, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:european-union_europa_eu",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "other",
+            "confidence": 0.2566,
+            "probabilities": {
+              "bg": 0.0236,
+              "cs": 0.0122,
+              "da": 0.0078,
+              "de": 0.0276,
+              "el": 0.0111,
+              "en": 0.287,
+              "es": 0.0205,
+              "et": 0.0096,
+              "fi": 0.0076,
+              "fr": 0.0111,
+              "ga": 0.0084,
+              "hr": 0.0122,
+              "hu": 0.0067,
+              "it": 0.0094,
+              "lt": 0.0084,
+              "lv": 0.0063,
+              "mt": 0.0049,
+              "nl": 0.025,
+              "other": 0.4472,
+              "pl": 0.0125,
+              "pt": 0.0084,
+              "ro": 0.0056,
+              "sk": 0.0109,
+              "sl": 0.0061,
+              "sv": 0.0099
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 630, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_ah_nl",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "nl",
+            "confidence": 0.8541,
+            "probabilities": {
+              "bg": 0.0021,
+              "cs": 0.0027,
+              "da": 0.0127,
+              "de": 0.0048,
+              "el": 0.002,
+              "en": 0.0032,
+              "es": 0.0021,
+              "et": 0.0023,
+              "fi": 0.0024,
+              "fr": 0.0028,
+              "ga": 0.0015,
+              "hr": 0.0021,
+              "hu": 0.002,
+              "it": 0.0024,
+              "lt": 0.002,
+              "lv": 0.0024,
+              "mt": 0.0016,
+              "nl": 0.9271,
+              "other": 0.0052,
+              "pl": 0.0027,
+              "pt": 0.0023,
+              "ro": 0.0018,
+              "sk": 0.0028,
+              "sl": 0.0027,
+              "sv": 0.0043
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 722, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_airbnb_com",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9196,
+            "probabilities": {
+              "bg": 0.0013,
+              "cs": 0.0015,
+              "da": 0.0016,
+              "de": 0.0021,
+              "el": 0.0016,
+              "en": 0.9606,
+              "es": 0.0024,
+              "et": 0.0023,
+              "fi": 0.0018,
+              "fr": 0.0021,
+              "ga": 0.0011,
+              "hr": 0.0015,
+              "hu": 0.0013,
+              "it": 0.0018,
+              "lt": 0.0014,
+              "lv": 0.0015,
+              "mt": 0.0012,
+              "nl": 0.0018,
+              "other": 0.0018,
+              "pl": 0.0014,
+              "pt": 0.0014,
+              "ro": 0.0016,
+              "sk": 0.0013,
+              "sl": 0.0017,
+              "sv": 0.0019
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 624, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_amnesty_org",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9128,
+            "probabilities": {
+              "bg": 0.0014,
+              "cs": 0.0014,
+              "da": 0.0015,
+              "de": 0.0019,
+              "el": 0.0018,
+              "en": 0.9572,
+              "es": 0.0036,
+              "et": 0.002,
+              "fi": 0.0016,
+              "fr": 0.0026,
+              "ga": 0.0013,
+              "hr": 0.0015,
+              "hu": 0.0014,
+              "it": 0.0017,
+              "lt": 0.0015,
+              "lv": 0.0016,
+              "mt": 0.0013,
+              "nl": 0.003,
+              "other": 0.0027,
+              "pl": 0.0014,
+              "pt": 0.0014,
+              "ro": 0.0015,
+              "sk": 0.0013,
+              "sl": 0.0018,
+              "sv": 0.0016
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 769, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_apache_org",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9302,
+            "probabilities": {
+              "bg": 0.0013,
+              "cs": 0.0013,
+              "da": 0.0013,
+              "de": 0.0017,
+              "el": 0.0014,
+              "en": 0.9659,
+              "es": 0.0019,
+              "et": 0.0019,
+              "fi": 0.0014,
+              "fr": 0.0016,
+              "ga": 0.0011,
+              "hr": 0.0014,
+              "hu": 0.0012,
+              "it": 0.0015,
+              "lt": 0.0013,
+              "lv": 0.0013,
+              "mt": 0.0011,
+              "nl": 0.0016,
+              "other": 0.0018,
+              "pl": 0.0012,
+              "pt": 0.0013,
+              "ro": 0.0013,
+              "sk": 0.0012,
+              "sl": 0.0016,
+              "sv": 0.0014
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 764, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_apotheka_lv",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "lv",
+            "confidence": 0.8739,
+            "probabilities": {
+              "bg": 0.003,
+              "cs": 0.0025,
+              "da": 0.0023,
+              "de": 0.0023,
+              "el": 0.0014,
+              "en": 0.0028,
+              "es": 0.0014,
+              "et": 0.0046,
+              "fi": 0.0017,
+              "fr": 0.0014,
+              "ga": 0.0011,
+              "hr": 0.0024,
+              "hu": 0.0014,
+              "it": 0.0014,
+              "lt": 0.01,
+              "lv": 0.9374,
+              "mt": 0.0013,
+              "nl": 0.002,
+              "other": 0.0045,
+              "pl": 0.003,
+              "pt": 0.0015,
+              "ro": 0.0015,
+              "sk": 0.0029,
+              "sl": 0.0026,
+              "sv": 0.0036
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 998, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_arxiv_org",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9366,
+            "probabilities": {
+              "bg": 0.0012,
+              "cs": 0.0012,
+              "da": 0.0012,
+              "de": 0.0015,
+              "el": 0.0014,
+              "en": 0.969,
+              "es": 0.0016,
+              "et": 0.0017,
+              "fi": 0.0013,
+              "fr": 0.0014,
+              "ga": 0.001,
+              "hr": 0.0012,
+              "hu": 0.0012,
+              "it": 0.0013,
+              "lt": 0.0012,
+              "lv": 0.0013,
+              "mt": 0.001,
+              "nl": 0.0013,
+              "other": 0.0016,
+              "pl": 0.0011,
+              "pt": 0.0012,
+              "ro": 0.0013,
+              "sk": 0.0011,
+              "sl": 0.0014,
+              "sv": 0.0013
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 773, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_bbc_co_uk",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9298,
+            "probabilities": {
+              "bg": 0.0012,
+              "cs": 0.0012,
+              "da": 0.0014,
+              "de": 0.0016,
+              "el": 0.0015,
+              "en": 0.9657,
+              "es": 0.002,
+              "et": 0.0018,
+              "fi": 0.0014,
+              "fr": 0.0016,
+              "ga": 0.0011,
+              "hr": 0.0014,
+              "hu": 0.0012,
+              "it": 0.0016,
+              "lt": 0.0013,
+              "lv": 0.0015,
+              "mt": 0.0011,
+              "nl": 0.0015,
+              "other": 0.0017,
+              "pl": 0.0012,
+              "pt": 0.0013,
+              "ro": 0.0014,
+              "sk": 0.0012,
+              "sl": 0.0016,
+              "sv": 0.0015
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 827, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_bonprix_de",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "de",
+            "confidence": 0.8937,
+            "probabilities": {
+              "bg": 0.0017,
+              "cs": 0.002,
+              "da": 0.0026,
+              "de": 0.9475,
+              "el": 0.0021,
+              "en": 0.0064,
+              "es": 0.0027,
+              "et": 0.002,
+              "fi": 0.0016,
+              "fr": 0.0027,
+              "ga": 0.0013,
+              "hr": 0.0018,
+              "hu": 0.0018,
+              "it": 0.0023,
+              "lt": 0.0016,
+              "lv": 0.0018,
+              "mt": 0.0013,
+              "nl": 0.0035,
+              "other": 0.0024,
+              "pl": 0.0017,
+              "pt": 0.0017,
+              "ro": 0.0017,
+              "sk": 0.0017,
+              "sl": 0.0017,
+              "sv": 0.0024
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 926, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_brno_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8609,
+            "probabilities": {
+              "bg": 0.0026,
+              "cs": 0.9307,
+              "da": 0.0021,
+              "de": 0.0028,
+              "el": 0.0019,
+              "en": 0.0076,
+              "es": 0.0027,
+              "et": 0.0021,
+              "fi": 0.0018,
+              "fr": 0.002,
+              "ga": 0.0014,
+              "hr": 0.0054,
+              "hu": 0.0022,
+              "it": 0.002,
+              "lt": 0.0019,
+              "lv": 0.002,
+              "mt": 0.0015,
+              "nl": 0.0022,
+              "other": 0.0037,
+              "pl": 0.0027,
+              "pt": 0.0019,
+              "ro": 0.002,
+              "sk": 0.0106,
+              "sl": 0.0022,
+              "sv": 0.002
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 922, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_bundesregierung_de",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "de",
+            "confidence": 0.9195,
+            "probabilities": {
+              "bg": 0.0013,
+              "cs": 0.0015,
+              "da": 0.0017,
+              "de": 0.9605,
+              "el": 0.0016,
+              "en": 0.0042,
+              "es": 0.0018,
+              "et": 0.0016,
+              "fi": 0.0012,
+              "fr": 0.0029,
+              "ga": 0.0011,
+              "hr": 0.0013,
+              "hu": 0.0014,
+              "it": 0.0015,
+              "lt": 0.0013,
+              "lv": 0.0014,
+              "mt": 0.0011,
+              "nl": 0.002,
+              "other": 0.0021,
+              "pl": 0.0013,
+              "pt": 0.0012,
+              "ro": 0.0014,
+              "sk": 0.0014,
+              "sl": 0.0015,
+              "sv": 0.0017
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 761, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_ceskatelevize_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8558,
+            "probabilities": {
+              "bg": 0.005,
+              "cs": 0.928,
+              "da": 0.0023,
+              "de": 0.0022,
+              "el": 0.0019,
+              "en": 0.0028,
+              "es": 0.0023,
+              "et": 0.0021,
+              "fi": 0.0019,
+              "fr": 0.0019,
+              "ga": 0.0014,
+              "hr": 0.0053,
+              "hu": 0.002,
+              "it": 0.002,
+              "lt": 0.0017,
+              "lv": 0.0023,
+              "mt": 0.0015,
+              "nl": 0.0023,
+              "other": 0.0028,
+              "pl": 0.0035,
+              "pt": 0.0017,
+              "ro": 0.002,
+              "sk": 0.0157,
+              "sl": 0.0024,
+              "sv": 0.003
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 928, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_cez_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8461,
+            "probabilities": {
+              "bg": 0.0033,
+              "cs": 0.9228,
+              "da": 0.0022,
+              "de": 0.0025,
+              "el": 0.0018,
+              "en": 0.0028,
+              "es": 0.0022,
+              "et": 0.0023,
+              "fi": 0.002,
+              "fr": 0.0018,
+              "ga": 0.0014,
+              "hr": 0.0052,
+              "hu": 0.0022,
+              "it": 0.0019,
+              "lt": 0.0018,
+              "lv": 0.0024,
+              "mt": 0.0014,
+              "nl": 0.0021,
+              "other": 0.0034,
+              "pl": 0.0039,
+              "pt": 0.0016,
+              "ro": 0.002,
+              "sk": 0.0226,
+              "sl": 0.0024,
+              "sv": 0.002
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 942, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_czc_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.7904,
+            "probabilities": {
+              "bg": 0.0038,
+              "cs": 0.893,
+              "da": 0.0026,
+              "de": 0.0027,
+              "el": 0.002,
+              "en": 0.0037,
+              "es": 0.0025,
+              "et": 0.0026,
+              "fi": 0.0018,
+              "fr": 0.0025,
+              "ga": 0.0014,
+              "hr": 0.0079,
+              "hu": 0.0026,
+              "it": 0.0021,
+              "lt": 0.0022,
+              "lv": 0.003,
+              "mt": 0.0017,
+              "nl": 0.0025,
+              "other": 0.0051,
+              "pl": 0.022,
+              "pt": 0.0018,
+              "ro": 0.0025,
+              "sk": 0.0223,
+              "sl": 0.0033,
+              "sv": 0.0024
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 903, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_datart_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8316,
+            "probabilities": {
+              "bg": 0.0038,
+              "cs": 0.9152,
+              "da": 0.0027,
+              "de": 0.0027,
+              "el": 0.0018,
+              "en": 0.0042,
+              "es": 0.0024,
+              "et": 0.0022,
+              "fi": 0.002,
+              "fr": 0.0021,
+              "ga": 0.0014,
+              "hr": 0.006,
+              "hu": 0.0024,
+              "it": 0.002,
+              "lt": 0.0017,
+              "lv": 0.0023,
+              "mt": 0.0014,
+              "nl": 0.0022,
+              "other": 0.0039,
+              "pl": 0.0056,
+              "pt": 0.0017,
+              "ro": 0.0021,
+              "sk": 0.0234,
+              "sl": 0.0025,
+              "sv": 0.0023
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 964, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_debian_org",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9008,
+            "probabilities": {
+              "bg": 0.0015,
+              "cs": 0.0017,
+              "da": 0.0022,
+              "de": 0.004,
+              "el": 0.0019,
+              "en": 0.9512,
+              "es": 0.0039,
+              "et": 0.0025,
+              "fi": 0.0019,
+              "fr": 0.003,
+              "ga": 0.0013,
+              "hr": 0.0017,
+              "hu": 0.0015,
+              "it": 0.002,
+              "lt": 0.0017,
+              "lv": 0.0017,
+              "mt": 0.0014,
+              "nl": 0.0021,
+              "other": 0.0027,
+              "pl": 0.0015,
+              "pt": 0.0018,
+              "ro": 0.0016,
+              "sk": 0.0015,
+              "sl": 0.0019,
+              "sv": 0.0018
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 829, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_denik_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8651,
+            "probabilities": {
+              "bg": 0.0031,
+              "cs": 0.9328,
+              "da": 0.0021,
+              "de": 0.0026,
+              "el": 0.0018,
+              "en": 0.0049,
+              "es": 0.0026,
+              "et": 0.0022,
+              "fi": 0.0018,
+              "fr": 0.002,
+              "ga": 0.0015,
+              "hr": 0.0052,
+              "hu": 0.002,
+              "it": 0.0019,
+              "lt": 0.002,
+              "lv": 0.0022,
+              "mt": 0.0016,
+              "nl": 0.0022,
+              "other": 0.0028,
+              "pl": 0.0031,
+              "pt": 0.0017,
+              "ro": 0.002,
+              "sk": 0.0117,
+              "sl": 0.0023,
+              "sv": 0.0019
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 934, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_ecb_europa_eu",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.8841,
+            "probabilities": {
+              "bg": 0.0021,
+              "cs": 0.0023,
+              "da": 0.0022,
+              "de": 0.0042,
+              "el": 0.0032,
+              "en": 0.9426,
+              "es": 0.003,
+              "et": 0.003,
+              "fi": 0.0022,
+              "fr": 0.0026,
+              "ga": 0.0017,
+              "hr": 0.0024,
+              "hu": 0.0021,
+              "it": 0.0026,
+              "lt": 0.0018,
+              "lv": 0.0021,
+              "mt": 0.0017,
+              "nl": 0.0026,
+              "other": 0.0029,
+              "pl": 0.0019,
+              "pt": 0.0019,
+              "ro": 0.002,
+              "sk": 0.0022,
+              "sl": 0.0025,
+              "sv": 0.0022
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 748, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_eff_org",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9327,
+            "probabilities": {
+              "bg": 0.0012,
+              "cs": 0.0013,
+              "da": 0.0013,
+              "de": 0.0016,
+              "el": 0.0014,
+              "en": 0.9671,
+              "es": 0.002,
+              "et": 0.0017,
+              "fi": 0.0013,
+              "fr": 0.0016,
+              "ga": 0.0011,
+              "hr": 0.0013,
+              "hu": 0.0012,
+              "it": 0.0014,
+              "lt": 0.0013,
+              "lv": 0.0013,
+              "mt": 0.001,
+              "nl": 0.0015,
+              "other": 0.0017,
+              "pl": 0.0012,
+              "pt": 0.0012,
+              "ro": 0.0013,
+              "sk": 0.0011,
+              "sl": 0.0015,
+              "sv": 0.0014
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 738, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_elysee_fr",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "fr",
+            "confidence": 0.9383,
+            "probabilities": {
+              "bg": 0.001,
+              "cs": 0.0011,
+              "da": 0.001,
+              "de": 0.0016,
+              "el": 0.0012,
+              "en": 0.002,
+              "es": 0.0016,
+              "et": 0.0011,
+              "fi": 0.0021,
+              "fr": 0.9699,
+              "ga": 0.0011,
+              "hr": 0.0011,
+              "hu": 0.001,
+              "it": 0.0017,
+              "lt": 0.001,
+              "lv": 0.0012,
+              "mt": 0.0009,
+              "nl": 0.0012,
+              "other": 0.0015,
+              "pl": 0.001,
+              "pt": 0.0014,
+              "ro": 0.0011,
+              "sk": 0.001,
+              "sl": 0.0011,
+              "sv": 0.0011
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 806, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_emag_ro",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "ro",
+            "confidence": 0.8348,
+            "probabilities": {
+              "bg": 0.0039,
+              "cs": 0.0023,
+              "da": 0.0017,
+              "de": 0.0024,
+              "el": 0.002,
+              "en": 0.0031,
+              "es": 0.002,
+              "et": 0.002,
+              "fi": 0.0016,
+              "fr": 0.0024,
+              "ga": 0.0013,
+              "hr": 0.0046,
+              "hu": 0.005,
+              "it": 0.0026,
+              "lt": 0.0019,
+              "lv": 0.0025,
+              "mt": 0.0014,
+              "nl": 0.0019,
+              "other": 0.0227,
+              "pl": 0.0028,
+              "pt": 0.0025,
+              "ro": 0.9169,
+              "sk": 0.0051,
+              "sl": 0.0033,
+              "sv": 0.0021
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 880, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_empik_com",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "pl",
+            "confidence": 0.8501,
+            "probabilities": {
+              "bg": 0.003,
+              "cs": 0.0032,
+              "da": 0.0018,
+              "de": 0.0026,
+              "el": 0.002,
+              "en": 0.0049,
+              "es": 0.0024,
+              "et": 0.002,
+              "fi": 0.0019,
+              "fr": 0.0022,
+              "ga": 0.0014,
+              "hr": 0.0042,
+              "hu": 0.0025,
+              "it": 0.0025,
+              "lt": 0.0022,
+              "lv": 0.0023,
+              "mt": 0.0016,
+              "nl": 0.0024,
+              "other": 0.0143,
+              "pl": 0.9251,
+              "pt": 0.0031,
+              "ro": 0.003,
+              "sk": 0.004,
+              "sl": 0.0031,
+              "sv": 0.0023
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 980, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_euronics_it",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "it",
+            "confidence": 0.8543,
+            "probabilities": {
+              "bg": 0.0021,
+              "cs": 0.0027,
+              "da": 0.0019,
+              "de": 0.0039,
+              "el": 0.0024,
+              "en": 0.0081,
+              "es": 0.0042,
+              "et": 0.0024,
+              "fi": 0.0018,
+              "fr": 0.0052,
+              "ga": 0.0016,
+              "hr": 0.0029,
+              "hu": 0.0022,
+              "it": 0.9273,
+              "lt": 0.0028,
+              "lv": 0.0022,
+              "mt": 0.0018,
+              "nl": 0.0028,
+              "other": 0.0045,
+              "pl": 0.0025,
+              "pt": 0.0044,
+              "ro": 0.0027,
+              "sk": 0.0024,
+              "sl": 0.003,
+              "sv": 0.0022
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 896, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_footshop_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.7678,
+            "probabilities": {
+              "bg": 0.0055,
+              "cs": 0.8807,
+              "da": 0.0044,
+              "de": 0.0044,
+              "el": 0.0021,
+              "en": 0.0057,
+              "es": 0.003,
+              "et": 0.003,
+              "fi": 0.0025,
+              "fr": 0.0029,
+              "ga": 0.0016,
+              "hr": 0.0112,
+              "hu": 0.003,
+              "it": 0.0028,
+              "lt": 0.0023,
+              "lv": 0.0028,
+              "mt": 0.0017,
+              "nl": 0.0032,
+              "other": 0.0049,
+              "pl": 0.0086,
+              "pt": 0.0021,
+              "ro": 0.0027,
+              "sk": 0.0317,
+              "sl": 0.0039,
+              "sv": 0.0033
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 895, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_gov_uk",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9209,
+            "probabilities": {
+              "bg": 0.0014,
+              "cs": 0.0015,
+              "da": 0.0018,
+              "de": 0.0017,
+              "el": 0.0016,
+              "en": 0.9612,
+              "es": 0.002,
+              "et": 0.002,
+              "fi": 0.0016,
+              "fr": 0.0018,
+              "ga": 0.0014,
+              "hr": 0.0015,
+              "hu": 0.0014,
+              "it": 0.0016,
+              "lt": 0.0014,
+              "lv": 0.0015,
+              "mt": 0.0013,
+              "nl": 0.0017,
+              "other": 0.0024,
+              "pl": 0.0014,
+              "pt": 0.0014,
+              "ro": 0.0015,
+              "sk": 0.0014,
+              "sl": 0.0017,
+              "sv": 0.0018
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 764, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_idnes_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8333,
+            "probabilities": {
+              "bg": 0.0033,
+              "cs": 0.9162,
+              "da": 0.0025,
+              "de": 0.0026,
+              "el": 0.002,
+              "en": 0.007,
+              "es": 0.0029,
+              "et": 0.0023,
+              "fi": 0.0023,
+              "fr": 0.0022,
+              "ga": 0.0016,
+              "hr": 0.009,
+              "hu": 0.0024,
+              "it": 0.0021,
+              "lt": 0.002,
+              "lv": 0.0026,
+              "mt": 0.0016,
+              "nl": 0.0024,
+              "other": 0.0037,
+              "pl": 0.0043,
+              "pt": 0.0018,
+              "ro": 0.0021,
+              "sk": 0.0165,
+              "sl": 0.0025,
+              "sv": 0.0021
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 945, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_ikea_com_cz_cs_",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.827,
+            "probabilities": {
+              "bg": 0.0034,
+              "cs": 0.9128,
+              "da": 0.0047,
+              "de": 0.0035,
+              "el": 0.002,
+              "en": 0.0046,
+              "es": 0.0027,
+              "et": 0.0024,
+              "fi": 0.0023,
+              "fr": 0.0023,
+              "ga": 0.0015,
+              "hr": 0.0056,
+              "hu": 0.0024,
+              "it": 0.0024,
+              "lt": 0.002,
+              "lv": 0.0025,
+              "mt": 0.0016,
+              "nl": 0.0026,
+              "other": 0.0044,
+              "pl": 0.0043,
+              "pt": 0.002,
+              "ro": 0.0022,
+              "sk": 0.0194,
+              "sl": 0.0026,
+              "sv": 0.0038
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 982, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_ing_de",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "de",
+            "confidence": 0.9199,
+            "probabilities": {
+              "bg": 0.0013,
+              "cs": 0.0015,
+              "da": 0.0018,
+              "de": 0.9608,
+              "el": 0.0016,
+              "en": 0.003,
+              "es": 0.0018,
+              "et": 0.0015,
+              "fi": 0.0013,
+              "fr": 0.0018,
+              "ga": 0.0011,
+              "hr": 0.0014,
+              "hu": 0.0014,
+              "it": 0.0019,
+              "lt": 0.0013,
+              "lv": 0.0014,
+              "mt": 0.0011,
+              "nl": 0.0034,
+              "other": 0.0018,
+              "pl": 0.0013,
+              "pt": 0.0014,
+              "ro": 0.0014,
+              "sk": 0.0014,
+              "sl": 0.0017,
+              "sv": 0.0016
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 859, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_jumbo_com",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "nl",
+            "confidence": 0.8892,
+            "probabilities": {
+              "bg": 0.0018,
+              "cs": 0.0021,
+              "da": 0.0051,
+              "de": 0.0034,
+              "el": 0.0018,
+              "en": 0.0035,
+              "es": 0.0019,
+              "et": 0.0019,
+              "fi": 0.0019,
+              "fr": 0.0023,
+              "ga": 0.0014,
+              "hr": 0.0018,
+              "hu": 0.0017,
+              "it": 0.002,
+              "lt": 0.0018,
+              "lv": 0.0019,
+              "mt": 0.0014,
+              "nl": 0.9453,
+              "other": 0.0045,
+              "pl": 0.0022,
+              "pt": 0.0019,
+              "ro": 0.0017,
+              "sk": 0.0018,
+              "sl": 0.002,
+              "sv": 0.0029
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 859, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_jysk_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8135,
+            "probabilities": {
+              "bg": 0.0038,
+              "cs": 0.9056,
+              "da": 0.0099,
+              "de": 0.0025,
+              "el": 0.0018,
+              "en": 0.0029,
+              "es": 0.0024,
+              "et": 0.0026,
+              "fi": 0.0024,
+              "fr": 0.0023,
+              "ga": 0.0015,
+              "hr": 0.006,
+              "hu": 0.0023,
+              "it": 0.002,
+              "lt": 0.002,
+              "lv": 0.0026,
+              "mt": 0.0015,
+              "nl": 0.0025,
+              "other": 0.0038,
+              "pl": 0.0052,
+              "pt": 0.0017,
+              "ro": 0.0022,
+              "sk": 0.024,
+              "sl": 0.0031,
+              "sv": 0.0034
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 973, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_kdyz_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8739,
+            "probabilities": {
+              "bg": 0.0038,
+              "cs": 0.9374,
+              "da": 0.0019,
+              "de": 0.0021,
+              "el": 0.0017,
+              "en": 0.0026,
+              "es": 0.002,
+              "et": 0.0019,
+              "fi": 0.0017,
+              "fr": 0.0018,
+              "ga": 0.0014,
+              "hr": 0.0045,
+              "hu": 0.0018,
+              "it": 0.0019,
+              "lt": 0.0016,
+              "lv": 0.0022,
+              "mt": 0.0014,
+              "nl": 0.002,
+              "other": 0.0024,
+              "pl": 0.0029,
+              "pt": 0.0016,
+              "ro": 0.0018,
+              "sk": 0.0132,
+              "sl": 0.0025,
+              "sv": 0.0019
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1001, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_kernel_org",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9205,
+            "probabilities": {
+              "bg": 0.0014,
+              "cs": 0.0015,
+              "da": 0.0015,
+              "de": 0.0019,
+              "el": 0.0016,
+              "en": 0.961,
+              "es": 0.0023,
+              "et": 0.0021,
+              "fi": 0.0017,
+              "fr": 0.0019,
+              "ga": 0.0012,
+              "hr": 0.0015,
+              "hu": 0.0015,
+              "it": 0.0016,
+              "lt": 0.0014,
+              "lv": 0.0015,
+              "mt": 0.0012,
+              "nl": 0.0016,
+              "other": 0.0025,
+              "pl": 0.0014,
+              "pt": 0.0014,
+              "ro": 0.0015,
+              "sk": 0.0014,
+              "sl": 0.0017,
+              "sv": 0.0017
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1011, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_knihydobrovsky_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8558,
+            "probabilities": {
+              "bg": 0.0036,
+              "cs": 0.9279,
+              "da": 0.0018,
+              "de": 0.0022,
+              "el": 0.0018,
+              "en": 0.0036,
+              "es": 0.0022,
+              "et": 0.0019,
+              "fi": 0.0018,
+              "fr": 0.0018,
+              "ga": 0.0013,
+              "hr": 0.0061,
+              "hu": 0.0023,
+              "it": 0.0019,
+              "lt": 0.0018,
+              "lv": 0.002,
+              "mt": 0.0014,
+              "nl": 0.0019,
+              "other": 0.0027,
+              "pl": 0.004,
+              "pt": 0.0016,
+              "ro": 0.0021,
+              "sk": 0.0178,
+              "sl": 0.0024,
+              "sv": 0.0021
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1019, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_lemonde_fr",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "fr",
+            "confidence": 0.9155,
+            "probabilities": {
+              "bg": 0.0013,
+              "cs": 0.0014,
+              "da": 0.0012,
+              "de": 0.0025,
+              "el": 0.0016,
+              "en": 0.0055,
+              "es": 0.0021,
+              "et": 0.0014,
+              "fi": 0.0018,
+              "fr": 0.9586,
+              "ga": 0.0012,
+              "hr": 0.0016,
+              "hu": 0.0014,
+              "it": 0.0022,
+              "lt": 0.0012,
+              "lv": 0.0014,
+              "mt": 0.0011,
+              "nl": 0.0017,
+              "other": 0.0022,
+              "pl": 0.0012,
+              "pt": 0.0017,
+              "ro": 0.0015,
+              "sk": 0.0014,
+              "sl": 0.0014,
+              "sv": 0.0014
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 788, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_lidl_de",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "de",
+            "confidence": 0.9155,
+            "probabilities": {
+              "bg": 0.0014,
+              "cs": 0.0017,
+              "da": 0.0019,
+              "de": 0.9586,
+              "el": 0.0017,
+              "en": 0.0037,
+              "es": 0.0021,
+              "et": 0.0015,
+              "fi": 0.0013,
+              "fr": 0.0021,
+              "ga": 0.0011,
+              "hr": 0.0015,
+              "hu": 0.0015,
+              "it": 0.002,
+              "lt": 0.0013,
+              "lv": 0.0015,
+              "mt": 0.0012,
+              "nl": 0.0026,
+              "other": 0.0018,
+              "pl": 0.0014,
+              "pt": 0.0015,
+              "ro": 0.0015,
+              "sk": 0.0016,
+              "sl": 0.0016,
+              "sv": 0.0019
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 813, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_martinus_sk",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "sk",
+            "confidence": 0.7626,
+            "probabilities": {
+              "bg": 0.0033,
+              "cs": 0.0113,
+              "da": 0.0016,
+              "de": 0.0023,
+              "el": 0.0019,
+              "en": 0.0025,
+              "es": 0.0024,
+              "et": 0.0029,
+              "fi": 0.0021,
+              "fr": 0.0019,
+              "ga": 0.0014,
+              "hr": 0.0046,
+              "hu": 0.0039,
+              "it": 0.002,
+              "lt": 0.0024,
+              "lv": 0.0032,
+              "mt": 0.0015,
+              "nl": 0.002,
+              "other": 0.0408,
+              "pl": 0.0034,
+              "pt": 0.0018,
+              "ro": 0.0026,
+              "sk": 0.8774,
+              "sl": 0.018,
+              "sv": 0.0028
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 957, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_mff_cuni_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8135,
+            "probabilities": {
+              "bg": 0.0054,
+              "cs": 0.9056,
+              "da": 0.0022,
+              "de": 0.0028,
+              "el": 0.002,
+              "en": 0.0046,
+              "es": 0.0029,
+              "et": 0.0028,
+              "fi": 0.0021,
+              "fr": 0.0025,
+              "ga": 0.0016,
+              "hr": 0.006,
+              "hu": 0.0026,
+              "it": 0.0021,
+              "lt": 0.002,
+              "lv": 0.0027,
+              "mt": 0.0016,
+              "nl": 0.0021,
+              "other": 0.004,
+              "pl": 0.0072,
+              "pt": 0.0018,
+              "ro": 0.0023,
+              "sk": 0.0255,
+              "sl": 0.0033,
+              "sv": 0.0023
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 926, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_mironet_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.7967,
+            "probabilities": {
+              "bg": 0.0039,
+              "cs": 0.8965,
+              "da": 0.0025,
+              "de": 0.0047,
+              "el": 0.0021,
+              "en": 0.0037,
+              "es": 0.0031,
+              "et": 0.0026,
+              "fi": 0.002,
+              "fr": 0.0022,
+              "ga": 0.0015,
+              "hr": 0.0077,
+              "hu": 0.0025,
+              "it": 0.0022,
+              "lt": 0.002,
+              "lv": 0.0025,
+              "mt": 0.0017,
+              "nl": 0.0026,
+              "other": 0.0053,
+              "pl": 0.0116,
+              "pt": 0.0019,
+              "ro": 0.0023,
+              "sk": 0.0274,
+              "sl": 0.0032,
+              "sv": 0.0023
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 916, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_mit_edu",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9342,
+            "probabilities": {
+              "bg": 0.0012,
+              "cs": 0.0012,
+              "da": 0.0013,
+              "de": 0.0016,
+              "el": 0.0014,
+              "en": 0.9679,
+              "es": 0.0017,
+              "et": 0.0017,
+              "fi": 0.0012,
+              "fr": 0.0015,
+              "ga": 0.001,
+              "hr": 0.0013,
+              "hu": 0.0012,
+              "it": 0.0013,
+              "lt": 0.0013,
+              "lv": 0.0014,
+              "mt": 0.0011,
+              "nl": 0.0015,
+              "other": 0.0016,
+              "pl": 0.0011,
+              "pt": 0.0012,
+              "ro": 0.0013,
+              "sk": 0.0011,
+              "sl": 0.0015,
+              "sv": 0.0014
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 774, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_mozilla_org",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.862,
+            "probabilities": {
+              "bg": 0.002,
+              "cs": 0.0023,
+              "da": 0.0023,
+              "de": 0.004,
+              "el": 0.0024,
+              "en": 0.9313,
+              "es": 0.0052,
+              "et": 0.003,
+              "fi": 0.0022,
+              "fr": 0.0042,
+              "ga": 0.0023,
+              "hr": 0.0022,
+              "hu": 0.002,
+              "it": 0.0026,
+              "lt": 0.0019,
+              "lv": 0.0021,
+              "mt": 0.0019,
+              "nl": 0.0033,
+              "other": 0.0102,
+              "pl": 0.002,
+              "pt": 0.002,
+              "ro": 0.0021,
+              "sk": 0.002,
+              "sl": 0.0023,
+              "sv": 0.0022
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 801, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_mvcr_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.866,
+            "probabilities": {
+              "bg": 0.0034,
+              "cs": 0.9333,
+              "da": 0.0017,
+              "de": 0.0029,
+              "el": 0.0016,
+              "en": 0.0027,
+              "es": 0.0019,
+              "et": 0.002,
+              "fi": 0.0015,
+              "fr": 0.0016,
+              "ga": 0.0012,
+              "hr": 0.004,
+              "hu": 0.0018,
+              "it": 0.0017,
+              "lt": 0.0016,
+              "lv": 0.002,
+              "mt": 0.0013,
+              "nl": 0.0018,
+              "other": 0.0024,
+              "pl": 0.0058,
+              "pt": 0.0015,
+              "ro": 0.0017,
+              "sk": 0.0171,
+              "sl": 0.0018,
+              "sv": 0.0017
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 931, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_nature_com",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9281,
+            "probabilities": {
+              "bg": 0.0013,
+              "cs": 0.0013,
+              "da": 0.0014,
+              "de": 0.0016,
+              "el": 0.0015,
+              "en": 0.9648,
+              "es": 0.0031,
+              "et": 0.0019,
+              "fi": 0.0014,
+              "fr": 0.0015,
+              "ga": 0.0011,
+              "hr": 0.0013,
+              "hu": 0.0012,
+              "it": 0.0014,
+              "lt": 0.0014,
+              "lv": 0.0013,
+              "mt": 0.0011,
+              "nl": 0.0014,
+              "other": 0.0018,
+              "pl": 0.0012,
+              "pt": 0.0013,
+              "ro": 0.0014,
+              "sk": 0.0012,
+              "sl": 0.0016,
+              "sv": 0.0015
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 777, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_netflix_com",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.6119,
+            "probabilities": {
+              "bg": 0.0037,
+              "cs": 0.1156,
+              "da": 0.0045,
+              "de": 0.0047,
+              "el": 0.0036,
+              "en": 0.7833,
+              "es": 0.0055,
+              "et": 0.0062,
+              "fi": 0.0039,
+              "fr": 0.0045,
+              "ga": 0.0027,
+              "hr": 0.0042,
+              "hu": 0.0035,
+              "it": 0.0038,
+              "lt": 0.0033,
+              "lv": 0.0033,
+              "mt": 0.0025,
+              "nl": 0.0037,
+              "other": 0.0103,
+              "pl": 0.0039,
+              "pt": 0.0031,
+              "ro": 0.0034,
+              "sk": 0.0087,
+              "sl": 0.004,
+              "sv": 0.0041
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 802, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_novinky_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8402,
+            "probabilities": {
+              "bg": 0.0048,
+              "cs": 0.9198,
+              "da": 0.0022,
+              "de": 0.0026,
+              "el": 0.0018,
+              "en": 0.0034,
+              "es": 0.0023,
+              "et": 0.0021,
+              "fi": 0.0019,
+              "fr": 0.0021,
+              "ga": 0.0014,
+              "hr": 0.0068,
+              "hu": 0.0022,
+              "it": 0.002,
+              "lt": 0.0018,
+              "lv": 0.0022,
+              "mt": 0.0015,
+              "nl": 0.0021,
+              "other": 0.0035,
+              "pl": 0.0042,
+              "pt": 0.0017,
+              "ro": 0.002,
+              "sk": 0.0208,
+              "sl": 0.0026,
+              "sv": 0.0022
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 914, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_o2_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8266,
+            "probabilities": {
+              "bg": 0.0046,
+              "cs": 0.9125,
+              "da": 0.0025,
+              "de": 0.0032,
+              "el": 0.002,
+              "en": 0.0041,
+              "es": 0.0025,
+              "et": 0.0025,
+              "fi": 0.0023,
+              "fr": 0.0022,
+              "ga": 0.0016,
+              "hr": 0.0064,
+              "hu": 0.0023,
+              "it": 0.0021,
+              "lt": 0.0019,
+              "lv": 0.0023,
+              "mt": 0.0016,
+              "nl": 0.0024,
+              "other": 0.0035,
+              "pl": 0.0051,
+              "pt": 0.0018,
+              "ro": 0.0022,
+              "sk": 0.0233,
+              "sl": 0.0029,
+              "sv": 0.0022
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 912, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_otto_de",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "de",
+            "confidence": 0.9024,
+            "probabilities": {
+              "bg": 0.0017,
+              "cs": 0.0023,
+              "da": 0.0024,
+              "de": 0.9519,
+              "el": 0.002,
+              "en": 0.0038,
+              "es": 0.0022,
+              "et": 0.0019,
+              "fi": 0.0016,
+              "fr": 0.0023,
+              "ga": 0.0012,
+              "hr": 0.0017,
+              "hu": 0.0017,
+              "it": 0.0023,
+              "lt": 0.0015,
+              "lv": 0.0016,
+              "mt": 0.0013,
+              "nl": 0.0034,
+              "other": 0.0024,
+              "pl": 0.0017,
+              "pt": 0.0015,
+              "ro": 0.0017,
+              "sk": 0.0019,
+              "sl": 0.0017,
+              "sv": 0.0023
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 850, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_pilulka_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8145,
+            "probabilities": {
+              "bg": 0.0048,
+              "cs": 0.9061,
+              "da": 0.0024,
+              "de": 0.0028,
+              "el": 0.0021,
+              "en": 0.0036,
+              "es": 0.0026,
+              "et": 0.0023,
+              "fi": 0.0023,
+              "fr": 0.0024,
+              "ga": 0.0015,
+              "hr": 0.0061,
+              "hu": 0.0026,
+              "it": 0.0023,
+              "lt": 0.0022,
+              "lv": 0.003,
+              "mt": 0.0016,
+              "nl": 0.0024,
+              "other": 0.0038,
+              "pl": 0.0063,
+              "pt": 0.0019,
+              "ro": 0.0024,
+              "sk": 0.0271,
+              "sl": 0.003,
+              "sv": 0.0024
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 936, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_praha_eu",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8595,
+            "probabilities": {
+              "bg": 0.0031,
+              "cs": 0.9299,
+              "da": 0.002,
+              "de": 0.0029,
+              "el": 0.0019,
+              "en": 0.0047,
+              "es": 0.0022,
+              "et": 0.002,
+              "fi": 0.0017,
+              "fr": 0.0018,
+              "ga": 0.0014,
+              "hr": 0.0046,
+              "hu": 0.0021,
+              "it": 0.002,
+              "lt": 0.0017,
+              "lv": 0.0021,
+              "mt": 0.0015,
+              "nl": 0.002,
+              "other": 0.0031,
+              "pl": 0.0035,
+              "pt": 0.0018,
+              "ro": 0.002,
+              "sk": 0.0157,
+              "sl": 0.0024,
+              "sv": 0.0019
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 906, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_python_org",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.8027,
+            "probabilities": {
+              "bg": 0.0024,
+              "cs": 0.0029,
+              "da": 0.0029,
+              "de": 0.0039,
+              "el": 0.0034,
+              "en": 0.8998,
+              "es": 0.0042,
+              "et": 0.0044,
+              "fi": 0.0035,
+              "fr": 0.004,
+              "ga": 0.0027,
+              "hr": 0.0029,
+              "hu": 0.003,
+              "it": 0.0034,
+              "lt": 0.0031,
+              "lv": 0.003,
+              "mt": 0.0024,
+              "nl": 0.0032,
+              "other": 0.0258,
+              "pl": 0.0031,
+              "pt": 0.0032,
+              "ro": 0.0033,
+              "sk": 0.0027,
+              "sl": 0.0036,
+              "sv": 0.0032
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 860, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_rijksoverheid_nl",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "nl",
+            "confidence": 0.9064,
+            "probabilities": {
+              "bg": 0.0015,
+              "cs": 0.0016,
+              "da": 0.0038,
+              "de": 0.0033,
+              "el": 0.0016,
+              "en": 0.0028,
+              "es": 0.0016,
+              "et": 0.0017,
+              "fi": 0.0017,
+              "fr": 0.002,
+              "ga": 0.0013,
+              "hr": 0.0015,
+              "hu": 0.0015,
+              "it": 0.0017,
+              "lt": 0.0017,
+              "lv": 0.0018,
+              "mt": 0.0013,
+              "nl": 0.954,
+              "other": 0.0034,
+              "pl": 0.0016,
+              "pt": 0.0015,
+              "ro": 0.0015,
+              "sk": 0.0016,
+              "sl": 0.0018,
+              "sv": 0.0022
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 878, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_rohlik_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8413,
+            "probabilities": {
+              "bg": 0.0032,
+              "cs": 0.9203,
+              "da": 0.002,
+              "de": 0.0025,
+              "el": 0.0018,
+              "en": 0.0028,
+              "es": 0.0022,
+              "et": 0.002,
+              "fi": 0.0016,
+              "fr": 0.0019,
+              "ga": 0.0013,
+              "hr": 0.0057,
+              "hu": 0.0022,
+              "it": 0.0019,
+              "lt": 0.0018,
+              "lv": 0.0021,
+              "mt": 0.0015,
+              "nl": 0.002,
+              "other": 0.0034,
+              "pl": 0.0059,
+              "pt": 0.0016,
+              "ro": 0.002,
+              "sk": 0.0239,
+              "sl": 0.0025,
+              "sv": 0.0019
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 970, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_rozhlas_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8534,
+            "probabilities": {
+              "bg": 0.0038,
+              "cs": 0.9267,
+              "da": 0.0021,
+              "de": 0.0025,
+              "el": 0.0018,
+              "en": 0.0032,
+              "es": 0.0022,
+              "et": 0.002,
+              "fi": 0.0019,
+              "fr": 0.0019,
+              "ga": 0.0014,
+              "hr": 0.0054,
+              "hu": 0.0021,
+              "it": 0.002,
+              "lt": 0.0018,
+              "lv": 0.0022,
+              "mt": 0.0015,
+              "nl": 0.002,
+              "other": 0.0032,
+              "pl": 0.0038,
+              "pt": 0.0016,
+              "ro": 0.002,
+              "sk": 0.0184,
+              "sl": 0.0026,
+              "sv": 0.0019
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 954, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_seznam_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.836,
+            "probabilities": {
+              "bg": 0.005,
+              "cs": 0.9176,
+              "da": 0.0022,
+              "de": 0.0025,
+              "el": 0.0019,
+              "en": 0.0029,
+              "es": 0.0027,
+              "et": 0.0023,
+              "fi": 0.0019,
+              "fr": 0.0021,
+              "ga": 0.0015,
+              "hr": 0.0087,
+              "hu": 0.0025,
+              "it": 0.0022,
+              "lt": 0.002,
+              "lv": 0.0026,
+              "mt": 0.0016,
+              "nl": 0.0022,
+              "other": 0.0032,
+              "pl": 0.0065,
+              "pt": 0.0018,
+              "ro": 0.002,
+              "sk": 0.0173,
+              "sl": 0.0027,
+              "sv": 0.0021
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 953, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_spiegel_de",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "de",
+            "confidence": 0.9082,
+            "probabilities": {
+              "bg": 0.0015,
+              "cs": 0.0019,
+              "da": 0.0023,
+              "de": 0.9548,
+              "el": 0.0019,
+              "en": 0.0052,
+              "es": 0.0024,
+              "et": 0.0016,
+              "fi": 0.0014,
+              "fr": 0.0021,
+              "ga": 0.0012,
+              "hr": 0.0016,
+              "hu": 0.0016,
+              "it": 0.002,
+              "lt": 0.0014,
+              "lv": 0.0016,
+              "mt": 0.0012,
+              "nl": 0.0023,
+              "other": 0.0023,
+              "pl": 0.0016,
+              "pt": 0.0014,
+              "ro": 0.0016,
+              "sk": 0.0015,
+              "sl": 0.0016,
+              "sv": 0.002
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 819, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_sportisimo_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8359,
+            "probabilities": {
+              "bg": 0.0046,
+              "cs": 0.9175,
+              "da": 0.0024,
+              "de": 0.0025,
+              "el": 0.0018,
+              "en": 0.003,
+              "es": 0.0022,
+              "et": 0.0022,
+              "fi": 0.0021,
+              "fr": 0.002,
+              "ga": 0.0014,
+              "hr": 0.0075,
+              "hu": 0.0021,
+              "it": 0.0019,
+              "lt": 0.0018,
+              "lv": 0.0023,
+              "mt": 0.0015,
+              "nl": 0.0022,
+              "other": 0.003,
+              "pl": 0.0039,
+              "pt": 0.0017,
+              "ro": 0.0021,
+              "sk": 0.0229,
+              "sl": 0.0031,
+              "sv": 0.0023
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 965, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_studio9_cz",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "cs",
+            "confidence": 0.8302,
+            "probabilities": {
+              "bg": 0.003,
+              "cs": 0.9145,
+              "da": 0.002,
+              "de": 0.0028,
+              "el": 0.0019,
+              "en": 0.0053,
+              "es": 0.0023,
+              "et": 0.0022,
+              "fi": 0.0018,
+              "fr": 0.002,
+              "ga": 0.0014,
+              "hr": 0.0067,
+              "hu": 0.0025,
+              "it": 0.002,
+              "lt": 0.0018,
+              "lv": 0.0022,
+              "mt": 0.0016,
+              "nl": 0.0023,
+              "other": 0.0046,
+              "pl": 0.0037,
+              "pt": 0.0017,
+              "ro": 0.0022,
+              "sk": 0.0248,
+              "sl": 0.0028,
+              "sv": 0.0019
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 901, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_tchibo_de",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "de",
+            "confidence": 0.9045,
+            "probabilities": {
+              "bg": 0.0017,
+              "cs": 0.0021,
+              "da": 0.0023,
+              "de": 0.953,
+              "el": 0.0019,
+              "en": 0.0034,
+              "es": 0.0022,
+              "et": 0.0017,
+              "fi": 0.0017,
+              "fr": 0.0023,
+              "ga": 0.0012,
+              "hr": 0.0017,
+              "hu": 0.0018,
+              "it": 0.0022,
+              "lt": 0.0015,
+              "lv": 0.0016,
+              "mt": 0.0013,
+              "nl": 0.0034,
+              "other": 0.0022,
+              "pl": 0.0018,
+              "pt": 0.0015,
+              "ro": 0.0017,
+              "sk": 0.0019,
+              "sl": 0.0018,
+              "sv": 0.0021
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 822, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_ted_com",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "en",
+            "confidence": 0.9272,
+            "probabilities": {
+              "bg": 0.0013,
+              "cs": 0.0014,
+              "da": 0.0015,
+              "de": 0.0017,
+              "el": 0.0015,
+              "en": 0.9644,
+              "es": 0.002,
+              "et": 0.002,
+              "fi": 0.0014,
+              "fr": 0.0016,
+              "ga": 0.0011,
+              "hr": 0.0014,
+              "hu": 0.0013,
+              "it": 0.0016,
+              "lt": 0.0013,
+              "lv": 0.0013,
+              "mt": 0.0011,
+              "nl": 0.0017,
+              "other": 0.002,
+              "pl": 0.0013,
+              "pt": 0.0013,
+              "ro": 0.0014,
+              "sk": 0.0012,
+              "sl": 0.0016,
+              "sv": 0.0016
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 767, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www_thomann_de",
+      "reply": {
+        "answers": {
+          "language": {
+            "choice": "de",
+            "confidence": 0.9142,
+            "probabilities": {
+              "bg": 0.0015,
+              "cs": 0.0018,
+              "da": 0.0021,
+              "de": 0.9579,
+              "el": 0.0018,
+              "en": 0.0032,
+              "es": 0.0022,
+              "et": 0.0017,
+              "fi": 0.0015,
+              "fr": 0.0021,
+              "ga": 0.0012,
+              "hr": 0.0016,
+              "hu": 0.0015,
+              "it": 0.0021,
+              "lt": 0.0013,
+              "lv": 0.0015,
+              "mt": 0.0012,
+              "nl": 0.0024,
+              "other": 0.0019,
+              "pl": 0.0015,
+              "pt": 0.0015,
+              "ro": 0.0016,
+              "sk": 0.0015,
+              "sl": 0.0017,
+              "sv": 0.0017
+            },
+            "type": "choice"
+          }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 795, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_amnesty_org",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.036, "type": "noul" },
+          "statement_2": { "noul": 0.0476, "type": "noul" },
+          "statement_3": { "noul": 0.9711, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 814, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_bbc_co_uk",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.1544, "type": "noul" },
+          "statement_2": { "noul": 0.1523, "type": "noul" },
+          "statement_3": { "noul": 0.3374, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 628, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_bonprix_de",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.9515, "type": "noul" },
+          "statement_2": { "noul": 0.9658, "type": "noul" },
+          "statement_3": { "noul": 0.942, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1307, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_brno_cz",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.059, "type": "noul" },
+          "statement_2": { "noul": 0.0508, "type": "noul" },
+          "statement_3": { "noul": 0.9374, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1180, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_datart_cz",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.2615, "type": "noul" },
+          "statement_2": { "noul": 0.1376, "type": "noul" },
+          "statement_3": { "noul": 0.879, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 2525, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_ecb_europa_eu",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.0584, "type": "noul" },
+          "statement_2": { "noul": 0.0527, "type": "noul" },
+          "statement_3": { "noul": 0.9633, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1583, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_gov_uk",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.0586, "type": "noul" },
+          "statement_2": { "noul": 0.0864, "type": "noul" },
+          "statement_3": { "noul": 0.9575, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1730, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_idnes_cz",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.7883, "type": "noul" },
+          "statement_2": { "noul": 0.398, "type": "noul" },
+          "statement_3": { "noul": 0.876, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1945, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_ikea_com_cz_cs_",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.7219, "type": "noul" },
+          "statement_2": { "noul": 0.0583, "type": "noul" },
+          "statement_3": { "noul": 0.9411, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1091, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_jumbo_com",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.1141, "type": "noul" },
+          "statement_2": { "noul": 0.0865, "type": "noul" },
+          "statement_3": { "noul": 0.9288, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1549, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_jysk_cz",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.9665, "type": "noul" },
+          "statement_2": { "noul": 0.9717, "type": "noul" },
+          "statement_3": { "noul": 0.975, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1284, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_martinus_sk",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.9142, "type": "noul" },
+          "statement_2": { "noul": 0.2777, "type": "noul" },
+          "statement_3": { "noul": 0.945, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1683, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_mvcr_cz",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.0455, "type": "noul" },
+          "statement_2": { "noul": 0.0436, "type": "noul" },
+          "statement_3": { "noul": 0.9458, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 2301, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_nature_com",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.055, "type": "noul" },
+          "statement_2": { "noul": 0.0483, "type": "noul" },
+          "statement_3": { "noul": 0.9708, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1003, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_o2_cz",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.2267, "type": "noul" },
+          "statement_2": { "noul": 0.1708, "type": "noul" },
+          "statement_3": { "noul": 0.3742, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 873, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_otto_de",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.9395, "type": "noul" },
+          "statement_2": { "noul": 0.9456, "type": "noul" },
+          "statement_3": { "noul": 0.9668, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1412, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_pilulka_cz",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.3626, "type": "noul" },
+          "statement_2": { "noul": 0.0819, "type": "noul" },
+          "statement_3": { "noul": 0.8517, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 2044, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_spiegel_de",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.5677, "type": "noul" },
+          "statement_2": { "noul": 0.0626, "type": "noul" },
+          "statement_3": { "noul": 0.8981, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1176, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_sportisimo_cz",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.9588, "type": "noul" },
+          "statement_2": { "noul": 0.9679, "type": "noul" },
+          "statement_3": { "noul": 0.9597, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 2269, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_thomann_de",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.0486, "type": "noul" },
+          "statement_2": { "noul": 0.0435, "type": "noul" },
+          "statement_3": { "noul": 0.9523, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1720, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_vodafone_de",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.1409, "type": "noul" },
+          "statement_2": { "noul": 0.0595, "type": "noul" },
+          "statement_3": { "noul": 0.9528, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1751, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_vut_cz",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.0593, "type": "noul" },
+          "statement_2": { "noul": 0.0482, "type": "noul" },
+          "statement_3": { "noul": 0.935, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 891, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_wien_gv_at",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.0579, "type": "noul" },
+          "statement_2": { "noul": 0.0442, "type": "noul" },
+          "statement_3": { "noul": 0.9482, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 1473, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "statement-annex-v:st_www_zooplus_de",
+      "reply": {
+        "answers": {
+          "statement_1": { "noul": 0.892, "type": "noul" },
+          "statement_2": { "noul": 0.0662, "type": "noul" },
+          "statement_3": { "noul": 0.933, "type": "noul" }
+        },
+        "model": "clef",
+        "usage": { "input_tokens": 739, "output_tokens": 0 }
+      }
+    }
+  ]
+}

@@ -3,9 +3,12 @@ import {
   MAX_ELEMENTS_PER_KIND,
   MAX_HREF,
   MAX_NAME,
+  MAX_PASSAGES,
+  MAX_PRICES,
   MAX_SNIPPET,
   MAX_STRUCTURED_TYPES,
   MAX_TEXT_SAMPLE,
+  MIN_PASSAGE_TEXT,
 } from "@eaa-check/core";
 import type {
   ControlEvidence,
@@ -16,6 +19,7 @@ import type {
   LinkEvidence,
   NamedEvidence,
   PageEvidence,
+  PassageEvidence,
 } from "@eaa-check/core";
 import { constVoid } from "effect/Function";
 import { Tokenizer } from "htmlparser2";
@@ -35,6 +39,16 @@ interface TextRegion {
   readonly depth: number;
   parts: string[];
   size: number;
+}
+
+interface ContextRegion extends TextRegion {
+  readonly landmark: Landmark | null;
+  readonly lang: string | null;
+}
+
+interface LangRegion {
+  readonly depth: number;
+  readonly lang: string;
 }
 
 interface HeadingRegion extends TextRegion {
@@ -67,7 +81,7 @@ interface Reading {
   attributes: Attributes;
   readonly buttons: NamedEvidence[];
   button: NameRegion | undefined;
-  readonly contexts: TextRegion[];
+  readonly contexts: ContextRegion[];
   readonly controls: ControlEvidence[];
   foreignFrom: number | undefined;
   readonly frames: FrameEvidence[];
@@ -84,10 +98,14 @@ interface Reading {
   readonly labels: string[];
   readonly landmarks: LandmarkRegion[];
   lang: string | null;
+  readonly langs: LangRegion[];
   link: LinkRegion | undefined;
   readonly links: PendingLink[];
   readonly open: string[];
   readonly openCount: Map<string, number>;
+  readonly passages: PassageEvidence[];
+  priceTail: string;
+  readonly prices: Set<string>;
   readonly refreshes: string[];
   readonly sample: string[];
   sampleSize: number;
@@ -228,6 +246,11 @@ const QUOTED = /"(?<value>[^"]{1,100})"/gu;
 
 const SCHEMA_ORG = /^(?:https?:\/\/)?(?:www\.)?schema\.org\//iu;
 
+const PRICE =
+  /[€£]\s?(?<![\d.,])\d{1,3}(?:[ \u00A0.,]\d{3}){0,3}(?:[.,]\d{1,2})?|(?<![\d.,])\d{1,3}(?:[ \u00A0.,]\d{3}){0,3}(?:(?:[.,]\d{1,2})?\s?(?:€|£|EUR|Kč|CZK|zł|PLN|lei|RON|Ft|HUF|kr|SEK|DKK|NOK|лв|BGN)(?!\p{L})|,-)/gu;
+
+const PRICE_TAIL = 40;
+
 const WHITESPACE = /\s+/gu;
 
 const collapse = (text: string): string =>
@@ -286,6 +309,30 @@ const addTo = (region: TextRegion | undefined, text: string, most: number) => {
   }
 };
 
+const addPrices = (reading: Reading, words: string) => {
+  if (reading.prices.size >= MAX_PRICES) {
+    return;
+  }
+
+  const recent = capped(words, MAX_CONTEXT);
+  const seen = reading.priceTail === "" ? "" : `${reading.priceTail} `;
+  const text = `${seen}${recent}`;
+
+  for (const match of text.matchAll(PRICE)) {
+    if (
+      match.index + match[0].length > seen.length &&
+      reading.prices.size < MAX_PRICES
+    ) {
+      reading.prices.add(match[0]);
+    }
+  }
+
+  const tail = text.slice(-PRICE_TAIL);
+  const cut = tail.indexOf(" ");
+
+  reading.priceTail = cut === -1 ? tail : tail.slice(cut + 1);
+};
+
 const addText = (reading: Reading, text: string) => {
   addName(reading, text);
   addTo(reading.heading, text, MAX_NAME);
@@ -293,6 +340,10 @@ const addText = (reading: Reading, text: string) => {
   addTo(reading.contexts.at(-1), text, MAX_CONTEXT);
 
   const words = collapse(text);
+
+  if (words !== "") {
+    addPrices(reading, words);
+  }
 
   if (words !== "" && reading.sampleSize < MAX_TEXT_SAMPLE) {
     reading.sample.push(words);
@@ -339,7 +390,26 @@ const endButton = (reading: Reading) => {
   }
 };
 
+const keepPassage = (reading: Reading, context: ContextRegion) => {
+  const text = textOf(context, MAX_CONTEXT);
+
+  if (
+    text.length >= MIN_PASSAGE_TEXT &&
+    reading.passages.length < MAX_PASSAGES
+  ) {
+    reading.passages.push({
+      landmark: context.landmark,
+      lang: context.lang,
+      text,
+    });
+  }
+};
+
 const endStructure = (reading: Reading, depth: number) => {
+  while ((reading.langs.at(-1)?.depth ?? -1) >= depth) {
+    reading.langs.pop();
+  }
+
   while ((reading.landmarks.at(-1)?.depth ?? -1) >= depth) {
     reading.landmarks.pop();
   }
@@ -376,7 +446,11 @@ const endRegions = (reading: Reading, depth: number) => {
   }
 
   while ((reading.contexts.at(-1)?.depth ?? -1) >= depth) {
-    reading.contexts.pop();
+    const context = reading.contexts.pop();
+
+    if (context !== undefined) {
+      keepPassage(reading, context);
+    }
   }
 
   endStructure(reading, depth);
@@ -552,7 +626,13 @@ const openTextRegions = (reading: Reading, tag: string) => {
   const depth = reading.open.length;
 
   if (CONTEXT_BLOCKS.has(tag)) {
-    reading.contexts.push({ depth, parts: [], size: 0 });
+    reading.contexts.push({
+      depth,
+      landmark: reading.landmarks.at(-1)?.landmark ?? null,
+      lang: reading.langs.at(-1)?.lang ?? null,
+      parts: [],
+      size: 0,
+    });
   }
 
   const level = HEADING.exec(tag)?.groups?.level;
@@ -719,6 +799,14 @@ const openStructure = (
   }
 };
 
+const openLang = (reading: Reading, attributes: Attributes, depth: number) => {
+  const lang = attribute(attributes, "lang");
+
+  if (lang !== null && lang.trim() !== "") {
+    reading.langs.push({ depth, lang: capped(lang.trim(), MAX_NAME) });
+  }
+};
+
 const openElement = (reading: Reading, selfClosed: boolean) => {
   const { attributes, tag } = reading;
   const depth = reading.open.length;
@@ -733,6 +821,7 @@ const openElement = (reading: Reading, selfClosed: boolean) => {
   }
 
   readStructure(reading, tag, attributes);
+  openLang(reading, attributes, depth);
 
   if (tag === "a" || tag === "button") {
     closeNearest(reading, tag);
@@ -889,10 +978,14 @@ const blank = (): Reading => ({
   labels: [],
   landmarks: [],
   lang: null,
+  langs: [],
   link: undefined,
   links: [],
   open: [],
   openCount: new Map(),
+  passages: [],
+  priceTail: "",
+  prices: new Set(),
   refreshes: [],
   sample: [],
   sampleSize: 0,
@@ -938,6 +1031,8 @@ export const readPage = (html: string): PageEvidence => {
     labels: reading.labels,
     lang: reading.lang === null ? null : capped(reading.lang, MAX_NAME),
     links: reading.links.map(linkOf),
+    passages: reading.passages,
+    prices: [...reading.prices],
     refreshes: reading.refreshes,
     search: reading.search,
     structuredTypes: [...reading.structuredTypes],

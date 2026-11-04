@@ -64,6 +64,8 @@ const reader: PageReading = {
     labels: [],
     lang: "en",
     links: [],
+    passages: [],
+    prices: [],
     refreshes: [],
     search: false,
     structuredTypes: [],

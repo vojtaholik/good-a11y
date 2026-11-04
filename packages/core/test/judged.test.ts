@@ -84,15 +84,86 @@ describe("link purpose", () => {
   });
 });
 
+const linkIn = (
+  text: string,
+  landmark: PageEvidence["links"][number]["landmark"]
+) => ({
+  context: "",
+  href: "/",
+  labelled: false,
+  landmark,
+  language: false,
+  snippet: "<a>",
+  text,
+});
+
+describe("link purpose in the page content", () => {
+  it("leaves out navigation, header and footer links, asks each text once and main content first", () => {
+    const page: PageEvidence = {
+      ...evidence,
+      links: [
+        linkIn("Menu", "nav"),
+        linkIn("Log in", "header"),
+        linkIn("Imprint", "footer"),
+        linkIn("Sidebar", "aside"),
+        linkIn("More", null),
+        linkIn("more", "main"),
+        linkIn("Read more", "main"),
+      ],
+    };
+
+    expect(
+      questionsOf(JUDGED_CHECKS, page)
+        .find(({ id }) => id === "link-purpose")
+        ?.items.map(({ sample }) => sample)
+    ).toEqual(['"more"', '"Read more"', '"Sidebar"']);
+  });
+});
+
+describe("the accessibility statement against Annex V", () => {
+  const statement = (text: string): PageEvidence => ({
+    ...evidence,
+    passages: [
+      { landmark: "nav", lang: "en", text: "Shop Help Contact ".repeat(40) },
+      { landmark: "main", lang: "en", text },
+    ],
+  });
+
+  it("is asked only when the crawl found a statement with enough text", () => {
+    expect(idsAskedFor(evidence)).not.toContain("statement-annex-v");
+    expect(
+      questionsOf(JUDGED_CHECKS, evidence, statement("Too short.")).map(
+        ({ id }) => id
+      )
+    ).not.toContain("statement-annex-v");
+  });
+
+  it("asks one question per Annex V point about the statement text outside navigation", () => {
+    const asked = questionsOf(
+      JUDGED_CHECKS,
+      evidence,
+      statement("We sell bikes online. ".repeat(20))
+    ).find(({ id }) => id === "statement-annex-v");
+
+    expect(asked?.items.map(({ key }) => key)).toEqual([
+      "statement_1",
+      "statement_2",
+      "statement_3",
+    ]);
+    expect(asked?.request.state).not.toContain("Shop Help Contact");
+  });
+});
+
 describe("checks hidden until calibrated on real pages", () => {
   it("are not asked and not reported", () => {
     expect(questionsFor(evidence).map(({ id }) => id)).toEqual([
       "link-purpose",
       "page-language-matches",
+      "sells-to-consumers",
     ]);
     expect(
       ran(judgedOf(answeredFor(evidence))).observations.map(({ id }) => id)
-    ).toEqual(["link-purpose", "page-language-matches"]);
+    ).toEqual(["link-purpose", "page-language-matches", "sells-to-consumers"]);
   });
 });
 
@@ -105,8 +176,9 @@ describe("questionsFor", () => {
       "link-purpose",
       "headings-labels-describe",
       "page-language-matches",
+      "sells-to-consumers",
     ]);
-    expect(asked.map(({ items }) => items.length)).toEqual([4, 6, 7, 1]);
+    expect(asked.map(({ items }) => items.length)).toEqual([4, 3, 7, 1, 1]);
   });
 
   it("caps the items asked about per check", () => {
@@ -199,7 +271,7 @@ describe("judgedOf", () => {
   });
 
   it("sums the input tokens the model counted", () => {
-    expect(ran(judged).inputTokens).toBe(3114);
+    expect(ran(judged).inputTokens).toBe(3123);
   });
 
   it("round-trips through the report schema", () => {

@@ -5,7 +5,7 @@ import { MAX_SAMPLES } from "./check.js";
 import { FindingReferenceSchema, referencesFor } from "./finding-reference.js";
 import { JUDGE_MODEL, JUDGE_MODEL_NAME, Probability } from "./judge.js";
 import type { Answer, JudgeReply, JudgeRequest, Question } from "./judge.js";
-import type { PageEvidence } from "./page-evidence.js";
+import type { Landmark, LinkEvidence, PageEvidence } from "./page-evidence.js";
 import { REFERENCE } from "./reference.js";
 import type { Reference } from "./reference.js";
 
@@ -26,6 +26,8 @@ export const JudgedIdSchema = Schema.Literals([
   "link-purpose",
   "headings-labels-describe",
   "page-language-matches",
+  "sells-to-consumers",
+  "statement-annex-v",
 ]);
 
 export type JudgedId = typeof JudgedIdSchema.Type;
@@ -33,14 +35,19 @@ export type JudgedId = typeof JudgedIdSchema.Type;
 export const NOTE_AT = {
   "alt-text-describes": 0.7,
   "headings-labels-describe": 0.7,
-  "link-purpose": 0.85,
+  "link-purpose": 0.9,
   "page-language-matches": 0.8,
+  "sells-to-consumers": 0.85,
+  "statement-annex-v": 0.8,
 } as const satisfies Record<JudgedId, number>;
 
 const Count = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0));
 
 export const JudgedNoteSchema = Schema.Struct({
   confidence: Probability,
+  item: Schema.String.annotate({
+    description: "The key of the item the note is about",
+  }),
   sample: Schema.String,
 });
 
@@ -100,9 +107,14 @@ export interface Asked {
   readonly request: JudgeRequest;
 }
 
+export interface JudgedPages {
+  readonly entered: PageEvidence;
+  readonly statement: PageEvidence | null;
+}
+
 export interface JudgedCheck {
   readonly about: string;
-  readonly ask: (evidence: PageEvidence) => Asked | null;
+  readonly ask: (pages: JudgedPages) => Asked | null;
   readonly criteria: readonly string[];
   readonly decide: (asked: Asked, reply: JudgeReply) => readonly JudgedNote[];
   readonly id: JudgedId;
@@ -111,6 +123,25 @@ export interface JudgedCheck {
 }
 
 const quoted = (text: string): string => JSON.stringify(text);
+
+const capped = (text: string, most: number): string =>
+  text.length > most ? text.slice(0, most) : text;
+
+const distinctFirstAll = <T>(
+  items: readonly T[],
+  keyOf: (item: T) => string
+): T[] => {
+  const seen = new Set<string>();
+
+  return items.filter((item) => {
+    const key = keyOf(item);
+    const fresh = !seen.has(key);
+
+    seen.add(key);
+
+    return fresh;
+  });
+};
 
 const distinctFirst = <T>(
   items: readonly T[],
@@ -167,14 +198,14 @@ const notedWhereNo =
       const yes = noulAnswer(reply.answers[key]);
 
       return yes !== null && 1 - yes >= noteAt
-        ? [{ confidence: rounded(1 - yes), sample }]
+        ? [{ confidence: rounded(1 - yes), item: key, sample }]
         : [];
     });
 
 const altTextDescribes: JudgedCheck = {
   about:
     "The model read the alt text and the image's file name, not the image, and judged that the alt text does not describe what the image shows or what it is for.",
-  ask: (evidence) => {
+  ask: ({ entered: evidence }) => {
     const images = distinctFirst(
       evidence.images.filter(
         (image) =>
@@ -215,19 +246,36 @@ const SHORT_LINK_WORDS = 2;
 const wordsIn = (text: string): number =>
   text.trim() === "" ? 0 : text.trim().split(/\s+/u).length;
 
+const PAGE_FURNITURE: ReadonlySet<Landmark> = new Set([
+  "footer",
+  "header",
+  "nav",
+]);
+
+const contentFirst = (link: LinkEvidence): number => {
+  if (link.landmark === "main") {
+    return 0;
+  }
+
+  return link.landmark === null ? 1 : 2;
+};
+
 const linkPurpose: JudgedCheck = {
   about:
-    "The model read short link texts with the sentence, list item or cell around them and judged that the link's purpose is not clear from them.",
-  ask: (evidence) => {
+    "The model read short link texts in the page content with the sentence, list item or cell around them and judged that the link's purpose is not clear from them.",
+  ask: ({ entered: evidence }) => {
     const links = distinctFirst(
-      evidence.links.filter(
-        (link) =>
-          !link.labelled &&
-          !link.language &&
-          wordsIn(link.text) > 0 &&
-          wordsIn(link.text) <= SHORT_LINK_WORDS
-      ),
-      (link) => `${link.text}|${link.context}`
+      evidence.links
+        .filter(
+          (link) =>
+            !link.labelled &&
+            !link.language &&
+            (link.landmark === null || !PAGE_FURNITURE.has(link.landmark)) &&
+            wordsIn(link.text) > 0 &&
+            wordsIn(link.text) <= SHORT_LINK_WORDS
+        )
+        .toSorted((one, other) => contentFirst(one) - contentFirst(other)),
+      (link) => link.text.trim().toLowerCase()
     );
 
     const entries = links.map((link, index) => ({
@@ -265,7 +313,7 @@ const MAX_JUDGED_LABELS = 8;
 const headingsLabelsDescribe: JudgedCheck = {
   about:
     "The model read each heading and form label on its own and judged that it does not describe a topic or say what to enter.",
-  ask: (evidence) => {
+  ask: ({ entered: evidence }) => {
     const labels = distinctFirst(
       evidence.labels.filter((label) => label.trim() !== ""),
       (label) => label
@@ -362,7 +410,7 @@ const declaredLanguage = (lang: string | null): string | null => {
 const pageLanguageMatches: JudgedCheck = {
   about:
     "The model read the start of the page's text and judged that it is not written in the language the page declares in its lang attribute.",
-  ask: (evidence) => {
+  ask: ({ entered: evidence }) => {
     const declared = declaredLanguage(evidence.lang);
 
     return declared === null || evidence.textSample.length < MIN_LANGUAGE_SAMPLE
@@ -401,6 +449,7 @@ const pageLanguageMatches: JudgedCheck = {
       ? [
           {
             confidence: rounded(notDeclared),
+            item: item.key,
             sample: `${item.sample}, text reads as ${EU_LANGUAGES.get(answer.choice) ?? answer.choice}`,
           },
         ]
@@ -411,11 +460,155 @@ const pageLanguageMatches: JudgedCheck = {
   title: "Declared page language may not match the text",
 };
 
+const SHOPPING_LINK =
+  /(?<!\p{L})(?:cart|basket|checkout|košík|kosik|pokladn|warenkorb|kasse|panier|carrito|carrello|winkelwagen|winkelmand|koszyk|kosár|indkøbskurv|handlekurv|varukorg|ostoskori|ostukorv|grozs|krepšel|coș|καλάθι|кошница|carrinho|košarica|subscri|abonn|předplat|book|rezerv|buchen|réserv)/iu;
+
+const MAX_SHOPPING_LINKS = 10;
+
+const SELLS_KEY = "sells";
+
+export const SELLS =
+  "The site appears to sell goods or services to consumers online.";
+
+export const DOES_NOT_SELL =
+  "The site does not appear to sell goods or services to consumers online.";
+
+const sellsToConsumers: JudgedCheck = {
+  about:
+    "The model read the page's title, the start of its text, prices, shopping links and schema.org types, and judged whether the site sells goods or services to consumers online.",
+  ask: ({ entered: evidence }) => {
+    const shopping = distinctFirst(
+      evidence.links.filter(
+        (link) => SHOPPING_LINK.test(link.text) || SHOPPING_LINK.test(link.href)
+      ),
+      (link) => link.text.trim().toLowerCase()
+    ).slice(0, MAX_SHOPPING_LINKS);
+
+    return askedOf(
+      "sells-to-consumers",
+      [
+        "Evidence collected from the home page of a website.",
+        `Title: ${quoted(evidence.title ?? "")}.`,
+        `Start of the visible text: ${quoted(evidence.textSample)}.`,
+        `Prices seen on the page: ${evidence.prices.length === 0 ? "none" : evidence.prices.map(quoted).join(", ")}.`,
+        `Links that may lead to a cart, a checkout, a subscription or a booking: ${shopping.length === 0 ? "none" : shopping.map((link) => `${quoted(link.text)} (${quoted(link.href)})`).join(", ")}.`,
+        `schema.org types: ${evidence.structuredTypes.length === 0 ? "none" : evidence.structuredTypes.join(", ")}.`,
+      ].join("\n"),
+      [
+        {
+          key: SELLS_KEY,
+          question: noul(
+            "Does this website let consumers buy, order, book or subscribe to goods or services online, so that a contract with a consumer is concluded through the site? Answer no for sites that only inform, publish news, or sell only to businesses."
+          ),
+          sample: evidence.title ?? "",
+        },
+      ]
+    );
+  },
+  criteria: [],
+  decide: (asked, reply) => {
+    const yes = noulAnswer(reply.answers[SELLS_KEY]);
+    const noteAt = NOTE_AT["sells-to-consumers"];
+
+    if (yes === null) {
+      return [];
+    }
+
+    if (yes >= noteAt) {
+      return [{ confidence: rounded(yes), item: SELLS_KEY, sample: SELLS }];
+    }
+
+    return 1 - yes >= noteAt
+      ? [
+          {
+            confidence: rounded(1 - yes),
+            item: SELLS_KEY,
+            sample: DOES_NOT_SELL,
+          },
+        ]
+      : [];
+  },
+  id: "sells-to-consumers",
+  shown: true,
+  title: "Whether the site sells to consumers online",
+};
+
+const MAX_STATEMENT_TEXT = 6000;
+
+const MIN_STATEMENT_TEXT = 300;
+
+const ANNEX_V_POINTS = [
+  {
+    key: "statement_1",
+    question:
+      "Does the text give a general description of the service the website offers, such as what can be bought, booked or used on it?",
+    sample: "Annex V 1(a): a general description of the service",
+  },
+  {
+    key: "statement_2",
+    question:
+      "Does the text explain how the service works, such as how to find, order, pay for or use what it offers?",
+    sample:
+      "Annex V 1(b): descriptions and explanations needed to understand how the service operates",
+  },
+  {
+    key: "statement_3",
+    question:
+      "Does the text describe how the service meets accessibility requirements, such as the standard it follows, how far it conforms, what is not yet accessible and what is being done about it?",
+    sample:
+      "Annex V 1(c): a description of how the service meets the accessibility requirements",
+  },
+] as const;
+
+const statementText = (statement: PageEvidence): string =>
+  capped(
+    distinctFirstAll(
+      statement.passages.filter(
+        (passage) =>
+          passage.landmark === null || !PAGE_FURNITURE.has(passage.landmark)
+      ),
+      (passage) => passage.text
+    )
+      .map((passage) => passage.text)
+      .join("\n"),
+    MAX_STATEMENT_TEXT
+  );
+
+const statementAnnexV: JudgedCheck = {
+  about:
+    "The model read the text of the page the site links to as its accessibility statement and judged that it does not contain a point Annex V asks a service provider to give.",
+  ask: ({ statement }) => {
+    const text = statement === null ? "" : statementText(statement);
+
+    return text.length < MIN_STATEMENT_TEXT
+      ? null
+      : askedOf(
+          "statement-annex-v",
+          [
+            "The text of the page a website links to as its accessibility statement.",
+            text,
+          ].join("\n"),
+          ANNEX_V_POINTS.map(({ key, question, sample }) => ({
+            key,
+            question: noul(question),
+            sample,
+          }))
+        );
+  },
+  criteria: [],
+  decide: notedWhereNo(NOTE_AT["statement-annex-v"]),
+  id: "statement-annex-v",
+  shown: true,
+  title: "Points of Annex V the accessibility statement may leave out",
+};
+
 export const JUDGED_CHECKS: readonly JudgedCheck[] = [
   altTextDescribes,
   linkPurpose,
   headingsLabelsDescribe,
   pageLanguageMatches,
+  sellsToConsumers,
+  statementAnnexV,
 ];
 
 export const SHOWN_JUDGED_CHECKS: readonly JudgedCheck[] = JUDGED_CHECKS.filter(
@@ -436,16 +629,19 @@ export const judgedCriteria = (): readonly string[] =>
 
 export const questionsOf = (
   checks: readonly JudgedCheck[],
-  evidence: PageEvidence
+  entered: PageEvidence,
+  statement: PageEvidence | null = null
 ): readonly Asked[] =>
   checks.flatMap((check) => {
-    const asked = check.ask(evidence);
+    const asked = check.ask({ entered, statement });
 
     return asked === null ? [] : [asked];
   });
 
-export const questionsFor = (evidence: PageEvidence): readonly Asked[] =>
-  questionsOf(SHOWN_JUDGED_CHECKS, evidence);
+export const questionsFor = (
+  entered: PageEvidence,
+  statement: PageEvidence | null = null
+): readonly Asked[] => questionsOf(SHOWN_JUDGED_CHECKS, entered, statement);
 
 export const tokensToReserve = (
   asked: readonly Pick<Asked, "request">[]

@@ -81,69 +81,87 @@
   "lang": "de",
   "links": [
     {
+      "labelled": false,
+      "snippet": "<a href=\"/bikes\">",
+      "text": "City bikes",
       "context": "City bikes",
       "href": "/bikes",
-      "labelled": false,
-      "landmark": null,
-      "language": false,
-      "snippet": "<a href=\"/bikes\">",
-      "text": "City bikes"
+      "landmark": "nav",
+      "language": false
     },
     {
+      "labelled": false,
+      "snippet": "<a href=\"/repairs\">",
+      "text": "Repairs",
       "context": "Repairs",
       "href": "/repairs",
-      "labelled": false,
-      "landmark": null,
-      "language": false,
-      "snippet": "<a href=\"/repairs\">",
-      "text": "Repairs"
+      "landmark": "nav",
+      "language": false
     },
     {
+      "labelled": false,
+      "snippet": "<a href=\"/contact\">",
+      "text": "Contact",
       "context": "Contact",
       "href": "/contact",
-      "labelled": false,
-      "landmark": null,
-      "language": false,
-      "snippet": "<a href=\"/contact\">",
-      "text": "Contact"
+      "landmark": "nav",
+      "language": false
     },
     {
+      "labelled": false,
+      "snippet": "<a href=\"/spring-service\">",
+      "text": "Read more",
       "context": "Our spring service checks brakes, gears, tyres and lights for a fixed price. Read more",
       "href": "/spring-service",
-      "labelled": false,
-      "landmark": null,
-      "language": false,
-      "snippet": "<a href=\"/spring-service\">",
-      "text": "Read more"
+      "landmark": "main",
+      "language": false
     },
     {
+      "labelled": false,
+      "snippet": "<a href=\"/holidays\">",
+      "text": "click here",
       "context": "Monday to Friday, 9:00 to 18:00. To see our holiday closures, click here.",
       "href": "/holidays",
-      "labelled": false,
-      "landmark": null,
-      "language": false,
-      "snippet": "<a href=\"/holidays\">",
-      "text": "click here"
+      "landmark": "main",
+      "language": false
     },
     {
+      "labelled": false,
+      "snippet": "<a href=\"/news/1\">",
+      "text": "More",
       "context": "More",
       "href": "/news/1",
-      "labelled": false,
-      "landmark": null,
-      "language": false,
-      "snippet": "<a href=\"/news/1\">",
-      "text": "More"
+      "landmark": "main",
+      "language": false
     },
     {
+      "labelled": false,
+      "snippet": "<a href=\"/news/2\">",
+      "text": "More",
       "context": "More",
       "href": "/news/2",
-      "labelled": false,
-      "landmark": null,
-      "language": false,
-      "snippet": "<a href=\"/news/2\">",
-      "text": "More"
+      "landmark": "main",
+      "language": false
     }
   ],
+  "passages": [
+    {
+      "landmark": "main",
+      "lang": "de",
+      "text": "We build and repair city bikes in Brno. Every bike is assembled by hand in our workshop and tested on the road before it leaves the shop. Our mechanics service all major brands and most repairs are done within two working days."
+    },
+    {
+      "landmark": "main",
+      "lang": "de",
+      "text": "Our spring service checks brakes, gears, tyres and lights for a fixed price. Read more"
+    },
+    {
+      "landmark": "main",
+      "lang": "de",
+      "text": "Monday to Friday, 9:00 to 18:00. To see our holiday closures, click here."
+    }
+  ],
+  "prices": [],
   "refreshes": [],
   "search": false,
   "structuredTypes": [],

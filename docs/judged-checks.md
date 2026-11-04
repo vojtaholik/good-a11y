@@ -13,7 +13,7 @@ Built 2026-11-03 by builder-judge. After the static and rendered checks, a scan 
 1. The `scan` Workflow task runs the static scan with `inspectUrl` and archives the page evidence to R2 as `<slug>/<scanId>.evidence.json`.
 2. After `render`, the `judge` task runs (only for a `checked` report; a refused, unreachable or non-HTML page gets no judged section):
    - reads the evidence back from R2;
-   - builds one request per judged check with `questionsFor(evidence)`;
+   - builds one request per judged check with `questionsFor(evidence, statement)`, where `statement` is the evidence of the accessibility statement page the crawl read (decision 28), or `null`;
    - reserves `tokensToReserve(asked)` tokens with `JudgeBudget.reserve` against `DAILY_JUDGE_TOKENS` (400,000 a day). The insert is conditional, so a reservation never passes the cap; after the call the reservation is settled to real use (below);
    - asks the model, at most 4 requests at once, through the `Judge` port (`packages/ai-judge`: 30 s hard timeout, reply decoded with `JudgeReplySchema`, any failure becomes `JudgeUnavailable`);
    - turns the answers into observations with `judgedOf` and attaches them with `withJudged`.
@@ -22,16 +22,18 @@ Built 2026-11-03 by builder-judge. After the static and rendered checks, a scan 
 
 ## The questions
 
-At most 20 distinct items per check (`MAX_JUDGED_ITEMS`), taken in document order. One request per check, one question per item.
+At most 20 distinct items per check (`MAX_JUDGED_ITEMS`), taken in document order unless the row says otherwise. One request per check, one question per item.
 
 | Check | Relates to | Items | Question (noul unless noted) |
 | --- | --- | --- | --- |
 | `alt-text-describes` | 1.1.1 | images with non-empty alt, not `role="presentation"`/`none` | Is the alt text a description of what the image shows or what it is for? No for a file name, a placeholder or only a generic word. State: alt text and file name. |
-| `link-purpose` | 2.4.4 | links of one or two words without `aria-label`/`aria-labelledby`/`title` | Is it clear from the link text together with its surrounding paragraph, list item or cell where the link goes? |
+| `link-purpose` | 2.4.4 | links of one or two words without `aria-label`/`aria-labelledby`/`title`, outside `nav`, `header` and `footer` landmarks (by tag or role), each text once (case-insensitive), links in `main` first, then links in no landmark, then `aside` | Is it clear from the link text together with its surrounding paragraph, list item or cell where the link goes? |
 | `headings-labels-describe` | 2.4.6 | up to 8 label texts, then headings up to 20 in all | Does the heading name a topic a reader can recognise? Does the label say what to enter? |
 | `page-language-matches` | 3.1.1 | the page, when it declares `lang` and has at least 200 characters of visible text | Choice over the 24 EU official languages plus "other": which language is most of the text in? |
+| `sells-to-consumers` | EAA scope (EU-SCOPE-1, EU-DEF-1); no WCAG criterion | the entered page: title, first 1,200 characters of text, up to 20 prices, up to 10 links whose text or href names a cart, checkout, subscription or booking, schema.org types | Does this website let consumers buy, order, book or subscribe online, so that a consumer contract is concluded through the site? A note says either "appears to sell" or "does not appear to sell"; no note means the model was not sure. Shown beside the member-state list, never changes it |
+| `statement-annex-v` | Art. 13 and Annex V point 1 (EU-STMT-3, -4, -5); no WCAG criterion | the statement page the crawl found, when its text outside `nav`, `header` and `footer` is at least 300 characters; the text is capped at 6,000 characters | Three questions, items `statement_1` to `statement_3`: does the text give (a) a general description of the service, (b) an explanation of how the service works, (c) a description of how it meets the accessibility requirements? A note per point the model judged missing |
 
-The static reader collects the extra evidence in its single tokenizer pass: link context (the innermost `p`, `li`, `td`, `th`, `dd`, `dt`, `caption`, `figcaption` or heading, capped at 300 characters), headings with level, label texts, the image file name (last path segment, no query, none for `data:`), and the first 1,200 characters of visible text.
+The static reader collects the extra evidence in its single tokenizer pass: link context (the innermost `p`, `li`, `td`, `th`, `dd`, `dt`, `caption`, `figcaption` or heading, capped at 300 characters), headings with level, label texts, the image file name (last path segment, no query, none for `data:`), the first 1,200 characters of visible text, each block's text (`passages`: paragraph, list item, cell or heading of at least 40 characters, with its effective `lang` and landmark, at most 400), and up to 20 distinct prices (an amount with a currency sign or code, or `,-`, also when the currency is in the next text node).
 
 ## Thresholds (fixed in code)
 
@@ -40,13 +42,15 @@ The static reader collects the extra evidence in its single tokenizer pass: link
 | Check | Noted when | Precision | Recall |
 | --- | --- | --- | --- |
 | `alt-text-describes` | P(no) ≥ 0.70 | 1.00 (30/30) | 1.00 (30/30) |
-| `link-purpose` | P(no) ≥ 0.85 | 1.00 (24/24) | 0.80 (24/30) |
+| `link-purpose` | P(no) ≥ 0.90 (round 2, real items) | 0.94 (29/31) | 0.66 (29/44) |
 | `headings-labels-describe` | P(no) ≥ 0.70 | 1.00 (26/26) | 0.96 (26/27) |
 | `page-language-matches` | P(not declared) ≥ 0.80 and the top choice is another language | 1.00 (15/15) | 1.00 (15/15) |
+| `sells-to-consumers` | P(yes) ≥ 0.85 or P(no) ≥ 0.85 (round 2, real items) | 1.00 (60/60) | answers 60 of 71 sites |
+| `statement-annex-v` | P(no) ≥ 0.80 per point (round 2, real items) | 1.00 (27/27) | 0.93 (27/29) |
 
 - Each note shows the model's confidence in that answer (the probability above, rounded to a percent).
 - What a note means: the model, reading only the text shown, thinks this item probably does not do what the success criterion asks. It is a pointer for a person to look at, not a failure. A check with no notes means nothing was noted, never that the criterion is met.
-- All four checks reach 0.9 precision on that set.
+- The first four thresholds were set on the hand-written set (below); `link-purpose` was moved to 0.90 on real items in round 2. The last two were set on real items only.
 
 ## Shown in the report (decision 23)
 
@@ -55,11 +59,50 @@ Each check has a `shown` flag in `packages/core/src/judged.ts`. A check that is 
 | Check | Shown | Why |
 | --- | --- | --- |
 | `alt-text-describes` | no | On real pages it noted a correct logo alt (idnes.cz `alt="iDNES.cz"` on `idnes.svg`, 83%): 0 of 1 real notes were right (docs/accuracy-qa.md, round 4) |
-| `link-purpose` | yes | 13 of 14 real notes right |
+| `link-purpose` | yes | 0.94 on 209 real items (round 2) |
 | `headings-labels-describe` | no | 1 of 6 real notes right. It noted ordinary Czech headings and labels on seznam.cz ("Vyhledat", "Hlavní obsah", "Méně služeb") at 70 to 98% |
-| `page-language-matches` | yes |  |
+| `page-language-matches` | yes | No note on 60 real pages; no real page in the set mismatches, so its recall on real pages is unmeasured |
+| `sells-to-consumers` | yes | 60 of 60 real answers right (round 2) |
+| `statement-annex-v` | yes | 27 of 27 real notes right (round 2) |
 
 The hand-written set above did not predict the failures on real pages. A hidden check comes back only when it reaches precision 0.9 on a set of at least 30 real items, labelled by hand, taken from scanned pages.
+
+## Round 2 calibration on real items (2026-11-04)
+
+Run by builder-judge for decision 29.
+
+Pages: 82 home pages fetched once with the scanner's user agent on 2026-11-04 (the QA sites that still answer, more EU shops, and public, university and NGO sites), 53 help or FAQ pages linked from them, and 24 accessibility statements linked from them. Sites that answered with a bot wall or an error were dropped.
+
+Labels: every item was labelled by hand before any answer was seen. Ambiguous items were left out (`null`). Labels and items are in `packages/core/test/fixtures/judged-round2-items.json`.
+
+Answers: one Clef run of 174 requests through builder-cloud's local calibrator (`apps/scanner/src/calibrator.ts`, alchemy dev only), 162,148 input tokens, recorded in `judged-round2-replies.json`.
+
+`packages/core/test/judged-round2-calibration.test.ts` rebuilds every request from the fixture with `questionsOf`, checks it asks the same items, scores the recorded answers, and fails if a check is shown below precision 0.9.
+
+| Check | Items | Bad | Threshold | Noted | Right | Precision | Recall |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `link-purpose` | 209 links, 14 sites | 44 | 0.90 | 31 | 29 | 0.94 | 0.66 |
+| `page-language-matches` | 60 pages | 0 | 0.80 | 0 | 0 | none noted | unmeasured |
+| `sells-to-consumers` | 71 sites (34 sell, 37 do not) |  | 0.85 | 60 answers | 60 | 1.00 | 60 of 71 answered |
+| `statement-annex-v` | 64 points, 24 statements | 29 missing | 0.80 | 27 | 27 | 1.00 | 0.93 |
+
+### What the numbers show
+
+- **Link purpose.** At 0.85 precision was exactly 0.90 (37/41). The false notes were product and brand names ("Needly dāvana", "Dexcom One+" on apotheka.lv, "Premium" on idnes.cz) and craigslist's "post". At 0.90 two remain ("Needly dāvana" and "Dexcom One+") and precision is 0.94. Misses at 0.90 include "View more" (0.84), "Více informací" (0.81), "Zobrazit všechny" (0.64), "Zobrazit více" (0.63), "Zum Artikel" (0.50) and "Acquista ora" (0.48). The model is less sure about generic links that are not in English, as in round 1.
+- **Navigation is left out.** Links in `nav`, `header` and `footer` are menus, so their purpose comes from the menu, and the model can only guess at them. Many sites put their menus in plain `div`s, though, so section names such as "Politics" or "Damen" are still asked. They were labelled good, and none was noted at 0.90.
+- **Page language.** None of the 60 real pages declares a language that does not match its text, and the model noted none. The one page the model leaned against (european-union.europa.eu, a language picker, P(not English) 0.71) stays under the threshold. The check stays shown: on real pages it adds no false notes, and the hand-written set shows that it catches a real mismatch.
+- **Sells to consumers.** At 0.80 the model said ING (a consumer bank) does not sell (P(yes) 0.20). At 0.85 every answer is right, and 11 sites get no answer: coolblue.nl, power.dk, o2.cz, spotify.com, vinted.fr, airbnb.com, ah.nl, praha.eu, seznam.cz and the ING home page. These are mostly script-built shop pages, where the static HTML shows no prices or cart. The answer is shown beside the member-state list and never changes it.
+- **Statement.** The model separates statements that only cover WCAG conformance (gov.uk, ecb.europa.eu, thomann.de, vodafone.de, city and ministry statements) from the EAA-style service statements of German and Czech shops (otto.de, bonprix.de, jysk.cz, martinus.sk, sportisimo.cz), which describe the service and how ordering works. Two missing points were not noted: datart.cz 1(a) at 0.74 (its text says the description is "in the general terms and conditions") and bbc.co.uk 1(c) at 0.66 (the page is a list of links). Point 1(c) had only one missing item in the set, so its recall rests on one case.
+
+### Retired questions
+
+| Question | Relates to | Why it was retired |
+| --- | --- | --- |
+| Sensory instructions | 1.3.3 | A phrase prefilter for an instruction verb together with a colour, shape, position or sound word, in 12 EU languages, found 8 candidate sentences in 135 real pages, 53 of them help pages. A first version also matched "links" (German "left") and "use" and fired on navigation. So the 30 real items the bar needs cannot be collected from scanned pages, and per scan the question would almost never be asked. One true candidate was seen: knihydobrovsky.cz marks unavailable goods "with a red cross". |
+| Passages in another language | 3.1.2 | 2,251 passages of at least 80 characters whose effective `lang` equals the page's were checked by a word-list heuristic. It found no passage in another language: the only hits were the fixture page and a Finnish passage misread by the heuristic. Real pages in the set give the question nothing to find, so it cannot reach the bar, and it would cost about 3,000 tokens a scan. |
+| Product accessibility information | Annex I IV (g)(i) | The obligation is to pass on accessibility information "when this information is provided by the responsible economic operator". A scan cannot see whether the manufacturer provided any. A note that a product page has no accessibility information would read as a failure the scan cannot show, so the row stays with a person. |
+
+The rendered questions in decision 29 (visual headings 1.3.1, form instructions 3.3.2, error messages 3.3.1 and 3.3.3, consistent identification 3.2.4) wait for evidence from the rendered session; none is in this round.
 
 ## Real-item calibration
 
@@ -77,7 +120,7 @@ What it got wrong:
 
 Both questions fail the same way: the model does not separate a short but correct name from a missing one. Both checks stay hidden; a new question wording needs a new real set before either comes back.
 
-- `packages/core/test/judged-calibration.test.ts` fails if a check in the report falls below 0.9 on the recorded answers, or a check has no calibration batch.
+- `packages/core/test/judged-calibration.test.ts` fails if a check with a hand-written batch falls below 0.9 on its recorded answers. `link-purpose` left the hand-written set in round 2: deduping by text merges its hand-written items, and real items replace them.
 
 ## Calibration (2026-11-03)
 
@@ -105,6 +148,7 @@ Measured on the fixture page (`packages/core/test/fixtures/judged-page.html`, 4 
 - Workers AI includes 10,000 neurons a day, about 458,000 Clef input tokens. `DAILY_JUDGE_TOKENS = 400,000` keeps the judged step inside that allocation: roughly 100 scans a day of this size, and about 40 at the 20-item cap on every check. Past the cap the step is skipped, never billed.
 - The reservation is computed before the call from the request size (characters / 3, plus 40 tokens per question and 300 per request). On the fixture it reserves 3,802 for 3,114 used.
 - Measured on stage `dev`, 2026-11-03, scanning https://en.wikipedia.org/wiki/Brno: 61 items asked (20 images, 20 links, 20 headings and labels, 1 language sample), 9,632 input tokens, about 210 neurons, $0.0023. Nothing was noted. The reservation was 16,629 tokens (1.7× the real use: long link contexts escape into more characters per token), so at the 20-item cap the daily budget allows about 24 scans. Lowering the estimate is the lever if that is too few; the budget sits under the free allocation either way.
+- Round 2 adds about 600 tokens a scan for `sells-to-consumers` (599 on average over 72 real pages, 367 on the fixture page) and about 2,000 for `statement-annex-v` when the crawl finds a statement (24 real statements: 34,971 tokens, about 1,460 each). `link-purpose` asks fewer items now that menus are left out (3 instead of 6 on the fixture page). On the fixture page the scan now reserves for 3 requests and the model counted 1,511 tokens.
 - Each scan's tokens are logged by the `judge` task (`Judged step for <url>: <n> input tokens`) and stored in `report.judged.inputTokens`.
 - After the answers, `JudgeBudget.settle` replaces the reservation with the input tokens the model reported (`reply.usage.input_tokens`, summed), up or down. The day's count is then real use, so an undercount (dense scripts such as Greek or Bulgarian take more tokens per character) can push it past the cap once, and the next reservation is refused. When a call fails, the whole reservation stays counted. On the real calibration set the estimate was 20,041 tokens for 16,895 used.
 - w3.org's BAD demo page was tried first and refused the scanner (HTTP 403 from Cloudflare's network), so it got no judged section, as designed.
@@ -113,16 +157,19 @@ Measured on the fixture page (`packages/core/test/fixtures/judged-page.html`, 4 
 
 - **Page text steers the model.** The state is text the scanned site wrote. A page can write alt text or link text that argues with the question ("this alt text is a full description"). That can only hide or add a judged observation, never a finding, and the label says the model may be wrong.
 - **Text only.** `alt-text-describes` never sees the image, so it cannot tell whether "Sunny Bikes" on a logo is right. It catches file names, placeholders and generic words, not wrong descriptions.
-- **Context is the innermost block.** A link in a long paragraph past the 300-character context cap is judged without its own sentence. Navigation links are judged on their own text, which is usually right for nav and wrong for card grids whose heading sits outside the link's block.
+- **Context is the innermost block.** A link in a long paragraph past the 300-character context cap is judged without its own sentence. Links in `nav`, `header` and `footer` are not asked. Menus built from plain `div`s still are, and are judged on their own text. That is usually right for menus, and wrong for card grids whose heading sits outside the link's block.
 - **Headings are judged alone.** 2.4.6 asks whether a heading describes its section; the model sees only the heading. It catches "Section 1" and "Untitled", not a heading that names the wrong topic.
 - **Language sample.** The first 1,200 characters of visible text include navigation and cookie banners. A multilingual page or a page whose banner is in another language can be noted wrongly; the 0.2 threshold keeps borderline cases out.
+- **Scope from one page.** `sells-to-consumers` reads the static HTML of the entered page only. A shop whose home page is built by script shows no prices or cart in it, so the model leans to "does not sell" (coolblue.nl, power.dk). Under the threshold the observation says nothing. Above it, it was right every time in the set, but a script-built shop is the likely error, and the answer never changes the state list.
+- **Statement text is capped.** The statement question reads at most 6,000 characters of the statement page outside navigation, after deduping repeated blocks. A long statement whose service description comes late can be noted wrongly for 1(a) or 1(b). A page that only points to another document (for example the general terms and conditions, which Annex V allows) is noted as missing that point, because the model reads only this page.
 - **Calibration.** Clef's probabilities are the model's own; the thresholds come from 212 labelled items (see Calibration). A changed question template or model invalidates them: rerun the set.
 
 ## Tests
 
-- `packages/core/test/judged.test.ts` runs the four checks on recorded evidence (`judged-evidence.json`, read from the fixture page by the real reader) and recorded Clef answers (`judged-replies.json`, recorded 2026-11-03). No test calls a model. It covers what is noted and what is not, the item cap, skipping the language question, confidences, references from verified facts only, the token reservation covering real usage, and that judged observations never change findings or the headline.
-- `packages/core/test/judged-calibration.test.ts` rebuilds the calibration requests with `questionsFor`, decides them with each check's `decide` on the recorded answers, and checks precision and recall per check.
+- `packages/core/test/judged.test.ts` runs the checks on recorded evidence (`judged-evidence.json`, read from the fixture page by the real reader) and recorded Clef answers (`judged-replies.json`, re-recorded 2026-11-04 in the round 2 run). It also covers leaving menu links out, asking each link text once, and when the statement question is asked. No test calls a model. It covers what is noted and what is not, the item cap, skipping the language question, confidences, references from verified facts only, the token reservation covering real usage, and that judged observations never change findings or the headline.
+- `packages/core/test/judged-calibration.test.ts` rebuilds the hand-written calibration requests with `questionsOf`, decides them with each check's `decide` on the recorded answers, and checks precision and recall per check.
 - `packages/ai-judge/test/ai-judge.test.ts` checks the pinned model and gateway, decoding, and the `service`, `unreadable` and `timeout` failures.
 - `packages/scan-store/test/judge-budget.test.ts` checks the daily token cap.
-- `packages/html-reader/test/judge-evidence.test.ts` checks the new evidence, and the hostile-input test runs `questionsFor` in the linear-time budget.
+- `packages/core/test/judged-round2-calibration.test.ts` scores the round 2 real items (above) and ties each shown flag to its real-item precision.
+- `packages/html-reader/test/judge-evidence.test.ts` checks the link, heading and label evidence. `judged-passages.test.ts` checks passages (language, landmark, no doubled text, hidden blocks left out) and prices. The hostile-input test runs every judged question, shown or not, on input at the size cap, with digit runs and prices among the units, and checks it stays within the linear-time budget.
 - `packages/core/test/scan-machine.test.ts` checks that a failed judge step still publishes.

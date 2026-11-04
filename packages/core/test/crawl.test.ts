@@ -33,6 +33,8 @@ const evidenceWith = (
   labels: [],
   lang: "en",
   links,
+  passages: [],
+  prices: [],
   refreshes: [],
   search: false,
   structuredTypes: [],

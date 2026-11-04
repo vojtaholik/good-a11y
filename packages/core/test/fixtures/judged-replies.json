@@ -1,6 +1,6 @@
 {
   "model": "@cf/cloudflare/clef",
-  "recorded": "2026-11-03",
+  "recorded": "2026-11-04",
   "replies": [
     {
       "id": "alt-text-describes",
@@ -35,33 +35,21 @@
       "reply": {
         "answers": {
           "link_1": {
-            "noul": 0.3427,
+            "noul": 0.2738,
             "type": "noul"
           },
           "link_2": {
-            "noul": 0.8461,
+            "noul": 0.8725,
             "type": "noul"
           },
           "link_3": {
-            "noul": 0.9391,
-            "type": "noul"
-          },
-          "link_4": {
-            "noul": 0.6196,
-            "type": "noul"
-          },
-          "link_5": {
-            "noul": 0.4353,
-            "type": "noul"
-          },
-          "link_6": {
-            "noul": 0.0179,
+            "noul": 0.0137,
             "type": "noul"
           }
         },
         "model": "clef",
         "usage": {
-          "input_tokens": 846,
+          "input_tokens": 488,
           "output_tokens": 0
         }
       }
@@ -146,6 +134,22 @@
         "model": "clef",
         "usage": {
           "input_tokens": 656,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "sells-to-consumers",
+      "reply": {
+        "answers": {
+          "sells": {
+            "noul": 0.0247,
+            "type": "noul"
+          }
+        },
+        "model": "clef",
+        "usage": {
+          "input_tokens": 367,
           "output_tokens": 0
         }
       }

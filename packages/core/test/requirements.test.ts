@@ -39,6 +39,8 @@ const EVIDENCE: PageEvidence = {
   labels: [],
   lang: "en",
   links: [],
+  passages: [],
+  prices: [],
   refreshes: [],
   search: false,
   structuredTypes: [],
@@ -93,7 +95,7 @@ const observed = (scanned: Report) =>
         asked: 3,
         id: "link-purpose",
         noted: 1,
-        notes: [{ confidence: 0.9, sample: "more" }],
+        notes: [{ confidence: 0.9, item: "link_1", sample: "more" }],
         relatesTo: [
           {
             factId: "STD-SC-2.4.4",

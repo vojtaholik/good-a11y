@@ -55,6 +55,8 @@ const EMPTY: PageEvidence = {
   labels: [],
   lang: null,
   links: [],
+  passages: [],
+  prices: [],
   refreshes: [],
   search: false,
   structuredTypes: [],

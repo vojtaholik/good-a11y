@@ -14,6 +14,12 @@ export const MAX_HREF = 500;
 
 export const MAX_STRUCTURED_TYPES = 20;
 
+export const MAX_PASSAGES = 400;
+
+export const MIN_PASSAGE_TEXT = 40;
+
+export const MAX_PRICES = 20;
+
 const Snippet = Schema.String.check(Schema.isMaxLength(MAX_SNIPPET));
 
 const Name = Schema.String.check(Schema.isMaxLength(MAX_NAME));
@@ -84,6 +90,17 @@ export const HeadingEvidenceSchema = Schema.Struct({
 
 export type HeadingEvidence = typeof HeadingEvidenceSchema.Type;
 
+export const PassageEvidenceSchema = Schema.Struct({
+  landmark: Schema.NullOr(LandmarkSchema),
+  lang: OptionalText.annotate({
+    description:
+      "The lang attribute of the nearest element that declares one, the html element included",
+  }),
+  text: Schema.String.check(Schema.isMaxLength(MAX_CONTEXT)),
+});
+
+export type PassageEvidence = typeof PassageEvidenceSchema.Type;
+
 export const FrameEvidenceSchema = Schema.Struct({
   labelled: Schema.Boolean,
   snippet: Snippet,
@@ -104,6 +121,14 @@ export const PageEvidenceSchema = Schema.Struct({
   labels: Listed(Name),
   lang: OptionalText,
   links: Listed(LinkEvidenceSchema),
+  passages: Schema.Array(PassageEvidenceSchema)
+    .check(Schema.isMaxLength(MAX_PASSAGES))
+    .annotate({
+      description: `Text of each paragraph, list item, cell or heading of at least ${MIN_PASSAGE_TEXT} characters, in document order`,
+    }),
+  prices: Schema.Array(Name).check(Schema.isMaxLength(MAX_PRICES)).annotate({
+    description: "Distinct amounts with a currency found in visible text",
+  }),
   refreshes: Listed(Name),
   search: Schema.Boolean.annotate({
     description:

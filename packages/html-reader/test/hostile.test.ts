@@ -1,7 +1,8 @@
 import {
+  JUDGED_CHECKS,
   MAX_ELEMENTS_PER_KIND,
   pickPages,
-  questionsFor,
+  questionsOf,
   runChecks,
   summaryOf,
 } from "@eaa-check/core";
@@ -56,6 +57,11 @@ const HOSTILE_UNITS = [
   '<div itemtype="https://schema.org/Product">',
   '<script type="application/ld+json">{"@type":["',
   '"@type":"Product",',
+  "1 000 ",
+  "9,99",
+  "<span>1</span>",
+  "€ 1",
+  '<p lang="en">',
 ];
 
 describe("hostile input at the size cap", () => {
@@ -69,7 +75,7 @@ describe("hostile input at the size cap", () => {
           const evidence = readPage(html);
 
           runChecks(evidence);
-          questionsFor(evidence);
+          questionsOf(JUDGED_CHECKS, evidence, evidence);
           pickPages("https://shop.example/", evidence.links);
           summaryOf("entered", "https://shop.example/", evidence);
         })

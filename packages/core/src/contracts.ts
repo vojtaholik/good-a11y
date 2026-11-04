@@ -98,7 +98,7 @@ export { UnknownScan } from "./unknown-scan.js";
 
 export type { Judged, Observation } from "./judged.js";
 
-export { shownObservations } from "./judged.js";
+export { DOES_NOT_SELL, SELLS, shownObservations } from "./judged.js";
 
 export {
   SC_COVERAGE,

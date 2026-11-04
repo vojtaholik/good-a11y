@@ -31,6 +31,8 @@ const EVIDENCE: PageEvidence = {
   labels: [],
   lang: "en",
   links: [],
+  passages: [],
+  prices: [],
   refreshes: [],
   search: false,
   structuredTypes: [],
