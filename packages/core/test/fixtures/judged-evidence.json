@@ -81,56 +81,72 @@
   "lang": "de",
   "links": [
     {
-      "labelled": false,
-      "snippet": "<a href=\"/bikes\">",
-      "text": "City bikes",
       "context": "City bikes",
-      "language": false
+      "href": "/bikes",
+      "labelled": false,
+      "landmark": null,
+      "language": false,
+      "snippet": "<a href=\"/bikes\">",
+      "text": "City bikes"
     },
     {
-      "labelled": false,
-      "snippet": "<a href=\"/repairs\">",
-      "text": "Repairs",
       "context": "Repairs",
-      "language": false
+      "href": "/repairs",
+      "labelled": false,
+      "landmark": null,
+      "language": false,
+      "snippet": "<a href=\"/repairs\">",
+      "text": "Repairs"
     },
     {
-      "labelled": false,
-      "snippet": "<a href=\"/contact\">",
-      "text": "Contact",
       "context": "Contact",
-      "language": false
+      "href": "/contact",
+      "labelled": false,
+      "landmark": null,
+      "language": false,
+      "snippet": "<a href=\"/contact\">",
+      "text": "Contact"
     },
     {
-      "labelled": false,
-      "snippet": "<a href=\"/spring-service\">",
-      "text": "Read more",
       "context": "Our spring service checks brakes, gears, tyres and lights for a fixed price. Read more",
-      "language": false
+      "href": "/spring-service",
+      "labelled": false,
+      "landmark": null,
+      "language": false,
+      "snippet": "<a href=\"/spring-service\">",
+      "text": "Read more"
     },
     {
-      "labelled": false,
-      "snippet": "<a href=\"/holidays\">",
-      "text": "click here",
       "context": "Monday to Friday, 9:00 to 18:00. To see our holiday closures, click here.",
-      "language": false
+      "href": "/holidays",
+      "labelled": false,
+      "landmark": null,
+      "language": false,
+      "snippet": "<a href=\"/holidays\">",
+      "text": "click here"
     },
     {
+      "context": "More",
+      "href": "/news/1",
       "labelled": false,
+      "landmark": null,
+      "language": false,
       "snippet": "<a href=\"/news/1\">",
-      "text": "More",
-      "context": "More",
-      "language": false
+      "text": "More"
     },
     {
-      "labelled": false,
-      "snippet": "<a href=\"/news/2\">",
-      "text": "More",
       "context": "More",
-      "language": false
+      "href": "/news/2",
+      "labelled": false,
+      "landmark": null,
+      "language": false,
+      "snippet": "<a href=\"/news/2\">",
+      "text": "More"
     }
   ],
   "refreshes": [],
+  "search": false,
+  "structuredTypes": [],
   "textSample": "City bikes Repairs Contact Sunny Bikes We build and repair city bikes in Brno. Every bike is assembled by hand in our workshop and tested on the road before it leaves the shop. Our mechanics service all major brands and most repairs are done within two working days. Section 1 Our spring service checks brakes, gears, tyres and lights for a fixed price. Read more Opening hours Monday to Friday, 9:00 to 18:00. To see our holiday closures, click here . More More Untitled Email address Field 2 Your message",
   "title": "Sunny Bikes - city bikes and repairs",
   "truncated": false,

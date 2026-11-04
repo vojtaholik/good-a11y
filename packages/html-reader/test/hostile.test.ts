@@ -1,7 +1,9 @@
 import {
   MAX_ELEMENTS_PER_KIND,
+  pickPages,
   questionsFor,
   runChecks,
+  summaryOf,
 } from "@eaa-check/core";
 import { describe, expect, it } from "@effect/vitest";
 
@@ -47,6 +49,13 @@ const HOSTILE_UNITS = [
   '<a href="',
   "<!--",
   "&amp;",
+  "<nav>",
+  "<main><header>",
+  "<section><footer><a href=/contact>",
+  '<div role="navigation"><a href="/p/1">',
+  '<div itemtype="https://schema.org/Product">',
+  '<script type="application/ld+json">{"@type":["',
+  '"@type":"Product",',
 ];
 
 describe("hostile input at the size cap", () => {
@@ -61,6 +70,8 @@ describe("hostile input at the size cap", () => {
 
           runChecks(evidence);
           questionsFor(evidence);
+          pickPages("https://shop.example/", evidence.links);
+          summaryOf("entered", "https://shop.example/", evidence);
         })
       ).toBe(true);
     }

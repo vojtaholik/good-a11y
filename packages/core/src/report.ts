@@ -11,6 +11,7 @@ import {
   CheckStatusSchema,
 } from "./check.js";
 import type { CheckResult } from "./check.js";
+import type { Coverage } from "./coverage.js";
 import {
   CoverageSchema,
   STATIC_COVERAGE,
@@ -27,6 +28,13 @@ import type { Reference } from "./reference.js";
 import { RenderedSchema, renderedFrom } from "./rendered.js";
 import type { Rendered, RenderedOutcome } from "./rendered.js";
 import { concernsRun, issuesFrom } from "./report-sections.js";
+import {
+  VERDICT_FACT,
+  VerdictSchema,
+  verdictFrom,
+  verdictText,
+} from "./verdict.js";
+import type { Verdict } from "./verdict.js";
 
 export const AUTOMATED_LIMIT_FACT = "STD-AUTO-1";
 
@@ -102,6 +110,7 @@ export const ReportSchema = Schema.Struct({
     text: Schema.String,
   }),
   truncated: Schema.Boolean,
+  verdict: Schema.NullOr(VerdictSchema),
 });
 
 export type Report = typeof ReportSchema.Type;
@@ -138,40 +147,39 @@ export interface PageVisit {
   readonly truncated: boolean;
 }
 
-interface Tally {
-  readonly checks: number;
-  readonly failing: number;
+interface Judgement {
+  readonly headline: string;
+  readonly verdict: Verdict | null;
 }
 
-const tallyOf = (
+const UNTESTED_HEADLINES: Readonly<
+  Record<Exclude<Outcome, "checked">, string>
+> = {
+  not_html: NOT_HTML_HEADLINE,
+  refused: BLOCKED_HEADLINE,
+  unreachable: UNREACHABLE_HEADLINE,
+};
+
+const judgementOf = (
   findings: readonly Finding[],
-  rendered: Rendered | null
-): Tally => ({
-  checks: concernsRun(
+  rendered: Rendered | null,
+  coverage: Coverage
+): Judgement => {
+  const issues = issuesFrom(findings, rendered);
+
+  const verdict = verdictFrom(issues, coverage, verifiedText(VERDICT_FACT));
+
+  const checks = concernsRun(
     findings.map((finding) => finding.id),
     rendered
-  ),
-  failing: issuesFrom(findings, rendered).length,
-});
+  );
 
-const headlineOf = (outcome: Outcome, { checks, failing }: Tally): string => {
-  if (outcome === "refused") {
-    return BLOCKED_HEADLINE;
-  }
-
-  if (outcome === "not_html") {
-    return NOT_HTML_HEADLINE;
-  }
-
-  if (outcome === "unreachable") {
-    return UNREACHABLE_HEADLINE;
-  }
-
-  if (failing === 0) {
-    return `No issues found by ${checks} automated checks, of the kinds they look for.`;
-  }
-
-  return `${failing} ${failing === 1 ? "issue" : "issues"} found by ${checks} automated checks`;
+  return {
+    headline:
+      verdictText(verdict) ??
+      `${issues.length} ${issues.length === 1 ? "issue" : "issues"} found by ${checks} automated checks`,
+    verdict,
+  };
 };
 
 export const reportOf = (
@@ -188,7 +196,9 @@ export const reportOf = (
   },
   coverage: visit.outcome === "checked" ? STATIC_COVERAGE : null,
   findings,
-  headline: headlineOf(visit.outcome, tallyOf(findings, null)),
+  ...(visit.outcome === "checked"
+    ? judgementOf(findings, null, STATIC_COVERAGE)
+    : { headline: UNTESTED_HEADLINES[visit.outcome], verdict: null }),
   judged: null,
   reference: REFERENCE,
   rendered: null,
@@ -216,24 +226,29 @@ const renderedCoverage = (rendered: Rendered) =>
       )
     : STATIC_COVERAGE;
 
-const renderedAfterRefusal = (report: Report, rendered: Rendered): Report =>
-  rendered.status === "ran"
-    ? {
-        ...report,
-        contact: { ...report.contact, text: CONTACT_TEXT },
-        coverage: coverageFrom(
-          {
-            checks: concernsRun([], rendered),
-            criteria: rendered.criteria.map((number) => `STD-SC-${number}`),
-          },
-          VERIFIED_FACTS,
-          "rendered_page"
-        ),
-        headline: headlineOf("checked", tallyOf([], rendered)),
-        outcomeDetail: `${REFUSED_THEN_RENDERED} ${report.outcomeDetail}`,
-        rendered,
-      }
-    : report;
+const renderedAfterRefusal = (report: Report, rendered: Rendered): Report => {
+  if (rendered.status !== "ran") {
+    return report;
+  }
+
+  const coverage = coverageFrom(
+    {
+      checks: concernsRun([], rendered),
+      criteria: rendered.criteria.map((number) => `STD-SC-${number}`),
+    },
+    VERIFIED_FACTS,
+    "rendered_page"
+  );
+
+  return {
+    ...report,
+    contact: { ...report.contact, text: CONTACT_TEXT },
+    coverage,
+    ...judgementOf([], rendered, coverage),
+    outcomeDetail: `${REFUSED_THEN_RENDERED} ${report.outcomeDetail}`,
+    rendered,
+  };
+};
 
 export const withRendered = (
   report: Report,
@@ -249,10 +264,12 @@ export const withRendered = (
 
   const rendered = renderedFrom(outcome);
 
+  const coverage = renderedCoverage(rendered);
+
   return {
     ...report,
-    coverage: renderedCoverage(rendered),
-    headline: headlineOf(report.outcome, tallyOf(report.findings, rendered)),
+    coverage,
+    ...judgementOf(report.findings, rendered, coverage),
     rendered,
   };
 };

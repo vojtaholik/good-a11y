@@ -49,6 +49,17 @@ export {
 
 export { METHOD_NAMES } from "./coverage.js";
 
+export type { Verdict } from "./verdict.js";
+
+export {
+  EXAMPLE_LABEL,
+  REQUIREMENT_STATUS_NAMES,
+  requirementsOf,
+  statusCounts,
+  type RequirementRow,
+  type RequirementStatus,
+} from "./requirements.js";
+
 export { AXE_CORE_VERSION } from "./axe-rules.js";
 
 export type { Rendered, RenderedFinding } from "./rendered.js";

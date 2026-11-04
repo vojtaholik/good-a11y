@@ -40,6 +40,8 @@ const EVIDENCE: PageEvidence = {
   lang: "en",
   links: [],
   refreshes: [],
+  search: false,
+  structuredTypes: [],
   textSample: "",
   title: "Shop",
   truncated: false,

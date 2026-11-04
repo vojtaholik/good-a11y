@@ -18,7 +18,7 @@ export const SCANNER_USER_AGENT =
 
 const HTML_TYPES = new Set(["text/html", "application/xhtml+xml"]);
 
-const isHtml = (contentType: string): boolean => {
+export const isHtml = (contentType: string): boolean => {
   const type = contentType.split(";")[0]?.trim().toLowerCase() ?? "";
 
   return type === "" || HTML_TYPES.has(type);

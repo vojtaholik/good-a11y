@@ -65,6 +65,8 @@ const reader: PageReading = {
     lang: "en",
     links: [],
     refreshes: [],
+    search: false,
+    structuredTypes: [],
     textSample: "",
     title: "Shop",
     truncated: false,
@@ -203,8 +205,8 @@ describe("withRendered", () => {
     expect(report.coverage?.method).toBe("static_html_and_rendered");
     expect(report.coverage?.criteria).toBeGreaterThan(STATIC_COVERAGE.criteria);
     expect(report.coverage?.text).toContain("static HTML + rendered page");
-    expect(report.headline).toMatch(
-      /^6 issues found by \d+ automated checks$/u
+    expect(report.headline).toBe(
+      "This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found 6 failures."
     );
     expect(formatReport(report)).toContain("[axe:color-contrast]");
   });
@@ -345,8 +347,8 @@ describe("withRendered", () => {
     const report = withRendered(refused, { ran: page() });
 
     expect(report.outcome).toBe("refused");
-    expect(report.headline).toMatch(
-      /^6 issues found by \d+ automated checks$/u
+    expect(report.headline).toBe(
+      "This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found 6 failures."
     );
     expect(report.coverage?.method).toBe("rendered_page");
     expect(report.outcomeDetail).toContain(REFUSED_THEN_RENDERED);

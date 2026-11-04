@@ -1,8 +1,10 @@
 import {
   MAX_CONTEXT,
   MAX_ELEMENTS_PER_KIND,
+  MAX_HREF,
   MAX_NAME,
   MAX_SNIPPET,
+  MAX_STRUCTURED_TYPES,
   MAX_TEXT_SAMPLE,
 } from "@eaa-check/core";
 import type {
@@ -10,6 +12,7 @@ import type {
   FrameEvidence,
   HeadingEvidence,
   ImageEvidence,
+  Landmark,
   LinkEvidence,
   NamedEvidence,
   PageEvidence,
@@ -40,13 +43,22 @@ interface HeadingRegion extends TextRegion {
 
 interface LinkRegion extends NameRegion {
   readonly context: TextRegion | undefined;
+  readonly href: string;
+  readonly landmark: Landmark | null;
   readonly language: boolean;
 }
 
 interface PendingLink {
   readonly context: TextRegion | undefined;
   readonly evidence: NamedEvidence;
+  readonly href: string;
+  readonly landmark: Landmark | null;
   readonly language: boolean;
+}
+
+interface LandmarkRegion {
+  readonly depth: number;
+  readonly landmark: Landmark;
 }
 
 interface Reading {
@@ -63,10 +75,14 @@ interface Reading {
   readonly headings: HeadingEvidence[];
   hiddenFrom: number | undefined;
   readonly images: ImageEvidence[];
+  jsonLdFrom: number | undefined;
+  readonly jsonLd: string[];
+  jsonLdSize: number;
   label: TextRegion | undefined;
   labelFrom: number | undefined;
   readonly labelTargets: string[];
   readonly labels: string[];
+  readonly landmarks: LandmarkRegion[];
   lang: string | null;
   link: LinkRegion | undefined;
   readonly links: PendingLink[];
@@ -76,6 +92,8 @@ interface Reading {
   readonly sample: string[];
   sampleSize: number;
   sawHtml: boolean;
+  search: boolean;
+  readonly structuredTypes: Set<string>;
   tag: string;
   title: string[] | undefined;
   titleDone: boolean;
@@ -99,6 +117,7 @@ const KEPT_ATTRIBUTES = new Set([
   "hreflang",
   "http-equiv",
   "id",
+  "itemtype",
   "lang",
   "name",
   "placeholder",
@@ -183,6 +202,31 @@ const DEFAULT_BUTTON_TEXT = new Map([
   ["reset", "Reset"],
   ["submit", "Submit"],
 ]);
+
+const LANDMARK_TAGS = new Map<string, Landmark>([
+  ["aside", "aside"],
+  ["main", "main"],
+  ["nav", "nav"],
+]);
+
+const LANDMARK_ROLES = new Map<string, Landmark>([
+  ["banner", "header"],
+  ["complementary", "aside"],
+  ["contentinfo", "footer"],
+  ["main", "main"],
+  ["navigation", "nav"],
+]);
+
+const SECTIONING = ["article", "aside", "main", "nav", "section"] as const;
+
+const MAX_JSON_LD = 100_000;
+
+const JSON_LD_TYPE =
+  /"@type"\s*:\s*(?:"(?<one>[^"]{1,100})"|\[(?<many>[^\]]{0,1000})\])/gu;
+
+const QUOTED = /"(?<value>[^"]{1,100})"/gu;
+
+const SCHEMA_ORG = /^(?:https?:\/\/)?(?:www\.)?schema\.org\//iu;
 
 const WHITESPACE = /\s+/gu;
 
@@ -280,6 +324,8 @@ const endLink = (reading: Reading) => {
     keep(reading, reading.links, {
       context: reading.link.context,
       evidence: nameOf(reading.link),
+      href: reading.link.href,
+      landmark: reading.link.landmark,
       language: reading.link.language,
     });
     reading.link = undefined;
@@ -290,6 +336,16 @@ const endButton = (reading: Reading) => {
   if (reading.button !== undefined) {
     keep(reading, reading.buttons, nameOf(reading.button));
     reading.button = undefined;
+  }
+};
+
+const endStructure = (reading: Reading, depth: number) => {
+  while ((reading.landmarks.at(-1)?.depth ?? -1) >= depth) {
+    reading.landmarks.pop();
+  }
+
+  if (reading.jsonLdFrom !== undefined && reading.jsonLdFrom >= depth) {
+    reading.jsonLdFrom = undefined;
   }
 };
 
@@ -322,6 +378,8 @@ const endRegions = (reading: Reading, depth: number) => {
   while ((reading.contexts.at(-1)?.depth ?? -1) >= depth) {
     reading.contexts.pop();
   }
+
+  endStructure(reading, depth);
 
   if (reading.hiddenFrom !== undefined && reading.hiddenFrom >= depth) {
     reading.hiddenFrom = undefined;
@@ -540,6 +598,8 @@ const readElement = (reading: Reading, tag: string, attributes: Attributes) => {
     reading.link = {
       ...regionOf(reading, tag, attributes),
       context: reading.contexts.at(-1),
+      href: capped((attribute(attributes, "href") ?? "").trim(), MAX_HREF),
+      landmark: reading.landmarks.at(-1)?.landmark ?? null,
       language: attributes.has("hreflang") || attributes.has("lang"),
     };
   } else if (tag === "label") {
@@ -559,6 +619,106 @@ const readElement = (reading: Reading, tag: string, attributes: Attributes) => {
   }
 };
 
+const insideSectioning = (reading: Reading): boolean =>
+  SECTIONING.some((tag) => (reading.openCount.get(tag) ?? 0) > 0);
+
+const landmarkOf = (
+  reading: Reading,
+  tag: string,
+  attributes: Attributes
+): Landmark | null => {
+  const [role] = (attribute(attributes, "role") ?? "")
+    .trim()
+    .toLowerCase()
+    .split(WHITESPACE);
+
+  const byRole = LANDMARK_ROLES.get(role ?? "");
+
+  if (byRole !== undefined) {
+    return byRole;
+  }
+
+  if (role !== undefined && role !== "") {
+    return null;
+  }
+
+  if ((tag === "header" || tag === "footer") && !insideSectioning(reading)) {
+    return tag;
+  }
+
+  return LANDMARK_TAGS.get(tag) ?? null;
+};
+
+const addStructuredType = (reading: Reading, value: string) => {
+  const type = capped(value.trim().replace(SCHEMA_ORG, ""), MAX_NAME);
+
+  if (type !== "" && reading.structuredTypes.size < MAX_STRUCTURED_TYPES) {
+    reading.structuredTypes.add(type);
+  }
+};
+
+const readStructure = (
+  reading: Reading,
+  tag: string,
+  attributes: Attributes
+) => {
+  const role = (attribute(attributes, "role") ?? "").trim().toLowerCase();
+  const type = (attribute(attributes, "type") ?? "").trim().toLowerCase();
+
+  if (
+    tag === "search" ||
+    role === "search" ||
+    (tag === "input" && type === "search")
+  ) {
+    reading.search = true;
+  }
+
+  const itemtype = attribute(attributes, "itemtype");
+
+  if (itemtype !== null) {
+    for (const value of capped(itemtype, MAX_HREF).split(WHITESPACE)) {
+      addStructuredType(reading, value);
+    }
+  }
+};
+
+const readJsonLd = (reading: Reading) => {
+  const text = reading.jsonLd.join("");
+
+  for (const match of text.matchAll(JSON_LD_TYPE)) {
+    const { many, one } = match.groups ?? {};
+
+    if (one !== undefined) {
+      addStructuredType(reading, one);
+    }
+
+    for (const quoted of (many ?? "").matchAll(QUOTED)) {
+      addStructuredType(reading, quoted.groups?.value ?? "");
+    }
+  }
+};
+
+const openStructure = (
+  reading: Reading,
+  tag: string,
+  attributes: Attributes,
+  depth: number
+) => {
+  const landmark = landmarkOf(reading, tag, attributes);
+
+  if (landmark !== null) {
+    reading.landmarks.push({ depth, landmark });
+  }
+
+  if (
+    tag === "script" &&
+    (attribute(attributes, "type") ?? "").trim().toLowerCase() ===
+      "application/ld+json"
+  ) {
+    reading.jsonLdFrom = depth;
+  }
+};
+
 const openElement = (reading: Reading, selfClosed: boolean) => {
   const { attributes, tag } = reading;
   const depth = reading.open.length;
@@ -571,6 +731,8 @@ const openElement = (reading: Reading, selfClosed: boolean) => {
   if (tag === "meta") {
     readMeta(reading, attributes);
   }
+
+  readStructure(reading, tag, attributes);
 
   if (tag === "a" || tag === "button") {
     closeNearest(reading, tag);
@@ -605,12 +767,22 @@ const openElement = (reading: Reading, selfClosed: boolean) => {
     return;
   }
 
+  openStructure(reading, tag, attributes, depth);
   reading.open.push(tag);
   reading.openCount.set(tag, (reading.openCount.get(tag) ?? 0) + 1);
 };
 
 const say = (reading: Reading, text: string) => {
   const top = reading.open.at(-1) ?? "";
+
+  if (reading.jsonLdFrom !== undefined && reading.jsonLdSize < MAX_JSON_LD) {
+    const part = capped(text, MAX_JSON_LD - reading.jsonLdSize);
+
+    reading.jsonLd.push(part);
+    reading.jsonLdSize += part.length;
+
+    return;
+  }
 
   if (top === "title" && reading.title !== undefined && !reading.titleDone) {
     if (reading.title.length < MAX_NAME) {
@@ -708,10 +880,14 @@ const blank = (): Reading => ({
   headings: [],
   hiddenFrom: undefined,
   images: [],
+  jsonLd: [],
+  jsonLdFrom: undefined,
+  jsonLdSize: 0,
   label: undefined,
   labelFrom: undefined,
   labelTargets: [],
   labels: [],
+  landmarks: [],
   lang: null,
   link: undefined,
   links: [],
@@ -721,6 +897,8 @@ const blank = (): Reading => ({
   sample: [],
   sampleSize: 0,
   sawHtml: false,
+  search: false,
+  structuredTypes: new Set(),
   tag: "",
   title: undefined,
   titleDone: false,
@@ -731,10 +909,14 @@ const blank = (): Reading => ({
 const linkOf = ({
   context,
   evidence,
+  href,
+  landmark,
   language,
 }: PendingLink): LinkEvidence => ({
   ...evidence,
   context: context === undefined ? "" : textOf(context, MAX_CONTEXT),
+  href,
+  landmark,
   language,
 });
 
@@ -744,6 +926,7 @@ export const readPage = (html: string): PageEvidence => {
 
   tokenizer.write(html);
   tokenizer.end();
+  readJsonLd(reading);
 
   return {
     buttons: reading.buttons,
@@ -756,6 +939,8 @@ export const readPage = (html: string): PageEvidence => {
     lang: reading.lang === null ? null : capped(reading.lang, MAX_NAME),
     links: reading.links.map(linkOf),
     refreshes: reading.refreshes,
+    search: reading.search,
+    structuredTypes: [...reading.structuredTypes],
     textSample: capped(reading.sample.join(" "), MAX_TEXT_SAMPLE),
     title:
       reading.title === undefined

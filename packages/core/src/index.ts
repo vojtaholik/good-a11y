@@ -157,6 +157,28 @@ export {
 
 export { formatReport } from "./report-text.js";
 
+export {
+  EAA_ROWS,
+  EXAMPLE_LABEL,
+  REQUIREMENT_STATUS_NAMES,
+  citationOf,
+  eaaRowsFrom,
+  requirementsFrom,
+  requirementsOf,
+  statusCounts,
+  type RequirementGroup,
+  type RequirementRow,
+  type RequirementStatus,
+} from "./requirements.js";
+
+export {
+  VERDICT_FACT,
+  VerdictSchema,
+  verdictFrom,
+  verdictText,
+  type Verdict,
+} from "./verdict.js";
+
 export { QUOTE_MARK, fixPromptFor, fixPromptOf } from "./fix-prompt.js";
 
 export {
@@ -287,10 +309,14 @@ export { UnknownScan } from "./unknown-scan.js";
 
 export {
   HeadingEvidenceSchema,
+  LandmarkSchema,
   LinkEvidenceSchema,
   MAX_CONTEXT,
+  MAX_HREF,
+  MAX_STRUCTURED_TYPES,
   MAX_TEXT_SAMPLE,
   type HeadingEvidence,
+  type Landmark,
   type LinkEvidence,
 } from "./page-evidence.js";
 
@@ -364,3 +390,40 @@ export {
 } from "./sc-coverage.js";
 
 export { AXE_CORE_VERSION, AXE_RULES } from "./axe-rules.js";
+
+export {
+  CRAWL_ORDER,
+  CRAWL_PAGES,
+  CrawlRoleSchema,
+  ROLE_SIGNS,
+  pickPages,
+  siteOf,
+  type CrawlPick,
+  type CrawlRole,
+} from "./crawl.js";
+
+export {
+  ControlNameSchema,
+  MAX_CONTROL_NAMES,
+  MAX_HELP_LINKS,
+  MAX_NAVIGATION_LINKS,
+  PageRoleSchema,
+  PageSummarySchema,
+  SiteEvidenceSchema,
+  SiteLinkSchema,
+  SitePageSchema,
+  summaryOf,
+  type ControlName,
+  type PageRole,
+  type PageSummary,
+  type SiteEvidence,
+  type SiteLink,
+  type SitePage,
+} from "./site-evidence.js";
+
+export {
+  CRAWL_PAGES_AT_ONCE,
+  crawlSite,
+  type Crawl,
+  type CrawledPage,
+} from "./crawl-site.js";

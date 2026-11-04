@@ -10,6 +10,7 @@ import type { Html, HtmlBuilder } from "foldkit/html";
 import { ScanState } from "../client/model.js";
 import type { AppMessage, AppModel } from "../client/model.js";
 import { contactView } from "./contact-view.js";
+import { checklistSection } from "./report-checklist.js";
 import { issuesSection } from "./report-issues.js";
 import { judgedSection } from "./report-judged.js";
 import { statesSection } from "./report-states.js";
@@ -48,6 +49,20 @@ const topView = (report: Report, h: HtmlBuilder<AppMessage>): Html =>
         ]
       ),
       h.p([sx(h, local.headline), h.Role("status")], [report.headline]),
+      ...(report.verdict?.kind === "fails" && report.verdict.fact !== null
+        ? [
+            h.p(
+              [sx(h, local.meta)],
+              [
+                "Why: ",
+                h.a(
+                  [h.Href(report.verdict.fact.source), sx(h, local.link)],
+                  [`WCAG 2.1 conformance: ${report.verdict.fact.text}`]
+                ),
+              ]
+            ),
+          ]
+        : []),
       ...(report.coverage === null
         ? []
         : [
@@ -173,6 +188,7 @@ const publishedView = (
         topView(report, h),
         ...issuesSection(model, report, h),
         ...judgedSection(report, h),
+        checklistSection(report, h),
         statesSection(report, h),
         ...quietView(report, h),
         rulesView(report, h),

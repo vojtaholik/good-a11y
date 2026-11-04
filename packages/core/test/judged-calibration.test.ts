@@ -75,6 +75,8 @@ const EMPTY: PageEvidence = {
   lang: null,
   links: [],
   refreshes: [],
+  search: false,
+  structuredTypes: [],
   textSample: "",
   title: null,
   truncated: false,
@@ -191,7 +193,9 @@ const judgements: Record<JudgedId, Judgement[]> = {
         ...EMPTY,
         links: indexes.map((index) => ({
           context: items.links[index]?.context ?? "",
+          href: "/",
           labelled: false,
+          landmark: null,
           language: false,
           snippet: "<a>",
           text: items.links[index]?.text ?? "",

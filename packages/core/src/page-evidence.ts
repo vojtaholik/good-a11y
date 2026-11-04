@@ -10,6 +10,10 @@ export const MAX_CONTEXT = 300;
 
 export const MAX_TEXT_SAMPLE = 1200;
 
+export const MAX_HREF = 500;
+
+export const MAX_STRUCTURED_TYPES = 20;
+
 const Snippet = Schema.String.check(Schema.isMaxLength(MAX_SNIPPET));
 
 const Name = Schema.String.check(Schema.isMaxLength(MAX_NAME));
@@ -45,9 +49,26 @@ export const NamedEvidenceSchema = Schema.Struct({
 
 export type NamedEvidence = typeof NamedEvidenceSchema.Type;
 
+export const LandmarkSchema = Schema.Literals([
+  "nav",
+  "header",
+  "footer",
+  "main",
+  "aside",
+]);
+
+export type Landmark = typeof LandmarkSchema.Type;
+
 export const LinkEvidenceSchema = Schema.Struct({
   ...NamedEvidenceSchema.fields,
   context: Schema.String.check(Schema.isMaxLength(MAX_CONTEXT)),
+  href: Schema.String.check(Schema.isMaxLength(MAX_HREF)).annotate({
+    description: "The href attribute as written, trimmed and capped",
+  }),
+  landmark: Schema.NullOr(LandmarkSchema).annotate({
+    description:
+      "The nearest landmark around the link, by tag or role; header and footer count only outside article, aside, main, nav and section",
+  }),
   language: Schema.Boolean.annotate({
     description:
       "The link carries hreflang or lang, so it names a page in another language",
@@ -84,6 +105,16 @@ export const PageEvidenceSchema = Schema.Struct({
   lang: OptionalText,
   links: Listed(LinkEvidenceSchema),
   refreshes: Listed(Name),
+  search: Schema.Boolean.annotate({
+    description:
+      "The page has a search: a search element, role=search or an input of type search",
+  }),
+  structuredTypes: Schema.Array(Name)
+    .check(Schema.isMaxLength(MAX_STRUCTURED_TYPES))
+    .annotate({
+      description:
+        "schema.org types named in JSON-LD @type or microdata itemtype, without the schema.org prefix",
+    }),
   textSample: Schema.String.check(Schema.isMaxLength(MAX_TEXT_SAMPLE)),
   title: OptionalText,
   truncated: Schema.Boolean,

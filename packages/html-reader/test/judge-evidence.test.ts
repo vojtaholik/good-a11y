@@ -74,3 +74,49 @@ describe("evidence for model-judged observations", () => {
     expect(evidence.textSample.length).toBeLessThanOrEqual(MAX_TEXT_SAMPLE);
   });
 });
+
+describe("evidence for the site crawl", () => {
+  it("keeps each link's href and its nearest landmark", () => {
+    const { links } = readPage(
+      page(
+        '<header><a href=" /home ">Home</a><nav><a href="/shop">Shop</a></nav></header><main><article><header><a href="/a">In article</a></header></article><a href="/m">Main</a></main><div role="contentinfo"><a href="/c">Contact</a></div><footer><a href="/f">Footer</a></footer><a href="/x">Loose</a>'
+      )
+    );
+
+    expect(links.map(({ href, landmark }) => ({ href, landmark }))).toEqual([
+      { href: "/home", landmark: "header" },
+      { href: "/shop", landmark: "nav" },
+      { href: "/a", landmark: "main" },
+      { href: "/m", landmark: "main" },
+      { href: "/c", landmark: "footer" },
+      { href: "/f", landmark: "footer" },
+      { href: "/x", landmark: null },
+    ]);
+  });
+
+  it("notices a search", () => {
+    expect(
+      readPage(page('<form role="search"><input name="q"></form>')).search
+    ).toBe(true);
+    expect(readPage(page('<input type="search">')).search).toBe(true);
+    expect(readPage(page("<search><input></search>")).search).toBe(true);
+    expect(readPage(page('<input type="text">')).search).toBe(false);
+  });
+
+  it("reads schema.org types from JSON-LD and microdata", () => {
+    const { structuredTypes, textSample } = readPage(
+      page(
+        '<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","offers":{"@type":["Offer","Thing"]}}</script><div itemscope itemtype="http://schema.org/Organization https://schema.org/Store">Shop</div>'
+      )
+    );
+
+    expect(structuredTypes).toEqual([
+      "Organization",
+      "Store",
+      "Product",
+      "Offer",
+      "Thing",
+    ]);
+    expect(textSample).not.toContain("@type");
+  });
+});

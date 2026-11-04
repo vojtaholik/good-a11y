@@ -71,7 +71,9 @@ describe("link purpose", () => {
       ...evidence,
       links: ["Français", "Euskara"].map((text) => ({
         context: text,
+        href: "/",
         labelled: false,
+        landmark: null,
         language: true,
         snippet: `<a hreflang="x" href="/">${text}</a>`,
         text,
@@ -229,6 +231,7 @@ describe("withJudged", () => {
 
     expect(judged.findings).toEqual(report.findings);
     expect(judged.headline).toBe(report.headline);
+    expect(judged.verdict).toEqual(report.verdict);
     expect(judged.judged?.status).toBe("ran");
   });
 });

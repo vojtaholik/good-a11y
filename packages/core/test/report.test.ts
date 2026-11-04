@@ -43,6 +43,8 @@ const NOTHING: PageEvidence = {
   lang: null,
   links: [],
   refreshes: [],
+  search: false,
+  structuredTypes: [],
   textSample: "",
   title: null,
   truncated: false,
@@ -83,7 +85,9 @@ const FAILING: PageEvidence = {
   links: [
     {
       context: "",
+      href: "/",
       labelled: false,
+      landmark: null,
       language: false,
       snippet: '<a href="/">',
       text: "",
@@ -228,7 +232,9 @@ describe("an empty bill of health", () => {
     links: [
       {
         context: "",
+        href: "/",
         labelled: false,
+        landmark: null,
         language: false,
         snippet: '<a href="/">',
         text: "Home",
@@ -362,6 +368,7 @@ describe("a blocked site", () => {
     expect(report.headline).toBe(BLOCKED_HEADLINE);
     expect(report.findings).toEqual([]);
     expect(report.coverage).toBeNull();
+    expect(report.verdict).toBeNull();
     expect(report.contact.text).toBe(BLOCKED_CONTACT_TEXT);
     expect(formatReport(report)).toContain(BLOCKED_HEADLINE);
   });
