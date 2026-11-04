@@ -1,0 +1,10 @@
+{
+  "guide": "swipe-and-drag",
+  "app": "content",
+  "path": "/articles/tatras-in-october.html",
+  "prompt": "At the end of the Tatras article (articles/tatras-in-october.html), add a \"Your packing list\" with four items: Head torch, Spare gloves, Paper map and Rain shell. Readers remove an item by swiping it to the left, as in mobile apps: the item follows the finger or pointer and is removed once it has moved more than half its width. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [{ "text": "Spare gloves" }],
+  "targets": {
+    "items": ["Head torch", "Spare gloves", "Paper map", "Rain shell"]
+  }
+}

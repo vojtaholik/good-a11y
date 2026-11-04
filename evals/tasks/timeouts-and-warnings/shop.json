@@ -1,0 +1,11 @@
+{
+  "guide": "timeouts-and-warnings",
+  "app": "shop",
+  "path": "/",
+  "prompt": "We hold cart items for 15 minutes. When the first item is added, start a 15-minute timer; when it runs out, empty the cart and show \"Your cart expired, the items are back in stock\" at the top of the page. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "start": { "role": "button", "name": "Add to cart", "nth": 0 },
+    "limitMinutes": "15",
+    "expired": "expired"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "guide": "input-purpose",
+  "app": "content",
+  "path": "/about.html",
+  "prompt": "On the About page (about.html), under Contact, add a form to order our free printed trail map by post: \"Full name\", \"Email\", \"Phone\", \"Street and number\", \"City\", \"Postal code\" and \"Country\", and an \"Order the map\" button that shows \"Thanks, the map is on its way.\" There is no backend; nothing is sent. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [
+    { "role": "textbox", "name": "Postal code", "exact": false },
+    { "role": "textbox", "name": "Phone", "exact": false }
+  ],
+  "targets": {
+    "fields": [
+      "Full name=name",
+      "Email=email",
+      "Phone=tel",
+      "Street and number=street-address|address-line1",
+      "City=address-level2",
+      "Postal code=postal-code",
+      "Country=country-name|country"
+    ]
+  }
+}

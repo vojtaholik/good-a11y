@@ -1,0 +1,12 @@
+{
+  "guide": "swipe-and-drag",
+  "app": "shop",
+  "path": "/",
+  "prompt": "On the cart page, let customers remove a line by swiping it to the left, as in mobile apps: the line follows the finger or pointer and is removed once it has moved more than half its width. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "setup": [
+    { "click": { "role": "button", "name": "Add to cart", "nth": 0 } },
+    { "click": { "role": "button", "name": "Add to cart", "nth": 1 } },
+    { "click": { "role": "link", "name": "Cart (2)" } }
+  ],
+  "targets": { "items": ["Rain jacket", "Hiking boot"] }
+}

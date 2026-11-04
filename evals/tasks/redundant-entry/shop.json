@@ -1,0 +1,11 @@
+{
+  "guide": "redundant-entry",
+  "app": "shop",
+  "path": "/checkout",
+  "prompt": "In checkout, add a \"Billing address\" section after the delivery address with the same four fields: street and number, city, postal code and country. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [{ "text": "Billing address" }],
+  "targets": {
+    "source": ["Street and number", "City", "Postal code", "Country"],
+    "repeat": ["Street and number", "City", "Postal code", "Country"]
+  }
+}

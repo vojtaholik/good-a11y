@@ -1,0 +1,12 @@
+{
+  "guide": "redundant-entry",
+  "app": "content",
+  "path": "/about.html",
+  "prompt": "On the About page (about.html), under Contact, add a two-step form to book a place on our guided October walk. Step 1, \"Your details\": \"Name\", \"Email\" and \"Phone\", then a \"Continue\" button. Step 2, \"Invoice\": \"Name on the invoice\", \"Invoice email\" and \"Company (optional)\", then a \"Book my place\" button that shows \"Thanks, you are booked.\" There is no backend; nothing is sent. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [{ "role": "button", "name": "Continue", "exact": false }],
+  "targets": {
+    "source": ["Name", "Email"],
+    "repeat": ["Name on the invoice", "Invoice email"],
+    "next": "Continue"
+  }
+}

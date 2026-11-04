@@ -79,3 +79,33 @@ What round 1 changed:
 - Retrieval: the "guided runs that retrieved the guide" column read 4/6 for Claude on most tasks. The transcript reader missed the bundle when the agent held it in a shell variable (`G=.../good-a11y.mjs; node $G search`) and when Codex escaped quotes. Read correctly, Claude retrieved its guide in 94 of 95 guided runs and Codex in 90 of 90 (`codex-clean-1`). The skill and search needed no change.
 - Codex runs in its own HOME with only its `auth.json`, so it sees its built-in skills and the installed good-a11y skill, nothing of the user's.
 - Codex's `workspace-write` sandbox blocks binding a local port, so Codex cannot serve a page to run `check` against; its guided runs use the guides but not the checker.
+
+## Layer 5, first guides (2026-11-04)
+
+Picked by expected failure, not coverage (decision 14 of the good-a11y brief). Each candidate was first screened with a throwaway probe: one task, both agents, unguided, one run. Only a failure earns a guide.
+
+Screen 1, 20 candidates: 18 passed for both agents (OTP code entry, custom date picker, dual price slider, drag reorder, info tooltip, sortable table, gift-wrap switch, colour swatches, photo drop zone, small quantity buttons, cookie notice, route tiles at 320 px and with text spacing, product gallery, checkout steps, load more, Slovak quote language, "Read more" link names, PDF link text). Checkout fields (autocomplete tokens) and billing address (redundant entry) failed both.
+
+Screen 2, 9 candidates: label in name, character key shortcuts, sticky header over focus, consistent help and video captions passed both. Buy now (no confirm or cancel) and a letters puzzle at sign-in failed both. A cart hold with no warning and a swipe that cannot be called off failed Codex only.
+
+The passes need no guide for now. Full graders for the passes most likely to hide a gap (date picker, dual slider, sortable table, drag reorder) are parked.
+
+Every failure became a guide with tasks on both apps and a grader that passes on its `demo.html` and fails on the unchanged base apps and on the screen's unguided patches. Then the 3-run matrix, both arms:
+
+| Guide | Claude unguided | Claude guided | Codex unguided | Codex guided | Ships for |
+| --- | --- | --- | --- | --- | --- |
+| input-purpose | 3/6 | 6/6 | 3/6 | 6/6 | both |
+| redundant-entry | 3/6 | 6/6 | 0/6 | 6/6 | both |
+| confirm-before-purchase | 1/6 | 6/6 | 0/6 | 5/6 | both |
+| sign-in-without-puzzles | 0/6 | 6/6 | 0/6 | 4/6 | both |
+| timeouts-and-warnings | 3/6 | 6/6 | 2/6 | 6/6 | both |
+| swipe-and-drag | 6/6 | 6/6 | 4/6 | 6/6 | Codex |
+
+Results in `evals/results/l5-<guide>`, regraded into `l5-<guide>-r` for the four whose grader was fixed after the run:
+
+- redundant-entry typed a non-address string into `type=email` fields and left a required phone empty, so the content form's own validation stopped it before step 2. It now types valid values per field type and fills the rest of step 1.
+- timeouts-and-warnings missed extend buttons named "Hold for 10 more minutes" and clicked an always-visible extend button at the start. It now looks for the control 25 seconds before the end and accepts "hold" and "more minutes".
+- sign-in-without-puzzles counted only a way around the puzzle. A control that does the check for the user ("Fill letters for me", also inside a closed `details`) meets 3.3.8 too and now passes. Showing the letters as plain text does not.
+- confirm-before-purchase treated page text that already held "booked" as a placed booking. It now compares with the count before the click.
+
+What the guided agents still miss: Codex placed one shop order on one click (confirm-before-purchase) and twice offered only the letters as text (sign-in-without-puzzles). Both follow the request over the guide, as with the toast duration in round 1.

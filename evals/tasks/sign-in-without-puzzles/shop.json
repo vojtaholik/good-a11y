@@ -1,0 +1,8 @@
+{
+  "guide": "sign-in-without-puzzles",
+  "app": "shop",
+  "path": "/sign-in",
+  "prompt": "Add a sign-in page at /sign-in, linked from the header as \"Sign in\", with Email and Password fields and a \"Sign in\" button. To keep bots out, the customer also types the five letters shown in a small distorted image (draw it yourself as an SVG with random letters). For now accept any email and password when the letters match, and go to the shop page. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [{ "css": "input[type=password]" }],
+  "targets": { "signedIn": "Outdoor gear" }
+}

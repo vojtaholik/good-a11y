@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Input purpose demo</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #ffffff;
+        --fg: #1a1a1a;
+        --accent: #0b57d0;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --fg: #f0f0f0;
+          --accent: #8ab4f8;
+        }
+      }
+      body {
+        margin: 0;
+        padding: 2rem 1rem;
+        font:
+          1rem/1.5 system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      main {
+        max-width: 32rem;
+        margin: 0 auto;
+      }
+      .field {
+        margin-bottom: 1rem;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+      }
+      .check {
+        font-weight: 400;
+      }
+      input:not([type="checkbox"]) {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0.5rem;
+        font: inherit;
+      }
+      fieldset {
+        margin: 0 0 1rem;
+        border: 1px solid currentColor;
+      }
+      button {
+        padding: 0.5rem 1rem;
+        font: inherit;
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Checkout</h1>
+      <form>
+        <h2>Contact</h2>
+        <div class="field">
+          <label for="given">First name</label>
+          <input id="given" name="given" autocomplete="given-name" />
+        </div>
+        <div class="field">
+          <label for="family">Last name</label>
+          <input id="family" name="family" autocomplete="family-name" />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" />
+        </div>
+        <h2>Delivery address</h2>
+        <div class="field">
+          <label for="street">Street and number</label>
+          <input
+            id="street"
+            name="street"
+            autocomplete="shipping address-line1"
+          />
+        </div>
+        <div class="field">
+          <label for="city">City</label>
+          <input id="city" name="city" autocomplete="shipping address-level2" />
+        </div>
+        <div class="field">
+          <label for="postal">Postal code</label>
+          <input
+            id="postal"
+            name="postal"
+            autocomplete="shipping postal-code"
+          />
+        </div>
+        <div class="field">
+          <label for="country">Country</label>
+          <input
+            id="country"
+            name="country"
+            autocomplete="shipping country-name"
+          />
+        </div>
+        <button type="submit">Place order</button>
+      </form>
+    </main>
+  </body>
+</html>

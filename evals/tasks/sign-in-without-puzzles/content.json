@@ -1,0 +1,8 @@
+{
+  "guide": "sign-in-without-puzzles",
+  "app": "content",
+  "path": "/sign-in.html",
+  "prompt": "Add a members' sign-in page, sign-in.html, linked from the header of every page as \"Sign in\", with Email and Password fields and a \"Sign in\" button. To keep bots out, the reader also types the five letters shown in a small distorted image (draw it yourself as an SVG with random letters). Accept any email and password when the letters match, and then show \"Welcome back, you are signed in.\" on the page. There is no backend; nothing is sent. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [{ "css": "input[type=password]" }],
+  "targets": { "signedIn": "Welcome back" }
+}

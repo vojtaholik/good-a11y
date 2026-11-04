@@ -90,6 +90,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 Times are CET, from the machine clock.
 
+- 15:23 (11-04) Layer 5, first six guides (`docs/evals.md`). Screened 29 candidates unguided; built a guide only where it failed. Ship for both: input-purpose, redundant-entry, confirm-before-purchase, sign-in-without-puzzles, timeouts-and-warnings; Codex only: swipe-and-drag. Insight recorded as decision 14 of the good-a11y brief: guides pay off on requirements the UI never shows, not on widget patterns.
+
 - 14:25 (11-04) Prod live on https://good-a11y.com. is-agentic 97 on the domain; brand search now passes; Organization schema and trust pages remain.
 
 - 13:32 (11-04) Eval round 1 final (`docs/evals.md`). Guides ship for both agents: form-errors-validation, skip-link-landmarks, menu-button, image-alt, status-messages-toast; Claude only: tabs, focus-visible; Codex only: combobox-autocomplete, disclosure-accordion, spa-route-change. Not needed (both pass unguided): reduced-motion, custom-select, dialog-modal, icon-buttons, required-and-hints. Codex was re-run clean after its first runs read the user's personal skills. Three weak results were grader or task bugs (fixed); toast and image-alt guides fixed (Claude guided 1/6 to 6/6 and 3/6 to 6/6). Retrieval was 94/95 (Claude) and 90/90 (Codex) once the transcript reader followed shell variables. Codex keeps an explicit requested toast time over the guide, so the toast prompts no longer name one; re-run, toast guided is 6/6 for both (unguided Claude 3/6, Codex 0/6).

@@ -1,0 +1,22 @@
+{
+  "guide": "input-purpose",
+  "app": "shop",
+  "path": "/checkout",
+  "prompt": "In checkout, split \"Full name\" into \"First name\" and \"Last name\", and add a \"Phone\" field to the Contact section. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [
+    { "role": "textbox", "name": "Last name", "exact": false },
+    { "role": "textbox", "name": "Phone", "exact": false }
+  ],
+  "targets": {
+    "fields": [
+      "First name=given-name",
+      "Last name=family-name",
+      "Email=email",
+      "Phone=tel",
+      "Street and number=street-address|address-line1",
+      "City=address-level2",
+      "Postal code=postal-code",
+      "Country=country-name|country"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "guide": "timeouts-and-warnings",
+  "app": "content",
+  "path": "/articles/tatras-in-october.html",
+  "prompt": "At the end of the Tatras article (articles/tatras-in-october.html), add a \"Reserve a bed\" button for the Téryho hut on the night of 18 October. Pressing it holds a bed for 10 minutes and shows a \"Name\" field and a \"Confirm reservation\" button that shows \"Your bed is reserved.\" When the 10 minutes run out first, release the bed and show \"Your reservation expired, the bed is free again.\" There is no backend; nothing is sent. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [{ "role": "button", "name": "Reserve a bed", "exact": false }],
+  "targets": {
+    "start": { "role": "button", "name": "Reserve a bed", "exact": false },
+    "limitMinutes": "10",
+    "expired": "expired"
+  }
+}

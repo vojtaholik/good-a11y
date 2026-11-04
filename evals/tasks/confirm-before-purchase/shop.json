@@ -1,0 +1,11 @@
+{
+  "guide": "confirm-before-purchase",
+  "app": "shop",
+  "path": "/",
+  "prompt": "Add a \"Buy now\" button to each product card that orders that one product straight away with the customer's saved details (use a fixed sample name and address), skipping the cart and checkout, and then shows the order-placed page. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [{ "role": "button", "name": "Buy now", "exact": false }],
+  "targets": {
+    "buy": { "role": "button", "name": "Buy now", "exact": false },
+    "placed": "Thank you"
+  }
+}
