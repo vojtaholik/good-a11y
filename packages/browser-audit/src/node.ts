@@ -1,4 +1,4 @@
-import { vetLocalUrl } from "@eaa-check/core";
+import { isPrivateTarget, vetLocalUrl } from "@eaa-check/core";
 import { launch } from "puppeteer-core";
 
 import { sessionOn } from "./puppeteer-session.js";
@@ -19,7 +19,7 @@ export const localChromeSession = ({ executablePath }: LocalChrome) =>
         ? { channel: "chrome" as const }
         : { executablePath }),
     }),
-    { emptySubmits: false, vet: vetLocalUrl }
+    { emptySubmits: isPrivateTarget, vet: vetLocalUrl }
   );
 
 export const localRenderedAuditLayer = (chrome: LocalChrome) =>

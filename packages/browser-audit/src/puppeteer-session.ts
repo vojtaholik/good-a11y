@@ -132,7 +132,7 @@ export const walkState = (keys: readonly number[], candidates: number) => {
 };
 
 export interface SessionOptions {
-  readonly emptySubmits: boolean;
+  readonly emptySubmits: (url: string) => boolean;
   readonly vet: UrlVet;
 }
 
@@ -572,7 +572,7 @@ export const sessionOn = (
         });
 
         const emptySubmits =
-          options.emptySubmits && stayed
+          options.emptySubmits(startUrl) && stayed
             ? yield* optionalWithin(SUBMIT_TIMEOUT, submitAll)
             : null;
 

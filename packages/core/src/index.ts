@@ -105,6 +105,7 @@ export { PageReader, type PageReading } from "./page-reader.js";
 
 export {
   MAX_URL_LENGTH,
+  isPrivateTarget,
   vetLocalUrl,
   vetUrl,
   type LocalUrl,

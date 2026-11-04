@@ -42,7 +42,7 @@ export const puppeteerSession = (
   { emptySubmits }: BrowserRunOptions
 ) =>
   sessionOn(launch.bind(undefined, binding, { keep_alive: KEEP_ALIVE_MS }), {
-    emptySubmits,
+    emptySubmits: () => emptySubmits,
     vet: vetUrl,
   });
 

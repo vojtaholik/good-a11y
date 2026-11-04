@@ -3,6 +3,7 @@ import { Effect, Layer, Result } from "effect";
 
 import {
   HopTransport,
+  isPrivateTarget,
   LocalHopTransport,
   SafeFetch,
   parseLocalTarget,
@@ -101,6 +102,27 @@ describe("the hosted transport's type", () => {
       const refused = () => transport.open({ headers: {}, url: local });
 
       expect(refused).toBeTypeOf("function");
+    })
+  );
+});
+
+describe("a target on the user's own machine or network", () => {
+  it.effect.each([
+    { private: true, url: "http://localhost:5173/" },
+    { private: true, url: "http://app.localhost/" },
+    { private: true, url: "http://127.0.0.1:8080/" },
+    { private: true, url: "http://192.168.1.20/" },
+    { private: true, url: "http://10.0.0.5/" },
+    { private: true, url: "http://172.20.0.2/" },
+    { private: true, url: "http://[::1]:3000/" },
+    { private: true, url: "http://devbox:4000/" },
+    { private: false, url: "http://172.32.0.1/" },
+    { private: false, url: "http://8.8.8.8/" },
+    { private: false, url: "https://example.com/" },
+    { private: false, url: "https://localhost.example.com/" },
+  ])("is $private for $url", ({ private: expected, url }) =>
+    Effect.sync(() => {
+      expect(isPrivateTarget(url)).toBe(expected);
     })
   );
 });

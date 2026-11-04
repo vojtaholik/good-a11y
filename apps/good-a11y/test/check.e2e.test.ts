@@ -18,12 +18,18 @@ interface Run {
   readonly stdout: string;
 }
 
+const hits: string[] = [];
+
 const pageServer = Effect.acquireRelease(
   Effect.callback<number>((resume) => {
     const server = createServer((request, response) => {
       const name = (request.url ?? "/").replace(/^\//u, "") || "clean.html";
 
-      if (!["broken.html", "clean.html"].includes(name)) {
+      if (name.startsWith("hit/")) {
+        hits.push(name);
+      }
+
+      if (!["broken.html", "clean.html", "form.html"].includes(name)) {
         response.writeHead(404).end();
 
         return;
@@ -115,6 +121,32 @@ describe("good-a11y check", () => {
         );
         expect(run.stdout).toContain("That is not a pass");
         expect(run.stdout).not.toContain("## Issues");
+      }).pipe(Effect.scoped)
+  );
+
+  it.live(
+    "submits a local form empty, sends nothing, and asks about its error text",
+    () =>
+      Effect.gen(function* submitsLocalForm() {
+        const port = yield* pageServer;
+
+        hits.length = 0;
+
+        const run = yield* runBundle([
+          "check",
+          "--json",
+          `localhost:${port}/form.html`,
+        ]);
+
+        const markdown = yield* runBundle([
+          "check",
+          `localhost:${port}/form.html`,
+        ]);
+
+        expect(run.status).toBe(0);
+        expect(hits).toStrictEqual([]);
+        expect(markdown.stdout).toContain("`error-identified`");
+        expect(markdown.stdout).toContain("Wrong.");
       }).pipe(Effect.scoped)
   );
 

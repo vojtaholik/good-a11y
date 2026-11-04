@@ -123,3 +123,28 @@ export const vetLocalUrl = (
     ? reject("not_a_url", "The address is not a valid URL.")
     : Result.succeed(toLocalUrl(url.href));
 };
+
+const PRIVATE_IPV4 =
+  /^(?:127\.|10\.|192\.168\.|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.|0\.0\.0\.0$)/u;
+
+const PRIVATE_IPV6 = /^\[(?:::1|f[cd][\da-f]{0,2}:|fe[89ab][\da-f]?:)/u;
+
+export const isPrivateTarget = (raw: string): boolean => {
+  if (!URL.canParse(raw)) {
+    return false;
+  }
+
+  const host = new URL(raw).hostname.toLowerCase();
+
+  if (host.startsWith("[")) {
+    return PRIVATE_IPV6.test(host);
+  }
+
+  if (IPV4.test(host)) {
+    return PRIVATE_IPV4.test(host);
+  }
+
+  return (
+    host === "localhost" || host.endsWith(".localhost") || !host.includes(".")
+  );
+};

@@ -16,7 +16,7 @@ npx github:vojtaholik/good-a11y check --chrome /path/to/chromium localhost:5173
 1. `parseLocalTarget` reads what was typed. Without a scheme, `localhost`, `*.localhost`, an IP address, a one-label host or any `host:port` gets `http://`; everything else gets `https://`.
 2. `SafeFetch.localLayer` fetches the page: the same hand-followed redirects, body cap, timeout and typed failures as the hosted scan, vetted per hop by `vetLocalUrl`.
 3. `PageReader` reads the HTML and every static check runs.
-4. `RenderedAudit` opens the page in the user's Chrome (`@eaa-check/browser-audit/node`): the same page scripts, the pinned axe-core 4.14.0 and the same rendered probes as Browser Run, at the same viewport and with the same timeouts. Empty form submits are off.
+4. `RenderedAudit` opens the page in the user's Chrome (`@eaa-check/browser-audit/node`): the same page scripts, the pinned axe-core 4.14.0 and the same rendered probes as Browser Run, at the same viewport and with the same timeouts. On a private target (below) the forms are also submitted empty, under the hosted fence.
 5. `withRendered` adds the rendered findings, or a skip with its reason, to the `Report`.
 6. The shown judged questions that relate to a WCAG criterion are built with `questionsFor` from the static and rendered evidence. No model is asked.
 
@@ -52,7 +52,13 @@ The fences:
 - `packages/core/test/local-target.test.ts` holds a `@ts-expect-error` on passing a `LocalUrl` to `HopTransport.open`: if the hosted port ever accepts one, the typecheck fails.
 - The same test file checks that `parseScanTarget` still refuses `localhost:5173` and `127.0.0.1`.
 
-Still in force locally: no `file:`, `javascript:` or other schemes, no credentials in the address, the redirect cap, the body cap, timeouts, popups closed, service workers bypassed, and no form is submitted.
+Still in force locally: no `file:`, `javascript:` or other schemes, no credentials in the address, the redirect cap, the body cap, timeouts, popups closed and service workers bypassed.
+
+### Empty submits on the user's own app (lead, 2026-11-04)
+
+The 3.3.1 and 3.3.3 questions (`error-identified`, `error-suggestion`, docs/judged-checks.md) read what a form shows after it is submitted empty. The hosted checker keeps that off. The local check turns it on when `isPrivateTarget` (`packages/core/src/public-url.ts`) holds for the page: `localhost`, `*.localhost`, a one-label host, a loopback, RFC 1918, link-local or unique-local address. A public name stays off, also when it resolves to a private address, since the check cannot tell a dev host from someone else's server by its name.
+
+The submits run under the same fence as on Browser Run (docs/rendered-probes.md, "Submitting forms without sending anything"): every request of every target fails at the browser level, navigations get a local 204, the page goes offline, `WebSocket.send` and `sendBeacon` send nothing, no field is typed into, and search, password and payment forms are skipped. `apps/good-a11y/test/check.e2e.test.ts` serves a form whose submit handler posts with `fetch`, `sendBeacon` and an image, plus a native POST, and asserts that the local server received no request while the error-text question reached the output.
 
 ## Calls made
 
@@ -60,7 +66,7 @@ Still in force locally: no `file:`, `javascript:` or other schemes, no credentia
 - **The session code runs on a structural type.** `SessionBrowser` (`packages/browser-audit/src/session-browser.ts`) lists the few browser, page, request and CDP methods the session uses. `@cloudflare/puppeteer` 1.4.0 and `puppeteer-core` 25.13.0 both satisfy it without a cast, so `sessionOn` is one implementation for both.
 - **puppeteer-core with the installed Chrome.** `launch({ channel: "chrome" })` finds Google Chrome where it installs itself. Full `puppeteer` would download a Chrome of its own on every `npx` install. `--chrome <path>` takes any Chrome or Chromium binary. If Chrome does not start, the static checks still run and the report says why the rendered check was skipped and how to fix it.
 - **puppeteer-core is not bundled.** The bundle keeps it external and the root `package.json` lists it under `dependencies`, so `npx` installs it next to the bundle.
-- **Empty submits stay off.** The hosted scanner runs them only for calibration, and locally a form may post to the user's real backend.
+- **Empty submits only on private targets.** On a public URL a form may post to someone's real backend; the fence blocks every request, but the hosted rule (off unless calibrating) stays for public pages.
 - **The user agent is the scanner's.** A local dev server does not care, and the same string keeps bot-wall detection the same.
 
 ## Tests
