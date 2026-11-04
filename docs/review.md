@@ -247,3 +247,10 @@ Still open: R2-M1 (the submits run and are archived, but no check reads them; th
 - The judge step now also reads the archived rendered evidence. The two new checks (`visual-headings-marked`, `passage-language-marked`) are `shown: false`, and `questionsFor` asks only shown checks (`judged.ts:781`), so they spend no tokens until calibrated. No new defect.
 
 Still open: R2-M1, R2-M2, R2-L2.
+
+### Round 2 re-check 5 (08:20 CET) of b3d627b
+
+- **R2-M2 fixed.** `apps/scanner/src/judge-limits.ts` sets the judge cap per stage on the scanner Worker (`Stack.useSync`, read with `Config.Int`, the same pattern as the browser budget): `prod` 250,000, every other stage 50,000, and the local calibrator 100,000. prod + dev + calibrator = 400,000, under the ~458,000-token free allocation. Residual, recorded only: every non-prod stage gets its own 50,000, a local `alchemy dev` run (`dev_$USER`) included, so the sum stays under the ceiling with at most one local dev beside stage dev (450,000). A second developer running locally on the same day could go past it. Accept that, or make local stages 0 unless set.
+- **R2-L2 fixed in code.** The evidence bucket has a 30-day `Age` lifecycle rule, and the crawl stores only the evidence JSON of each crawled page, no HTML body. The rule takes effect on the next dev deploy. I have not checked the deployed bucket.
+
+All round 2 findings except R2-M1 are closed. R2-M1 stays open as a cost item: the empty submits are contained (R2-H1) but feed no shown check.
