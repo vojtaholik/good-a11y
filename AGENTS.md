@@ -24,6 +24,7 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 - Oxlint `1.83.0` with Ultracite `7.12.0`, Oxfmt `0.68.0`, and Turborepo `2.11.2`
 - `htmlparser2` `12.0.0` is the one HTML parser, and only `packages/html-reader` imports it
 - `axe-core` `4.14.0` (MPL-2.0) and `@cloudflare/puppeteer` `1.4.0` for the rendered page check, and `puppeteer-core` `25.13.0` (Apache-2.0) for the local `check` in the user's own Chrome; only `packages/browser-audit` imports them
+- `@playwright/test` `1.64.1` for the eval graders in `evals/graders`, driving the system Chrome (`channel: "chrome"`, no browser download); React `19.3.1` only in the eval base app `evals/apps/shop`
 - varlock `1.20.0`: declare every env var in `.env.schema`, never read `.env.local` directly, run `pnpm env:check` after schema edits
 
 ## Packages
@@ -37,6 +38,8 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 | `@good-a11y/browser-audit` | `packages/browser-audit` | Adapter for `RenderedAudit`: one Browser Run session through `@cloudflare/puppeteer`, fixed viewport and user agent, runs the pinned axe-core, closes the browser in a finalizer, hard timeout |
 | `@good-a11y/html-reader` | `packages/html-reader` | Adapter for `PageReader`: reads the accessibility evidence out of HTML in one pass over the `htmlparser2` tokenizer, with no tree |
 | `@good-a11y/cli` | `apps/cli` | Composition root for the `good-a11y-scan` bin. One command per capability |
+| `@good-a11y/evals` | `evals` | Layer 3 of good-a11y: one Playwright grader per guide (`evals/graders/<guide-id>.spec.ts`, one `E<n>` test per claim in its `expectations.md`), the base apps in `evals/apps`, and two task prompts per guide in `evals/tasks/<guide-id>/<app>.json` (`docs/evals.md`) |
+| `@good-a11y/eval-shop` | `evals/apps/shop` | Eval base app: a React and Vite shop (products, quick-view dialog, cart, checkout). `evals/apps/content` is its static sibling, plain HTML with no package |
 
 | `@good-a11y/scan-store` | `packages/scan-store` | Cartridge on D1: `ScanStore` (one row per scan: stage, report or failure; same-URL reuse within an hour; daily cap), `MessageStore` (contact messages, daily cap) and `BrowserBudget` (daily browser time for the rendered check). Each cap is one conditional insert. Declares its database and migrations for the Stack | | `@good-a11y/scanner` | `apps/scanner` | The backend Worker: `startScan`, `getScan`, `sendMessage` over RPC, and `ScanWorkflow`, one Workflow instance per scan whose body runs the XState scan machine with each step as a Workflow task | | `@good-a11y/web` | `apps/web` | The page: a Foldkit app styled with StyleX. Paste a URL, follow the scan, read the report, write to studio9 | | `@good-a11y/infra` | `apps/infra` | The Alchemy Stack: website Worker, scanner Worker, the Workflow, D1. No zone, no domain |
 
@@ -69,6 +72,7 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 | `pnpm exec varlock run -- pnpm --filter @good-a11y/infra exec alchemy plan --stage dev --no-input` | Preview the Stack diff. Use `deploy --stage dev --yes --no-input` to apply. Name the stage every time; only non-production stages are authorized |
 | `pnpm vendor:agent-sources` | Clone the pinned source mirrors agents read before writing Effect or XState code |
 | `pnpm exec lefthook install` | Install git hooks (also via `prepare`) |
+| `pnpm evals:graders` | Run every grader against its guide's `demo.html` (also part of `pnpm test`); `EVAL_TARGET_URL` points them at another page |
 | `pnpm turbo run check test build` | The gate. Run it before claiming a change is ready |
 
 ## Fence (cheating is uncomfortable)

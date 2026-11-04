@@ -1,0 +1,6 @@
+{
+  "guide": "icon-buttons",
+  "app": "shop",
+  "path": "/cart",
+  "prompt": "The cart's Less, More and Remove text buttons look heavy. Replace them with compact icon buttons: minus, plus and a trash can. Draw the icons as inline SVG."
+}

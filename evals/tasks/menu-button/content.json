@@ -1,0 +1,6 @@
+{
+  "guide": "menu-button",
+  "app": "content",
+  "path": "/articles/tatras-in-october.html",
+  "prompt": "Add a \"Share\" button under the Tatras article title. It opens a dropdown with \"Copy link\", \"Share by email\" and \"Print\", and each choice does what it says."
+}

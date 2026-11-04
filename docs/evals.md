@@ -1,0 +1,38 @@
+# Evals
+
+Layer 3 of good-a11y (brief decisions 9 and 10): measure whether a guide changes what an agent builds. An agent gets a task on a base app with or without the guide; its result is graded by our checker and by the guide's Playwright grader. This file covers the graders, the base apps and the tasks. The runner lives in `evals/run`.
+
+## Graders
+
+`evals/graders/<guide-id>.spec.ts` asserts the guide's `expectations.md`, one test per numbered claim, titled `E<n> ...` with the claim's number. `evals/graders/coverage.spec.ts` fails when a guide has no grader or when the `E<n>` numbers differ from the claims.
+
+- A grader opens `EVAL_TARGET_URL` when it is set, otherwise its guide's `demo.html`. Every grader passes on its demo, so the reference implementation is the first calibration point; the second (failing on the unguided baseline) comes from eval runs.
+- Graders drive the system Chrome (`channel: "chrome"`), so nothing is downloaded on install. GitHub's Ubuntu runners ship Chrome.
+- Timers run on Playwright's fake clock (`page.clock`), so a 10-second carousel check takes milliseconds. All graders run in about 6 seconds, so `pnpm test` includes them; `pnpm evals:graders` runs them alone. `turbo.json` declares `guides/**` as an input of `@good-a11y/evals#test`.
+- The grader specs carry `@effect-diagnostics asyncFunction:off`, and `oxlint.config.ts` turns off `no-await-in-loop` for `evals/graders/**`: Playwright is Promise-based and key presses are sequential by nature. The package holds no Effect code.
+
+Most graders locate controls by the names their demo uses ("Delete project"). To grade an agent's page, a task names the visible text it asks for, and the grader needs those names instead. Retargeting through an optional `targets` map in the task file is the next step; graders that already grade any page as written: `skip-link-landmarks` (all), `image-alt` E1, E2, E5, `focus-visible` E1, E2, E5, `status-messages-toast` E1, E4.
+
+## Base apps
+
+Neutral starting points that tasks modify. They are written the way a careful developer would write an ordinary app, not seeded with the bugs the guides fix, and not already doing what the guides teach. Both pass our static checks, axe in light and dark mode, and the local `check` on every page.
+
+- `evals/apps/shop` (`@good-a11y/eval-shop`): React 19 and Vite 8, no router library. Product grid with a quick-view `<dialog>`, a cart with quantity buttons, a checkout form with no validation, an order-placed page. A small `pushState` router sets the title and nothing else. `pnpm build` then `pnpm preview` serves it on port 4173, and the history fallback serves every route. Product images sit in `public/products` unused, for the image task. Vite's built-in Oxc transform handles JSX, so there is no React plugin.
+- `evals/apps/content`: static HTML and one stylesheet, served as is. Home with a story list, two articles (figures, a chart image, a quote, a list), About, and a search page whose script filters a fixed index. One header navigation, no skip link.
+
+Oxlint skips `evals/apps/**`: the repo fence (no comments, Effect rules) is for product code, and the apps should look like ordinary projects to the agents that change them. Oxfmt still formats them, and the shop's `build` typechecks it.
+
+## Tasks
+
+`evals/tasks/<guide-id>/<app>.json`, two per guide, one per app:
+
+```json
+{
+  "guide": "dialog-modal",
+  "app": "shop",
+  "path": "/cart",
+  "prompt": "When a customer clicks \"Empty cart\", ask them to confirm first ..."
+}
+```
+
+`path` is the page the grader opens on the served app. A prompt is what a product owner would ask for. It never names the accessibility technique, ARIA, focus, labels, keyboards or screen readers. Where a realistic request pulls toward the failure (the focus-visible shop task asks to drop the browser's default outlines), that pull is the point.

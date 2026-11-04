@@ -1,0 +1,6 @@
+{
+  "guide": "image-alt",
+  "app": "shop",
+  "path": "/",
+  "prompt": "Show each product's photo on its card in the product grid. The photos are already in public/products/ (jacket, boot, pack, bottle, tent, beanie). Make the photo clickable to open the quick view."
+}

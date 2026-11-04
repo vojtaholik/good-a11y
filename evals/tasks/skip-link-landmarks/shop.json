@@ -1,0 +1,6 @@
+{
+  "guide": "skip-link-landmarks",
+  "app": "shop",
+  "path": "/",
+  "prompt": "Give the shop a proper page frame on every page: the header with the main links, and a bigger footer with links to Shipping, Returns, Privacy and Contact."
+}

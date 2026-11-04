@@ -1,0 +1,6 @@
+{
+  "guide": "reduced-motion",
+  "app": "shop",
+  "path": "/",
+  "prompt": "Add a promo banner at the top of the shop page that rotates through three offers every few seconds, sliding from one to the next."
+}

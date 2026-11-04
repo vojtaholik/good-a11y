@@ -1,0 +1,6 @@
+{
+  "guide": "disclosure-accordion",
+  "app": "content",
+  "path": "/articles/tatras-in-october.html",
+  "prompt": "The packing list at the end of the Tatras article is getting long. Make the \"What we packed\" section collapsible, closed by default, with a control to show and hide it."
+}

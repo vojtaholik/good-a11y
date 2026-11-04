@@ -1,0 +1,6 @@
+{
+  "guide": "spa-route-change",
+  "app": "shop",
+  "path": "/",
+  "prompt": "Give each product its own page at /products/<id> with its description and specs, reachable by clicking the product name in the grid. Keep it inside the single-page app: no full page reloads, and the browser Back button must work."
+}

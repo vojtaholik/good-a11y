@@ -28,6 +28,8 @@ category: widgets
 
 `packages/guides` rejects a guide, naming the guide and the fix, when a file is missing, the frontmatter does not decode, a criterion is not a verified fact, `guide.md` is over 3,000 tokens (characters / 4), or `guide.md` has a link outside a fenced code block: a Markdown link, a reference link, a bare `http(s)://` URL or a `www.` address. A guide is self-contained; URLs inside code samples, such as an SVG namespace, are fine.
 
+A guide may teach practice that no verified fact backs as a requirement, but it never cites one. `reduced-motion` teaches honouring `prefers-reduced-motion` and lists only `STD-SC-2.2.2` and `STD-SC-2.3.1`: the criterion about motion from interactions, WCAG 2.3.3, has no fact in the ledger (it is outside the A and AA set `research/facts/standards.md` covers), so the guide neither cites it nor states its level. A verified 2.3.3 fact would let the guide cite it.
+
 Headings (`#` to `######` outside code) are indexed for search, so name sections by what an agent would look for.
 
 ## The generated index

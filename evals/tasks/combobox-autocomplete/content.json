@@ -1,0 +1,6 @@
+{
+  "guide": "combobox-autocomplete",
+  "app": "content",
+  "path": "/search.html",
+  "prompt": "Make the search box on the search page suggest story titles in a list below it as the reader types, so they can pick a story directly."
+}

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Search - Trail Notes</title>
+    <link rel="stylesheet" href="assets/site.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-title" href="index.html">Trail Notes</a>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="index.html">Stories</a></li>
+          <li><a href="articles/tatras-in-october.html">Routes</a></li>
+          <li><a href="articles/breaking-in-boots.html">Gear</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+      <form class="site-search" action="search.html" method="get">
+        <label for="site-q">Search</label>
+        <input id="site-q" name="q" type="search" />
+        <button>Go</button>
+      </form>
+    </header>
+    <main class="search-page">
+      <h1>Search</h1>
+      <form action="search.html" method="get">
+        <label for="q">Search stories</label>
+        <input id="q" name="q" type="search" />
+        <button>Search</button>
+      </form>
+      <p id="summary"></p>
+      <ul class="results" id="results"></ul>
+    </main>
+    <footer class="site-footer">
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="about.html#contact">Contact</a></li>
+        <li><a href="about.html#privacy">Privacy</a></li>
+      </ul>
+      <p>Trail Notes is written by hikers for hikers.</p>
+    </footer>
+    <script>
+      const stories = [
+        {
+          title: "Crossing the Tatras in October",
+          url: "articles/tatras-in-october.html",
+          text: "Three days, two huts and the first snow of the season. Ridge, lakes, huts, packing list.",
+        },
+        {
+          title: "Breaking in leather boots",
+          url: "articles/breaking-in-boots.html",
+          text: "What worked, what gave us blisters, and how long it took. Gear, boots, blisters.",
+        },
+        {
+          title: "About Trail Notes",
+          url: "about.html",
+          text: "Who we are, contact and privacy.",
+        },
+      ];
+      const query = new URLSearchParams(location.search).get("q") ?? "";
+      document.getElementById("q").value = query;
+      const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+      const hits =
+        words.length === 0
+          ? []
+          : stories.filter((story) =>
+              words.every((word) =>
+                (story.title + " " + story.text).toLowerCase().includes(word)
+              )
+            );
+      document.getElementById("summary").textContent =
+        words.length === 0
+          ? "Type a word to search the stories."
+          : hits.length +
+            (hits.length === 1 ? " result" : " results") +
+            " for " +
+            query;
+      document.getElementById("results").replaceChildren(
+        ...hits.map((story) => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = story.url;
+          a.textContent = story.title;
+          const p = document.createElement("p");
+          p.textContent = story.text;
+          li.append(a, p);
+          return li;
+        })
+      );
+    </script>
+  </body>
+</html>

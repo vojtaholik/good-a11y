@@ -1,0 +1,6 @@
+{
+  "guide": "form-errors-validation",
+  "app": "content",
+  "path": "/about.html",
+  "prompt": "Replace the contact email on the About page with a contact form: name, email and message, all required, with a valid email. Show what is wrong when the form is sent incomplete, and a thank-you message when it is fine."
+}

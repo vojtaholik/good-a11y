@@ -1,0 +1,6 @@
+{
+  "guide": "custom-select",
+  "app": "shop",
+  "path": "/",
+  "prompt": "Add a \"Sort by\" control above the product grid with Name, Price low to high and Price high to low. Make it look like our buttons: green border, rounded corners, custom arrow, no default browser look."
+}

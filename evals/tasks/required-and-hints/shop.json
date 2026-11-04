@@ -1,0 +1,6 @@
+{
+  "guide": "required-and-hints",
+  "app": "shop",
+  "path": "/checkout",
+  "prompt": "Add a phone number field (required, delivery drivers call it; tell people to include the country code) and an optional \"Delivery notes\" field to checkout. Also mark which existing fields are mandatory."
+}

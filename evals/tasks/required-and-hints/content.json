@@ -1,0 +1,6 @@
+{
+  "guide": "required-and-hints",
+  "app": "content",
+  "path": "/articles/tatras-in-october.html",
+  "prompt": "Add a comment form at the end of the Tatras article: name and email (both required; the email is never shown publicly, say so next to it), the comment, and a choice of whether to get replies by email, never or weekly."
+}

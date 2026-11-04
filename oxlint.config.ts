@@ -17,6 +17,7 @@ export default defineConfig({
     "packages/facts/src/ledger.generated.ts",
     "packages/guides/src/guides.generated.ts",
     "apps/good-a11y/bundle/**",
+    "evals/apps/**",
   ],
   jsPlugins: [
     { name: "foldkit", specifier: "@foldkit/oxlint-plugin" },
@@ -42,6 +43,12 @@ export default defineConfig({
     typeAware: true,
   },
   overrides: [
+    {
+      files: ["evals/graders/**"],
+      rules: {
+        "no-await-in-loop": "off",
+      },
+    },
     {
       files: ["apps/web/src/**/*.ts"],
       rules: {

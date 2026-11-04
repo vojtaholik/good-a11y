@@ -1,0 +1,6 @@
+{
+  "guide": "dialog-modal",
+  "app": "shop",
+  "path": "/cart",
+  "prompt": "When a customer clicks \"Empty cart\", ask them to confirm first in a popup over the page with \"Empty cart\" and \"Keep items\" buttons. Only empty the cart when they confirm."
+}

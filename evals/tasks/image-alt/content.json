@@ -1,0 +1,6 @@
+{
+  "guide": "image-alt",
+  "app": "content",
+  "path": "/articles/breaking-in-boots.html",
+  "prompt": "Add a site logo image to the header that links home, a photo of the trail above the article title, and a chart image of blister count per week (week 1: 0, week 2: 3, week 3: 1)."
+}

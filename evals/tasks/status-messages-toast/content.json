@@ -1,0 +1,6 @@
+{
+  "guide": "status-messages-toast",
+  "app": "content",
+  "path": "/articles/tatras-in-october.html",
+  "prompt": "Add a \"Copy link\" button under the article title. When clicked, copy the page address to the clipboard and show a short \"Link copied\" confirmation that fades out."
+}

@@ -1,0 +1,6 @@
+{
+  "guide": "reduced-motion",
+  "app": "content",
+  "path": "/index.html",
+  "prompt": "Make the home page feel more alive: story cards slide up into place as they scroll into view, links to sections on the same page scroll smoothly, and the hero image drifts slowly in the background."
+}

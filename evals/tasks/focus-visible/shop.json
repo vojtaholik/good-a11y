@@ -1,0 +1,6 @@
+{
+  "guide": "focus-visible",
+  "app": "shop",
+  "path": "/",
+  "prompt": "The browser's default blue outlines around clicked buttons and links look off-brand. Restyle buttons, links and form fields so they match the Fjell green look everywhere, including when they are selected."
+}

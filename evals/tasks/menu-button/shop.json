@@ -1,0 +1,6 @@
+{
+  "guide": "menu-button",
+  "app": "shop",
+  "path": "/cart",
+  "prompt": "Each cart row has too many buttons. Replace the \"Remove\" button with a single \"Options\" button that opens a small dropdown with \"Save for later\", \"Duplicate line\" and \"Remove\"."
+}

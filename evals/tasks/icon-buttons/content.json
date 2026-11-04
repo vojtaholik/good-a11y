@@ -1,0 +1,6 @@
+{
+  "guide": "icon-buttons",
+  "app": "content",
+  "path": "/articles/tatras-in-october.html",
+  "prompt": "Add a row of small share icons under the Tatras article (email, copy link, print) as icon-only buttons with inline SVG icons, and a heart icon readers can click to save the story, which stays highlighted once saved."
+}

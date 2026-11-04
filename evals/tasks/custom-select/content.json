@@ -1,0 +1,6 @@
+{
+  "guide": "custom-select",
+  "app": "content",
+  "path": "/index.html",
+  "prompt": "Add a topic filter above the story list on the home page (All, Routes, Gear) as a styled dropdown that matches the site's look, filtering the list when a topic is chosen."
+}

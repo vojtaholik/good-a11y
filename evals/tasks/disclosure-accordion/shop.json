@@ -1,0 +1,6 @@
+{
+  "guide": "disclosure-accordion",
+  "app": "shop",
+  "path": "/",
+  "prompt": "Add a \"Questions about shipping and returns\" section under the product grid with four questions. Show only the questions at first; each answer opens and closes when its question is clicked."
+}

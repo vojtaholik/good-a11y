@@ -1,0 +1,6 @@
+{
+  "guide": "dialog-modal",
+  "app": "content",
+  "path": "/index.html",
+  "prompt": "Add a \"Subscribe\" button to the footer of the home page. It opens a small popup over the page where readers enter their email address to get new stories, with a way to close it without subscribing."
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@good-a11y/evals",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "check": "pnpm run typecheck",
+    "test": "playwright test",
+    "graders": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.13.6",
+    "typescript": "7.0.2"
+  }
+}

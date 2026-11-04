@@ -1,0 +1,6 @@
+{
+  "guide": "combobox-autocomplete",
+  "app": "shop",
+  "path": "/checkout",
+  "prompt": "The country field at checkout is free text and people mistype it. Turn it into a searchable picker: as the customer types, show matching EU countries in a list under the field, and let them pick one."
+}
