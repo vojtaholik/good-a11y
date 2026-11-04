@@ -233,3 +233,40 @@ Asked by the lead after verifier finding N1: 3.2.3, 3.2.4 and 3.2.6 count only w
 **Decision: dropped.** The three checks, their "compared, not yet counted" lines and the `Report.site.findings` field are removed. 3.2.3, 3.2.4 and 3.2.6 are "Needs a person", with a note on what a person compares. The site section keeps the pages read, their own static issues, and the search and site-map links seen.
 
 **What a return needs.** Leave out same-page links (fragment links and links to the page's own address) and compare only addresses that occur once in each page's navigation: the two causes behind all 5 false positives. Then a fixture set with known real inconsistencies, since none of the 21 sites has one, and a fresh run on other sites with every fail checked by hand. Until then the crawl's navigation and help links have no reader in core.
+
+## Round 7: the verdict on 31 sites (2026-11-04)
+
+Asked by the lead: the verdict ("This page does not meet WCAG 2.1 Level AA") raises the cost of every false positive, so each WCAG 2.1 Level A or AA failure behind a "does not meet" verdict is checked by hand, and a false positive that flips a verdict is fixed or taken out of the verdict.
+
+**Method.** Dev scans through the page form (static, rendered, crawl and judged steps), 2 at a time to share the Browser Run sessions with builder-cloud's form run. The 21 QA sites plus 10 new EU sites: shops (notino.cz, decathlon.fr, bol.com, fnac.com), public (gov.ie, service-public.fr, bund.de) and small businesses (mamacoffee.cz, cafeimperial.cz, cafeslavia.cz). Reports were read from the `getScan` reply and summarised with `issueGroupsOf`. Each failure class was checked against the served HTML (curl), the live page in local Chrome (computed styles, a focus screenshot before and after, the text-spacing styles injected), or an earlier round's check of the same site.
+
+**Result after the fix below.** 20 sites do not meet WCAG 2.1 Level AA, 8 show no failure (gov.uk, w3.org/WAI, en.wikipedia.org, emag.ro and gov.ie with the served HTML only, zara.com with the rendered page only, service-public.fr, bund.de), 3 blocked both the fetch and the browser and have no verdict (hm.com, bol.com, fnac.com).
+
+| Site | Verdict | Failures behind it (WCAG 2.1) | Hand check |
+| --- | --- | --- | --- |
+| info.cern.ch | 1 criterion | 3.1.1 html-lang | TP: `<html>` with no `lang` |
+| spacejam.com/1996 | 1 | 3.1.1 html-lang | TP: bare `<html>` |
+| berkshirehathaway.com | 2 | 3.1.1 html-lang; 1.3.1 definition-list | TP: bare `<html>`; `<dl>` holding `<p>` |
+| craigslist.org | 2 | 3.1.1 html-lang; 1.4.3 contrast 1 | TP: bare `<html>`; contrast by axe |
+| bbc.co.uk | 1 | 1.4.1 link-in-text-block 1 | TP: the "cookies" link in the banner text differs by colour only |
+| ikea.com | 1 | 1.3.1 list 2 | TP: `<ul>` carousel with non-`li` children (round 3). Text spacing 9 was an FP, dropped |
+| rohlik.cz | 2 | 1.4.3 contrast 7; 1.3.1 list 1 | TP (round 3) |
+| mamacoffee.cz | 1 | 1.4.3 contrast 9 | TP: "Skladem" in `#009901` on white, 3.8:1 at small size |
+| heureka.cz | 2 | 1.4.3 contrast 54; 4.1.2 aria-valid-attr-value 1 | Contrast TP (round 5); `aria-controls` naming a panel axe could not find |
+| decathlon.fr | 2 | 2.4.7 focus-visible 2; 1.3.1 listitem 1 | `li` outside a list TP. Focus: the two consent buttons; local Chrome is served another page, not reproduced |
+| alza.cz | 3 | 2.1.1 keyboard-reach 7; 1.4.3 contrast 5; 1.4.10 reflow | Contrast TP (round 5). Keyboard: "Sleva" badge buttons with `tabindex="-1"`, plausible TP. Reflow: a side banner widens the page at 320 px, TP by the probe's rule |
+| mediamarkt.de | 3 | 1.3.1 listitem, ARIA parent/children; 2.4.4 + 4.1.2 link-name 6 | TP (round 5: `role=menu` breaks the list) |
+| notino.cz | 3 | 2.4.4 + 4.1.2 link-name 36; 4.1.2 aria-command-name, nested-interactive, button-name; 1.4.3 contrast 2 | TP by axe on the rendered page |
+| otto.de | 4 | 1.1.1 image-alt 6; 2.4.4 + 4.1.2 link-name 3; 1.4.10 reflow | image-alt and link-name TP (served and rendered agree); reflow TP by the probe's rule |
+| lingscars.com | 4 | 1.4.3 contrast 16; 2.4.7 focus-visible 4; 2.4.4 + 4.1.2 link-name 1 | TP (round 5: 2.37:1 badges; tabs look the same on focus) |
+| arngren.net | 5 | link-name 188 of 611, contrast 101, form-labels 3, list 1, html-lang | TP: image links with no alt, unlabelled fields, bare `<html>` |
+| idnes.cz | 5 | image-alt 20 of 103, link-name 10, contrast 7, frame-title 6, reflow | TP (rounds 3 and 5) |
+| seznam.cz | 5 | contrast 159, button-name 53 of 112, frame-title 51, link-name 51, list/listitem, image-alt 5, nested-interactive 4 | TP by axe and the static checks agreeing |
+| cafeimperial.cz | 6 | focus-visible 39; link-name 25; form-labels 8 of 13; contrast 7; button-name 2; frame-title 1 of 2; 1.4.4 meta-viewport-zoom | TP: icon-only social links, Owl arrows `role=presentation` with no name, a Maps iframe with no title, `maximum-scale=1`; focus outline `none` with no shadow on the Instagram link |
+| cafeslavia.cz | 5 | focus-visible 26; link-name 11 of 24; frame-title 1; html-lang; contrast 1 | TP: `lang="cs_CZ"` is not a valid tag; the logo link's only content is an `alt=""` image; "Snídaně" looks the same in a focus screenshot before and after |
+
+**False positive found and fixed: text spacing (1.4.12).** It fired on at least 12 of the 20 failing sites. ikea.com: the flagged element is a 606 by 604 video container that overflows by 6 px after the spacing; its only text is a 1 by 1 visually hidden label, so no text is lost. rohlik.cz: product names with `line-clamp: 2` gain a third line and are cut by design, with the full name on the product page. craigslist.org: a one-line header row overflows by 6 px. No round has confirmed a true positive, so the probe cannot decide 1.4.12 reliably and is dropped (40dcdc5 in core, 5e85670 on the page side). 1.4.12 goes back to a person. It drove no verdict alone: every site it fired on has another failure checked above, so no verdict flips. Without it ikea.com goes from 2 failing criteria to 1, and the other sites lose 1.4.12 from their count.
+
+**Not reproduced locally, kept.** decathlon.fr focus-visible on the consent buttons and alza.cz keyboard reach: local Chrome is served a different page. Neither carries a verdict alone. A person checks them from the samples.
+
+**Verdicts flipped by a false positive: none.**
