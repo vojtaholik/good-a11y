@@ -195,6 +195,30 @@ it.layer(NodeServices.layer)("one eval run", (test) => {
     })
   );
 
+  test.effect("fails a run whose agent was denied a tool call", () =>
+    Effect.gen(function* deniedRun() {
+      const fileSystem = yield* FileSystem.FileSystem;
+      const outDir = yield* fileSystem.makeTempDirectoryScoped();
+      const loaded = yield* readTask(paths.evalsRoot, "tabs", "mini");
+
+      const result = yield* runOne(
+        {
+          agent: "stub",
+          arm: "guided",
+          index: 1,
+          loaded,
+          outDir,
+          timeout: Duration.minutes(1),
+        },
+        paths
+      ).pipe(Effect.provide(pageGraders(false)));
+
+      expect(result.status).toBe("agent-failed");
+      expect(result.passed).toBe(false);
+      expect(result.problem).toContain("Bash cat index.html | grep nav");
+    })
+  );
+
   test.effect(
     "installs the skill with the shipped command pointed at the local bundle",
     () =>
@@ -239,11 +263,13 @@ it.layer(NodeServices.layer)("one eval run", (test) => {
 
   test.effect("names a task file that does not exist", () =>
     Effect.gen(function* missingTask() {
-      const error = yield* readTask(paths.evalsRoot, "tabs", "mini").pipe(
-        Effect.flip
-      );
+      const error = yield* readTask(
+        paths.evalsRoot,
+        "menu-button",
+        "mini"
+      ).pipe(Effect.flip);
 
-      expect(error.message).toContain("evals/tasks/tabs/mini.json");
+      expect(error.message).toContain("evals/tasks/menu-button/mini.json");
     })
   );
 });

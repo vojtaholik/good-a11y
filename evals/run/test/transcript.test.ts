@@ -129,8 +129,37 @@ describe("reading an agent transcript", () => {
     });
   });
 
+  it("lists the tool calls Claude Code denied", () => {
+    const summary = summarizeTranscript(
+      lines({
+        permission_denials: [
+          {
+            tool_input: {
+              command:
+                'G=/b/good-a11y.mjs; node $G search "footer sitemap"; cat index.html',
+            },
+            tool_name: "Bash",
+            tool_use_id: "toolu_1",
+          },
+        ],
+        total_cost_usd: 0.17,
+        type: "result",
+        usage: { input_tokens: 1, output_tokens: 1 },
+      })
+    );
+
+    expect(summary.denials).toEqual([
+      {
+        input:
+          'G=/b/good-a11y.mjs; node $G search "footer sitemap"; cat index.html',
+        tool: "Bash",
+      },
+    ]);
+  });
+
   it("reports no usage and no use for an empty transcript", () => {
     expect(summarizeTranscript("")).toEqual({
+      denials: [],
       toolUses: 0,
       usage: null,
       use: { checks: [], retrieved: [], searches: [], skillOpened: false },

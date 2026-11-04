@@ -26,16 +26,22 @@ export const CLAUDE_ALLOWED_TOOLS = [
   "Glob",
   "Grep",
   "Skill",
-  "Bash(node:*)",
-  "Bash(npx:*)",
-  "Bash(npm:*)",
-  "Bash(pnpm:*)",
-  "Bash(python3 -m http.server:*)",
-  "Bash(ls:*)",
-  "Bash(cat:*)",
-  "Bash(curl:*)",
-  "Bash(git:*)",
+  "Bash",
 ] as const;
+
+export const CLAUDE_SANDBOX_SETTINGS = {
+  permissions: { deny: ["WebFetch", "WebSearch"] },
+  sandbox: {
+    allowUnsandboxedCommands: false,
+    autoAllowBashIfSandboxed: true,
+    enabled: true,
+    failIfUnavailable: true,
+    network: {
+      allowLocalBinding: true,
+      allowedDomains: ["localhost", "127.0.0.1"],
+    },
+  },
+} as const;
 
 export const invocationOf = (
   agent: AgentName,
@@ -57,6 +63,8 @@ export const invocationOf = (
         "--strict-mcp-config",
         "--mcp-config",
         '{"mcpServers":{}}',
+        "--settings",
+        JSON.stringify(CLAUDE_SANDBOX_SETTINGS),
         "--permission-mode",
         "acceptEdits",
         "--allowedTools",

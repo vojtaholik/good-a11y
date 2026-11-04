@@ -1,0 +1,6 @@
+{
+  "app": "mini",
+  "guide": "tabs",
+  "path": "/",
+  "prompt": "Add tabs. DENY ME a tool call."
+}

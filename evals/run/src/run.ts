@@ -342,6 +342,19 @@ export const runOne = Effect.fn("runOne")(function* runOne(
       )
     );
 
+  if (transcript.denials.length > 0) {
+    return yield* finish({
+      ...base,
+      check: null,
+      expectations: [],
+      passed: false,
+      problem: `the agent was denied ${transcript.denials.length} tool call(s), so its result is not its own: ${transcript.denials
+        .map((denial) => `${denial.tool} ${denial.input.slice(0, 120)}`)
+        .join(" | ")}`,
+      status: "agent-failed",
+    });
+  }
+
   if (agent.exitCode !== 0) {
     return yield* finish({
       ...base,

@@ -59,6 +59,14 @@ if (guided) {
 }
 
 line({
+  permission_denials: prompt.includes("DENY ME")
+    ? [
+        {
+          tool_input: { command: "cat index.html | grep nav" },
+          tool_name: "Bash",
+        },
+      ]
+    : [],
   total_cost_usd: 0.01,
   type: "result",
   usage: { cache_read_input_tokens: 100, input_tokens: 10, output_tokens: 5 },

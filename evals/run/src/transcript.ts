@@ -20,7 +20,13 @@ export interface GoodA11yUse {
   readonly skillOpened: boolean;
 }
 
+export interface Denial {
+  readonly input: string;
+  readonly tool: string;
+}
+
 export interface TranscriptSummary {
+  readonly denials: readonly Denial[];
   readonly toolUses: number;
   readonly usage: Usage | null;
   readonly use: GoodA11yUse;
@@ -48,6 +54,17 @@ const ClaudeAssistant = Schema.Struct({
 });
 
 const ClaudeResult = Schema.Struct({
+  permission_denials: Schema.optional(
+    Schema.Array(
+      Schema.Struct({
+        tool_input: Schema.Struct({
+          command: Schema.optional(Schema.String),
+          file_path: Schema.optional(Schema.String),
+        }),
+        tool_name: Schema.String,
+      })
+    )
+  ),
   total_cost_usd: Schema.optional(Count),
   type: Schema.Literal("result"),
   usage: Schema.Struct({
@@ -134,6 +151,7 @@ export const goodA11yUseOf = (toolUses: readonly ToolUse[]): GoodA11yUse => {
 
 export const summarizeTranscript = (text: string): TranscriptSummary => {
   const toolUses: ToolUse[] = [];
+  const denials: Denial[] = [];
   let usage: Usage | null = null;
 
   const add = (next: Omit<Usage, "costUsd">, costUsd: number | null) => {
@@ -172,6 +190,13 @@ export const summarizeTranscript = (text: string): TranscriptSummary => {
         target: null,
       });
     } else if (value.type === "result") {
+      for (const denial of value.permission_denials ?? []) {
+        denials.push({
+          input: denial.tool_input.command ?? denial.tool_input.file_path ?? "",
+          tool: denial.tool_name,
+        });
+      }
+
       add(
         {
           cachedInputTokens:
@@ -194,5 +219,10 @@ export const summarizeTranscript = (text: string): TranscriptSummary => {
     }
   }
 
-  return { toolUses: toolUses.length, usage, use: goodA11yUseOf(toolUses) };
+  return {
+    denials,
+    toolUses: toolUses.length,
+    usage,
+    use: goodA11yUseOf(toolUses),
+  };
 };
