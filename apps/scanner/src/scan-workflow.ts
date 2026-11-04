@@ -30,6 +30,7 @@ import {
   vetUrl,
   withJudged,
   withRendered,
+  withSite,
 } from "@eaa-check/core";
 import type {
   Judged,
@@ -177,7 +178,7 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
           `Crawl of ${job.target.url}: ${site.pages.map((page) => `${page.role} ${page.outcome === "read" ? "read" : page.reason}`).join(", ") || "no pages picked"}`
         );
 
-        return yield* Schema.encodeEffect(ReportJson)(report);
+        return yield* Schema.encodeEffect(ReportJson)(withSite(report, site));
       }).pipe(
         Effect.provideContext(domain),
         Effect.mapError(spentIn(job, "crawl"))

@@ -143,8 +143,15 @@ const resolvedHref = (href: string, base: string): string => {
 const pathOf = (href: string): string =>
   URL.canParse(href) ? new URL(href).pathname : "";
 
+const lastSegmentOf = (href: string): string =>
+  `/${
+    pathOf(href)
+      .split("/")
+      .findLast((segment) => segment !== "") ?? ""
+  }`;
+
 const isHelp = (link: LinkEvidence, href: string): boolean => {
-  const path = pathOf(href);
+  const path = lastSegmentOf(href);
 
   return (
     href.startsWith("mailto:") ||
@@ -191,7 +198,11 @@ export const summaryOf = (
     ({ landmark }) => landmark === "nav" || landmark === "header"
   );
 
-  const help = links.filter(({ href, link }) => isHelp(link, href));
+  const here = resolvedHref(url, url);
+
+  const help = links.filter(
+    ({ href, link }) => href !== here && isHelp(link, href)
+  );
 
   const names: ControlName[] = [
     ...links.flatMap(({ href, link }) =>
