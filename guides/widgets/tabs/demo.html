@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tabs demo</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #ffffff;
+        --fg: #1a1a1a;
+        --muted: #595959;
+        --accent: #0b57d0;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --fg: #f0f0f0;
+          --muted: #b8b8b8;
+          --accent: #8ab4f8;
+        }
+      }
+      body {
+        margin: 0;
+        padding: 2rem 1rem;
+        font:
+          1rem/1.5 system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      main {
+        max-width: 40rem;
+        margin: 0 auto;
+      }
+      [role="tablist"] {
+        display: flex;
+        gap: 0.25rem;
+        border-bottom: 2px solid var(--muted);
+        flex-wrap: wrap;
+      }
+      [role="tab"] {
+        font: inherit;
+        padding: 0.5rem 1rem;
+        border: 0;
+        border-bottom: 4px solid transparent;
+        margin-bottom: -2px;
+        background: none;
+        color: var(--muted);
+        cursor: pointer;
+      }
+      [role="tab"][aria-selected="true"] {
+        color: var(--fg);
+        font-weight: 600;
+        border-bottom-color: var(--accent);
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+      [role="tabpanel"] {
+        padding: 1rem 0.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Trail running shoe</h1>
+      <h2 id="info-heading">Product information</h2>
+      <div role="tablist" aria-labelledby="info-heading">
+        <button
+          type="button"
+          role="tab"
+          id="tab-details"
+          aria-selected="true"
+          aria-controls="panel-details"
+        >
+          Details
+        </button>
+        <button
+          type="button"
+          role="tab"
+          id="tab-specs"
+          aria-selected="false"
+          aria-controls="panel-specs"
+          tabindex="-1"
+        >
+          Specs
+        </button>
+        <button
+          type="button"
+          role="tab"
+          id="tab-reviews"
+          aria-selected="false"
+          aria-controls="panel-reviews"
+          tabindex="-1"
+        >
+          Reviews
+        </button>
+      </div>
+      <div
+        role="tabpanel"
+        id="panel-details"
+        aria-labelledby="tab-details"
+        tabindex="0"
+      >
+        <p>A light shoe with a grippy sole for wet rock and mud.</p>
+      </div>
+      <div
+        role="tabpanel"
+        id="panel-specs"
+        aria-labelledby="tab-specs"
+        tabindex="0"
+        hidden
+      >
+        <p>Weight 280 g. Drop 6 mm. Lug depth 5 mm.</p>
+      </div>
+      <div
+        role="tabpanel"
+        id="panel-reviews"
+        aria-labelledby="tab-reviews"
+        tabindex="0"
+        hidden
+      >
+        <p>4.6 out of 5 from 212 reviews.</p>
+      </div>
+    </main>
+    <script>
+      const tabs = [...document.querySelectorAll('[role="tab"]')];
+      function select(tab) {
+        for (const other of tabs) {
+          const selected = other === tab;
+          other.setAttribute("aria-selected", String(selected));
+          other.tabIndex = selected ? 0 : -1;
+          document.getElementById(other.getAttribute("aria-controls")).hidden =
+            !selected;
+        }
+        tab.focus();
+      }
+      for (const tab of tabs) {
+        tab.addEventListener("click", () => select(tab));
+        tab.addEventListener("keydown", (e) => {
+          const i = tabs.indexOf(tab);
+          const target = {
+            ArrowRight: i + 1,
+            ArrowLeft: i - 1,
+            Home: 0,
+            End: -1,
+          }[e.key];
+          if (target === undefined) return;
+          e.preventDefault();
+          select(tabs.at(target % tabs.length));
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Menu button demo</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #ffffff;
+        --fg: #1a1a1a;
+        --hover: #e8eefc;
+        --accent: #0b57d0;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --fg: #f0f0f0;
+          --hover: #263248;
+          --accent: #8ab4f8;
+        }
+      }
+      body {
+        margin: 0;
+        padding: 2rem 1rem;
+        font:
+          1rem/1.5 system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      main {
+        max-width: 40rem;
+        margin: 0 auto;
+      }
+      .wrap {
+        position: relative;
+        display: inline-block;
+      }
+      button {
+        font: inherit;
+        padding: 0.5rem 1rem;
+        border: 2px solid var(--fg);
+        border-radius: 0.375rem;
+        background: var(--bg);
+        color: var(--fg);
+        cursor: pointer;
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+      [role="menu"] {
+        position: absolute;
+        top: calc(100% + 0.25rem);
+        left: 0;
+        min-width: 10rem;
+        margin: 0;
+        padding: 0.25rem;
+        list-style: none;
+        border: 2px solid var(--fg);
+        border-radius: 0.375rem;
+        background: var(--bg);
+        z-index: 1;
+      }
+      [role="menuitem"] {
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+      }
+      [role="menuitem"]:hover,
+      [role="menuitem"]:focus {
+        background: var(--hover);
+        outline: 2px solid var(--accent);
+        outline-offset: -2px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Quarterly report.pdf</h1>
+      <div class="wrap">
+        <button
+          type="button"
+          id="actions-button"
+          aria-haspopup="menu"
+          aria-expanded="false"
+          aria-controls="actions-menu"
+        >
+          Actions
+        </button>
+        <ul
+          id="actions-menu"
+          role="menu"
+          aria-labelledby="actions-button"
+          hidden
+        >
+          <li role="menuitem" tabindex="-1">Rename</li>
+          <li role="menuitem" tabindex="-1">Duplicate</li>
+          <li role="menuitem" tabindex="-1">Delete</li>
+        </ul>
+      </div>
+      <p id="log" role="status"></p>
+      <p><a href="#top">Back to files</a></p>
+    </main>
+    <script>
+      const button = document.getElementById("actions-button");
+      const menu = document.getElementById("actions-menu");
+      const log = document.getElementById("log");
+      const items = [...menu.querySelectorAll('[role="menuitem"]')];
+      const activate = (item) => {
+        log.textContent = item.textContent + " chosen.";
+      };
+
+      function open(index) {
+        menu.hidden = false;
+        button.setAttribute("aria-expanded", "true");
+        items.at(index).focus();
+      }
+      function close(returnFocus) {
+        menu.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        if (returnFocus) button.focus();
+      }
+      button.addEventListener("click", () =>
+        menu.hidden ? open(0) : close(true)
+      );
+      button.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          open(0);
+        }
+        if (e.key === "ArrowUp") {
+          e.preventDefault();
+          open(-1);
+        }
+      });
+      menu.addEventListener("keydown", (e) => {
+        const i = items.indexOf(document.activeElement);
+        const moves = { ArrowDown: i + 1, ArrowUp: i - 1, Home: 0, End: -1 };
+        if (e.key in moves) {
+          e.preventDefault();
+          items.at(moves[e.key] % items.length).focus();
+          return;
+        }
+        if (e.key === "Escape") {
+          e.preventDefault();
+          close(true);
+          return;
+        }
+        if (e.key === "Tab") {
+          close(false);
+          return;
+        }
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activate(document.activeElement);
+          close(true);
+          return;
+        }
+        if (e.key.length === 1) {
+          const next =
+            items.find(
+              (item, n) =>
+                n > i &&
+                item.textContent.toLowerCase().startsWith(e.key.toLowerCase())
+            ) ??
+            items.find((item) =>
+              item.textContent.toLowerCase().startsWith(e.key.toLowerCase())
+            );
+          next?.focus();
+        }
+      });
+      menu.addEventListener("click", (e) => {
+        const item = e.target.closest('[role="menuitem"]');
+        if (item) {
+          activate(item);
+          close(true);
+        }
+      });
+      document.addEventListener("pointerdown", (e) => {
+        if (!menu.hidden && !menu.contains(e.target) && e.target !== button)
+          close(false);
+      });
+    </script>
+  </body>
+</html>
