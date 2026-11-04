@@ -1,6 +1,6 @@
 # The site (layer 4)
 
-Built 2026-11-04 by check for decision 11 of the good-a11y brief. `apps/web` is a Foldkit app the Worker renders on the server and the browser then hydrates. Every page is also served as Markdown. It runs on stage dev's workers.dev URL until there is a domain (decision 12).
+Built 2026-11-04 by check for decision 11 of the good-a11y brief. `apps/web` is a Foldkit app the Worker renders on the server and the browser then hydrates. Every page is also served as Markdown. Stage `prod` serves it on good-a11y.com (www redirects there); every other stage on its workers.dev URL (decisions 12 and 13). Every absolute URL the site prints, canonical, `og:url`, JSON-LD, `llms.txt`, the sitemap and the skill's links, comes from one `SITE_ORIGIN` binding, Alchemy's `Worker.URL`: the first custom domain, else the workers.dev URL. A request that reaches prod's workers.dev URL still names good-a11y.com as canonical.
 
 ## Routes
 

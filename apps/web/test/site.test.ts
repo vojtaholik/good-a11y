@@ -12,6 +12,8 @@ import {
 
 const ORIGIN = "https://good-a11y.example";
 
+const SERVED_AT = "https://good-a11y-website.example.workers.dev";
+
 // @effect-diagnostics-next-line asyncFunction:off -- The fakes stand in for Promise-returning Worker bindings.
 const assets: BackendFetch = async (request) =>
   await Promise.resolve(
@@ -24,13 +26,13 @@ const assets: BackendFetch = async (request) =>
 const backendDown: BackendFetch = async () =>
   await Promise.resolve(new Response(null, { status: 503 }));
 
-const site = siteHandler(backendDown, assets);
+const site = siteHandler(backendDown, assets, ORIGIN);
 
 const get = (path: string, accept = "text/html") =>
   // @effect-diagnostics-next-line asyncFunction:off -- The handler under test is a Promise boundary.
   Effect.promise(async () => {
     const response = await site(
-      new Request(`${ORIGIN}${path}`, { headers: { accept } })
+      new Request(`${SERVED_AT}${path}`, { headers: { accept } })
     );
 
     return { body: await response.text(), response };

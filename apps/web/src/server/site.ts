@@ -107,24 +107,24 @@ export const skillMarkdown = (origin: string): string =>
     "",
   ].join("\n");
 
-const agentFile = (url: URL): Response | null => {
+const agentFile = (url: URL, siteOrigin: string): Response | null => {
   if (url.pathname === "/llms.txt") {
-    return textResponse(llmsTxt(url.origin), "text/plain; charset=utf-8");
+    return textResponse(llmsTxt(siteOrigin), "text/plain; charset=utf-8");
   }
 
   if (url.pathname === "/sitemap.xml") {
     return textResponse(
-      sitemapXml(url.origin),
+      sitemapXml(siteOrigin),
       "application/xml; charset=utf-8"
     );
   }
 
   if (url.pathname === "/robots.txt") {
-    return textResponse(robotsTxt(url.origin), "text/plain; charset=utf-8");
+    return textResponse(robotsTxt(siteOrigin), "text/plain; charset=utf-8");
   }
 
   if (url.pathname === SKILL_PATH) {
-    return textResponse(skillMarkdown(url.origin), MARKDOWN);
+    return textResponse(skillMarkdown(siteOrigin), MARKDOWN);
   }
 
   const reference = REFERENCE_PATH.exec(url.pathname)?.groups?.id;
@@ -133,7 +133,7 @@ const agentFile = (url: URL): Response | null => {
     return Option.match(guideOf(reference), {
       onNone: notFound,
       onSome: (guide) =>
-        textResponse(guideMarkdown(guide, url.origin).join("\n"), MARKDOWN),
+        textResponse(guideMarkdown(guide, siteOrigin).join("\n"), MARKDOWN),
     });
   }
 
@@ -151,12 +151,16 @@ const agentFile = (url: URL): Response | null => {
 };
 
 export const siteHandler =
-  (backend: BackendFetch, assets: BackendFetch): BackendFetch =>
+  (
+    backend: BackendFetch,
+    assets: BackendFetch,
+    siteOrigin: string
+  ): BackendFetch =>
   // @effect-diagnostics-next-line asyncFunction:off -- A Worker fetch handler is a Promise boundary.
   async (request) => {
     const url = new URL(request.url);
     const isRead = request.method === "GET" || request.method === "HEAD";
-    const file = isRead ? agentFile(url) : null;
+    const file = isRead ? agentFile(url, siteOrigin) : null;
 
     if (file !== null) {
       return file;
@@ -171,7 +175,7 @@ export const siteHandler =
       const maybeScan = await Effect.runPromise(scanOf(backend, route));
 
       return textResponse(
-        pageMarkdown(route, url.origin, maybeScan),
+        pageMarkdown(route, siteOrigin, maybeScan),
         MARKDOWN,
         isMissing(route) ? 404 : 200,
         {
@@ -189,7 +193,7 @@ export const siteHandler =
       await shell.text(),
       pageMetaOf(route),
       route,
-      url.origin
+      siteOrigin
     );
 
     return await Server.handleRequest(request, {
@@ -197,7 +201,9 @@ export const siteHandler =
       renderPage: async () =>
         await Effect.runPromise(
           scanOf(backend, route).pipe(
-            Effect.flatMap((maybeScan) => renderPage(request, route, maybeScan))
+            Effect.flatMap((maybeScan) =>
+              renderPage(request, route, maybeScan, siteOrigin)
+            )
           )
         ),
       template,

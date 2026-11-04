@@ -126,13 +126,14 @@ const isReport = (route: AppRouteState): boolean =>
 export const renderPage = (
   request: Request,
   route: AppRouteState,
-  maybeScan: Option.Option<ScanView>
+  maybeScan: Option.Option<ScanView>,
+  siteOrigin: string
 ) =>
   Server.renderToString(
     { Flags, init, routing: true, view },
     {
       buildId: __BUILD_ID__,
-      flags: { maybeScan, origin: new URL(request.url).origin },
+      flags: { maybeScan, origin: siteOrigin },
       url: request.url,
     }
   ).pipe(

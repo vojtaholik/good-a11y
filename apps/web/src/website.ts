@@ -1,5 +1,6 @@
 import Scanner from "@good-a11y/scanner/worker";
 import * as Cloudflare from "alchemy/Cloudflare";
+import { Stack } from "alchemy/Stack";
 
 import {
   MESSAGE_LIMIT_NAMESPACE,
@@ -8,9 +9,13 @@ import {
   SCANS_PER_MINUTE,
 } from "./server/limits.js";
 
-export class Website extends Cloudflare.Website.Foldkit<Website>()("Website", {
+export const PRODUCTION_STAGE = "prod";
+
+export const SITE_DOMAIN = "good-a11y.com";
+
+const SETTINGS = {
   assets: {
-    notFoundHandling: "none",
+    notFoundHandling: "none" as const,
     runWorkerFirst: ["/*", "!/assets/*"],
   },
   compatibility: { date: "2026-09-01" },
@@ -24,8 +29,21 @@ export class Website extends Cloudflare.Website.Foldkit<Website>()("Website", {
       namespaceId: SCAN_LIMIT_NAMESPACE,
       simple: { limit: SCANS_PER_MINUTE, period: 60 },
     }),
+    SITE_ORIGIN: Cloudflare.Worker.URL,
   },
   main: "src/worker.ts",
   observability: { enabled: true },
   rootDir: "../web",
-}) {}
+};
+
+const ON_THE_DOMAIN = {
+  ...SETTINGS,
+  domain: { name: SITE_DOMAIN, redirects: [`www.${SITE_DOMAIN}`] },
+};
+
+export class Website extends Cloudflare.Website.Foldkit<Website>()(
+  "Website",
+  Stack.useSync(({ stage }) =>
+    stage === PRODUCTION_STAGE ? ON_THE_DOMAIN : SETTINGS
+  )
+) {}
