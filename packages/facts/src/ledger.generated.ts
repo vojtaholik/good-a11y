@@ -207,7 +207,7 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "id": "EU-ANNEX-1",
     "retrieved": "2026-11-03",
     "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
-    "usedBy": "eu.annex.websites, report.legal-requirement",
+    "usedBy": "eu.annex.websites, report.legal-requirement, eaa.requirement.III-c",
     "value": "Websites and mobile services must be perceivable, operable, understandable and robust"
   },
   {
@@ -308,6 +308,237 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "source": "https://publications.europa.eu/webapi/rdf/sparql?query=PREFIX+cdm%3A+%3Chttp%3A%2F%2Fpublications.europa.eu%2Fontology%2Fcdm%23%3E+SELECT+DISTINCT+%3Fcelex+WHERE+%7B+%3Fw+cdm%3Aresource_legal_amends_resource_legal+%3Fb+.+%3Fb+cdm%3Aresource_legal_id_celex+%2232018D2048%22%5E%5E%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23string%3E+.+%3Fw+cdm%3Aresource_legal_id_celex+%3Fcelex+%7D&format=text%2Fcsv",
     "usedBy": "eu.harmonisedStandard",
     "value": "Only 2021/1339 amends 2018/2048"
+  },
+  {
+    "claim": "Art. 13(2): service providers must prepare the information set out in Annex V and explain how their services meet the applicable accessibility requirements; the information must be made available to the public in written and oral format, including in a way accessible to persons with disabilities, and kept for as long as the service is in operation.",
+    "excerpt": "\"Service providers shall prepare the necessary information in accordance with Annex V ... The information shall be made available to the public in written and oral format, including in a manner which is accessible to persons with disabilities. Service providers shall keep that information for as long as the service is in operation.\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-STMT-1",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.statement-basis.obligation",
+    "value": "Service providers publish Annex V information, written and oral, accessible, kept while the service runs"
+  },
+  {
+    "claim": "Annex V point 1: the service provider includes the information assessing how the service meets the accessibility requirements of Art. 4 in the general terms and conditions or an equivalent document.",
+    "excerpt": "\"1. The service provider shall include the information assessing how the service meets the accessibility requirements referred to in Article 4 in the general terms and conditions, or equivalent document.\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-STMT-2",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.statement-basis.where",
+    "value": "Information goes in the general terms and conditions or an equivalent document"
+  },
+  {
+    "claim": "Annex V point 1(a): where applicable, the information contains a general description of the service in accessible formats.",
+    "excerpt": "\"(a) a general description of the service in accessible formats;\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-STMT-3",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.statement.1",
+    "value": "A general description of the service in accessible formats"
+  },
+  {
+    "claim": "Annex V point 1(b): where applicable, the information contains descriptions and explanations necessary for understanding the operation of the service.",
+    "excerpt": "\"(b) descriptions and explanations necessary for the understanding of the operation of the service;\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-STMT-4",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.statement.2",
+    "value": "Descriptions and explanations needed to understand how the service operates"
+  },
+  {
+    "claim": "Annex V point 1(c): where applicable, the information contains a description of how the service meets the relevant accessibility requirements of Annex I.",
+    "excerpt": "\"(c) a description of how the relevant accessibility requirements set out in Annex I are met by the service.\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-STMT-5",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.statement.3",
+    "value": "A description of how the service meets the relevant Annex I requirements"
+  },
+  {
+    "claim": "Annex I Section III point (a): services must ensure the accessibility of the products used to provide the service, in accordance with Section I and, where applicable, Section II of Annex I.",
+    "excerpt": "\"(a) ensuring the accessibility of the products used in the provision of the service, in accordance with Section I of this Annex and, where applicable, Section II thereof;\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-ANNEX-5",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.requirement.III-a",
+    "value": "Products used to provide the service are accessible (Annex I Sections I and II)"
+  },
+  {
+    "claim": "Annex I Section III point (b)(i): when providing information about the functioning of the service, information about the functioning of the service is made available via more than one sensory channel.",
+    "excerpt": "\"(i) making the information available via more than one sensory channel;\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-ANNEX-6",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.requirement.III-b-i",
+    "value": "Service information via more than one sensory channel"
+  },
+  {
+    "claim": "Annex I Section III point (b)(ii): when providing information about the functioning of the service, information about the functioning of the service is presented in an understandable way.",
+    "excerpt": "\"(ii) presenting the information in an understandable way;\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-ANNEX-7",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.requirement.III-b-ii",
+    "value": "Service information presented understandably"
+  },
+  {
+    "claim": "Annex I Section III point (b)(iii): when providing information about the functioning of the service, information about the functioning of the service is presented to users in ways they can perceive.",
+    "excerpt": "\"(iii) presenting the information to users in ways they can perceive;\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-ANNEX-8",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.requirement.III-b-iii",
+    "value": "Service information presented perceivably"
+  },
+  {
+    "claim": "Annex I Section III point (b)(iv): when providing information about the functioning of the service, information content is available in text formats that can be used to generate alternative assistive formats, presented in different ways and via more than one sensory channel.",
+    "excerpt": "\"(iv) making the information content available in text formats that can be used to generate alternative assistive formats to be presented in different ways by the users and via more than one sensory channel;\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-ANNEX-9",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.requirement.III-b-iv",
+    "value": "Service information in text formats usable for assistive formats"
+  },
+  {
+    "claim": "Annex I Section III point (b)(v): when providing information about the functioning of the service, information is presented in fonts of adequate size and suitable shape, with sufficient contrast and adjustable spacing between letters, lines and paragraphs.",
+    "excerpt": "\"(v) presenting in fonts of adequate size and suitable shape, taking into account foreseeable conditions of use and using sufficient contrast, as well as adjustable spacing between letters, lines and paragraphs;\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-ANNEX-10",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.requirement.III-b-v",
+    "value": "Adequate fonts, sufficient contrast, adjustable letter, line and paragraph spacing"
+  },
+  {
+    "claim": "Annex I Section III point (b)(vi): when providing information about the functioning of the service, non-textual content is supplemented with an alternative presentation of that content.",
+    "excerpt": "\"(vi) supplementing any non-textual content with an alternative presentation of that content;\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-ANNEX-11",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.requirement.III-b-vi",
+    "value": "Non-text content has an alternative presentation"
+  },
+  {
+    "claim": "Annex I Section III point (b)(vii): when providing information about the functioning of the service, electronic information needed to provide the service is provided in a consistent and adequate way by making it perceivable, operable, understandable and robust.",
+    "excerpt": "\"(vii) providing electronic information needed in the provision of the service in a consistent and adequate way by making it perceivable, operable, understandable and robust;\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-ANNEX-12",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.requirement.III-b-vii",
+    "value": "Electronic service information perceivable, operable, understandable and robust"
+  },
+  {
+    "claim": "Annex I Section III point (d), as one row: where support services (help desks, call centres, technical support, relay services, training services) are available, they provide information on the accessibility of the service and its compatibility with assistive technologies, in accessible modes of communication. Point (d) has no sub-points, so it is not split; same text as EU-ANNEX-3.",
+    "excerpt": "\"(d) where available, support services (help desks, call centres, technical support, relay services and training services) providing information on the accessibility of the service and its compatibility with assistive technologies, in accessible modes of communication.\"",
+    "field": "scope-services",
+    "file": "eu.md",
+    "id": "EU-ANNEX-13",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.requirement.III-d",
+    "value": "Support services, where available, give accessibility information in accessible modes"
+  },
+  {
+    "claim": "Annex I Section IV point (g)(i), e-commerce services: providing the accessibility information about the products and services being sold, when the responsible economic operator provides it.",
+    "excerpt": "\"(i) providing the information concerning accessibility of the products and services being sold when this information is provided by the responsible economic operator;\"",
+    "field": "scope-ecommerce",
+    "file": "eu.md",
+    "id": "EU-ANNEX-14",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.requirement.IV-g-i",
+    "value": "Accessibility information about goods and services sold, when the responsible operator provides it"
+  },
+  {
+    "claim": "Annex I Section IV point (g)(ii), e-commerce services: ensuring the accessibility of identification, security and payment functionality delivered as part of a service, by making it perceivable, operable, understandable and robust.",
+    "excerpt": "\"(ii) ensuring the accessibility of the functionality for identification, security and payment when delivered as part of a service instead of a product by making it perceivable, operable, understandable and robust;\"",
+    "field": "scope-ecommerce",
+    "file": "eu.md",
+    "id": "EU-ANNEX-15",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.requirement.IV-g-ii",
+    "value": "Identification, security and payment functionality is accessible"
+  },
+  {
+    "claim": "Annex I Section IV point (g)(iii), e-commerce services: providing identification methods, electronic signatures and payment services that are perceivable, operable, understandable and robust.",
+    "excerpt": "\"(iii) providing identification methods, electronic signatures, and payment services which are perceivable, operable, understandable and robust.\"",
+    "field": "scope-ecommerce",
+    "file": "eu.md",
+    "id": "EU-ANNEX-16",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.requirement.IV-g-iii",
+    "value": "Identification methods, electronic signatures and payment services are accessible"
+  },
+  {
+    "claim": "Annex II (indicative, non-binding examples), example for Annex I Section III point (c): text descriptions of pictures, all functionality available from a keyboard, enough time to read, predictable content, and compatibility with assistive technologies, so persons with diverse disabilities can read and interact with a website.",
+    "excerpt": "\"(c) Providing text description of pictures, making all functionality available from a keyboard, giving users enough time to read, making content appear and operate in a predictable way, and providing compatibility with assistive technologies\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-EX-1",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.example.III-c",
+    "value": "Text for pictures, keyboard access, time to read, predictable behaviour, assistive technology support"
+  },
+  {
+    "claim": "Annex II (indicative, non-binding examples), example for Annex I Section IV point (g)(i): ensuring that available information on the accessibility features of a product is not deleted.",
+    "excerpt": "\"(g) (i) Ensuring that available information on the accessibility features of a product is not deleted.\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-EX-2",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.example.IV-g-i",
+    "value": "Do not delete available accessibility information about a product"
+  },
+  {
+    "claim": "Annex II (indicative, non-binding examples), example for Annex I Section IV point (g)(ii): making the payment user interface available by voice so blind persons can buy online independently.",
+    "excerpt": "\"(ii) Making the payment service user interface available by voice so that blind persons can make online purchases independently.\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-EX-3",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.example.IV-g-ii",
+    "value": "Payment interface usable by voice for blind shoppers"
+  },
+  {
+    "claim": "Annex II (indicative, non-binding examples), example for Annex I Section IV point (g)(iii): making on-screen identification dialogues readable by screen readers so blind persons can use them.",
+    "excerpt": "\"(iii) Making the identification dialogues on a screen readable by screen readers so that blind persons can use them.\"",
+    "field": "other",
+    "file": "eu.md",
+    "id": "EU-EX-4",
+    "retrieved": "2026-11-04",
+    "source": "https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1",
+    "usedBy": "eaa.example.IV-g-iii",
+    "value": "Identification dialogues readable by screen readers"
   },
   {
     "claim": "EN 301 549 V3.2.1 (2021-03) is the ETSI/CEN/CENELEC harmonised European standard titled \"Accessibility requirements for ICT products and services\".",
@@ -2378,6 +2609,28 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "value": "up to CZK 10,000,000 (other offences up to CZK 5,000,000 / 2,000,000 / 1,000,000)"
   },
   {
+    "claim": "§ 14(1) of Act 424/2023 Coll.: the service provider publishes, in the general terms and conditions or a similar document, how the service meets the accessibility requirements, including a description of each requirement; on request it also gives this information in audio form; when published on a website, it must be in commonly accessible formats.",
+    "excerpt": "\"Poskytovatel služby zveřejní ve všeobecných obchodních podmínkách nebo v obdobném dokumentu informace, jak služba splňuje požadavky na přístupnost\" / \"poskytne tyto informace na žádost i ve zvukové formě\" [The service provider publishes in the general terms and conditions or a similar document information on how the service meets the accessibility requirements / provides this information on request also in audio form]",
+    "field": "other",
+    "file": "states/cz.md",
+    "id": "CZ-STMT-1",
+    "retrieved": "2026-11-04",
+    "source": "https://www.e-sbirka.cz/sb/2023/424",
+    "usedBy": "states.cz.statement",
+    "value": "Information in the terms and conditions or a similar document; audio on request"
+  },
+  {
+    "claim": "§ 14(2) and (4) of Act 424/2023 Coll.: the service provider also publishes a general description of the service and explanations needed to understand how it works, for the whole time it provides the service, in a way accessible to persons with disabilities.",
+    "excerpt": "\"a) všeobecný popis služby, b) vysvětlivky nezbytné k pochopení fungování služby.\" / \"po celou dobu jejího poskytování, a to tak, aby tyto informace byly přístupné i osobám se zdravotním postižením\" [a) a general description of the service, b) explanations needed to understand how the service works / for the whole time it is provided, so that the information is accessible to persons with disabilities]",
+    "field": "other",
+    "file": "states/cz.md",
+    "id": "CZ-STMT-2",
+    "retrieved": "2026-11-04",
+    "source": "https://www.e-sbirka.cz/sb/2023/424",
+    "usedBy": "states.cz.statement",
+    "value": "General description and explanations, published while the service runs, accessible"
+  },
+  {
     "claim": "Germany transposed the EAA with the Barrierefreiheitsstärkungsgesetz (BFSG) of 16 July 2021, BGBl. I S. 2970.",
     "excerpt": "\"Barrierefreiheitsstärkungsgesetz vom 16. Juli 2021 (BGBl. I S. 2970), das zuletzt durch Artikel 32 des Gesetzes vom 6. Mai 2024 (BGBl. 2024 I Nr. 149) geändert worden ist\" [Accessibility Strengthening Act of 16 July 2021 (Federal Law Gazette I p. 2970), last amended by Article 32 of the Act of 6 May 2024 (BGBl. 2024 I No. 149)]",
     "field": "transposing-law",
@@ -2530,6 +2783,28 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
     "usedBy": "states.de.penalties",
     "value": "Offering a non-conforming service is an administrative offence"
+  },
+  {
+    "claim": "§ 14(1) no. 2 BFSG and Anlage 3 no. 1: a service provider may offer a service only once it has prepared the Anlage 3 information and made it publicly available in accessible form; the information goes in the general terms and conditions (AGB) or is given in another clearly perceivable way. The act does not name the document \"Barrierefreiheitserklärung\".",
+    "excerpt": "\"2. er die Informationen nach Anlage 3 Nummer 1 erstellt hat und diese Informationen für die Allgemeinheit in barrierefreier Form zugänglich gemacht hat\" / \"in seinen Allgemeinen Geschäftsbedingungen oder auf andere deutlich wahrnehmbare Weise\" [2. he has prepared the information under Annex 3 no. 1 and made it accessible to the public in accessible form / in his general terms and conditions or in another clearly perceivable way]",
+    "field": "other",
+    "file": "states/de.md",
+    "id": "DE-STMT-1",
+    "retrieved": "2026-11-04",
+    "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.statement",
+    "value": "Service information per Anlage 3, in the AGB or another clearly perceivable way, accessible"
+  },
+  {
+    "claim": "Anlage 3 no. 1 BFSG adds a point beyond Annex V of the Directive: the service information must also name the competent market surveillance authority (point d).",
+    "excerpt": "\"d) die Angabe der zuständigen Marktüberwachungsbehörde.\" [d) the indication of the competent market surveillance authority.]",
+    "field": "other",
+    "file": "states/de.md",
+    "id": "DE-STMT-2",
+    "retrieved": "2026-11-04",
+    "source": "https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html",
+    "usedBy": "states.de.statement",
+    "value": "Must also name the competent market surveillance authority"
   },
   {
     "claim": "Denmark transposed the EAA with the Act on accessibility requirements for products and services, LOV nr 801 of 7 June 2022, published in Lovtidende A, which states it implements parts of Directive 2019/882.",

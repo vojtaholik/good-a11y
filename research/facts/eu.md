@@ -215,7 +215,7 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
 - excerpt: "(c) making websites, including the related online applications, and mobile device-based services, including mobile applications, accessible in a consistent and adequate way by making them perceivable, operable, understandable and robust;"
 - retrieved: 2026-11-03
-- used_by: eu.annex.websites, report.legal-requirement
+- used_by: eu.annex.websites, report.legal-requirement, eaa.requirement.III-c
 - status: verified
 - verifier_note: Annex I Section III (c) matches verbatim.
 
@@ -317,3 +317,240 @@ other language versions (DE, ET, FI, FR, HR); none for English.
 - used_by: eu.harmonisedStandard
 - status: verified
 - verifier_note: Re-ran the SPARQL: only 32021D1339 amends 32018D2048.
+
+## Round 2 (research, 2026-11-04)
+
+Annex I rows split for the requirement checklist (decision 26), Art. 13 and Annex V for the statement check (decision 27), Annex II examples for rows. Section III (c) is EU-ANNEX-1; it gains no duplicate.
+
+State statement form (task item 5): only DE (BFSG § 14, Anlage 3) and CZ (424/2023 § 14) were read, see DE-STMT-1/2 and CZ-STMT-1/2. Neither act names a specific document such as a "Barrierefreiheitserklärung"; both put the information in the terms and conditions or an equivalent document. The other 25 states were not researched for this field and stay unknown; no fact is written for them.
+
+### EU-STMT-1
+- claim: Art. 13(2): service providers must prepare the information set out in Annex V and explain how their services meet the applicable accessibility requirements; the information must be made available to the public in written and oral format, including in a way accessible to persons with disabilities, and kept for as long as the service is in operation.
+- field: other
+- value: Service providers publish Annex V information, written and oral, accessible, kept while the service runs
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "Service providers shall prepare the necessary information in accordance with Annex V ... The information shall be made available to the public in written and oral format, including in a manner which is accessible to persons with disabilities. Service providers shall keep that information for as long as the service is in operation."
+- retrieved: 2026-11-04
+- used_by: eaa.statement-basis.obligation
+- status: verified
+- verifier_note: Art. 13(2) verbatim with the keep sentence; the elided middle ("and shall explain how the services meet the applicable accessibility requirements") is in the source and supports that part of the claim.
+
+### EU-STMT-2
+- claim: Annex V point 1: the service provider includes the information assessing how the service meets the accessibility requirements of Art. 4 in the general terms and conditions or an equivalent document.
+- field: other
+- value: Information goes in the general terms and conditions or an equivalent document
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "1. The service provider shall include the information assessing how the service meets the accessibility requirements referred to in Article 4 in the general terms and conditions, or equivalent document."
+- retrieved: 2026-11-04
+- used_by: eaa.statement-basis.where
+- status: verified
+- verifier_note: Annex V point 1 first sentence verbatim (CELLAR, fetched 2026-11-04).
+
+### EU-STMT-3
+- claim: Annex V point 1(a): where applicable, the information contains a general description of the service in accessible formats.
+- field: other
+- value: A general description of the service in accessible formats
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(a) a general description of the service in accessible formats;"
+- retrieved: 2026-11-04
+- used_by: eaa.statement.1
+- status: verified
+- verifier_note: Annex V point 1(a) verbatim; "where applicable" is in the chapeau.
+
+### EU-STMT-4
+- claim: Annex V point 1(b): where applicable, the information contains descriptions and explanations necessary for understanding the operation of the service.
+- field: other
+- value: Descriptions and explanations needed to understand how the service operates
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(b) descriptions and explanations necessary for the understanding of the operation of the service;"
+- retrieved: 2026-11-04
+- used_by: eaa.statement.2
+- status: verified
+- verifier_note: Annex V point 1(b) verbatim; "where applicable" is in the chapeau.
+
+### EU-STMT-5
+- claim: Annex V point 1(c): where applicable, the information contains a description of how the service meets the relevant accessibility requirements of Annex I.
+- field: other
+- value: A description of how the service meets the relevant Annex I requirements
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(c) a description of how the relevant accessibility requirements set out in Annex I are met by the service."
+- retrieved: 2026-11-04
+- used_by: eaa.statement.3
+- status: verified
+- verifier_note: Annex V point 1(c) verbatim; "where applicable" is in the chapeau.
+
+### EU-ANNEX-5
+- claim: Annex I Section III point (a): services must ensure the accessibility of the products used to provide the service, in accordance with Section I and, where applicable, Section II of Annex I.
+- field: scope-services
+- value: Products used to provide the service are accessible (Annex I Sections I and II)
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(a) ensuring the accessibility of the products used in the provision of the service, in accordance with Section I of this Annex and, where applicable, Section II thereof;"
+- retrieved: 2026-11-04
+- used_by: eaa.requirement.III-a
+- status: verified
+- verifier_note: Annex I Section III (a) verbatim.
+
+### EU-ANNEX-6
+- claim: Annex I Section III point (b)(i): when providing information about the functioning of the service, information about the functioning of the service is made available via more than one sensory channel.
+- field: scope-services
+- value: Service information via more than one sensory channel
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(i) making the information available via more than one sensory channel;"
+- retrieved: 2026-11-04
+- used_by: eaa.requirement.III-b-i
+- status: verified
+- verifier_note: Annex I Section III (b)(i) verbatim, under the (b) chapeau on information about the functioning of the service.
+
+### EU-ANNEX-7
+- claim: Annex I Section III point (b)(ii): when providing information about the functioning of the service, information about the functioning of the service is presented in an understandable way.
+- field: scope-services
+- value: Service information presented understandably
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(ii) presenting the information in an understandable way;"
+- retrieved: 2026-11-04
+- used_by: eaa.requirement.III-b-ii
+- status: verified
+- verifier_note: Annex I Section III (b)(ii) verbatim.
+
+### EU-ANNEX-8
+- claim: Annex I Section III point (b)(iii): when providing information about the functioning of the service, information about the functioning of the service is presented to users in ways they can perceive.
+- field: scope-services
+- value: Service information presented perceivably
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(iii) presenting the information to users in ways they can perceive;"
+- retrieved: 2026-11-04
+- used_by: eaa.requirement.III-b-iii
+- status: verified
+- verifier_note: Annex I Section III (b)(iii) verbatim.
+
+### EU-ANNEX-9
+- claim: Annex I Section III point (b)(iv): when providing information about the functioning of the service, information content is available in text formats that can be used to generate alternative assistive formats, presented in different ways and via more than one sensory channel.
+- field: scope-services
+- value: Service information in text formats usable for assistive formats
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(iv) making the information content available in text formats that can be used to generate alternative assistive formats to be presented in different ways by the users and via more than one sensory channel;"
+- retrieved: 2026-11-04
+- used_by: eaa.requirement.III-b-iv
+- status: verified
+- verifier_note: Annex I Section III (b)(iv) verbatim.
+
+### EU-ANNEX-10
+- claim: Annex I Section III point (b)(v): when providing information about the functioning of the service, information is presented in fonts of adequate size and suitable shape, with sufficient contrast and adjustable spacing between letters, lines and paragraphs.
+- field: scope-services
+- value: Adequate fonts, sufficient contrast, adjustable letter, line and paragraph spacing
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(v) presenting in fonts of adequate size and suitable shape, taking into account foreseeable conditions of use and using sufficient contrast, as well as adjustable spacing between letters, lines and paragraphs;"
+- retrieved: 2026-11-04
+- used_by: eaa.requirement.III-b-v
+- status: verified
+- verifier_note: Annex I Section III (b)(v) verbatim; value omits "foreseeable conditions of use", claim keeps the substance.
+
+### EU-ANNEX-11
+- claim: Annex I Section III point (b)(vi): when providing information about the functioning of the service, non-textual content is supplemented with an alternative presentation of that content.
+- field: scope-services
+- value: Non-text content has an alternative presentation
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(vi) supplementing any non-textual content with an alternative presentation of that content;"
+- retrieved: 2026-11-04
+- used_by: eaa.requirement.III-b-vi
+- status: verified
+- verifier_note: Annex I Section III (b)(vi) verbatim.
+
+### EU-ANNEX-12
+- claim: Annex I Section III point (b)(vii): when providing information about the functioning of the service, electronic information needed to provide the service is provided in a consistent and adequate way by making it perceivable, operable, understandable and robust.
+- field: scope-services
+- value: Electronic service information perceivable, operable, understandable and robust
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(vii) providing electronic information needed in the provision of the service in a consistent and adequate way by making it perceivable, operable, understandable and robust;"
+- retrieved: 2026-11-04
+- used_by: eaa.requirement.III-b-vii
+- status: verified
+- verifier_note: Annex I Section III (b)(vii) verbatim.
+
+### EU-ANNEX-13
+- claim: Annex I Section III point (d), as one row: where support services (help desks, call centres, technical support, relay services, training services) are available, they provide information on the accessibility of the service and its compatibility with assistive technologies, in accessible modes of communication. Point (d) has no sub-points, so it is not split; same text as EU-ANNEX-3.
+- field: scope-services
+- value: Support services, where available, give accessibility information in accessible modes
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(d) where available, support services (help desks, call centres, technical support, relay services and training services) providing information on the accessibility of the service and its compatibility with assistive technologies, in accessible modes of communication."
+- retrieved: 2026-11-04
+- used_by: eaa.requirement.III-d
+- status: verified
+- verifier_note: Annex I Section III (d) verbatim; has no sub-points, same text as EU-ANNEX-3.
+
+### EU-ANNEX-14
+- claim: Annex I Section IV point (g)(i), e-commerce services: providing the accessibility information about the products and services being sold, when the responsible economic operator provides it.
+- field: scope-ecommerce
+- value: Accessibility information about goods and services sold, when the responsible operator provides it
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(i) providing the information concerning accessibility of the products and services being sold when this information is provided by the responsible economic operator;"
+- retrieved: 2026-11-04
+- used_by: eaa.requirement.IV-g-i
+- status: verified
+- verifier_note: Annex I Section IV (g)(i) verbatim, under "(g) E-Commerce services".
+
+### EU-ANNEX-15
+- claim: Annex I Section IV point (g)(ii), e-commerce services: ensuring the accessibility of identification, security and payment functionality delivered as part of a service, by making it perceivable, operable, understandable and robust.
+- field: scope-ecommerce
+- value: Identification, security and payment functionality is accessible
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(ii) ensuring the accessibility of the functionality for identification, security and payment when delivered as part of a service instead of a product by making it perceivable, operable, understandable and robust;"
+- retrieved: 2026-11-04
+- used_by: eaa.requirement.IV-g-ii
+- status: verified
+- verifier_note: Annex I Section IV (g)(ii) verbatim; the condition "when delivered as part of a service instead of a product" is in the excerpt.
+
+### EU-ANNEX-16
+- claim: Annex I Section IV point (g)(iii), e-commerce services: providing identification methods, electronic signatures and payment services that are perceivable, operable, understandable and robust.
+- field: scope-ecommerce
+- value: Identification methods, electronic signatures and payment services are accessible
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(iii) providing identification methods, electronic signatures, and payment services which are perceivable, operable, understandable and robust."
+- retrieved: 2026-11-04
+- used_by: eaa.requirement.IV-g-iii
+- status: verified
+- verifier_note: Annex I Section IV (g)(iii) verbatim.
+
+### EU-EX-1
+- claim: Annex II (indicative, non-binding examples), example for Annex I Section III point (c): text descriptions of pictures, all functionality available from a keyboard, enough time to read, predictable content, and compatibility with assistive technologies, so persons with diverse disabilities can read and interact with a website.
+- field: other
+- value: Text for pictures, keyboard access, time to read, predictable behaviour, assistive technology support
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(c) Providing text description of pictures, making all functionality available from a keyboard, giving users enough time to read, making content appear and operate in a predictable way, and providing compatibility with assistive technologies"
+- retrieved: 2026-11-04
+- used_by: eaa.example.III-c
+- status: verified
+- verifier_note: Annex II Section III examples, row (c), verbatim; Annex II title says indicative non-binding.
+
+### EU-EX-2
+- claim: Annex II (indicative, non-binding examples), example for Annex I Section IV point (g)(i): ensuring that available information on the accessibility features of a product is not deleted.
+- field: other
+- value: Do not delete available accessibility information about a product
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(g) (i) Ensuring that available information on the accessibility features of a product is not deleted."
+- retrieved: 2026-11-04
+- used_by: eaa.example.IV-g-i
+- status: verified
+- verifier_note: Annex II Section IV examples, row (g)(i), verbatim.
+
+### EU-EX-3
+- claim: Annex II (indicative, non-binding examples), example for Annex I Section IV point (g)(ii): making the payment user interface available by voice so blind persons can buy online independently.
+- field: other
+- value: Payment interface usable by voice for blind shoppers
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(ii) Making the payment service user interface available by voice so that blind persons can make online purchases independently."
+- retrieved: 2026-11-04
+- used_by: eaa.example.IV-g-ii
+- status: verified
+- verifier_note: Annex II Section IV examples, row (g)(ii), verbatim.
+
+### EU-EX-4
+- claim: Annex II (indicative, non-binding examples), example for Annex I Section IV point (g)(iii): making on-screen identification dialogues readable by screen readers so blind persons can use them.
+- field: other
+- value: Identification dialogues readable by screen readers
+- source: https://publications.europa.eu/resource/cellar/6eb3ceb5-8905-11e9-9369-01aa75ed71a1.0006.03/DOC_1
+- excerpt: "(iii) Making the identification dialogues on a screen readable by screen readers so that blind persons can use them."
+- retrieved: 2026-11-04
+- used_by: eaa.example.IV-g-iii
+- status: verified
+- verifier_note: Annex II Section IV examples, row (g)(iii), verbatim; same wording also appears for (e)(i), this one is under (g).

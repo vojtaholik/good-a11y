@@ -155,3 +155,25 @@ Source text: Barrierefreiheitsstärkungsgesetz (BFSG) on gesetze-im-internet.de,
 - used_by: states.de.penalties
 - status: verified
 - verifier_note: § 37 Abs. 1 Nr. 8 matches verbatim.
+
+### DE-STMT-1
+- claim: § 14(1) no. 2 BFSG and Anlage 3 no. 1: a service provider may offer a service only once it has prepared the Anlage 3 information and made it publicly available in accessible form; the information goes in the general terms and conditions (AGB) or is given in another clearly perceivable way. The act does not name the document "Barrierefreiheitserklärung".
+- field: other
+- value: Service information per Anlage 3, in the AGB or another clearly perceivable way, accessible
+- source: https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html
+- excerpt: "2. er die Informationen nach Anlage 3 Nummer 1 erstellt hat und diese Informationen für die Allgemeinheit in barrierefreier Form zugänglich gemacht hat" / "in seinen Allgemeinen Geschäftsbedingungen oder auf andere deutlich wahrnehmbare Weise" [2. he has prepared the information under Annex 3 no. 1 and made it accessible to the public in accessible form / in his general terms and conditions or in another clearly perceivable way]
+- retrieved: 2026-11-04
+- used_by: states.de.statement
+- status: verified
+- verifier_note: BFSG § 14(1) Nr. 2 and Anlage 3 Nr. 1 verbatim (gesetze-im-internet.de, fetched 2026-11-04). The act text never uses "Barrierefreiheitserklärung"; the only hit on the page is the site footer.
+
+### DE-STMT-2
+- claim: Anlage 3 no. 1 BFSG adds a point beyond Annex V of the Directive: the service information must also name the competent market surveillance authority (point d).
+- field: other
+- value: Must also name the competent market surveillance authority
+- source: https://www.gesetze-im-internet.de/bfsg/BJNR297010021.html
+- excerpt: "d) die Angabe der zuständigen Marktüberwachungsbehörde." [d) the indication of the competent market surveillance authority.]
+- retrieved: 2026-11-04
+- used_by: states.de.statement
+- status: verified
+- verifier_note: Anlage 3 Nr. 1 d) verbatim; Annex V of the Directive has only points (a) to (c).

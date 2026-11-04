@@ -104,3 +104,25 @@ app. The same text is served as JSON by e-Sbírka's own API:
 - used_by: states.cz.penalties
 - status: verified
 - verifier_note: § 25 odst. 7 písm. a) and odst. 8 tiers 10 000 000 / 5 000 000 / 2 000 000 / 1 000 000 Kč confirmed.
+
+### CZ-STMT-1
+- claim: § 14(1) of Act 424/2023 Coll.: the service provider publishes, in the general terms and conditions or a similar document, how the service meets the accessibility requirements, including a description of each requirement; on request it also gives this information in audio form; when published on a website, it must be in commonly accessible formats.
+- field: other
+- value: Information in the terms and conditions or a similar document; audio on request
+- source: https://www.e-sbirka.cz/sb/2023/424
+- excerpt: "Poskytovatel služby zveřejní ve všeobecných obchodních podmínkách nebo v obdobném dokumentu informace, jak služba splňuje požadavky na přístupnost" / "poskytne tyto informace na žádost i ve zvukové formě" [The service provider publishes in the general terms and conditions or a similar document information on how the service meets the accessibility requirements / provides this information on request also in audio form]
+- retrieved: 2026-11-04
+- used_by: states.cz.statement
+- status: verified
+- verifier_note: § 14 odst. 1 zákona 424/2023 Sb. verbatim (e-Sbírka fragments API, page 0, fetched 2026-11-04), incl. "běžně přístupných formátech" for websites.
+
+### CZ-STMT-2
+- claim: § 14(2) and (4) of Act 424/2023 Coll.: the service provider also publishes a general description of the service and explanations needed to understand how it works, for the whole time it provides the service, in a way accessible to persons with disabilities.
+- field: other
+- value: General description and explanations, published while the service runs, accessible
+- source: https://www.e-sbirka.cz/sb/2023/424
+- excerpt: "a) všeobecný popis služby, b) vysvětlivky nezbytné k pochopení fungování služby." / "po celou dobu jejího poskytování, a to tak, aby tyto informace byly přístupné i osobám se zdravotním postižením" [a) a general description of the service, b) explanations needed to understand how the service works / for the whole time it is provided, so that the information is accessible to persons with disabilities]
+- retrieved: 2026-11-04
+- used_by: states.cz.statement
+- status: verified
+- verifier_note: § 14 odst. 2 a) b) and odst. 4 verbatim.
