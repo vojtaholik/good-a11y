@@ -85,6 +85,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 Times are CET, from the machine clock.
 
+- 06:55 (11-04) Round 2 started on Vojta's "lets build it all": fail-only verdict, requirement checklist with EAA rows, accessibility-statement check, small crawl, more Clef questions (decisions 25-29). Five agents: research, verifier, builder-core, builder-cloud, builder-judge.
+
 - 23:25 Build wrapped. Re-review 3: 0 open high/medium (R13 CLI DNS crash fixed, 90d723f). Accuracy round 5 plus the orchestrator's alza check: reflow is now page-level (1 instance when the page scrolls sideways at 320 px; carousel items no longer count), probe counts are real counts, contrast inside web components dropped, consent dialogs no longer fail keyboard reach. Old stored reports show 'made by an older version, run a new scan' with the URL prefilled. All Brain steps closed. CI green on main, dev deployed. Children stopped.
 
 - 22:35 Re-review 2: H2 fixed (scanner Worker not reachable on its own URL, non-POST RPC refused, per-site cap keyed by site and caller, IPv6 by /64), popups and service workers blocked in Browser Run. Caller-header spoofing (R11) and popup first request (R12) fixed in 09b944b. Report links carry the scan ID (R6). Regression run found and fixed a CLI gzip bug (1349852). /checks page lists all 50 WCAG 2.1 A/AA criteria and how each is tested (23 automated, 27 manual). CI green, dev deployed.
