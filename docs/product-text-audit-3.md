@@ -71,3 +71,32 @@ Summary: 9 defects (0 blocker, 3 medium, 6 low). No "compliant" or "compliance" 
 - EAA rows: every value equals its verified fact's `value`; citations match the Directive's numbering; III (c) shows EU-ANNEX-1 with EU-EX-1; IV (g)(i) to (iii) show EU-EX-2 to EU-EX-4 under "Example from Annex II (non-binding)".
 - EAA rows are all "Needs a person", which is honest until a judged question covers them.
 - Facts behind these rows were verified this round: STD-WCAG21-3 (`0a512c3`), EU-STMT-1..5, EU-ANNEX-5..16, EU-EX-1..4, DE-STMT-1/2, CZ-STMT-1/2 (`9464f43`).
+
+## Re-check of bf7c64d (2026-11-04, about 07:25 CET)
+
+CLI at `bf7c64d` (static HTML only) on example.com and wikipedia.org, plus code read of the web view and the new site section.
+
+| Defect | Result |
+| --- | --- |
+| D1 | Fixed. example.com: 1.1.1, 1.3.1, 1.3.5, 2.2.1, 2.4.4, 4.1.2 read "Nothing to check on this page"; the coverage line says 3 of 50; verdict, coverage and checklist share one decided set (`decided.ts`). |
+| D2 | Withdrawn in part: the served-only drop on a rendered pass already existed (`concernsRun` filter); I misread `staticIssue`. bf7c64d adds the drop when axe finds the rule inapplicable on the rendered page. Fine. |
+| D3 | Fixed. Order is fails, no failure, then judged only when no check decided the criterion (`requirements.ts:150`). |
+| D4 | Fixed in the row ("Always met by HTML", STD-WCAG21-2, out of M). Small wording problem left, see R1. |
+| D5 | Fixed ("the other 3 only in part ... A person needs to review all of them"). |
+| D6 | Fixed (new intro). |
+| D7 | Fixed (per-group counts only). |
+| D8 | Fixed (EU-STMT-1 and EU-STMT-2 shown as basis lines). "Where applicable" is left out. builder-core says no fact carries it, but EU-STMT-3..5 do, in `claim`, not in `value`. Acceptable as is. |
+| D9 | Fixed: CLI shows "(STD-WCAG21-3, STD-EN-5)"; the page's "Why:" line links both. |
+
+### R1 (low) The no-failure verdict asks a person to review 4.1.1 too
+
+- Where: `packages/core/src/verdict.ts` `verdictText`.
+- Live (example.com): "... 46 of the 50 ... were not checked automatically on this scan, and the other 3 only in part, and 4.1.1 Parsing is always met by HTML. A person needs to review all of them."
+- Why: "all of them" now takes in 4.1.1, which the same sentence calls always met. The two "and" clauses also make the sentence hard to read.
+- Fix: "That is not a pass: 46 of the 50 ... were not checked automatically on this scan, and the other 3 only in part. A person needs to review those 49. 4.1.1 Parsing is always met by HTML."
+
+### N1 (medium) Cross-page check failures count toward "does not meet" without an accuracy run
+
+- Where: `packages/core/src/site-checks.ts` (3.2.3 `consistentNavigation`, 3.2.4 `consistentIdentification`), counted in the verdict per `docs/requirement-checklist.md:58`.
+- Why: a 3.2.3 or 3.2.4 fail now makes the headline "This page does not meet WCAG 2.1 Level AA". `docs/accuracy-qa.md` measures every static and rendered check, but not these two. Both are heuristics over navigation links: 3.2.4 treats a different text for the same `href` as a failure, which misfires on a logo link versus a "Home" link, or on menus that change with the section. The project rule says a check that cannot be decided reliably is not in the catalogue. Until the precision is measured, these failures are not known to be certain.
+- Fix: run both on the 21 accuracy-QA sites through the deployed crawl and hand-check every fail. Until precision is at least as good as the static checks, show them as issues but leave them out of the verdict count. 3.2.6 is WCAG 2.2 and already stays out.
