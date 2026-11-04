@@ -96,8 +96,8 @@ Every failure became a guide with tasks on both apps and a grader that passes on
 | --- | --- | --- | --- | --- | --- |
 | input-purpose | 3/6 | 6/6 | 3/6 | 6/6 | both |
 | redundant-entry | 3/6 | 6/6 | 0/6 | 6/6 | both |
-| confirm-before-purchase | 1/6 | 6/6 | 0/6 | 5/6 | both |
-| sign-in-without-puzzles | 0/6 | 6/6 | 0/6 | 4/6 | both |
+| confirm-before-purchase | 2/6 | 5/6 | 0/6 | 6/6 | both |
+| sign-in-without-puzzles | 1/6 | 6/6 | 1/6 | 6/6 | both |
 | timeouts-and-warnings | 3/6 | 6/6 | 2/6 | 6/6 | both |
 | swipe-and-drag | 6/6 | 6/6 | 4/6 | 6/6 | Codex |
 
@@ -108,4 +108,15 @@ Results in `evals/results/l5-<guide>`, regraded into `l5-<guide>-r` for the four
 - sign-in-without-puzzles counted only a way around the puzzle. A control that does the check for the user ("Fill letters for me", also inside a closed `details`) meets 3.3.8 too and now passes. Showing the letters as plain text does not.
 - confirm-before-purchase treated page text that already held "booked" as a placed booking. It now compares with the count before the click.
 
-What the guided agents still miss: Codex placed one shop order on one click (confirm-before-purchase) and twice offered only the letters as text (sign-in-without-puzzles). Both follow the request over the guide, as with the toast duration in round 1.
+confirm-before-purchase and sign-in-without-puzzles are from `l5-<guide>-2`: their first prompts asked for the violation ("orders straight away", "types the five letters"), and Codex followed the request over the guide, as with the toast duration in round 1. The prompts now state the goal ("without going through the cart and the checkout form", "add a check that the person signing in is human") and both guides were re-run, both arms. Two more grader fixes came out of it: sign-in submits at a person's pace, since Claude's honeypot rejects a form filled in under 1.5 s, and it accepts an "I am human" checkbox, which tests nothing; confirm-before-purchase counts only buttons that appear after the click, so the other cards' "Buy now" buttons are not taken for a confirm button. Claude's one guided miss labels its "Buy now" button "Buy Rain jacket now", so the name does not hold the visible text.
+
+## Layer 5, screen 3 (2026-11-04)
+
+15 candidates picked by decision 14, both agents, unguided, one run: link colour in text, field borders in a light restyle, a jump-to select, a new page's title, a phone map view, shake to undo, a one-line notice bar at 320 px, postal code and email error wording, endless scroll, a comment draft, language links, live search, image zoom on hover, a wishlist button in two places, rotating tips. Agents passed 11 for both. Two were probe errors: a static "your draft is saved" line is not a status message, and Codex built the live search on the home page. Field borders failed Codex and image zoom failed Claude, so both became guides:
+
+| Guide | Claude unguided | Claude guided | Codex unguided | Codex guided | Ships for |
+| --- | --- | --- | --- | --- | --- |
+| hover-popups | 3/6 | 6/6 | 6/6 | 6/6 | Claude |
+| non-text-contrast | 6/6 | 6/6 | 5/6 | 6/6 | neither, removed |
+
+Codex's screen failure on field borders did not repeat over 3 runs (5/6 unguided), so non-text-contrast does not meet the rule and is not shipped. The guided arm of this matrix started on the old `SKILL.md` and some runs installed the new one (setup section added); the loop it describes is the same.

@@ -13,6 +13,8 @@ const CANCELLED = /cancel+ed/iu;
 
 const placedText = () => text("placed", "Thank you");
 
+const SHOWN_BEFORE = "data-eval-shown-before";
+
 const shownBefore = new WeakMap<Page, number>();
 
 const placedCount = async (page: Page): Promise<number> =>
@@ -38,6 +40,15 @@ const buyNow = async (page: Page): Promise<string> => {
   const name = label.trim().toLowerCase();
 
   shownBefore.set(page, await placedCount(page));
+  await page.evaluate((marker) => {
+    for (const node of document.querySelectorAll(
+      "button, [role=button], input[type=button], input[type=submit]"
+    )) {
+      if (node instanceof HTMLElement && node.checkVisibility()) {
+        node.setAttribute(marker, "");
+      }
+    }
+  }, SHOWN_BEFORE);
   await buy.click();
   await page.waitForTimeout(400);
 
@@ -53,6 +64,7 @@ const visibleButtons = async (
 
   for (const button of await page
     .getByRole("button")
+    .and(page.locator(`:not([${SHOWN_BEFORE}])`))
     .filter({ visible: true })
     .all()) {
     const label = await accessibleName(button);

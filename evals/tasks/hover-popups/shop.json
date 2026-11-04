@@ -1,0 +1,16 @@
+{
+  "guide": "hover-popups",
+  "app": "shop",
+  "path": "/",
+  "prompt": "When the pointer is over a product image, show a large zoomed version of it next to the image, as on bigger shops. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "trigger": {
+      "css": "main li img"
+    }
+  },
+  "requires": [
+    {
+      "css": "main li img"
+    }
+  ]
+}

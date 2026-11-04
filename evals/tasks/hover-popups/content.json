@@ -1,0 +1,11 @@
+{
+  "guide": "hover-popups",
+  "app": "content",
+  "path": "/articles/tatras-in-october.html",
+  "prompt": "When the pointer rests on a link to another story on our site, show a small preview card next to it with that story's title, its one-line summary and its image, like the link previews on Wikipedia. The stories are listed on the home page. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "trigger": {
+      "css": "main a[href*='breaking-in-boots']"
+    }
+  }
+}

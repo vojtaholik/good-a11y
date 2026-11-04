@@ -90,6 +90,8 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 Times are CET, from the machine clock.
 
+- 15:59 (11-04) Layer 5 continued (`docs/evals.md`). confirm-before-purchase and sign-in-without-puzzles prompts now state the goal, not the violation; re-run, both ship for both, Codex guided 6/6 on each. Screen 3 (15 candidates) found two gaps: hover-popups ships for Claude; non-text-contrast did not repeat for Codex and was dropped. SKILL.md now carries setup from the URL (`https://good-a11y.com/skill.md`) and a no-task audit; the eval runner has a `url` arm for it.
+
 - 15:23 (11-04) Layer 5, first six guides (`docs/evals.md`). Screened 29 candidates unguided; built a guide only where it failed. Ship for both: input-purpose, redundant-entry, confirm-before-purchase, sign-in-without-puzzles, timeouts-and-warnings; Codex only: swipe-and-drag. Insight recorded as decision 14 of the good-a11y brief: guides pay off on requirements the UI never shows, not on widget patterns.
 
 - 14:25 (11-04) Prod live on https://good-a11y.com. is-agentic 97 on the domain; brand search now passes; Organization schema and trust pages remain.

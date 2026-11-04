@@ -10,7 +10,12 @@ const OTHER_WAY =
 const HELPER =
   /fill (?:the |them |it |letters )?(?:in )?(?:for me)?|enter (?:them|the letters) for me|skip|solve for me/iu;
 
+const HUMAN_BOX = /human|robot|not a bot/iu;
+
+const HUMAN_PACE_MS = 3000;
+
 const signIn = async (page: Page): Promise<void> => {
+  await page.waitForTimeout(HUMAN_PACE_MS);
   await page
     .getByRole("button", { exact: true, name: "Sign in" })
     .first()
@@ -65,6 +70,20 @@ test("E1 signing in needs no puzzle", async ({ page }) => {
     .getByRole("button", { name: HELPER })
     .filter({ visible: true })
     .first();
+
+  const humanBox = page
+    .getByRole("checkbox", { checked: false, name: HUMAN_BOX })
+    .filter({ visible: true })
+    .first();
+
+  if ((await humanBox.count()) > 0) {
+    await humanBox.check();
+    await signIn(page);
+
+    if (await signedIn(page)) {
+      return;
+    }
+  }
 
   if ((await helper.count()) > 0) {
     await helper.click();
