@@ -347,12 +347,21 @@ export const checklistGroups = (
 const lowerFirst = (text: string): string =>
   `${text.slice(0, 1).toLowerCase()}${text.slice(1)}`;
 
+const PLURAL_NAMES: Partial<Record<RequirementStatus, string>> = {
+  fails: "fail",
+  needs_person: "need a person",
+};
+
+const tallyName = (status: RequirementStatus, count: number): string =>
+  (count === 1 ? undefined : PLURAL_NAMES[status]) ??
+  lowerFirst(REQUIREMENT_STATUS_NAMES[status]);
+
 export const tallyText = (rows: readonly RequirementRow[]): string => {
   const counts = statusCounts(rows);
 
   return REQUIREMENT_STATUS_ORDER.flatMap((status) =>
     counts[status] === 0
       ? []
-      : [`${counts[status]} ${lowerFirst(REQUIREMENT_STATUS_NAMES[status])}`]
+      : [`${counts[status]} ${tallyName(status, counts[status])}`]
   ).join(", ");
 };

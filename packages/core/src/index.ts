@@ -167,6 +167,8 @@ export {
   percent,
   placedObservation,
   sectionObservations,
+  NOT_SELLING_LEAD,
+  notSellingBasis,
   sellsLine,
 } from "./judged-placement.js";
 
@@ -203,6 +205,7 @@ export {
   VERDICT_FACT,
   VerdictSchema,
   verdictFrom,
+  verdictDetail,
   verdictText,
   type Verdict,
 } from "./verdict.js";

@@ -9,6 +9,7 @@ import {
   formatReport,
   judgePage,
   requirementsOf,
+  tallyText,
   withJudged,
 } from "../src/index.js";
 import type {
@@ -235,5 +236,9 @@ describe("the requirement checklist", () => {
     for (const row of EAA_ROWS) {
       expect(text).toContain(`(${row.requirement.factId})`);
     }
+  });
+
+  it("writes need for counts other than one", () => {
+    expect(tallyText(EAA_ROWS)).toMatch(/^\d+ need a person$/u);
   });
 });

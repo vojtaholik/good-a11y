@@ -49,6 +49,8 @@ export {
 
 export { METHOD_NAMES } from "./coverage.js";
 
+export { verdictDetail } from "./verdict.js";
+
 export type { Verdict } from "./verdict.js";
 
 export type { Site, SitePageResult } from "./report.js";
@@ -98,7 +100,13 @@ export type { Judged, Observation } from "./judged.js";
 
 export { DOES_NOT_SELL, SELLS, shownObservations } from "./judged.js";
 
-export { percent, sectionObservations, sellsLine } from "./judged-placement.js";
+export {
+  NOT_SELLING_LEAD,
+  notSellingBasis,
+  percent,
+  sectionObservations,
+  sellsLine,
+} from "./judged-placement.js";
 
 export {
   SC_COVERAGE,

@@ -72,10 +72,14 @@ export const verdictText = (verdict: Verdict): string | null => {
       ? ""
       : `, and ${plural(verdict.newer, "issue")} against the newer WCAG 2.2`;
 
+  return `Automated checks found no failures against WCAG 2.1 Level AA${newer}. That is not a pass: ${verdict.needPerson + verdict.checked} of ${verdict.ofCriteria} criteria still need a person.`;
+};
+
+export const verdictDetail = (verdict: Verdict): string => {
   const settled =
     verdict.settled === 0
       ? ""
       : ` ${ALWAYS_MET_CRITERION} Parsing is always met by HTML.`;
 
-  return `Automated checks found no failures against WCAG 2.1 Level AA${newer}. That is not a pass: ${verdict.needPerson} of the ${verdict.ofCriteria} WCAG 2.1 Level A and AA success criteria were not checked automatically on this scan and ${verdict.checked} only in part, so a person needs to review those ${verdict.needPerson + verdict.checked}.${settled}`;
+  return `Of the ${verdict.ofCriteria} WCAG 2.1 Level A and AA success criteria, ${verdict.needPerson} were not checked automatically on this scan and ${verdict.checked} only in part, so a person needs to review those ${verdict.needPerson + verdict.checked}.${settled}`;
 };

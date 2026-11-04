@@ -1,7 +1,9 @@
 import { describe, expect, it } from "@effect/vitest";
 
 import {
+  DOES_NOT_SELL,
   SELLS,
+  notSellingBasis,
   formatReport,
   judgePage,
   requirementsOf,
@@ -94,6 +96,22 @@ describe("placing judged observations", () => {
     expect(report.applicability).toEqual(checked.applicability);
     expect(formatReport(report)).toContain(SELLS);
     expect(sellsLine(checked)).toBeNull();
+    expect(notSellingBasis(report)).toBeNull();
+  });
+
+  it("adds the sourced e-commerce definition when the model says the site does not sell to consumers", () => {
+    const notSelling = judgedWith([
+      observation("sells-to-consumers", 1, [
+        { confidence: 0.99, item: "sells", sample: DOES_NOT_SELL },
+      ]),
+    ]);
+
+    expect(notSellingBasis(notSelling)?.factId).toBe("EU-DEF-1");
+    expect(notSelling.applicability).toEqual(checked.applicability);
+    expect(formatReport(notSelling)).toContain(
+      "with a view to concluding a consumer contract, so they may not apply to this site."
+    );
+    expect(formatReport(notSelling)).toContain("(EU-DEF-1)");
   });
 
   it("marks each Annex V row as judged, saying which point the model found missing", () => {

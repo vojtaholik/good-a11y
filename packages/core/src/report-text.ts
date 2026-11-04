@@ -1,7 +1,11 @@
 import type { StateRef } from "./applicability.js";
 import { METHOD_NAMES } from "./coverage.js";
 import type { FindingReference } from "./finding-reference.js";
-import { sellsLine } from "./judged-placement.js";
+import {
+  NOT_SELLING_LEAD,
+  notSellingBasis,
+  sellsLine,
+} from "./judged-placement.js";
 import { NEWER_VERSION_LABEL, newerWcagLabel } from "./reference.js";
 import type { Sourced } from "./reference.js";
 import {
@@ -22,6 +26,7 @@ import {
 } from "./requirements.js";
 import type { RequirementRow } from "./requirements.js";
 import { ROLE_NAMES, siteSummary } from "./site-summary.js";
+import { verdictDetail } from "./verdict.js";
 
 const KIND_LABELS: Readonly<Record<FindingReference["kind"], string>> = {
   "en-newer": NEWER_VERSION_LABEL,
@@ -124,6 +129,12 @@ const statesBlock = (report: Report): string[] => {
     "Where the EAA applies (the same for every issue):",
     `  Covers e-commerce services (${applies.length}): ${codes(applies)}`,
     ...(sellsLine(report) === null ? [] : [`  ${sellsLine(report)}`]),
+    ...(notSellingBasis(report) === null
+      ? []
+      : [
+          `  ${NOT_SELLING_LEAD}`,
+          ...sourced("Definition", notSellingBasis(report)),
+        ]),
     ...sourced("Exemption", exemption),
     `  Unknown (${unknown.length}):`,
     ...unknown.map(
@@ -189,6 +200,7 @@ export const formatReport = (report: Report): string =>
     report.verdict?.kind === "fails" && report.verdict.fact !== null
       ? `${report.headline}  (${[report.verdict.fact.factId, ...(report.reference.benchmark === null ? [] : [report.reference.benchmark.factId])].join(", ")})`
       : report.headline,
+    ...(report.verdict === null ? [] : [verdictDetail(report.verdict)]),
     ...(report.coverage === null ? [] : [report.coverage.text]),
     report.outcomeDetail,
     ...(report.truncated

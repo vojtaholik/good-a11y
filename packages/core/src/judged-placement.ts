@@ -1,6 +1,8 @@
 import { JUDGE_MODEL_NAME } from "./judge.js";
-import { shownObservations } from "./judged.js";
+import { DOES_NOT_SELL, shownObservations } from "./judged.js";
 import type { JudgedId, Observation } from "./judged.js";
+import { verifiedText } from "./reference.js";
+import type { Sourced } from "./reference.js";
 import type { Report } from "./report.js";
 
 export const PLACED_JUDGED_IDS: ReadonlySet<JudgedId> = new Set([
@@ -35,4 +37,17 @@ export const sellsLine = (report: Report): string | null => {
   return note === undefined
     ? null
     : `Judged by a model (${JUDGE_MODEL_NAME}), not used for the list of states: ${note.sample} Model confidence ${percent(note.confidence)}.`;
+};
+
+export const ECOMMERCE_DEFINITION_FACT = "EU-DEF-1";
+
+export const NOT_SELLING_LEAD =
+  "The EAA's e-commerce rules cover services provided with a view to concluding a consumer contract, so they may not apply to this site.";
+
+export const notSellingBasis = (report: Report): Sourced | null => {
+  const [note] = placedObservation(report, "sells-to-consumers")?.notes ?? [];
+
+  return note?.sample === DOES_NOT_SELL
+    ? verifiedText(ECOMMERCE_DEFINITION_FACT)
+    : null;
 };

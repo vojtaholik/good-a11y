@@ -1,5 +1,6 @@
 import {
   METHOD_NAMES,
+  verdictDetail,
   isTested,
   quietChecksOf,
   quietSummary,
@@ -50,6 +51,9 @@ const topView = (report: Report, h: HtmlBuilder<AppMessage>): Html =>
         ]
       ),
       h.p([sx(h, local.headline), h.Role("status")], [report.headline]),
+      ...(report.verdict === null
+        ? []
+        : [h.p([], [verdictDetail(report.verdict)])]),
       ...(report.verdict?.kind === "fails" && report.verdict.fact !== null
         ? [
             h.p(

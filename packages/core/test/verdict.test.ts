@@ -4,6 +4,7 @@ import {
   STATIC_COVERAGE,
   VERDICT_FACT,
   verdictFrom,
+  verdictDetail,
   verdictText,
 } from "../src/index.js";
 import type { Issue, Sourced } from "../src/index.js";
@@ -57,9 +58,11 @@ describe("the verdict", () => {
     expect(verdict.needPerson).toBe(
       STATIC_COVERAGE.ofCriteria - STATIC_COVERAGE.criteria
     );
-    expect(verdictText(verdict)).toContain("That is not a pass");
-    expect(verdictText(verdict)).toContain(
-      `${verdict.needPerson} of the ${STATIC_COVERAGE.ofCriteria} WCAG 2.1 Level A and AA success criteria`
+    expect(verdictText(verdict)).toBe(
+      `Automated checks found no failures against WCAG 2.1 Level AA. That is not a pass: ${STATIC_COVERAGE.ofCriteria} of ${STATIC_COVERAGE.ofCriteria} criteria still need a person.`
+    );
+    expect(verdictDetail(verdict)).toBe(
+      `Of the ${STATIC_COVERAGE.ofCriteria} WCAG 2.1 Level A and AA success criteria, ${verdict.needPerson} were not checked automatically on this scan and ${STATIC_COVERAGE.criteria} only in part, so a person needs to review those ${STATIC_COVERAGE.ofCriteria}.`
     );
   });
 

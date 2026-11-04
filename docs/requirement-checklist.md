@@ -7,7 +7,9 @@ Decisions 25 and 26 in the brief. Owner: builder-core. Code: `packages/core/src/
 The headline of a tested report says one of two things.
 
 - **A Level A or AA check fails:** "This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found N failures." Backed by `STD-WCAG21-3` (WCAG 2.1, 5.2.1: Level AA conformance needs every Level A and AA criterion satisfied). The CLI prints the fact ID after the headline; the page links its source under the headline.
-- **No such failure:** "Automated checks found no failures against WCAG 2.1 Level AA. That is not a pass: M of the 50 WCAG 2.1 Level A and AA success criteria were not checked automatically on this scan, and a person needs to review them."
+- **No such failure:** "Automated checks found no failures against WCAG 2.1 Level AA. That is not a pass: K of 50 criteria still need a person."
+
+Both headlines are two short sentences (lead review of the gov.uk screenshot). The line under either one gives the split: "Of the 50 WCAG 2.1 Level A and AA success criteria, M were not checked automatically on this scan and N only in part, so a person needs to review those K." plus "4.1.1 Parsing is always met by HTML." when that applies. Checklist tallies say "need a person" and "fail" for counts other than one.
 
 Calls made:
 
@@ -42,7 +44,7 @@ Status of a WCAG row, first match wins:
 EAA rows are "Needs a person" unless a judged question covers them (decisions 27, 29). Placement of builder-judge's observations (`packages/core/src/judged-placement.ts`):
 
 - **statement-annex-v** sets the three Annex V rows (Art. 13 and Annex V, point 1(a) to 1(c)) to "Judged by a model" when the model read a statement. Under each row: "the model judged this point missing from the statement (confidence N%)" when it noted the item `statement_N`, else "the model found this point in the statement, or was not sure". With no statement read, the rows stay "Needs a person".
-- **sells-to-consumers** is one line beside the state list: the model's answer (`SELLS` or `DOES_NOT_SELL`) with its confidence, labelled as not used for the list. The states come only from verified facts.
+- **sells-to-consumers** is one line beside the state list: the model's answer (`SELLS` or `DOES_NOT_SELL`) with its confidence, labelled as not used for the list. The states come only from verified facts. When the answer is `DOES_NOT_SELL`, one more line says the EAA's e-commerce rules cover services provided with a view to concluding a consumer contract, so they may not apply to this site, linked to the definition in Art. 3(30) (`EU-DEF-1`). The lead's message cited EU-DEF-2, which is the microenterprise definition; EU-DEF-1 holds the quoted words.
 - Both are left out of the judged section; the other shown observations stay there. IV (g)(i) stays "Needs a person" (below).
 
 A judged status is never "Fails": model output stays out of the deterministic result.

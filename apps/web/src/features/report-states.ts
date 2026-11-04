@@ -1,4 +1,8 @@
-import { sellsLine } from "@eaa-check/core/contracts";
+import {
+  NOT_SELLING_LEAD,
+  notSellingBasis,
+  sellsLine,
+} from "@eaa-check/core/contracts";
 import type { ProfileLine, Report, StateRef } from "@eaa-check/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
@@ -86,6 +90,8 @@ export const statesSection = (
 
   const sells = sellsLine(report);
 
+  const basis = notSellingBasis(report);
+
   return h.section(
     [sx(h, styles.section), h.AriaLabelledBy("states")],
     [
@@ -100,6 +106,18 @@ export const statesSection = (
         ]
       ),
       ...(sells === null ? [] : [h.p([sx(h, styles.meta)], [sells])]),
+      ...(basis === null
+        ? []
+        : [
+            h.p(
+              [sx(h, styles.meta)],
+              [
+                `${NOT_SELLING_LEAD} Definition: `,
+                h.a([h.Href(basis.source), sx(h, styles.link)], [basis.text]),
+                ` (${basis.factId}).`,
+              ]
+            ),
+          ]),
       ...(exemption === null
         ? []
         : [
