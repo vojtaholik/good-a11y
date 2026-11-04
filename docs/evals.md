@@ -46,3 +46,36 @@ Oxlint skips `evals/apps/**`: the repo fence (no comments, Effect rules) is for 
 ```
 
 `path` is the page the grader opens on the served app. A prompt is what a product owner would ask for, fully specified: every name, label, route and line of copy the change needs, so an agent never has to stop and ask, and every prompt ends by telling the agent to make reasonable assumptions and finish without asking. The names in `targets` are the ones the prompt asks for. It never names the accessibility technique, ARIA, focus, labels, keyboards or screen readers. Where a realistic request pulls toward the failure (the focus-visible tasks ask for a flat restyle with a sticky header on top of the outline reset), that pull is the point.
+
+## Round 1 (2026-11-04)
+
+Every task, both arms, 3 runs each. Claude Code (`--effort low`) from `full-1`, regraded on 1bdf5a3 after the grader fixes below, and `focus-1` for focus-visible on the trapped base apps. Codex (`model_reasoning_effort=low`) from `codex-clean-1`, a fresh run in its own HOME on 7e92a2b: the Codex runs in `full-1` read the user's personal skills from `~/.agents/skills` in all 180 runs and are void. Each cell is passes over graded runs, both apps together (6 runs). Ship rule per agent: unguided under 70 % and an uplift of at least 15 points.
+
+| Guide | Claude unguided | Claude guided | Codex unguided | Codex guided | Ships for |
+| --- | --- | --- | --- | --- | --- |
+| form-errors-validation | 0/6 | 6/6 | 0/6 | 6/6 | both |
+| skip-link-landmarks | 0/6 | 5/6 | 2/6 | 6/6 | both |
+| menu-button | 4/6 | 6/6 | 1/6 | 6/6 | both |
+| image-alt | 1/6 | 3/6, then 6/6 | 3/6 | 5/6, then 6/6 | both |
+| status-messages-toast | 0/6 | 1/6, then 6/6 | 2/6 | 1/6, then 2/6 | Claude |
+| tabs | 4/6 | 6/6 | 6/6 | 6/6 | Claude |
+| focus-visible | 3/6 | 6/6 | 6/6 | 6/6 | Claude |
+| combobox-autocomplete | 6/6 | 6/6 | 3/6 | 6/6 | Codex |
+| disclosure-accordion | 5/6 | 6/6 | 3/6 | 5/6 | Codex |
+| spa-route-change | 6/6 | 5/6 | 3/6 | 6/6 | Codex |
+| reduced-motion | 6/6 | 6/6 | 6/6 | 6/6 | neither |
+| custom-select | 6/6 | 6/6 | 6/6 | 6/6 | neither |
+| dialog-modal | 6/6 | 6/6 | 6/6 | 6/6 | neither |
+| icon-buttons | 6/6 | 6/6 | 6/6 | 6/6 | neither |
+| required-and-hints | 6/6 | 6/6 | 6/6 | 6/6 | neither |
+
+"then" is the guided rate after the guide change in 5e392bb, re-run on the guided arm only (3 runs per app); Codex compared against `codex-clean-1`.
+
+What round 1 changed:
+
+- Graders and tasks (1bdf5a3). menu-button on the shop matched the trigger "Options" exactly, while every agent in both arms named it "Options for Rain jacket"; it now matches loosely. spa-route-change on the content app went to About, whose title does not hold its h1 and whose main has nothing to Tab to; it now goes to the Tatras article. The reduced-motion precheck missed sliders that keep every slide in the DOM; it now also sees transforms and animations change across the timer tick. menu-button, spa-route-change and reduced-motion looked weak only because of these.
+- status-messages-toast: guided agents kept the prompt's 3 s (content) or 4 s (shop), and the grader's 5 s check then found the toast gone. The guide now puts a 6000 ms floor near the top, says to override a shorter requested time and tell the user, and shows a React toast that pauses on hover and focus. Claude follows it (6/6). Codex reads it and keeps the requested time on purpose ("retained your requested 4 seconds"); a stronger wording with a request-to-ship table did not change that (3 shop runs, all kept 4000 ms) and was not kept. Its content passes are not real: that toast fades to `opacity: 0`, which the grader still counts as visible, so Codex's toast numbers overstate it until the grader checks opacity.
+- image-alt: agents put the chart values in a figcaption sentence. The guide's chart example now carries its data table and says a sentence is not enough.
+- Retrieval: the "guided runs that retrieved the guide" column read 4/6 for Claude on most tasks. The transcript reader missed the bundle when the agent held it in a shell variable (`G=.../good-a11y.mjs; node $G search`) and when Codex escaped quotes. Read correctly, Claude retrieved its guide in 94 of 95 guided runs and Codex in 90 of 90 (`codex-clean-1`). The skill and search needed no change.
+- Codex runs in its own HOME with only its `auth.json`, so it sees its built-in skills and the installed good-a11y skill, nothing of the user's.
+- Codex's `workspace-write` sandbox blocks binding a local port, so Codex cannot serve a page to run `check` against; its guided runs use the guides but not the checker.

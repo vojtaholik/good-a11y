@@ -9,6 +9,7 @@ export default defineConfig({
     "research/**",
     "BRIEF.md",
     "REPORT.md",
+    "evals/results/**",
     "packages/facts/src/ledger.generated.ts",
     "packages/guides/src/guides.generated.ts",
     "apps/good-a11y/bundle/**",
