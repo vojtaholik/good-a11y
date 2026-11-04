@@ -37,7 +37,11 @@ export interface RunSpec {
   readonly timeout: Duration.Duration;
 }
 
-export type RunStatus = "graded" | "agent-failed" | "grade-failed";
+export type RunStatus =
+  | "graded"
+  | "agent-failed"
+  | "grade-failed"
+  | "run-failed";
 
 export interface RunResult {
   readonly agent: AgentName;
@@ -386,7 +390,13 @@ export const runOne = Effect.fn("runOne")(function* runOne(
     : yield* serveDirectory(project, { spa: false });
 
   const url = `${served}${task.path}`;
-  const input = { guide: task.guide, taskFile, url };
+
+  const input = {
+    guide: task.guide,
+    outputDir: path.join(runDir, "playwright"),
+    taskFile,
+    url,
+  };
 
   return yield* Effect.all([
     graders.check(input),
@@ -417,3 +427,26 @@ export const runOne = Effect.fn("runOne")(function* runOne(
     )
   );
 }, Effect.scoped);
+
+export const failedRun = (spec: RunSpec, problem: string): RunResult => ({
+  agent: spec.agent,
+  agentExitCode: null,
+  app: spec.loaded.task.app,
+  arm: spec.arm,
+  check: null,
+  durationMs: 0,
+  expectations: [],
+  guide: spec.loaded.task.guide,
+  guideRetrieved: false,
+  id: runIdOf(spec),
+  passed: false,
+  problem,
+  run: spec.index,
+  status: "run-failed",
+  transcript: {
+    denials: [],
+    toolUses: 0,
+    usage: null,
+    use: { checks: [], retrieved: [], searches: [], skillOpened: false },
+  },
+});

@@ -67,3 +67,41 @@ export const readTask = Effect.fn("readTask")(function* readTask(
 
   return { file, task } satisfies LoadedTask;
 });
+
+export const readTasks = Effect.fn("readTasks")(function* readTasks(
+  evalsRoot: string,
+  only: { readonly app: string | undefined; readonly guide: string | undefined }
+) {
+  const fileSystem = yield* FileSystem.FileSystem;
+  const path = yield* Path.Path;
+  const tasksDir = path.join(evalsRoot, "tasks");
+  const tasks: LoadedTask[] = [];
+
+  for (const guide of (yield* fileSystem.readDirectory(tasksDir)).toSorted()) {
+    if (only.guide !== undefined && guide !== only.guide) {
+      continue;
+    }
+
+    for (const file of (yield* fileSystem.readDirectory(
+      path.join(tasksDir, guide)
+    )).toSorted()) {
+      const app = path.basename(file, ".json");
+
+      if (
+        file.endsWith(".json") &&
+        (only.app === undefined || app === only.app)
+      ) {
+        tasks.push(yield* readTask(evalsRoot, guide, app));
+      }
+    }
+  }
+
+  if (tasks.length === 0) {
+    return yield* new MalformedTask({
+      file: tasksDir,
+      problem: `no task matches guide ${only.guide ?? "any"} and app ${only.app ?? "any"}`,
+    });
+  }
+
+  return tasks;
+});

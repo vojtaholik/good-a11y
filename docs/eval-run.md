@@ -6,7 +6,13 @@ Layer 3 of good-a11y (brief decisions 9 and 10): run a coding agent on one task,
 pnpm --filter @good-a11y/eval-run eval --guide skip-link-landmarks --app content --agents claude,codex --runs 3
 ```
 
-Flags: `--guide`, `--app` (required), `--agents` (`claude`, `codex`, `stub`; default `claude,codex`), `--arms` (`unguided`, `guided`; default both), `--runs` (default 3), `--timeout-minutes` (default 20), `--out` (default `evals/results/<timestamp>`).
+Flags: `--guide` and `--app` (each optional: omit both for every task in `evals/tasks`), `--agents` (`claude`, `codex`, `stub`; default `claude,codex`), `--arms` (`unguided`, `guided`; default both), `--runs` (default 3), `--timeout-minutes` (default 20), `--out` (default `evals/results/<timestamp>`), `--concurrency` (default 6).
+
+The full matrix is `pnpm --filter @good-a11y/eval-run eval --concurrency 10`.
+
+## Concurrency
+
+Runs are independent: each has its own temp copy of the app, its own server on a free port, its own `CODEX_HOME`, and its own Playwright output directory (`--output <run>/playwright`, two workers), so `--concurrency N` runs N at once through `Effect.forEach`. Each run writes its `result.json` as it ends, and a run that fails in the runner itself (a setup error or a defect) is recorded as `run-failed` with the cause instead of stopping the others. `results.json`, `summary.md` and `queries.jsonl` are written when every run has ended.
 
 ## One run
 

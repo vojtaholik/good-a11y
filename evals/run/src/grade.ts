@@ -25,6 +25,7 @@ export interface GraderGrade {
 
 export interface GradeInput {
   readonly guide: string;
+  readonly outputDir: string;
   readonly taskFile: string;
   readonly url: string;
 }
@@ -145,6 +146,9 @@ export const liveGraders = (paths: {
                 "test",
                 `graders/${input.guide}.spec.ts`,
                 "--reporter=json",
+                "--workers=2",
+                "--output",
+                input.outputDir,
               ],
               {
                 cwd: paths.evalsRoot,

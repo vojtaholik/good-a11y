@@ -12,15 +12,17 @@ import {
   Path,
   Schema,
   Option,
+  Exit,
+  Cause,
 } from "effect";
 import { Command, Flag } from "effect/cli";
 
 import { AgentNameSchema } from "./agents.js";
 import { liveGraders } from "./grade.js";
-import { runOne } from "./run.js";
-import type { RunPaths, RunResult } from "./run.js";
+import { failedRun, runOne } from "./run.js";
+import type { RunPaths, RunSpec } from "./run.js";
 import { queryLogOf, summaryOf } from "./summary.js";
-import { ARMS, ArmSchema, readTask } from "./task.js";
+import { ARMS, ArmSchema, readTasks } from "./task.js";
 
 const commaList = (text: string): string[] =>
   text
@@ -42,14 +44,24 @@ const evalCommand = Command.make(
       Flag.withDescription("Comma-separated: claude, codex, stub")
     ),
     app: Flag.String("app").pipe(
-      Flag.withDescription("Base app under evals/apps, e.g. content")
+      Flag.optional,
+      Flag.withDescription(
+        "Base app under evals/apps, e.g. content; omit for every app"
+      )
     ),
     arms: Flag.String("arms").pipe(
       Flag.withDefault(ARMS.join(",")),
       Flag.withDescription("Comma-separated: unguided, guided")
     ),
+    concurrency: Flag.Int("concurrency").pipe(
+      Flag.withDefault(6),
+      Flag.withDescription("Runs at once; each has its own temp copy and port")
+    ),
     guide: Flag.String("guide").pipe(
-      Flag.withDescription("Guide id, e.g. skip-link-landmarks")
+      Flag.optional,
+      Flag.withDescription(
+        "Guide id, e.g. skip-link-landmarks; omit for every guide"
+      )
     ),
     out: Flag.String("out").pipe(Flag.optional),
     runs: Flag.Int("runs").pipe(Flag.withDefault(3)),
@@ -90,39 +102,67 @@ const evalCommand = Command.make(
       onSome: (out) => path.resolve(out),
     });
 
-    const loaded = yield* readTask(evalsRoot, flags.guide, flags.app);
+    const tasks = yield* readTasks(evalsRoot, {
+      app: Option.getOrUndefined(flags.app),
+      guide: Option.getOrUndefined(flags.guide),
+    });
+
     const agents = yield* decodeAgents(commaList(flags.agents));
     const arms = yield* decodeArms(commaList(flags.arms));
-    const results: RunResult[] = [];
 
-    for (const agent of agents) {
-      for (const arm of arms) {
-        for (let index = 1; index <= flags.runs; index += 1) {
-          const started = yield* Clock.currentTimeMillis;
-          yield* Console.error(
-            `run ${flags.guide} ${flags.app} ${agent} ${arm} ${index}`
-          );
+    const specs: RunSpec[] = tasks.flatMap((loaded) =>
+      agents.flatMap((agent) =>
+        arms.flatMap((arm) =>
+          Array.from({ length: flags.runs }, (_, offset) => ({
+            agent,
+            arm,
+            index: offset + 1,
+            loaded,
+            outDir,
+            timeout: Duration.minutes(flags.timeoutMinutes),
+          }))
+        )
+      )
+    );
 
-          const result = yield* runOne(
-            {
-              agent,
-              arm,
-              index,
-              loaded,
-              outDir,
-              timeout: Duration.minutes(flags.timeoutMinutes),
-            },
-            paths
-          ).pipe(Effect.provide(liveGraders(paths)));
+    const runSafely = Effect.fn("runSafely")(function* runSafely(
+      spec: RunSpec
+    ) {
+      const started = yield* Clock.currentTimeMillis;
 
-          const finished = yield* Clock.currentTimeMillis;
-          yield* Console.error(
-            `  ${result.status}, ${result.passed ? "pass" : "fail"}, ${((finished - started) / 1000).toFixed(0)} s${result.problem === null ? "" : `: ${result.problem.slice(0, 200)}`}`
-          );
-          results.push(result);
-        }
+      const exit = yield* runOne(spec, paths).pipe(
+        Effect.provide(liveGraders(paths)),
+        Effect.exit
+      );
+
+      const result = Exit.isSuccess(exit)
+        ? exit.value
+        : failedRun(spec, Cause.pretty(exit.cause));
+
+      if (Exit.isFailure(exit)) {
+        const runDir = path.join(outDir, "runs", result.id);
+        yield* fileSystem.makeDirectory(runDir, { recursive: true });
+        yield* fileSystem.writeFileString(
+          path.join(runDir, "result.json"),
+          `${JSON.stringify(result, null, 2)}\n`
+        );
       }
-    }
+
+      const finished = yield* Clock.currentTimeMillis;
+      yield* Console.error(
+        `${result.id}: ${result.status}, ${result.passed ? "pass" : "fail"}, ${((finished - started) / 1000).toFixed(0)} s${result.problem === null ? "" : `: ${result.problem.slice(0, 200)}`}`
+      );
+
+      return result;
+    });
+
+    yield* Console.error(
+      `${specs.length} runs, ${flags.concurrency} at once, results in ${outDir}`
+    );
+
+    const results = yield* Effect.forEach(specs, runSafely, {
+      concurrency: flags.concurrency,
+    });
 
     const queries = queryLogOf(results, makeGuideIndex(GUIDES));
 
@@ -143,7 +183,7 @@ const evalCommand = Command.make(
   })
 ).pipe(
   Command.withDescription(
-    "Run the good-a11y guided vs unguided eval for one guide and one app"
+    "Run the good-a11y guided vs unguided eval for every task, or one guide and app"
   )
 );
 
