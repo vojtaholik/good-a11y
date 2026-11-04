@@ -8,6 +8,11 @@
       "types": "./src/worker.ts",
       "import": "./src/worker.ts",
       "default": "./src/worker.ts"
+    },
+    "./calibrator": {
+      "types": "./src/calibrator.ts",
+      "import": "./src/calibrator.ts",
+      "default": "./src/calibrator.ts"
     }
   },
   "scripts": {

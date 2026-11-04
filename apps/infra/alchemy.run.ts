@@ -1,3 +1,4 @@
+import Calibrator from "@eaa-check/scanner/calibrator";
 import * as Alchemy from "alchemy";
 import * as Cloudflare from "alchemy/Cloudflare";
 import * as Drizzle from "alchemy/Drizzle";
@@ -14,6 +15,12 @@ export default Alchemy.Stack(
   },
   Effect.gen(function* stack() {
     const website = yield* Website;
+
+    if (yield* Alchemy.ALCHEMY_DEV) {
+      const calibrator = yield* Calibrator;
+
+      return { calibratorUrl: calibrator.url, siteUrl: website.url };
+    }
 
     return { siteUrl: website.url };
   })

@@ -447,7 +447,9 @@ export const questionsOf = (
 export const questionsFor = (evidence: PageEvidence): readonly Asked[] =>
   questionsOf(SHOWN_JUDGED_CHECKS, evidence);
 
-export const tokensToReserve = (asked: readonly Asked[]): number =>
+export const tokensToReserve = (
+  asked: readonly Pick<Asked, "request">[]
+): number =>
   asked.reduce(
     (total, { request }) =>
       total +
