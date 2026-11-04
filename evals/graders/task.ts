@@ -1,6 +1,7 @@
 // @effect-diagnostics nodeBuiltinImport:off asyncFunction:off -- The graders read the task file with Node built-ins and drive Playwright's Promise API; no Effect runs here.
 import { readFileSync } from "node:fs";
 
+import { expect } from "@playwright/test";
 import type { Locator, Page } from "@playwright/test";
 import { Schema } from "effect";
 
@@ -15,7 +16,13 @@ const RoleTargetSchema = Schema.Struct({
 
 const TextTargetSchema = Schema.Struct({ text: Schema.String });
 
-const TargetSchema = Schema.Union([RoleTargetSchema, TextTargetSchema]);
+const CssTargetSchema = Schema.Struct({ css: Schema.String });
+
+const TargetSchema = Schema.Union([
+  RoleTargetSchema,
+  TextTargetSchema,
+  CssTargetSchema,
+]);
 
 export type Target = typeof TargetSchema.Type;
 
@@ -31,6 +38,7 @@ const Step = Schema.Union([
 ]);
 
 const TaskTargetsSchema = Schema.Struct({
+  requires: Schema.optional(Schema.Array(TargetSchema)),
   setup: Schema.optional(Schema.Array(Step)),
   targets: Schema.optional(
     Schema.Record(
@@ -96,6 +104,10 @@ export const locate = (page: Page, target: Target): Locator => {
     return page.getByText(target.text, { exact: false }).first();
   }
 
+  if ("css" in target) {
+    return page.locator(target.css).first();
+  }
+
   if (!isAriaRole(target.role)) {
     throw new Error(
       `Target role "${target.role}" is not one the graders know (${AriaRoles.join(", ")}). Use one of those roles in the task json.`
@@ -138,6 +150,13 @@ export const open = async (page: Page, guide: string): Promise<void> => {
     await ("press" in step
       ? page.keyboard.press(step.press)
       : locate(page, step.click).click());
+  }
+
+  for (const required of task.requires ?? []) {
+    await expect(
+      locate(page, required),
+      `The task's feature is missing: nothing matches ${JSON.stringify(required)}`
+    ).toBeAttached();
   }
 };
 

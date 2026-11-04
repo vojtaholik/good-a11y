@@ -3,6 +3,12 @@
   "app": "shop",
   "path": "/",
   "prompt": "Give each product its own page at /products/<id> (the ids are in src/data.ts), with the product name as the heading, its price, its description, its specs as a list and an \"Add to cart\" button. Make each product name in the grid a link to its page. Keep it inside the single-page app with the existing router: no full page reloads, and the browser Back button returns to the grid. Write it in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [
+    {
+      "role": "link",
+      "name": "Rain jacket"
+    }
+  ],
   "targets": {
     "link": {
       "role": "link",

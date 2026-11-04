@@ -2,5 +2,15 @@
   "guide": "skip-link-landmarks",
   "app": "content",
   "path": "/articles/tatras-in-october.html",
-  "prompt": "Every page of the site needs ten more links in the header navigation, one per region we write about, after the existing links: High Tatras, Low Tatras, Malá Fatra, Velká Fatra, Slovak Paradise, Krkonoše, Šumava, Julian Alps, Dolomites and Rila. Link each to regions/<name>.html with a lowercase, hyphenated, accent-free name (regions/high-tatras.html, regions/mala-fatra.html and so on); those pages come later. Also add a footer sitemap under a \"Sitemap\" heading on every page, linking to Stories (index.html), Crossing the Tatras in October, Breaking in leather boots, Search, About, Contact (about.html#contact) and Privacy (about.html#privacy). Update index.html, about.html, search.html and both articles; plain HTML and CSS. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions."
+  "prompt": "Every page of the site needs ten more links in the header navigation, one per region we write about, after the existing links: High Tatras, Low Tatras, Malá Fatra, Velká Fatra, Slovak Paradise, Krkonoše, Šumava, Julian Alps, Dolomites and Rila. Link each to regions/<name>.html with a lowercase, hyphenated, accent-free name (regions/high-tatras.html, regions/mala-fatra.html and so on); those pages come later. Also add a footer sitemap under a \"Sitemap\" heading on every page, linking to Stories (index.html), Crossing the Tatras in October, Breaking in leather boots, Search, About, Contact (about.html#contact) and Privacy (about.html#privacy). Update index.html, about.html, search.html and both articles; plain HTML and CSS. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [
+    {
+      "role": "link",
+      "name": "High Tatras"
+    },
+    {
+      "role": "link",
+      "name": "Privacy"
+    }
+  ]
 }

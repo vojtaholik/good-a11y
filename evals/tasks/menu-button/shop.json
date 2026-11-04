@@ -17,6 +17,12 @@
       }
     }
   ],
+  "requires": [
+    {
+      "role": "button",
+      "name": "Options"
+    }
+  ],
   "targets": {
     "trigger": {
       "role": "button",

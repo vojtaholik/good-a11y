@@ -3,6 +3,12 @@
   "app": "content",
   "path": "/search.html",
   "prompt": "On the search page (search.html), make the \"Search stories\" box suggest story titles in a list right below it while the reader types. Suggest every title that contains the typed text, ignoring case. The titles are \"Crossing the Tatras in October\" (articles/tatras-in-october.html), \"Breaking in leather boots\" (articles/breaking-in-boots.html) and \"Five lakes in one day\" (articles/tatras-in-october.html#day-two). Picking a suggestion puts its title in the box; the Search button still submits as it does now. Keep the label \"Search stories\". Plain HTML, CSS and JavaScript in this site, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [
+    {
+      "role": "combobox",
+      "name": "Search stories"
+    }
+  ],
   "targets": {
     "field": {
       "role": "combobox",

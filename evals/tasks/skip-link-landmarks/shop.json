@@ -2,5 +2,15 @@
   "guide": "skip-link-landmarks",
   "app": "shop",
   "path": "/",
-  "prompt": "Give the shop a proper frame on every page: keep the header with the \"Fjell Outdoor\" name and its \"Shop\" and \"Cart\" links, and add a bigger footer with links to Shipping (/shipping), Returns (/returns), Privacy (/privacy) and Contact (/contact) and the line \"© Fjell Outdoor\". Add simple placeholder pages for those four routes, each with its title as the heading and one sentence of text. Write it in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions."
+  "prompt": "Give the shop a proper frame on every page: keep the header with the \"Fjell Outdoor\" name and its \"Shop\" and \"Cart\" links, and add a bigger footer with links to Shipping (/shipping), Returns (/returns), Privacy (/privacy) and Contact (/contact) and the line \"© Fjell Outdoor\". Add simple placeholder pages for those four routes, each with its title as the heading and one sentence of text. Write it in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [
+    {
+      "role": "link",
+      "name": "Shipping"
+    },
+    {
+      "role": "link",
+      "name": "Contact"
+    }
+  ]
 }

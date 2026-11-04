@@ -3,6 +3,13 @@
   "app": "content",
   "path": "/articles/tatras-in-october.html",
   "prompt": "Add a comment form at the end of the Tatras article (articles/tatras-in-october.html), under a \"Leave a comment\" heading: \"Name\" and \"Email\" are required; next to the email, say \"We never show your email publicly.\" Then a \"Comment\" text area and a choice of how often to get replies by email: \"Never\" or \"Weekly\", with \"Never\" chosen at first. A \"Post comment\" button shows \"Thanks, your comment is waiting for review.\" There is no backend; nothing is sent. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [
+    {
+      "role": "textbox",
+      "name": "Comment",
+      "exact": false
+    }
+  ],
   "targets": {
     "required": ["Name", "Email"],
     "hinted": ["Email"]

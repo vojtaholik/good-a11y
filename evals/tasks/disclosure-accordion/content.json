@@ -3,6 +3,12 @@
   "app": "content",
   "path": "/articles/tatras-in-october.html",
   "prompt": "The packing list at the end of the Tatras article (articles/tatras-in-october.html) is getting long. Make the \"What we packed\" section collapsible: the heading \"What we packed\" stays visible and is the control that shows and hides the list under it. The list is hidden when the page loads. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [
+    {
+      "role": "button",
+      "name": "What we packed"
+    }
+  ],
   "targets": {
     "toggle": {
       "role": "button",

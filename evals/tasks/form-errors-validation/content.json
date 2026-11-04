@@ -3,6 +3,12 @@
   "app": "content",
   "path": "/about.html",
   "prompt": "On the About page (about.html), replace the contact email paragraph under the \"Contact\" heading with a contact form: \"Name\", \"Email\" and \"Message\" fields, all required, the email must be a valid address, and a \"Send message\" button. When it is sent with something missing or wrong, the form stays on the page and shows what to fix next to each field, for example \"Enter your name\", \"Enter an email address like name@example.com\" and \"Write a message\". When everything is fine, replace the form with \"Thanks, we will reply within a week.\" There is no backend; nothing is sent. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [
+    {
+      "role": "button",
+      "name": "Send message"
+    }
+  ],
   "targets": {
     "submit": {
       "role": "button",

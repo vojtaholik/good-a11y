@@ -23,6 +23,31 @@ const scrollThrough = async (page: Page) => {
   }
 };
 
+test.beforeAll(async ({ browser }) => {
+  const context = await browser.newContext({ reducedMotion: "no-preference" });
+  const page = await context.newPage();
+  await page.clock.install();
+  await open(page, "reduced-motion");
+
+  const smooth = await page.evaluate(() =>
+    [document.documentElement, document.body].some(
+      (node) => getComputedStyle(node).scrollBehavior === "smooth"
+    )
+  );
+
+  const before = await words(page);
+  await scrollThrough(page);
+  const animated = await page.evaluate(() => document.getAnimations().length);
+  await page.clock.runFor(6000);
+  const after = await words(page);
+  await context.close();
+
+  expect(
+    smooth || animated > 0 || after !== before,
+    "Without reduced motion the page neither scrolls smoothly, animates nor changes on its own, so the motion the task asks for is missing"
+  ).toBe(true);
+});
+
 test.beforeEach(async ({ page }) => {
   await page.clock.install();
 });

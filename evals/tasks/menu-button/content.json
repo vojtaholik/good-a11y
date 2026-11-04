@@ -3,6 +3,12 @@
   "app": "content",
   "path": "/articles/tatras-in-october.html",
   "prompt": "Add a \"Share\" button under the title of the Tatras article (articles/tatras-in-october.html). It opens a small dropdown with three choices: \"Copy link\" copies the page address, \"Share by email\" opens an email (mailto: with the page address in the body) and \"Print\" prints the page. Choosing one closes the dropdown, and so does clicking outside it. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [
+    {
+      "role": "button",
+      "name": "Share"
+    }
+  ],
   "targets": {
     "trigger": {
       "role": "button",

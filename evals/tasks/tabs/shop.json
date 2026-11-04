@@ -10,5 +10,11 @@
         "name": "Quick view"
       }
     }
+  ],
+  "requires": [
+    {
+      "role": "tab",
+      "name": "Specs"
+    }
   ]
 }

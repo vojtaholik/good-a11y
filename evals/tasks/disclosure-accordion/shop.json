@@ -3,6 +3,12 @@
   "app": "shop",
   "path": "/",
   "prompt": "Add a section titled \"Shipping and returns\" under the product grid on the shop page with these four questions and answers. Show only the questions at first; clicking a question shows its answer, clicking it again hides it. 1. \"How long does shipping take?\": \"Orders ship within two working days and arrive in three to five.\" 2. \"How much does shipping cost?\": \"Shipping is free over 100 EUR, otherwise 5.90 EUR.\" 3. \"Can I return an item?\": \"Yes, within 30 days, unused and with its tags.\" 4. \"How do I start a return?\": \"Write to returns@fjell.example with your order number.\" Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "requires": [
+    {
+      "role": "button",
+      "name": "How long does shipping take?"
+    }
+  ],
   "targets": {
     "toggle": {
       "role": "button",
