@@ -13,8 +13,9 @@ import {
 
 import { CopyText, StartScan } from "../src/client/commands.js";
 import { Message } from "../src/client/message.js";
+import { AGENT_COMMAND } from "../src/features/agent-links.js";
 import { EMPTY_ADDRESS, update } from "../src/features/update.js";
-import { AGENT_COMMAND, view } from "../src/features/view.js";
+import { view } from "../src/features/view.js";
 import { modelAt } from "./fixtures.js";
 
 const CHECK_BUTTON = role("button", { name: "Check the page" });

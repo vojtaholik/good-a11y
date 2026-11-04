@@ -13,8 +13,6 @@ export const GITHUB_URL = "https://github.com/vojtaholik/good-a11y";
 
 export const LLMS_PATH = "/llms.txt";
 
-const GUTTER = "clamp(16px, 4cqi, 48px)";
-
 export const shell = stylex.create({
   brand: {
     alignItems: "center",
@@ -37,6 +35,7 @@ export const shell = stylex.create({
   },
   footerInner: {
     alignItems: "center",
+    boxSizing: "content-box",
     display: "flex",
     flexWrap: "wrap",
     gap: `0 ${space["--s4"]}`,
@@ -44,7 +43,7 @@ export const shell = stylex.create({
     marginInline: "auto",
     maxInlineSize: layout["--page"],
     paddingBlock: space["--s5"],
-    paddingInline: GUTTER,
+    paddingInline: layout["--gutter"],
   },
   footerLink: {
     alignItems: "center",
@@ -70,6 +69,7 @@ export const shell = stylex.create({
   },
   headerInner: {
     alignItems: "center",
+    boxSizing: "content-box",
     display: "flex",
     flexWrap: "wrap",
     gap: `0 ${space["--s4"]}`,
@@ -77,7 +77,7 @@ export const shell = stylex.create({
     marginInline: "auto",
     maxInlineSize: layout["--page"],
     minBlockSize: "72px",
-    paddingInline: GUTTER,
+    paddingInline: layout["--gutter"],
   },
   mono: {
     fontFamily: font["--font-code"],
@@ -132,8 +132,6 @@ export const shell = stylex.create({
   },
 });
 
-export const gutter = GUTTER;
-
 const isGuidesRoute = (route: AppRouteState): boolean =>
   AppRoute.match<boolean>(route, {
     Check: () => false,
@@ -166,7 +164,7 @@ const navLink = (
       ...(isCurrent ? [h.AriaCurrent("page")] : []),
       sx(h, shell.navLink, isCurrent ? shell.current : null),
     ],
-    [...label]
+    [h.span([], [...label])]
   );
 
 const header = (route: AppRouteState, h: HtmlBuilder<AppMessage>): Html =>

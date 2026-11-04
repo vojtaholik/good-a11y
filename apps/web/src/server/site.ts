@@ -4,9 +4,9 @@ import { Server } from "foldkit/experimental";
 import { fromString } from "foldkit/url";
 
 import skill from "../../../../skills/good-a11y/SKILL.md?raw";
+import { SKILL_PATH } from "../features/agent-links.js";
 import { pageMetaOf } from "../features/page-meta.js";
 import { AppRoute, parseRoute } from "../features/route.js";
-import { SKILL_PATH } from "../features/view.js";
 import {
   guideMarkdown,
   guideOf,

@@ -69,6 +69,7 @@ export const focus = stylex.defineVars({
 });
 
 export const layout = stylex.defineVars({
+  "--gutter": "clamp(16px, 4cqi, 48px)",
   "--measure": "68ch",
   "--page": "1200px",
   "--target": "44px",

@@ -11,6 +11,7 @@ import { GUIDES } from "@good-a11y/guides/data";
 import type { Guide } from "@good-a11y/guides/guide";
 import { Array, Option } from "effect";
 
+import { CLI, SKILL_PATH } from "../features/agent-links.js";
 import { RETRIEVE, demoPath } from "../features/guide-view.js";
 import { categoryName, guidesByCategory } from "../features/guides.js";
 import {
@@ -20,7 +21,6 @@ import {
 } from "../features/page-meta.js";
 import { AppRoute, guideRouter } from "../features/route.js";
 import type { AppRouteState } from "../features/route.js";
-import { CLI, SKILL_PATH } from "../features/view.js";
 
 const FRONTMATTER = /^---\n[\s\S]*?\n---\n+/u;
 
