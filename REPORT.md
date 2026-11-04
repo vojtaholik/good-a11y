@@ -66,6 +66,9 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 
 ## Open decisions
 
+- Error-message checks (3.3.1, 3.3.3) need a second form run to reach 30 labelled items; evidence and next steps in `.brain/projects/eaa-checker/calibrate-error-messages.svx`. The empty-submit probe is off unless `EMPTY_SUBMITS=true` at deploy.
+- Production stage name `prod` and its Clef share (250k of a 400k account ceiling) are proposals (decision 30).
+
 - Contact CTA wording is a placeholder for Vojta: "studio9 can review this page by hand, explain what the findings mean for your site, and fix them. Get in touch with studio9." (blocked sites: "studio9 can review it by hand."). It is one constant in `packages/core/src/report.ts`; the contact form under it stores messages in D1.
 - A few state-profile values read as fragments without their claim (audit 2, D6, e.g. DE-LAW-2 "Implements Directive (EU) 2019/882"). They are true and sourced; tidy the wording in a later research pass.
 - Bot walls: 9 of 16 large EU shops refuse a plain fetch, and with render-on-refused 12 of 16 still get a rendered audit. Blocked sites get a clear "blocked automated checks" report with the CTA and no evasion (decisions 11, 20).
@@ -84,6 +87,10 @@ EN 301 549: V4.1.1 (2026-09, WCAG 2.2) is published; no version is cited in the 
 ## Log
 
 Times are CET, from the machine clock.
+
+- 08:50 (11-04) Round 2 done. Fail-only verdict on STD-WCAG21-3; requirement checklist (50 WCAG 2.1 + 6 WCAG 2.2 + EAA Annex I and Art. 13/Annex V rows); small crawl (up to 4 same-site pages); Clef now judges EAA scope, the accessibility statement against Annex V, page language, passages in another language (3.1.2) and text styled as a heading (1.3.1), each at precision 1.00 on a holdout of real pages. Retired after real data: cross-page 3.2.3/3.2.4/3.2.6 (5/5 FP), text spacing 1.4.12 (no TP), sensory 1.3.3, 3.3.2, 3.2.4, product info IV(g). Verdict accuracy on 31 sites: 20 do not meet WCAG 2.1 AA, 8 no failure, 3 blocked; every verdict-driving failure hand-checked, none flipped by a false positive. Review round 2: 10 findings, all fixed; one empty newsletter submit on navlacil.cz (06:45 UTC) predates the leak fix. Clef calibration used ~379k local tokens plus dev scans, a few thousand past the free allocation. Open: 3.3.1/3.3.3 error messages (`calibrate-error-messages.svx`).
+
+- 08:07 Lead allowed up to 120k Clef tokens past today's free allocation (about $0.03) to finish calibration today, through a local-only calibrator override.
 
 - 06:55 (11-04) Round 2 started on Vojta's "lets build it all": fail-only verdict, requirement checklist with EAA rows, accessibility-statement check, small crawl, more Clef questions (decisions 25-29). Five agents: research, verifier, builder-core, builder-cloud, builder-judge.
 
