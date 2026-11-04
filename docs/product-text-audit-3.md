@@ -106,3 +106,30 @@ CLI at `bf7c64d` (static HTML only) on example.com and wikipedia.org, plus code 
 - R1 fixed: "... 46 of the 50 ... were not checked automatically on this scan and 3 only in part, so a person needs to review those 49. 4.1.1 Parsing is always met by HTML." (example.com, CLI at `b89698b`).
 - N1 settled. The accuracy run (`docs/accuracy-qa.md` round 6) found 5 of 5 cross-page differences false. The three checks are removed, and no code under `packages/*/src` or `apps/*/src` still names them. 3.2.3, 3.2.4 and 3.2.6 read "Needs a person". The site section on gov.uk lists the three pages read with their own static results, and says nothing about cross-page consistency.
 - Audit 3 has no open defects.
+
+## Headline and scope line (6594671, 2026-11-04, about 07:50 CET)
+
+Live on dev: wikipedia.org (scan `mw1r2wu8-47x7kbpx`, static only, the rendered check was skipped on a redirect) and gov.uk (scan `mw1r1zyh-jvzvz3o9`, static + rendered + crawl + judged).
+
+Checked and fine:
+
+- Failure headline (wikipedia.org): "This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found 2 failures." The "Why:" line links STD-WCAG21-3 and STD-EN-5.
+- No-failure headline (gov.uk): "Automated checks found no failures against WCAG 2.1 Level AA. That is not a pass: 49 of 50 criteria still need a person." The new detail line, "29 were not checked automatically ... and 20 only in part, so a person needs to review those 49. 4.1.1 Parsing is always met by HTML.", adds up to 50 (29 + 20 + 1) and agrees with the checklist counts.
+- Plural tallies read correctly ("2 fail", "26 need a person", "13 need a person").
+- The scope line cites EU-DEF-1 (Art. 3(30), e-commerce services), which holds the words used. The lead's EU-DEF-2 is the microenterprise definition, so builder-core's switch is right. The value shown matches the verified fact. The state list stays "Covers e-commerce services (27)" next to a "does not sell" judgement, so the judgement does not change it (decision 29).
+- `sells-to-consumers` is calibrated (60 of 60 right on 71 real sites, `docs/judged-checks.md`), and its line says "Judged by a model (Cloudflare Clef), not used for the list of states" with the confidence.
+
+### S1 (low) The scope line reads as our conclusion, not the model's
+
+- Where: `packages/core/src/judged-placement.ts` `NOT_SELLING_LEAD`.
+- Text: "The EAA's e-commerce rules cover services provided with a view to concluding a consumer contract, so they may not apply to this site."
+- Why: it is shown only because of a model judgement, but nothing in the sentence says so, and it states an effect of the law on this site. `docs/judged-checks.md:163` names the likely error: a shop built by script, judged "does not sell". On that site this line would tell the owner the e-commerce rules may not apply to them.
+- Fix: tie it to the judgement: "If the model is right, the EAA's e-commerce rules may not apply to this site: they cover services provided with a view to concluding a consumer contract." Keep EU-DEF-1.
+
+### S2 (low) "found this point in the statement, or was not sure" merges two answers
+
+- Where: the `statement-annex-v` note on Annex V rows (builder-judge's text, shown in the checklist). Live on gov.uk, point 1(c).
+- Why: a row that says the point was found and a row where the model could not tell are different results. The visitor cannot tell which one this is.
+- Fix: two texts, "the model found this point in the statement" and "the model could not tell", or show only the found and missing cases and leave the row at "Needs a person" otherwise.
+
+No other defects. No "compliant" wording; every legal line traces to a verified fact.
