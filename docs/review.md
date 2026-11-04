@@ -268,3 +268,9 @@ All round 2 findings except R2-M1 are closed. R2-M1 stays open as a cost item: t
 **48f0706 (08:40 CET).** The clamp is raised to 350,000 for 2026-11-04, by the lead. With dev's 50,000 that is 400,000, under the ~458,000 free allocation while no prod stage exists, so it sits inside the accepted exception. Nothing in the code ties it to the date, so the deletion still has to land before any prod deploy. R2-L6 stays open until then.
 
 **619b502 (08:45 CET).** The clamp is raised to 410,000 for 2026-11-04 (lead, hard stop). With dev's 50,000 cap that is 460,000, about 2,000 tokens over the ~458,000 free allocation if both are used to the limit. At Clef's rate that is roughly 44 neurons, about $0.0005. The overage is negligible, but it is past the "never billed" line, and the 458,000 figure is itself an estimate (`docs/judged-checks.md:171`). Recorded as part of the lead's exception. The same deletion closes R2-L6.
+
+### Round 2 re-check 8 (08:55 CET) of 2ba6167
+
+- **R2-M1 fixed.** The empty submits now run only when `options.emptySubmits && stayed` (`puppeteer-session.ts`). The Workflow reads `Config.Boolean("EMPTY_SUBMITS")` with default `false`. The scanner Worker's env carries the deploy-time value (default `"false"`), and `.env.schema` declares it as a boolean that is unset everywhere. A normal scan no longer submits forms or spends browser time on them. A 3.3.x calibration run can turn them on per deploy, with the R2-H1 containment still in place.
+
+Open: R2-L6 only (lead's one-day exception; closes when the calibrator override is deleted).
