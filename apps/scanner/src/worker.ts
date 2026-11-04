@@ -14,6 +14,7 @@ import {
   callerMiddlewareLayer,
 } from "./caller-middleware.js";
 import { siteCapabilities } from "./capabilities/index.js";
+import { DAILY_JUDGE_TOKENS_NAME, dailyJudgeTokens } from "./judge-limits.js";
 import { ScanLaunchFailed } from "./scan-launch-failed.js";
 import { ScanLauncher } from "./scan-launcher.js";
 import ScanWorkflow from "./scan-workflow.js";
@@ -27,7 +28,10 @@ export default class Scanner extends Cloudflare.Workers.RpcWorker<Scanner>()(
   "Scanner",
   {
     compatibility: { date: "2026-09-01" },
-    env: { [DAILY_BROWSER_SECONDS_NAME]: dailyBrowserSeconds },
+    env: {
+      [DAILY_BROWSER_SECONDS_NAME]: dailyBrowserSeconds,
+      [DAILY_JUDGE_TOKENS_NAME]: dailyJudgeTokens,
+    },
     main: import.meta.url,
     observability: { enabled: true },
     schema: rpcProjection.group,

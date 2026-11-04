@@ -372,7 +372,6 @@ export {
 } from "./judge.js";
 
 export {
-  DAILY_JUDGE_TOKENS,
   EU_LANGUAGES,
   JUDGE_BUDGET_SPENT,
   JUDGE_FAILED,

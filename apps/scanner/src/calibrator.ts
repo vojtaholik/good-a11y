@@ -1,6 +1,5 @@
 import { GATEWAY_ID } from "@eaa-check/ai-judge";
 import {
-  DAILY_JUDGE_TOKENS,
   JUDGE_MODEL,
   JudgeRequestSchema,
   tokensToReserve,
@@ -12,6 +11,8 @@ import * as Cloudflare from "alchemy/Cloudflare";
 import { Clock, Context, Effect, Layer, Option, Schema } from "effect";
 import * as HttpServerRequest from "effect/http/HttpServerRequest";
 import * as HttpServerResponse from "effect/http/HttpServerResponse";
+
+import { CALIBRATION_JUDGE_TOKENS } from "./judge-limits.js";
 
 export const CALIBRATION_BATCH = 200;
 
@@ -53,7 +54,7 @@ export default class Calibrator extends Cloudflare.Worker<Calibrator>()(
         const tokens = tokensToReserve([{ request }]);
 
         const reserved = yield* budget.reserve({
-          dailyTokens: DAILY_JUDGE_TOKENS,
+          dailyTokens: CALIBRATION_JUDGE_TOKENS,
           day,
           tokens,
         });

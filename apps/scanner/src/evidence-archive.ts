@@ -1,7 +1,18 @@
 import type { CrawlRole, ScanJob } from "@eaa-check/core";
 import * as Cloudflare from "alchemy/Cloudflare";
 
-export const EvidenceArchive = Cloudflare.R2.Bucket("EvidenceArchive");
+export const EVIDENCE_DAYS = 30;
+
+export const EvidenceArchive = Cloudflare.R2.Bucket("EvidenceArchive", {
+  lifecycleRules: [
+    {
+      deleteObjectsTransition: {
+        condition: { maxAge: EVIDENCE_DAYS * 24 * 60 * 60, type: "Age" },
+      },
+      id: "delete-evidence-after-30-days",
+    },
+  ],
+});
 
 export const axeEvidenceKey = (job: ScanJob): string =>
   `${job.slug}/${job.scanId}.axe.json`;
@@ -11,9 +22,6 @@ export const siteEvidenceKey = (job: ScanJob): string =>
 
 export const crawledEvidenceKey = (job: ScanJob, role: CrawlRole): string =>
   `${job.slug}/${job.scanId}.${role}.evidence.json`;
-
-export const crawledPageKey = (job: ScanJob, role: CrawlRole): string =>
-  `${job.slug}/${job.scanId}.${role}.html`;
 
 export const renderedEvidenceKey = (job: ScanJob): string =>
   `${job.slug}/${job.scanId}.rendered-evidence.json`;

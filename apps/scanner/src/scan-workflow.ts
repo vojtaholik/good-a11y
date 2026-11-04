@@ -6,7 +6,6 @@ import type { OnClose } from "@eaa-check/browser-audit";
 import {
   BUDGET_SPENT,
   DAILY_BROWSER_SECONDS,
-  DAILY_JUDGE_TOKENS,
   JUDGE_BUDGET_SPENT,
   JUDGE_FAILED,
   Judge,
@@ -66,11 +65,11 @@ import {
   EvidenceArchive,
   axeEvidenceKey,
   crawledEvidenceKey,
-  crawledPageKey,
   pageEvidenceKey,
   renderedEvidenceKey,
   siteEvidenceKey,
 } from "./evidence-archive.js";
+import { DAILY_JUDGE_TOKENS_NAME, STAGE_JUDGE_TOKENS } from "./judge-limits.js";
 import { scanDomainLayer } from "./scan-domain.js";
 
 const ReportJson = Schema.fromJsonString(ReportSchema);
@@ -162,15 +161,12 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
 
         yield* Effect.forEach(
           read,
-          ({ body, evidence, page }) =>
-            Effect.all([
-              archive.put(crawledPageKey(job, page.role), body),
-              Schema.encodeEffect(EvidenceJson)(evidence).pipe(
-                Effect.flatMap((json) =>
-                  archive.put(crawledEvidenceKey(job, page.role), json)
-                )
-              ),
-            ]),
+          ({ evidence, page }) =>
+            Schema.encodeEffect(EvidenceJson)(evidence).pipe(
+              Effect.flatMap((json) =>
+                archive.put(crawledEvidenceKey(job, page.role), json)
+              )
+            ),
           { discard: true }
         );
 
@@ -317,8 +313,12 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
         const day = utcDayOf(yield* Clock.currentTimeMillis);
         const tokens = tokensToReserve(asked);
 
+        const dailyTokens = yield* Config.Int(DAILY_JUDGE_TOKENS_NAME).pipe(
+          Config.withDefault(STAGE_JUDGE_TOKENS)
+        );
+
         const reserved = yield* judgeBudget.reserve({
-          dailyTokens: DAILY_JUDGE_TOKENS,
+          dailyTokens,
           day,
           tokens,
         });

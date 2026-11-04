@@ -14,8 +14,6 @@ export const MAX_JUDGED_ITEMS = 20;
 
 export const MIN_LANGUAGE_SAMPLE = 200;
 
-export const DAILY_JUDGE_TOKENS = 400_000;
-
 const CHARACTERS_PER_TOKEN = 3;
 
 const MAX_SNIPPET = 160;
