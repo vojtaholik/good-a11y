@@ -16,6 +16,8 @@ import {
   ReportSchema,
   STATIC_COVERAGE,
   formatReport,
+  isNewerOnly,
+  issuesFrom,
   issuesOf,
   judgePage,
   renderedOf,
@@ -372,6 +374,42 @@ describe("withRendered", () => {
       refused
     );
     expect(withRendered(refused, { skipped: BUDGET_SPENT })).toEqual(refused);
+  });
+
+  it("lists the WCAG 2.1 issues first and the newer WCAG 2.2 issues after them, under their own heading", () => {
+    const rendered = renderedOf(RESULTS);
+
+    const newerOnly = {
+      failing: 99,
+      help: "Targets are too small",
+      helpUrl: "",
+      impact: null,
+      references: [
+        {
+          factId: "STD-SC22-2.5.8",
+          kind: "wcag-newer" as const,
+          source: "",
+          text: "2.5.8 Target Size (Minimum) (AA)",
+        },
+      ],
+      rule: "target-size",
+      samples: ["<a>"],
+    };
+
+    const issues = issuesFrom(
+      [],
+      rendered.status === "ran"
+        ? { ...rendered, findings: [...rendered.findings, newerOnly] }
+        : rendered
+    );
+
+    expect(issues.at(-1)?.key).toBe("axe:target-size");
+    expect(issues.slice(0, -1).every((issue) => issue.level !== null)).toBe(
+      true
+    );
+    expect(issues.filter(isNewerOnly).map((issue) => issue.key)).toEqual([
+      "axe:target-size",
+    ]);
   });
 
   it("never says compliant, in text or JSON", () => {

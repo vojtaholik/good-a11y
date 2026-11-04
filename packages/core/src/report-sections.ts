@@ -151,7 +151,17 @@ const LEVEL_RANK = new Map<Level | null, number>([
   [null, 2],
 ]);
 
+export const NEWER_ISSUES_TITLE =
+  "Against the newer WCAG 2.2 (not counted in the verdict)";
+
+export const isNewerOnly = (issue: Issue): boolean =>
+  issue.level === null &&
+  issue.references.some((reference) => reference.kind === "wcag-newer");
+
+const newerRank = (issue: Issue): number => (isNewerOnly(issue) ? 1 : 0);
+
 const worstFirst = (left: Issue, right: Issue): number =>
+  newerRank(left) - newerRank(right) ||
   right.failing - left.failing ||
   (LEVEL_RANK.get(left.level) ?? 2) - (LEVEL_RANK.get(right.level) ?? 2) ||
   left.key.localeCompare(right.key);
@@ -204,6 +214,20 @@ export const concernsRun = (
 
 export const issuesOf = (report: Report): readonly Issue[] =>
   issuesFrom(report.findings, report.rendered);
+
+export interface IssueGroups {
+  readonly benchmark: readonly Issue[];
+  readonly newer: readonly Issue[];
+}
+
+export const issueGroupsOf = (report: Report): IssueGroups => {
+  const issues = issuesOf(report);
+
+  return {
+    benchmark: issues.filter((issue) => !isNewerOnly(issue)),
+    newer: issues.filter(isNewerOnly),
+  };
+};
 
 export const isTested = (report: Report): boolean =>
   report.outcome === "checked" || report.rendered?.status === "ran";

@@ -9,9 +9,10 @@ import {
 import { NEWER_VERSION_LABEL, newerWcagLabel } from "./reference.js";
 import type { Sourced } from "./reference.js";
 import {
+  NEWER_ISSUES_TITLE,
   SAMPLE_SOURCE_LABELS,
   isTested,
-  issuesOf,
+  issueGroupsOf,
   quietChecksOf,
   quietSummary,
 } from "./report-sections.js";
@@ -68,13 +69,16 @@ const issueLines = (issue: Issue): string[] => [
 ];
 
 const issuesBlock = (report: Report): string[] => {
-  const issues = issuesOf(report);
+  const { benchmark, newer } = issueGroupsOf(report);
 
-  return issues.length === 0
+  return benchmark.length + newer.length === 0
     ? []
     : [
-        `Issues (${issues.length}), worst first:`,
-        ...issues.flatMap(issueLines),
+        `Issues (${benchmark.length + newer.length}), worst first:`,
+        ...benchmark.flatMap(issueLines),
+        ...(newer.length === 0
+          ? []
+          : [`  ${NEWER_ISSUES_TITLE}:`, ...newer.flatMap(issueLines)]),
         "",
       ];
 };

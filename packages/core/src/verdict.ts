@@ -4,6 +4,7 @@ import type { Coverage } from "./coverage.js";
 import { numbersOf } from "./decided.js";
 import { SourcedSchema, verifiedText } from "./reference.js";
 import type { Sourced } from "./reference.js";
+import { isNewerOnly } from "./report-sections.js";
 import type { Issue } from "./report-sections.js";
 
 export const VERDICT_FACT = "STD-WCAG21-3";
@@ -35,10 +36,6 @@ export type Verdict = typeof VerdictSchema.Type;
 
 const failsWcag21 = (issue: Issue): boolean => issue.level !== null;
 
-const failsOnlyNewer = (issue: Issue): boolean =>
-  issue.level === null &&
-  issue.references.some((reference) => reference.kind === "wcag-newer");
-
 export const verdictFrom = (
   issues: readonly Issue[],
   coverage: Coverage,
@@ -62,7 +59,7 @@ export const verdictFrom = (
     failures,
     kind: failures > 0 ? "fails" : "no_failure",
     needPerson: coverage.ofCriteria - coverage.criteria - settled,
-    newer: issues.filter(failsOnlyNewer).length,
+    newer: issues.filter(isNewerOnly).length,
     ofCriteria: coverage.ofCriteria,
     settled,
   };
@@ -94,9 +91,9 @@ const issuesLine = (verdict: Verdict): string => {
   const newer =
     verdict.newer === 0
       ? ""
-      : ` and ${verdict.newer} ${verdict.newer === 1 ? "is" : "are"} against the newer WCAG 2.2`;
+      : `; ${verdict.newer} more ${verdict.newer === 1 ? "issue is" : "issues are"} against the newer WCAG 2.2 and not counted`;
 
-  return `${plural(verdict.failures, "issue")} below ${verdict.failures === 1 ? "fails" : "fail"} WCAG 2.1 Level A or AA${newer}. `;
+  return `${plural(verdict.failingCriteria, "failing criterion", "failing criteria")} in ${plural(verdict.failures, "issue")} below${newer}. `;
 };
 
 export const verdictDetail = (verdict: Verdict): string => {

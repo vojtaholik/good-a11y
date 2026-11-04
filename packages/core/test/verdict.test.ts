@@ -58,7 +58,7 @@ describe("the verdict", () => {
       "This page does not meet WCAG 2.1 Level AA, the reference benchmark. Automated checks found 3 failing criteria."
     );
     expect(verdictDetail(verdict)).toMatch(
-      /^2 issues below fail WCAG 2\.1 Level A or AA and 1 is against the newer WCAG 2\.2\. Of the 50 /u
+      /^3 failing criteria in 2 issues below; 1 more issue is against the newer WCAG 2\.2 and not counted\. Of the 50 /u
     );
   });
 

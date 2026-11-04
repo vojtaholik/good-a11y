@@ -1,4 +1,8 @@
-import { SAMPLE_SOURCE_LABELS, issuesOf } from "@eaa-check/core/contracts";
+import {
+  NEWER_ISSUES_TITLE,
+  SAMPLE_SOURCE_LABELS,
+  issueGroupsOf,
+} from "@eaa-check/core/contracts";
 import type { Issue, IssueSample, Report } from "@eaa-check/core/contracts";
 import { Schema } from "effect";
 import type { Html, HtmlBuilder } from "foldkit/html";
@@ -134,9 +138,15 @@ export const issuesSection = (
   report: Report,
   h: HtmlBuilder<AppMessage>
 ): Html[] => {
-  const issues = issuesOf(report);
+  const { benchmark, newer } = issueGroupsOf(report);
 
-  return issues.length === 0
+  const cards = (issues: readonly Issue[]): Html =>
+    h.ol(
+      [sx(h, styles.samples)],
+      issues.map((issue) => issueCard(model, issue, h))
+    );
+
+  return benchmark.length + newer.length === 0
     ? []
     : [
         h.section(
@@ -144,12 +154,15 @@ export const issuesSection = (
           [
             h.h2(
               [h.Id("issues"), sx(h, styles.sectionTitle)],
-              [`Issues (${issues.length}), worst first`]
+              [`Issues (${benchmark.length + newer.length}), worst first`]
             ),
-            h.ol(
-              [sx(h, styles.samples)],
-              issues.map((issue) => issueCard(model, issue, h))
-            ),
+            ...(benchmark.length === 0 ? [] : [cards(benchmark)]),
+            ...(newer.length === 0
+              ? []
+              : [
+                  h.h3([sx(h, styles.cardTitle)], [NEWER_ISSUES_TITLE]),
+                  cards(newer),
+                ]),
           ]
         ),
       ];
