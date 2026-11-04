@@ -240,3 +240,10 @@ Verified fixed:
 - **R2-L1.** Each form's submit and read run in their own `optional`. A form whose read fails keeps `errors: null`, and after `left: true` no later form is submitted, while earlier forms keep their evidence.
 
 Still open: R2-M1 (the submits run and are archived, but no check reads them; the risk is now contained, so this is a cost item: up to 15 s of browser time per scan with forms), R2-M2 (per-stage judge cap), R2-L2 (R2 lifecycle), R2-L3 (`page-language-matches` bar).
+
+### Round 2 re-check 4 (08:15 CET) of 33ac866
+
+- **R2-L3 fixed.** `page-language-matches` is now measured on 89 real hand-labelled pages: 60 from round 2, plus 29 from round 3, of which 18 have a wrong `lang`. Labels were set before Clef was asked. The model made 18 notes and all 18 are right, with none on the 71 correct pages. That clears the ≥30 real items and ≥0.9 bar, on the same basis as `statement-annex-v`, where the notes are fewer than 30 but the labelled items are not.
+- The judge step now also reads the archived rendered evidence. The two new checks (`visual-headings-marked`, `passage-language-marked`) are `shown: false`, and `questionsFor` asks only shown checks (`judged.ts:781`), so they spend no tokens until calibrated. No new defect.
+
+Still open: R2-M1, R2-M2, R2-L2.
