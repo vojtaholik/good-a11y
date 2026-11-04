@@ -9,6 +9,11 @@
       "import": "./src/worker.ts",
       "default": "./src/worker.ts"
     },
+    "./canary": {
+      "types": "./src/canary.ts",
+      "import": "./src/canary.ts",
+      "default": "./src/canary.ts"
+    },
     "./calibrator": {
       "types": "./src/calibrator.ts",
       "import": "./src/calibrator.ts",
