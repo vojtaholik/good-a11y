@@ -2,7 +2,7 @@
   "guide": "status-messages-toast",
   "app": "content",
   "path": "/articles/tatras-in-october.html",
-  "prompt": "Add a \"Copy link\" button under the title of the Tatras article (articles/tatras-in-october.html). When clicked, it copies the page address to the clipboard and shows a short \"Link copied\" message next to the button that fades out after 3 seconds. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "prompt": "Add a \"Copy link\" button under the title of the Tatras article (articles/tatras-in-october.html). When clicked, it copies the page address to the clipboard and shows a short \"Link copied\" message next to the button, which then fades out on its own. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
   "requires": [
     {
       "role": "button",

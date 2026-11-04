@@ -1,6 +1,6 @@
 // @effect-diagnostics asyncFunction:off -- Playwright drives the browser through Promise-based callbacks; this package holds no Effect code.
 import { expect, test } from "@playwright/test";
-import type { Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 
 import { liveTexts, markLiveRegions } from "./live.ts";
 import { open, target, text } from "./task.ts";
@@ -32,6 +32,23 @@ const toast = (page: Page, message: string) =>
     .getByText(message.slice(0, 24), { exact: false })
     .filter({ visible: true })
     .last();
+
+const shows = async (locator: Locator): Promise<boolean> =>
+  (await locator.count()) > 0 &&
+  (await locator.evaluate((node) => {
+    for (const animation of document.getAnimations()) {
+      try {
+        animation.finish();
+      } catch {
+        animation.cancel();
+      }
+    }
+
+    return node.checkVisibility({
+      opacityProperty: true,
+      visibilityProperty: true,
+    });
+  }));
 
 test.use({ permissions: ["clipboard-read", "clipboard-write"] });
 
@@ -70,12 +87,12 @@ test("E5 the toast lasts 5 s and stays while hovered or focused", async ({
 }) => {
   const message = await act(page);
   expect(message).not.toBe("");
-  await expect(toast(page, message)).toBeVisible();
+  expect(await shows(toast(page, message))).toBe(true);
   await page.clock.runFor(5000);
-  await expect(toast(page, message)).toBeVisible();
+  expect(await shows(toast(page, message))).toBe(true);
   await toast(page, message).hover();
   await page.clock.runFor(10_000);
-  await expect(toast(page, message)).toBeVisible();
+  expect(await shows(toast(page, message))).toBe(true);
 });
 
 test("E6 buttons in the toast are named", async ({ page }) => {
