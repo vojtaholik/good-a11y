@@ -19,14 +19,6 @@ const ReflowMeasuredSchema = Schema.Struct({
   scrollWidth: Count,
 });
 
-const TextSpacingMeasuredSchema = Schema.Struct({
-  checked: Count,
-  newlyClipped: Schema.Array(
-    Schema.Struct({ snippet: Schema.String, text: Schema.String })
-  ),
-  newlyClippedCount: Count,
-});
-
 const StopSchema = Schema.Struct({
   changed: Schema.optional(Count),
   coverShare: Schema.optional(Schema.NullOr(Schema.Number)),
@@ -66,7 +58,6 @@ type WalkMeasured = typeof WalkMeasuredSchema.Type;
 export const ProbesMeasuredSchema = Schema.Struct({
   reflow: Schema.NullOr(ReflowMeasuredSchema),
   targetSize: Schema.NullOr(Schema.String),
-  textSpacing: Schema.NullOr(TextSpacingMeasuredSchema),
   walk: Schema.NullOr(WalkMeasuredSchema),
 });
 
@@ -76,7 +67,6 @@ export const ProbesJson = Schema.fromJsonString(ProbesMeasuredSchema);
 
 export const ProbeIdSchema = Schema.Literals([
   "reflow",
-  "text-spacing",
   "focus-visible",
   "keyboard-reach",
   "keyboard-trap",
@@ -148,12 +138,6 @@ export const PROBES: Readonly<Record<ProbeId, ProbeSpec>> = {
     newer: true,
     title: "Targets smaller than 24 by 24 CSS pixels",
   },
-  "text-spacing": {
-    criterion: "1.4.12",
-    help: "With the text spacing of the success criterion applied, text no longer fits its box and is cut off. Check each sample by eye.",
-    newer: false,
-    title: "Text cut off with wider text spacing",
-  },
 };
 
 export const FOCUS_JUDGED_STOPS = 50;
@@ -220,23 +204,6 @@ export const decideReflow = (
         .map((offender) => offender.snippet)
     ),
     failing: 1,
-  };
-};
-
-export const decideTextSpacing = (
-  measured: typeof TextSpacingMeasuredSchema.Type
-): ProbeResult => {
-  if (measured.checked === 0) {
-    return notApplicable("text-spacing");
-  }
-
-  const samples = measured.newlyClipped.map(
-    ({ snippet, text }) => `${text} | ${snippet}`
-  );
-
-  return {
-    ...judged("text-spacing", samples),
-    failing: measured.newlyClippedCount,
   };
 };
 
@@ -402,9 +369,6 @@ export const probeResults = (
   measured: ProbesMeasured
 ): readonly ProbeResult[] => [
   ...(measured.reflow === null ? [] : [decideReflow(measured.reflow)]),
-  ...(measured.textSpacing === null
-    ? []
-    : [decideTextSpacing(measured.textSpacing)]),
   ...(measured.walk === null
     ? []
     : [

@@ -12,7 +12,6 @@ import type { ProbeResult, ProbesMeasured } from "../src/index.js";
 const NOTHING: ProbesMeasured = {
   reflow: null,
   targetSize: null,
-  textSpacing: null,
   walk: null,
 };
 
@@ -154,38 +153,6 @@ describe("reflow at 320 CSS pixels", () => {
           },
         },
         "reflow"
-      )?.status
-    ).toBe("not_applicable");
-  });
-});
-
-describe("text spacing", () => {
-  it("fails on text newly cut off, and keeps the text and markup for a person to confirm", () => {
-    const result = resultOf(
-      {
-        textSpacing: {
-          checked: 40,
-          newlyClipped: [
-            { snippet: '<p class="price">', text: "Free delivery" },
-          ],
-          newlyClippedCount: 7,
-        },
-      },
-      "text-spacing"
-    );
-
-    expect(result).toMatchObject({
-      failing: 7,
-      samples: ['Free delivery | <p class="price">'],
-      status: "fail",
-    });
-  });
-
-  it("does not judge a page with no box that clips text", () => {
-    expect(
-      resultOf(
-        { textSpacing: { checked: 0, newlyClipped: [], newlyClippedCount: 0 } },
-        "text-spacing"
       )?.status
     ).toBe("not_applicable");
   });

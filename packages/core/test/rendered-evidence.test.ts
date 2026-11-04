@@ -11,7 +11,7 @@ interface EvidenceParts {
 }
 
 const probesWith = (evidence: EvidenceParts): string =>
-  JSON.stringify({ evidence, reflow: null, textSpacing: null, walk: null });
+  JSON.stringify({ evidence, reflow: null, walk: null });
 
 const HEADINGS = JSON.stringify({
   bodyFontSize: 16,
