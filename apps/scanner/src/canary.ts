@@ -7,10 +7,39 @@ export { DEV_STAGE as CANARY_STAGE } from "./browser-limits.js";
 
 export const CANARY_HIT = "Canary hit";
 
+export const CANARY_REPORT = "Canary report";
+
+const SERVICE_WORKER = `
+self.addEventListener("install", () => self.skipWaiting());
+self.addEventListener("activate", (event) => event.waitUntil(self.clients.claim()));
+self.addEventListener("message", (event) => {
+  event.waitUntil(fetch(new URL("/hit/service-worker", self.location.href).href, { body: "x", method: "POST" }).catch(() => {}));
+});
+`;
+
 const SCRIPT_CHANNELS = `
 const hit = (via) => new URL("/hit/" + via, location.href).href;
+const report = (what) => fetch(new URL("/report/" + what, location.href).href, { method: "POST" }).catch(() => {});
+let worker = null;
+if (!("serviceWorker" in navigator)) {
+  report("service-worker-api-missing");
+} else {
+  navigator.serviceWorker.register("/sw.js").then(
+    () => {
+      report("service-worker-registered");
+      return navigator.serviceWorker.ready;
+    },
+    (error) => { report("service-worker-register-threw-" + encodeURIComponent(String(error && error.name))); return null; }
+  ).then((registration) => {
+    if (registration && registration.active) {
+      worker = registration.active;
+      report("service-worker-active");
+    }
+  });
+}
 document.querySelector("#scripted").addEventListener("submit", (event) => {
   event.preventDefault();
+  if (worker) { worker.postMessage("go"); }
   fetch(hit("fetch"), { body: "x", keepalive: true, method: "POST", mode: "no-cors" }).catch(() => {});
   navigator.sendBeacon(hit("beacon"), "x");
   const xhr = new XMLHttpRequest();
@@ -55,7 +84,6 @@ export const CANARY_PAGE = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <title>Request blocking canary</title>
-<link rel="icon" href="data:,">
 </head>
 <body>
 <main>
@@ -92,6 +120,27 @@ export default class Canary extends Cloudflare.Worker<Canary>()(
 
       if (path === "/" && request.method === "GET") {
         return HttpServerResponse.html(CANARY_PAGE);
+      }
+
+      if (path === "/sw.js") {
+        return HttpServerResponse.text(SERVICE_WORKER, {
+          contentType: "text/javascript",
+        });
+      }
+
+      if (path === "/favicon.ico") {
+        return HttpServerResponse.empty({ status: 404 });
+      }
+
+      if (path.startsWith("/report/")) {
+        yield* Effect.logInfo(CANARY_REPORT).pipe(
+          Effect.annotateLogs({
+            path,
+            userAgent: request.headers["user-agent"] ?? "",
+          })
+        );
+
+        return HttpServerResponse.empty({ status: 204 });
       }
 
       yield* Effect.logWarning(CANARY_HIT).pipe(

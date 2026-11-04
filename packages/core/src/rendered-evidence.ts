@@ -102,15 +102,24 @@ export const SubmissionSchema = Schema.Struct({
     description:
       "Requests the page tried to send after the submit; all were aborted",
   }),
-  errors: Schema.fromJsonString(
-    Schema.Struct({
-      invalid: Capped(InvalidFieldSchema, 40),
-      messages: Capped(AppearedTextSchema, 10),
-    })
-  ),
+  errors: Schema.NullOr(
+    Schema.fromJsonString(
+      Schema.Struct({
+        invalid: Capped(InvalidFieldSchema, 40),
+        messages: Capped(AppearedTextSchema, 10),
+      })
+    )
+  ).annotate({
+    description:
+      "Null when the page left after the submit or the read failed; the forms before it keep theirs",
+  }),
   index: Count,
-  submitted: Schema.fromJsonString(
-    Schema.Struct({ submitted: Schema.Boolean })
+  left: Schema.Boolean.annotate({
+    description:
+      "The page was at another address after the submit, so no later form was submitted",
+  }),
+  submitted: Schema.NullOr(
+    Schema.fromJsonString(Schema.Struct({ submitted: Schema.Boolean }))
   ),
 });
 

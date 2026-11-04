@@ -54,7 +54,16 @@ describe("renderedEvidenceOf", () => {
               blockedCount: 1,
               errors: ERRORS,
               index: 0,
+              left: false,
               submitted: JSON.stringify({ submitted: true }),
+            },
+            {
+              blocked: [],
+              blockedCount: 0,
+              errors: null,
+              index: 1,
+              left: true,
+              submitted: null,
             },
           ],
         },
@@ -71,8 +80,9 @@ describe("renderedEvidenceOf", () => {
       [null, "password"]
     );
     expect(
-      evidence?.emptySubmits?.submissions[0]?.errors.invalid[0]?.native
+      evidence?.emptySubmits?.submissions[0]?.errors?.invalid[0]?.native
     ).toBe("Please fill in this field.");
+    expect(evidence?.emptySubmits?.submissions[1]?.errors).toBeNull();
   });
 
   it("answers null for no probes, older probes or output that does not parse", () => {

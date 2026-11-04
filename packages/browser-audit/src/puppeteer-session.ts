@@ -22,7 +22,13 @@ export const NAVIGATION_TIMEOUT_MS = 30_000;
 export const KEEP_ALIVE_MS = 60_000;
 
 const NO_POPUPS =
-  'Object.defineProperty(window, "open", { configurable: false, value: () => null, writable: false });';
+  'delete Navigator.prototype.serviceWorker; Object.defineProperty(window, "open", { configurable: false, value: () => null, writable: false });';
+
+interface PausedRequest {
+  readonly request: { readonly url: string };
+  readonly requestId: string;
+  readonly resourceType: string;
+}
 
 const AXE_RUN = `axe.run(document, ${JSON.stringify({
   resultTypes: ["violations"],
@@ -152,7 +158,11 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
 
       if (holding.everything) {
         blocked.push(request.url().slice(0, 200));
-        await Promise.allSettled([request.abort("blockedbyclient")]);
+        await Promise.allSettled([
+          request.isNavigationRequest()
+            ? request.respond({ body: "", status: 204 })
+            : request.abort("blockedbyclient"),
+        ]);
 
         return;
       }
@@ -481,7 +491,39 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
           ? yield* optional(evaluate(TARGET_SIZE_RUN))
           : null;
 
+        const failEveryRequest = Effect.gen(function* failEverywhere() {
+          const target = browser.target();
+
+          const cdp = yield* step(
+            "audit",
+            target.createCDPSession.bind(target)
+          );
+
+          cdp.on("Fetch.requestPaused", (paused: PausedRequest) => {
+            blocked.push(paused.request.url.slice(0, 200));
+            void Promise.allSettled([
+              paused.resourceType === "Document"
+                ? cdp.send("Fetch.fulfillRequest", {
+                    requestId: paused.requestId,
+                    responseCode: 204,
+                  })
+                : cdp.send("Fetch.failRequest", {
+                    errorReason: "BlockedByClient",
+                    requestId: paused.requestId,
+                  }),
+            ]);
+          });
+
+          yield* step(
+            "audit",
+            cdp.send.bind(cdp, "Fetch.enable", {
+              patterns: [{ urlPattern: "*" }],
+            })
+          );
+        });
+
         const submitAll = Effect.gen(function* submitEmptyForms() {
+          yield* failEveryRequest;
           holding.everything = true;
           yield* step("audit", page.setOfflineMode.bind(page, true));
           yield* evaluate(NO_SENDING);
@@ -492,24 +534,29 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
           const submissions: unknown[] = [];
 
           for (const form of listed) {
-            if (form.index >= 0) {
+            if (form.index >= 0 && page.url() === startUrl) {
               const blockedBefore = blocked.length;
 
-              const submitted = yield* evaluate(
-                `__eaaEvidence.submitEmpty(${form.index})`
+              const submitted = yield* optional(
+                evaluate(`__eaaEvidence.submitEmpty(${form.index})`)
               );
 
               yield* Effect.sleep(SUBMIT_SETTLE);
 
-              const errors = yield* evaluate(
-                `__eaaEvidence.readErrors(${form.index})`
-              );
+              const left = page.url() !== startUrl;
+
+              const errors = left
+                ? null
+                : yield* optional(
+                    evaluate(`__eaaEvidence.readErrors(${form.index})`)
+                  );
 
               submissions.push({
                 blocked: blocked.slice(blockedBefore, blockedBefore + 5),
                 blockedCount: blocked.length - blockedBefore,
                 errors,
                 index: form.index,
+                left,
                 submitted,
               });
             }

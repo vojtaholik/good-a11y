@@ -46,15 +46,15 @@ const Foreign = Schema.decodeUnknownSync(
 const Submits = Schema.decodeUnknownSync(EmptySubmitsSchema);
 
 describe("rendered evidence read in the page", () => {
-  it("finds text styled as a heading outside heading elements", () => {
+  it("finds text styled as a heading, but not text around a heading or right under one", () => {
     const window = pageWith(
-      `<body style="font-size:16px"><h2 style="font-size:24px">Real heading</h2><div style="font-size:24px">Delivery and returns</div><p style="font-size:16px">${"Body text that runs on for a while. ".repeat(5)}</p><a href="/x" style="font-size:24px;display:block">Big link</a><div style="font-size:16px;font-weight:700">Opening hours</div></body>`
+      `<body style="font-size:16px"><h2 style="font-size:24px">Real heading</h2><p>Intro under the heading</p><div style="font-size:24px">Delivery and returns</div><div style="font-size:24px"><h1>Welcome</h1></div><div><h3>People</h3><p style="font-size:24px">Who we are</p></div><p style="font-size:16px">${"Body text that runs on for a while. ".repeat(5)}</p><a href="/x" style="font-size:24px;display:block">Big link</a><div style="font-size:16px;font-weight:700">Opening hours</div></body>`
     );
 
     const headings = Headings(run(window, "visualHeadings()"));
 
     expect(headings.bodyFontSize).toBe(16);
-    expect(headings.headings).toBe(1);
+    expect(headings.headings).toBe(3);
     expect(headings.candidates.map(({ text }) => text)).toEqual([
       "Delivery and returns",
       "Opening hours",
@@ -136,7 +136,14 @@ describe("rendered evidence read in the page", () => {
     const decoded = Submits({
       forms,
       submissions: [
-        { blocked: [], blockedCount: 0, errors, index: 0, submitted },
+        {
+          blocked: [],
+          blockedCount: 0,
+          errors,
+          index: 0,
+          left: false,
+          submitted,
+        },
       ],
     });
 
@@ -155,7 +162,7 @@ describe("rendered evidence read in the page", () => {
     const [submission] = decoded.submissions;
 
     expect(
-      submission?.errors.invalid.map(({ native }) => native === null)
+      submission?.errors?.invalid.map(({ native }) => native === null)
     ).toEqual([false]);
   });
 });

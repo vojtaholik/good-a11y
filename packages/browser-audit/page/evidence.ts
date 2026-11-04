@@ -346,9 +346,25 @@
     return best;
   };
 
+  const headingAncestors = (headings: readonly Element[]): Set<Element> => {
+    const ancestors = new Set<Element>();
+
+    for (const heading of headings) {
+      let parent = heading.parentElement;
+
+      while (parent !== null && !ancestors.has(parent)) {
+        ancestors.add(parent);
+        parent = parent.parentElement;
+      }
+    }
+
+    return ancestors;
+  };
+
   const looksLikeAHeading = (
     element: Element,
-    bodySize: number
+    bodySize: number,
+    holdsHeading: ReadonlySet<Element>
   ): { readonly fontSize: number; readonly fontWeight: number } | null => {
     const text = textOf(element, MAX_SHORT + 1);
 
@@ -356,6 +372,8 @@
       text.length < 2 ||
       text.length > MAX_SHORT ||
       element.closest(HEADING) !== null ||
+      holdsHeading.has(element) ||
+      element.previousElementSibling?.matches(HEADING) === true ||
       element.closest(INTERACTIVE) !== null ||
       !isRendered(element)
     ) {
@@ -385,6 +403,8 @@
   const visualHeadings = (): string => {
     const elements = walked();
     const bodyFontSize = bodySizeOf(elements);
+    const headings = [...document.querySelectorAll(HEADING)];
+    const holdsHeading = headingAncestors(headings);
     const candidates: unknown[] = [];
     const seen = new Set<string>();
 
@@ -393,7 +413,7 @@
         break;
       }
 
-      const look = looksLikeAHeading(element, bodyFontSize);
+      const look = looksLikeAHeading(element, bodyFontSize, holdsHeading);
       const text = textOf(element, MAX_SHORT);
 
       if (look !== null && !seen.has(text)) {
@@ -405,7 +425,7 @@
     return JSON.stringify({
       bodyFontSize,
       candidates,
-      headings: document.querySelectorAll(HEADING).length,
+      headings: headings.length,
     });
   };
 

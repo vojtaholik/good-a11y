@@ -58,14 +58,33 @@ The same session also collects evidence that only a model can judge. It is not a
 
 ### Submitting forms without sending anything
 
-The empty submits run last, after the tab walk and target size, and only when the page is still where it landed. Before the first submit the session:
+The empty submits run last, after axe, the tab walk and target size, and only when the page is still where it landed. Two things hold for the whole session, from the first document on: `Navigator.prototype.serviceWorker` is deleted, so the page cannot register a service worker or reach one (a worker's own fetches are outside page interception and offline mode; R2-H1), and `window.open` returns nothing. Before the first submit the session:
 
-1. switches request interception to abort every request, of every type, and records each one (`blocked`, `blockedCount` per form);
-2. turns on offline mode for the page (`page.setOfflineMode(true)`), which also stops requests interception does not see, such as WebSockets;
-3. replaces `WebSocket.prototype.send` and `navigator.sendBeacon` in the page with functions that send nothing;
-4. removes `target` from the form and `formtarget` from its buttons, so the submit cannot open a new window.
+1. turns on the Fetch domain on the browser target (`browser.target().createCDPSession()`, `Fetch.enable` with the pattern `*`), which pauses every request of every target, popups and workers included. A paused navigation (`resourceType` `Document`) is answered with a local 204, which Chrome treats as "stay on the current page"; every other request is failed with `BlockedByClient`. It stays on until the browser closes;
+2. switches page interception to the same rule (a navigation gets a local 204, the rest is aborted). Every request either layer sees is recorded (`blocked`, `blockedCount` per form; a request both layers see counts twice);
+3. turns on offline mode for the page (`page.setOfflineMode(true)`);
+4. replaces `WebSocket.prototype.send` and `navigator.sendBeacon` in the page with functions that send nothing;
+5. removes `target` from the form and `formtarget` from its buttons.
 
-Then it clears every text field (checkboxes, radios and files are left alone) and calls `form.requestSubmit()`, which runs the browser's own validation and the page's submit handlers. Nothing is typed into any field, so a request that tries to leave would carry nothing a visitor entered, and none does leave. Skipped: search forms (`role=search`, `<search>`, only search fields), any form with a password field, any form with a payment field (autocomplete, name or id like `cc-*`, card, cvv, cvc, iban), and forms past the third. Residual: a page script that opens a popup by another route during the submit (see R12) gets a page that is closed as soon as it appears; that page is not under this page's interception or offline mode, the same accepted residual as during the rest of the session.
+Then, form by form, it clears every text field (checkboxes, radios and files are left alone) and calls `form.requestSubmit()`, which runs the browser's own validation and the page's submit handlers. Nothing is typed into any field. The local 204 keeps the page where it was: an aborted navigation would put the main frame on Chrome's error page, the landed-URL check would refuse that page, and the whole rendered result, axe included, would be lost (the first canary run showed it). Each form's submit and read are timed on their own; a form whose read fails keeps `errors: null`, and when the page is at another address after a submit (`left: true`) no later form is submitted, while the forms before it keep their evidence (L1). Skipped: search forms (`role=search`, `<search>`, only search fields), any form with a password field, any form with a payment field (autocomplete, name or id like `cc-*`, card, cvv, cvc, iban), and forms past the third.
+
+### Canary (2026-11-04)
+
+`apps/scanner/src/canary.ts` is a Worker that exists only on stage dev (`https://eaacheck-canary-dev-clgqccqqmb4wwsod.vojtaholik.workers.dev`). Its page registers `/sw.js` on load and reports the outcome to `/report/*`: registered, active, threw, or API missing. It has three forms, and every request they cause goes to `/hit/<channel>` on the same Worker, which logs each one (`Canary hit`, with path and user agent) to Workers Logs, read with `alchemy logs --stage dev -r Canary`. `/sw.js` and `/report/*` are not hits.
+
+| Form | Channels |
+| --- | --- |
+| native | the native POST submit |
+| scripted | service worker (`postMessage` to the active worker, which POSTs), keepalive `fetch`, `sendBeacon`, XHR, image, WebSocket, EventSource, iframe, `link rel=prefetch`, CSS background, `window.open`, a script click on a `target=_blank` link, then a meta refresh after 300 ms |
+| retargeted | re-sets `target=_blank` and calls `HTMLFormElement.prototype.submit` (no submit event), then `location.href` after 500 ms |
+
+Runs on 2026-11-04 (times UTC):
+
+- **Control, a normal Chrome 156, no blocking** (06:42 and 06:56): every channel reached the Worker, the service worker included, except the script-clicked `_blank` link. Chrome lets one popup open per click and `window.open` took it.
+- **Scan before the fix** (74d2255 build, `scan-mw1r3grv-n9ocbmpa`, 06:43:42): 0 hits. The canary had no service-worker channel yet. The aborted navigations left the page on Chrome's error page, so the rendered result was refused. This run proves nothing about the popups or the worker.
+- **Scan with the fix** (`scan-mw1rjxrr-ypo061ot`, 06:56:30): the page reported `service-worker-api-missing`. All three forms were submitted and the page stayed (`left: false` each), with 12 attempts recorded, among them `native-submit`, `xhr`, `fetch`, `iframe`, `prefetch`, `image`, `form-target-blank` (the popup's navigation, caught at the browser level) and `location`. **0 `/hit/*` requests reached the Worker** from 06:56:30 until the scan finished. The rendered audit and axe results were kept.
+
+A third-party empty submit had already run once on dev before the fix: navlacil.cz's newsletter form (`scan-mw1r5vo8-8tqlnmer`, 06:45:57, scanned by another agent). Page interception recorded no request for it. That scan did not watch the service-worker or popup channels.
 
 ### Browser time
 
