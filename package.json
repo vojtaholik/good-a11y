@@ -4,6 +4,9 @@
   "private": true,
   "description": "EU accessibility (EAA) checker on rat-stack: Effect 4, XState 6 with @xstate/effect, Alchemy infra, and a lint/typecheck fence.",
   "license": "MIT",
+  "bin": {
+    "good-a11y": "apps/good-a11y/bundle/good-a11y.mjs"
+  },
   "type": "module",
   "scripts": {
     "build": "turbo run build",
@@ -20,7 +23,9 @@
     "typecheck": "turbo run typecheck",
     "typecheck-scripts": "tsc --noEmit -p tsconfig.json",
     "vendor:agent-sources": "./scripts/vendor-agent-sources.sh",
-    "facts": "pnpm --filter @eaa-check/facts run facts"
+    "facts": "pnpm --filter @eaa-check/facts run facts",
+    "guides": "pnpm --filter @eaa-check/guides run guides",
+    "good-a11y:bundle": "turbo run build --filter=@eaa-check/good-a11y && pnpm --filter @eaa-check/good-a11y run bundle"
   },
   "devDependencies": {
     "@earendil-works/pi-coding-agent": "0.86.1",

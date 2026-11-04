@@ -10,5 +10,7 @@ export default defineConfig({
     "BRIEF.md",
     "REPORT.md",
     "packages/facts/src/ledger.generated.ts",
+    "packages/guides/src/guides.generated.ts",
+    "apps/good-a11y/bundle/**",
   ],
 });

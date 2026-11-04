@@ -1,0 +1,29 @@
+{
+  "name": "@eaa-check/good-a11y",
+  "version": "0.1.0",
+  "private": true,
+  "bin": {
+    "good-a11y": "./bundle/good-a11y.mjs"
+  },
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "build": "tsc -p tsconfig.build.json",
+    "bundle": "pnpm run --silent build && node scripts/bundle.ts",
+    "check": "pnpm run typecheck",
+    "pretest": "pnpm run --silent build"
+  },
+  "dependencies": {
+    "@eaa-check/guides": "workspace:*",
+    "@effect/platform-node": "4.0.0",
+    "effect": "4.0.0"
+  },
+  "devDependencies": {
+    "@effect/vitest": "4.0.0",
+    "@types/node": "24.13.6",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2",
+    "vitest": "5.0.1"
+  }
+}
