@@ -95,3 +95,31 @@ export const referenceList = (
           )
         ),
       ];
+
+const chipText = (reference: FindingReference): string =>
+  reference.kind === "en-newer"
+    ? `${shortText(reference)}, not cited in the OJ`
+    : reference.text.replace(CLAUSE, " ");
+
+export const referenceChips = (
+  references: readonly FindingReference[],
+  h: HtmlBuilder<AppMessage>
+): Html[] =>
+  references.length === 0
+    ? []
+    : [
+        h.ul(
+          [sx(h, styles.chips), h.AriaLabel("References")],
+          references.map((reference) =>
+            h.li(
+              [sx(h, styles.chip)],
+              [
+                h.a(
+                  [h.Href(reference.source), sx(h, styles.link)],
+                  [chipText(reference)]
+                ),
+              ]
+            )
+          )
+        ),
+      ];

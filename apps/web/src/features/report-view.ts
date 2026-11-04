@@ -13,6 +13,8 @@ import type { AppMessage } from "../client/message.js";
 import { ScanState } from "../client/model.js";
 import type { AppModel } from "../client/model.js";
 import { contactView } from "./contact-view.js";
+import { statusMessage } from "./controls.js";
+import { crossIcon, infoIcon } from "./icons.js";
 import { MAIN_ID } from "./landmarks.js";
 import { checklistSection } from "./report-checklist.js";
 import { issuesSection } from "./report-issues.js";
@@ -30,96 +32,179 @@ const QUIET: Readonly<Record<Exclude<Finding["status"], "fail">, string>> = {
 };
 
 const scannedAt = (iso: string): string =>
-  iso.slice(0, 16).replace("T", " at ");
+  `${iso.slice(0, 16).replace("T", " at ")} UTC`;
 
-const topView = (report: Report, h: HtmlBuilder<AppMessage>): Html =>
-  h.header(
-    [sx(h, local.top)],
+const whyView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] =>
+  report.verdict?.kind === "fails" && report.verdict.fact !== null
+    ? [
+        h.p(
+          [sx(h, local.meta)],
+          [
+            "Why: ",
+            h.a(
+              [h.Href(report.verdict.fact.source), sx(h, local.link)],
+              [`WCAG 2.1 conformance: ${report.verdict.fact.text}`]
+            ),
+            ...(report.reference.benchmark === null
+              ? []
+              : [
+                  "; ",
+                  h.a(
+                    [
+                      h.Href(report.reference.benchmark.source),
+                      sx(h, local.link),
+                    ],
+                    [`Reference benchmark: ${report.reference.benchmark.text}`]
+                  ),
+                ]),
+          ]
+        ),
+      ]
+    : [];
+
+const verdictView = (report: Report, h: HtmlBuilder<AppMessage>): Html => {
+  const fails = report.verdict?.kind === "fails";
+
+  return h.section(
     [
+      h.AriaLabelledBy("verdict-heading"),
+      sx(h, local.verdict, fails ? local.verdictFails : local.verdictOpen),
+    ],
+    [
+      h.h2([h.Id("verdict-heading"), sx(h, local.verdictTitle)], ["Verdict"]),
       h.p(
-        [sx(h, local.meta)],
-        [`Page: ${report.finalUrl ?? report.requestedUrl}`]
-      ),
-      h.p(
-        [sx(h, local.meta)],
         [
-          "Scanned ",
-          h.time(
-            [h.Attribute("datetime", report.scannedAt)],
-            [`${scannedAt(report.scannedAt)} UTC`]
+          h.Role("status"),
+          sx(
+            h,
+            local.verdictHeadline,
+            fails ? local.verdictHeadlineFails : null
+          ),
+        ],
+        [
+          h.span(
+            [sx(h, local.verdictIcon)],
+            [fails ? crossIcon(h, 28) : infoIcon(h, 28)]
+          ),
+          h.span([], [report.headline]),
+        ]
+      ),
+      ...(report.verdict === null
+        ? []
+        : [h.p([sx(h, local.text)], [verdictDetail(report.verdict)])]),
+      ...whyView(report, h),
+    ]
+  );
+};
+
+const notesView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] => [
+  ...(report.rendered?.status === "skipped"
+    ? [
+        statusMessage(
+          h,
+          "note",
+          `the rendered page check was skipped: ${report.rendered.reason}`
+        ),
+      ]
+    : []),
+  ...(report.outcome === "checked"
+    ? []
+    : [statusMessage(h, "note", report.outcomeDetail)]),
+  ...(report.truncated
+    ? [
+        statusMessage(
+          h,
+          "note",
+          "the page was larger than the size we read, so only its first part was checked."
+        ),
+      ]
+    : []),
+];
+
+const metaRow = (
+  term: string,
+  value: readonly (Html | string)[],
+  h: HtmlBuilder<AppMessage>,
+  isMono = false
+): Html[] => [
+  h.dt([sx(h, local.metaTerm)], [term]),
+  h.dd([sx(h, local.metaValue, isMono ? local.mono : null)], [...value]),
+];
+
+const topView = (
+  report: Report,
+  slug: string,
+  h: HtmlBuilder<AppMessage>
+): Html =>
+  h.div(
+    [sx(h, local.head)],
+    [
+      h.div(
+        [sx(h, local.intro)],
+        [
+          h.h1([sx(h, local.title)], [`Report for ${slug}`]),
+          h.dl(
+            [sx(h, local.metaList)],
+            [
+              ...metaRow(
+                "Address",
+                [report.finalUrl ?? report.requestedUrl],
+                h,
+                true
+              ),
+              ...metaRow(
+                "Scanned",
+                [
+                  h.time(
+                    [h.Attribute("datetime", report.scannedAt)],
+                    [scannedAt(report.scannedAt)]
+                  ),
+                ],
+                h
+              ),
+              ...(report.coverage === null
+                ? []
+                : metaRow(
+                    "Checks run",
+                    [METHOD_NAMES[report.coverage.method]],
+                    h
+                  )),
+            ]
           ),
           ...(report.coverage === null
             ? []
-            : [`. Checks run: ${METHOD_NAMES[report.coverage.method]}.`]),
+            : [
+                h.p(
+                  [sx(h, local.headline)],
+                  [
+                    `${report.coverage.text} `,
+                    h.a(
+                      [
+                        h.Href(`${checkRouter({})}#what-we-check`),
+                        sx(h, local.link),
+                      ],
+                      ["What we check"]
+                    ),
+                  ]
+                ),
+              ]),
+          ...notesView(report, h),
         ]
       ),
-      h.p([sx(h, local.headline), h.Role("status")], [report.headline]),
-      ...(report.verdict === null
-        ? []
-        : [h.p([], [verdictDetail(report.verdict)])]),
-      ...(report.verdict?.kind === "fails" && report.verdict.fact !== null
-        ? [
-            h.p(
-              [sx(h, local.meta)],
-              [
-                "Why: ",
-                h.a(
-                  [h.Href(report.verdict.fact.source), sx(h, local.link)],
-                  [`WCAG 2.1 conformance: ${report.verdict.fact.text}`]
-                ),
-                ...(report.reference.benchmark === null
-                  ? []
-                  : [
-                      "; ",
-                      h.a(
-                        [
-                          h.Href(report.reference.benchmark.source),
-                          sx(h, local.link),
-                        ],
-                        [
-                          `Reference benchmark: ${report.reference.benchmark.text}`,
-                        ]
-                      ),
-                    ]),
-              ]
-            ),
-          ]
-        : []),
-      ...(report.coverage === null
-        ? []
-        : [
-            h.p(
-              [],
-              [
-                `${report.coverage.text} `,
-                h.a(
-                  [h.Href(`${checkRouter({})}#what-we-check`)],
-                  ["What we check"]
-                ),
-              ]
-            ),
-          ]),
-      ...(report.rendered?.status === "skipped"
-        ? [
-            h.p(
-              [sx(h, local.meta)],
-              [`Rendered page check skipped: ${report.rendered.reason}`]
-            ),
-          ]
-        : []),
-      ...(report.outcome === "checked"
-        ? []
-        : [h.p([], [report.outcomeDetail])]),
-      ...(report.truncated
-        ? [
-            h.p(
-              [],
-              [
-                "The page was larger than the size we read, so only its first part was checked.",
-              ]
-            ),
-          ]
-        : []),
+      verdictView(report, h),
+    ]
+  );
+
+type Part = Readonly<{ content: readonly Html[]; id: string; label: string }>;
+
+const navView = (parts: readonly Part[], h: HtmlBuilder<AppMessage>): Html =>
+  h.nav(
+    [h.AriaLabel("On this page"), sx(h, local.nav)],
+    [
+      h.p([sx(h, local.navTitle), h.AriaHidden(true)], ["On this page"]),
+      ...parts.map(({ id, label }) =>
+        h.a([h.Href(`#${id}`), sx(h, local.navLink)], [label])
+      ),
     ]
   );
 
@@ -130,7 +215,7 @@ const quietView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] => {
     ? []
     : [
         h.details(
-          [sx(h, local.disclosure, local.section)],
+          [h.Id("quiet"), sx(h, local.disclosure)],
           [
             h.summary([sx(h, local.summary)], [quietSummary(quiet)]),
             h.ul(
@@ -205,24 +290,93 @@ const closingView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] => [
     : []),
 ];
 
-const publishedView = (
+const partsOf = (
   model: AppModel,
   report: Report,
   h: HtmlBuilder<AppMessage>
-): Html[] =>
-  isTested(report)
-    ? [
-        topView(report, h),
-        ...issuesSection(model, report, h),
-        ...judgedSection(report, h),
-        checklistSection(report, h),
-        ...siteSection(report, h),
-        statesSection(report, h),
-        ...quietView(report, h),
-        rulesView(report, h),
-        ...closingView(report, h),
+): readonly Part[] =>
+  (
+    [
+      {
+        content: issuesSection(model, report, h),
+        id: "issues",
+        label: "Issues",
+      },
+      {
+        content: judgedSection(report, h),
+        id: "judged",
+        label: "Judged by a model",
+      },
+      {
+        content: [checklistSection(report, h)],
+        id: "checklist",
+        label: "Requirement checklist",
+      },
+      { content: siteSection(report, h), id: "site", label: "Other pages" },
+      {
+        content: [statesSection(report, h)],
+        id: "states",
+        label: "Where the EAA applies",
+      },
+      {
+        content: quietView(report, h),
+        id: "quiet",
+        label: "Checks with no issue",
+      },
+      {
+        content: [rulesView(report, h)],
+        id: "rules",
+        label: "About the rules",
+      },
+    ] satisfies Part[]
+  ).filter(({ content }) => content.length > 0);
+
+const publishedView = (
+  model: AppModel,
+  report: Report,
+  slug: string,
+  h: HtmlBuilder<AppMessage>
+): Html[] => {
+  const parts: readonly Part[] = isTested(report)
+    ? partsOf(model, report, h)
+    : [
+        {
+          content: [rulesView(report, h)],
+          id: "rules",
+          label: "About the rules",
+        },
+      ];
+
+  return [
+    topView(report, slug, h),
+    h.div(
+      [sx(h, local.body)],
+      [
+        navView(parts, h),
+        h.div(
+          [sx(h, local.column)],
+          [
+            ...parts.flatMap(({ content }) => content),
+            ...closingView(report, h),
+          ]
+        ),
       ]
-    : [topView(report, h), rulesView(report, h), ...closingView(report, h)];
+    ),
+  ];
+};
+
+const pendingView = (
+  slug: string,
+  content: readonly Html[],
+  h: HtmlBuilder<AppMessage>
+): Html[] => [h.h1([sx(h, local.title)], [`Report for ${slug}`]), ...content];
+
+const newScanLink = (
+  url: string,
+  label: string,
+  h: HtmlBuilder<AppMessage>
+): Html =>
+  h.p([], [h.a([h.Href(checkRouter({ url })), sx(h, local.link)], [label])]);
 
 export const reportView = (
   model: AppModel,
@@ -230,64 +384,72 @@ export const reportView = (
   h: HtmlBuilder<AppMessage>
 ): Html =>
   h.main(
-    [h.Id(MAIN_ID)],
-    [
-      h.h1([], [`Report for ${slug}`]),
-      ...ScanState.match<Html[]>(model.scan, {
-        Idle: () => [],
-        Loading: () => [h.p([h.Role("status")], ["Loading the report…"])],
-        Running: ({ view }) => [
-          h.p(
-            [h.Role("status")],
-            [
+    [h.Id(MAIN_ID), sx(h, local.main)],
+    ScanState.match<Html[]>(model.scan, {
+      Idle: () => pendingView(slug, [], h),
+      Loading: () =>
+        pendingView(
+          slug,
+          [statusMessage(h, "progress", "loading the report…")],
+          h
+        ),
+      Running: ({ view }) =>
+        pendingView(
+          slug,
+          [
+            statusMessage(
+              h,
+              "progress",
               view.stage === "queued"
-                ? "The scan is queued…"
-                : "Fetching and checking the page…",
-            ]
-          ),
-        ],
-        Settled: ({ view }) =>
-          view.report === null
-            ? [
-                h.p([h.Role("alert")], [view.failure ?? "The scan failed."]),
-                h.p(
-                  [],
-                  [
-                    h.a(
-                      [h.Href(checkRouter({ url: view.url }))],
-                      ["Start a new scan"]
+                ? "the scan is queued…"
+                : "fetching and checking the page…"
+            ),
+          ],
+          h
+        ),
+      Settled: ({ view }) =>
+        view.report === null
+          ? pendingView(
+              slug,
+              [
+                statusMessage(h, "error", view.failure ?? "the scan failed."),
+                newScanLink(view.url, "Start a new scan", h),
+              ],
+              h
+            )
+          : [
+              ...publishedView(model, view.report, slug, h),
+              ...(CONTACT_SHOWN
+                ? [
+                    contactView(
+                      model,
+                      view.report.finalUrl ?? view.report.requestedUrl,
+                      h
                     ),
                   ]
-                ),
-              ]
-            : [
-                ...publishedView(model, view.report, h),
-                ...(CONTACT_SHOWN
-                  ? [
-                      contactView(
-                        model,
-                        view.report.finalUrl ?? view.report.requestedUrl,
-                        h
-                      ),
-                    ]
-                  : []),
-              ],
-        Unavailable: () => [
-          h.p(
-            [h.Role("alert")],
-            [
-              "The scan failed: the report could not be loaded. Try again in a few minutes.",
-            ]
-          ),
-          h.p(
-            [],
-            [h.a([h.Href(checkRouter({ url: slug }))], ["Start a new scan"])]
-          ),
-        ],
-        Unknown: () => [
-          h.p([], [`There is no scan of ${slug} yet.`]),
-          h.p([], [h.a([h.Href(checkRouter({ url: slug }))], ["Start one"])]),
-        ],
-      }),
-    ]
+                : []),
+            ],
+      Unavailable: () =>
+        pendingView(
+          slug,
+          [
+            statusMessage(
+              h,
+              "error",
+              "the report could not be loaded. Try again in a few minutes."
+            ),
+            newScanLink(slug, "Start a new scan", h),
+          ],
+          h
+        ),
+      Unknown: () =>
+        pendingView(
+          slug,
+          [
+            h.p([], [`There is no scan of ${slug} yet.`]),
+            newScanLink(slug, "Start one", h),
+          ],
+          h
+        ),
+    })
   );

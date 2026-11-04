@@ -126,7 +126,7 @@ describe("our own page", () => {
         "Where the EAA applies",
         "had nothing to check",
         "About the rules",
-      ].map((marker) => html.indexOf(marker));
+      ].map((marker) => html.lastIndexOf(marker));
 
       expect(order.map((index) => index >= 0)).toEqual(order.map(() => true));
       expect(order).toEqual(order.toSorted((left, right) => left - right));

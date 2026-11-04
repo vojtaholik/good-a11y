@@ -67,8 +67,8 @@ const routeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
       }),
     Home: () => homeView(model, h),
     NotFound: () => narrow(notFoundView(h), h),
-    Report: ({ slug }) => narrow(reportView(model, slug, h), h),
-    Scan: ({ slug }) => narrow(reportView(model, slug, h), h),
+    Report: ({ slug }) => reportView(model, slug, h),
+    Scan: ({ slug }) => reportView(model, slug, h),
   });
 
 export const view = (

@@ -13,43 +13,43 @@ import type { AppMessage } from "../client/message.js";
 import { CopyState } from "../client/model.js";
 import type { AppModel } from "../client/model.js";
 import { guidePageOf } from "./guides.js";
-import { referenceList } from "./report-references.js";
+import { copyIcon, crossIcon } from "./icons.js";
+import { referenceChips } from "./report-references.js";
 import { report as styles } from "./report-styles.js";
 import { guideRouter } from "./route.js";
 import { sx } from "./sx.js";
 
-const countText = (issue: Issue): string =>
-  issue.checked === null
-    ? `${issue.failing} ${issue.failing === 1 ? "element" : "elements"} failing`
-    : `${issue.failing} of ${issue.checked} failing`;
+const shownText = (issue: Issue): string =>
+  issue.samples.length < issue.failing
+    ? `${issue.failing} failing, ${issue.samples.length} shown`
+    : `${issue.failing} failing`;
 
-const metaText = (issue: Issue): string => {
-  const where = `in the ${issue.sources.map((source) => SAMPLE_SOURCE_LABELS[source]).join(" and the ")}`;
+const pillText = (issue: Issue): string =>
+  issue.level === null ? "Issue found" : `Issue found · Level ${issue.level}`;
 
-  return issue.level === null
-    ? `Found ${where}`
-    : `WCAG Level ${issue.level}, found ${where}`;
-};
-
-const guideLinks = (issue: Issue, h: HtmlBuilder<AppMessage>): Html[] => {
+const guideLine = (issue: Issue, h: HtmlBuilder<AppMessage>): Html => {
   const pages = Array.getSomes(guidesForCheck(issue.key).map(guidePageOf));
 
-  return pages.length === 0
-    ? []
-    : [
-        h.p(
-          [sx(h, styles.text)],
-          [
-            h.strong([], [pages.length === 1 ? "Guide: " : "Guides: "]),
-            ...Array.intersperse(
-              pages.map((page) =>
-                h.a([h.Href(guideRouter({ guideId: page.id }))], [page.name])
-              ),
-              ", "
+  return h.p(
+    [sx(h, styles.text)],
+    pages.length === 0
+      ? ["No guide for this yet"]
+      : [
+          "Fixed by ",
+          ...Array.intersperse(
+            pages.map((page) =>
+              h.a(
+                [
+                  h.Href(guideRouter({ guideId: page.id })),
+                  sx(h, styles.guideLink),
+                ],
+                [page.name]
+              )
             ),
-          ]
-        ),
-      ];
+            ", "
+          ),
+        ]
+  );
 };
 
 const COPY_LABEL = "Copy fix prompt";
@@ -78,7 +78,7 @@ const copyButton = (
       h.AriaDescribedBy(`issue-${issue.key}`),
       h.OnClick(Message.ClickedCopyFixPrompt({ key: issue.key })),
     ],
-    [isCopied(model, issue) ? COPIED_LABEL : COPY_LABEL]
+    [copyIcon(h), isCopied(model, issue) ? COPIED_LABEL : COPY_LABEL]
   );
 
 const copyFallback = (
@@ -101,62 +101,107 @@ const copyFallback = (
       ];
 };
 
-const sampleView = (sample: IssueSample, h: HtmlBuilder<AppMessage>): Html =>
+const sampleView = (
+  sample: IssueSample,
+  isMixed: boolean,
+  h: HtmlBuilder<AppMessage>
+): Html =>
   h.li(
     [],
     [
-      h.span([sx(h, styles.sampleTag)], [SAMPLE_SOURCE_LABELS[sample.source]]),
-      h.code([sx(h, styles.sample)], [sample.text]),
+      ...(isMixed
+        ? [
+            h.span(
+              [sx(h, styles.sampleTag)],
+              [SAMPLE_SOURCE_LABELS[sample.source]]
+            ),
+          ]
+        : []),
+      h.pre([h.Tabindex(0), sx(h, styles.sample)], [h.code([], [sample.text])]),
     ]
   );
+
+const samplesView = (issue: Issue, h: HtmlBuilder<AppMessage>): Html[] =>
+  issue.samples.length === 0
+    ? []
+    : [
+        h.div(
+          [sx(h, styles.samples)],
+          [
+            h.h4(
+              [sx(h, styles.label)],
+              [
+                "Failing elements ",
+                h.span([sx(h, styles.labelCount)], [`· ${shownText(issue)}`]),
+              ]
+            ),
+            h.ul(
+              [sx(h, styles.samples)],
+              issue.samples.map((sample) =>
+                sampleView(sample, issue.sources.length > 1, h)
+              )
+            ),
+          ]
+        ),
+      ];
 
 const issueCard = (
   model: AppModel,
   issue: Issue,
+  number: number,
   h: HtmlBuilder<AppMessage>
 ): Html =>
   h.keyed("li")(
     issue.key,
-    [sx(h, styles.card)],
+    [],
     [
-      h.h3(
-        [h.Id(`issue-${issue.key}`), sx(h, styles.cardTitle)],
-        [issue.title]
-      ),
-      h.p(
-        [sx(h, styles.meta)],
+      h.article(
+        [sx(h, styles.card)],
         [
-          h.span([sx(h, styles.count)], [countText(issue)]),
-          `. ${metaText(issue)}`,
+          h.div(
+            [sx(h, styles.cardHead)],
+            [
+              h.h3(
+                [h.Id(`issue-${issue.key}`), sx(h, styles.cardTitle)],
+                [
+                  h.span([sx(h, styles.cardNumber)], [`${number}.`]),
+                  h.span([], [issue.title]),
+                ]
+              ),
+              h.span([sx(h, styles.pill)], [crossIcon(h, 14), pillText(issue)]),
+            ]
+          ),
+          ...referenceChips(issue.references, h),
+          ...(issue.whatFails === null
+            ? []
+            : [h.p([sx(h, styles.text)], [issue.whatFails])]),
+          ...(issue.howToFix === null
+            ? []
+            : [
+                h.div(
+                  [],
+                  [
+                    h.h4([sx(h, styles.label)], ["How to fix"]),
+                    h.p([sx(h, styles.text)], [issue.howToFix]),
+                  ]
+                ),
+              ]),
+          ...samplesView(issue, h),
+          h.div(
+            [sx(h, styles.cardFoot)],
+            [guideLine(issue, h), copyButton(model, issue, h)]
+          ),
+          h.p(
+            [h.AriaLive("polite"), sx(h, styles.visuallyHidden)],
+            [
+              isCopied(model, issue)
+                ? "Fix prompt copied to the clipboard."
+                : "",
+            ]
+          ),
+          ...copyFallback(model, issue, h),
         ]
       ),
-      ...(issue.whatFails === null
-        ? []
-        : [h.p([sx(h, styles.text)], [issue.whatFails])]),
-      ...(issue.howToFix === null
-        ? []
-        : [
-            h.p(
-              [sx(h, styles.text)],
-              [h.strong([], ["How to fix: "]), issue.howToFix]
-            ),
-          ]),
-      ...(issue.samples.length === 0
-        ? []
-        : [
-            h.ul(
-              [sx(h, styles.samples), h.AriaLabel("Failing elements")],
-              issue.samples.map((sample) => sampleView(sample, h))
-            ),
-          ]),
-      ...guideLinks(issue, h),
-      copyButton(model, issue, h),
-      h.p(
-        [h.AriaLive("polite"), sx(h, styles.visuallyHidden)],
-        [isCopied(model, issue) ? "Fix prompt copied to the clipboard." : ""]
-      ),
-      ...copyFallback(model, issue, h),
-      ...referenceList(issue.references, h),
     ]
   );
 
@@ -167,28 +212,47 @@ export const issuesSection = (
 ): Html[] => {
   const { benchmark, newer } = issueGroupsOf(report);
 
-  const cards = (issues: readonly Issue[]): Html =>
+  const cards = (issues: readonly Issue[], offset: number): Html =>
     h.ol(
       [sx(h, styles.samples)],
-      issues.map((issue) => issueCard(model, issue, h))
+      issues.map((issue, index) =>
+        issueCard(model, issue, offset + index + 1, h)
+      )
     );
 
   return benchmark.length + newer.length === 0
     ? []
     : [
         h.section(
-          [sx(h, styles.section), h.AriaLabelledBy("issues")],
           [
-            h.h2(
-              [h.Id("issues"), sx(h, styles.sectionTitle)],
-              [`Issues (${benchmark.length + newer.length}), worst first`]
+            h.Id("issues"),
+            sx(h, styles.section),
+            h.AriaLabelledBy("issues-heading"),
+          ],
+          [
+            h.div(
+              [sx(h, styles.sectionHead)],
+              [
+                h.h2(
+                  [h.Id("issues-heading"), sx(h, styles.sectionTitle)],
+                  [`Issues (${benchmark.length + newer.length}), worst first`]
+                ),
+                h.p(
+                  [sx(h, styles.meta)],
+                  [
+                    newer.length === 0
+                      ? `${benchmark.length} counted`
+                      : `${benchmark.length} counted · ${newer.length} against WCAG 2.2`,
+                  ]
+                ),
+              ]
             ),
-            ...(benchmark.length === 0 ? [] : [cards(benchmark)]),
+            ...(benchmark.length === 0 ? [] : [cards(benchmark, 0)]),
             ...(newer.length === 0
               ? []
               : [
-                  h.h3([sx(h, styles.cardTitle)], [NEWER_ISSUES_TITLE]),
-                  cards(newer),
+                  h.h3([sx(h, styles.subTitle)], [NEWER_ISSUES_TITLE]),
+                  cards(newer, benchmark.length),
                 ]),
           ]
         ),
