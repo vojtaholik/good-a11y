@@ -17,6 +17,8 @@ import {
   ScanJobSchema,
   ScanStepFailed,
   ScanSteps,
+  SiteEvidenceSchema,
+  crawlSite,
   inspectUrl,
   judgedOf,
   judgedSkipped,
@@ -60,13 +62,23 @@ import { DAILY_BROWSER_SECONDS_NAME, secondsUsed } from "./browser-limits.js";
 import {
   EvidenceArchive,
   axeEvidenceKey,
+  crawledEvidenceKey,
+  crawledPageKey,
   pageEvidenceKey,
+  siteEvidenceKey,
 } from "./evidence-archive.js";
 import { scanDomainLayer } from "./scan-domain.js";
 
 const ReportJson = Schema.fromJsonString(ReportSchema);
 
 const EvidenceJson = Schema.fromJsonString(PageEvidenceSchema);
+
+const SiteJson = Schema.fromJsonString(SiteEvidenceSchema);
+
+const CRAWL_PATIENCE = {
+  retries: { delay: "3 seconds", limit: 0 },
+  timeout: "90 seconds",
+} as const;
 
 const JUDGE_PATIENCE = {
   retries: { delay: "3 seconds", limit: 0 },
@@ -123,6 +135,52 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
       }).pipe(
         Effect.provideContext(domain),
         Effect.mapError(spentIn(job, "scan"))
+      );
+
+    const crawl = (job: ScanJob, report: Report) =>
+      Effect.gen(function* crawlStep() {
+        const stored =
+          report.outcome === "checked" && report.finalUrl !== null
+            ? yield* archive.get(pageEvidenceKey(job))
+            : null;
+
+        if (stored === null || report.finalUrl === null) {
+          return yield* Schema.encodeEffect(ReportJson)(report);
+        }
+
+        const entered = yield* Schema.decodeEffect(EvidenceJson)(
+          yield* stored.text()
+        );
+
+        const { read, site } = yield* crawlSite(report.finalUrl, entered);
+
+        yield* Effect.forEach(
+          read,
+          ({ body, evidence, page }) =>
+            Effect.all([
+              archive.put(crawledPageKey(job, page.role), body),
+              Schema.encodeEffect(EvidenceJson)(evidence).pipe(
+                Effect.flatMap((json) =>
+                  archive.put(crawledEvidenceKey(job, page.role), json)
+                )
+              ),
+            ]),
+          { discard: true }
+        );
+
+        yield* archive.put(
+          siteEvidenceKey(job),
+          yield* Schema.encodeEffect(SiteJson)(site)
+        );
+
+        yield* Effect.logInfo(
+          `Crawl of ${job.target.url}: ${site.pages.map((page) => `${page.role} ${page.outcome === "read" ? "read" : page.reason}`).join(", ") || "no pages picked"}`
+        );
+
+        return yield* Schema.encodeEffect(ReportJson)(report);
+      }).pipe(
+        Effect.provideContext(domain),
+        Effect.mapError(spentIn(job, "crawl"))
       );
 
     const session = (job: ScanJob, report: Report, onClose: OnClose) =>
@@ -334,6 +392,19 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
       >();
 
       const steps = ScanSteps.of({
+        crawl: (scanned, report) =>
+          Cloudflare.Workflows.task(
+            "crawl",
+            crawl(scanned, report),
+            CRAWL_PATIENCE
+          ).pipe(
+            Effect.provideContext(services),
+            Effect.flatMap((json) =>
+              Schema.decodeEffect(ReportJson)(json).pipe(
+                Effect.mapError(spentIn(scanned, "crawl"))
+              )
+            )
+          ),
         fail: (scanned, failure) =>
           Cloudflare.Workflows.task(
             "fail",

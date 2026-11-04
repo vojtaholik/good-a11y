@@ -28,7 +28,12 @@ const rendered = (scanned: Report): Report => ({
   headline: "rendered",
 });
 
-type Step = "scan" | "render" | "judge" | "store" | "fail";
+type Step = "scan" | "crawl" | "render" | "judge" | "store" | "fail";
+
+const crawled = (scanned: Report): Report => ({
+  ...scanned,
+  outcomeDetail: "crawled",
+});
 
 const judged = (scanned: Report): Report => ({
   ...scanned,
@@ -56,6 +61,8 @@ const hostWhere = (failing: readonly Step[]) =>
       );
 
     const steps = ScanSteps.of({
+      crawl: (_job, scanned) =>
+        record("crawl").pipe(Effect.as(crawled(scanned))),
       fail: () => record("fail"),
       judge: (_job, scanned) =>
         record("judge").pipe(Effect.as(judged(scanned))),
@@ -79,7 +86,7 @@ describe("runScan", () => {
       );
 
       expect(outcome.stage).toBe("published");
-      expect(yield* Ref.get(host.kept)).toEqual(judged(report));
+      expect(yield* Ref.get(host.kept)).toEqual(judged(crawled(report)));
     })
   );
 
@@ -92,7 +99,7 @@ describe("runScan", () => {
       );
 
       expect(outcome.stage).toBe("published");
-      expect(yield* Ref.get(host.kept)).toEqual(rendered(report));
+      expect(yield* Ref.get(host.kept)).toEqual(rendered(crawled(report)));
     })
   );
 
@@ -107,10 +114,26 @@ describe("runScan", () => {
       expect(outcome.stage).toBe("published");
       expect(yield* Ref.get(host.calls)).toEqual([
         "scan",
+        "crawl",
         "render",
         "judge",
         "store",
       ]);
+      expect(yield* Ref.get(host.kept)).toEqual(
+        judged(rendered(crawled(report)))
+      );
+    })
+  );
+
+  it.effect("renders the uncrawled report when crawling is spent", () =>
+    Effect.gen(function* crawlSpent() {
+      const host = yield* hostWhere(["crawl"]);
+
+      const outcome = yield* runScan(job).pipe(
+        Effect.provideService(ScanSteps, host.steps)
+      );
+
+      expect(outcome.stage).toBe("published");
       expect(yield* Ref.get(host.kept)).toEqual(judged(rendered(report)));
     })
   );
@@ -139,6 +162,7 @@ describe("runScan", () => {
       expect(outcome.stage).toBe("failed");
       expect(yield* Ref.get(host.calls)).toEqual([
         "scan",
+        "crawl",
         "render",
         "judge",
         "store",

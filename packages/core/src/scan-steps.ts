@@ -8,6 +8,10 @@ import type { ScanStepFailed } from "./scan-step-failed.js";
 export class ScanSteps extends Context.Service<
   ScanSteps,
   {
+    readonly crawl: (
+      job: ScanJob,
+      report: Report
+    ) => Effect.Effect<Report, ScanStepFailed>;
     readonly fail: (
       job: ScanJob,
       failure: string

@@ -32,6 +32,16 @@ const scan = fromEffect({
   schemas: { input: StepInput, output: ReportSchema },
 });
 
+const crawl = fromEffect({
+  effect: ({ input: { job, report } }) =>
+    report === undefined
+      ? Effect.die(
+          new Error(`Scan ${job.scanId} reached crawling without a report`)
+        )
+      : ScanSteps.use((steps) => steps.crawl(job, report)),
+  schemas: { input: StoreInput, output: ReportSchema },
+});
+
 const render = fromEffect({
   effect: ({ input: { job, report } }) =>
     report === undefined
@@ -69,7 +79,7 @@ const settleFailed = fromEffect({
 });
 
 export const scanMachine = setupEffect({
-  actors: { judge, render, scan, settleFailed, store },
+  actors: { crawl, judge, render, scan, settleFailed, store },
   schemas: {
     context: types<ScanContext>(),
     input: ScanJobSchema,
@@ -79,6 +89,20 @@ export const scanMachine = setupEffect({
   initial: "scanning",
   output: ({ context }) => ({ stage: context.stage }),
   states: {
+    crawling: {
+      invoke: {
+        input: ({ context }) => ({ job: context.job, report: context.report }),
+        onDone: {
+          context: ({ context, event }) => ({
+            ...context,
+            report: event.output,
+          }),
+          target: "rendering",
+        },
+        onError: { target: "rendering" },
+        src: "crawl",
+      },
+    },
     failed: { type: "final" },
     failing: {
       invoke: {
@@ -127,7 +151,7 @@ export const scanMachine = setupEffect({
             ...context,
             report: event.output,
           }),
-          target: "rendering",
+          target: "crawling",
         },
         onError: { target: "failing" },
         src: "scan",
