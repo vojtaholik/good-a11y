@@ -200,21 +200,23 @@ export const prepareProject = Effect.fn("prepareProject")(
   }
 );
 
-const codexHomeOf = Effect.fn("codexHomeOf")(function* codexHomeOf(
+const agentHomeOf = Effect.fn("agentHomeOf")(function* agentHomeOf(
   workDir: string
 ) {
   const fileSystem = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
-  const home = yield* Config.String("HOME");
-  const codexHome = path.join(workDir, "codex-home");
+  const userHome = yield* Config.String("HOME");
+  const home = path.join(workDir, "home");
 
-  yield* fileSystem.makeDirectory(codexHome, { recursive: true });
+  yield* fileSystem.makeDirectory(path.join(home, ".codex"), {
+    recursive: true,
+  });
   yield* fileSystem.symlink(
-    path.join(home, ".codex", "auth.json"),
-    path.join(codexHome, "auth.json")
+    path.join(userHome, ".codex", "auth.json"),
+    path.join(home, ".codex", "auth.json")
   );
 
-  return codexHome;
+  return home;
 });
 
 const runAgent = Effect.fn("runAgent")(function* runAgent(
@@ -223,10 +225,10 @@ const runAgent = Effect.fn("runAgent")(function* runAgent(
   project: string,
   workDir: string
 ) {
-  const codexHome = spec.agent === "codex" ? yield* codexHomeOf(workDir) : "";
+  const home = spec.agent === "codex" ? yield* agentHomeOf(workDir) : "";
 
   const invocation = invocationOf(spec.agent, {
-    codexHome,
+    home,
     project,
     prompt: spec.loaded.task.prompt,
     stubScript: paths.stubScript,

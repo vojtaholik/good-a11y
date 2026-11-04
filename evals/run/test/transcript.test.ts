@@ -99,7 +99,7 @@ describe("reading an agent transcript", () => {
         {
           item: {
             command:
-              "bash -lc \"node /b/good-a11y.mjs search 'skip link landmarks'\"",
+              'bash -lc "node /b/good-a11y.mjs search \'skip link landmarks\'; node /b/good-a11y.mjs retrieve \\"tabs,focus-visible\\""',
             type: "command_execution",
           },
           type: "item.completed",
@@ -120,12 +120,40 @@ describe("reading an agent transcript", () => {
     );
 
     expect(summary.use.searches).toEqual(["skip link landmarks"]);
+    expect(summary.use.retrieved).toEqual(["tabs", "focus-visible"]);
     expect(summary.use.skillOpened).toBe(true);
     expect(summary.usage).toEqual({
       cachedInputTokens: 1000,
       costUsd: null,
       inputTokens: 2010,
       outputTokens: 301,
+    });
+  });
+
+  it("follows the bundle through a shell variable, and only through one that holds it", () => {
+    const summary = summarizeTranscript(
+      lines({
+        message: {
+          content: [
+            {
+              input: {
+                command:
+                  'cd /p; B=/x/bundle/good-a11y.mjs; node $B search "toast live region"; node $B retrieve "status-messages-toast,reduced-motion"; node $OTHER search "not ours"; G="node /x/bundle/good-a11y.mjs"; $G search "skip link"',
+              },
+              name: "Bash",
+              type: "tool_use",
+            },
+          ],
+        },
+        type: "assistant",
+      })
+    );
+
+    expect(summary.use).toEqual({
+      checks: [],
+      retrieved: ["status-messages-toast", "reduced-motion"],
+      searches: ["toast live region", "skip link"],
+      skillOpened: false,
     });
   });
 

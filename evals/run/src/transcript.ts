@@ -104,15 +104,24 @@ const decodeLine = Schema.decodeUnknownOption(
 );
 
 const GOOD_A11Y_COMMAND =
-  /good-a11y(?:\.mjs)?\s+(?<command>search|retrieve|check|list)\b(?<argument>[^\n;&|]*)/gu;
+  /(?:good-a11y(?:\.mjs)?|\$\{?(?<variable>\w+)\}?)\s+(?<command>search|retrieve|check|list)\b(?<argument>[^\n;&|]*)/gu;
+
+const GOOD_A11Y_VARIABLE =
+  /\b(?<name>[A-Za-z_]\w*)=(?:\\?"[^"]*good-a11y(?:\.mjs)?\\?"|'[^']*good-a11y(?:\.mjs)?'|[^\s;"']*good-a11y(?:\.mjs)?(?=[\s;]|$))/gu;
 
 const FIRST_ARGUMENT =
-  /^\s*(?:--json\s+|--chrome\s+\S+\s+)*(?:"(?<double>[^"]*)"|'(?<single>[^']*)'|(?<bare>[^\s"']+))/u;
+  /^\s*(?:--json\s+|--chrome\s+\S+\s+)*(?:\\"(?<escaped>[^"\\]*)\\"|"(?<double>[^"]*)"|'(?<single>[^']*)'|(?<bare>[^\s"'\\]+))/u;
 
 const firstArgument = (text: string): string => {
   const groups = FIRST_ARGUMENT.exec(text)?.groups;
 
-  return (groups?.double ?? groups?.single ?? groups?.bare ?? "").trim();
+  return (
+    groups?.escaped ??
+    groups?.double ??
+    groups?.single ??
+    groups?.bare ??
+    ""
+  ).trim();
 };
 
 export const goodA11yUseOf = (toolUses: readonly ToolUse[]): GoodA11yUse => {
@@ -120,8 +129,22 @@ export const goodA11yUseOf = (toolUses: readonly ToolUse[]): GoodA11yUse => {
   const retrieved: string[] = [];
   const checks: string[] = [];
 
+  const variables = new Set(
+    toolUses.flatMap((use) =>
+      [...(use.command?.matchAll(GOOD_A11Y_VARIABLE) ?? [])].flatMap((match) =>
+        match.groups?.name === undefined ? [] : [match.groups.name]
+      )
+    )
+  );
+
   for (const use of toolUses) {
     for (const match of use.command?.matchAll(GOOD_A11Y_COMMAND) ?? []) {
+      const variable = match.groups?.variable;
+
+      if (variable !== undefined && !variables.has(variable)) {
+        continue;
+      }
+
       const argument = firstArgument(match.groups?.argument ?? "");
 
       if (match.groups?.command === "search") {

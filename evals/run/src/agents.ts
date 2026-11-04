@@ -13,7 +13,7 @@ export interface AgentInvocation {
 }
 
 export interface InvocationInput {
-  readonly codexHome: string;
+  readonly home: string;
   readonly project: string;
   readonly prompt: string;
   readonly stubScript: string;
@@ -91,7 +91,7 @@ export const invocationOf = (
         input.prompt,
       ],
       command: "codex",
-      env: { CODEX_HOME: input.codexHome },
+      env: { CODEX_HOME: `${input.home}/.codex`, HOME: input.home },
     };
   }
 

@@ -5,6 +5,7 @@ import type { RunResult } from "./result.js";
 import { gradeProject, prepareProject, runToEnd } from "./run.js";
 import type { RunPaths } from "./run.js";
 import { readTask } from "./task.js";
+import { summarizeTranscript } from "./transcript.js";
 
 const decodeResult = Schema.decodeUnknownEffect(
   Schema.fromJsonString(RunResultSchema)
@@ -40,10 +41,29 @@ export const regradeOne = Effect.fn("regradeOne")(function* regradeOne(
 ) {
   const fileSystem = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
-  const previous = yield* readResult(path.join(runDir, "result.json"));
+  const recorded = yield* readResult(path.join(runDir, "result.json"));
+  const transcriptFile = path.join(runDir, "transcript.jsonl");
+
+  const transcript = (yield* fileSystem.exists(transcriptFile))
+    ? summarizeTranscript(yield* fileSystem.readFileString(transcriptFile))
+    : recorded.transcript;
+
+  const previous: RunResult = {
+    ...recorded,
+    guideRetrieved: transcript.use.retrieved.includes(recorded.guide),
+    transcript,
+  };
+
+  const save = (result: RunResult) =>
+    fileSystem
+      .writeFileString(
+        path.join(runDir, "result.json"),
+        `${JSON.stringify(result, null, 2)}\n`
+      )
+      .pipe(Effect.as(result));
 
   if (previous.status === "agent-failed" || previous.status === "run-failed") {
-    return previous;
+    return yield* save(previous);
   }
 
   const loaded = yield* readTask(paths.evalsRoot, previous.guide, previous.app);
@@ -67,14 +87,6 @@ export const regradeOne = Effect.fn("regradeOne")(function* regradeOne(
 
   const patch = path.join(runDir, "changes.patch");
   const regradedAt = DateTime.formatIso(yield* DateTime.now);
-
-  const save = (result: RunResult) =>
-    fileSystem
-      .writeFileString(
-        path.join(runDir, "result.json"),
-        `${JSON.stringify(result, null, 2)}\n`
-      )
-      .pipe(Effect.as(result));
 
   if ((yield* fileSystem.readFileString(patch)).trim() !== "") {
     const applied = yield* runToEnd(
