@@ -3,7 +3,10 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 
 const git = (...arguments_: readonly string[]): string =>
-  execFileSync("git", arguments_, { encoding: "utf-8" });
+  execFileSync("git", arguments_, {
+    encoding: "utf-8",
+    maxBuffer: 256 * 1024 * 1024,
+  });
 
 export const sourceBuildId = (): string =>
   createHash("sha256")
