@@ -1,0 +1,8 @@
+# Task: builder-judge (round 2)
+
+Read `_common-2.md`, `docs/judged-checks.md` (method, calibration, budget), `docs/accuracy-qa.md`. You own `packages/core/src/judged.ts` and judged tests/fixtures, `packages/ai-judge`.
+
+1. Link purpose fix now: leave out links inside nav/header/footer (extend html-reader evidence with a landmark flag; tell builder-core), dedupe by text, ask in-content links first. Recalibrate on real items.
+2. New questions (decision 29), each a `JudgedCheck` with `shown: false` until calibrated: EAA scope (does the site sell goods or services to consumers online; evidence: prices, cart, checkout links, schema.org Product/Offer, from static evidence of the crawled pages), sensory instructions 1.3.3 (candidate sentences found by a deterministic phrase prefilter in EU languages), language of parts 3.1.2 (blocks without lang), accessibility statement vs each Annex V point (needs research-2's facts and builder-cloud's crawl), product accessibility information IV (g), and the rendered ones once builder-cloud ships evidence: visual headings 1.3.1, form instructions 3.3.2, error messages 3.3.1/3.3.3, consistent identification 3.2.4.
+3. Calibration per question: at least 30 real items from real pages (the 21-site set in `docs/accuracy-qa.md` plus more EU shops), labelled by hand before looking at answers, one recorded Clef run, precision >= 0.9 to set `shown: true`; record precision/recall and the threshold in `docs/judged-checks.md`. Stay within the daily Clef allocation (`DAILY_JUDGE_TOKENS`, settle on real usage); calibration runs count toward it, so space them.
+4. Retire any question that cannot reach the bar; record why.

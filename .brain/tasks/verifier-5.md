@@ -1,0 +1,3 @@
+# Task: verifier-5
+
+Read `_common-2.md` and `.brain/tasks/verifier.md` (your method: open each source, check the excerpt verbatim and that the claim follows; set `status: verified` or `rejected` with `verifier_note`). Wait for "ready:" messages from research-2. Run `pnpm facts` and the facts tests after each batch, commit and push the ledger when green. Tell research-2 about every reject, and the lead when each batch is done. Then audit the new product text from builder-core (verdict, checklist rows, EAA lines) against the ledger like `docs/product-text-audit-2.md`, as `docs/product-text-audit-3.md`.
