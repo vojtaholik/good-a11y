@@ -15,12 +15,19 @@ import { CLI, SKILL_PATH } from "../features/agent-links.js";
 import { LOCAL_CHECK } from "../features/check-view.js";
 import { RETRIEVE, demoPath } from "../features/guide-view.js";
 import { categoryName, guidesByCategory } from "../features/guides.js";
+import { ABOUT, Blocks, PRIVACY } from "../features/info-pages.js";
+import type { InfoPage } from "../features/info-pages.js";
 import {
   CHECK_DESCRIPTION,
   pageMetaOf,
   SITE_NAME,
 } from "../features/page-meta.js";
-import { AppRoute, guideRouter } from "../features/route.js";
+import {
+  AppRoute,
+  aboutRouter,
+  guideRouter,
+  privacyRouter,
+} from "../features/route.js";
 import type { AppRouteState } from "../features/route.js";
 
 const FRONTMATTER = /^---\n[\s\S]*?\n---\n+/u;
@@ -135,6 +142,30 @@ const reportMarkdown = (
           ],
   });
 
+const infoMarkdown = (page: InfoPage): string[] => [
+  `# ${page.title}`,
+  "",
+  page.lead,
+  ...page.sections.flatMap((section) => [
+    "",
+    `## ${section.heading}`,
+    ...section.blocks.flatMap((block) => [
+      "",
+      Blocks.$match(block, {
+        Link: ({ before, href, label }) => `${before} [${label}](${href}).`,
+        List: ({ items }) => items.map((item) => `- ${item}`).join("\n"),
+        Table: ({ head, rows }) =>
+          [
+            `| ${head.join(" | ")} |`,
+            `| ${head.map(() => "---").join(" | ")} |`,
+            ...rows.map((row) => `| ${row.join(" | ")} |`),
+          ].join("\n"),
+        Text: ({ text }) => text,
+      }),
+    ]),
+  ]),
+];
+
 const notFoundMarkdown = (): string[] => [
   "# Page not found",
   "",
@@ -147,6 +178,7 @@ export const pageMarkdown = (
   maybeScan: Option.Option<ScanView>
 ): string =>
   AppRoute.match<string[]>(route, {
+    About: () => infoMarkdown(ABOUT),
     Check: checkMarkdown,
     Guide: ({ guideId }) =>
       Option.match(guideOf(guideId), {
@@ -155,6 +187,7 @@ export const pageMarkdown = (
       }),
     Home: () => homeMarkdown(origin),
     NotFound: notFoundMarkdown,
+    Privacy: () => infoMarkdown(PRIVACY),
     Report: ({ slug }) => reportMarkdown(slug, maybeScan),
     Scan: ({ slug }) => reportMarkdown(slug, maybeScan),
   }).join("\n");
@@ -181,6 +214,7 @@ export const llmsTxt = (origin: string): string =>
     "",
     `- [good-a11y skill](${origin}${SKILL_PATH}): triggers and the search, retrieve, build and check loop`,
     `- [Check a page](${origin}/check): what the checker tests, per WCAG success criterion`,
+    `- [Privacy](${origin}${privacyRouter()}): what the checker stores and for how long`,
     "",
     "## Guides",
     "",
@@ -198,6 +232,8 @@ export const sitemapXml = (origin: string): string =>
     ...[
       "/",
       "/check",
+      aboutRouter(),
+      privacyRouter(),
       ...GUIDES.map((guide) => guideRouter({ guideId: guide.id })),
     ].map((path) => `  <url><loc>${origin}${path}</loc></url>`),
     "</urlset>",

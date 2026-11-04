@@ -109,6 +109,8 @@ const checkJson = (url: string) =>
 const PAGES = [
   "/",
   "/check",
+  "/about",
+  "/privacy",
   "/no-such-page",
   ...GUIDES.map((guide) => `/guides/${guide.id}`),
 ];

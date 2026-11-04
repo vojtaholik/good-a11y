@@ -6,7 +6,13 @@ import type { AppMessage } from "../client/message.js";
 import { guidePageOf } from "./guides.js";
 import { wordmarkIcon } from "./icons.js";
 import { MAIN_ID } from "./landmarks.js";
-import { AppRoute, checkRouter, homeRouter } from "./route.js";
+import {
+  AppRoute,
+  aboutRouter,
+  checkRouter,
+  homeRouter,
+  privacyRouter,
+} from "./route.js";
 import type { AppRouteState } from "./route.js";
 import { sx } from "./sx.js";
 import { colors, font, layout, radius, size, space } from "./tokens.stylex.js";
@@ -138,21 +144,25 @@ type Current = "page" | "true" | null;
 
 const guidesCurrent = (route: AppRouteState): Current =>
   AppRoute.match<Current>(route, {
+    About: () => null,
     Check: () => null,
     Guide: ({ guideId }) =>
       Option.isSome(guidePageOf(guideId)) ? "true" : null,
     Home: () => null,
     NotFound: () => null,
+    Privacy: () => null,
     Report: () => null,
     Scan: () => null,
   });
 
 const checkCurrent = (route: AppRouteState): Current =>
   AppRoute.match<Current>(route, {
+    About: () => null,
     Check: () => "page",
     Guide: () => null,
     Home: () => null,
     NotFound: () => null,
+    Privacy: () => null,
     Report: () => "true",
     Scan: () => "true",
   });
@@ -217,6 +227,11 @@ const footer = (h: HtmlBuilder<AppMessage>): Html =>
           h.nav(
             [h.AriaLabel("Footer"), sx(h, shell.footerNav)],
             [
+              h.a([h.Href(aboutRouter()), sx(h, shell.footerLink)], ["About"]),
+              h.a(
+                [h.Href(privacyRouter()), sx(h, shell.footerLink)],
+                ["Privacy"]
+              ),
               h.a([h.Href(GITHUB_URL), sx(h, shell.footerLink)], ["GitHub"]),
               h.a(
                 [h.Href(LLMS_PATH), sx(h, shell.footerLink, shell.mono)],

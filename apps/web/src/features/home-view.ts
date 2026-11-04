@@ -7,7 +7,7 @@ import { AGENT_COMMAND, SKILL_PATH } from "./agent-links.js";
 import { commandBlock } from "./command-block.js";
 import { categoryName, guidesByCategory } from "./guides.js";
 import { MAIN_ID } from "./landmarks.js";
-import { guideRouter } from "./route.js";
+import { guideRouter, privacyRouter } from "./route.js";
 import { scanForm } from "./scan-form.js";
 import { LLMS_PATH } from "./shell.js";
 import { sx } from "./sx.js";
@@ -201,6 +201,10 @@ const home = stylex.create({
     fontSize: "0.9375rem",
     margin: 0,
   },
+  noteLink: {
+    color: colors["--accent"],
+    textUnderlineOffset: "3px",
+  },
   sectionHeading: {
     fontSize: SECTION_HEADING,
     fontWeight: 800,
@@ -244,7 +248,16 @@ const heroView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
             ["Check one page"]
           ),
           scanForm(model, h),
-          h.p([sx(h, home.note)], ["Takes 20 to 90 seconds."]),
+          h.p(
+            [sx(h, home.note)],
+            [
+              "Takes 20 to 90 seconds. ",
+              h.a(
+                [h.Href(privacyRouter()), sx(h, home.noteLink)],
+                ["What we store"]
+              ),
+            ]
+          ),
         ]
       ),
     ]

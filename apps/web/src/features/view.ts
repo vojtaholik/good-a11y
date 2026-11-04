@@ -7,6 +7,8 @@ import { checkView } from "./check-view.js";
 import { guideView } from "./guide-view.js";
 import { guidePageOf } from "./guides.js";
 import { homeView } from "./home-view.js";
+import { ABOUT, PRIVACY } from "./info-pages.js";
+import { infoView } from "./info-view.js";
 import { notFoundView } from "./not-found-view.js";
 import { pageMetaOf } from "./page-meta.js";
 import { reportView } from "./report-view.js";
@@ -15,6 +17,7 @@ import { pageShell } from "./shell.js";
 
 const routeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
   AppRoute.match<Html>(model.route, {
+    About: () => infoView(ABOUT, h),
     Check: () => checkView(model, h),
     Guide: ({ guideId }) =>
       Option.match(guidePageOf(guideId), {
@@ -23,6 +26,7 @@ const routeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
       }),
     Home: () => homeView(model, h),
     NotFound: () => notFoundView(h),
+    Privacy: () => infoView(PRIVACY, h),
     Report: ({ slug }) => reportView(model, slug, h),
     Scan: ({ slug }) => reportView(model, slug, h),
   });

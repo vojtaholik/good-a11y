@@ -7,6 +7,7 @@ import { CLI } from "./agent-links.js";
 import { checksView } from "./checks-view.js";
 import { commandBlock } from "./command-block.js";
 import { MAIN_ID } from "./landmarks.js";
+import { privacyRouter } from "./route.js";
 import { scanForm } from "./scan-form.js";
 import { sx } from "./sx.js";
 import { colors, layout, radius } from "./tokens.stylex.js";
@@ -72,6 +73,10 @@ const check = stylex.create({
     fontSize: "0.9375rem",
     margin: 0,
   },
+  noteLink: {
+    color: colors["--accent"],
+    textUnderlineOffset: "3px",
+  },
   title: {
     fontSize: "clamp(2.25rem, 2.4cqi + 1.5rem, 3.5rem)",
     fontWeight: 800,
@@ -115,7 +120,16 @@ export const checkView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
                 ["Page to check"]
               ),
               scanForm(model, h),
-              h.p([sx(h, check.note)], ["Takes 20 to 90 seconds."]),
+              h.p(
+                [sx(h, check.note)],
+                [
+                  "Takes 20 to 90 seconds. ",
+                  h.a(
+                    [h.Href(privacyRouter()), sx(h, check.noteLink)],
+                    ["What we store"]
+                  ),
+                ]
+              ),
             ]
           ),
         ]

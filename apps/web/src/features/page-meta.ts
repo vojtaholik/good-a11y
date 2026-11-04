@@ -18,8 +18,19 @@ const HOME_DESCRIPTION =
 export const CHECK_DESCRIPTION =
   "Check one web page for accessibility issues: static HTML checks and axe-core in a real browser, each issue with its WCAG success criterion and a guide to fix it.";
 
+export const ABOUT_DESCRIPTION =
+  "Who makes good-a11y, why it writes guides for coding agents, and how the guides are tested.";
+
+export const PRIVACY_DESCRIPTION =
+  "What the checker stores when you check a page, for how long, and what goes to a model.";
+
 export const pageMetaOf = (route: AppRouteState): PageMeta =>
   AppRoute.match<PageMeta>(route, {
+    About: () => ({
+      description: ABOUT_DESCRIPTION,
+      isIndexed: true,
+      title: `About | ${SITE_NAME}`,
+    }),
     Check: () => ({
       description: CHECK_DESCRIPTION,
       isIndexed: true,
@@ -47,6 +58,11 @@ export const pageMetaOf = (route: AppRouteState): PageMeta =>
       description: HOME_DESCRIPTION,
       isIndexed: false,
       title: `Page not found | ${SITE_NAME}`,
+    }),
+    Privacy: () => ({
+      description: PRIVACY_DESCRIPTION,
+      isIndexed: true,
+      title: `Privacy | ${SITE_NAME}`,
     }),
     Report: ({ slug }) => ({
       description: `The newest automated accessibility check of ${slug}.`,
