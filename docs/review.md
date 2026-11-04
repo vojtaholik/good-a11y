@@ -231,3 +231,12 @@ Verified fixed (code read, `@eaa-check/core` tests 264/264):
 - The fail headline now counts distinct failing WCAG 2.1 criteria (`failingCriteria`, from `wcag` references of level A/AA issues). That is always at least 1 when `kind` is `fails`, because a level comes from a verified `wcag` reference.
 
 Still open: R2-H1 (submits off on dev; builder-cloud is adding the browser-level fix and the service-worker channel to the canary), R2-M1, R2-M2, R2-L1, R2-L2, R2-L3.
+
+### Round 2 re-check 3 (08:08 CET) of 766c553
+
+Verified fixed:
+
+- **R2-H1.** `NO_POPUPS` now starts with `delete Navigator.prototype.serviceWorker`. Puppeteer 1.4.0 adds it to every frame, cross-origin iframes included (`FrameManager.js:178`, preload scripts on each attached frame session), so no worker can register at any point in the session. Before the first submit, a browser-target CDP session runs `Fetch.enable` with `*`. Paused documents get a local 204, and everything else is failed. That matches the fix I verified locally (0 requests after lockdown), and the local 204 also keeps the page in place. Live, read-only (`alchemy logs --stage dev -r Canary --since 2h`): the control run in a normal Chrome 156 (06:56:22 UTC) reached every channel, `/hit/service-worker` included. The scanner run (eaa-check user agent, 06:56:32-37) logged only `GET /`, `POST /report/service-worker-api-missing` and `GET /favicon.ico`, and no `/hit/*` after it. The canary now exercises every path I found.
+- **R2-L1.** Each form's submit and read run in their own `optional`. A form whose read fails keeps `errors: null`, and after `left: true` no later form is submitted, while earlier forms keep their evidence.
+
+Still open: R2-M1 (the submits run and are archived, but no check reads them; the risk is now contained, so this is a cost item: up to 15 s of browser time per scan with forms), R2-M2 (per-stage judge cap), R2-L2 (R2 lifecycle), R2-L3 (`page-language-matches` bar).
