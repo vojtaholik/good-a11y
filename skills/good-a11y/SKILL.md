@@ -16,7 +16,7 @@ Do not use it for: backend code, build config, copy edits with no markup, stylin
 1. `search "<2-5 words>"` names the task, such as `search "modal dialog focus"`. It prints `[{id, description}]`.
 2. `retrieve "<id>[,<id>]"` prints the guides. When it prints a file path, read that file.
 3. Build with them. Follow every DO and DO NOT.
-4. `check <url>` on your running page, `localhost` included.
+4. `check <url>` on your running page, `localhost` included. `check` needs a local server and Chrome. When your sandbox blocks them (`listen EPERM`, or `check` says a sandbox is blocking it), ask the user to run the server and `check` outside the sandbox, for example by approving the command to run unsandboxed. Do not skip the check silently.
 5. Fix each issue it lists with the guide it names, then check again.
 
 `list` prints every guide.

@@ -15,7 +15,7 @@ export const AGENT_JUDGED_LABEL =
   "Judged by your agent, not calibrated. These are not counted as issues and change nothing above. Answer each from the evidence; where the answer is no, look at the page and fix it.";
 
 export const CHROME_FIX =
-  "To run the rendered check, install Google Chrome, or pass the path of a Chrome or Chromium binary with --chrome <path>.";
+  "To run the rendered check, install Google Chrome, or pass the path of a Chrome or Chromium binary with --chrome <path>. If Chrome is installed and this runs inside a coding agent's sandbox, the sandbox is blocking the browser: run the check outside it.";
 
 export interface LocalCheckText {
   readonly guidesFor: (key: string) => readonly string[];

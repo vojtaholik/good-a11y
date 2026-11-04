@@ -30,6 +30,8 @@ const CONNECTION_CODES = new Set([
   "UND_ERR_SOCKET",
 ]);
 
+const SANDBOX_CODES = new Set(["EACCES", "EPERM"]);
+
 const TLS_CODE =
   /^(?:CERT_|DEPTH_ZERO_|ERR_SSL_|ERR_TLS_|SELF_SIGNED_|UNABLE_TO_)/u;
 
@@ -48,6 +50,10 @@ const kindOf = (code: string | undefined): TransportFailure["kind"] => {
 
   if (CONNECTION_CODES.has(code)) {
     return "connection";
+  }
+
+  if (SANDBOX_CODES.has(code)) {
+    return "sandboxed";
   }
 
   return TLS_CODE.test(code) ? "tls" : "unknown";

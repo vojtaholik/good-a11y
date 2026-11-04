@@ -9,6 +9,7 @@ export class TransportFailure extends Schema.TaggedError<TransportFailure>()(
       "tls",
       "connection",
       "not_public",
+      "sandboxed",
       "unknown",
     ]),
   }

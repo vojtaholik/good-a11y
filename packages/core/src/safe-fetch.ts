@@ -52,6 +52,11 @@ const TRANSPORT_REASONS = {
     detail: "The domain resolves to a private or reserved address.",
     reason: "forbidden_host",
   },
+  sandboxed: {
+    detail:
+      "This process may not open network connections, so a sandbox around it, such as a coding agent's, is blocking them. Run the dev server and this check outside the sandbox.",
+    reason: "network",
+  },
   tls: {
     detail: "A secure (HTTPS) connection could not be made.",
     reason: "tls",

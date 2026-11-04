@@ -118,6 +118,7 @@ describe("the HTTP hop transport", () => {
     ["ENOTFOUND", "dns"],
     ["ECONNREFUSED", "connection"],
     ["CERT_HAS_EXPIRED", "tls"],
+    ["EPERM", "network"],
     ["SOMETHING_NEW", "network"],
   ] as const)(
     "reports the runtime's %s as a %s failure and keeps the code",

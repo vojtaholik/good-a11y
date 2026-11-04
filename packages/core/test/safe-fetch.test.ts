@@ -285,6 +285,17 @@ describe("SafeFetch outcomes", () => {
       expect(result).toMatchObject({ cause: "scripted", ok: false, reason });
     })
   );
+
+  it.effect("names a sandbox when the process may not open connections", () =>
+    Effect.gen(function* sandboxedTransport() {
+      const result = yield* fetchWith(() => ({ failure: "sandboxed" }), []);
+
+      expect(result).toMatchObject({ ok: false, reason: "network" });
+      expect(result.ok ? "" : result.detail).toContain(
+        "Run the dev server and this check outside the sandbox"
+      );
+    })
+  );
 });
 
 describe("looksBlocked", () => {
