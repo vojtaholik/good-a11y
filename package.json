@@ -31,6 +31,9 @@
     "guides": "pnpm --filter @eaa-check/guides run guides",
     "good-a11y:bundle": "turbo run build --filter=@eaa-check/good-a11y && pnpm --filter @eaa-check/good-a11y run bundle"
   },
+  "dependencies": {
+    "puppeteer-core": "25.13.0"
+  },
   "devDependencies": {
     "@earendil-works/pi-coding-agent": "0.86.1",
     "@effect/tsgo": "0.45.0",

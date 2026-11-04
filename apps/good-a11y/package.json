@@ -15,7 +15,11 @@
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {
+    "@eaa-check/browser-audit": "workspace:*",
+    "@eaa-check/core": "workspace:*",
     "@eaa-check/guides": "workspace:*",
+    "@eaa-check/html-reader": "workspace:*",
+    "@eaa-check/http-transport": "workspace:*",
     "@effect/platform-node": "4.0.0",
     "effect": "4.0.0"
   },

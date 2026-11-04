@@ -31,3 +31,5 @@ export {
   type GuideHit,
   type GuideIndex,
 } from "./search.js";
+
+export { CHECK_GUIDES, guidesForCheck } from "./check-guides.js";

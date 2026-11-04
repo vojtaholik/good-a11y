@@ -210,6 +210,10 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      puppeteer-core:
+        specifier: 25.13.0
+        version: 25.13.0(yauzl@3.4.0)
     devDependencies:
       '@earendil-works/pi-coding-agent':
         specifier: 0.86.1
@@ -293,9 +297,21 @@ importers:
 
   apps/good-a11y:
     dependencies:
+      '@eaa-check/browser-audit':
+        specifier: workspace:*
+        version: link:../../packages/browser-audit
+      '@eaa-check/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       '@eaa-check/guides':
         specifier: workspace:*
         version: link:../../packages/guides
+      '@eaa-check/html-reader':
+        specifier: workspace:*
+        version: link:../../packages/html-reader
+      '@eaa-check/http-transport':
+        specifier: workspace:*
+        version: link:../../packages/http-transport
       '@effect/platform-node':
         specifier: 4.0.0
         version: 4.0.0(effect@4.0.0)(redis@6.2.1)
