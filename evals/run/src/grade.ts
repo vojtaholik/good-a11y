@@ -15,6 +15,7 @@ export interface CheckGrade {
 }
 
 export interface Expectation {
+  readonly error: string | null;
   readonly ok: boolean;
   readonly title: string;
 }
@@ -46,17 +47,39 @@ const decodeReport = Schema.decodeUnknownEffect(
   Schema.fromJsonString(ReportSchema)
 );
 
+interface PlaywrightSpec {
+  readonly ok: boolean;
+  readonly tests: readonly {
+    readonly results: readonly {
+      readonly error?: { readonly message?: string | undefined } | undefined;
+    }[];
+  }[];
+  readonly title: string;
+}
+
+const PlaywrightSpecSchema = Schema.Struct({
+  ok: Schema.Boolean,
+  tests: Schema.Array(
+    Schema.Struct({
+      results: Schema.Array(
+        Schema.Struct({
+          error: Schema.optional(
+            Schema.Struct({ message: Schema.optional(Schema.String) })
+          ),
+        })
+      ),
+    })
+  ),
+  title: Schema.String,
+});
+
 interface PlaywrightSuite {
-  readonly specs?:
-    | readonly { readonly ok: boolean; readonly title: string }[]
-    | undefined;
+  readonly specs?: readonly PlaywrightSpec[] | undefined;
   readonly suites?: readonly PlaywrightSuite[] | undefined;
 }
 
 const PlaywrightSuiteSchema: Schema.Codec<PlaywrightSuite> = Schema.Struct({
-  specs: Schema.optional(
-    Schema.Array(Schema.Struct({ ok: Schema.Boolean, title: Schema.String }))
-  ),
+  specs: Schema.optional(Schema.Array(PlaywrightSpecSchema)),
   suites: Schema.optional(
     Schema.Array(
       Schema.suspend((): Schema.Codec<PlaywrightSuite> => PlaywrightSuiteSchema)
@@ -70,8 +93,24 @@ const decodePlaywright = Schema.decodeUnknownEffect(
   )
 );
 
+const ANSI = new RegExp(`${String.fromCodePoint(27)}\\[[\\d;]*m`, "gu");
+
+const firstErrorLine = (tests: PlaywrightSpec["tests"]): string | null => {
+  const message = tests
+    .flatMap((test) => test.results)
+    .find((result) => result.error?.message !== undefined)?.error?.message;
+
+  return message === undefined
+    ? null
+    : (message.replaceAll(ANSI, "").split("\n")[0]?.slice(0, 300) ?? null);
+};
+
 const specsOf = (suite: PlaywrightSuite): Expectation[] => [
-  ...(suite.specs ?? []).map(({ ok, title }) => ({ ok, title })),
+  ...(suite.specs ?? []).map(({ ok, tests, title }) => ({
+    error: ok ? null : firstErrorLine(tests),
+    ok,
+    title,
+  })),
   ...(suite.suites ?? []).flatMap(specsOf),
 ];
 

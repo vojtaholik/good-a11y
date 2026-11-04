@@ -37,6 +37,14 @@ Runs are independent: each has its own temp copy of the app, its own server on a
 
 Usage comes from the transcripts: Claude Code's `result` event (tokens and `total_cost_usd`), Codex's `turn.completed` events (tokens only; on a subscription there is no price).
 
+## Regrade
+
+`pnpm --filter @good-a11y/eval-run eval regrade --from <results dir> [--concurrency 6]` grades every run in `<results dir>/runs` again with today's graders and task files, without running an agent. Per run it copies the base app (and the skill, for a guided run), applies `changes.patch`, builds and serves it like a run, and rewrites the grade fields of its `result.json` (`status`, `expectations`, `check`, `passed`, `problem`, plus `regradedAt`). Tokens, cost, duration and transcript stats stay as recorded. Runs that are `agent-failed` or `run-failed` are kept as they are; a patch that no longer applies makes the run `run-failed`. Then `results.json`, `summary.md` and `queries.jsonl` are written again.
+
+Regrade a directory only after its eval run has finished: the run writes `results.json` and `summary.md` last and would overwrite the regraded ones.
+
+Each failing expectation keeps the first line of its Playwright error in `result.json` (`expectations[].error`), and the summary shows the first one per run.
+
 ## Tests
 
 `evals/run/test` runs the whole run with `stub-agent.mjs` in place of an agent and a fake grader, and parses Claude Code and Codex transcript fixtures. The real agents are not run in the gate.

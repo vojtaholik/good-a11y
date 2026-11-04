@@ -122,7 +122,7 @@ export const summaryOf = (results: readonly RunResult[]): string => {
           ? [
               failed.length === 0
                 ? "all expectations pass"
-                : `fails ${failed.join("; ")}`,
+                : `fails ${failed.join("; ")} (first error: ${result.expectations.find((expectation) => !expectation.ok)?.error ?? "none reported"})`,
               result.check === null || result.check.guideFailing.length === 0
                 ? "no check issue for this guide"
                 : `check issues ${result.check.guideFailing.join(", ")}`,

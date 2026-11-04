@@ -13,11 +13,10 @@ import { ChildProcess, ChildProcessSpawner } from "effect/process";
 import { invocationOf } from "./agents.js";
 import type { AgentName } from "./agents.js";
 import { Graders } from "./grade.js";
-import type { CheckGrade, Expectation } from "./grade.js";
+import type { Grade, RunResult } from "./result.js";
 import { serveDirectory } from "./serve.js";
 import type { Arm, LoadedTask } from "./task.js";
 import { summarizeTranscript } from "./transcript.js";
-import type { TranscriptSummary } from "./transcript.js";
 
 export const SHIPPED_COMMAND = "npx -y github:vojtaholik/good-a11y";
 
@@ -37,29 +36,7 @@ export interface RunSpec {
   readonly timeout: Duration.Duration;
 }
 
-export type RunStatus =
-  | "graded"
-  | "agent-failed"
-  | "grade-failed"
-  | "run-failed";
-
-export interface RunResult {
-  readonly agent: AgentName;
-  readonly agentExitCode: number | null;
-  readonly app: string;
-  readonly arm: Arm;
-  readonly check: CheckGrade | null;
-  readonly durationMs: number;
-  readonly expectations: readonly Expectation[];
-  readonly guide: string;
-  readonly guideRetrieved: boolean;
-  readonly id: string;
-  readonly passed: boolean;
-  readonly problem: string | null;
-  readonly run: number;
-  readonly status: RunStatus;
-  readonly transcript: TranscriptSummary;
-}
+export type { Grade, RunResult, RunStatus } from "./result.js";
 
 export class AppSetupFailed extends Schema.TaggedError<AppSetupFailed>()(
   "AppSetupFailed",
@@ -109,7 +86,7 @@ const collect = (stream: Stream.Stream<Uint8Array, unknown>) =>
     Effect.orElseSucceed(() => "")
   );
 
-const runToEnd = (
+export const runToEnd = (
   command: string,
   args: readonly string[],
   options: {
@@ -139,88 +116,89 @@ const runToEnd = (
     })
   );
 
-const prepareProject = Effect.fn("prepareProject")(function* prepareProject(
-  spec: RunSpec,
-  paths: RunPaths,
-  workDir: string
-) {
-  const fileSystem = yield* FileSystem.FileSystem;
-  const path = yield* Path.Path;
-  const spawner = yield* ChildProcessSpawner.ChildProcessSpawner;
-  const project = path.join(workDir, "project");
-  const app = path.join(paths.evalsRoot, "apps", spec.loaded.task.app);
+export const prepareProject = Effect.fn("prepareProject")(
+  function* prepareProject(spec: RunSpec, paths: RunPaths, workDir: string) {
+    const fileSystem = yield* FileSystem.FileSystem;
+    const path = yield* Path.Path;
+    const spawner = yield* ChildProcessSpawner.ChildProcessSpawner;
+    const project = path.join(workDir, "project");
+    const app = path.join(paths.evalsRoot, "apps", spec.loaded.task.app);
 
-  yield* fileSystem.makeDirectory(project, { recursive: true });
+    yield* fileSystem.makeDirectory(project, { recursive: true });
 
-  for (const entry of yield* fileSystem.readDirectory(app)) {
-    if (!NOT_COPIED.has(entry)) {
-      yield* fileSystem.copy(path.join(app, entry), path.join(project, entry));
+    for (const entry of yield* fileSystem.readDirectory(app)) {
+      if (!NOT_COPIED.has(entry)) {
+        yield* fileSystem.copy(
+          path.join(app, entry),
+          path.join(project, entry)
+        );
+      }
     }
-  }
 
-  const built = yield* fileSystem.exists(path.join(project, "package.json"));
+    const built = yield* fileSystem.exists(path.join(project, "package.json"));
 
-  if (spec.arm === "guided") {
-    const skillDir = path.join(project, ".claude", "skills", "good-a11y");
-    const agentsFile = path.join(project, "AGENTS.md");
+    if (spec.arm === "guided") {
+      const skillDir = path.join(project, ".claude", "skills", "good-a11y");
+      const agentsFile = path.join(project, "AGENTS.md");
 
-    const agents = (yield* fileSystem.exists(agentsFile))
-      ? yield* fileSystem.readFileString(agentsFile)
-      : "# Project notes";
+      const agents = (yield* fileSystem.exists(agentsFile))
+        ? yield* fileSystem.readFileString(agentsFile)
+        : "# Project notes";
 
-    yield* fileSystem.makeDirectory(skillDir, { recursive: true });
-    yield* fileSystem.writeFileString(
-      path.join(skillDir, "SKILL.md"),
-      installedSkill(
-        yield* fileSystem.readFileString(paths.skill),
-        paths.bundle
-      )
-    );
-    yield* fileSystem.writeFileString(
-      agentsFile,
-      `${agents.trimEnd()}${AGENTS_POINTER}`
-    );
-  }
-
-  const git = (args: readonly string[]) =>
-    spawner.exitCode(
-      ChildProcess.make(
-        "git",
-        ["-c", "user.name=eval", "-c", "user.email=eval@localhost", ...args],
-        {
-          cwd: project,
-        }
-      )
-    );
-
-  yield* git(["init", "-q"]);
-
-  if (built) {
-    yield* fileSystem.writeFileString(
-      path.join(project, ".git", "info", "exclude"),
-      "node_modules/\ndist/\n"
-    );
-
-    const install = yield* runToEnd(
-      "pnpm",
-      ["install", "--offline", "--ignore-workspace"],
-      { cwd: project }
-    );
-
-    if (install.exitCode !== 0) {
-      return yield* new AppSetupFailed({
-        app: spec.loaded.task.app,
-        output: `${install.stdout}${install.stderr}`,
-        step: "pnpm install --offline --ignore-workspace",
-      });
+      yield* fileSystem.makeDirectory(skillDir, { recursive: true });
+      yield* fileSystem.writeFileString(
+        path.join(skillDir, "SKILL.md"),
+        installedSkill(
+          yield* fileSystem.readFileString(paths.skill),
+          paths.bundle
+        )
+      );
+      yield* fileSystem.writeFileString(
+        agentsFile,
+        `${agents.trimEnd()}${AGENTS_POINTER}`
+      );
     }
+
+    const git = (args: readonly string[]) =>
+      spawner.exitCode(
+        ChildProcess.make(
+          "git",
+          ["-c", "user.name=eval", "-c", "user.email=eval@localhost", ...args],
+          {
+            cwd: project,
+          }
+        )
+      );
+
+    yield* git(["init", "-q"]);
+
+    if (built) {
+      yield* fileSystem.writeFileString(
+        path.join(project, ".git", "info", "exclude"),
+        "node_modules/\ndist/\n"
+      );
+
+      const install = yield* runToEnd(
+        "pnpm",
+        ["install", "--offline", "--ignore-workspace"],
+        { cwd: project }
+      );
+
+      if (install.exitCode !== 0) {
+        return yield* new AppSetupFailed({
+          app: spec.loaded.task.app,
+          output: `${install.stdout}${install.stderr}`,
+          step: "pnpm install --offline --ignore-workspace",
+        });
+      }
+    }
+
+    yield* git(["add", "-A"]);
+    yield* git(["commit", "-q", "-m", "base app"]);
+
+    return { built, project };
   }
-
-  yield* git(["add", "-A"]);
-  yield* git(["commit", "-q", "-m", "base app"]);
-
-  return { built, project };
-});
+);
 
 const codexHomeOf = Effect.fn("codexHomeOf")(function* codexHomeOf(
   workDir: string
@@ -284,13 +262,83 @@ const changesOf = Effect.fn("changesOf")(function* changesOf(project: string) {
   return yield* spawner.string(inProject(["diff", "--cached", "HEAD"]));
 });
 
+export interface GradeTarget {
+  readonly built: boolean;
+  readonly project: string;
+  readonly runDir: string;
+  readonly task: LoadedTask["task"];
+  readonly taskFile: string;
+}
+
+export const gradeProject = Effect.fn("gradeProject")(function* gradeProject({
+  built,
+  project,
+  runDir,
+  task,
+  taskFile,
+}: GradeTarget) {
+  const path = yield* Path.Path;
+  const graders = yield* Graders;
+
+  if (built) {
+    const build = yield* runToEnd("pnpm", ["run", "build"], { cwd: project });
+
+    if (build.exitCode !== 0) {
+      return {
+        check: null,
+        expectations: [],
+        passed: false,
+        problem: `the app no longer builds: ${`${build.stdout}${build.stderr}`.slice(-800)}`,
+        status: "graded",
+      } satisfies Grade;
+    }
+  }
+
+  const served = built
+    ? yield* serveDirectory(path.join(project, "dist"), { spa: true })
+    : yield* serveDirectory(project, { spa: false });
+
+  const url = `${served}${task.path}`;
+
+  const input = {
+    guide: task.guide,
+    outputDir: path.join(runDir, "playwright"),
+    taskFile,
+    url,
+  };
+
+  return yield* Effect.all([
+    graders.check(input),
+    graders.expectations(input),
+  ]).pipe(
+    Effect.map(([check, { expectations }]): Grade => ({
+      check,
+      expectations,
+      passed:
+        expectations.every((expectation) => expectation.ok) &&
+        check.guideFailing.length === 0,
+      problem: null,
+      status: "graded",
+    })),
+    // oxlint-disable-next-line promise/prefer-await-to-callbacks -- Oxlint mistakes this Effect handler for an async Promise callback.
+    Effect.catchTag("GradeFailed", (error) =>
+      Effect.succeed<Grade>({
+        check: null,
+        expectations: [],
+        passed: false,
+        problem: error.message,
+        status: "grade-failed",
+      })
+    )
+  );
+}, Effect.scoped);
+
 export const runOne = Effect.fn("runOne")(function* runOne(
   spec: RunSpec,
   paths: RunPaths
 ) {
   const fileSystem = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
-  const graders = yield* Graders;
   const startedAt = yield* Clock.currentTimeMillis;
   const id = runIdOf(spec);
   const runDir = path.join(spec.outDir, "runs", id);
@@ -370,62 +418,10 @@ export const runOne = Effect.fn("runOne")(function* runOne(
     });
   }
 
-  if (built) {
-    const build = yield* runToEnd("pnpm", ["run", "build"], { cwd: project });
-
-    if (build.exitCode !== 0) {
-      return yield* finish({
-        ...base,
-        check: null,
-        expectations: [],
-        passed: false,
-        problem: `the app no longer builds: ${`${build.stdout}${build.stderr}`.slice(-800)}`,
-        status: "graded",
-      });
-    }
-  }
-
-  const served = built
-    ? yield* serveDirectory(path.join(project, "dist"), { spa: true })
-    : yield* serveDirectory(project, { spa: false });
-
-  const url = `${served}${task.path}`;
-
-  const input = {
-    guide: task.guide,
-    outputDir: path.join(runDir, "playwright"),
-    taskFile,
-    url,
-  };
-
-  return yield* Effect.all([
-    graders.check(input),
-    graders.expectations(input),
-  ]).pipe(
-    Effect.flatMap(([check, { expectations }]) =>
-      finish({
-        ...base,
-        check,
-        expectations,
-        passed:
-          expectations.every((expectation) => expectation.ok) &&
-          check.guideFailing.length === 0,
-        problem: null,
-        status: "graded",
-      })
-    ),
-    // oxlint-disable-next-line promise/prefer-await-to-callbacks -- Oxlint mistakes this Effect handler for an async Promise callback.
-    Effect.catchTag("GradeFailed", (error) =>
-      finish({
-        ...base,
-        check: null,
-        expectations: [],
-        passed: false,
-        problem: error.message,
-        status: "grade-failed",
-      })
-    )
-  );
+  return yield* finish({
+    ...base,
+    ...(yield* gradeProject({ built, project, runDir, task, taskFile })),
+  });
 }, Effect.scoped);
 
 export const failedRun = (spec: RunSpec, problem: string): RunResult => ({

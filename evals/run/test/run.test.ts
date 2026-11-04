@@ -5,6 +5,7 @@ import { FetchHttpClient, HttpClient } from "effect/http";
 
 import { GradeFailed, Graders } from "../src/grade.js";
 import type { GradeInput } from "../src/grade.js";
+import { readResult, regradeOne } from "../src/regrade.js";
 import { SHIPPED_COMMAND, runOne } from "../src/run.js";
 import type { RunPaths } from "../src/run.js";
 import { summaryOf } from "../src/summary.js";
@@ -50,10 +51,15 @@ const pageGraders = (fail: boolean) =>
               Effect.map((html) => ({
                 expectations: [
                   {
+                    error: null,
                     ok: html.includes("Skip to main content"),
                     title: "E1 skip link",
                   },
-                  { ok: html.includes("<main"), title: "E2 main landmark" },
+                  {
+                    error: null,
+                    ok: html.includes("<main"),
+                    title: "E2 main landmark",
+                  },
                 ],
               }))
             ),
@@ -217,6 +223,49 @@ it.layer(NodeServices.layer)("one eval run", (test) => {
       expect(result.passed).toBe(false);
       expect(result.problem).toContain("Bash cat index.html | grep nav");
     })
+  );
+
+  test.effect(
+    "regrades a run from its patch with the current graders, keeping the agent's stats",
+    () =>
+      Effect.gen(function* regradesRun() {
+        const fileSystem = yield* FileSystem.FileSystem;
+        const path = yield* Path.Path;
+        const outDir = yield* fileSystem.makeTempDirectoryScoped();
+
+        const loaded = yield* readTask(
+          paths.evalsRoot,
+          "skip-link-landmarks",
+          "built"
+        );
+
+        const first = yield* runOne(
+          {
+            agent: "stub",
+            arm: "guided",
+            index: 1,
+            loaded,
+            outDir,
+            timeout: Duration.minutes(1),
+          },
+          paths
+        ).pipe(Effect.provide(pageGraders(true)));
+
+        expect(first.status).toBe("grade-failed");
+
+        const regraded = yield* regradeOne(
+          path.join(outDir, "runs", first.id),
+          paths
+        ).pipe(Effect.provide(pageGraders(false)));
+
+        expect([regraded.status, regraded.passed]).toEqual(["graded", true]);
+        expect(regraded.transcript).toEqual(first.transcript);
+        expect(regraded.durationMs).toBe(first.durationMs);
+        expect(regraded.regradedAt).toBeDefined();
+        expect(
+          yield* readResult(path.join(outDir, "runs", first.id, "result.json"))
+        ).toEqual(regraded);
+      })
   );
 
   test.effect(
