@@ -13,7 +13,7 @@ import {
   FocusFragment,
   FocusMainHeading,
   GetScan,
-  LoadExternal,
+  LoadPage,
   Navigate,
   SendMessage,
   StartScan,
@@ -273,15 +273,19 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
     }),
     ClickedLink: ({ request }) =>
       UrlRequest.match<AppUpdate>(request, {
-        External: ({ href }) => ({ commands: [LoadExternal({ href })], model }),
+        External: ({ href }) => ({ commands: [LoadPage({ href })], model }),
         Internal: ({ url }) => ({
-          commands: [Navigate({ url: urlToString(url) })],
+          commands: [
+            Schema.is(AppRoute.NotFound)(parseRoute(url))
+              ? LoadPage({ href: urlToString(url) })
+              : Navigate({ url: urlToString(url) }),
+          ],
           model,
         }),
       }),
     CompletedFocusFragment: () => ({ model }),
     CompletedFocusMainHeading: () => ({ model }),
-    CompletedLoadExternal: () => ({ model }),
+    CompletedLoadPage: () => ({ model }),
     CompletedNavigate: () => ({ model }),
     FailedCopyText: ({ key, text }) => ({
       model: modifyFields(model, {

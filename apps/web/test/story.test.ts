@@ -1,11 +1,13 @@
 import { describe, expect, it } from "@effect/vitest";
 import { Option } from "effect";
+import { UrlRequest } from "foldkit/navigation";
 import { Command, given, message, model, story } from "foldkit/story";
 
 import {
   FocusFragment,
   FocusMainHeading,
   GetScan,
+  LoadPage,
   Navigate,
   SendMessage,
   StartScan,
@@ -14,7 +16,7 @@ import { Message } from "../src/client/message.js";
 import { ContactState, StartState } from "../src/client/model.js";
 import { AppRoute } from "../src/features/route.js";
 import { EMPTY_ADDRESS, update } from "../src/features/update.js";
-import { modelAt, urlOf } from "./fixtures.js";
+import { ORIGIN, modelAt, urlOf } from "./fixtures.js";
 
 describe("starting a scan", () => {
   it("refuses an empty address without calling the scanner", () => {
@@ -225,6 +227,71 @@ describe("the contact form", () => {
         expect(failed.contact.state._tag).toBe("Unavailable");
         expect(failed.contact.message).toBe("Please help.");
       })
+    );
+  });
+});
+
+const clicked = (path: string) =>
+  Message.ClickedLink({ request: UrlRequest.Internal({ url: urlOf(path) }) });
+
+describe("following a link", () => {
+  it.each([
+    "/guides/focus-visible/demo.html",
+    "/skills/good-a11y/SKILL.md",
+    "/skills/good-a11y/references/focus-visible.md",
+    "/llms.txt",
+    "/sitemap.xml",
+    "/robots.txt",
+    "/assets/og.png",
+  ])(
+    "loads %s from the server, since it is a file and not a page of the app",
+    (path) => {
+      story(
+        update,
+        given(modelAt("/")),
+        message(clicked(path)),
+        Command.resolve(
+          LoadPage({ href: `${ORIGIN}${path}` }),
+          Message.CompletedLoadPage()
+        )
+      );
+    }
+  );
+
+  it.each([
+    "/",
+    "/check",
+    "/about",
+    "/privacy",
+    "/guides/focus-visible",
+    "/check/example.com",
+  ])("routes %s in the app without a page load", (path) => {
+    story(
+      update,
+      given(modelAt("/")),
+      message(clicked(path)),
+      Command.resolve(
+        Navigate({ url: `${ORIGIN}${path}` }),
+        Message.CompletedNavigate()
+      )
+    );
+  });
+
+  it("loads an external link, like GitHub, as a page", () => {
+    story(
+      update,
+      given(modelAt("/")),
+      message(
+        Message.ClickedLink({
+          request: UrlRequest.External({
+            href: "https://github.com/vojtaholik/good-a11y",
+          }),
+        })
+      ),
+      Command.resolve(
+        LoadPage({ href: "https://github.com/vojtaholik/good-a11y" }),
+        Message.CompletedLoadPage()
+      )
     );
   });
 });

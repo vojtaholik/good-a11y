@@ -11,7 +11,7 @@ export const Message = defineMessageUnion({
   ClickedLink: { request: UrlRequest },
   CompletedFocusFragment: {},
   CompletedFocusMainHeading: {},
-  CompletedLoadExternal: {},
+  CompletedLoadPage: {},
   CompletedNavigate: {},
   FailedCopyText: { key: Schema.String, text: Schema.String },
   FailedGetScan: { generation: Schema.Int, isUnknownScan: Schema.Boolean },

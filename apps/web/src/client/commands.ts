@@ -122,11 +122,11 @@ export const Navigate = Command.define("Navigate", {
   messages: [Message.CompletedNavigate],
 });
 
-export const LoadExternal = Command.define("LoadExternal", {
+export const LoadPage = Command.define("LoadPage", {
   args: { href: Schema.String },
   execute: ({ href }) =>
-    load(href).pipe(Effect.as(Message.CompletedLoadExternal())),
-  messages: [Message.CompletedLoadExternal],
+    load(href).pipe(Effect.as(Message.CompletedLoadPage())),
+  messages: [Message.CompletedLoadPage],
 });
 
 export const FocusMainHeading = Command.define("FocusMainHeading", {
