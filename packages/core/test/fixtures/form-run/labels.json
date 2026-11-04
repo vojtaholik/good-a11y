@@ -1,0 +1,174 @@
+{
+  "labelled": "2026-11-04",
+  "by": "builder-judge, by hand from the evidence files, before any model answer",
+  "item": "One invalid field in a submission that shows some text written by the site (an appeared text or a field description). Submissions whose fields have only the browser's own message, and submissions with no invalid field, are not asked and not labelled here; they are listed under notAsked.",
+  "rule": "identified (3.3.1): text the site wrote after the empty submit says that this field is wrong, by naming it or by being its own message or description (also the only message of a one-field form). suggested (3.3.3): that text says what to do about this field (fill it in, it is required, enter an e-mail, choose a topic). The browser's own message does not count. null: a person cannot tell from the evidence.",
+  "fields": [
+    {
+      "site": "apotheka.lv",
+      "form": 0,
+      "field": "Ieraksti šeit savu jautājumu*",
+      "identified": false,
+      "suggested": false,
+      "why": "Only the browser's message; the one appeared text is the menu button 'Izvēlne'"
+    },
+    {
+      "site": "ceskatelevize.cz",
+      "form": 1,
+      "field": "Jméno a příjmení *",
+      "identified": true,
+      "suggested": true,
+      "why": "aria-invalid, described by 'Zadejte jméno a příjmení'"
+    },
+    {
+      "site": "ceskatelevize.cz",
+      "form": 1,
+      "field": "Co vás zajímá? *",
+      "identified": false,
+      "suggested": false,
+      "why": "aria-invalid only, no text"
+    },
+    {
+      "site": "ceskatelevize.cz",
+      "form": 1,
+      "field": "E-mail *",
+      "identified": false,
+      "suggested": false,
+      "why": "Its description is the name field's text 'Zadejte jméno a příjmení' (a shared error id), so no text says the e-mail is wrong"
+    },
+    {
+      "site": "ceskatelevize.cz",
+      "form": 1,
+      "field": "Zpráva nebo dotaz*",
+      "identified": true,
+      "suggested": true,
+      "why": "aria-invalid, described by 'Napište Vaši zprávu'"
+    },
+    {
+      "site": "ceskatelevize.cz",
+      "form": 1,
+      "field": "Souhlasím se zpracováním osobních údajů",
+      "identified": false,
+      "suggested": false,
+      "why": "aria-invalid only, no text"
+    },
+    {
+      "site": "datart.cz",
+      "form": 0,
+      "field": "Váš e-mail",
+      "identified": true,
+      "suggested": true,
+      "why": "One field; 'Povinný údaj' appeared in the form"
+    },
+    {
+      "site": "jysk.cz",
+      "form": 0,
+      "field": "Křestní jméno/Název společnosti*",
+      "identified": true,
+      "suggested": true,
+      "why": "Alert 'Křestní jméno/Název společnosti povinně vyplňte', also its description"
+    },
+    {
+      "site": "jysk.cz",
+      "form": 0,
+      "field": "E-mail*",
+      "identified": true,
+      "suggested": true,
+      "why": "Alert 'E-mail povinně vyplňte', also its description"
+    },
+    {
+      "site": "jysk.cz",
+      "form": 0,
+      "field": "Přeji si přijímat komunikaci…",
+      "identified": true,
+      "suggested": true,
+      "why": "The terms checkbox (name=terms); alert 'Musíte přijmout Pravidla a podmínky'"
+    },
+    {
+      "site": "knihydobrovsky.cz",
+      "form": 0,
+      "field": "Vyberte téma",
+      "identified": false,
+      "suggested": false,
+      "why": "Only the browser's message; the site's one text is about the e-mail field, which is not marked invalid"
+    },
+    {
+      "site": "o2.cz",
+      "form": 0,
+      "field": "Telefonní číslo",
+      "identified": true,
+      "suggested": true,
+      "why": "Described by 'Toto pole je povinné.', which appeared"
+    },
+    {
+      "site": "o2.cz",
+      "form": 1,
+      "field": "Telefonní číslo",
+      "identified": true,
+      "suggested": true,
+      "why": "Described by 'Toto pole je povinné.'"
+    },
+    {
+      "site": "rijksoverheid.nl",
+      "form": 0,
+      "field": "Vraag (verplicht)",
+      "identified": true,
+      "suggested": true,
+      "why": "Alert and description: 'Het veld 'Vraag' is leeg. Het is een verplicht veld en moet ingevuld worden.'"
+    },
+    {
+      "site": "rijksoverheid.nl",
+      "form": 0,
+      "field": "Ik heb gelezen en begrepen…",
+      "identified": true,
+      "suggested": true,
+      "why": "Alert 'Het veld 'Akkoordverklaring' is leeg…' names the consent field"
+    },
+    {
+      "site": "tchibo.de",
+      "form": 0,
+      "field": "E-Mail-Adresse*",
+      "identified": false,
+      "suggested": false,
+      "why": "Only the browser's message; the appeared texts are the legal notice, links and 'Mehr anzeigen'"
+    },
+    {
+      "site": "thomann.de",
+      "form": 0,
+      "field": "E-Mail-Adresse*",
+      "identified": true,
+      "suggested": true,
+      "why": "aria-invalid, described by 'Dieses Feld muss ausgefüllt sein.', which appeared"
+    }
+  ],
+  "notAsked": [
+    {
+      "site": "bonprix.de",
+      "form": 0,
+      "why": "Six fields with only the browser's messages, no site text"
+    },
+    {
+      "site": "footshop.cz",
+      "form": 0,
+      "why": "Search form, no invalid field"
+    },
+    {
+      "site": "footshop.cz",
+      "form": 1,
+      "why": "Search form, no invalid field"
+    },
+    {
+      "site": "knihydobrovsky.cz",
+      "form": 1,
+      "why": "No field marked invalid; the e-mail label turned into 'Ajaj, zadali jste e-mail ve špatném formátu.'"
+    },
+    { "site": "martinus.sk", "form": 1, "why": "Only the browser's message" },
+    { "site": "mironet.cz", "form": 0, "why": "Only the browser's message" },
+    { "site": "mozilla.org", "form": 0, "why": "Only the browser's messages" },
+    {
+      "site": "rijksoverheid.nl",
+      "form": 1,
+      "why": "Feedback form accepted the empty submit, no invalid field"
+    }
+  ]
+}

@@ -58,7 +58,7 @@ The same session also collects evidence that only a model can judge. It is not a
 
 ### Submitting forms without sending anything
 
-**Off by default (R2-M1, 2026-11-04).** No shown check reads the empty submits, so the scanner skips them and `emptySubmits` is `null`. They run only when the scanner Worker is deployed with `EMPTY_SUBMITS=true` (declared in `.env.schema`, read at deploy by `emptySubmitsSetting` in `apps/scanner/src/browser-limits.ts`, then by the render step). To turn them on for a 3.3.1/3.3.3 calibration run on stage dev:
+**Off by default (R2-M1, 2026-11-04).** The scanner skips them and `emptySubmits` is `null`, so the judged questions `error-identified` and `error-suggestion` (shown since round 4, docs/judged-checks.md) ask nothing. They run only when the scanner Worker is deployed with `EMPTY_SUBMITS=true` (declared in `.env.schema`, read at deploy by `emptySubmitsSetting` in `apps/scanner/src/browser-limits.ts`, then by the render step). To turn them on for a 3.3.1/3.3.3 calibration run on stage dev:
 
 ```sh
 EMPTY_SUBMITS=true pnpm exec varlock run -- pnpm --filter @eaa-check/infra exec alchemy deploy --stage dev --yes --no-input

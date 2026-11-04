@@ -1,0 +1,846 @@
+{
+  "recorded": "2026-11-04",
+  "model": "@cf/cloudflare/clef",
+  "replies": [
+    {
+      "key": "error-identified:apotheka.lv",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.0063
+          }
+        },
+        "usage": {
+          "input_tokens": 292,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:apotheka.lv",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.0063
+          }
+        },
+        "usage": {
+          "input_tokens": 296,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:ceskatelevize.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9731
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.1644
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.7567
+          },
+          "field_4": {
+            "type": "noul",
+            "noul": 0.9148
+          },
+          "field_5": {
+            "type": "noul",
+            "noul": 0.0384
+          }
+        },
+        "usage": {
+          "input_tokens": 863,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:ceskatelevize.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9664
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.0457
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.5266
+          },
+          "field_4": {
+            "type": "noul",
+            "noul": 0.8854
+          },
+          "field_5": {
+            "type": "noul",
+            "noul": 0.021
+          }
+        },
+        "usage": {
+          "input_tokens": 883,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:datart.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.6798
+          }
+        },
+        "usage": {
+          "input_tokens": 289,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:datart.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.934
+          }
+        },
+        "usage": {
+          "input_tokens": 293,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:jysk.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.961
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9627
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.468
+          }
+        },
+        "usage": {
+          "input_tokens": 713,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:jysk.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.967
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9639
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.2602
+          }
+        },
+        "usage": {
+          "input_tokens": 725,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:knihydobrovsky.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.0176
+          }
+        },
+        "usage": {
+          "input_tokens": 292,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:knihydobrovsky.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.0134
+          }
+        },
+        "usage": {
+          "input_tokens": 296,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:o2.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9573
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.4112
+          }
+        },
+        "usage": {
+          "input_tokens": 465,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:o2.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9838
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9794
+          }
+        },
+        "usage": {
+          "input_tokens": 473,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:rijksoverheid.nl",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9684
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.8456
+          }
+        },
+        "usage": {
+          "input_tokens": 653,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:rijksoverheid.nl",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.978
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9334
+          }
+        },
+        "usage": {
+          "input_tokens": 661,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:tchibo.de",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.0099
+          }
+        },
+        "usage": {
+          "input_tokens": 394,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:tchibo.de",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.0116
+          }
+        },
+        "usage": {
+          "input_tokens": 398,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:thomann.de",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9888
+          }
+        },
+        "usage": {
+          "input_tokens": 301,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:thomann.de",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9909
+          }
+        },
+        "usage": {
+          "input_tokens": 305,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:lekarna.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.8854
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.8458
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.9273
+          },
+          "field_4": {
+            "type": "noul",
+            "noul": 0.032
+          }
+        },
+        "usage": {
+          "input_tokens": 910,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:lekarna.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9647
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9274
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.9387
+          },
+          "field_4": {
+            "type": "noul",
+            "noul": 0.0486
+          }
+        },
+        "usage": {
+          "input_tokens": 926,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:bike-discount.de",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.0073
+          }
+        },
+        "usage": {
+          "input_tokens": 297,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:bike-discount.de",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.007
+          }
+        },
+        "usage": {
+          "input_tokens": 301,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:eataly.it",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9823
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9812
+          }
+        },
+        "usage": {
+          "input_tokens": 471,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:eataly.it",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9862
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9838
+          }
+        },
+        "usage": {
+          "input_tokens": 479,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:gls-pakete.de",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9665
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9749
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.9626
+          },
+          "field_4": {
+            "type": "noul",
+            "noul": 0.9699
+          },
+          "field_5": {
+            "type": "noul",
+            "noul": 0.959
+          },
+          "field_6": {
+            "type": "noul",
+            "noul": 0.8195
+          },
+          "field_7": {
+            "type": "noul",
+            "noul": 0.9541
+          }
+        },
+        "usage": {
+          "input_tokens": 1326,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:gls-pakete.de",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9693
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9764
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.9642
+          },
+          "field_4": {
+            "type": "noul",
+            "noul": 0.9542
+          },
+          "field_5": {
+            "type": "noul",
+            "noul": 0.9527
+          },
+          "field_6": {
+            "type": "noul",
+            "noul": 0.9065
+          },
+          "field_7": {
+            "type": "noul",
+            "noul": 0.9597
+          }
+        },
+        "usage": {
+          "input_tokens": 1354,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:sos-vesnicky.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.0117
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.0145
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.022
+          },
+          "field_4": {
+            "type": "noul",
+            "noul": 0.0218
+          }
+        },
+        "usage": {
+          "input_tokens": 872,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:sos-vesnicky.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.0115
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.0151
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.0304
+          },
+          "field_4": {
+            "type": "noul",
+            "noul": 0.0414
+          }
+        },
+        "usage": {
+          "input_tokens": 888,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:ceskafilharmonie.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9132
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9436
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.0158
+          }
+        },
+        "usage": {
+          "input_tokens": 606,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:ceskafilharmonie.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9465
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9475
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.067
+          }
+        },
+        "usage": {
+          "input_tokens": 618,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:ruzovyslon.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.8708
+          }
+        },
+        "usage": {
+          "input_tokens": 324,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:ruzovyslon.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9572
+          }
+        },
+        "usage": {
+          "input_tokens": 328,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:rudolfinum.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.025
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.0263
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.2317
+          }
+        },
+        "usage": {
+          "input_tokens": 620,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:rudolfinum.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.0282
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.0288
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.7967
+          }
+        },
+        "usage": {
+          "input_tokens": 632,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:nanospace.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.0308
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.0288
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.1621
+          }
+        },
+        "usage": {
+          "input_tokens": 571,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:nanospace.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.0228
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.0169
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.3978
+          }
+        },
+        "usage": {
+          "input_tokens": 583,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-identified:nkp.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9886
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9881
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.9841
+          }
+        },
+        "usage": {
+          "input_tokens": 624,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "key": "error-suggestion:nkp.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "field_1": {
+            "type": "noul",
+            "noul": 0.9882
+          },
+          "field_2": {
+            "type": "noul",
+            "noul": 0.9867
+          },
+          "field_3": {
+            "type": "noul",
+            "noul": 0.9798
+          }
+        },
+        "usage": {
+          "input_tokens": 636,
+          "output_tokens": 0
+        }
+      }
+    }
+  ]
+}

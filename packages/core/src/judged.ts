@@ -8,7 +8,7 @@ import type { Answer, JudgeReply, JudgeRequest, Question } from "./judge.js";
 import type { Landmark, LinkEvidence, PageEvidence } from "./page-evidence.js";
 import { REFERENCE } from "./reference.js";
 import type { Reference } from "./reference.js";
-import type { RenderedEvidence } from "./rendered-evidence.js";
+import type { RenderedEvidence, Submission } from "./rendered-evidence.js";
 
 export const MAX_JUDGED_ITEMS = 20;
 
@@ -24,6 +24,8 @@ const TOKENS_PER_CALL = 300;
 
 export const JudgedIdSchema = Schema.Literals([
   "alt-text-describes",
+  "error-identified",
+  "error-suggestion",
   "link-purpose",
   "headings-labels-describe",
   "passage-language-marked",
@@ -37,6 +39,8 @@ export type JudgedId = typeof JudgedIdSchema.Type;
 
 export const NOTE_AT = {
   "alt-text-describes": 0.7,
+  "error-identified": 0.9,
+  "error-suggestion": 0.8,
   "headings-labels-describe": 0.7,
   "link-purpose": 0.9,
   "page-language-matches": 0.8,
@@ -732,6 +736,132 @@ const visualHeadingsMarked: JudgedCheck = {
   title: "Text that may look like a heading but is not marked up as one",
 };
 
+type SubmissionErrors = NonNullable<Submission["errors"]>;
+
+type InvalidField = SubmissionErrors["invalid"][number];
+
+const MAX_ERROR_TEXT = 200;
+
+const siteTextOf = (errors: SubmissionErrors): boolean =>
+  errors.messages.length > 0 ||
+  errors.invalid.some(({ describedBy }) => describedBy.trim() !== "");
+
+export interface ErrorField {
+  readonly field: InvalidField;
+  readonly form: number;
+  readonly messages: SubmissionErrors["messages"];
+}
+
+export const errorFieldsOf = (
+  rendered: RenderedEvidence | null
+): readonly ErrorField[] =>
+  (rendered?.emptySubmits?.submissions ?? [])
+    .flatMap(({ errors, index }) =>
+      errors !== null && siteTextOf(errors)
+        ? errors.invalid.map((field) => ({
+            field,
+            form: index + 1,
+            messages: errors.messages,
+          }))
+        : []
+    )
+    .slice(0, MAX_JUDGED_ITEMS);
+
+const fieldName = ({ label, snippet }: InvalidField): string =>
+  label.trim() === ""
+    ? `unlabelled, markup ${quoted(capped(snippet, MAX_SNIPPET))}`
+    : quoted(capped(label, MAX_ERROR_TEXT));
+
+const fieldLine = ({ field }: ErrorField, number: number): string =>
+  [
+    `Field ${number}: ${fieldName(field)}`,
+    field.native === null || field.native === ""
+      ? "no browser message"
+      : `browser's own message ${quoted(capped(field.native, MAX_ERROR_TEXT))}`,
+    field.ariaInvalid
+      ? "marked invalid by the site"
+      : "not marked invalid by the site",
+    field.describedBy.trim() === ""
+      ? "no description"
+      : `description written by the site ${quoted(capped(field.describedBy, MAX_ERROR_TEXT))}`,
+  ].join("; ");
+
+const messageLine = ({
+  inForm,
+  live,
+  text,
+}: SubmissionErrors["messages"][number]): string =>
+  `${quoted(capped(text, MAX_ERROR_TEXT))} (${inForm ? "inside the form" : "outside the form"}${live ? ", in a live region" : ""})`;
+
+const errorState = (fields: readonly ErrorField[]): string => {
+  const forms = [...new Set(fields.map(({ form }) => form))];
+
+  return [
+    "Forms on a rendered web page that were submitted with every text field empty. For each form: the fields the browser or the site found invalid, and the texts that appeared on the page after the submit. A browser's own message is written by the browser, not by the site.",
+    ...forms.map((form) => {
+      const inForm = fields.filter((each) => each.form === form);
+      const messages = inForm[0]?.messages ?? [];
+
+      return [
+        `Form ${form}.`,
+        ...inForm.map(
+          (each) => `${fieldLine(each, fields.indexOf(each) + 1)}.`
+        ),
+        messages.length === 0
+          ? "No text appeared."
+          : `Texts that appeared: ${messages.map(messageLine).join("; ")}.`,
+      ].join("\n");
+    }),
+  ].join("\n");
+};
+
+const askErrors =
+  (id: JudgedId, question: (number: number) => string) =>
+  ({ rendered }: JudgedPages): Asked | null => {
+    const fields = errorFieldsOf(rendered);
+
+    return askedOf(
+      id,
+      errorState(fields),
+      fields.map(({ field, form }, index) => ({
+        key: `field_${index + 1}`,
+        question: noul(question(index + 1)),
+        sample: `Form ${form}, ${fieldName(field)}`,
+      }))
+    );
+  };
+
+const errorIdentified: JudgedCheck = {
+  about:
+    "After an empty submit, the model read a field the browser or the site found invalid and the texts the site showed, apart from the browser's own messages, and judged that no text the site wrote says this field is wrong.",
+  ask: askErrors(
+    "error-identified",
+    (number) =>
+      `Does text the site wrote say that Field ${number} is wrong, by naming it or by being its own message or description? The browser's own message does not count.`
+  ),
+  criteria: ["3.3.1"],
+  decide: notedWhereNo(NOTE_AT["error-identified"]),
+  id: "error-identified",
+  shown: true,
+  title: "Form fields in error that the site's text may not identify",
+};
+
+const errorSuggestion: JudgedCheck = {
+  about:
+    "After an empty submit, the model read a field the browser or the site found invalid and the texts the site showed, apart from the browser's own messages, and judged that no text the site wrote says how to correct it.",
+  ask: askErrors(
+    "error-suggestion",
+    (number) =>
+      `Does text the site wrote say what to do about Field ${number}, such as that it must be filled in or what to enter or choose? The browser's own message does not count.`
+  ),
+  criteria: ["3.3.3"],
+  decide: notedWhereNo(NOTE_AT["error-suggestion"]),
+  id: "error-suggestion",
+  shown: true,
+  title:
+    "Form fields in error where the site's text may not say how to correct them",
+};
+
 export const JUDGED_CHECKS: readonly JudgedCheck[] = [
   altTextDescribes,
   linkPurpose,
@@ -741,6 +871,8 @@ export const JUDGED_CHECKS: readonly JudgedCheck[] = [
   sellsToConsumers,
   statementAnnexV,
   visualHeadingsMarked,
+  errorIdentified,
+  errorSuggestion,
 ];
 
 export const SHOWN_JUDGED_CHECKS: readonly JudgedCheck[] = JUDGED_CHECKS.filter(

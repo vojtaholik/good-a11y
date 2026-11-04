@@ -1,0 +1,832 @@
+{
+  "recorded": "2026-11-04",
+  "note": "emptySubmits of the run-2 scans whose submissions the error questions ask (an invalid field plus some site text), copied from dev's R2 archive; snippets capped at 160 characters, query strings cut from blocked URLs. Every other scan is in summary.tsv.",
+  "sites": [
+    {
+      "site": "lekarna.cz",
+      "scanId": "scan-mw1uinm3-g460r6f0",
+      "emptySubmits": {
+        "forms": [
+          {
+            "index": 0,
+            "skipped": null,
+            "snippet": "<form action=\"/kontakt/#kontaktni-formular\" method=\"post\" id=\"frm-contactForm-form\" class=\"autovalidate\" novalidate=\"\" x-data=\"validateForm()\" x-init=\"init()\" @focusout=\"change\" @input=\"change($event,"
+          }
+        ],
+        "submissions": [
+          {
+            "blocked": [
+              "https://lekarnacz.vshcdn.net/assets/front/images/icons/thumbsup-red.svg",
+              "https://lekarnacz.vshcdn.net/assets/front/images/icons/point-red.svg",
+              "https://lekarnacz.vshcdn.net/assets/front/images/icons/truck-red.svg",
+              "https://lekarnacz.vshcdn.net/assets/front/images/health-guarantee/lekarna25.svg",
+              "https://lekarnacz.vshcdn.net/assets/front/images/icons/phone-green.svg"
+            ],
+            "blockedCount": 20,
+            "errors": {
+              "invalid": [
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "",
+                  "native": "Please select an item in the list.",
+                  "snippet": "<select name=\"topic\" class=\"border w-full min-w-0 form-select placeholder-gray-300 form-input-error\" id=\"frm-contactForm-form-topic\" required=\"\" data-nette-rules=\"[{&quot;op&quot;:&quot;:filled&quot;,"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "",
+                  "native": "Please fill out this field.",
+                  "snippet": "<textarea name=\"message\" rows=\"8\" placeholder=\"Váš dotaz nebo zpráva\" class=\"border w-full min-w-0 form-textarea placeholder-gray-300 form-input-error\" id=\"frm-contactForm-form-message\" required=\"\" da"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input type=\"email\" name=\"email\" inputmode=\"email\" placeholder=\"vas@email.cz\" class=\"border w-full min-w-0 form-input placeholder-gray-300 form-input-error\" id=\"frm-contactForm-form-email\" required=\"\""
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "Odesláním souhlasíte se zpracováním osobních údajů",
+                  "native": "Please check this box if you want to proceed.",
+                  "snippet": "<input type=\"checkbox\" name=\"confirm\" id=\"frm-contactForm-form-confirm\" required=\"\" data-nette-rules=\"[{&quot;op&quot;:&quot;:filled&quot;,&quot;msg&quot;:&quot;Prosím potvrďte před odesláním&quot;}]\""
+                }
+              ],
+              "messages": [
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<div class=\"text-red-500 form-validation-info text-sm w-full\">Vyberte prosím vhodné téma dotazu.</div>",
+                  "text": "Vyberte prosím vhodné téma dotazu."
+                },
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<div class=\"text-red-500 form-validation-info text-sm w-full\">Napište prosím Váš dotaz.</div>",
+                  "text": "Napište prosím Váš dotaz."
+                },
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<div class=\"text-red-500 form-validation-info text-sm w-full\">Zadejte prosím Vaši e-mailovou adresu na kterou Vám můžeme zaslat odpověď.</div>",
+                  "text": "Zadejte prosím Vaši e-mailovou adresu na kterou Vám můžeme zaslat odpověď."
+                }
+              ]
+            },
+            "index": 0,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "site": "bike-discount.de",
+      "scanId": "scan-mw1us76y-08qli9cz",
+      "emptySubmits": {
+        "forms": [
+          {
+            "index": -1,
+            "skipped": "no_fields",
+            "snippet": "<form method=\"post\" action=\"/de/checkout/language\" class=\"language-form\" data-form-auto-submit=\"true\" data-nele-language-redirect=\"\"> <div class=\"languages-menu"
+          },
+          {
+            "index": 0,
+            "skipped": null,
+            "snippet": "<form name=\"precalc\" class=\"form-inline\" method=\"post\" action=\"/de/delivery-country-switch\" data-form-auto-submit=\"true\"> <div> <div class=\"form-group mt-2\"> <l"
+          },
+          {
+            "index": -1,
+            "skipped": "no_fields",
+            "snippet": "<form method=\"post\" action=\"/de/checkout/configure\" class=\"currency-form\" data-nele-language-redirect=\"\"> <div class=\"currencies-menu dropdown\"> <button class=\""
+          },
+          {
+            "index": -1,
+            "skipped": "no_fields",
+            "snippet": "<form action=\"/de/search\" method=\"get\" data-search-widget=\"true\" data-search-widget-options=\"{&quot;searchWidgetMinChars&quot;:1,&quot;suggestAutocompleteType&q"
+          },
+          {
+            "index": 1,
+            "skipped": null,
+            "snippet": "<form action=\"https://seu2.cleverreach.com/f/101891-269891/wcs/\" method=\"post\" target=\"_blank\"> <div class=\"form-content\"> <div class=\"nele-footer-newsletter-fo"
+          }
+        ],
+        "submissions": [
+          {
+            "blocked": [
+              "https://www.bike-discount.de/de/delivery-country-switch"
+            ],
+            "blockedCount": 1,
+            "errors": {
+              "invalid": [],
+              "messages": []
+            },
+            "index": 0,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          },
+          {
+            "blocked": [],
+            "blockedCount": 0,
+            "errors": {
+              "invalid": [
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "Ich habe die Datenschutzerklärung zur Kenntnis genommen und erkläre mich damit einverstanden.",
+                  "native": "Please check this box if you want to proceed.",
+                  "snippet": "<input name=\"1166008[]\" type=\"checkbox\" class=\"form-check-input\" id=\"footer-newsletter-privacy-consent\" required=\"\">"
+                }
+              ],
+              "messages": [
+                {
+                  "inForm": false,
+                  "live": false,
+                  "snippet": "<button class=\"btn btn-primary\" aria-label=\"Zurück zum Anfang der Seite springen\">\nNach oben\n</button>",
+                  "text": "Nach oben"
+                }
+              ]
+            },
+            "index": 1,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "site": "eataly.it",
+      "scanId": "scan-mw1uzh7p-x0m3d5lu",
+      "emptySubmits": {
+        "forms": [
+          {
+            "index": 0,
+            "skipped": null,
+            "snippet": "<form class=\"flex w-full flex-col gap-2\" novalidate=\"\" aria-busy=\"false\"><p class=\"body-copy-s text-muted-foreground\">*Campi obbligatori.</p><div class=\"mb-6 fl"
+          }
+        ],
+        "submissions": [
+          {
+            "blocked": [
+              "https://edge.dis.commercecloud.salesforce.com/dw/image/v2/BMBS_PRD/on/demandware.static/-/Sites-EAT1-Library/default/dwff770052/eataly-import/newsletter/newsletter-img1-desktop-pasta-472x630.webp",
+              "https://edge.dis.commercecloud.salesforce.com/dw/image/v2/BMBS_PRD/on/demandware.static/-/Sites-EAT1-Library/default/dw7707cde9/eataly-import/newsletter/newsletter-img2-desktop-corsi-620x826.webp",
+              "https://edge.dis.commercecloud.salesforce.com/dw/image/v2/BMBS_PRD/on/demandware.static/-/Sites-EAT1-Library/default/dw2f2cf861/eataly-import/newsletter/newsletter-img3-desktop-eventi-472x384.webp",
+              "https://edge.dis.commercecloud.salesforce.com/dw/image/v2/BMBS_PRD/on/demandware.static/-/Sites-EAT1-Library/default/dw3f09da27/footer/eu-organic-logo-600x400_0%201.webp",
+              "https://edge.dis.commercecloud.salesforce.com/dw/image/v2/BMBS_PRD/on/demandware.static/-/Sites-EAT1-Library/default/dw69e21de6/footer/mastercard.webp"
+            ],
+            "blockedCount": 13,
+            "errors": {
+              "invalid": [
+                {
+                  "ariaInvalid": true,
+                  "describedBy": "Inserisci il tuo indirizzo email",
+                  "label": "Email",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input data-slot=\"input\" class=\"file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 m"
+                },
+                {
+                  "ariaInvalid": true,
+                  "describedBy": "Inserisci il CAP",
+                  "label": "CAP",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input data-slot=\"input\" class=\"file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 m"
+                }
+              ],
+              "messages": [
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<p id=\"footer-newsletter-email-error\" class=\"body-copy-s text-destructive absolute bottom-0 left-0 right-0 whitespace-nowrap\">Inserisci il tuo indirizzo email</",
+                  "text": "Inserisci il tuo indirizzo email"
+                },
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<p id=\"footer-newsletter-cap-error\" class=\"body-copy-s text-destructive absolute bottom-0 left-0 right-0 whitespace-nowrap\">Inserisci il CAP</p>",
+                  "text": "Inserisci il CAP"
+                },
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<p id=\"footer-newsletter-marketing-error\" class=\"body-copy-s text-destructive pl-9\">Per iscriverti, accetta il consenso alle comunicazioni commerciali.</p>",
+                  "text": "Per iscriverti, accetta il consenso alle comunicazioni commerciali."
+                }
+              ]
+            },
+            "index": 0,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "site": "gls-pakete.de",
+      "scanId": "scan-mw1vxmxr-mfw5hbk6",
+      "emptySubmits": {
+        "forms": [
+          {
+            "index": 0,
+            "skipped": null,
+            "snippet": "<form enctype=\"multipart/form-data\" action=\"https://www.gls-pakete.de/index.php\" method=\"post\" class=\"flexforms-form form--inlinevalidation form-validate formid"
+          }
+        ],
+        "submissions": [
+          {
+            "blocked": [],
+            "blockedCount": 0,
+            "errors": {
+              "invalid": [
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "Ich... ist erforderlich",
+                  "label": "Ich... *",
+                  "native": "Please select an item in the list.",
+                  "snippet": "<select id=\"ido\" name=\"ido\" class=\"form-select form-control form-control-select required\" required=\"\" aria-required=\"true\" aria-describedby=\"errornote-ido\">\n\t<o"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "Mein Anliegen ist erforderlich",
+                  "label": "Mein Anliegen *",
+                  "native": "Please select an item in the list.",
+                  "snippet": "<select id=\"subject\" name=\"subject\" class=\"form-select form-control form-control-select required\" required=\"\" aria-required=\"true\" aria-describedby=\"errornote-s"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "Vorname ist erforderlich",
+                  "label": "Vorname *",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input type=\"text\" name=\"firstname\" id=\"firstname\" value=\"\" class=\"form-control form-control required\" placeholder=\"Vorname\" required=\"\" autocomplete=\"given-nam"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "Nachname ist erforderlich",
+                  "label": "Nachname *",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input type=\"text\" name=\"lastname\" id=\"lastname\" value=\"\" class=\"form-control form-control required\" placeholder=\"Nachname\" required=\"\" autocomplete=\"family-nam"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "PLZ ist erforderlich",
+                  "label": "PLZ *",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input type=\"text\" name=\"zip\" id=\"zip\" value=\"\" class=\"form-control form-control zipfieldcompletion required\" placeholder=\"PLZ\" required=\"\" pattern=\"\\d{5}\" titl"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "Ort ist erforderlich",
+                  "label": "Ort *",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input type=\"text\" name=\"city\" id=\"city\" value=\"\" class=\"form-control form-control cityfieldcompletion required\" placeholder=\"Ort\" required=\"\" autocomplete=\"add"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "E-Mail ist erforderlich",
+                  "label": "E-Mail *",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input type=\"email\" inputmode=\"email\" name=\"email\" class=\"form-control validate-email form-control required\" id=\"email\" value=\"\" autocomplete=\"email\" placeholde"
+                }
+              ],
+              "messages": [
+                {
+                  "inForm": true,
+                  "live": true,
+                  "snippet": "<div id=\"errornote-ido\" aria-atomic=\"true\" aria-live=\"polite\" class=\"small text-red\">Ich... ist erforderlich</div>",
+                  "text": "Ich... ist erforderlich"
+                },
+                {
+                  "inForm": true,
+                  "live": true,
+                  "snippet": "<div id=\"errornote-subject\" aria-atomic=\"true\" aria-live=\"polite\" class=\"small text-red\">Mein Anliegen ist erforderlich</div>",
+                  "text": "Mein Anliegen ist erforderlich"
+                },
+                {
+                  "inForm": true,
+                  "live": true,
+                  "snippet": "<div id=\"errornote-firstname\" aria-atomic=\"true\" aria-live=\"polite\" class=\"small text-red\">Vorname ist erforderlich</div>",
+                  "text": "Vorname ist erforderlich"
+                },
+                {
+                  "inForm": true,
+                  "live": true,
+                  "snippet": "<div id=\"errornote-lastname\" aria-atomic=\"true\" aria-live=\"polite\" class=\"small text-red\">Nachname ist erforderlich</div>",
+                  "text": "Nachname ist erforderlich"
+                },
+                {
+                  "inForm": true,
+                  "live": true,
+                  "snippet": "<div id=\"errornote-zip\" aria-atomic=\"true\" aria-live=\"polite\" class=\"small text-red\">PLZ ist erforderlich</div>",
+                  "text": "PLZ ist erforderlich"
+                },
+                {
+                  "inForm": true,
+                  "live": true,
+                  "snippet": "<div id=\"errornote-city\" aria-atomic=\"true\" aria-live=\"polite\" class=\"small text-red\">Ort ist erforderlich</div>",
+                  "text": "Ort ist erforderlich"
+                },
+                {
+                  "inForm": true,
+                  "live": true,
+                  "snippet": "<div id=\"errornote-email\" aria-atomic=\"true\" aria-live=\"polite\" class=\"small text-red\">E-Mail ist erforderlich</div>",
+                  "text": "E-Mail ist erforderlich"
+                },
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<span class=\"frc-text\"><b>Verifizierung fehlgeschlagen</b><br>Browser check failed, try a different browser</span>",
+                  "text": "Browser check failed, try a different browser"
+                },
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<b>Verifizierung fehlgeschlagen</b>",
+                  "text": "Verifizierung fehlgeschlagen"
+                }
+              ]
+            },
+            "index": 0,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "site": "sos-vesnicky.cz",
+      "scanId": "scan-mw1w4o84-3nkz48ga",
+      "emptySubmits": {
+        "forms": [
+          {
+            "index": 0,
+            "skipped": null,
+            "snippet": "<form novalidate=\"\" action=\"\" enctype=\"multipart/form-data\" method=\"POST\"><input type=\"hidden\" name=\"$ACTION_REF_1\"><input type=\"hidden\" name=\"$ACTION_1:0\" valu"
+          },
+          {
+            "index": 1,
+            "skipped": null,
+            "snippet": "<form novalidate=\"\" action=\"\" enctype=\"multipart/form-data\" method=\"POST\"><input type=\"hidden\" name=\"$ACTION_REF_4\"><input type=\"hidden\" name=\"$ACTION_4:0\" valu"
+          },
+          {
+            "index": 2,
+            "skipped": null,
+            "snippet": "<form class=\"_1vn51la1 _1vn51la0\" action=\"javascript:throw new Error('A React form was unexpectedly submitted. If you called form.submit() manually, consider us"
+          }
+        ],
+        "submissions": [
+          {
+            "blocked": [
+              "https://www.sos-vesnicky.cz/kontakty",
+              "https://sentry.giant.cz/api/131/envelope/",
+              "https://sentry.giant.cz/api/131/envelope/"
+            ],
+            "blockedCount": 3,
+            "errors": {
+              "invalid": [
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input class=\"_2pg2qb1 _2pg2qb0\" id=\":Rapd7rokva:\" required=\"\" name=\"name\">"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input class=\"_2pg2qb1 _2pg2qb0\" type=\"tel\" id=\":Ripd7rokva:\" required=\"\" name=\"phone\">"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input class=\"_2pg2qb1 _2pg2qb0\" type=\"email\" id=\":Rqpd7rokva:\" required=\"\" name=\"email\">"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "",
+                  "native": "Please fill out this field.",
+                  "snippet": "<textarea class=\"_1u6pmrj0 _2pg2qb0\" name=\"message\" id=\":R12pd7rokva:\" required=\"\"></textarea>"
+                }
+              ],
+              "messages": [
+                {
+                  "inForm": false,
+                  "live": false,
+                  "snippet": "<h2 style=\"font-size: 14px; font-weight: 400; line-height: 28px;\">Application error: a client-side exception has occurred (see the browser console for more info",
+                  "text": "Application error: a client-side exception has occurred (see the browser console for more information)."
+                }
+              ]
+            },
+            "index": 0,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          },
+          {
+            "blocked": [],
+            "blockedCount": 0,
+            "errors": {
+              "invalid": [
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input class=\"_2pg2qb1 _2pg2qb0\" type=\"email\" placeholder=\"Váš e-mail\" autocomplete=\"email\" id=\":Rap9akva:\" required=\"\" name=\"email\">"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "",
+                  "native": "Please check this box if you want to proceed.",
+                  "snippet": "<input required=\"\" type=\"checkbox\" class=\"_15s0nt70\" name=\"agreement\">"
+                }
+              ],
+              "messages": []
+            },
+            "index": 1,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          },
+          {
+            "blocked": [],
+            "blockedCount": 0,
+            "errors": {
+              "invalid": [],
+              "messages": []
+            },
+            "index": 2,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "site": "ceskafilharmonie.cz",
+      "scanId": "scan-mw1w5vh6-h8lsj77e",
+      "emptySubmits": {
+        "forms": [
+          {
+            "index": 0,
+            "skipped": null,
+            "snippet": "<form action=\"#\" method=\"post\" id=\"form-6324\" class=\"layout flexible ng-pristine ng-valid form form-component form-6324\" data-page-id=\"6324\" novalidate=\"novalid"
+          },
+          {
+            "index": 1,
+            "skipped": null,
+            "snippet": "<form method=\"post\" class=\"newsletter-form ng-pristine ng-valid\" target=\"_self\" action=\"https://app.smartemailing.cz/public/web-forms-v2/display-form/293717-lps"
+          }
+        ],
+        "submissions": [
+          {
+            "blocked": [],
+            "blockedCount": 0,
+            "errors": {
+              "invalid": [
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "Vaše zpráva Vaše zpráva*",
+                  "native": "Please fill out this field.",
+                  "snippet": "<textarea class=\"text-box form-component--input\" id=\"5abc2f4f-f566-4b6d-860e-3ea786563c13\" name=\"5abc2f4f-f566-4b6d-860e-3ea786563c13\" type=\"text\" placeholder=\""
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "E-mail* E-mail*",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input class=\"text-box form-component--input\" id=\"8957a05a-f3d8-405e-81a1-e3b3cd4c2a5c\" name=\"8957a05a-f3d8-405e-81a1-e3b3cd4c2a5c\" type=\"text\" placeholder=\"\" v"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "Souhlasím se zpracováním osobních údajů.*",
+                  "native": "Please check this box if you want to proceed.",
+                  "snippet": "<input class=\"checkbox__input form-component--input\" id=\"a1a58779-aa09-4c7d-acf9-8841121096d4\" name=\"a1a58779-aa09-4c7d-acf9-8841121096d4\" type=\"checkbox\" aria-"
+                }
+              ],
+              "messages": [
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<div class=\"caption-text danger\" id=\"5abc2f4f-f566-4b6d-860e-3ea786563c13-error\">Vyplňte text zprávy</div>",
+                  "text": "Vyplňte text zprávy"
+                },
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<div class=\"caption-text danger\" id=\"8957a05a-f3d8-405e-81a1-e3b3cd4c2a5c-error\">Vyplňte e-mail</div>",
+                  "text": "Vyplňte e-mail"
+                }
+              ]
+            },
+            "index": 0,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          },
+          {
+            "blocked": [
+              "https://region1.google-analytics.com/g/collect",
+              "https://app.smartemailing.cz/public/web-forms-v2/display-form/293717-lpsvfh8w3wh7nzslzuuntucu387kfscs15mzu19x5vmrnn3nk9u4yand6zv1ike4fhgzgzevbqxjlzre4ql65qpryvhtnf6v4kjq",
+              "https://region1.google-analytics.com/g/collect"
+            ],
+            "blockedCount": 3,
+            "errors": {
+              "invalid": [],
+              "messages": []
+            },
+            "index": 1,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "site": "ruzovyslon.cz",
+      "scanId": "scan-mw1w6u1z-ix9r07eu",
+      "emptySubmits": {
+        "forms": [
+          {
+            "index": 0,
+            "skipped": null,
+            "snippet": "<form action=\"https://www.ruzovyslon.cz/hledani\" method=\"get\" itemprop=\"potentialAction\" itemscope=\"\" itemtype=\"https://schema.org/search-Action\">\n        <meta"
+          },
+          {
+            "index": 1,
+            "skipped": null,
+            "snippet": "<form name=\"subscription_form\" method=\"post\" action=\"/newsletter/subscribe-email/\" novalidate=\"novalidate\" data-on-submit=\"ajaxSubmit\" data-success=\"false\" role"
+          }
+        ],
+        "submissions": [
+          {
+            "blocked": [
+              "https://prodregistryv2.org/v1/rgstr",
+              "https://www.ruzovyslon.cz/hledani",
+              "https://cloudflare-dns.com/dns-query",
+              "https://statsigapi.net/v1/sdk_exception",
+              "https://prodregistryv2.org/v1/rgstr"
+            ],
+            "blockedCount": 5,
+            "errors": {
+              "invalid": [],
+              "messages": []
+            },
+            "index": 0,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          },
+          {
+            "blocked": [
+              "https://www.ruzovyslon.cz/assets/frontend/images/instagram-feed.png",
+              "https://www.ruzovyslon.cz/assets/frontend/images/adam.png",
+              "https://www.ruzovyslon.cz/assets/frontend/images/plugin-cs.png",
+              "https://www.ruzovyslon.cz/assets/frontend/images/store.png",
+              "https://cdn.ruzovyslon.cz/content/images/footerLogoSection/original/133464.png"
+            ],
+            "blockedCount": 20,
+            "errors": {
+              "invalid": [
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input type=\"email\" id=\"subscription_form_email\" name=\"subscription_form[email]\" required=\"required\" placeholder=\"Váš e-mail\" class=\"footer__newsletter__input i"
+                }
+              ],
+              "messages": [
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<li class=\"js-validation-errors-message js-error-source-id-form-error-subscription-form-email\">Vyplňte prosím e-mail</li>",
+                  "text": "Vyplňte prosím e-mail"
+                }
+              ]
+            },
+            "index": 1,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "site": "rudolfinum.cz",
+      "scanId": "scan-mw1w7t0y-guqzkvwo",
+      "emptySubmits": {
+        "forms": [
+          {
+            "index": 0,
+            "skipped": null,
+            "snippet": "<form action=\"#\" method=\"post\" id=\"form-16207\" class=\"layout flexible form form-component form-16207\" data-page-id=\"16207\" novalidate=\"\" autocomplete=\"off\" x-da"
+          }
+        ],
+        "submissions": [
+          {
+            "blocked": [],
+            "blockedCount": 0,
+            "errors": {
+              "invalid": [
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "Co máte na srdci Co máte na srdci*",
+                  "native": "Please fill out this field.",
+                  "snippet": "<textarea class=\"text-box form-component--input\" id=\"42b42086-6dbf-887b-d4d9-c2237520c44f\" name=\"42b42086-6dbf-887b-d4d9-c2237520c44f\" type=\"text\" placeholder=\""
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "E-mail* E-mail*",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input class=\"text-box form-component--input form-component-email\" id=\"f17a294a-936b-cb89-10cf-3c6c8979e0f3\" name=\"f17a294a-936b-cb89-10cf-3c6c8979e0f3\" type=\"e"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "Odesláním souhlasíte se Zásadami ochrany osobních údajů* Potvrďte nám svůj souhlas zaškrtnutím.",
+                  "native": "Please check this box if you want to proceed.",
+                  "snippet": "<input class=\"checkbox__input checkbox form-component--input\" id=\"0524ba9f-9d1c-cc7a-0627-90bccf646021\" name=\"0524ba9f-9d1c-cc7a-0627-90bccf646021\" type=\"checkb"
+                }
+              ],
+              "messages": [
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<label class=\"error\" x-text=\"errors['0524ba9f-9d1c-cc7a-0627-90bccf646021'][0]\">Potvrďte nám svůj souhlas zaškrtnutím.</label>",
+                  "text": "Potvrďte nám svůj souhlas zaškrtnutím."
+                }
+              ]
+            },
+            "index": 0,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "site": "nanospace.cz",
+      "scanId": "scan-mw1w9jev-nj6h4f4x",
+      "emptySubmits": {
+        "forms": [
+          {
+            "index": -1,
+            "skipped": "no_fields",
+            "snippet": "<form action=\"/action/ProductSearch/prepareString/\" method=\"post\" id=\"formSearchForm\" class=\"search-form compact-form js-search-main\" itemprop=\"potentialAction\""
+          },
+          {
+            "index": 0,
+            "skipped": null,
+            "snippet": "<form action=\"/action/MailForm/SendEmail/\" method=\"post\" id=\"formContact\" class=\"contact-form\" novalidate=\"\"><p>Máte nějaké otázky? Zodpovíme je. Prosíme o pečl"
+          }
+        ],
+        "submissions": [
+          {
+            "blocked": [],
+            "blockedCount": 0,
+            "errors": {
+              "invalid": [
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "Jméno a příjmení",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input type=\"text\" value=\"\" name=\"fullName\" id=\"fullName\" class=\"form-control js-validate js-validate-required error-field\" required=\"\">"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "E-mail",
+                  "native": "Please fill out this field.",
+                  "snippet": "<input type=\"email\" value=\"\" name=\"email\" id=\"email\" class=\"form-control js-validate js-validate-required foxentry-input foxentry-form-b0a64d13-9407-44cb-8a66-0"
+                },
+                {
+                  "ariaInvalid": false,
+                  "describedBy": "",
+                  "label": "Zpráva",
+                  "native": "Please fill out this field.",
+                  "snippet": "<textarea name=\"message\" id=\"message\" rows=\"7\" class=\"form-control js-validate js-validate-required error-field\" required=\"\"></textarea>"
+                }
+              ],
+              "messages": [
+                {
+                  "inForm": true,
+                  "live": false,
+                  "snippet": "<div class=\"validator-msg js-validator-msg msg-error\" id=\"id-1735\" data-gtm-vis-recent-on-screen31923192_402=\"30724\" data-gtm-vis-first-on-screen31923192_402=\"3",
+                  "text": "Napište komentář."
+                }
+              ]
+            },
+            "index": 0,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "site": "nkp.cz",
+      "scanId": "scan-mw1waqef-g6bobgtn",
+      "emptySubmits": {
+        "forms": [
+          {
+            "index": 0,
+            "skipped": null,
+            "snippet": "<form action=\"\" method=\"POST\" enctype=\"multipart/form-data\" class=\"form-to-validate formLayout--placeholder\" id=\"From9d591f\" novalidate=\"novalidate\">\n\t<fieldset"
+          }
+        ],
+        "submissions": [
+          {
+            "blocked": [],
+            "blockedCount": 0,
+            "errors": {
+              "invalid": [
+                {
+                  "ariaInvalid": true,
+                  "describedBy": "Pole Věc je povinné.",
+                  "label": "Věc",
+                  "native": null,
+                  "snippet": "<input type=\"text\" aria-label=\"Věc\" name=\"FormFields[242]\" value=\"\" id=\"genform_242\" placeholder=\"Věc\" aria-required=\"true\" aria-invalid=\"true\" aria-errormessag"
+                },
+                {
+                  "ariaInvalid": true,
+                  "describedBy": "Pole E-mail je povinné.",
+                  "label": "E-mail",
+                  "native": null,
+                  "snippet": "<input type=\"email\" aria-label=\"E-mail\" name=\"FormFields[69]\" value=\"\" id=\"genform_69\" placeholder=\"E-mail\" aria-required=\"true\" aria-invalid=\"true\" aria-errorm"
+                },
+                {
+                  "ariaInvalid": true,
+                  "describedBy": "Pole Text je povinné.",
+                  "label": "Text",
+                  "native": null,
+                  "snippet": "<textarea cols=\"75\" rows=\"4\" name=\"FormFields[70]\" class=\"form-control\" placeholder=\"Text\" aria-label=\"Text\" aria-invalid=\"true\" aria-errormessage=\"error8306846"
+                }
+              ],
+              "messages": [
+                {
+                  "inForm": true,
+                  "live": true,
+                  "snippet": "<span for=\"genform_242\" class=\"help-block error\" id=\"error3558903\" role=\"alert\">Pole Věc je povinné.</span>",
+                  "text": "Pole Věc je povinné."
+                },
+                {
+                  "inForm": true,
+                  "live": true,
+                  "snippet": "<span for=\"genform_69\" class=\"help-block error\" id=\"error7875526\" role=\"alert\">Pole E-mail je povinné.</span>",
+                  "text": "Pole E-mail je povinné."
+                },
+                {
+                  "inForm": true,
+                  "live": true,
+                  "snippet": "<span for=\"FormFields[70]\" class=\"help-block error\" id=\"error8306846\" role=\"alert\">Pole Text je povinné.</span>",
+                  "text": "Pole Text je povinné."
+                }
+              ]
+            },
+            "index": 0,
+            "left": false,
+            "submitted": {
+              "submitted": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

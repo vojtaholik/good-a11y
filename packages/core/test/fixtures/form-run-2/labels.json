@@ -1,0 +1,256 @@
+{
+  "labelled": "2026-11-04",
+  "by": "builder-judge, by hand from the evidence, before any model answer",
+  "item": "As in form-run/labels.json",
+  "rule": "As in form-run/labels.json",
+  "fields": [
+    {
+      "site": "lekarna.cz",
+      "form": 0,
+      "field": "topic select (unlabelled)",
+      "identified": true,
+      "suggested": true,
+      "why": "'Vyberte prosím vhodné téma dotazu.' appeared in the form"
+    },
+    {
+      "site": "lekarna.cz",
+      "form": 0,
+      "field": "message textarea (unlabelled)",
+      "identified": true,
+      "suggested": true,
+      "why": "'Napište prosím Váš dotaz.' appeared in the form"
+    },
+    {
+      "site": "lekarna.cz",
+      "form": 0,
+      "field": "e-mail (unlabelled)",
+      "identified": true,
+      "suggested": true,
+      "why": "'Zadejte prosím Vaši e-mailovou adresu…' appeared in the form"
+    },
+    {
+      "site": "lekarna.cz",
+      "form": 0,
+      "field": "Odesláním souhlasíte se zpracováním osobních údajů",
+      "identified": false,
+      "suggested": false,
+      "why": "Only the browser's message; the site's 'Prosím potvrďte před odesláním' did not appear"
+    },
+    {
+      "site": "bike-discount.de",
+      "form": 1,
+      "field": "Ich habe die Datenschutzerklärung zur Kenntnis genommen…",
+      "identified": false,
+      "suggested": false,
+      "why": "Only the browser's message; the one appeared text is 'Nach oben' outside the form"
+    },
+    {
+      "site": "eataly.it",
+      "form": 0,
+      "field": "Email",
+      "identified": true,
+      "suggested": true,
+      "why": "aria-invalid, described by 'Inserisci il tuo indirizzo email', which appeared"
+    },
+    {
+      "site": "eataly.it",
+      "form": 0,
+      "field": "CAP",
+      "identified": true,
+      "suggested": true,
+      "why": "aria-invalid, described by 'Inserisci il CAP', which appeared"
+    },
+    {
+      "site": "gls-pakete.de",
+      "form": 0,
+      "field": "Ich... *",
+      "identified": true,
+      "suggested": true,
+      "why": "Described by 'Ich... ist erforderlich', in a live region"
+    },
+    {
+      "site": "gls-pakete.de",
+      "form": 0,
+      "field": "Mein Anliegen *",
+      "identified": true,
+      "suggested": true,
+      "why": "'Mein Anliegen ist erforderlich'"
+    },
+    {
+      "site": "gls-pakete.de",
+      "form": 0,
+      "field": "Vorname *",
+      "identified": true,
+      "suggested": true,
+      "why": "'Vorname ist erforderlich'"
+    },
+    {
+      "site": "gls-pakete.de",
+      "form": 0,
+      "field": "Nachname *",
+      "identified": true,
+      "suggested": true,
+      "why": "'Nachname ist erforderlich'"
+    },
+    {
+      "site": "gls-pakete.de",
+      "form": 0,
+      "field": "PLZ *",
+      "identified": true,
+      "suggested": true,
+      "why": "'PLZ ist erforderlich'"
+    },
+    {
+      "site": "gls-pakete.de",
+      "form": 0,
+      "field": "Ort *",
+      "identified": true,
+      "suggested": true,
+      "why": "'Ort ist erforderlich'"
+    },
+    {
+      "site": "gls-pakete.de",
+      "form": 0,
+      "field": "E-Mail *",
+      "identified": true,
+      "suggested": true,
+      "why": "'E-Mail ist erforderlich'"
+    },
+    {
+      "site": "sos-vesnicky.cz",
+      "form": 0,
+      "field": "name (unlabelled)",
+      "identified": false,
+      "suggested": false,
+      "why": "Only the browser's message; the one appeared text is a client-side 'Application error' outside the form"
+    },
+    {
+      "site": "sos-vesnicky.cz",
+      "form": 0,
+      "field": "phone (unlabelled)",
+      "identified": false,
+      "suggested": false,
+      "why": "Same"
+    },
+    {
+      "site": "sos-vesnicky.cz",
+      "form": 0,
+      "field": "email (unlabelled)",
+      "identified": false,
+      "suggested": false,
+      "why": "Same"
+    },
+    {
+      "site": "sos-vesnicky.cz",
+      "form": 0,
+      "field": "message (unlabelled)",
+      "identified": false,
+      "suggested": false,
+      "why": "Same"
+    },
+    {
+      "site": "ceskafilharmonie.cz",
+      "form": 0,
+      "field": "Vaše zpráva",
+      "identified": true,
+      "suggested": true,
+      "why": "'Vyplňte text zprávy' appeared under it"
+    },
+    {
+      "site": "ceskafilharmonie.cz",
+      "form": 0,
+      "field": "E-mail",
+      "identified": true,
+      "suggested": true,
+      "why": "'Vyplňte e-mail' appeared under it"
+    },
+    {
+      "site": "ceskafilharmonie.cz",
+      "form": 0,
+      "field": "Souhlasím se zpracováním osobních údajů.*",
+      "identified": false,
+      "suggested": false,
+      "why": "Only the browser's message"
+    },
+    {
+      "site": "ruzovyslon.cz",
+      "form": 1,
+      "field": "e-mail (unlabelled)",
+      "identified": true,
+      "suggested": true,
+      "why": "One field; 'Vyplňte prosím e-mail' appeared in the form"
+    },
+    {
+      "site": "rudolfinum.cz",
+      "form": 0,
+      "field": "Co máte na srdci",
+      "identified": false,
+      "suggested": false,
+      "why": "Only the browser's message"
+    },
+    {
+      "site": "rudolfinum.cz",
+      "form": 0,
+      "field": "E-mail",
+      "identified": false,
+      "suggested": false,
+      "why": "Only the browser's message"
+    },
+    {
+      "site": "rudolfinum.cz",
+      "form": 0,
+      "field": "Odesláním souhlasíte se Zásadami…",
+      "identified": true,
+      "suggested": true,
+      "why": "Error label 'Potvrďte nám svůj souhlas zaškrtnutím.' appeared for the checkbox"
+    },
+    {
+      "site": "nanospace.cz",
+      "form": 0,
+      "field": "Jméno a příjmení",
+      "identified": false,
+      "suggested": false,
+      "why": "Only the browser's message; the one appeared text is about the message field"
+    },
+    {
+      "site": "nanospace.cz",
+      "form": 0,
+      "field": "E-mail",
+      "identified": false,
+      "suggested": false,
+      "why": "Only the browser's message"
+    },
+    {
+      "site": "nanospace.cz",
+      "form": 0,
+      "field": "Zpráva",
+      "identified": true,
+      "suggested": true,
+      "why": "'Napište komentář.' appeared, the message field's error"
+    },
+    {
+      "site": "nkp.cz",
+      "form": 0,
+      "field": "Věc",
+      "identified": true,
+      "suggested": true,
+      "why": "aria-invalid, alert 'Pole Věc je povinné.'"
+    },
+    {
+      "site": "nkp.cz",
+      "form": 0,
+      "field": "E-mail",
+      "identified": true,
+      "suggested": true,
+      "why": "aria-invalid, alert 'Pole E-mail je povinné.'"
+    },
+    {
+      "site": "nkp.cz",
+      "form": 0,
+      "field": "Text",
+      "identified": true,
+      "suggested": true,
+      "why": "aria-invalid, alert 'Pole Text je povinné.'"
+    }
+  ]
+}

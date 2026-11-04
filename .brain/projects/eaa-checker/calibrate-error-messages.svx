@@ -1,7 +1,7 @@
 ---
 title: "Calibrate Error Messages"
 type: "step"
-status: "open"
+status: "done"
 parent: "./eaa-checker-brief.svx"
 created_at: "2026-11-04"
 ---
@@ -39,3 +39,15 @@ Counts: **27 submissions** on 18 sites; **18 of them show errors** (an invalid f
 ## Tokens
 
 About 20,000: up to 3 submissions per page with up to 10 messages and 40 fields each, so about 600 tokens a page. That fits one day's calibrator share (`CALIBRATION_JUDGE_TOKENS`, 100,000 by default) with room for a second run.
+
+## Result (2026-11-04, builder-judge)
+
+Shipped: both questions are shown, as judged observations in the judged section, relating to 3.3.1 and 3.3.3.
+
+- Item: one invalid field in a submission where the site wrote some text. Forms with only the browser's own messages are not asked (a rule says as much, and the browser's message may identify the field). Labels per field, by hand, before the answers: `form-run/labels.json`, `form-run-2/labels.json`.
+- Second run: 72 pages on dev (`form-run-2/`), canary first with 0 hits, `EMPTY_SUBMITS=true` only for the run, then dev back with submits off (binding `false`). Dev's scan cap was at 194/200, so the lead allowed a one-off `DAILY_SCAN_CAP` of 300 on dev only, deployed from a scratch worktree and never committed; back to 200 after.
+- 48 fields on 19 sites (17 without identifying site text). One Clef run, 21,958 tokens, local calibrator under a one-off 420k clamp deleted after the run.
+- Sites split in alternate halves. 3.3.1 at P(no) ≥ 0.90: design 11/11, holdout 4/4 (recall 4/6). 3.3.3 at P(no) ≥ 0.80: design 11/11, holdout 5/5 (recall 5/6).
+- They ask only where the scanner runs the empty submits. Those stay off by default (R2-M1); whether to turn them on per stage is open for the lead.
+
+Details: `docs/judged-checks.md`, "Round 4".

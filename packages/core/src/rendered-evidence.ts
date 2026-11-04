@@ -147,6 +147,8 @@ export const RenderedEvidenceSchema = Schema.Struct({
 
 export type RenderedEvidence = typeof RenderedEvidenceSchema.Type;
 
+export type Submission = typeof SubmissionSchema.Type;
+
 const decodeProbes = Schema.decodeUnknownResult(
   Schema.fromJsonString(Schema.Struct({ evidence: RenderedEvidenceJson }))
 );

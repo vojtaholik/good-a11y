@@ -34,6 +34,8 @@ At most 20 distinct items per check (`MAX_JUDGED_ITEMS`), taken in document orde
 | `statement-annex-v` | Art. 13 and Annex V point 1 (EU-STMT-3, -4, -5); no WCAG criterion | the statement page the crawl found, when its text outside `nav`, `header` and `footer` is at least 300 characters; the text is capped at 6,000 characters | Three questions, items `statement_1` to `statement_3`: does the text give (a) a general description of the service, (b) an explanation of how the service works, (c) a description of how it meets the accessibility requirements? A note per point the model judged missing |
 | `visual-headings-marked` | 1.3.1 | the rendered page's `visualHeadings` candidates (builder-cloud's probe: short blocks outside heading elements set at 1.2 times body size or larger, or bold at body size alone on their line; none that contains a heading or follows one), with at least three letters once currency words are removed, each text once, up to 20 | Is the text the title of a section of the page, the way a heading names the content below it? No for a price, a card or teaser name, a slogan, a date, a number, an icon name, a button or link label, a notice or part of a sentence. State: text, size, weight, body size, the start of its HTML. Noted where P(yes) ≥ 0.60. Shown (round 3) |
 | `passage-language-marked` | 3.1.2 | the rendered page's `foreignBlocks` (blocks whose common words point to another language than the `lang` in force on them), when that `lang` is an EU language, each text once, up to 20 | Is most of the block written in the language its `lang` names? Names of people, places, products and brands do not count. Noted where P(no) ≥ 0.80. Shown (round 3) |
+| `error-identified` | 3.3.1 | the rendered page's `emptySubmits`: each field the browser or the site found invalid after an empty submit, in a submission where the site wrote some text (an appeared text or a field description), up to 20 fields | Does text the site wrote say that this field is wrong, by naming it or by being its own message or description? The browser's own message does not count. State: per form, each field's label (or the start of its markup), the browser's message, `aria-invalid`, its description, and the texts that appeared. Noted where P(no) ≥ 0.90. Shown (round 4) |
+| `error-suggestion` | 3.3.3 | the same fields | Does text the site wrote say what to do about this field, such as that it must be filled in or what to enter or choose? Same state. Noted where P(no) ≥ 0.80. Shown (round 4) |
 
 The static reader collects the extra evidence in its single tokenizer pass: link context (the innermost `p`, `li`, `td`, `th`, `dd`, `dt`, `caption`, `figcaption` or heading, capped at 300 characters), headings with level, label texts, the image file name (last path segment, no query, none for `data:`), the first 1,200 characters of visible text, each block's text (`passages`: paragraph, list item, cell or heading of at least 40 characters, with its effective `lang` and landmark, at most 400), and up to 20 distinct prices (an amount with a currency sign or code, or `,-`, also when the currency is in the next text node).
 
@@ -51,6 +53,8 @@ The static reader collects the extra evidence in its single tokenizer pass: link
 | `statement-annex-v` | P(no) ≥ 0.80 per point (round 2, real items) | 1.00 (27/27) | 0.93 (27/29) |
 | `visual-headings-marked` | P(yes) ≥ 0.60 (round 3, holdout) | 1.00 (16/16) | 0.94 (16/17) |
 | `passage-language-marked` | P(no) ≥ 0.80 (round 3, holdout) | 1.00 (32/32) | 0.97 (32/33) |
+| `error-identified` | P(no) ≥ 0.90 (round 4, holdout) | 1.00 (4/4) | 0.67 (4/6) |
+| `error-suggestion` | P(no) ≥ 0.80 (round 4, holdout) | 1.00 (5/5) | 0.83 (5/6) |
 
 - Each note shows the model's confidence in that answer (the probability above, rounded to a percent).
 - What a note means: the model, reading only the text shown, thinks this item probably does not do what the success criterion asks. It is a pointer for a person to look at, not a failure. A check with no notes means nothing was noted, never that the criterion is met.
@@ -70,6 +74,8 @@ Each check has a `shown` flag in `packages/core/src/judged.ts`. A check that is 
 | `statement-annex-v` | yes | 27 of 27 real notes right (round 2) |
 | `visual-headings-marked` | yes | 16 of 16 real notes right on a holdout of 10 pages the threshold and the probe drops were not chosen on (round 3) |
 | `passage-language-marked` | yes | 32 of 32 real notes right on the holdout half of 95 pages; threshold chosen on the other half (round 3) |
+| `error-identified` | yes | 4 of 4 real notes right on the holdout half (22 fields, 9 sites); threshold chosen on the other half (round 4). Asked only where the scanner runs the empty submits (`EMPTY_SUBMITS=true`) |
+| `error-suggestion` | yes | 5 of 5 real notes right on the same holdout (round 4). Same condition |
 
 The hand-written set above did not predict the failures on real pages. A hidden check comes back only when it reaches precision 0.9 on a set of at least 30 real items, labelled by hand, taken from scanned pages.
 
@@ -175,6 +181,52 @@ All through the local calibrator (local D1 `judge_budget` row), each figure the 
 
 Dev's own judged steps (other agents' scans and builder-cloud's form run) count on dev's row, not this one.
 
+## Round 4: error messages after an empty submit (2026-11-04)
+
+Run by builder-judge for decision 29 (`.brain/projects/eaa-checker/calibrate-error-messages.svx`).
+
+### Evidence
+
+- **Run 1** (builder-cloud): 30 contact, newsletter and registration pages, `packages/core/test/fixtures/form-run/`.
+- **Run 2** (builder-judge): 72 more pages on stage dev, one at a time, `packages/core/test/fixtures/form-run-2/` (`scans.tsv`, `summary.tsv`, and `evidence.json` with the `emptySubmits` of the 10 scans the questions ask; snippets capped at 160 characters, query strings cut). Pages were picked from EU shops, public bodies, universities, NGOs and cultural sites, screened first with one plain fetch for a form with fields and no password. Dev ran with `EMPTY_SUBMITS=true` for the run only. The canary went first (`scan-mw1uh74b-q7lh2mwt`, 08:18 UTC): 3 forms submitted, 11 requests blocked, 0 `/hit/*` requests in the Canary Worker's log. After the run dev was deployed from HEAD with submits off; the scanner's `EMPTY_SUBMITS` binding read `false` and the deployed bundle's `DAILY_SCAN_CAP` read 200.
+- **Scan cap.** Dev's 24-hour scan cap stood at 194 of 200 when the run started. The lead allowed a one-off raise on stage dev only: `DAILY_SCAN_CAP` 300, deployed from a scratch worktree at HEAD plus that one line (08:23 to 09:11 UTC), per-IP and per-site limits unchanged, never committed. Dev went back to 200 in the same deploy that turned the submits off.
+
+### What an item is
+
+One invalid field, in a submission where the site wrote some text: a text that appeared after the submit, or a description on an invalid field. Submissions where every field has only the browser's own message are not asked: nothing in them is the site's, so a model adds nothing a rule could not say, and the browser's message may itself identify the field. Submissions with no invalid field are not asked either.
+
+Labels (`labels.json` in both folders) were set by hand before any answer. `identified` (3.3.1): text the site wrote says that this field is wrong, by naming it or by being its own message or description. `suggested` (3.3.3): that text says what to do about the field. The browser's message does not count. Per field rather than per submission, so a form where some fields get a message and others do not is labelled field by field.
+
+Yield: of 102 pages, 19 had a submission the questions ask, giving 48 fields, all scorable; 17 have no identifying text from the site. Most forms rely on the browser's own messages (bonprix.de, notino.cz, uclouvain.be, galeria.de and 18 more), and many accepted the empty submit or had no invalid field (otto.at, with a 10-field contact form, among them).
+
+### Answers and split
+
+One Clef run: 38 requests (19 sites, two questions each), 21,958 input tokens, through the local calibrator, recorded in `packages/core/test/fixtures/judged-round4-errors-replies.json`. The sites, sorted by name, were split in alternate halves; thresholds were chosen on the design half, precision is the holdout's.
+
+| Question | Half | Sites | Fields | Bad | Threshold | Noted | Right | Precision | Recall |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `error-identified` | design | 10 | 26 | 11 | 0.90 | 11 | 11 | 1.00 | 1.00 |
+| `error-identified` | holdout | 9 | 22 | 6 | 0.90 | 4 | 4 | 1.00 | 0.67 |
+| `error-suggestion` | design | 10 | 26 | 11 | 0.80 | 11 | 11 | 1.00 | 1.00 |
+| `error-suggestion` | holdout | 9 | 22 | 6 | 0.80 | 5 | 5 | 1.00 | 0.83 |
+
+- On the design half the false notes below the thresholds were nanospace.cz's message field (P(no) 0.84 for 3.3.1, 0.60 for 3.3.3: its only error text, "Napište komentář.", does not name the field) and rudolfinum.cz's consent box (0.77). Any 3.3.1 threshold from 0.85 to 0.95 gives 11 of 11; 0.90 keeps a margin. 3.3.3 gives 11 of 11 from 0.65 to 0.90; 0.80 matches the other checks.
+- Holdout misses: ceskatelevize.cz's interest select (P(no) 0.84 for 3.3.1) and its e-mail field (0.24 and 0.47), whose description is the name field's text through a shared error id. The model read that description as the e-mail's own message.
+- The notes are mostly fields left with the browser's message while the site's text sits elsewhere: a menu label, a legal notice, a client-side "Application error", or messages for the other fields. Notes on a form with no site text at all do not occur, because such forms are not asked.
+- The holdout has 4 and 5 notes. The precision is a floor check on few notes, as for `visual-headings-marked`.
+
+### Where it runs
+
+The empty submits stay off by default (R2-M1). While `EMPTY_SUBMITS` is unset the scanner collects no `emptySubmits`, both questions ask nothing, and the report has no observation for them. Turning the submits on for a stage is the lead's call (browser time per scan, and third-party forms submitted under the request blocking).
+
+### Tokens used for calibration on 2026-11-04 (round 4)
+
+| Run                                   | Requests | Input tokens |
+| ------------------------------------- | -------- | ------------ |
+| Error messages, 48 fields on 19 sites | 38       | 21,958       |
+
+The lead allowed at most 40,000 more on the local calibrator row today. The calibrator read a one-off cap, `CALIBRATION_JUDGE_TOKENS=420000`, clamped in code to at most 420,000 and read only under `alchemy dev`; the clamp was applied for this one run and deleted from the tree right after it (review R2-L6), never committed. Day total on the local row: 378,945 before plus 21,958, so 400,903.
+
 ## Real-item calibration
 
 `packages/core/test/fixtures/judged-real-items.json` holds items from the pages in docs/accuracy-qa.md, labelled by hand by builder-core on 2026-11-03; ambiguous items were left out. `judged-real-requests.json` is the exact request per site, built with `questionsOf`. builder-cloud sent each request once to `@cf/cloudflare/clef` without opening the labels and recorded `judged-real-replies.json` (17 replies, 19,895 input tokens). `packages/core/test/judged-real-calibration.test.ts` scores it and fails if a check is shown below precision 0.9.
@@ -242,6 +294,7 @@ Measured on the fixture page (`packages/core/test/fixtures/judged-page.html`, 4 
 - `packages/ai-judge/test/ai-judge.test.ts` checks the pinned model and gateway, decoding, and the `service`, `unreadable` and `timeout` failures.
 - `packages/scan-store/test/judge-budget.test.ts` checks the daily token cap.
 - `packages/core/test/judged-round2-calibration.test.ts` scores the round 2 real items (above), with the round 3 page-language pages, and ties each shown flag to its real-item precision.
+- `packages/core/test/judged-round4-calibration.test.ts` rebuilds the error-message questions from both form runs with `questionsOf`, checks they ask the labelled fields in order, scores the recorded answers per half, checks nothing is asked without empty submits or when only the browser spoke, and ties each `shown` flag to at least 30 items and holdout precision 0.9.
 - `packages/core/test/judged-round3-calibration.test.ts` scores the rendered questions on their design sets and holdouts (`judged-round3-headings.json`, `judged-round3-passages.json`: the recorded probe evidence, the hand labels and the recorded answers) and ties each shown flag to the holdout precision.
 - `packages/html-reader/test/judge-evidence.test.ts` checks the link, heading and label evidence. `judged-passages.test.ts` checks passages (language, landmark, no doubled text, hidden blocks left out) and prices. The hostile-input test runs every judged question, shown or not, on input at the size cap, with digit runs and prices among the units, and checks it stays within the linear-time budget.
 - `packages/core/test/scan-machine.test.ts` checks that a failed judge step still publishes.
