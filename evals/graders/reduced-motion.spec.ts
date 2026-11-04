@@ -35,15 +35,21 @@ test.beforeAll(async ({ browser }) => {
     )
   );
 
-  const before = await words(page);
+  const before = { moved: await transforms(page), text: await words(page) };
   await scrollThrough(page);
-  const animated = await page.evaluate(() => document.getAnimations().length);
+  const scrolled = await page.evaluate(() => document.getAnimations().length);
   await page.clock.runFor(6000);
-  const after = await words(page);
+  const ticked = await page.evaluate(() => document.getAnimations().length);
+  const after = { moved: await transforms(page), text: await words(page) };
   await context.close();
 
+  const changed =
+    after.text !== before.text ||
+    after.moved.length !== before.moved.length ||
+    after.moved.some((value, index) => value !== before.moved[index]);
+
   expect(
-    smooth || animated > 0 || after !== before,
+    smooth || scrolled > 0 || ticked > 0 || changed,
     "Without reduced motion the page neither scrolls smoothly, animates nor changes on its own, so the motion the task asks for is missing"
   ).toBe(true);
 });

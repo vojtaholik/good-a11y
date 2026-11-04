@@ -6,8 +6,8 @@
   "targets": {
     "link": {
       "role": "link",
-      "name": "About"
+      "name": "Routes"
     },
-    "current": "About"
+    "current": "Routes"
   }
 }

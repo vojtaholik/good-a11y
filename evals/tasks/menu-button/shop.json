@@ -20,17 +20,20 @@
   "requires": [
     {
       "role": "button",
-      "name": "Options"
+      "name": "Options",
+      "exact": false
     }
   ],
   "targets": {
     "trigger": {
       "role": "button",
-      "name": "Options"
+      "name": "Options",
+      "exact": false
     },
     "safeItem": {
       "role": "menuitem",
-      "name": "Duplicate line"
+      "name": "Duplicate line",
+      "exact": false
     }
   }
 }
