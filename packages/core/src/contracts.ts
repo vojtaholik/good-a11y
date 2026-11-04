@@ -98,6 +98,8 @@ export type { Judged, Observation } from "./judged.js";
 
 export { DOES_NOT_SELL, SELLS, shownObservations } from "./judged.js";
 
+export { percent, sectionObservations, sellsLine } from "./judged-placement.js";
+
 export {
   SC_COVERAGE,
   TEST_METHOD_NAMES,

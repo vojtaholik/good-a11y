@@ -1,6 +1,7 @@
 import type { StateRef } from "./applicability.js";
 import { METHOD_NAMES } from "./coverage.js";
 import type { FindingReference } from "./finding-reference.js";
+import { sellsLine } from "./judged-placement.js";
 import { NEWER_VERSION_LABEL, newerWcagLabel } from "./reference.js";
 import type { Sourced } from "./reference.js";
 import {
@@ -122,6 +123,7 @@ const statesBlock = (report: Report): string[] => {
   return [
     "Where the EAA applies (the same for every issue):",
     `  Covers e-commerce services (${applies.length}): ${codes(applies)}`,
+    ...(sellsLine(report) === null ? [] : [`  ${sellsLine(report)}`]),
     ...sourced("Exemption", exemption),
     `  Unknown (${unknown.length}):`,
     ...unknown.map(

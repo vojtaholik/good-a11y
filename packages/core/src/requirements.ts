@@ -3,6 +3,7 @@ import type { VerifiedFact } from "@eaa-check/facts";
 
 import { decidedOf, numbersOf } from "./decided.js";
 import type { Decided } from "./decided.js";
+import { percent, placedObservation } from "./judged-placement.js";
 import { shownObservations } from "./judged.js";
 import type { Observation } from "./judged.js";
 import { newerWcagLabel, sourced } from "./reference.js";
@@ -252,6 +253,21 @@ export const statementBasisFrom = (
 export const STATEMENT_BASIS: readonly Sourced[] =
   statementBasisFrom(VERIFIED_FACTS);
 
+const statementRow = (
+  row: RequirementRow,
+  annexV: Observation
+): RequirementRow => {
+  const note = annexV.notes.find(
+    (item) => item.item === `statement_${row.key.replace("statement-", "")}`
+  );
+
+  return {
+    ...row,
+    judged: `${JUDGED_PREFIX} ${note === undefined ? "the model found this point in the statement, or was not sure" : `the model judged this point missing from the statement (confidence ${percent(note.confidence)})`}`,
+    status: "judged",
+  };
+};
+
 export const requirementsFrom = (
   report: Report,
   coverage: readonly ScCoverageRow[],
@@ -259,7 +275,16 @@ export const requirementsFrom = (
 ): readonly RequirementRow[] => {
   const results = resultsOf(report);
 
-  return [...coverage.map((row) => wcagRow(row, results)), ...eaa];
+  const annexV = placedObservation(report, "statement-annex-v");
+
+  return [
+    ...coverage.map((row) => wcagRow(row, results)),
+    ...eaa.map((row) =>
+      annexV === null || row.group !== "statement"
+        ? row
+        : statementRow(row, annexV)
+    ),
+  ];
 };
 
 export const requirementsOf = (report: Report): readonly RequirementRow[] =>

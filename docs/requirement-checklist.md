@@ -39,7 +39,11 @@ Status of a WCAG row, first match wins:
 5. **Not checked on this scan**: the criterion has an automated test, but it did not run (for example the rendered check was skipped).
 6. **Needs a person**: no automated test exists; the `/checks` note says why.
 
-EAA rows are "Needs a person" until a judged question covers them (decision 27, 29: the statement and IV (g) product information, wired when builder-judge's observations land).
+EAA rows are "Needs a person" unless a judged question covers them (decisions 27, 29). Placement of builder-judge's observations (`packages/core/src/judged-placement.ts`):
+
+- **statement-annex-v** sets the three Annex V rows (Art. 13 and Annex V, point 1(a) to 1(c)) to "Judged by a model" when the model read a statement. Under each row: "the model judged this point missing from the statement (confidence N%)" when it noted the item `statement_N`, else "the model found this point in the statement, or was not sure". With no statement read, the rows stay "Needs a person".
+- **sells-to-consumers** is one line beside the state list: the model's answer (`SELLS` or `DOES_NOT_SELL`) with its confidence, labelled as not used for the list. The states come only from verified facts.
+- Both are left out of the judged section; the other shown observations stay there. IV (g)(i) stays "Needs a person" (below).
 
 A judged status is never "Fails": model output stays out of the deterministic result.
 

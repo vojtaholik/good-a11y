@@ -1,0 +1,38 @@
+import { JUDGE_MODEL_NAME } from "./judge.js";
+import { shownObservations } from "./judged.js";
+import type { JudgedId, Observation } from "./judged.js";
+import type { Report } from "./report.js";
+
+export const PLACED_JUDGED_IDS: ReadonlySet<JudgedId> = new Set([
+  "sells-to-consumers",
+  "statement-annex-v",
+]);
+
+const observationsOf = (report: Report): readonly Observation[] =>
+  report.judged?.status === "ran"
+    ? shownObservations(report.judged.observations)
+    : [];
+
+export const sectionObservations = (report: Report): readonly Observation[] =>
+  observationsOf(report).filter(
+    (observation) => !PLACED_JUDGED_IDS.has(observation.id)
+  );
+
+export const placedObservation = (
+  report: Report,
+  id: JudgedId
+): Observation | null =>
+  observationsOf(report).find(
+    (observation) => observation.id === id && observation.asked > 0
+  ) ?? null;
+
+export const percent = (probability: number): string =>
+  `${Math.round(probability * 100)}%`;
+
+export const sellsLine = (report: Report): string | null => {
+  const [note] = placedObservation(report, "sells-to-consumers")?.notes ?? [];
+
+  return note === undefined
+    ? null
+    : `Judged by a model (${JUDGE_MODEL_NAME}), not used for the list of states: ${note.sample} Model confidence ${percent(note.confidence)}.`;
+};

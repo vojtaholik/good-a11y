@@ -162,6 +162,14 @@ export {
 
 export { formatReport } from "./report-text.js";
 
+export {
+  PLACED_JUDGED_IDS,
+  percent,
+  placedObservation,
+  sectionObservations,
+  sellsLine,
+} from "./judged-placement.js";
+
 export { ROLE_NAMES, siteSummary } from "./site-summary.js";
 
 export {

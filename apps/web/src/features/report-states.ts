@@ -1,3 +1,4 @@
+import { sellsLine } from "@eaa-check/core/contracts";
 import type { ProfileLine, Report, StateRef } from "@eaa-check/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
@@ -83,6 +84,8 @@ export const statesSection = (
 ): Html => {
   const { applies, exemption, unknown } = report.applicability;
 
+  const sells = sellsLine(report);
+
   return h.section(
     [sx(h, styles.section), h.AriaLabelledBy("states")],
     [
@@ -96,6 +99,7 @@ export const statesSection = (
           "This depends on each member state's law, not on the issue, so it is the same for every issue above. Open a state to see its law, dates, enforcement body and penalties, each linked to its source.",
         ]
       ),
+      ...(sells === null ? [] : [h.p([sx(h, styles.meta)], [sells])]),
       ...(exemption === null
         ? []
         : [

@@ -1,4 +1,4 @@
-import { shownObservations } from "@eaa-check/core/contracts";
+import { percent, sectionObservations } from "@eaa-check/core/contracts";
 import type { Observation, Report } from "@eaa-check/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
@@ -7,9 +7,6 @@ import { judged as judgedStyles } from "./judged-styles.js";
 import { referenceList } from "./report-references.js";
 import { report as styles } from "./report-styles.js";
 import { sx } from "./sx.js";
-
-const percent = (probability: number): string =>
-  `${Math.round(probability * 100)}%`;
 
 const countText = (observation: Observation): string =>
   `Noted for ${observation.noted} of ${observation.asked} ${observation.asked === 1 ? "item" : "items"} the model was asked about`;
@@ -72,7 +69,7 @@ export const judgedSection = (
     ];
   }
 
-  const observations = shownObservations(judged.observations);
+  const observations = sectionObservations(report);
 
   const noted = observations.filter((observation) => observation.noted > 0);
 
