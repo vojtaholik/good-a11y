@@ -13,7 +13,13 @@ const markIconControls = async (page: Page): Promise<number> =>
         const parent = node.parentElement;
         const box = parent?.getBoundingClientRect();
 
-        return box !== undefined && box.width > 1 && box.height > 1
+        const seen =
+          parent?.checkVisibility({
+            opacityProperty: true,
+            visibilityProperty: true,
+          }) ?? false;
+
+        return seen && box !== undefined && box.width > 1 && box.height > 1
           ? (node.textContent ?? "")
           : "";
       }

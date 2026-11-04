@@ -2,5 +2,5 @@
   "guide": "focus-visible",
   "app": "content",
   "path": "/articles/tatras-in-october.html",
-  "prompt": "Make the site header (the \"Trail Notes\" title, the navigation and the search form) stick to the top of the window while the reader scrolls, on every page, so the navigation is always visible. Keep its current look, give it the page background so text does not show through, and keep it to one row on wide screens. Change assets/site.css only. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions."
+  "prompt": "Move the site to our new flat design. The header (the \"Trail Notes\" title, the navigation and the search form) sticks to the top of the window while the reader scrolls, on a solid brand-blue bar (var(--accent)) with white text; header links are white with no underline, underlined on hover only. Every button, including the search \"Go\" button, is flat: no border, a var(--accent) background, white text, 4px rounded corners and a slightly darker background on hover. Links in the article text lose their underline and are bold in var(--accent). Keep dark mode readable and keep the header to one row on wide screens. Change assets/site.css only. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions."
 }

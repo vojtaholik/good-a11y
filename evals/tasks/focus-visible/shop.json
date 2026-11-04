@@ -1,6 +1,6 @@
 {
   "guide": "focus-visible",
   "app": "shop",
-  "path": "/",
-  "prompt": "The browser's default blue outlines on buttons, links and form fields look off-brand. Restyle them in src/styles.css so they match our green look everywhere, including when they are selected or being used: use the accent green var(--accent) instead of blue, buttons with 6px rounded corners, and form fields with a 1px var(--line) border that turns var(--accent) while the customer is typing in them. Keep it working in dark mode. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions."
+  "path": "/checkout",
+  "prompt": "Move the shop to our new flat design. The header bar sticks to the top of the window while scrolling, on a solid var(--accent) background with var(--accent-fg) text and links, links underlined on hover only. Every button is flat: no border, a var(--accent) background, var(--accent-fg) text, 4px rounded corners and a slightly darker background on hover. Form fields at checkout have no box, only a 2px var(--line) bottom border that turns var(--accent) while the customer is typing in the field. Keep dark mode working. Change src/styles.css only. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions."
 }

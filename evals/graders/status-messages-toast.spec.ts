@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
 import { liveTexts, markLiveRegions } from "./live.ts";
-import { open, target } from "./task.ts";
+import { open, target, text } from "./task.ts";
 
 const action = (page: Page) =>
   target(page, "action", { name: "Add to cart", role: "button" });
@@ -13,6 +13,14 @@ const act = async (page: Page): Promise<string> => {
   await action(page).focus();
   await page.keyboard.press("Enter");
   await page.clock.runFor(200);
+
+  await expect(
+    page
+      .getByText(text("message", "Rain jacket added"), { exact: false })
+      .filter({ visible: true })
+      .first(),
+    "The feedback message the task asks for never appeared"
+  ).toBeVisible();
 
   const lines = await liveTexts(page);
 

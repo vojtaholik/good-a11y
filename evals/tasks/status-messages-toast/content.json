@@ -13,6 +13,7 @@
     "action": {
       "role": "button",
       "name": "Copy link"
-    }
+    },
+    "message": "Link copied"
   }
 }

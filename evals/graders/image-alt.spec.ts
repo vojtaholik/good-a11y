@@ -31,7 +31,18 @@ test("E3 image-only links and buttons are named", async ({ page }) => {
     ].filter(
       (node) =>
         node.querySelector("img, svg") !== null &&
-        (node.textContent?.trim() ?? "") === ""
+        [...node.querySelectorAll("*"), node].every(
+          (part) =>
+            ![...part.childNodes].some(
+              (child) =>
+                child.nodeType === Node.TEXT_NODE &&
+                (child.textContent?.trim() ?? "") !== "" &&
+                part.checkVisibility({
+                  opacityProperty: true,
+                  visibilityProperty: true,
+                })
+            )
+        )
     );
 
     for (const [index, node] of controls.entries()) {

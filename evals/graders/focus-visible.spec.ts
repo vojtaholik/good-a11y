@@ -55,6 +55,7 @@ test("E2 the outline color is not the background", async ({ page }) => {
   for (let stop = 0; stop < stops; stop += 1) {
     await page.keyboard.press("Tab");
     const seen = await page.evaluate(ring);
+    expect(seen?.ringed).toBe(true);
     expect(seen?.color).not.toBe("rgba(0, 0, 0, 0)");
     expect(seen?.color).not.toBe(seen?.background);
   }
@@ -63,11 +64,8 @@ test("E2 the outline color is not the background", async ({ page }) => {
 test("E3 a mouse click on a button shows no ring", async ({ page }) => {
   await page.getByRole("button").filter({ visible: true }).first().click();
 
-  const keyboard = await page.evaluate(
-    () => document.activeElement?.matches(":focus-visible") ?? false
-  );
-
-  expect(keyboard).toBe(false);
+  const seen = await page.evaluate(ring);
+  expect(seen?.ringed).toBe(false);
 });
 
 test("E4 focus is never fully hidden under sticky content", async ({
