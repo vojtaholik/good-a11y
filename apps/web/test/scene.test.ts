@@ -11,10 +11,10 @@ import {
   type,
 } from "foldkit/scene";
 
-import { StartScan } from "../src/client/commands.js";
+import { CopyText, StartScan } from "../src/client/commands.js";
 import { Message } from "../src/client/message.js";
 import { EMPTY_ADDRESS, update } from "../src/features/update.js";
-import { view } from "../src/features/view.js";
+import { AGENT_COMMAND, view } from "../src/features/view.js";
 import { modelAt } from "./fixtures.js";
 
 const CHECK_BUTTON = role("button", { name: "Check the page" });
@@ -38,7 +38,8 @@ describe("the start page", () => {
       { update, view },
       given(modelAt("/")),
       click(CHECK_BUTTON),
-      expect(role("status")).toHaveText(EMPTY_ADDRESS)
+      expect(role("alert")).toHaveText(`Error: ${EMPTY_ADDRESS}`),
+      expect(label("Page address")).toHaveAttr("aria-invalid", "true")
     );
   });
 
@@ -48,7 +49,7 @@ describe("the start page", () => {
       given(modelAt("/check")),
       type(label("Page address"), "localhost"),
       click(CHECK_BUTTON),
-      expect(CHECK_BUTTON).toBeDisabled(),
+      expect(role("button", { name: "Starting…" })).toBeDisabled(),
       Command.resolve(
         StartScan,
         Message.FailedStartScan({
@@ -57,7 +58,22 @@ describe("the start page", () => {
         })
       ),
       expect(CHECK_BUTTON).toBeEnabled(),
-      expect(role("status")).toHaveText("That address is not public.")
+      expect(role("alert")).toHaveText("Error: That address is not public.")
+    );
+  });
+});
+
+describe("the agent command", () => {
+  it("says it was copied", () => {
+    scene(
+      { update, view },
+      given(modelAt("/")),
+      click(role("button", { name: "Copy" })),
+      Command.resolve(
+        CopyText,
+        Message.SucceededCopyText({ key: AGENT_COMMAND })
+      ),
+      expect(role("button", { name: "Copied" })).toExist()
     );
   });
 });

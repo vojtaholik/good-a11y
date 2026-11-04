@@ -257,6 +257,10 @@ const copyFixPrompt = (model: AppModel, key: string): AppUpdate => {
 export const update = (model: AppModel, message: AppMessage): AppUpdate =>
   Message.match<AppUpdate>(message, {
     ChangedUrl: ({ url }) => changeUrl(model, url),
+    ClickedCopyCommand: ({ command }) => ({
+      commands: [CopyText({ key: command, text: command })],
+      model,
+    }),
     ClickedCopyFixPrompt: ({ key }) => copyFixPrompt(model, key),
     ClickedLink: ({ request }) =>
       UrlRequest.match<AppUpdate>(request, {
@@ -270,7 +274,7 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
     CompletedFocusMainHeading: () => ({ model }),
     CompletedLoadExternal: () => ({ model }),
     CompletedNavigate: () => ({ model }),
-    FailedCopyFixPrompt: ({ key, text }) => ({
+    FailedCopyText: ({ key, text }) => ({
       model: modifyFields(model, {
         copy: () => CopyState.Failed({ key, text }),
       }),
@@ -308,7 +312,7 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
         : { model },
     SubmittedContactForm: ({ url }) => submitContact(model, url),
     SubmittedScanForm: () => submitScan(model),
-    SucceededCopyFixPrompt: ({ key }) => ({
+    SucceededCopyText: ({ key }) => ({
       model: modifyFields(model, { copy: () => CopyState.Copied({ key }) }),
     }),
     SucceededGetScan: ({ generation, view }) =>

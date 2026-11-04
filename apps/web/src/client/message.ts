@@ -6,13 +6,14 @@ import { Url } from "foldkit/url";
 
 export const Message = defineMessageUnion({
   ChangedUrl: { url: Url },
+  ClickedCopyCommand: { command: Schema.String },
   ClickedCopyFixPrompt: { key: Schema.String },
   ClickedLink: { request: UrlRequest },
   CompletedFocusFragment: {},
   CompletedFocusMainHeading: {},
   CompletedLoadExternal: {},
   CompletedNavigate: {},
-  FailedCopyFixPrompt: { key: Schema.String, text: Schema.String },
+  FailedCopyText: { key: Schema.String, text: Schema.String },
   FailedGetScan: { generation: Schema.Int, isUnknownScan: Schema.Boolean },
   FailedSendMessage: { maybeMessage: Schema.Option(Schema.String) },
   FailedStartScan: {
@@ -21,7 +22,7 @@ export const Message = defineMessageUnion({
   },
   SubmittedContactForm: { url: Schema.String },
   SubmittedScanForm: {},
-  SucceededCopyFixPrompt: { key: Schema.String },
+  SucceededCopyText: { key: Schema.String },
   SucceededGetScan: { generation: Schema.Int, view: ScanViewSchema },
   SucceededSendMessage: {},
   SucceededStartScan: {

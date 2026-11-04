@@ -22,11 +22,11 @@ export const CopyText = Command.define("CopyText", {
       navigator.clipboard.writeText.bind(navigator.clipboard, text)
     ).pipe(
       Effect.match({
-        onFailure: () => Message.FailedCopyFixPrompt({ key, text }),
-        onSuccess: () => Message.SucceededCopyFixPrompt({ key }),
+        onFailure: () => Message.FailedCopyText({ key, text }),
+        onSuccess: () => Message.SucceededCopyText({ key }),
       })
     ),
-  messages: [Message.SucceededCopyFixPrompt, Message.FailedCopyFixPrompt],
+  messages: [Message.SucceededCopyText, Message.FailedCopyText],
 });
 
 export const StartScan = Command.define("StartScan", {
