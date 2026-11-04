@@ -211,3 +211,25 @@ What it costs:
 - On otto.de all 10 contrast nodes go. That is the two known false positives, and also eight red prices on beige at 4.23:1 that may be real. Contrast inside components is left to a person.
 - seznam.cz, heureka.cz, rohlik.cz, emag.ro and lingscars.com have no such nodes, so nothing changes there.
 - The dev rescan of otto.de with b361b59 shows no contrast issue and no focus issue.
+
+## Round 6: cross-page checks on the 21 QA sites (2026-11-04)
+
+Asked by the lead after verifier finding N1: 3.2.3, 3.2.4 and 3.2.6 count only when this run shows them precise, every fail checked by hand; otherwise they are dropped.
+
+**Method.** `eaa-check scan <site> --json` from the CLI, which now crawls like the Workflow (`scanUrl`: page entered, then up to 4 picked pages), over the 21 sites of the regression run. Each "differences found" was checked against the served HTML.
+
+**Coverage.** 16 sites gave a report. alza.cz, heureka.cz, hm.com, mediamarkt.de and zara.com refused the page entered, and arngren.net did not answer, so no comparison ran there. gov.uk, en.wikipedia.org, rohlik.cz and otto.de compared with no difference. The rest crawled no other page or shared fewer than 3 navigation links ("too little shared to compare").
+
+| Site | Check | Result | Hand check | Cause |
+| --- | --- | --- | --- | --- |
+| bbc.co.uk | 3.2.3 navigation | 2 of 2 pages differ | false positive | The skip link `href="#main-heading"` resolves to the page's own address, so on the home page it shares `/` with the logo and Home links and moves the first occurrence of `/` |
+| bbc.co.uk | 3.2.4 identification | 2 of 16 links differ | false positive | Same cause: `/` is "skip to content", "more menu", "close menu" on the home page (all `#` links) and "homepage", "home" on the others |
+| bbc.co.uk | 3.2.6 help | 1 of 2 differ | false positive | The Accessibility Help link sits among page-local links that differ per page; the shared global navigation before it is the same |
+| ikea.com | 3.2.3 navigation | 1 of 1 differs | false positive | The logo link is present on one page only and points to an address the other page reaches later; the shared navigation (Stories, Jobs, Newsroom, ...) is in the same order |
+| w3.org/WAI | 3.2.3 navigation | 2 of 2 differ | false positive | The "WAI homepage" link is left out on the WAI home page itself (a self-link) and its address appears elsewhere there; "Skip to Content" (`#main`) is again a same-page link |
+
+**Result.** 5 of 5 differences are false positives, 0 true positives. Precision 0 %, and no site shows a check catching a real failure.
+
+**Decision: dropped.** The three checks, their "compared, not yet counted" lines and the `Report.site.findings` field are removed. 3.2.3, 3.2.4 and 3.2.6 are "Needs a person", with a note on what a person compares. The site section keeps the pages read, their own static issues, and the search and site-map links seen.
+
+**What a return needs.** Leave out same-page links (fragment links and links to the page's own address) and compare only addresses that occur once in each page's navigation: the two causes behind all 5 false positives. Then a fixture set with known real inconsistencies, since none of the 21 sites has one, and a fresh run on other sites with every fail checked by hand. Until then the crawl's navigation and help links have no reader in core.

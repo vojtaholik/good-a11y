@@ -45,17 +45,11 @@ A judged status is never "Fails": model output stays out of the deterministic re
 
 The checklist sits after the issues and the judged observations, before the member states, on the page and in the CLI. On the page each group (WCAG 2.1, WCAG 2.2, EAA) is a closed disclosure whose summary carries its counts, so the report stays short at 360 px.
 
-## Site section and cross-page checks (decision 28)
+## Site section (decision 28)
 
-builder-cloud's crawl hands over `SiteEvidence`: the pages it tried (read with their static check results, or failed with a reason) and one `PageSummary` per page read, the page entered first. `withSite(report, evidence)` adds `Report.site` and recomputes coverage, headline and verdict, so it can run before or after the rendered step.
+builder-cloud's crawl hands over `SiteEvidence`: the pages it tried (read with their static check results, or failed with a reason) and one `PageSummary` per page read, the page entered first. `withSite(report, evidence)` adds `Report.site`: the pages, and whether the scan saw a search or a site-map link.
 
-Cross-page checks (`packages/core/src/site-checks.ts`) compare each other page with the page entered. Each needs at least 3 navigation links shared by the two pages, else it has nothing to check.
-
-- **3.2.3 Consistent Navigation** (`consistent-navigation`): the shared navigation links (nav and header landmarks, first occurrence of each address) must come in the same order. A repeated address, such as a logo and a Home link, counts once.
-- **3.2.4 Consistent Identification** (`consistent-identification`): a navigation link to the same address must have a related name on both pages. Names are compared lowercased with digits removed (so "Cart (0)" and "Cart (2)" agree), and one name containing the other agrees (so a hidden "current page" marker does not fail).
-- **3.2.6 Consistent Help** (`consistent-help`, WCAG 2.2, labelled newer): a contact or help link on both pages must have the same set of shared navigation links before it. Comparing sets, not order, keeps a navigation reorder from also failing help.
-
-**Not yet counted (lead, after verifier N1).** Until an accuracy run on the 21 QA sites shows these checks precise, with every fail checked by hand, their results do not feed the issues, the verdict, the coverage line or a checklist "Fails". The site section lists each as "Compared across pages, not yet counted" with its result and samples, and the 3.2.3, 3.2.4 and 3.2.6 rows stay "Needs a person" with the same line under them. The accuracy run goes in `docs/accuracy-qa.md`; then they are counted or dropped.
+**No cross-page checks.** 3.2.3 Consistent Navigation, 3.2.4 Consistent Identification and 3.2.6 Consistent Help were built as page-to-page comparisons and shown as "compared, not yet counted" until an accuracy run. The run (`docs/accuracy-qa.md`, round 6) found 5 differences on 3 of the 21 QA sites, all 5 false positives, and no true positive. They are dropped: the three rows are "Needs a person" with a note saying what a person compares.
 
 The static check results of the other pages are listed per page in the site section and never count in the verdict: the report stays the report for the page entered.
 

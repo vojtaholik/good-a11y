@@ -28,9 +28,6 @@ export interface ScCoverageRow {
   readonly tests: readonly TestedBy[];
 }
 
-export const COMPARED_NOTE =
-  "Each scan compares the page entered with up to 4 other pages of the site, but the result is not counted until it has been checked for accuracy on real sites. A person decides.";
-
 const MANUAL_NOTES = new Map<string, string>([
   ["1.2.1", "A person compares the audio or video with its alternative."],
   ["1.2.3", "A person watches the video and its description."],
@@ -74,9 +71,12 @@ const MANUAL_NOTES = new Map<string, string>([
     "3.2.2",
     "Changing controls on someone else's site could set off real actions, so a person checks it.",
   ],
-  ["3.2.3", COMPARED_NOTE],
-  ["3.2.4", COMPARED_NOTE],
-  ["3.2.6", COMPARED_NOTE],
+  ["3.2.3", "A person compares the navigation on several pages of the site."],
+  [
+    "3.2.4",
+    "A person compares how the same things are named on several pages of the site.",
+  ],
+  ["3.2.6", "A person compares where help sits on several pages of the site."],
   ["3.3.1", "Needs a form to be sent, which the checker never does."],
   ["3.3.3", "Needs a form to be sent, which the checker never does."],
   ["3.3.4", "Needs a real transaction, which the checker never makes."],

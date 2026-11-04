@@ -127,7 +127,6 @@ const rowView = (row: RequirementRow, h: HtmlBuilder<AppMessage>): Html =>
             ? [secondary(row.note, h)]
             : []),
           ...(row.judged === null ? [] : [secondary(row.judged, h)]),
-          ...(row.compared === null ? [] : [secondary(row.compared, h)]),
         ]
       ),
     ]

@@ -1,7 +1,5 @@
-import { implement } from "@eaa-check/capability/implement";
 import { Clock, DateTime, Effect } from "effect";
 
-import { scanContract } from "./contracts.js";
 import type { FetchResult } from "./fetch-result.js";
 import type { PageEvidence } from "./page-evidence.js";
 import { PageReader } from "./page-reader.js";
@@ -134,10 +132,3 @@ export const inspectUrl = Effect.fn("inspectUrl")(function* inspectUrl(
     DateTime.formatIso(DateTime.makeUnsafe(now))
   );
 });
-
-export const scanUrl = (url: string) =>
-  inspectUrl(url).pipe(Effect.map(({ report }) => report));
-
-export const scan = implement(scanContract, ({ url }) => scanUrl(url));
-
-export const capabilities = [scan] as const;

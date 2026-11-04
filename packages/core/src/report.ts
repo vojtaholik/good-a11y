@@ -25,7 +25,6 @@ import type { Reference } from "./reference.js";
 import { RenderedSchema, renderedFrom } from "./rendered.js";
 import type { RenderedOutcome } from "./rendered.js";
 import { concernsRun, issuesFrom } from "./report-sections.js";
-import { SiteFindingSchema, runSiteChecks } from "./site-checks.js";
 import type { SiteEvidence, SitePage } from "./site-evidence.js";
 import {
   VERDICT_FACT,
@@ -96,7 +95,6 @@ export const SitePageResultSchema = Schema.Struct({
 export type SitePageResult = typeof SitePageResultSchema.Type;
 
 export const SiteSchema = Schema.Struct({
-  findings: Schema.Array(SiteFindingSchema),
   pages: Schema.Array(SitePageResultSchema),
   search: Schema.Boolean,
   sitemap: Schema.Boolean,
@@ -297,22 +295,14 @@ const pageOf = (page: SitePage): SitePageResult =>
         url: page.url,
       };
 
-export const withSite = (report: Report, evidence: SiteEvidence): Report => {
-  const [entered] = evidence.summaries;
-
-  return assessed({
-    ...report,
-    site: {
-      findings:
-        entered?.role === "entered" && report.outcome === "checked"
-          ? runSiteChecks(evidence.summaries, report.reference)
-          : [],
-      pages: evidence.pages.map(pageOf),
-      search: evidence.summaries.some((summary) => summary.search),
-      sitemap: evidence.summaries.some((summary) => summary.sitemap),
-    },
-  });
-};
+export const withSite = (report: Report, evidence: SiteEvidence): Report => ({
+  ...report,
+  site: {
+    pages: evidence.pages.map(pageOf),
+    search: evidence.summaries.some((summary) => summary.search),
+    sitemap: evidence.summaries.some((summary) => summary.sitemap),
+  },
+});
 
 export const withJudged = (report: Report, judged: Judged): Report => ({
   ...report,

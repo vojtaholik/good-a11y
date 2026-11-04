@@ -162,29 +162,13 @@ export {
 
 export { formatReport } from "./report-text.js";
 
-export {
-  MIN_SHARED_LINKS,
-  ROLE_NAMES,
-  SITE_CHECKS,
-  SiteCheckIdSchema,
-  SiteFindingSchema,
-  consistentHelp,
-  consistentIdentification,
-  consistentNavigation,
-  runSiteChecks,
-  siteSummary,
-  type SiteCheck,
-  type SiteCheckId,
-  type SiteFinding,
-} from "./site-checks.js";
+export { ROLE_NAMES, siteSummary } from "./site-summary.js";
 
 export {
   EAA_ROWS,
   EXAMPLE_LABEL,
   REQUIREMENT_STATUS_NAMES,
   REQUIREMENT_STATUS_ORDER,
-  COMPARED_PREFIX,
-  COMPARED_RESULTS,
   JUDGED_PREFIX,
   STATEMENT_BASIS,
   checklistGroups,
@@ -280,15 +264,14 @@ export {
 export {
   LOOKS_EMPTY,
   SCANNER_USER_AGENT,
-  capabilities,
   fetchPage,
   inspectPage,
   inspectUrl,
   judgePage,
   type Inspection,
-  scan,
-  scanUrl,
 } from "./scan.js";
+
+export { capabilities, scan, scanUrl } from "./scan-capability.js";
 
 export { ScanTargetRejected } from "./scan-target-rejected.js";
 

@@ -131,23 +131,16 @@ const checked = judgePage(PAGE, { read: () => EVIDENCE }, AT);
 const report = withSite(checked, SITE);
 
 describe("withSite", () => {
-  it("shows a cross-page difference as compared, not yet counted: no issue, no verdict, no coverage, no failing row", () => {
-    const row = requirementsOf(report).find((item) => item.key === "3.2.3");
-
-    expect(
-      report.site?.findings.find((item) => item.id === "consistent-navigation")
-        ?.status
-    ).toBe("fail");
+  it("adds no issue, verdict, coverage or checklist result: 3.2.3, 3.2.4 and 3.2.6 need a person", () => {
     expect(issuesOf(report)).toEqual(issuesOf(checked));
     expect(report.verdict).toEqual(checked.verdict);
     expect(report.coverage).toEqual(checked.coverage);
-    expect(row?.status).toBe("needs_person");
-    expect(row?.compared).toBe(
-      "Compared across pages, not yet counted: differences found"
-    );
-    expect(formatReport(report)).toContain(
-      "Compared across pages, not yet counted: Navigation in the same order on every page: differences found"
-    );
+    expect(
+      requirementsOf(report)
+        .filter((row) => ["3.2.3", "3.2.4", "3.2.6"].includes(row.key))
+        .map((row) => row.status)
+    ).toEqual(["needs_person", "needs_person", "needs_person"]);
+    expect(formatReport(report)).not.toContain("compared");
   });
 
   it("lists every page it tried, the static issues of each page read, and keeps them out of the verdict", () => {
@@ -181,30 +174,5 @@ describe("withSite", () => {
         Schema.encodeSync(ReportSchema)(later)
       )
     ).toEqual(later);
-  });
-
-  it("runs no cross-page check when the page entered was not read", () => {
-    const refused = judgePage(
-      {
-        detail: "The server refused the request (HTTP 403).",
-        observedAt: AT,
-        ok: false,
-        reason: "blocked",
-        redirects: [],
-        requestedUrl: "https://shop.example/",
-        status: 403,
-      },
-      { read: () => EVIDENCE },
-      AT
-    );
-
-    const blocked = withSite(refused, {
-      ...SITE,
-      summaries: SITE.summaries.slice(1),
-    });
-
-    expect(blocked.site?.findings).toEqual([]);
-    expect(blocked.verdict).toBeNull();
-    expect(blocked.headline).toBe(refused.headline);
   });
 });

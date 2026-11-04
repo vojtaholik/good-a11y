@@ -13,8 +13,6 @@ import {
 import type { Issue } from "./report-sections.js";
 import type { Report } from "./report.js";
 import {
-  COMPARED_PREFIX,
-  COMPARED_RESULTS,
   EXAMPLE_LABEL,
   REQUIREMENT_STATUS_NAMES,
   checklistGroups,
@@ -22,7 +20,7 @@ import {
   tallyText,
 } from "./requirements.js";
 import type { RequirementRow } from "./requirements.js";
-import { ROLE_NAMES, siteSummary } from "./site-checks.js";
+import { ROLE_NAMES, siteSummary } from "./site-summary.js";
 
 const KIND_LABELS: Readonly<Record<FindingReference["kind"], string>> = {
   "en-newer": NEWER_VERSION_LABEL,
@@ -92,7 +90,6 @@ const rowLines = (row: RequirementRow): string[] => [
     ? []
     : [indent(sourcedText(EXAMPLE_LABEL, row.example))]),
   ...(row.judged === null ? [] : [indent(row.judged)]),
-  ...(row.compared === null ? [] : [indent(row.compared)]),
 ];
 
 export const checklistBlock = (report: Report): string[] => [
@@ -111,10 +108,6 @@ const siteBlock = (report: Report): string[] =>
     : [
         "Other pages of the site:",
         `  ${siteSummary(report.site)}`,
-        ...report.site.findings.flatMap((finding) => [
-          `  ${COMPARED_PREFIX} ${finding.title}: ${COMPARED_RESULTS[finding.status]}  (${finding.references.map((reference) => reference.factId).join(", ")})`,
-          ...finding.samples.map((sample) => `      · ${sample}`),
-        ]),
         ...report.site.pages.map((page) =>
           page.outcome === "read"
             ? `  ${ROLE_NAMES[page.role]}: ${page.url}  ${page.failing.length === 0 ? "no issue found by the static checks" : `issues: ${page.failing.join("; ")}`}`
