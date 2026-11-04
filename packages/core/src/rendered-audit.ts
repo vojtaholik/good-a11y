@@ -9,7 +9,7 @@ export const AXE_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"] as const;
 
 export const DAILY_BROWSER_SECONDS = 1080;
 
-export const RENDERED_AUDIT_RESERVE_SECONDS = 110;
+export const RENDERED_AUDIT_RESERVE_SECONDS = 130;
 
 export const RENDERED_HTML_CHARACTERS = 100_000;
 

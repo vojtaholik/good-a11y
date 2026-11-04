@@ -15,5 +15,8 @@ export const crawledEvidenceKey = (job: ScanJob, role: CrawlRole): string =>
 export const crawledPageKey = (job: ScanJob, role: CrawlRole): string =>
   `${job.slug}/${job.scanId}.${role}.html`;
 
+export const renderedEvidenceKey = (job: ScanJob): string =>
+  `${job.slug}/${job.scanId}.rendered-evidence.json`;
+
 export const pageEvidenceKey = (job: ScanJob): string =>
   `${job.slug}/${job.scanId}.evidence.json`;

@@ -10,7 +10,7 @@ import {
 import { Clock, Effect, Result, Schema } from "effect";
 import type { Duration } from "effect";
 
-import { axeSource, probesSource } from "#page-scripts";
+import { axeSource, evidenceSource, probesSource } from "#page-scripts";
 
 import { navigationAllowed, step } from "./browser-session.js";
 import type { BrowserSession, LaunchSession } from "./browser-session.js";
@@ -37,7 +37,16 @@ const READ_EVERY = 10;
 
 const REFLOW_SETTLE = "1 second";
 
-const PROBE_TIMEOUT = "55 seconds";
+const PROBE_TIMEOUT = "75 seconds";
+
+const READ_TIMEOUT = "5 seconds";
+
+const SUBMIT_TIMEOUT = "15 seconds";
+
+const SUBMIT_SETTLE = "1 second";
+
+const NO_SENDING =
+  "WebSocket.prototype.send = () => undefined; navigator.sendBeacon = () => false; true";
 
 const STEP_TIMEOUT = "8 seconds";
 
@@ -98,6 +107,10 @@ const decodeCount = Schema.decodeUnknownResult(Schema.Int);
 
 const decodeText = Schema.decodeUnknownResult(Schema.String);
 
+const decodeFormList = Schema.decodeUnknownResult(
+  Schema.fromJsonString(Schema.Array(Schema.Struct({ index: Schema.Int })))
+);
+
 export const walkState = (keys: readonly number[], candidates: number) => {
   const [first] = keys;
   const distinct = new Set(keys.filter((key) => key >= 0)).size;
@@ -128,11 +141,19 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
 
     const refused: string[] = [];
     const held: string[] = [];
-    const holding = { navigations: false };
+    const holding = { everything: false, navigations: false };
+    const blocked: string[] = [];
 
     // @effect-diagnostics-next-line asyncFunction:off -- Puppeteer calls this request listener itself and awaits nothing, so it settles each paused request with a promise that never rejects.
     const guard = async (request: HTTPRequest): Promise<void> => {
       if (request.isInterceptResolutionHandled()) {
+        return;
+      }
+
+      if (holding.everything) {
+        blocked.push(request.url().slice(0, 200));
+        await Promise.allSettled([request.abort("blockedbyclient")]);
+
         return;
       }
 
@@ -385,6 +406,26 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
 
         yield* evaluate(probesSource);
 
+        const read = (expression: string) =>
+          optionalWithin(READ_TIMEOUT, evaluate(expression));
+
+        const evidenceRead = yield* optional(evaluate(evidenceSource));
+
+        const visualHeadings =
+          evidenceRead === null
+            ? null
+            : yield* read("__eaaEvidence.visualHeadings()");
+
+        const formInstructions =
+          evidenceRead === null
+            ? null
+            : yield* read("__eaaEvidence.formInstructions()");
+
+        const foreignBlocks =
+          evidenceRead === null
+            ? null
+            : yield* read("__eaaEvidence.foreignBlocks()");
+
         const textSpacing = yield* optional(
           evaluate("__eaaProbes.textSpacing()")
         );
@@ -440,7 +481,54 @@ export const puppeteerSession = (binding: BrowserWorker): LaunchSession =>
           ? yield* optional(evaluate(TARGET_SIZE_RUN))
           : null;
 
+        const submitAll = Effect.gen(function* submitEmptyForms() {
+          holding.everything = true;
+          yield* step("audit", page.setOfflineMode.bind(page, true));
+          yield* evaluate(NO_SENDING);
+          yield* evaluate(evidenceSource);
+
+          const forms = yield* evaluate("__eaaEvidence.listForms()");
+          const listed = Result.getOrElse(decodeFormList(forms), () => []);
+          const submissions: unknown[] = [];
+
+          for (const form of listed) {
+            if (form.index >= 0) {
+              const blockedBefore = blocked.length;
+
+              const submitted = yield* evaluate(
+                `__eaaEvidence.submitEmpty(${form.index})`
+              );
+
+              yield* Effect.sleep(SUBMIT_SETTLE);
+
+              const errors = yield* evaluate(
+                `__eaaEvidence.readErrors(${form.index})`
+              );
+
+              submissions.push({
+                blocked: blocked.slice(blockedBefore, blockedBefore + 5),
+                blockedCount: blocked.length - blockedBefore,
+                errors,
+                index: form.index,
+                submitted,
+              });
+            }
+          }
+
+          return { forms, submissions };
+        });
+
+        const emptySubmits = stayed
+          ? yield* optionalWithin(SUBMIT_TIMEOUT, submitAll)
+          : null;
+
         return JSON.stringify({
+          evidence: {
+            emptySubmits,
+            foreignBlocks,
+            formInstructions,
+            visualHeadings,
+          },
           reflow,
           targetSize: Result.getOrNull(decodeText(targetSize)),
           textSpacing,

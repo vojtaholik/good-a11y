@@ -14,11 +14,17 @@ const probesSource = readFileSync(
   "utf-8"
 );
 
+const evidenceSource = readFileSync(
+  path.join(root, "dist", "page", "evidence.js"),
+  "utf-8"
+);
+
 writeFileSync(
   path.join(root, "dist", "page", "scripts.js"),
   [
     `export const axeSource = ${JSON.stringify(axeSource)};`,
     `export const probesSource = ${JSON.stringify(probesSource)};`,
+    `export const evidenceSource = ${JSON.stringify(evidenceSource)};`,
     "",
   ].join("\n")
 );

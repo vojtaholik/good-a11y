@@ -13,6 +13,7 @@ import {
   PageEvidenceSchema,
   RENDERED_AUDIT_RESERVE_SECONDS,
   RenderedAudit,
+  RenderedEvidenceSchema,
   ReportSchema,
   ScanJobSchema,
   ScanStepFailed,
@@ -23,6 +24,7 @@ import {
   judgedOf,
   judgedSkipped,
   questionsFor,
+  renderedEvidenceOf,
   renderedFrom,
   runScan,
   skippedBecause,
@@ -66,6 +68,7 @@ import {
   crawledEvidenceKey,
   crawledPageKey,
   pageEvidenceKey,
+  renderedEvidenceKey,
   siteEvidenceKey,
 } from "./evidence-archive.js";
 import { scanDomainLayer } from "./scan-domain.js";
@@ -75,6 +78,8 @@ const ReportJson = Schema.fromJsonString(ReportSchema);
 const EvidenceJson = Schema.fromJsonString(PageEvidenceSchema);
 
 const SiteJson = Schema.fromJsonString(SiteEvidenceSchema);
+
+const RenderedEvidenceJson = Schema.fromJsonString(RenderedEvidenceSchema);
 
 const CRAWL_PATIENCE = {
   retries: { delay: "3 seconds", limit: 0 },
@@ -97,7 +102,7 @@ const RENDERS: ReadonlySet<Report["outcome"]> = new Set(["checked", "refused"]);
 
 const RENDER_PATIENCE = {
   retries: { delay: "3 seconds", limit: 0 },
-  timeout: "140 seconds",
+  timeout: "160 seconds",
 } as const;
 
 const spentIn =
@@ -208,9 +213,20 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
                 `Rendered audit failed (${failure.kind}): ${failure.detail}`
               ).pipe(Effect.as({ skipped: skippedBecause(failure) })),
             onSuccess: (page) =>
-              archive
-                .put(axeEvidenceKey(job), page.axe)
-                .pipe(Effect.as({ ran: page })),
+              Effect.gen(function* keepEvidence() {
+                yield* archive.put(axeEvidenceKey(job), page.axe);
+
+                const evidence = renderedEvidenceOf(page.probes);
+
+                if (evidence !== null) {
+                  yield* archive.put(
+                    renderedEvidenceKey(job),
+                    yield* Schema.encodeEffect(RenderedEvidenceJson)(evidence)
+                  );
+                }
+
+                return { ran: page };
+              }),
           })
         );
 
@@ -245,6 +261,11 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
             Clock.currentTimeMillis.pipe(
               Effect.flatMap((endedAt) =>
                 Ref.get(closed).pipe(
+                  Effect.tap(() =>
+                    Effect.logInfo(
+                      `Browser session for ${job.target.url}: ${secondsUsed(startedAt, endedAt)} seconds`
+                    )
+                  ),
                   Effect.flatMap((done) =>
                     budget.release({
                       day,
@@ -280,9 +301,9 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
         return yield* Schema.encodeEffect(ReportJson)(rendered);
       }).pipe(Effect.mapError(spentIn(job, "render")));
 
-    const askModel = (evidence: PageEvidence) =>
+    const askModel = (evidence: PageEvidence, statement: PageEvidence | null) =>
       Effect.gen(function* askModelStep() {
-        const asked = questionsFor(evidence);
+        const asked = questionsFor(evidence, statement);
 
         const day = utcDayOf(yield* Clock.currentTimeMillis);
         const tokens = tokensToReserve(asked);
@@ -357,7 +378,18 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
           yield* stored.text()
         );
 
-        const judged = yield* askModel(evidence);
+        const statementStored = yield* archive.get(
+          crawledEvidenceKey(job, "statement")
+        );
+
+        const statement =
+          statementStored === null
+            ? null
+            : yield* Schema.decodeEffect(EvidenceJson)(
+                yield* statementStored.text()
+              );
+
+        const judged = yield* askModel(evidence, statement);
 
         yield* Effect.logInfo(
           `Judged step for ${job.target.url}: ${judged.status === "ran" ? `${judged.inputTokens} input tokens` : judged.reason}`

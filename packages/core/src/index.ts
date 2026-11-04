@@ -453,3 +453,13 @@ export {
   type Crawl,
   type CrawledPage,
 } from "./crawl-site.js";
+
+export {
+  EmptySubmitsSchema,
+  ForeignBlocksSchema,
+  FormInstructionsSchema,
+  RenderedEvidenceSchema,
+  VisualHeadingsSchema,
+  renderedEvidenceOf,
+  type RenderedEvidence,
+} from "./rendered-evidence.js";
