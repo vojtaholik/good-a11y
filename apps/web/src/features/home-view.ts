@@ -308,15 +308,12 @@ const guidesView = (h: HtmlBuilder<AppMessage>): Html => {
   const total = groups.reduce((sum, [, pages]) => sum + pages.length, 0);
 
   return h.section(
-    [h.Id("guides"), h.AriaLabelledBy("guides-heading"), sx(h, home.guides)],
+    [h.AriaLabelledBy("guides"), sx(h, home.guides)],
     [
       h.div(
         [sx(h, home.guidesHead)],
         [
-          h.h2(
-            [h.Id("guides-heading"), sx(h, home.sectionHeading)],
-            ["Guides"]
-          ),
+          h.h2([h.Id("guides"), sx(h, home.sectionHeading)], ["Guides"]),
           h.p(
             [sx(h, home.guidesCount)],
             [

@@ -1,7 +1,9 @@
 import * as stylex from "@stylexjs/stylex";
+import { Option } from "effect";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/message.js";
+import { guidePageOf } from "./guides.js";
 import { wordmarkIcon } from "./icons.js";
 import { MAIN_ID } from "./landmarks.js";
 import { AppRoute, checkRouter, homeRouter } from "./route.js";
@@ -132,37 +134,40 @@ export const shell = stylex.create({
   },
 });
 
-const isGuidesRoute = (route: AppRouteState): boolean =>
-  AppRoute.match<boolean>(route, {
-    Check: () => false,
-    Guide: () => true,
-    Home: () => false,
-    NotFound: () => false,
-    Report: () => false,
-    Scan: () => false,
+type Current = "page" | "true" | null;
+
+const guidesCurrent = (route: AppRouteState): Current =>
+  AppRoute.match<Current>(route, {
+    Check: () => null,
+    Guide: ({ guideId }) =>
+      Option.isSome(guidePageOf(guideId)) ? "true" : null,
+    Home: () => null,
+    NotFound: () => null,
+    Report: () => null,
+    Scan: () => null,
   });
 
-const isCheckRoute = (route: AppRouteState): boolean =>
-  AppRoute.match<boolean>(route, {
-    Check: () => true,
-    Guide: () => false,
-    Home: () => false,
-    NotFound: () => false,
-    Report: () => true,
-    Scan: () => true,
+const checkCurrent = (route: AppRouteState): Current =>
+  AppRoute.match<Current>(route, {
+    Check: () => "page",
+    Guide: () => null,
+    Home: () => null,
+    NotFound: () => null,
+    Report: () => "true",
+    Scan: () => "true",
   });
 
 const navLink = (
   h: HtmlBuilder<AppMessage>,
   href: string,
-  isCurrent: boolean,
+  current: Current,
   label: readonly (Html | string)[]
 ): Html =>
   h.a(
     [
       h.Href(href),
-      ...(isCurrent ? [h.AriaCurrent("page")] : []),
-      sx(h, shell.navLink, isCurrent ? shell.current : null),
+      ...(current === null ? [] : [h.AriaCurrent(current)]),
+      sx(h, shell.navLink, current === null ? null : shell.current),
     ],
     [h.span([], [...label])]
   );
@@ -184,10 +189,10 @@ const header = (route: AppRouteState, h: HtmlBuilder<AppMessage>): Html =>
           h.nav(
             [h.AriaLabel("Main"), sx(h, shell.nav)],
             [
-              navLink(h, `${homeRouter()}#guides`, isGuidesRoute(route), [
+              navLink(h, `${homeRouter()}#guides`, guidesCurrent(route), [
                 "Guides",
               ]),
-              navLink(h, checkRouter({}), isCheckRoute(route), [
+              navLink(h, checkRouter({}), checkCurrent(route), [
                 "Check",
                 h.span([sx(h, shell.wide)], [" a page"]),
               ]),
