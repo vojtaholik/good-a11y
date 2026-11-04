@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image alt text demo</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #ffffff;
+        --fg: #1a1a1a;
+        --card: #f3f4f6;
+        --accent: #0b57d0;
+        --star: #8a5a00;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --fg: #f0f0f0;
+          --card: #1f1f1f;
+          --accent: #8ab4f8;
+          --star: #ffd54f;
+        }
+      }
+      body {
+        margin: 0;
+        padding: 2rem 1rem;
+        font:
+          1rem/1.5 system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      main {
+        max-width: 48rem;
+        margin: 0 auto;
+      }
+      header a {
+        display: inline-block;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+        gap: 1rem;
+        padding: 0;
+        list-style: none;
+      }
+      .card {
+        display: block;
+        background: var(--card);
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        color: var(--fg);
+        text-decoration: none;
+      }
+      .card h3 {
+        margin: 0.5rem 0 0;
+        color: var(--accent);
+        text-decoration: underline;
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+      .rating {
+        width: 6rem;
+        height: 1.25rem;
+        color: var(--star);
+      }
+      table {
+        border-collapse: collapse;
+        margin-top: 0.5rem;
+      }
+      th,
+      td {
+        border: 1px solid var(--fg);
+        padding: 0.25rem 0.75rem;
+        text-align: right;
+      }
+      th:first-child,
+      td:first-child {
+        text-align: left;
+      }
+      figure {
+        margin: 2rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="#home"
+        ><img
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='32'%3E%3Crect width='120' height='32' rx='6' fill='%230b57d0'/%3E%3Ctext x='60' y='22' font-family='sans-serif' font-size='16' font-weight='700' fill='white' text-anchor='middle'%3EACME%3C/text%3E%3C/svg%3E"
+          width="120"
+          height="32"
+          alt="Acme home"
+      /></a>
+    </header>
+    <main>
+      <h1>Trail gear</h1>
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='768' height='120'%3E%3Cpath d='M0 120 L180 30 L320 90 L470 10 L620 80 L768 40 L768 120 Z' fill='%2387a96b'/%3E%3C/svg%3E"
+        width="768"
+        height="120"
+        alt=""
+      />
+      <h2>Popular this week</h2>
+      <ul class="cards" role="list">
+        <li>
+          <a class="card" href="#trail-shoe">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120'%3E%3Crect width='200' height='120' fill='%23d9e4cf'/%3E%3Cpath d='M30 80 Q60 40 110 60 L170 70 L170 90 L30 90 Z' fill='%23506b3a'/%3E%3C/svg%3E"
+              width="200"
+              height="120"
+              alt=""
+            />
+            <h3>Trail running shoe</h3>
+          </a>
+          <svg
+            class="rating"
+            role="img"
+            aria-labelledby="rating-1"
+            viewBox="0 0 100 20"
+          >
+            <title id="rating-1">Rated 4 out of 5</title>
+            <g fill="currentColor">
+              <circle cx="10" cy="10" r="8" />
+              <circle cx="30" cy="10" r="8" />
+              <circle cx="50" cy="10" r="8" />
+              <circle cx="70" cy="10" r="8" />
+            </g>
+            <circle
+              cx="90"
+              cy="10"
+              r="7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+          </svg>
+        </li>
+        <li>
+          <a class="card" href="#rain-jacket">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120'%3E%3Crect width='200' height='120' fill='%23d6e2f5'/%3E%3Cpath d='M70 20 L130 20 L150 100 L50 100 Z' fill='%23294a7a'/%3E%3C/svg%3E"
+              width="200"
+              height="120"
+              alt=""
+            />
+            <h3>Rain jacket</h3>
+          </a>
+          <svg
+            class="rating"
+            role="img"
+            aria-labelledby="rating-2"
+            viewBox="0 0 100 20"
+          >
+            <title id="rating-2">Rated 5 out of 5</title>
+            <g fill="currentColor">
+              <circle cx="10" cy="10" r="8" />
+              <circle cx="30" cy="10" r="8" />
+              <circle cx="50" cy="10" r="8" />
+              <circle cx="70" cy="10" r="8" />
+              <circle cx="90" cy="10" r="8" />
+            </g>
+          </svg>
+        </li>
+      </ul>
+      <h2>Shoe detail</h2>
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='160'%3E%3Crect width='400' height='160' fill='%23d9e4cf'/%3E%3Cpath d='M40 110 Q100 40 200 80 L340 95 L340 125 L40 125 Z' fill='%23506b3a'/%3E%3Cpath d='M40 125 L340 125 L340 135 L40 135 Z' fill='%23222'/%3E%3C/svg%3E"
+        width="400"
+        height="160"
+        alt="Moss green trail shoe, side view, with a deep black lug sole"
+      />
+      <figure>
+        <img
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='140'%3E%3Crect x='20' y='90' width='50' height='40' fill='%230b57d0'/%3E%3Crect x='95' y='70' width='50' height='60' fill='%230b57d0'/%3E%3Crect x='170' y='45' width='50' height='85' fill='%230b57d0'/%3E%3Crect x='245' y='20' width='50' height='110' fill='%230b57d0'/%3E%3C/svg%3E"
+          width="320"
+          height="140"
+          alt="Bar chart: shoe sales rose each quarter of 2026."
+        />
+        <figcaption>Trail shoe sales by quarter, 2026.</figcaption>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Quarter</th>
+              <th scope="col">Pairs sold</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Q1</td>
+              <td>400</td>
+            </tr>
+            <tr>
+              <td>Q2</td>
+              <td>600</td>
+            </tr>
+            <tr>
+              <td>Q3</td>
+              <td>850</td>
+            </tr>
+            <tr>
+              <td>Q4</td>
+              <td>1,100</td>
+            </tr>
+          </tbody>
+        </table>
+      </figure>
+    </main>
+  </body>
+</html>

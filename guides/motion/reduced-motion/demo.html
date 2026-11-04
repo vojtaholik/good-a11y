@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reduced motion demo</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #ffffff;
+        --fg: #1a1a1a;
+        --slide: #e8eefc;
+        --accent: #0b57d0;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --fg: #f0f0f0;
+          --slide: #263248;
+          --accent: #8ab4f8;
+        }
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+      body {
+        margin: 0;
+        padding: 2rem 1rem;
+        font:
+          1rem/1.5 system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      main {
+        max-width: 40rem;
+        margin: 0 auto;
+      }
+      button {
+        font: inherit;
+        padding: 0.5rem 1rem;
+        border: 2px solid var(--fg);
+        border-radius: 0.375rem;
+        background: var(--bg);
+        color: var(--fg);
+        cursor: pointer;
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+      .carousel {
+        border: 2px solid var(--fg);
+        border-radius: 0.5rem;
+        padding: 1rem;
+      }
+      .controls {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+      }
+      .slide {
+        background: var(--slide);
+        border-radius: 0.375rem;
+        padding: 2rem 1rem;
+      }
+      .slide h3 {
+        margin-top: 0;
+      }
+      .panel {
+        margin-top: 1rem;
+        padding: 1rem;
+        border: 2px solid var(--fg);
+        border-radius: 0.375rem;
+        transition:
+          transform 300ms ease,
+          opacity 300ms ease;
+      }
+      .panel[data-state="closed"] {
+        transform: translateY(1rem);
+        opacity: 0;
+        visibility: hidden;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .panel {
+          transition: opacity 150ms linear;
+        }
+        .panel[data-state="closed"] {
+          transform: none;
+        }
+      }
+      a {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Autumn collection</h1>
+      <section
+        class="carousel"
+        aria-roledescription="carousel"
+        aria-labelledby="carousel-title"
+      >
+        <h2 id="carousel-title">Featured</h2>
+        <div class="controls">
+          <button type="button" id="toggle" aria-pressed="false">
+            Pause slides
+          </button>
+          <button type="button" id="prev">Previous slide</button>
+          <button type="button" id="next">Next slide</button>
+        </div>
+        <div class="slide" id="slide" aria-live="off">
+          <h3 id="slide-title">Rain jackets</h3>
+          <p id="slide-text">Waterproof shells for wet hikes.</p>
+        </div>
+      </section>
+      <p>
+        <button
+          type="button"
+          id="reveal"
+          aria-expanded="false"
+          aria-controls="details"
+        >
+          Show size guide
+        </button>
+      </p>
+      <div class="panel" id="details" data-state="closed">
+        <p>Measure your chest and compare it with the chart on the label.</p>
+      </div>
+      <p><a href="#carousel-title">Back to featured</a></p>
+    </main>
+    <script>
+      const slides = [
+        ["Rain jackets", "Waterproof shells for wet hikes."],
+        ["Hiking boots", "Grippy soles for rock and mud."],
+        ["Wool layers", "Warm when wet, soft on skin."],
+      ];
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const slide = document.getElementById("slide");
+      const title = document.getElementById("slide-title");
+      const text = document.getElementById("slide-text");
+      const toggle = document.getElementById("toggle");
+      const carousel = document.querySelector(".carousel");
+      let index = 0;
+      let timer = null;
+      let userPaused = reduce.matches;
+      let hovering = false;
+
+      function show(i) {
+        index = (i + slides.length) % slides.length;
+        [title.textContent, text.textContent] = slides[index];
+      }
+      function sync() {
+        const running = !userPaused && !hovering && !reduce.matches;
+        clearInterval(timer);
+        timer = running ? setInterval(() => show(index + 1), 5000) : null;
+        toggle.setAttribute("aria-pressed", String(userPaused));
+        slide.setAttribute(
+          "aria-live",
+          userPaused || reduce.matches ? "polite" : "off"
+        );
+      }
+      toggle.addEventListener("click", () => {
+        userPaused = !userPaused;
+        sync();
+      });
+      document
+        .getElementById("prev")
+        .addEventListener("click", () => show(index - 1));
+      document
+        .getElementById("next")
+        .addEventListener("click", () => show(index + 1));
+      carousel.addEventListener("pointerenter", () => {
+        hovering = true;
+        sync();
+      });
+      carousel.addEventListener("pointerleave", () => {
+        hovering = false;
+        sync();
+      });
+      carousel.addEventListener("focusin", () => {
+        hovering = true;
+        sync();
+      });
+      carousel.addEventListener("focusout", (e) => {
+        if (!carousel.contains(e.relatedTarget)) {
+          hovering = false;
+          sync();
+        }
+      });
+      reduce.addEventListener("change", () => {
+        if (reduce.matches) userPaused = true;
+        sync();
+      });
+
+      const reveal = document.getElementById("reveal");
+      const details = document.getElementById("details");
+      reveal.addEventListener("click", () => {
+        const open = reveal.getAttribute("aria-expanded") === "true";
+        reveal.setAttribute("aria-expanded", String(!open));
+        details.dataset.state = open ? "closed" : "open";
+      });
+      sync();
+    </script>
+  </body>
+</html>
