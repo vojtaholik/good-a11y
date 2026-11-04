@@ -100,3 +100,9 @@ CLI at `bf7c64d` (static HTML only) on example.com and wikipedia.org, plus code 
 - Where: `packages/core/src/site-checks.ts` (3.2.3 `consistentNavigation`, 3.2.4 `consistentIdentification`), counted in the verdict per `docs/requirement-checklist.md:58`.
 - Why: a 3.2.3 or 3.2.4 fail now makes the headline "This page does not meet WCAG 2.1 Level AA". `docs/accuracy-qa.md` measures every static and rendered check, but not these two. Both are heuristics over navigation links: 3.2.4 treats a different text for the same `href` as a failure, which misfires on a logo link versus a "Home" link, or on menus that change with the section. The project rule says a check that cannot be decided reliably is not in the catalogue. Until the precision is measured, these failures are not known to be certain.
 - Fix: run both on the 21 accuracy-QA sites through the deployed crawl and hand-check every fail. Until precision is at least as good as the static checks, show them as issues but leave them out of the verdict count. 3.2.6 is WCAG 2.2 and already stays out.
+
+## Close (b89698b, 2026-11-04)
+
+- R1 fixed: "... 46 of the 50 ... were not checked automatically on this scan and 3 only in part, so a person needs to review those 49. 4.1.1 Parsing is always met by HTML." (example.com, CLI at `b89698b`).
+- N1 settled. The accuracy run (`docs/accuracy-qa.md` round 6) found 5 of 5 cross-page differences false. The three checks are removed, and no code under `packages/*/src` or `apps/*/src` still names them. 3.2.3, 3.2.4 and 3.2.6 read "Needs a person". The site section on gov.uk lists the three pages read with their own static results, and says nothing about cross-page consistency.
+- Audit 3 has no open defects.
