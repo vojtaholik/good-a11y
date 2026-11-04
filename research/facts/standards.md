@@ -134,6 +134,17 @@ hyphenation spacing are normalised.
 - status: verified
 - verifier_note: Note in #parsing section of WCAG 2.1 matches.
 
+### STD-WCAG21-3
+- claim: WCAG 2.1 conformance requirement 5.2.1: a web page conforms at Level AA only when it satisfies all the Level A and Level AA success criteria, or a Level AA conforming alternate version is provided. One failed Level A or AA success criterion therefore means the page does not conform at Level AA.
+- field: other
+- value: Level AA conformance requires every Level A and AA success criterion to be satisfied
+- source: https://www.w3.org/TR/WCAG21/#conformance-reqs
+- excerpt: "For Level AA conformance, the web page satisfies all the Level A and Level AA success criteria, or a Level AA conforming alternate version is provided."
+- retrieved: 2026-11-04
+- used_by: report.verdict
+- status: verified
+- verifier_note: Excerpt verbatim in 5.2.1 Conformance Level (w3.org/TR/WCAG21, fetched 2026-11-04). The "therefore" holds when no Level AA conforming alternate version exists; product text should say the page does not meet AA, not that the site cannot conform.
+
 ### STD-WCAG22-1
 - claim: WCAG 2.2 is a W3C Recommendation dated 12 December 2024 (https://www.w3.org/TR/2024/REC-WCAG22-20241212/).
 - field: other

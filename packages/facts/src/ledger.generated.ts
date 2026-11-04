@@ -431,6 +431,17 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "value": "WCAG 2.1 SC 4.1.1 is always satisfied for HTML or XML content"
   },
   {
+    "claim": "WCAG 2.1 conformance requirement 5.2.1: a web page conforms at Level AA only when it satisfies all the Level A and Level AA success criteria, or a Level AA conforming alternate version is provided. One failed Level A or AA success criterion therefore means the page does not conform at Level AA.",
+    "excerpt": "\"For Level AA conformance, the web page satisfies all the Level A and Level AA success criteria, or a Level AA conforming alternate version is provided.\"",
+    "field": "other",
+    "file": "standards.md",
+    "id": "STD-WCAG21-3",
+    "retrieved": "2026-11-04",
+    "source": "https://www.w3.org/TR/WCAG21/#conformance-reqs",
+    "usedBy": "report.verdict",
+    "value": "Level AA conformance requires every Level A and AA success criterion to be satisfied"
+  },
+  {
     "claim": "WCAG 2.2 is a W3C Recommendation dated 12 December 2024 (https://www.w3.org/TR/2024/REC-WCAG22-20241212/).",
     "excerpt": "\"Web Content Accessibility Guidelines (WCAG) 2.2 W3C Recommendation 12 December 2024\"",
     "field": "other",
