@@ -146,6 +146,7 @@ const guidesCurrent = (route: AppRouteState): Current =>
   AppRoute.match<Current>(route, {
     About: () => null,
     Check: () => null,
+    Contact: () => null,
     Guide: ({ guideId }) =>
       Option.isSome(guidePageOf(guideId)) ? "true" : null,
     Home: () => null,
@@ -159,6 +160,7 @@ const checkCurrent = (route: AppRouteState): Current =>
   AppRoute.match<Current>(route, {
     About: () => null,
     Check: () => "page",
+    Contact: () => null,
     Guide: () => null,
     Home: () => null,
     NotFound: () => null,

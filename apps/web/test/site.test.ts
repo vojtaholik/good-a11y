@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@effect/vitest";
+import { CONTACT_SHOWN } from "@good-a11y/core/contracts";
 import { GUIDES } from "@good-a11y/guides/data";
 import { Effect } from "effect";
 
@@ -171,6 +172,20 @@ describe("the site for agents", () => {
       expect(page.response.status).toBe(404);
       expect(guide.response.status).toBe(404);
       expect(report.body).toContain("No scan of example.com is stored.");
+    })
+  );
+
+  it.effect("hides the contact page while the contact switch is off", () =>
+    Effect.gen(function* hiddenContact() {
+      const page = yield* get("/contact");
+      const markdown = yield* get("/contact", MARKDOWN);
+      const home = yield* get("/");
+
+      expect(CONTACT_SHOWN).toBe(false);
+      expect(page.response.status).toBe(404);
+      expect(page.body).toContain("This page does not exist");
+      expect(markdown.response.status).toBe(404);
+      expect(home.body).not.toContain('href="/contact"');
     })
   );
 });

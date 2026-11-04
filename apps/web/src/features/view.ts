@@ -1,9 +1,11 @@
+import { CONTACT_SHOWN } from "@good-a11y/core/contracts";
 import { Option } from "effect";
 import type { Document, Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/message.js";
 import type { AppModel } from "../client/model.js";
 import { checkView } from "./check-view.js";
+import { contactPageView } from "./contact-view.js";
 import { guideView } from "./guide-view.js";
 import { guidePageOf } from "./guides.js";
 import { homeView } from "./home-view.js";
@@ -19,6 +21,8 @@ const routeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
   AppRoute.match<Html>(model.route, {
     About: () => infoView(ABOUT, h),
     Check: () => checkView(model, h),
+    Contact: () =>
+      CONTACT_SHOWN ? contactPageView(model, h) : notFoundView(h),
     Guide: ({ guideId }) =>
       Option.match(guidePageOf(guideId), {
         onNone: () => notFoundView(h),

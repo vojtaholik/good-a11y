@@ -8,6 +8,7 @@ import {
   quietSummary,
 } from "@good-a11y/core/contracts";
 import type { Finding, Report, Sourced } from "@good-a11y/core/contracts";
+import { Option } from "effect";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/message.js";
@@ -439,7 +440,9 @@ export const reportView = (
                 ? [
                     contactView(
                       model,
-                      view.report.finalUrl ?? view.report.requestedUrl,
+                      Option.some(
+                        view.report.finalUrl ?? view.report.requestedUrl
+                      ),
                       h
                     ),
                   ]

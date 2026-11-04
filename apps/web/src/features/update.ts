@@ -31,6 +31,11 @@ import type { AppFlags, AppModel } from "../client/model.js";
 import { pollTarget } from "../client/polling.js";
 import type { ScanApi } from "../client/scan-api.js";
 import {
+  CONTACT_ALERT_ID,
+  CONTACT_PROBLEMS_ID,
+  CONTACT_SENT_ID,
+} from "./landmarks.js";
+import {
   AppRoute,
   isSameRoute,
   parseRoute,
@@ -86,7 +91,10 @@ const withContactState = (
     contact: (contact) => modifyFields(contact, { state: () => state }),
   });
 
-const submitContact = (model: AppModel, url: string): AppUpdate => {
+const submitContact = (
+  model: AppModel,
+  maybeUrl: Option.Option<string>
+): AppUpdate => {
   const { contact } = model;
 
   if (Schema.is(ContactState.Sending)(contact.state)) {
@@ -110,13 +118,14 @@ const submitContact = (model: AppModel, url: string): AppUpdate => {
           email: typed.email,
           maybeName:
             typed.name === "" ? Option.none() : Option.some(typed.name),
+          maybeUrl,
           message: typed.message,
-          url,
         }),
       ],
       model: withContactState(model, ContactState.Sending()),
     }),
     onNonEmpty: (fields) => ({
+      commands: [FocusFragment({ id: CONTACT_PROBLEMS_ID })],
       model: withContactState(model, ContactState.Invalid({ fields })),
     }),
   });
@@ -290,6 +299,7 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
           }
         : { model },
     FailedSendMessage: ({ maybeMessage }) => ({
+      commands: [FocusFragment({ id: CONTACT_ALERT_ID })],
       model: withContactState(
         model,
         Option.match(maybeMessage, {
@@ -310,7 +320,7 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
             }),
           }
         : { model },
-    SubmittedContactForm: ({ url }) => submitContact(model, url),
+    SubmittedContactForm: ({ maybeUrl }) => submitContact(model, maybeUrl),
     SubmittedScanForm: () => submitScan(model),
     SucceededCopyText: ({ key }) => ({
       model: modifyFields(model, { copy: () => CopyState.Copied({ key }) }),
@@ -320,6 +330,7 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
         ? receiveScanView(model, view)
         : { model },
     SucceededSendMessage: () => ({
+      commands: [FocusFragment({ id: CONTACT_SENT_ID })],
       model: modifyFields(model, {
         contact: (contact) =>
           modifyFields(contact, {

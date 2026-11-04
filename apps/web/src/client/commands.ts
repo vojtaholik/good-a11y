@@ -83,17 +83,23 @@ export const SendMessage = Command.define("SendMessage", {
   args: {
     email: Schema.String,
     maybeName: Schema.Option(Schema.String),
+    maybeUrl: Schema.Option(Schema.String),
     message: Schema.String,
-    url: Schema.String,
   },
-  execute: ({ email, maybeName, message, url }) =>
+  execute: ({ email, maybeName, maybeUrl, message }) =>
     ScanApi.use((api) =>
-      api.sendMessage(
-        Option.match(maybeName, {
-          onNone: () => ({ email, message, url }),
-          onSome: (name) => ({ email, message, name, url }),
-        })
-      )
+      api.sendMessage({
+        email,
+        message,
+        ...Option.match(maybeName, {
+          onNone: () => ({}),
+          onSome: (name) => ({ name }),
+        }),
+        ...Option.match(maybeUrl, {
+          onNone: () => ({}),
+          onSome: (url) => ({ url }),
+        }),
+      })
     ).pipe(
       Effect.matchCause({
         onFailure: (cause) =>

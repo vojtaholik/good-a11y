@@ -4,8 +4,10 @@ import type { ScanView } from "@good-a11y/core";
 import { readPage } from "@good-a11y/html-reader";
 import { Effect } from "effect";
 import { renderToString } from "foldkit/experimental/server";
+import type { HtmlBuilder } from "foldkit/html";
 
 import SHELL from "../index.html?raw";
+import type { AppMessage } from "../src/client/message.js";
 import {
   ContactState,
   CopyState,
@@ -13,8 +15,10 @@ import {
   StartState,
 } from "../src/client/model.js";
 import type { AppModel } from "../src/client/model.js";
+import { contactPageView } from "../src/features/contact-view.js";
 import { GUIDE_PAGES } from "../src/features/guides.js";
 import { AppRoute } from "../src/features/route.js";
+import { pageShell } from "../src/features/shell.js";
 import { view } from "../src/features/view.js";
 
 const SCANNED = `<!doctype html><html><head><title></title></head><body>
@@ -97,6 +101,54 @@ describe("our own page", () => {
         expect(html).toContain(`retrieve ${page.id}`);
       }
     })
+  );
+
+  it.effect(
+    "passes our own checks on the hidden contact page, in every state",
+    () =>
+      Effect.gen(function* contactPage() {
+        const typed = {
+          email: "ada@",
+          message: "",
+          name: "Ada",
+        };
+
+        for (const state of [
+          ContactState.Editing(),
+          ContactState.Invalid({ fields: ["email", "message"] }),
+          ContactState.Sending(),
+          ContactState.Sent(),
+          ContactState.Unavailable(),
+        ]) {
+          const rendered = yield* renderToString(
+            {
+              init: () => ({
+                model: {
+                  ...home,
+                  contact: { ...typed, state },
+                  route: AppRoute.Contact(),
+                },
+              }),
+              view: (model: AppModel, h: HtmlBuilder<AppMessage>) => ({
+                ...view(model, h),
+                body: pageShell(model.route, contactPageView(model, h), h),
+              }),
+            },
+            { isHydratable: false }
+          );
+
+          const html = SHELL.replace(
+            '<div id="root"></div>',
+            `<div id="root">${rendered.html}</div>`
+          ).replace(
+            "<title>good-a11y</title>",
+            "<title>Contact | good-a11y</title>"
+          );
+
+          expect(failing(html)).toEqual([]);
+          expect(html).not.toContain("studio9");
+        }
+      })
   );
 
   it.effect("passes our own checks on the page that lists what we check", () =>

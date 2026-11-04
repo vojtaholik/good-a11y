@@ -5,6 +5,7 @@ import { defineRouteUnion, literal, slash, string } from "foldkit/route";
 export const AppRoute = defineRouteUnion({
   About: {},
   Check: { url: Schema.optionalKey(Schema.String) },
+  Contact: {},
   Guide: { guideId: Schema.String },
   Home: {},
   NotFound: { path: Schema.String },
@@ -43,6 +44,11 @@ export const privacyRouter = pipe(
   Route.mapTo(AppRoute.Privacy)
 );
 
+export const contactRouter = pipe(
+  literal("contact"),
+  Route.mapTo(AppRoute.Contact)
+);
+
 export const guideRouter = pipe(
   literal("guides"),
   slash(string("guideId")),
@@ -60,6 +66,7 @@ export const pathOf = (route: AppRouteState): string =>
   AppRoute.match<string>(route, {
     About: () => aboutRouter(),
     Check: () => checkRouter({}),
+    Contact: () => contactRouter(),
     Guide: ({ guideId }) => guideRouter({ guideId }),
     Home: () => homeRouter(),
     NotFound: ({ path }) => path,
@@ -76,6 +83,7 @@ export const parseRoute = Route.parseUrlWithFallback(
     guideRouter,
     aboutRouter,
     privacyRouter,
+    contactRouter,
     homeRouter
   ),
   AppRoute.NotFound

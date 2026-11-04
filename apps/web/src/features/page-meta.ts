@@ -1,3 +1,4 @@
+import { CONTACT_SHOWN } from "@good-a11y/core/contracts";
 import { Option } from "effect";
 
 import { guidePageOf } from "./guides.js";
@@ -24,6 +25,14 @@ export const ABOUT_DESCRIPTION =
 export const PRIVACY_DESCRIPTION =
   "What the checker stores when you check a page, for how long, and what goes to a model.";
 
+const NOT_FOUND = {
+  description: HOME_DESCRIPTION,
+  isIndexed: false,
+  title: `Page not found | ${SITE_NAME}`,
+};
+
+export const CONTACT_DESCRIPTION = "Questions about a guide or a report.";
+
 export const pageMetaOf = (route: AppRouteState): PageMeta =>
   AppRoute.match<PageMeta>(route, {
     About: () => ({
@@ -36,6 +45,14 @@ export const pageMetaOf = (route: AppRouteState): PageMeta =>
       isIndexed: true,
       title: `Check a page | ${SITE_NAME}`,
     }),
+    Contact: () =>
+      CONTACT_SHOWN
+        ? {
+            description: CONTACT_DESCRIPTION,
+            isIndexed: false,
+            title: `Contact | ${SITE_NAME}`,
+          }
+        : NOT_FOUND,
     Guide: ({ guideId }) =>
       Option.match(guidePageOf(guideId), {
         onNone: () => ({
@@ -54,11 +71,7 @@ export const pageMetaOf = (route: AppRouteState): PageMeta =>
       isIndexed: true,
       title: `${SITE_NAME}: accessibility guides for coding agents`,
     }),
-    NotFound: () => ({
-      description: HOME_DESCRIPTION,
-      isIndexed: false,
-      title: `Page not found | ${SITE_NAME}`,
-    }),
+    NotFound: () => NOT_FOUND,
     Privacy: () => ({
       description: PRIVACY_DESCRIPTION,
       isIndexed: true,

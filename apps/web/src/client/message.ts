@@ -20,7 +20,7 @@ export const Message = defineMessageUnion({
     generation: Schema.Int,
     maybeMessage: Schema.Option(Schema.String),
   },
-  SubmittedContactForm: { url: Schema.String },
+  SubmittedContactForm: { maybeUrl: Schema.Option(Schema.String) },
   SubmittedScanForm: {},
   SucceededCopyText: { key: Schema.String },
   SucceededGetScan: { generation: Schema.Int, view: ScanViewSchema },

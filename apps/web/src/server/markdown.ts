@@ -4,6 +4,7 @@ import {
   TEST_METHOD_NAMES,
   scCoverageSummary,
   verifiedText,
+  CONTACT_SHOWN,
 } from "@good-a11y/core/contracts";
 import type { ScanView } from "@good-a11y/core/contracts";
 import { guidesForCheck } from "@good-a11y/guides/check-guides";
@@ -15,7 +16,7 @@ import { CLI, SKILL_PATH } from "../features/agent-links.js";
 import { LOCAL_CHECK } from "../features/check-view.js";
 import { RETRIEVE, demoPath } from "../features/guide-view.js";
 import { categoryName, guidesByCategory } from "../features/guides.js";
-import { ABOUT, Blocks, PRIVACY } from "../features/info-pages.js";
+import { ABOUT, Blocks, ISSUES_URL, PRIVACY } from "../features/info-pages.js";
 import type { InfoPage } from "../features/info-pages.js";
 import {
   CHECK_DESCRIPTION,
@@ -180,6 +181,14 @@ export const pageMarkdown = (
   AppRoute.match<string[]>(route, {
     About: () => infoMarkdown(ABOUT),
     Check: checkMarkdown,
+    Contact: () =>
+      CONTACT_SHOWN
+        ? [
+            "# Contact",
+            "",
+            `Questions about a guide or a report. For bugs, open an issue: ${ISSUES_URL}`,
+          ]
+        : notFoundMarkdown(),
     Guide: ({ guideId }) =>
       Option.match(guideOf(guideId), {
         onNone: notFoundMarkdown,

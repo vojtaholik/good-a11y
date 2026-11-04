@@ -1,3 +1,4 @@
+import { CONTACT_SHOWN } from "@good-a11y/core/contracts";
 import type { ScanView } from "@good-a11y/core/contracts";
 import { Effect, Option, Schema } from "effect";
 import { Server } from "foldkit/experimental";
@@ -101,6 +102,7 @@ export const withPageMeta = (
 
 export const isMissing = (route: AppRouteState): boolean =>
   Schema.is(AppRoute.NotFound)(route) ||
+  (!CONTACT_SHOWN && Schema.is(AppRoute.Contact)(route)) ||
   (Schema.is(AppRoute.Guide)(route) &&
     Option.isNone(guidePageOf(route.guideId)));
 

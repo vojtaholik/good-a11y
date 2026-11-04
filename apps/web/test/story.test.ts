@@ -160,12 +160,15 @@ describe("moving between pages", () => {
 });
 
 describe("the contact form", () => {
-  it("marks the fields that need fixing", () => {
+  it("marks the fields that need fixing and moves focus to the summary", () => {
     story(
       update,
-      given(modelAt("/check/example.com")),
-      message(Message.SubmittedContactForm({ url: "https://example.com/" })),
-      Command.expectNone(),
+      given(modelAt("/contact")),
+      message(Message.SubmittedContactForm({ maybeUrl: Option.none() })),
+      Command.resolve(
+        FocusFragment({ id: "contact-problems" }),
+        Message.CompletedFocusFragment()
+      ),
       model((submitted) => {
         expect(submitted.contact.state).toEqual(
           ContactState.Invalid({ fields: ["email", "message"] })
@@ -174,18 +177,53 @@ describe("the contact form", () => {
     );
   });
 
-  it("sends the message and clears it once it arrived", () => {
+  it("sends the message, clears it once it arrived, and focuses the confirmation", () => {
+    story(
+      update,
+      given(modelAt("/contact")),
+      message(Message.UpdatedContactEmail({ value: "a@example.com" })),
+      message(Message.UpdatedContactMessage({ value: "Please help." })),
+      message(Message.SubmittedContactForm({ maybeUrl: Option.none() })),
+      Command.resolve(SendMessage, Message.SucceededSendMessage()),
+      Command.resolve(
+        FocusFragment({ id: "contact-sent" }),
+        Message.CompletedFocusFragment()
+      ),
+      model((sent) => {
+        expect(sent.contact.state._tag).toBe("Sent");
+        expect(sent.contact.message).toBe("");
+        expect(sent.contact.email).toBe("a@example.com");
+      })
+    );
+  });
+
+  it("keeps the text and focuses the alert when the server does not answer", () => {
     story(
       update,
       given(modelAt("/check/example.com")),
       message(Message.UpdatedContactEmail({ value: "a@example.com" })),
       message(Message.UpdatedContactMessage({ value: "Please help." })),
-      message(Message.SubmittedContactForm({ url: "https://example.com/" })),
-      Command.resolve(SendMessage, Message.SucceededSendMessage()),
-      model((sent) => {
-        expect(sent.contact.state._tag).toBe("Sent");
-        expect(sent.contact.message).toBe("");
-        expect(sent.contact.email).toBe("a@example.com");
+      message(
+        Message.SubmittedContactForm({
+          maybeUrl: Option.some("https://example.com/"),
+        })
+      ),
+      Command.resolve(
+        SendMessage({
+          email: "a@example.com",
+          maybeName: Option.none(),
+          maybeUrl: Option.some("https://example.com/"),
+          message: "Please help.",
+        }),
+        Message.FailedSendMessage({ maybeMessage: Option.none() })
+      ),
+      Command.resolve(
+        FocusFragment({ id: "contact-alert" }),
+        Message.CompletedFocusFragment()
+      ),
+      model((failed) => {
+        expect(failed.contact.state._tag).toBe("Unavailable");
+        expect(failed.contact.message).toBe("Please help.");
       })
     );
   });
