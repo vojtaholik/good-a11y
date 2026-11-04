@@ -2,6 +2,10 @@ import { Brand, Result } from "effect";
 
 export type PublicUrl = Brand.Branded<string, "PublicUrl">;
 
+export type LocalUrl = Brand.Branded<string, "LocalUrl">;
+
+export type VettedUrl = PublicUrl | LocalUrl;
+
 export type UrlRule =
   | "not_a_url"
   | "scheme"
@@ -41,10 +45,14 @@ const NEVER_PUBLIC_TLDS = new Set([
 
 const toPublicUrl = Brand.nominal<PublicUrl>();
 
+const toLocalUrl = Brand.nominal<LocalUrl>();
+
+export type UrlVet = (raw: string) => Result.Result<VettedUrl, UrlRejection>;
+
 const reject = (
   rule: UrlRule,
   reason: string
-): Result.Result<PublicUrl, UrlRejection> => Result.fail({ reason, rule });
+): Result.Result<never, UrlRejection> => Result.fail({ reason, rule });
 
 export const vetUrl = (raw: string): Result.Result<PublicUrl, UrlRejection> => {
   if (raw.length > MAX_URL_LENGTH || !URL.canParse(raw)) {
@@ -90,4 +98,28 @@ export const vetUrl = (raw: string): Result.Result<PublicUrl, UrlRejection> => {
   return url.href.length > MAX_URL_LENGTH
     ? reject("not_a_url", "The address is not a valid URL.")
     : Result.succeed(toPublicUrl(url.href));
+};
+
+export const vetLocalUrl = (
+  raw: string
+): Result.Result<LocalUrl, UrlRejection> => {
+  if (raw.length > MAX_URL_LENGTH || !URL.canParse(raw)) {
+    return reject("not_a_url", "The address is not a valid URL.");
+  }
+
+  const url = new URL(raw);
+
+  if (url.protocol !== "http:" && url.protocol !== "https:") {
+    return reject("scheme", `The ${url.protocol} scheme is not allowed.`);
+  }
+
+  if (url.username !== "" || url.password !== "") {
+    return reject("credentials", "An address with credentials is not allowed.");
+  }
+
+  url.hash = "";
+
+  return url.href.length > MAX_URL_LENGTH
+    ? reject("not_a_url", "The address is not a valid URL.")
+    : Result.succeed(toLocalUrl(url.href));
 };

@@ -41,6 +41,7 @@ const lintFixture = (area: string, source: string): LintResult => {
         "rat-stack-boundaries/no-cross-layer-imports": "error",
         "rat-stack-boundaries/no-feature-transport": "error",
         "rat-stack-boundaries/no-hand-rolled-surface": "error",
+        "rat-stack-boundaries/no-local-mode-in-hosted-apps": "error",
       },
     })
   );
@@ -72,6 +73,38 @@ const expectRuleSoft = (result: LintResult, message: string) => {
 };
 
 describe("architecture boundary rules", () => {
+  it("keeps the local check's private-address path out of the hosted apps", () => {
+    const sources = [
+      'import { vetLocalUrl } from "@eaa-check/core";',
+      'import type { LocalUrl } from "@eaa-check/core";',
+      'import { LocalHopTransport } from "@eaa-check/core";',
+      'import { SafeFetch } from "@eaa-check/core";\nexport const layer = SafeFetch.localLayer;',
+      'import * as core from "@eaa-check/core";\nexport const run = core.checkLocally;',
+      'import { localNodeHopTransportLayer } from "@eaa-check/http-transport/node";',
+      'import { localRenderedAuditLayer } from "@eaa-check/browser-audit/node";',
+      'export { launch } from "puppeteer-core";',
+    ];
+
+    for (const area of ["apps/scanner/src", "apps/web/src", "apps/infra"]) {
+      for (const source of sources) {
+        expectRuleSoft(lintFixture(area, source), "Hosted apps cannot");
+      }
+    }
+
+    expect(
+      lintFixture(
+        "apps/good-a11y/src",
+        'import { SafeFetch, vetLocalUrl } from "@eaa-check/core";\nexport const layer = [SafeFetch.localLayer, vetLocalUrl];'
+      ).output
+    ).not.toContain("Hosted apps cannot");
+    expect(
+      lintFixture(
+        "apps/scanner/src",
+        'import { SafeFetch, vetUrl } from "@eaa-check/core";\nexport const layer = [SafeFetch.layer, vetUrl];'
+      ).output
+    ).not.toContain("Hosted apps cannot");
+  });
+
   it("keeps clients and vendor adapters out of core through every import form", () => {
     const sources = [
       'import { HttpClient } from "effect/unstable/http";',

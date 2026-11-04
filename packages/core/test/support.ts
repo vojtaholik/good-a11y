@@ -1,7 +1,12 @@
 import { Effect, Layer, Stream } from "effect";
 
 import { HopTransport, SafeFetch, TransportFailure } from "../src/index.js";
-import type { HeaderMap, HopRequest } from "../src/index.js";
+import type {
+  HeaderMap,
+  HopRequest,
+  OpenHop,
+  VettedUrl,
+} from "../src/index.js";
 
 export interface Scripted {
   readonly body?: string;
@@ -13,28 +18,32 @@ export interface Scripted {
 
 export type Site = (url: string, headers: HeaderMap) => Scripted | undefined;
 
-export const scriptedTransport = (site: Site, requests: HopRequest[]) =>
-  HopTransport.of({
-    open: (request) =>
-      Effect.suspend(() => {
-        requests.push(request);
-        const scripted = site(request.url, request.headers) ?? { status: 404 };
+export const scriptedOpen =
+  (site: Site, requests: HopRequest<VettedUrl>[]): OpenHop<VettedUrl> =>
+  (request) =>
+    Effect.suspend(() => {
+      requests.push(request);
+      const scripted = site(request.url, request.headers) ?? { status: 404 };
 
-        if (scripted.failure !== undefined) {
-          return Effect.fail(
-            new TransportFailure({ detail: "scripted", kind: scripted.failure })
-          );
-        }
+      if (scripted.failure !== undefined) {
+        return Effect.fail(
+          new TransportFailure({ detail: "scripted", kind: scripted.failure })
+        );
+      }
 
-        return Effect.succeed({
-          body: Stream.fromIterable(
-            scripted.chunks ?? [new TextEncoder().encode(scripted.body ?? "")]
-          ),
-          headers: scripted.headers ?? {},
-          status: scripted.status ?? 200,
-        });
-      }),
-  });
+      return Effect.succeed({
+        body: Stream.fromIterable(
+          scripted.chunks ?? [new TextEncoder().encode(scripted.body ?? "")]
+        ),
+        headers: scripted.headers ?? {},
+        status: scripted.status ?? 200,
+      });
+    });
+
+export const scriptedTransport = (
+  site: Site,
+  requests: HopRequest<VettedUrl>[]
+) => HopTransport.of({ open: scriptedOpen(site, requests) });
 
 export const scriptedFetch = (site: Site, requests: HopRequest[]) =>
   SafeFetch.layer.pipe(

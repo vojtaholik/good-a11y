@@ -2,7 +2,7 @@ import { Context } from "effect";
 import type { Effect } from "effect";
 
 import type { HeaderMap } from "./hop-transport.js";
-import type { PublicUrl } from "./public-url.js";
+import type { VettedUrl } from "./public-url.js";
 import type { RenderedAuditFailed } from "./rendered-audit-failed.js";
 
 export const AXE_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"] as const;
@@ -25,7 +25,7 @@ export class RenderedAudit extends Context.Service<
   RenderedAudit,
   {
     readonly audit: (
-      url: PublicUrl
+      url: VettedUrl
     ) => Effect.Effect<RenderedPage, RenderedAuditFailed>;
   }
 >()("@eaa-check/core/RenderedAudit") {}

@@ -75,11 +75,14 @@ export {
   type Redirect,
 } from "./fetch-result.js";
 
+export { LocalHopTransport } from "./local-hop-transport.js";
+
 export {
   HopTransport,
   type HeaderMap,
   type HopRequest,
   type HopResponse,
+  type OpenHop,
 } from "./hop-transport.js";
 
 export {
@@ -102,9 +105,13 @@ export { PageReader, type PageReading } from "./page-reader.js";
 
 export {
   MAX_URL_LENGTH,
+  vetLocalUrl,
   vetUrl,
+  type LocalUrl,
   type PublicUrl,
   type UrlRejection,
+  type UrlVet,
+  type VettedUrl,
 } from "./public-url.js";
 
 export {
@@ -281,6 +288,7 @@ export {
   SCANNER_USER_AGENT,
   fetchPage,
   inspectPage,
+  inspectTarget,
   inspectUrl,
   judgePage,
   type Inspection,
@@ -292,6 +300,7 @@ export { ScanTargetRejected } from "./scan-target-rejected.js";
 
 export {
   ScanTargetSchema,
+  parseLocalTarget,
   parseScanTarget,
   type ScanTarget,
 } from "./scan-target.js";
@@ -474,3 +483,5 @@ export {
   renderedEvidenceOf,
   type RenderedEvidence,
 } from "./rendered-evidence.js";
+
+export { checkLocally, type LocalCheck } from "./local-check.js";

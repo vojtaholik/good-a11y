@@ -118,10 +118,9 @@ export const judgePage = (
   scannedAt: string
 ): Report => inspectPage(fetched, reader, scannedAt).report;
 
-export const inspectUrl = Effect.fn("inspectUrl")(function* inspectUrl(
-  url: string
+export const inspectTarget = Effect.fn("inspectTarget")(function* inspectTarget(
+  target: ScanTarget
 ) {
-  const target = yield* Effect.fromResult(parseScanTarget(url));
   const fetched = yield* fetchPage(target);
   const reader = yield* PageReader;
   const now = yield* Clock.currentTimeMillis;
@@ -131,4 +130,10 @@ export const inspectUrl = Effect.fn("inspectUrl")(function* inspectUrl(
     reader,
     DateTime.formatIso(DateTime.makeUnsafe(now))
   );
+});
+
+export const inspectUrl = Effect.fn("inspectUrl")(function* inspectUrl(
+  url: string
+) {
+  return yield* inspectTarget(yield* Effect.fromResult(parseScanTarget(url)));
 });

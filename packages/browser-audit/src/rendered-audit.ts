@@ -3,7 +3,7 @@ import {
   RenderedAudit,
   RenderedAuditFailed,
 } from "@eaa-check/core";
-import type { PublicUrl, RenderedPage } from "@eaa-check/core";
+import type { RenderedPage, UrlVet, VettedUrl } from "@eaa-check/core";
 import { Effect, Layer, Result, Schema } from "effect";
 import type { Duration } from "effect";
 
@@ -22,11 +22,12 @@ const decodeText = Schema.decodeUnknownResult(Schema.String);
 
 const auditIn = Effect.fn("RenderedAudit.auditIn")(function* auditIn(
   session: BrowserSession,
-  url: PublicUrl
+  url: VettedUrl,
+  vet: UrlVet
 ) {
   const landing = yield* session.open(url);
 
-  yield* landedOn(session);
+  yield* landedOn(session, vet);
 
   yield* Effect.sleep(SETTLE);
 
@@ -52,7 +53,7 @@ const auditIn = Effect.fn("RenderedAudit.auditIn")(function* auditIn(
     Effect.orElseSucceed(() => null)
   );
 
-  yield* landedOn(session);
+  yield* landedOn(session, vet);
 
   const page: RenderedPage = {
     axe: text.success,
@@ -78,14 +79,15 @@ const closeReporting = (session: BrowserSession, onClose: OnClose) =>
 
 export const renderedAuditWith = (
   launch: LaunchSession,
+  vet: UrlVet,
   onClose: OnClose = () => Effect.void
 ) => ({
-  audit: (url: PublicUrl): Effect.Effect<RenderedPage, RenderedAuditFailed> =>
+  audit: (url: VettedUrl): Effect.Effect<RenderedPage, RenderedAuditFailed> =>
     Effect.acquireRelease(
       launch.pipe(Effect.tapError(() => onClose(false))),
       (session) => closeReporting(session, onClose)
     ).pipe(
-      Effect.flatMap((session) => auditIn(session, url)),
+      Effect.flatMap((session) => auditIn(session, url, vet)),
       Effect.scoped,
       Effect.timeoutOrElse({
         duration: HARD_TIMEOUT,
@@ -100,8 +102,12 @@ export const renderedAuditWith = (
     ),
 });
 
-export const renderedAuditLayer = (launch: LaunchSession, onClose?: OnClose) =>
+export const renderedAuditLayer = (
+  launch: LaunchSession,
+  vet: UrlVet,
+  onClose?: OnClose
+) =>
   Layer.succeed(
     RenderedAudit,
-    RenderedAudit.of(renderedAuditWith(launch, onClose))
+    RenderedAudit.of(renderedAuditWith(launch, vet, onClose))
   );

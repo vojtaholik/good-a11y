@@ -1,9 +1,5 @@
-import {
-  DEFAULT_MAX_REDIRECTS,
-  RenderedAuditFailed,
-  vetUrl,
-} from "@eaa-check/core";
-import type { HeaderMap } from "@eaa-check/core";
+import { DEFAULT_MAX_REDIRECTS, RenderedAuditFailed } from "@eaa-check/core";
+import type { HeaderMap, UrlVet } from "@eaa-check/core";
 import { Effect, Result } from "effect";
 
 export interface Landing {
@@ -20,19 +16,23 @@ export interface BrowserSession {
   readonly url: Effect.Effect<string>;
 }
 
-export const navigationAllowed = (url: string, redirects: number): boolean =>
-  redirects <= DEFAULT_MAX_REDIRECTS && Result.isSuccess(vetUrl(url));
+export const navigationAllowed = (
+  url: string,
+  redirects: number,
+  vet: UrlVet
+): boolean => redirects <= DEFAULT_MAX_REDIRECTS && Result.isSuccess(vet(url));
 
 export const landedOn = (
-  session: BrowserSession
+  session: BrowserSession,
+  vet: UrlVet
 ): Effect.Effect<void, RenderedAuditFailed> =>
   session.url.pipe(
     Effect.flatMap((url) =>
-      Result.isSuccess(vetUrl(url))
+      Result.isSuccess(vet(url))
         ? Effect.void
         : Effect.fail(
             new RenderedAuditFailed({
-              detail: `The browser ended up on ${url.slice(0, 200)}, which vetUrl refuses.`,
+              detail: `The browser ended up on ${url.slice(0, 200)}, which the URL vetting refuses.`,
               kind: "navigation",
             })
           )

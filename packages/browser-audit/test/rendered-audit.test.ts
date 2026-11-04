@@ -27,7 +27,7 @@ const fakeSession = (
 });
 
 const auditWith = (session: BrowserSession) =>
-  renderedAuditWith(Effect.succeed(session)).audit(URL);
+  renderedAuditWith(Effect.succeed(session), vetUrl).audit(URL);
 
 describe("the rendered audit", () => {
   it.effect(
@@ -206,18 +206,20 @@ describe("the rendered audit", () => {
     "lets a navigation through only to a vetted address within the redirect cap",
     () =>
       Effect.sync(() => {
-        expect(navigationAllowed("https://www.example.com/next", 1)).toBe(true);
-        expect(navigationAllowed("https://www.example.com/next", 6)).toBe(
-          false
-        );
-        expect(navigationAllowed("http://127.0.0.1/", 0)).toBe(false);
-        expect(navigationAllowed("http://169.254.169.254.local/", 0)).toBe(
-          false
-        );
-        expect(navigationAllowed("file:///etc/passwd", 0)).toBe(false);
-        expect(navigationAllowed("https://shop.example.com:8443/", 0)).toBe(
-          false
-        );
+        expect(
+          navigationAllowed("https://www.example.com/next", 1, vetUrl)
+        ).toBe(true);
+        expect(
+          navigationAllowed("https://www.example.com/next", 6, vetUrl)
+        ).toBe(false);
+        expect(navigationAllowed("http://127.0.0.1/", 0, vetUrl)).toBe(false);
+        expect(
+          navigationAllowed("http://169.254.169.254.local/", 0, vetUrl)
+        ).toBe(false);
+        expect(navigationAllowed("file:///etc/passwd", 0, vetUrl)).toBe(false);
+        expect(
+          navigationAllowed("https://shop.example.com:8443/", 0, vetUrl)
+        ).toBe(false);
       })
   );
 
@@ -240,6 +242,7 @@ describe("the rendered audit", () => {
                 ),
               })
             ),
+            vetUrl,
             (done) => Ref.update(reported, (seen) => [...seen, done])
           ).audit(URL)
         );

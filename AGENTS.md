@@ -23,7 +23,7 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 - `@oxlint/plugins` `1.83.0` for the typed lint rules in `scripts/oxlint-plugin-*.ts` and the vendored [anti-slop](https://github.com/dmmulroy/anti-slop) rules in `tools/oxlint/anti-slop/` (all generic rules plus the Effect group, at `error`)
 - Oxlint `1.83.0` with Ultracite `7.12.0`, Oxfmt `0.68.0`, and Turborepo `2.11.2`
 - `htmlparser2` `12.0.0` is the one HTML parser, and only `packages/html-reader` imports it
-- `axe-core` `4.14.0` (MPL-2.0) and `@cloudflare/puppeteer` `1.4.0` for the rendered page check; only `packages/browser-audit` imports them
+- `axe-core` `4.14.0` (MPL-2.0) and `@cloudflare/puppeteer` `1.4.0` for the rendered page check, and `puppeteer-core` `25.13.0` (Apache-2.0) for the local `check` in the user's own Chrome; only `packages/browser-audit` imports them
 - varlock `1.20.0`: declare every env var in `.env.schema`, never read `.env.local` directly, run `pnpm env:check` after schema edits
 
 ## Packages
@@ -117,6 +117,7 @@ Preserve existing work. Inspect status before editing, stage only files changed 
 - `rat-stack-boundaries/no-cross-layer-imports` enforces dependency direction: apps → `packages/core` → `packages/facts`, `packages/capability` → Effect. Packages do not import apps.
 - A scan runs in steps, each a Workflow task: `parseScanTarget` turns what was typed into a vetted target, `SafeFetch` fetches the one page, `PageReader.read` turns its HTML into `PageEvidence`, and `report` runs every static check and builds the `Report`. Then `RenderedAudit` opens the page in Browser Run (also when the static fetch was refused, decision 20), runs the pinned axe-core and the rendered probes, and `withRendered` adds their findings, or a skip with its reason, to the `Report`. Then the judged step may add judged observations under its own budget.
 - `SafeFetch` is the only caller of `HopTransport`, and `HopTransport.open` takes a `PublicUrl`. Only `vetUrl` makes one.
+- The local `check` command (decision 6 of the good-a11y brief) is the one place that may fetch and open localhost and private addresses: `vetLocalUrl` makes a `LocalUrl`, `SafeFetch.localLayer` calls `LocalHopTransport`, `@eaa-check/http-transport/node` gives `localNodeHopTransportLayer` and `@eaa-check/browser-audit/node` drives the user's own Chrome. `rat-stack-boundaries/no-local-mode-in-hosted-apps` keeps all of it out of `apps/scanner`, `apps/web` and `apps/infra`, and `HopTransport.open` does not accept a `LocalUrl` (`docs/local-check.md`).
 - `vetUrl` vets the name. The address it resolves to is vetted by the transport: on Node by `@eaa-check/http-transport/node`, on Workers by Cloudflare's egress, which does not reach private networks. The Worker code does not vet addresses itself.
 - Browser Run is vetted per navigation (interception with `vetUrl`, landed URL re-vetted, popups closed, service workers bypassed). Its subresource requests and DNS answers are not vetted: like Worker egress, Browser Run egress is Cloudflare's network, assumed not to reach private addresses. Cloudflare documents no such guarantee for Browser Run, so this is an assumption (`docs/rendered-audit.md`).
 

@@ -1,5 +1,3 @@
-import { TargetType, launch } from "@cloudflare/puppeteer";
-import type { BrowserWorker, HTTPRequest, Target } from "@cloudflare/puppeteer";
 import {
   AXE_TAGS,
   RenderedAuditFailed,
@@ -7,6 +5,7 @@ import {
   TRAP_PRESSES,
   TRAP_SIZE,
 } from "@eaa-check/core";
+import type { UrlVet } from "@eaa-check/core";
 import { Clock, Effect, Result, Schema } from "effect";
 import type { Duration } from "effect";
 
@@ -14,6 +13,12 @@ import { axeSource, evidenceSource, probesSource } from "#page-scripts";
 
 import { navigationAllowed, step } from "./browser-session.js";
 import type { BrowserSession, LaunchSession } from "./browser-session.js";
+import type {
+  PausedRequest,
+  SessionBrowser,
+  SessionRequest,
+  SessionTarget,
+} from "./session-browser.js";
 
 export const VIEWPORT = { height: 800, width: 1280 } as const;
 
@@ -23,12 +28,6 @@ export const KEEP_ALIVE_MS = 60_000;
 
 const NO_POPUPS =
   'delete Navigator.prototype.serviceWorker; Object.defineProperty(window, "open", { configurable: false, value: () => null, writable: false });';
-
-interface PausedRequest {
-  readonly request: { readonly url: string };
-  readonly requestId: string;
-  readonly resourceType: string;
-}
 
 const AXE_RUN = `axe.run(document, ${JSON.stringify({
   resultTypes: ["violations"],
@@ -134,17 +133,15 @@ export const walkState = (keys: readonly number[], candidates: number) => {
 
 export interface SessionOptions {
   readonly emptySubmits: boolean;
+  readonly vet: UrlVet;
 }
 
-export const puppeteerSession = (
-  binding: BrowserWorker,
+export const sessionOn = (
+  openBrowser: () => Promise<SessionBrowser>,
   options: SessionOptions
 ): LaunchSession =>
   Effect.gen(function* launchPuppeteer() {
-    const browser = yield* step(
-      "browser",
-      launch.bind(undefined, binding, { keep_alive: KEEP_ALIVE_MS })
-    );
+    const browser = yield* step("browser", openBrowser);
 
     const close = step("browser", browser.close.bind(browser));
 
@@ -158,7 +155,7 @@ export const puppeteerSession = (
     const blocked: string[] = [];
 
     // @effect-diagnostics-next-line asyncFunction:off -- Puppeteer calls this request listener itself and awaits nothing, so it settles each paused request with a promise that never rejects.
-    const guard = async (request: HTTPRequest): Promise<void> => {
+    const guard = async (request: SessionRequest): Promise<void> => {
       if (request.isInterceptResolutionHandled()) {
         return;
       }
@@ -176,7 +173,11 @@ export const puppeteerSession = (
 
       const allowed =
         !request.isNavigationRequest() ||
-        navigationAllowed(request.url(), request.redirectChain().length);
+        navigationAllowed(
+          request.url(),
+          request.redirectChain().length,
+          options.vet
+        );
 
       const hold =
         allowed &&
@@ -200,16 +201,15 @@ export const puppeteerSession = (
     };
 
     // @effect-diagnostics-next-line asyncFunction:off -- Puppeteer calls this target listener itself and awaits nothing; a popup it cannot close is left to the browser's own close.
-    const closePopup = async (target: Target): Promise<void> => {
-      const opened =
-        target.type() === TargetType.PAGE ? await target.page() : null;
+    const closePopup = async (target: SessionTarget): Promise<void> => {
+      const opened = target.type() === "page" ? await target.page() : null;
 
       if (opened !== null && opened !== page) {
         await Promise.allSettled([opened.close()]);
       }
     };
 
-    browser.on("targetcreated", (target: Target) => {
+    browser.on("targetcreated", (target: SessionTarget) => {
       void closePopup(target);
     });
 
@@ -244,7 +244,7 @@ export const puppeteerSession = (
               refused.length === 0
                 ? failure
                 : new RenderedAuditFailed({
-                    detail: `The browser was sent to ${refused[0]?.slice(0, 200)}, which vetUrl refuses.`,
+                    detail: `The browser was sent to ${refused[0]?.slice(0, 200)}, which the URL vetting refuses.`,
                     kind: "navigation",
                   })
             )
@@ -519,9 +519,12 @@ export const puppeteerSession = (
 
           yield* step(
             "audit",
-            cdp.send.bind(cdp, "Fetch.enable", {
-              patterns: [{ urlPattern: "*" }],
-            })
+            // @effect-diagnostics-next-line asyncFunction:off -- CDP's send is overloaded per method, so it cannot be bound; this awaits the one Fetch.enable call inside the step.
+            async () => {
+              await cdp.send("Fetch.enable", {
+                patterns: [{ urlPattern: "*" }],
+              });
+            }
           );
         });
 

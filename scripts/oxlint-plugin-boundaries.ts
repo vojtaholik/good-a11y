@@ -1402,6 +1402,71 @@ const noBrowserGlobalsOnServer = defineRule({
   },
 });
 
+const isHostedApp = (filename: string) =>
+  ["apps/scanner", "apps/web", "apps/infra"].some((app) =>
+    isWithin(filename, app)
+  );
+
+const localOnlyModules = new Set([
+  "@eaa-check/browser-audit/node",
+  "@eaa-check/http-transport/node",
+  "puppeteer-core",
+]);
+
+const localOnlyNames = new Set([
+  "LocalHopTransport",
+  "LocalUrl",
+  "VettedUrl",
+  "checkLocally",
+  "localChromeSession",
+  "localHopTransportLayerOn",
+  "localLayer",
+  "localNodeHopTransportLayer",
+  "localRenderedAuditLayer",
+  "parseLocalTarget",
+  "vetLocalUrl",
+]);
+
+const noLocalModeInHostedApps = defineRule({
+  create(context) {
+    const filename = workspacePath(context.filename);
+
+    if (!isHostedApp(filename)) {
+      return {};
+    }
+
+    const report = (node: ESTree.Node, source: ESTree.Expression) => {
+      const specifier = isStringModule(source);
+
+      if (specifier !== null && localOnlyModules.has(specifier)) {
+        context.report({ messageId: "localModule", node });
+      }
+    };
+
+    return {
+      ...moduleSourceVisitors(context, report),
+      Identifier(node) {
+        if (localOnlyNames.has(node.name)) {
+          context.report({ messageId: "localName", node });
+        }
+      },
+    };
+  },
+  meta: {
+    docs: {
+      description:
+        "The local check may fetch localhost and private addresses; the hosted scanner, web and infra apps must never reach that path.",
+    },
+    messages: {
+      localModule:
+        "Hosted apps cannot import the local check's Node adapters. They fetch only public addresses through vetUrl and HopTransport.",
+      localName:
+        "Hosted apps cannot use the local check's private-address path (vetLocalUrl, LocalUrl, VettedUrl, LocalHopTransport, SafeFetch.localLayer, checkLocally). Use vetUrl, PublicUrl and SafeFetch.layer.",
+    },
+    type: "problem",
+  },
+});
+
 export default definePlugin({
   meta: { name: "rat-stack-boundaries" },
   rules: {
@@ -1411,5 +1476,6 @@ export default definePlugin({
     "no-cross-layer-imports": noCrossLayerImports,
     "no-feature-transport": noFeatureTransport,
     "no-hand-rolled-surface": noHandRolledSurface,
+    "no-local-mode-in-hosted-apps": noLocalModeInHostedApps,
   },
 });

@@ -1,8 +1,9 @@
+import { launch } from "@cloudflare/puppeteer";
 import type { BrowserWorker } from "@cloudflare/puppeteer";
+import { vetUrl } from "@eaa-check/core";
 
 import type { OnClose } from "./browser-session.js";
-import { puppeteerSession } from "./puppeteer-session.js";
-import type { SessionOptions } from "./puppeteer-session.js";
+import { KEEP_ALIVE_MS, sessionOn } from "./puppeteer-session.js";
 import { renderedAuditLayer } from "./rendered-audit.js";
 
 export type {
@@ -27,11 +28,26 @@ export {
   KEEP_ALIVE_MS,
   NAVIGATION_TIMEOUT_MS,
   VIEWPORT,
-  puppeteerSession,
+  sessionOn,
 } from "./puppeteer-session.js";
+
+export type * from "./session-browser.js";
+
+export interface BrowserRunOptions {
+  readonly emptySubmits: boolean;
+}
+
+export const puppeteerSession = (
+  binding: BrowserWorker,
+  { emptySubmits }: BrowserRunOptions
+) =>
+  sessionOn(launch.bind(undefined, binding, { keep_alive: KEEP_ALIVE_MS }), {
+    emptySubmits,
+    vet: vetUrl,
+  });
 
 export const browserRenderedAuditLayer = (
   binding: BrowserWorker,
-  options: SessionOptions,
+  options: BrowserRunOptions,
   onClose?: OnClose
-) => renderedAuditLayer(puppeteerSession(binding, options), onClose);
+) => renderedAuditLayer(puppeteerSession(binding, options), vetUrl, onClose);

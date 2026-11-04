@@ -1,14 +1,14 @@
 import { Context } from "effect";
 import type { Effect, Scope, Stream } from "effect";
 
-import type { PublicUrl } from "./public-url.js";
+import type { PublicUrl, VettedUrl } from "./public-url.js";
 import type { TransportFailure } from "./transport-failure.js";
 
 export type HeaderMap = Readonly<Record<string, string>>;
 
-export interface HopRequest {
+export interface HopRequest<Url extends VettedUrl = PublicUrl> {
   readonly headers: HeaderMap;
-  readonly url: PublicUrl;
+  readonly url: Url;
 }
 
 export interface HopResponse {
@@ -17,11 +17,11 @@ export interface HopResponse {
   readonly status: number;
 }
 
+export type OpenHop<Url extends VettedUrl> = (
+  request: HopRequest<Url>
+) => Effect.Effect<HopResponse, TransportFailure, Scope.Scope>;
+
 export class HopTransport extends Context.Service<
   HopTransport,
-  {
-    readonly open: (
-      request: HopRequest
-    ) => Effect.Effect<HopResponse, TransportFailure, Scope.Scope>;
-  }
+  { readonly open: OpenHop<PublicUrl> }
 >()("@eaa-check/core/HopTransport") {}

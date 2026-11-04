@@ -11,9 +11,10 @@ import type {
   Redirect,
 } from "./fetch-result.js";
 import { HopTransport } from "./hop-transport.js";
-import type { HeaderMap } from "./hop-transport.js";
-import { vetUrl } from "./public-url.js";
-import type { PublicUrl } from "./public-url.js";
+import type { HeaderMap, OpenHop } from "./hop-transport.js";
+import { LocalHopTransport } from "./local-hop-transport.js";
+import { vetLocalUrl, vetUrl } from "./public-url.js";
+import type { UrlRejection, VettedUrl } from "./public-url.js";
 import { looksBlocked, refusalDetail } from "./refusal.js";
 import type { TransportFailure } from "./transport-failure.js";
 
@@ -64,6 +65,170 @@ const TRANSPORT_REASONS = {
   { readonly detail: string; readonly reason: FetchFailureReason }
 >;
 
+const safeFetchOn = <Url extends VettedUrl>(
+  vet: (raw: string) => Result.Result<Url, UrlRejection>,
+  open: OpenHop<Url>
+) => {
+  const takeHop = Effect.fnUntraced(function* takeHop(
+    url: Url,
+    headers: HeaderMap,
+    maxBytes: number
+  ) {
+    const response = yield* open({ headers, url });
+    const { location } = response.headers;
+
+    if (REDIRECT_STATUSES.has(response.status) && location !== undefined) {
+      const redirect: Hop = {
+        answer: undefined,
+        location,
+        status: response.status,
+      };
+
+      return redirect;
+    }
+
+    const body = yield* readCapped(response.body, maxBytes);
+
+    const answered: Hop = {
+      answer: { ...body, headers: response.headers },
+      location: undefined,
+      status: response.status,
+    };
+
+    return answered;
+  }, Effect.scoped);
+
+  const fetch = Effect.fn("SafeFetch.fetch")(function* fetch(
+    rawUrl: string,
+    options: FetchOptions
+  ) {
+    const started = yield* Clock.currentTimeMillis;
+    const observedAt = DateTime.formatIso(DateTime.makeUnsafe(started));
+    const maxRedirects = options.maxRedirects ?? DEFAULT_MAX_REDIRECTS;
+    const maxBytes = options.maxBytes ?? DEFAULT_MAX_BYTES;
+    const redirects: Redirect[] = [];
+
+    const headers = {
+      accept: options.accept ?? DEFAULT_ACCEPT,
+      "accept-language": "en;q=0.9,*;q=0.5",
+      "user-agent": options.userAgent,
+    };
+
+    const failed = (
+      reason: FetchFailureReason,
+      detail: string,
+      extra?: Pick<FetchFailure, "cause" | "challenge" | "status">
+    ): FetchResult => ({
+      detail,
+      observedAt,
+      ok: false,
+      reason,
+      redirects: [...redirects],
+      requestedUrl: rawUrl,
+      ...extra,
+    });
+
+    const walk = Effect.gen(function* walk() {
+      const visited = new Set<string>();
+      let current = rawUrl;
+
+      for (let hops = 0; hops <= maxRedirects; hops += 1) {
+        const vetted = vet(current);
+
+        if (Result.isFailure(vetted)) {
+          return failed(
+            hops === 0 ? "invalid_url" : "forbidden_host",
+            vetted.failure.reason
+          );
+        }
+
+        const url = vetted.success;
+
+        if (visited.has(url)) {
+          return failed("redirect_loop", `A redirect leads back to ${url}.`);
+        }
+
+        visited.add(url);
+
+        const taken = yield* Effect.result(takeHop(url, headers, maxBytes));
+
+        if (Result.isFailure(taken)) {
+          const { detail, reason } = TRANSPORT_REASONS[taken.failure.kind];
+
+          return failed(reason, detail, { cause: taken.failure.detail });
+        }
+
+        const { answer, location, status } = taken.success;
+
+        if (answer === undefined) {
+          if (location === undefined || !URL.canParse(location, url)) {
+            return failed(
+              "bad_redirect",
+              "The server sent a redirect without a valid target address.",
+              { status }
+            );
+          }
+
+          const next = new URL(location, url).href;
+          redirects.push({ from: url, status, to: next });
+          current = next;
+        } else {
+          const contentType = answer.headers["content-type"] ?? "";
+          const { charset, text } = decodeBody(contentType, answer.bytes);
+
+          if (looksBlocked(status, answer.headers, text)) {
+            const challenge = challengeIn(answer.headers, text);
+
+            return challenge === undefined
+              ? failed("blocked", refusalDetail(status), { status })
+              : failed("blocked", challengeDetail(challenge, status), {
+                  challenge,
+                  status,
+                });
+          }
+
+          const finished = yield* Clock.currentTimeMillis;
+
+          const success: FetchResult = {
+            body: text,
+            bodyBytes: answer.bytes.byteLength,
+            charset,
+            contentType,
+            durationMs: finished - started,
+            finalUrl: url,
+            headers: answer.headers,
+            observedAt,
+            ok: true,
+            redirects: [...redirects],
+            requestedUrl: rawUrl,
+            status,
+            truncated: answer.truncated,
+          };
+
+          return success;
+        }
+      }
+
+      return failed(
+        "too_many_redirects",
+        `More than ${maxRedirects} redirects.`
+      );
+    });
+
+    return yield* walk.pipe(
+      Effect.timeoutOrElse({
+        duration: options.timeout ?? DEFAULT_TIMEOUT,
+        orElse: () =>
+          Effect.succeed(
+            failed("timeout", "The server did not answer in time.")
+          ),
+      })
+    );
+  });
+
+  return { fetch } as const;
+};
+
 export class SafeFetch extends Context.Service<
   SafeFetch,
   {
@@ -72,169 +237,16 @@ export class SafeFetch extends Context.Service<
       options: FetchOptions
     ) => Effect.Effect<FetchResult>;
   }
->()("@eaa-check/core/SafeFetch", {
-  make: Effect.gen(function* makeSafeFetch() {
-    const transport = yield* HopTransport;
+>()("@eaa-check/core/SafeFetch") {
+  static readonly layer = Layer.effect(
+    this,
+    HopTransport.pipe(Effect.map(({ open }) => safeFetchOn(vetUrl, open)))
+  );
 
-    const takeHop = Effect.fnUntraced(function* takeHop(
-      url: PublicUrl,
-      headers: HeaderMap,
-      maxBytes: number
-    ) {
-      const response = yield* transport.open({ headers, url });
-      const { location } = response.headers;
-
-      if (REDIRECT_STATUSES.has(response.status) && location !== undefined) {
-        const redirect: Hop = {
-          answer: undefined,
-          location,
-          status: response.status,
-        };
-
-        return redirect;
-      }
-
-      const body = yield* readCapped(response.body, maxBytes);
-
-      const answered: Hop = {
-        answer: { ...body, headers: response.headers },
-        location: undefined,
-        status: response.status,
-      };
-
-      return answered;
-    }, Effect.scoped);
-
-    const fetch = Effect.fn("SafeFetch.fetch")(function* fetch(
-      rawUrl: string,
-      options: FetchOptions
-    ) {
-      const started = yield* Clock.currentTimeMillis;
-      const observedAt = DateTime.formatIso(DateTime.makeUnsafe(started));
-      const maxRedirects = options.maxRedirects ?? DEFAULT_MAX_REDIRECTS;
-      const maxBytes = options.maxBytes ?? DEFAULT_MAX_BYTES;
-      const redirects: Redirect[] = [];
-
-      const headers = {
-        accept: options.accept ?? DEFAULT_ACCEPT,
-        "accept-language": "en;q=0.9,*;q=0.5",
-        "user-agent": options.userAgent,
-      };
-
-      const failed = (
-        reason: FetchFailureReason,
-        detail: string,
-        extra?: Pick<FetchFailure, "cause" | "challenge" | "status">
-      ): FetchResult => ({
-        detail,
-        observedAt,
-        ok: false,
-        reason,
-        redirects: [...redirects],
-        requestedUrl: rawUrl,
-        ...extra,
-      });
-
-      const walk = Effect.gen(function* walk() {
-        const visited = new Set<string>();
-        let current = rawUrl;
-
-        for (let hops = 0; hops <= maxRedirects; hops += 1) {
-          const vetted = vetUrl(current);
-
-          if (Result.isFailure(vetted)) {
-            return failed(
-              hops === 0 ? "invalid_url" : "forbidden_host",
-              vetted.failure.reason
-            );
-          }
-
-          const url = vetted.success;
-
-          if (visited.has(url)) {
-            return failed("redirect_loop", `A redirect leads back to ${url}.`);
-          }
-
-          visited.add(url);
-
-          const taken = yield* Effect.result(takeHop(url, headers, maxBytes));
-
-          if (Result.isFailure(taken)) {
-            const { detail, reason } = TRANSPORT_REASONS[taken.failure.kind];
-
-            return failed(reason, detail, { cause: taken.failure.detail });
-          }
-
-          const { answer, location, status } = taken.success;
-
-          if (answer === undefined) {
-            if (location === undefined || !URL.canParse(location, url)) {
-              return failed(
-                "bad_redirect",
-                "The server sent a redirect without a valid target address.",
-                { status }
-              );
-            }
-
-            const next = new URL(location, url).href;
-            redirects.push({ from: url, status, to: next });
-            current = next;
-          } else {
-            const contentType = answer.headers["content-type"] ?? "";
-            const { charset, text } = decodeBody(contentType, answer.bytes);
-
-            if (looksBlocked(status, answer.headers, text)) {
-              const challenge = challengeIn(answer.headers, text);
-
-              return challenge === undefined
-                ? failed("blocked", refusalDetail(status), { status })
-                : failed("blocked", challengeDetail(challenge, status), {
-                    challenge,
-                    status,
-                  });
-            }
-
-            const finished = yield* Clock.currentTimeMillis;
-
-            const success: FetchResult = {
-              body: text,
-              bodyBytes: answer.bytes.byteLength,
-              charset,
-              contentType,
-              durationMs: finished - started,
-              finalUrl: url,
-              headers: answer.headers,
-              observedAt,
-              ok: true,
-              redirects: [...redirects],
-              requestedUrl: rawUrl,
-              status,
-              truncated: answer.truncated,
-            };
-
-            return success;
-          }
-        }
-
-        return failed(
-          "too_many_redirects",
-          `More than ${maxRedirects} redirects.`
-        );
-      });
-
-      return yield* walk.pipe(
-        Effect.timeoutOrElse({
-          duration: options.timeout ?? DEFAULT_TIMEOUT,
-          orElse: () =>
-            Effect.succeed(
-              failed("timeout", "The server did not answer in time.")
-            ),
-        })
-      );
-    });
-
-    return { fetch } as const;
-  }),
-}) {
-  static readonly layer = Layer.effect(this, this.make);
+  static readonly localLayer = Layer.effect(
+    this,
+    LocalHopTransport.pipe(
+      Effect.map(({ open }) => safeFetchOn(vetLocalUrl, open))
+    )
+  );
 }

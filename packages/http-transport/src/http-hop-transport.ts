@@ -1,14 +1,14 @@
-import { HopTransport } from "@eaa-check/core";
-import type { HopRequest } from "@eaa-check/core";
+import { HopTransport, LocalHopTransport } from "@eaa-check/core";
+import type { HopRequest, VettedUrl } from "@eaa-check/core";
 import { Effect, Layer, Stream } from "effect";
 import { FetchHttpClient, HttpClient, HttpClientRequest } from "effect/http";
 
 import { toTransportFailure } from "./classify.js";
 
-const make = Effect.gen(function* makeHttpHopTransport() {
+const openOn = Effect.gen(function* makeHttpHopTransport() {
   const client = HttpClient.withScope(yield* HttpClient.HttpClient);
 
-  const open = (request: HopRequest) =>
+  return (request: HopRequest<VettedUrl>) =>
     client
       .execute(HttpClientRequest.get(request.url, { headers: request.headers }))
       .pipe(
@@ -23,13 +23,22 @@ const make = Effect.gen(function* makeHttpHopTransport() {
         }),
         Effect.provideService(HttpClient.TracerPropagationEnabled, false)
       );
-
-  return HopTransport.of({ open });
 });
 
 export const hopTransportLayerOn = <E>(
   client: Layer.Layer<HttpClient.HttpClient, E>
 ): Layer.Layer<HopTransport, E> =>
-  Layer.effect(HopTransport, make).pipe(Layer.provide(client));
+  Layer.effect(
+    HopTransport,
+    openOn.pipe(Effect.map((open) => HopTransport.of({ open })))
+  ).pipe(Layer.provide(client));
+
+export const localHopTransportLayerOn = <E>(
+  client: Layer.Layer<HttpClient.HttpClient, E>
+): Layer.Layer<LocalHopTransport, E> =>
+  Layer.effect(
+    LocalHopTransport,
+    openOn.pipe(Effect.map((open) => LocalHopTransport.of({ open })))
+  ).pipe(Layer.provide(client));
 
 export const httpHopTransportLayer = hopTransportLayerOn(FetchHttpClient.layer);
