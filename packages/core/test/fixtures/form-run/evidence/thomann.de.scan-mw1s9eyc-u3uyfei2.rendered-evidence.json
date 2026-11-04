@@ -1,0 +1,74 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form novalidate=\"\" method=\"post\" class=\"flex flex-col items-center gap-2 md:flex-row me:items-start me:gap-4\"><div class=\"w-full\"><div class=\"relative\"><label class=\"text-ellipsis text-nowrap rounded"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [],
+        "blockedCount": 0,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": true,
+              "describedBy": "Dieses Feld muss ausgefüllt sein.",
+              "label": "E-Mail-Adresse*",
+              "native": "Please fill out this field.",
+              "snippet": "<input autocomplete=\"email\" class=\"min-w-0 bg-default-default text-sm placeholder:text-default-tertiary lg:text-base flex h-12 w-full flex-nowrap items-center gap-1 rounded border border-default-terti"
+            }
+          ],
+          "messages": [
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<p class=\"font-sans text-xs text-error-default\" id=\"_r_18_\">Dieses Feld muss ausgefüllt sein.</p>",
+              "text": "Dieses Feld muss ausgefüllt sein."
+            }
+          ]
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "de"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": -1,
+        "label": "Suche",
+        "nearby": "mit Suchwort {searchTerm} starten",
+        "placeholder": "Wonach suchen Sie?",
+        "required": false,
+        "snippet": "<input class=\"text-sm lg:text-base size-full rounded-full border border-default-secondary bg-default-default pl-5 pr-20 font-semibold text-default-default outline-none transition-all placeholder:text-",
+        "type": "search"
+      },
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "E-Mail-Adresse*",
+        "nearby": "",
+        "placeholder": "",
+        "required": true,
+        "snippet": "<input autocomplete=\"email\" class=\"min-w-0 bg-default-default text-sm placeholder:text-default-tertiary lg:text-base flex h-12 w-full flex-nowrap items-center gap-1 rounded border border-default-terti",
+        "type": "email"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [],
+    "headings": 27
+  }
+}

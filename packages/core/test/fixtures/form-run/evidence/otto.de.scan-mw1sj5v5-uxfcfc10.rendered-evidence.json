@@ -1,0 +1,47 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "search",
+        "snippet": "<form data-article-number-search=\"/p/search/\" role=\"search\" class=\"js_squirrel_searchForm squirrel_searchForm svelte-1ya0vkz\" data-testid=\"squirrel-searchlayer\"><div class=\"squirrel_searchline\"><div c"
+      },
+      {
+        "index": -1,
+        "skipped": "no_fields",
+        "snippet": "<form id=\"newsletter-subscribe-footer-form\" class=\"newsletter-subscribe-footer-form\">\n            <oc-text-field-v1 id=\"newsletter-subscribe-footer-email-input\" class=\"newsletter-subscribe-footer-inpu"
+      }
+    ],
+    "submissions": []
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "de"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "Verwende die Pfeiltasten, um Suchvorschläge oder deine Suchhistorie auszuwählen.",
+        "form": 0,
+        "label": "",
+        "nearby": "Verwende die Pfeiltasten, um Suchvorschläge oder deine Suchhistorie auszuwählen.",
+        "placeholder": "Wonach suchst du?",
+        "required": false,
+        "snippet": "<input class=\"squirrel_searchfield js_squirrel_searchbar__input oc-copy-125\" autocomplete=\"off\" spellcheck=\"false\" type=\"text\" autocapitalize=\"none\" enterkeyhint=\"search\" role=\"searchbox\" tabindex=\"0\"",
+        "type": "text"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 14,
+    "candidates": [
+      {
+        "fontSize": 14,
+        "fontWeight": 700,
+        "snippet": "<span class=\"nav_link-title\">Kontakt</span>",
+        "text": "Kontakt"
+      }
+    ],
+    "headings": 18
+  }
+}

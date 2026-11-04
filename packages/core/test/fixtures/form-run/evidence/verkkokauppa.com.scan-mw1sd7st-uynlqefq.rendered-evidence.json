@@ -1,0 +1,87 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "search",
+        "snippet": "<form aria-label=\"Hae tuotteita, tuoteryhmiä ja tuotemerkkejä\" class=\"flex_1 my_none mx_auto\" role=\"search\"><div class=\"combobox__container combobox__container--overlayStyle_blur combobox__container--"
+      },
+      {
+        "index": -1,
+        "skipped": "no_fields",
+        "snippet": "<form action=\"/fi/search\" class=\"h_40px [&amp;_&gt;_div]:h_100%\"><div class=\"stm-search-input__root stm-search-input__root--appearance_primary stm-search-input__root--size_lg\"><input aria-label=\"Kirjo"
+      }
+    ],
+    "submissions": []
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "fi"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Hae kaupasta",
+        "nearby": "",
+        "placeholder": "Hae kaupasta",
+        "required": false,
+        "snippet": "<input aria-label=\"Hae kaupasta\" autocomplete=\"off\" class=\"stm-search-input__input stm-search-input__input--appearance_primary stm-search-input__input--size_lg pr_m\" maxlength=\"75\" placeholder=\"Hae ka",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Kirjoita hakusana",
+        "nearby": "",
+        "placeholder": "Kirjoita hakusana",
+        "required": false,
+        "snippet": "<input aria-label=\"Kirjoita hakusana\" autocomplete=\"off\" class=\"stm-search-input__input stm-search-input__input--appearance_primary stm-search-input__input--size_lg pr_m\" maxlength=\"75\" placeholder=\"K",
+        "type": "search"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [
+      {
+        "fontSize": 16,
+        "fontWeight": 600,
+        "snippet": "<span class=\"stm-ui-text stm-ui-text--size_large stm-ui-text--weight_semiBold stm-ui-text--appearance_primaryInverted\">Asiakaspalvelu</span>",
+        "text": "Asiakaspalvelu"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 600,
+        "snippet": "<span class=\"stm-ui-text stm-ui-text--size_large stm-ui-text--weight_semiBold stm-ui-text--appearance_primaryInverted\">Ohjeita</span>",
+        "text": "Ohjeita"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 600,
+        "snippet": "<span class=\"stm-ui-text stm-ui-text--size_large stm-ui-text--weight_semiBold stm-ui-text--appearance_primaryInverted\">Palvelut</span>",
+        "text": "Palvelut"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 600,
+        "snippet": "<span class=\"stm-ui-text stm-ui-text--size_large stm-ui-text--weight_semiBold stm-ui-text--appearance_primaryInverted\">Verkkokauppa.com</span>",
+        "text": "Verkkokauppa.com"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 600,
+        "snippet": "<span class=\"stm-ui-text stm-ui-text--size_large stm-ui-text--weight_semiBold stm-ui-text--appearance_primaryInverted\">Sosiaalinen media</span>",
+        "text": "Sosiaalinen media"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 600,
+        "snippet": "<span class=\"stm-ui-text stm-ui-text--size_large stm-ui-text--weight_semiBold stm-ui-text--appearance_primaryInverted\">Sivuston kieli</span>",
+        "text": "Sivuston kieli"
+      }
+    ],
+    "headings": 4
+  }
+}

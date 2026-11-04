@@ -1,0 +1,35 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "search",
+        "snippet": "<form id=\"tsrchForm\" role=\"search\" action=\"/hledat/\" class=\"b-404__wrap\" data-gtm_name=\"Action\" data-gtm_type=\"undefined\" data-gtm_input_selector=\"undefined\">\n          <span class=\"icon-svg icon-svg-"
+      }
+    ],
+    "submissions": []
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "cs"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Co hledáte?",
+        "nearby": "Hledat",
+        "placeholder": "Co hledáte?",
+        "required": false,
+        "snippet": "<input type=\"text\" class=\"inp__text\" name=\"htxt\" id=\"f-404__search\" placeholder=\"Co hledáte?\" data-cip-id=\"f-404__search\">",
+        "type": "text"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 14,
+    "candidates": [],
+    "headings": 27
+  }
+}

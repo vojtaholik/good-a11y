@@ -1,0 +1,176 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "no_fields",
+        "snippet": "<form action=\"/vyhledavani\" method=\"get\" class=\"search-widget__form notKasaForm\" id=\"searchSuggestForm\">\n<div class=\"search-widget__input-wrapper\">\n<svg class=\"ufo-icon ufo-icon__ico-lupa search-widge"
+      },
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form id=\"frm-subscription\" action=\"/newsletter/subscribe\" method=\"post\" class=\"subscription-form newsletter-subscription-form\" novalidate=\"\">\n<div class=\"subscription__container\">\n\n<div class=\"ufo-fo"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [],
+        "blockedCount": 0,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "Váš e-mail",
+              "native": "Please fill out this field.",
+              "snippet": "<input type=\"email\" id=\"frm-subscription-email\" class=\"ufo-input\" placeholder=\"váš e-mail\" aria-label=\"Váš e-mail\" name=\"email\" required=\"\" aria-required=\"true\" data-nette-rules=\"[{&quot;op&quot;:&quo"
+            }
+          ],
+          "messages": [
+            {
+              "inForm": true,
+              "live": true,
+              "snippet": "<div class=\"ufo-form-group__message-error ufo-form-group__message-box\">Povinný údaj</div>",
+              "text": "Povinný údaj"
+            }
+          ]
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "cs"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "Použijte šipky nahoru a dolů pro navigaci v návrzích, Enter pro výběr, Escape pro zavření.",
+        "form": 0,
+        "label": "Napište, co chcete hledat...",
+        "nearby": "Použijte šipky nahoru a dolů pro navigaci v návrzích, Enter pro výběr, Escape pro zavření. Hledat Zavřít",
+        "placeholder": "Napište, co chcete hledat...",
+        "required": false,
+        "snippet": "<input type=\"search\" value=\"\" autocomplete=\"off\" data-target=\"/vyhledavani?do=suggest\" class=\"search-widget__input notKasaForm\" name=\"q\" placeholder=\"Napište, co chcete hledat...\" aria-label=\"Napište,",
+        "type": "search"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Váš e-mail",
+        "nearby": "",
+        "placeholder": "váš e-mail",
+        "required": true,
+        "snippet": "<input type=\"email\" id=\"frm-subscription-email\" class=\"ufo-input\" placeholder=\"váš e-mail\" aria-label=\"Váš e-mail\" name=\"email\" required=\"\" aria-required=\"true\" data-nette-rules=\"[{&quot;op&quot;:&quo",
+        "type": "email"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 12,
+    "candidates": [
+      {
+        "fontSize": 120,
+        "fontWeight": 700,
+        "snippet": "<div class=\"error-page-code\">404</div>",
+        "text": "404"
+      },
+      {
+        "fontSize": 30,
+        "fontWeight": 400,
+        "snippet": "<div class=\"error-page-title\">Stránka nenalezena</div>",
+        "text": "Stránka nenalezena"
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 700,
+        "snippet": "<p>V DATARTu jste správně, ale požadovaná stránka bohužel neexistuje, nebo byla přesunuta.</p>",
+        "text": "V DATARTu jste správně, ale požadovaná stránka bohužel neexistuje, nebo byla přesunuta."
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 400,
+        "snippet": "<p>Využijte naše vyhledávání, nebo pokračujte na <a href=\"/\">hlavní stránku</a>.</p>",
+        "text": "Využijte naše vyhledávání, nebo pokračujte na hlavní stránku."
+      },
+      {
+        "fontSize": 17,
+        "fontWeight": 700,
+        "snippet": "<span class=\"footer-category-title\">Telefony</span>",
+        "text": "Telefony"
+      },
+      {
+        "fontSize": 17,
+        "fontWeight": 700,
+        "snippet": "<span class=\"footer-category-title\">TV, foto, audio video</span>",
+        "text": "TV, foto, audio video"
+      },
+      {
+        "fontSize": 17,
+        "fontWeight": 700,
+        "snippet": "<span class=\"footer-category-title\">Velké spotřebiče</span>",
+        "text": "Velké spotřebiče"
+      },
+      {
+        "fontSize": 17,
+        "fontWeight": 700,
+        "snippet": "<span class=\"footer-category-title\">Malé spotřebiče</span>",
+        "text": "Malé spotřebiče"
+      },
+      {
+        "fontSize": 17,
+        "fontWeight": 700,
+        "snippet": "<span class=\"footer-category-title\">Notebooky a IT Technika</span>",
+        "text": "Notebooky a IT Technika"
+      },
+      {
+        "fontSize": 17,
+        "fontWeight": 700,
+        "snippet": "<span class=\"footer-category-title\">Péče o tělo a zdraví</span>",
+        "text": "Péče o tělo a zdraví"
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 700,
+        "snippet": "<p>Buďte s námi v kontaktu i nadále a získáte výhodné slevy na zboží.</p>",
+        "text": "Buďte s námi v kontaktu i nadále a získáte výhodné slevy na zboží."
+      },
+      {
+        "fontSize": 18,
+        "fontWeight": 700,
+        "snippet": "<div class=\"menu-title\">O nákupu <svg class=\"ufo-icon ufo-icon__ico-chevron-down\" width=\"24\" height=\"24\" aria-hidden=\"true\"><use xlink:href=\"/assets/frontend/1.2695.0/img/ufo-icons.svg#ico-chevron-dow",
+        "text": "O nákupu"
+      },
+      {
+        "fontSize": 18,
+        "fontWeight": 700,
+        "snippet": "<div class=\"menu-title\">Užitečné informace <svg class=\"ufo-icon ufo-icon__ico-chevron-down\" width=\"24\" height=\"24\" aria-hidden=\"true\"><use xlink:href=\"/assets/frontend/1.2695.0/img/ufo-icons.svg#ico-c",
+        "text": "Užitečné informace"
+      },
+      {
+        "fontSize": 18,
+        "fontWeight": 700,
+        "snippet": "<div class=\"menu-title\">Služby <svg class=\"ufo-icon ufo-icon__ico-chevron-down\" width=\"24\" height=\"24\" aria-hidden=\"true\"><use xlink:href=\"/assets/frontend/1.2695.0/img/ufo-icons.svg#ico-chevron-down\"",
+        "text": "Služby"
+      },
+      {
+        "fontSize": 18,
+        "fontWeight": 700,
+        "snippet": "<div class=\"menu-title\">O nás <svg class=\"ufo-icon ufo-icon__ico-chevron-down\" width=\"24\" height=\"24\" aria-hidden=\"true\"><use xlink:href=\"/assets/frontend/1.2695.0/img/ufo-icons.svg#ico-chevron-down\">",
+        "text": "O nás"
+      },
+      {
+        "fontSize": 18,
+        "fontWeight": 700,
+        "snippet": "<span class=\"footer-title\">Kde nás najdete?</span>",
+        "text": "Kde nás najdete?"
+      }
+    ],
+    "headings": 14
+  }
+}

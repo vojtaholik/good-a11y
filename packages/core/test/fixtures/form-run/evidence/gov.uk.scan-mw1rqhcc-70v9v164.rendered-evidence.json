@@ -1,0 +1,86 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form class=\"contact-form\" data-module=\"ga4-form-tracker\" data-ga4-form=\"{&quot;event_name&quot;:&quot;form_response&quot;,&quot;type&quot;:&quot;contact&quot;,&quot;section&quot;:&quot;What's it to d"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": ["https://www.gov.uk/contact/govuk"],
+        "blockedCount": 1,
+        "errors": {
+          "invalid": [],
+          "messages": []
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "en"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "",
+        "nearby": "This form is for issues to do with the GOV.UK website. You can use it to ask a question, report a problem or suggest an improvement to the GOV.UK team. We can’t reply to you with advice. We don’t have access to information about you held by government departments. If you have a question about a gove",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"text\" tabindex=\"-1\" autocomplete=\"off\" id=\"giraffe\" name=\"contact[giraffe]\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "For example if you were searching for something, what did you type into the search box? ! Warning Don’t include personal or financial information, for example your National Insurance number or credit card details.",
+        "form": 1,
+        "label": "What are the details?",
+        "nearby": "For example if you were searching for something, what did you type into the search box? ! Warning Don’t include personal or financial information, for example your National Insurance number or credit card details. You can enter up to 1200 characters You have 1,200 characters remainingYou have 1,200 ",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<textarea name=\"contact[textdetails]\" class=\"govuk-textarea govuk-js-character-count\" id=\"textdetails\" rows=\"5\" spellcheck=\"true\" aria-describedby=\"hint-7d5e0740\"></textarea>",
+        "type": "textarea"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Your name",
+        "nearby": "If you want a reply (optional) If you'd like us to get back to you, please leave your details below. Your email address We'll only use this to reply to your message.",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input autocomplete=\"name\" class=\"gem-c-input govuk-input\" id=\"name\" name=\"contact[name]\" spellcheck=\"false\" type=\"text\" value=\"\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "We'll only use this to reply to your message.",
+        "form": 1,
+        "label": "Your email address",
+        "nearby": "If you want a reply (optional) If you'd like us to get back to you, please leave your details below. Your name We'll only use this to reply to your message.",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input aria-describedby=\"hint-49ce3ed4\" autocomplete=\"email\" class=\"gem-c-input govuk-input\" id=\"email\" name=\"contact[email]\" spellcheck=\"false\" type=\"email\" value=\"\">",
+        "type": "email"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 19,
+    "candidates": [
+      {
+        "fontSize": 24,
+        "fontWeight": 700,
+        "snippet": "<legend class=\"govuk-fieldset__legend govuk-fieldset__legend--m\">If you want a reply (optional)</legend>",
+        "text": "If you want a reply (optional)"
+      }
+    ],
+    "headings": 9
+  }
+}

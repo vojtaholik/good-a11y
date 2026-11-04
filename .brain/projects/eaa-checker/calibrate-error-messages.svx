@@ -15,15 +15,15 @@ Decide whether a judged question about error messages after an empty form submit
 ## Where things are (2026-11-04)
 
 - Evidence: `emptySubmits` in the rendered evidence (`RenderedEvidenceSchema`, `packages/core/src/rendered-evidence.ts`; how the submits send nothing in `docs/rendered-probes.md`). Each submission has `blocked`, `blockedCount`, `left`, and `errors` and `submitted`, which can be null. `errors` holds every invalid field (label, the browser's own message, `aria-invalid`, its description) and up to 10 texts that appeared after the submit (in the form or not, in a live region or not).
-- The form run: builder-cloud scans 30 contact, newsletter and registration pages on stage dev, one at a time, with the submit fix verified (5f01dff). The URL list is `dev-form-urls.txt` in builder-judge's 2026-11-04 scratchpad; progress is in builder-cloud's `form-run/scans.tsv` (15 of 30 done at the time of writing). Each scan archives its evidence in dev's R2 bucket at `<slug>/<scanId>.rendered-evidence.json`; the slug and scan ID are columns 2 and 3 of `scans.tsv`.
+- The form run: builder-cloud scans 30 contact, newsletter and registration pages on stage dev, one at a time, with the submit fix verified (5f01dff). The URLs, slugs and scan IDs are in `packages/core/test/fixtures/form-run/scans.tsv` (all 30 done). Each scan archives its evidence in dev's R2 bucket at `<slug>/<scanId>.rendered-evidence.json`; the slug and scan ID are columns 2 and 3 of `scans.tsv`.
 - Labelled: nothing yet.
 - Search forms and forms with a password or payment field are never submitted, and only the first three forms per page are, so expect fewer than 30 submissions from 30 pages.
 
 ## Form run result (2026-11-04, builder-cloud)
 
-The 30 pages were scanned on stage dev (5f01dff to 87c0489, `EMPTY_SUBMITS=true` for the run only; dev was redeployed with submits off afterwards, binding checked `false`). The evidence is in hand: `/private/tmp/claude-501/-Users-vojta-Developer-vojtaholik-eaa-check/d7a5e4ee-70ca-478d-9062-e843115ebcbe/scratchpad/form-run/`
+The 30 pages were scanned on stage dev (5f01dff to 87c0489, `EMPTY_SUBMITS=true` for the run only; dev was redeployed with submits off afterwards, binding checked `false`). The evidence is in the repo at `packages/core/test/fixtures/form-run/` (query strings cut from the blocked request URLs, which carried tracker and session IDs; no personal data found, the only addresses are placeholders and a public hotline)
 
-- `evidence/<slug>.<scanId>.rendered-evidence.json`: the whole rendered evidence of each scan, one file per page (30 files), copied from dev's R2 bucket. R2 deletes its copy after 30 days.
+- `evidence/<slug>.<scanId>.rendered-evidence.json`: the whole rendered evidence of each scan, one file per page (30 files), copied from dev's R2 bucket, which deletes its copy after 30 days.
 - `summary.tsv`: per site, forms listed, forms submitted, submissions with errors shown (any invalid field or appeared text), skip reasons, blocked requests.
 - `scans.tsv`: URL, slug, scan ID, status, rendered status.
 
@@ -31,7 +31,7 @@ Counts: **27 submissions** on 18 sites; **18 of them show errors** (an invalid f
 
 ## Next run
 
-1. Collect the 30 archived evidence files from R2 into a fixture folder, keeping only `emptySubmits`.
+1. Done for the first run: `packages/core/test/fixtures/form-run/`. A second run goes in its own folder next to it.
 2. Per submission that was blocked or showed errors, write down by hand, before any model answer: does the page say in text which field is wrong (3.3.1), and does it say how to fix it (3.3.3)? Leave a submission unscored where a person cannot tell from the evidence. A field that only has the browser's own message is identified by the browser, so label it on what the site added.
 3. If fewer than 30 submissions are scorable, add contact pages from the round 3 language-hunt hosts and ask builder-cloud for a second dev run. Do not submit forms from a local browser: only the Browser Run session has the guards that make a submit send nothing.
 4. Draft the question in `packages/core/src/judged.ts` hidden, split the submissions by site into two halves, pick the threshold on one and report precision on the other.

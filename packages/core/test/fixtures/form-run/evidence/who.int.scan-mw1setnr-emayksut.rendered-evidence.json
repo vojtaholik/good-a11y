@@ -1,0 +1,156 @@
+{
+  "emptySubmits": {
+    "forms": [],
+    "submissions": []
+  },
+  "foreignBlocks": {
+    "blocks": [
+      {
+        "guess": "es",
+        "hits": 3,
+        "lang": "en",
+        "snippet": "<p>Monazamet El Seha El Alamia Str,<br>Extension of Abdel Razak El Sanhouri Street<br>P.O. Box 7608, Nasr City<br>Cairo 11371, Egypt</p>",
+        "text": "Monazamet El Seha El Alamia Str,Extension of Abdel Razak El Sanhouri StreetP.O. Box 7608, Nasr CityCairo 11371, Egypt"
+      }
+    ],
+    "pageLang": "en"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "When autocomplete results are available use up and down arrows to review and enter to select.",
+        "form": -1,
+        "label": "",
+        "nearby": "When autocomplete results are available use up and down arrows to review and enter to select.",
+        "placeholder": "Search",
+        "required": false,
+        "snippet": "<input type=\"search\" title=\"Search input\" placeholder=\"Search\" id=\"67456874-8662-430f-9b63-dfaaa6d571e1\" class=\"form-control\" value=\"\" aria-autocomplete=\"both\" aria-describedby=\"SearchInfo-1\">",
+        "type": "search"
+      },
+      {
+        "describedBy": "",
+        "form": -1,
+        "label": "Select language",
+        "nearby": "When autocomplete results are available use up and down arrows to review and enter to select. Select language English العربية 中文 Français Русский Español li.slicknav_addition.sf-lang-selector { width: 100%; position: relative } li.slicknav_addition.sf-lang-selector select { min-width: 100% } #search",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<select onchange=\"openLink(value)\" id=\"language-selector\" name=\"language-selector\">\n    <option disabled=\"\" selected=\"\">Select language</option>\n\n        <option value=\"en\" lang=\"en\" class=\"selected\">",
+        "type": "select"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<li class=\"active\">Contact us</li>",
+        "text": "Contact us"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong style=\"background-color:transparent;text-align:inherit;text-transform:inherit;white-space:inherit;word-spacing:normal;caret-color:auto;\">WHO headquarters in Geneva</strong>",
+        "text": "WHO headquarters in Geneva"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>Regional Office for Africa</strong>",
+        "text": "Regional Office for Africa"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>Regional Office for the Americas</strong>",
+        "text": "Regional Office for the Americas"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong style=\"background-color:transparent;text-align:inherit;text-transform:inherit;word-spacing:normal;caret-color:auto;white-space:inherit;\">Regional Office for the Eastern Mediterranean</strong>",
+        "text": "Regional Office for the Eastern Mediterranean"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>Regional Office for Europe</strong>",
+        "text": "Regional Office for Europe"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>Regional Office for South-East Asia</strong>",
+        "text": "Regional Office for South-East Asia"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>Permanent address:</strong>",
+        "text": "Permanent address:"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>Temporary address:</strong>",
+        "text": "Temporary address:"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>Regional Office for the Western Pacific</strong>",
+        "text": "Regional Office for the Western Pacific"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>International Agency for Research on Cancer (IARC), France</strong>",
+        "text": "International Agency for Research on Cancer (IARC), France"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>WHO Centre for Health Development, Japan</strong>",
+        "text": "WHO Centre for Health Development, Japan"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>WHO Global Service Centre, Malaysia</strong>",
+        "text": "WHO Global Service Centre, Malaysia"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>WHO Liaison Office to the African Union and Economic Commission for Africa, Ethiopia</strong>",
+        "text": "WHO Liaison Office to the African Union and Economic Commission for Africa, Ethiopia"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>WHO Lyon Office, France</strong>",
+        "text": "WHO Lyon Office, France"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>WHO Office at the European Union, Belgium</strong>",
+        "text": "WHO Office at the European Union, Belgium"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>WHO Office at the United Nations, United States of America</strong>",
+        "text": "WHO Office at the United Nations, United States of America"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<div class=\"col-md-4 copyright\"> <span>\n                                ©\n                            </span>\n\n                            2026\n\n                            \n\n\n\n<div class=\"sf-content-",
+        "text": "© 2026 WHO"
+      }
+    ],
+    "headings": 11
+  }
+}

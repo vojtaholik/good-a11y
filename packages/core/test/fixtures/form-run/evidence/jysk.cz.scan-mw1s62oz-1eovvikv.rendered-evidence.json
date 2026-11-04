@@ -1,0 +1,169 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "search",
+        "snippet": "<form action=\"/search\" method=\"get\" class=\"search d-flex align-items-stretch justify-content-center focus-within header-search__form\" role=\"search\"><input type=\"search\" placeholder=\"Hledat výrobek neb"
+      },
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form id=\"jysk-teradata-subscribe-form\" data-drupal-selector=\"newsletter-subscription-form\" novalidate=\"novalidate\"><div class=\"newsletter__fields mt-5 d-flex flex-wrap mx-auto newsletter__fields--hor"
+      },
+      {
+        "index": -1,
+        "skipped": "password",
+        "snippet": "<form id=\"LoginForm\" class=\"form-login overflow-x-hidden jysk-ui-shim mx--1\" novalidate=\"\"><div><div id=\"jysk-customer-app-modal\" class=\"container-fluid p-0 w3-form in-modal p-1\"><p class=\"required-la"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [
+          "https://jysk.cz/sites/jysk.cz/files/wysiwyg/kupa_%C4%8CPT%20embl%C3%A9m%20kruhov%C3%BD_Z%C3%81KLADN%C3%8D.jpg",
+          "https://jysk.cz/sites/jysk.cz/files/2025-08/JCZ.svg",
+          "https://ade.googlesyndication.com/ddm/activity/src=10188200;type=global;cat=globa00-;rcb=9;ord=1;num=400240383094;npa=1;u1=CZ;u3=undefined;u4=undefined;u6=undefined;u7=undefined;u12=https%3A%2F%2Fjysk"
+        ],
+        "blockedCount": 3,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": true,
+              "describedBy": "Křestní jméno/Název společnosti povinně vyplňte",
+              "label": "Křestní jméno/Název společnosti*",
+              "native": "Please fill out this field.",
+              "snippet": "<input type=\"text\" placeholder=\" \" required=\"\" name=\"name\" value=\"\" maxlength=\"128\" autocomplete=\"given-name\" id=\"newsletter-firstname\" class=\"is-invalid form-control\" aria-describedby=\"newsletter-fir"
+            },
+            {
+              "ariaInvalid": true,
+              "describedBy": "E-mail povinně vyplňte",
+              "label": "E-mail*",
+              "native": "Please fill out this field.",
+              "snippet": "<input type=\"email\" placeholder=\" \" required=\"\" name=\"email\" value=\"\" maxlength=\"128\" autocomplete=\"email\" id=\"teradata-email\" class=\"is-invalid form-control\" aria-describedby=\"teradata-email-error\" a"
+            },
+            {
+              "ariaInvalid": true,
+              "describedBy": "",
+              "label": "Přeji si přijímat komunikaci, včetně personalizované komunikace přizpůsobené přímo mně na základě mých osobních údajů a chování, prostřednictvím e-mailu a médií třetích stran, včetně inspirace, skvělých nabídek, novinek a kampaní v rámci celého produktového sortimentu JYSK. Přečtěte si více o souhla",
+              "native": null,
+              "snippet": "<input type=\"checkbox\" data-test=\"\" name=\"terms\" id=\"edit-terms\" class=\"checkbox-inline form-check-input\" value=\"\" aria-describedby=\"edit-terms-error\" aria-invalid=\"true\">"
+            }
+          ],
+          "messages": [
+            {
+              "inForm": true,
+              "live": true,
+              "snippet": "<div id=\"newsletter-firstname-error\" class=\"alert alert-danger\" role=\"alert\">Křestní jméno/Název společnosti povinně vyplňte</div>",
+              "text": "Křestní jméno/Název společnosti povinně vyplňte"
+            },
+            {
+              "inForm": true,
+              "live": true,
+              "snippet": "<div id=\"teradata-email-error\" class=\"alert alert-danger\" role=\"alert\">E-mail povinně vyplňte</div>",
+              "text": "E-mail povinně vyplňte"
+            },
+            {
+              "inForm": true,
+              "live": true,
+              "snippet": "<div role=\"alert\" class=\"fade alert alert-danger show\">Musíte přijmout Pravidla a podmínky</div>",
+              "text": "Musíte přijmout Pravidla a podmínky"
+            }
+          ]
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "cs-CZ"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Hledat výrobek nebo kategorii",
+        "nearby": "Hledat",
+        "placeholder": "Hledat výrobek nebo kategorii",
+        "required": false,
+        "snippet": "<input type=\"search\" placeholder=\"Hledat výrobek nebo kategorii\" value=\"\" name=\"query\" autocorrect=\"off\" autocomplete=\"off\" aria-label=\"Hledat výrobek nebo kategorii\" class=\"search-input focus-within_",
+        "type": "search"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Křestní jméno/Název společnosti*",
+        "nearby": "",
+        "placeholder": " ",
+        "required": true,
+        "snippet": "<input type=\"text\" placeholder=\" \" required=\"\" name=\"name\" value=\"\" maxlength=\"128\" autocomplete=\"given-name\" id=\"newsletter-firstname\" class=\"form-control\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "E-mail*",
+        "nearby": "",
+        "placeholder": " ",
+        "required": true,
+        "snippet": "<input type=\"email\" placeholder=\" \" required=\"\" name=\"email\" value=\"\" maxlength=\"128\" autocomplete=\"email\" id=\"teradata-email\" class=\"form-control\">",
+        "type": "email"
+      },
+      {
+        "describedBy": "",
+        "form": 2,
+        "label": "E-mail *",
+        "nearby": "Všechna pole označená hvězdičkou (*) jsou povinnáHeslo *Přihlásit seZapomněli jste své heslo?",
+        "placeholder": "E-mail *",
+        "required": true,
+        "snippet": "<input required=\"\" autocomplete=\"email\" placeholder=\"E-mail *\" name=\"email\" type=\"email\" id=\"email-modal\" class=\"form-control\" value=\"\">",
+        "type": "email"
+      },
+      {
+        "describedBy": "",
+        "form": 2,
+        "label": "Heslo *",
+        "nearby": "",
+        "placeholder": "Heslo *",
+        "required": true,
+        "snippet": "<input required=\"\" autocomplete=\"current-password\" placeholder=\"Heslo *\" name=\"password\" type=\"password\" id=\"password-modal\" class=\"form-control\" value=\"\">",
+        "type": "password"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 14,
+    "candidates": [
+      {
+        "fontSize": 14,
+        "fontWeight": 700,
+        "snippet": "<strong>JYSK s.r.o.</strong>",
+        "text": "JYSK s.r.o."
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"footer__heading footer__heading--small d-inline-block text-medium\">Sledovat JYSK</div>",
+        "text": "Sledovat JYSK"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 700,
+        "snippet": "<strong>&nbsp; &nbsp; &nbsp;Jsme hrdým partnerem Českého paralympijského týmu</strong>",
+        "text": "Jsme hrdým partnerem Českého paralympijského týmu"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 600,
+        "snippet": "<p class=\"create-user-benefits--b2c-title\">Vytvořit nový profil</p>",
+        "text": "Vytvořit nový profil"
+      }
+    ],
+    "headings": 32
+  }
+}

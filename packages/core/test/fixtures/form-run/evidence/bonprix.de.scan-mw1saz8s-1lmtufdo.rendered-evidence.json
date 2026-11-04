@@ -1,0 +1,229 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form><div class=\"form-row\"><div class=\"preflight w-full group\" data-fix-chrome-page-load-autofill=\"true\"><div class=\"preflight relative text-clr-primary fill-clr-primary pt-5 [&amp;_.input]:placehold"
+      },
+      {
+        "index": 1,
+        "skipped": null,
+        "snippet": "<form class=\"newsletter__form\" action=\"/service/newsletter/\" method=\"POST\" jsh-module__loaded=\"footer/newsletter\">\n    <input type=\"hidden\" name=\"_csrf\" value=\"Blt5ZM9Ne6OaXHVyEQ8KluEfYMHGTVePuoxc18AU"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [],
+        "blockedCount": 0,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "Vorname*",
+              "native": "Please fill out this field.",
+              "snippet": "<input class=\"w-full flex-grow outline-none text-ellipsis text-inherit typography-input-text bg-transparent\" id=\"_r_0_\" minlength=\"2\" maxlength=\"20\" required=\"\" type=\"text\" value=\"\" name=\"firstname\">"
+            },
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "Nachname*",
+              "native": "Please fill out this field.",
+              "snippet": "<input class=\"w-full flex-grow outline-none text-ellipsis text-inherit typography-input-text bg-transparent\" id=\"_r_3_\" minlength=\"2\" maxlength=\"32\" required=\"\" type=\"text\" value=\"\" name=\"lastname\">"
+            },
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "E-Mail-Adresse*",
+              "native": "Please fill out this field.",
+              "snippet": "<input class=\"w-full flex-grow outline-none text-ellipsis text-inherit typography-input-text bg-transparent\" id=\"_r_9_\" inputmode=\"email\" autocomplete=\"email\" maxlength=\"100\" required=\"\" type=\"email\" "
+            },
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "E-Mail-Adresse bestätigen*",
+              "native": "Please fill out this field.",
+              "snippet": "<input class=\"w-full flex-grow outline-none text-ellipsis text-inherit typography-input-text bg-transparent\" id=\"_r_c_\" inputmode=\"email\" autocomplete=\"email\" maxlength=\"100\" required=\"\" type=\"email\" "
+            },
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "Nachricht*",
+              "native": "Please fill out this field.",
+              "snippet": "<textarea name=\"message\" placeholder=\" \" class=\"input typography-input-text text-inherit relative bg-clr-bg-main px-3 pb-5 resize-none overflow-hidden row-start-1 row-end-2 col-start-1 col-end-2 focus"
+            },
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "Ich akzeptiere die Datenschutzerklärung der bonprix Handelsgesellschaft.",
+              "native": "Please check this box if you want to proceed.",
+              "snippet": "<input class=\"appearance-none relative w-6 h-6 rounded-sm border text-current cursor-pointer shrink-0 focus-visible:outline focus-visible:outline-current focus-visible:outline-2 focus-visible:outline-"
+            }
+          ],
+          "messages": []
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      },
+      {
+        "blocked": ["https://www.bonprix.de/service/newsletter/"],
+        "blockedCount": 1,
+        "errors": {
+          "invalid": [],
+          "messages": []
+        },
+        "index": 1,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "de-DE"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": -1,
+        "label": "",
+        "nearby": "Frag Robert Deine Frage: Konnte ich Dir mit dieser Antwort helfen? Ja Nein Warum nicht? Vielen Dank! Häufig gestellte Fragen 140 Frage stellen",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"text\" class=\"etinputbox\" maxlength=\"140\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Vorname*",
+        "nearby": "",
+        "placeholder": "",
+        "required": true,
+        "snippet": "<input class=\"w-full flex-grow outline-none text-ellipsis text-inherit typography-input-text bg-transparent\" id=\"_r_0_\" minlength=\"2\" maxlength=\"20\" required=\"\" type=\"text\" value=\"\" name=\"firstname\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Nachname*",
+        "nearby": "",
+        "placeholder": "",
+        "required": true,
+        "snippet": "<input class=\"w-full flex-grow outline-none text-ellipsis text-inherit typography-input-text bg-transparent\" id=\"_r_3_\" minlength=\"2\" maxlength=\"32\" required=\"\" type=\"text\" value=\"\" name=\"lastname\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Kundennummer",
+        "nearby": "",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input class=\"w-full flex-grow outline-none text-ellipsis text-inherit typography-input-text bg-transparent\" id=\"_r_6_\" inputmode=\"numeric\" maxlength=\"50\" type=\"number\" value=\"\" name=\"customerId\">",
+        "type": "number"
+      },
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "E-Mail-Adresse*",
+        "nearby": "",
+        "placeholder": "",
+        "required": true,
+        "snippet": "<input class=\"w-full flex-grow outline-none text-ellipsis text-inherit typography-input-text bg-transparent\" id=\"_r_9_\" inputmode=\"email\" autocomplete=\"email\" maxlength=\"100\" required=\"\" type=\"email\" ",
+        "type": "email"
+      },
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "E-Mail-Adresse bestätigen*",
+        "nearby": "",
+        "placeholder": "",
+        "required": true,
+        "snippet": "<input class=\"w-full flex-grow outline-none text-ellipsis text-inherit typography-input-text bg-transparent\" id=\"_r_c_\" inputmode=\"email\" autocomplete=\"email\" maxlength=\"100\" required=\"\" type=\"email\" ",
+        "type": "email"
+      },
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Nachricht*",
+        "nearby": "0 / 2500",
+        "placeholder": " ",
+        "required": true,
+        "snippet": "<textarea name=\"message\" placeholder=\" \" class=\"input typography-input-text text-inherit relative bg-clr-bg-main px-3 pb-5 resize-none overflow-hidden row-start-1 row-end-2 col-start-1 col-end-2 focus",
+        "type": "textarea"
+      },
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Ich akzeptiere die Datenschutzerklärung der bonprix Handelsgesellschaft.",
+        "nearby": "",
+        "placeholder": "",
+        "required": true,
+        "snippet": "<input class=\"appearance-none relative w-6 h-6 rounded-sm border text-current cursor-pointer shrink-0 focus-visible:outline focus-visible:outline-current focus-visible:outline-2 focus-visible:outline-",
+        "type": "checkbox"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Website",
+        "nearby": "Deine E-Mail-Adresse Gib bitte eine gültige E-Mail-Adresse ein. Abonnieren",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"text\" id=\"nl-website\" name=\"website\" value=\"\" autocomplete=\"off\" tabindex=\"-1\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Deine E-Mail-Adresse Gib bitte eine gültige E-Mail-Adresse ein.",
+        "nearby": "",
+        "placeholder": " ",
+        "required": false,
+        "snippet": "<input class=\"input\" type=\"email\" placeholder=\" \" jsh-input=\"\">",
+        "type": "email"
+      },
+      {
+        "describedBy": "",
+        "form": -1,
+        "label": "Land ändern... Belgien Deutschland Estland Finnland Frankreich Griechenland Großbritannien Italien Lettland Niederlande Norwegen Österreich Polen Rumänien Schweden Schweiz Slowakei Slowenien Spanien Tschechien Ungarn",
+        "nearby": "",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<select class=\"input\" jsh-input=\"true\" name=\"countrySelect\" jsh-country-selection__select=\"\">\n                                <option value=\"\" hidden=\"\">&nbsp;</option>\n                               ",
+        "type": "select"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [
+      {
+        "fontSize": 18,
+        "fontWeight": 700,
+        "snippet": "<div class=\"ettitle\">Frag Robert<br></div>",
+        "text": "Frag Robert"
+      },
+      {
+        "fontSize": 18,
+        "fontWeight": 600,
+        "snippet": "<p style=\"font-family: 'SourceSans3', ubuntu regular, arial, sans-serif; letter-spacing: 1px; font-size: 18px; line-height: 24px; text-align: center; margin-left: auto; margin-right: auto; font-weight",
+        "text": "Cookies und andere Technologien erlauben?"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 600,
+        "snippet": "<p id=\"Partner\" style=\"font-family: ubuntu regular, sans-serif; letter-spacing: 1px; font-size: 16px; text-align: center; margin-left: auto; margin-right: auto; font-weight: 600; padding-right: 0px !i",
+        "text": "Datennutzungen"
+      }
+    ],
+    "headings": 4
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form method=\"get\" accept-charset=\"utf-8\" class=\"flex-grow-1\" novalidate=\"novalidate\" action=\"/search\"><div data-autocomplete-delay-value=\"450\" class=\"form-control form-control--input mb-none autocomp"
+      },
+      {
+        "index": 1,
+        "skipped": null,
+        "snippet": "<form method=\"post\" accept-charset=\"utf-8\" class=\"mb-none\" novalidate=\"novalidate\" action=\"/my/newsletter\"><div style=\"display:none;\"><input type=\"hidden\" name=\"_csrfToken\" autocomplete=\"off\" value=\"2"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": ["https://www.martinus.sk/search"],
+        "blockedCount": 1,
+        "errors": {
+          "invalid": [],
+          "messages": []
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      },
+      {
+        "blocked": ["https://www.martinus.sk/my/newsletter"],
+        "blockedCount": 1,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "Najlepšie novinky sú tie knižné. Získajte ich ako prví:",
+              "native": "Please fill out this field.",
+              "snippet": "<input type=\"email\" name=\"email\" class=\"input input--dark\" id=\"newsletter-input\" placeholder=\"Napíšte nám váš e-mail\" required=\"required\" aria-required=\"true\">"
+            }
+          ],
+          "messages": []
+        },
+        "index": 1,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "sk"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Vyhľadávanie",
+        "nearby": "",
+        "placeholder": "Vyhľadávanie",
+        "required": false,
+        "snippet": "<input id=\"search-in-header\" value=\"\" data-autocomplete-target=\"input\" aria-keyshortcuts=\"Alt+Shift+S\" data-autocomplete-focus-fetch=\"true\" autocomplete=\"off\" name=\"q\" type=\"text\" class=\"flex-1 input ",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 2,
+        "label": "Najlepšie novinky sú tie knižné. Získajte ich ako prví:",
+        "nearby": "Odoslať",
+        "placeholder": "Napíšte nám váš e-mail",
+        "required": true,
+        "snippet": "<input type=\"email\" name=\"email\" class=\"input input--dark\" id=\"newsletter-input\" placeholder=\"Napíšte nám váš e-mail\" required=\"required\" aria-required=\"true\">",
+        "type": "email"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 15,
+    "candidates": [
+      {
+        "fontSize": 18,
+        "fontWeight": 400,
+        "snippet": "<q class=\"d-block quote__text\">Srdce je ako šíp. Treba ho namieriť, ak má trafiť cieľ. </q>",
+        "text": "Srdce je ako šíp. Treba ho namieriť, ak má trafiť cieľ."
+      }
+    ],
+    "headings": 234
+  }
+}

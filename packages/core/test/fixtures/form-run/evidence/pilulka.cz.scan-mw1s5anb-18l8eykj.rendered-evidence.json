@@ -1,0 +1,18 @@
+{
+  "emptySubmits": {
+    "forms": [],
+    "submissions": []
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "cs"
+  },
+  "formInstructions": {
+    "fields": []
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [],
+    "headings": 1
+  }
+}

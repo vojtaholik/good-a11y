@@ -1,0 +1,31 @@
+site	result	skipped reasons	blocked requests
+gov.uk	1 forms, 1 submitted, 0 with errors shown		1
+mozilla.org	2 forms, 2 submitted, 1 with errors shown		1
+alza.cz	1 forms, 1 submitted, 0 with errors shown		0
+datart.cz	2 forms, 1 submitted, 1 with errors shown	no_fields	0
+knihydobrovsky.cz	3 forms, 2 submitted, 2 with errors shown	search	10
+ted.com	1 forms, 0 submitted, 0 with errors shown	no_fields	0
+footshop.cz	2 forms, 2 submitted, 2 with errors shown		0
+sportisimo.cz	3 forms, 1 submitted, 0 with errors shown	no_fields,search	7
+mironet.cz	2 forms, 1 submitted, 1 with errors shown	search	0
+martinus.sk	2 forms, 2 submitted, 1 with errors shown		2
+pilulka.cz	0 forms, 0 submitted, 0 with errors shown		0
+jysk.cz	3 forms, 1 submitted, 1 with errors shown	password,search	3
+emag.ro	no emptySubmits		
+o2.cz	2 forms, 2 submitted, 2 with errors shown		4
+vinted.fr	2 forms, 2 submitted, 0 with errors shown		1
+thomann.de	1 forms, 1 submitted, 1 with errors shown		0
+coolblue.nl	0 forms, 0 submitted, 0 with errors shown		0
+bonprix.de	2 forms, 2 submitted, 1 with errors shown		1
+empik.com	2 forms, 0 submitted, 0 with errors shown	no_fields	0
+verkkokauppa.com	2 forms, 0 submitted, 0 with errors shown	no_fields,search	0
+ceskatelevize.cz	2 forms, 2 submitted, 1 with errors shown		1
+who.int	0 forms, 0 submitted, 0 with errors shown		0
+rijksoverheid.nl	3 forms, 2 submitted, 2 with errors shown	search	2
+apotheka.lv	2 forms, 1 submitted, 1 with errors shown	search	0
+ah.nl	1 forms, 0 submitted, 0 with errors shown	no_fields	0
+european-union.europa.eu	1 forms, 0 submitted, 0 with errors shown	no_fields	0
+otto.de	2 forms, 0 submitted, 0 with errors shown	no_fields,search	0
+tchibo.de	1 forms, 1 submitted, 1 with errors shown		5
+cez.cz	1 forms, 0 submitted, 0 with errors shown	search	0
+vut.cz	1 forms, 0 submitted, 0 with errors shown	search	0

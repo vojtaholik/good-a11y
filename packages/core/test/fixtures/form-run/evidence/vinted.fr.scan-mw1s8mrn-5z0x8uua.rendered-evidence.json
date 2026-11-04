@@ -1,0 +1,110 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form action=\"/catalog\" method=\"get\"><div class=\"u-position-relative\"><div class=\"web_ui__InputBar__input-bar\" data-testid=\"search-text\"><div class=\"web_ui__InputBar__prefix\"><div class=\"u-flexbox u-f"
+      },
+      {
+        "index": 1,
+        "skipped": null,
+        "snippet": "<form><div class=\"web_ui__InputBar__input-bar\"><div class=\"web_ui__InputBar__input\"><div class=\"web_ui__InputBar__icon\"><span class=\"web_ui__Icon__icon\" style=\"width: 16px;\"><svg fill=\"none\" viewBox=\""
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": ["https://www.vinted.fr/catalog"],
+        "blockedCount": 1,
+        "errors": {
+          "invalid": [],
+          "messages": []
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      },
+      {
+        "blocked": [],
+        "blockedCount": 0,
+        "errors": {
+          "invalid": [],
+          "messages": []
+        },
+        "index": 1,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [
+      {
+        "guess": "nl",
+        "hits": 4,
+        "lang": "fr-FR",
+        "snippet": "<li><a href=\"/help/392/1586-en-quoi-consiste-la-verification-de-ton-numero-de-telephone-et-de-ton-identite?access_channel=hc_topics\" class=\"PEidBG_help-center-topic-card__link\"><span class=\"web_ui__Te",
+        "text": "En quoi consiste la vérification de ton numéro de téléphone et de ton identité ?"
+      }
+    ],
+    "pageLang": "fr-FR"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Articles",
+        "nearby": "",
+        "placeholder": "Rechercher des articles",
+        "required": false,
+        "snippet": "<input id=\"search_text\" placeholder=\"Rechercher des articles\" data-testid=\"search-text--input\" class=\"web_ui__InputBar__value\" autocomplete=\"off\" maxlength=\"5000\" aria-labelledby=\"search-item\" name=\"s",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 2,
+        "label": "Pose ta question...",
+        "nearby": "",
+        "placeholder": "Pose ta question...",
+        "required": false,
+        "snippet": "<input id=\"help-center-search\" placeholder=\"Pose ta question...\" class=\"web_ui__InputBar__value\" autocomplete=\"off\" aria-label=\"Pose ta question...\" value=\"\" name=\"help-center-search\">",
+        "type": "text"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 13,
+    "candidates": [
+      {
+        "fontSize": 18,
+        "fontWeight": 400,
+        "snippet": "<div class=\"-idQ1q_main-footer__links-section-label\">Vinted</div>",
+        "text": "Vinted"
+      },
+      {
+        "fontSize": 18,
+        "fontWeight": 400,
+        "snippet": "<div class=\"-idQ1q_main-footer__links-section-label\">Découvrir</div>",
+        "text": "Découvrir"
+      },
+      {
+        "fontSize": 18,
+        "fontWeight": 400,
+        "snippet": "<div class=\"-idQ1q_main-footer__links-section-label\">Aide</div>",
+        "text": "Aide"
+      },
+      {
+        "fontSize": 18,
+        "fontWeight": 500,
+        "snippet": "<div id=\"onetrust-policy-title\">Vos préférences de confidentialité</div>",
+        "text": "Vos préférences de confidentialité"
+      }
+    ],
+    "headings": 40
+  }
+}

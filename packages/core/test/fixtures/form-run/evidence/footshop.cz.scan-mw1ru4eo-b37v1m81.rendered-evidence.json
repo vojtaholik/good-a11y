@@ -1,0 +1,98 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form action=\"https://www.footshop.cz/cs/search\" method=\"GET\" class=\"DesktopSearch_wrapper_722e\"><div class=\"undefined\"><div class=\"SearchInput_innerContainer_eb2a\"><input name=\"controller\" type=\"hidd"
+      },
+      {
+        "index": 1,
+        "skipped": null,
+        "snippet": "<form action=\"https://www.footshop.cz/cs/search\" method=\"GET\" class=\"SectionSearchForm_wrapper_cd2f\"><input type=\"hidden\" name=\"controller\" value=\"search\"><div class=\"SearchInput_container_506b\"><inpu"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [],
+        "blockedCount": 0,
+        "errors": {
+          "invalid": [],
+          "messages": [
+            {
+              "inForm": false,
+              "live": false,
+              "snippet": "<span class=\"CampaignText_countdown_d7d7 PromoStripe_countdown_55a5\" data-time=\"2026-11-06T23:59:59+01:00\">2d<span class=\"CampaignText_separator_6995\">:</span>15h<span class=\"CampaignText_separator_69",
+              "text": "2d15h55m8s"
+            }
+          ]
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      },
+      {
+        "blocked": [],
+        "blockedCount": 0,
+        "errors": {
+          "invalid": [],
+          "messages": [
+            {
+              "inForm": false,
+              "live": false,
+              "snippet": "<span class=\"CampaignText_countdown_d7d7 PromoStripe_countdown_55a5\" data-time=\"2026-11-06T23:59:59+01:00\">2d<span class=\"CampaignText_separator_6995\">:</span>15h<span class=\"CampaignText_separator_69",
+              "text": "2d15h55m7s"
+            }
+          ]
+        },
+        "index": 1,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "cs"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Vyhledej značky, kategorie nebo produkty",
+        "nearby": "",
+        "placeholder": "Vyhledej značky, kategorie nebo produkty",
+        "required": false,
+        "snippet": "<input name=\"search_query\" class=\"SuggestionsInput_input_aae8\" placeholder=\"Vyhledej značky, kategorie nebo produkty\" autocomplete=\"off\" aria-label=\"Vyhledej značky, kategorie nebo produkty\" value=\"\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Vyhledej značky, kategorie nebo produkt",
+        "nearby": "",
+        "placeholder": "Vyhledej značky, kategorie nebo produkt",
+        "required": false,
+        "snippet": "<input name=\"search_query\" class=\"SearchInput_input_92de\" placeholder=\"Vyhledej značky, kategorie nebo produkt\" autocomplete=\"off\" aria-label=\"Vyhledej značky, kategorie nebo produkt\" value=\"\">",
+        "type": "text"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 15,
+    "candidates": [
+      {
+        "fontSize": 22,
+        "fontWeight": 500,
+        "snippet": "<div id=\"cookiescript_header\" data-cs-i18n-text=\"{&quot;cs&quot;:&quot;Nastaven\\u00ed ochrany osobn\\u00edch \\u00fadaj\\u016f a cookies&quot;,&quot;en&quot;:&quot;Privacy and cookie settings&quot;}\">Nas",
+        "text": "Nastavení ochrany osobních údajů a cookies"
+      }
+    ],
+    "headings": 13
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "search",
+        "snippet": "<form class=\"search-bar\" role=\"search\" aria-labelledby=\"_R_j6lfivbH1_\" action=\"/zoeken\"><label class=\"search-bar__label screen-reader-only\" for=\"_R_j6lfivb_\">Vul in wat u zoekt</label><div class=\"sear"
+      },
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form class=\"form in-input-mode\" novalidate=\"\" aria-labelledby=\"formTitle__R_melfivb_\"><div class=\"form__content\"><header class=\"form__header\"><h2 id=\"formTitle__R_melfivb_\" class=\"form__title\">Contac"
+      },
+      {
+        "index": 1,
+        "skipped": null,
+        "snippet": "<form class=\"feedback-bar\" aria-label=\"Feedbackformulier\"><fieldset class=\"field-container radio-group feedback-bar__question\"><legend class=\"label field-container__label\">Heeft deze informatie u geho"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [],
+        "blockedCount": 0,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": false,
+              "describedBy": "Het veld 'Vraag' is leeg. Het is een verplicht veld en moet ingevuld worden. Maximaal 5000 tekens. U kunt geen bijlagen opsturen. LET OP: Om uw privacy te beschermen wil de Rijksoverheid zo weinig mogelijk vertrouwelijke gegevens van u ontvangen. Stuur daarom geen gegevens zoals adres of burgerservi",
+              "label": "Vraag (verplicht)",
+              "native": "Please fill out this field.",
+              "snippet": "<textarea class=\"text-area\" id=\"group0__question\" name=\"group0__question\" aria-describedby=\"group0__questionError group0__questionHelp\" required=\"\"></textarea>"
+            },
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "Ik heb gelezen en begrepen wat er met mijn persoonsgegevens wordt gedaan.",
+              "native": "Please check this box if you want to proceed.",
+              "snippet": "<input type=\"checkbox\" id=\"_R_lekqmelfivb_\" required=\"\" name=\"avg\" value=\"toestemming\">"
+            }
+          ],
+          "messages": [
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<h4 id=\"notificationHeading\" class=\"notification__heading\"><i class=\"svg-icon error notification__icon\" aria-hidden=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"64\" height=\"64\" viewBox=\"0 0 6",
+              "text": "Overzicht foutmeldingen"
+            },
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<div class=\"rich-text notification__intro\">Er zijn één of meerdere velden niet juist ingevuld. Controleer uw gegevens en verstuur het formulier opnieuw.</div>",
+              "text": "Er zijn één of meerdere velden niet juist ingevuld. Controleer uw gegevens en verstuur het formulier opnieuw."
+            },
+            {
+              "inForm": true,
+              "live": true,
+              "snippet": "<div id=\"group0__questionError\" class=\"error-message field-container__error-message\" role=\"alert\">Het veld 'Vraag' is leeg. Het is een verplicht veld en moet ingevuld worden.</div>",
+              "text": "Het veld 'Vraag' is leeg. Het is een verplicht veld en moet ingevuld worden."
+            },
+            {
+              "inForm": true,
+              "live": true,
+              "snippet": "<div id=\"group0__emailError\" class=\"error-message field-container__error-message\" role=\"alert\">Het veld 'E-mailadres' is leeg. Het is een verplicht veld en moet ingevuld worden.</div>",
+              "text": "Het veld 'E-mailadres' is leeg. Het is een verplicht veld en moet ingevuld worden."
+            },
+            {
+              "inForm": true,
+              "live": true,
+              "snippet": "<div id=\"avgError\" class=\"error-message field-container__error-message\" role=\"alert\">Het veld 'Akkoordverklaring' is leeg. Het is een verplicht veld en moet ingevuld worden.</div>",
+              "text": "Het veld 'Akkoordverklaring' is leeg. Het is een verplicht veld en moet ingevuld worden."
+            }
+          ]
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      },
+      {
+        "blocked": [
+          "https://statistiek.rijksoverheid.nl/ppms.php",
+          "https://statistiek.rijksoverheid.nl/ppms.php"
+        ],
+        "blockedCount": 2,
+        "errors": {
+          "invalid": [],
+          "messages": [
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<h2 class=\"feedback-bar__submit-confirmation-heading\">Dank u wel voor uw reactie!</h2>",
+              "text": "Dank u wel voor uw reactie!"
+            },
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<p class=\"feedback-bar__submit-confirmation-text\">Uw feedback helpt ons om onze website te verbeteren.</p>",
+              "text": "Uw feedback helpt ons om onze website te verbeteren."
+            }
+          ]
+        },
+        "index": 1,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "nl"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Vul in wat u zoekt",
+        "nearby": "",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"text\" class=\"text-input search-bar__input\" id=\"_R_j6lfivb_\" tabindex=\"-1\" maxlength=\"128\" name=\"q\" value=\"\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "Maximaal 5000 tekens. U kunt geen bijlagen opsturen. LET OP: Om uw privacy te beschermen wil de Rijksoverheid zo weinig mogelijk vertrouwelijke gegevens van u ontvangen. Stuur daarom geen gegevens zoals adres of burgerservicenummer (BSN).",
+        "form": 1,
+        "label": "Vraag (verplicht)",
+        "nearby": "Maximaal 5000 tekens. U kunt geen bijlagen opsturen. LET OP: Om uw privacy te beschermen wil de Rijksoverheid zo weinig mogelijk vertrouwelijke gegevens van u ontvangen. Stuur daarom geen gegevens zoals adres of burgerservicenummer (BSN).",
+        "placeholder": "",
+        "required": true,
+        "snippet": "<textarea class=\"text-area\" id=\"group0__question\" name=\"group0__question\" aria-describedby=\"group0__questionHelp\" required=\"\"></textarea>",
+        "type": "textarea"
+      },
+      {
+        "describedBy": "Wij willen graag uw telefoonnummer tijdens kantooruren weten. Wij kunnen u dan bellen als wij meer informatie van u nodig hebben. Of als we ons antwoord willen uitleggen.",
+        "form": 1,
+        "label": "Telefoonnummer",
+        "nearby": "Wij willen graag uw telefoonnummer tijdens kantooruren weten. Wij kunnen u dan bellen als wij meer informatie van u nodig hebben. Of als we ons antwoord willen uitleggen.",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"tel\" class=\"text-input\" id=\"group0__telefoonnummer\" aria-describedby=\"group0__telefoonnummerHelp\" autocomplete=\"tel\" name=\"group0__telefoonnummer\">",
+        "type": "tel"
+      },
+      {
+        "describedBy": "Voer hier een geldig e-mailadres in. Bijvoorbeeld: 'naam@domein.nl'.",
+        "form": 1,
+        "label": "E-mailadres (verplicht)",
+        "nearby": "Voer hier een geldig e-mailadres in. Bijvoorbeeld: 'naam@domein.nl'.",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"email\" class=\"text-input\" id=\"group0__email\" aria-describedby=\"group0__emailHelp\" autocomplete=\"email\" name=\"group0__email\">",
+        "type": "email"
+      },
+      {
+        "describedBy": "Heeft u eerder contact gezocht? Dan kunt u hier het referentienummer invullen. Dat bestaat uit 2 letters en 7 cijfers.",
+        "form": 1,
+        "label": "Referentienummer",
+        "nearby": "Heeft u eerder contact gezocht? Dan kunt u hier het referentienummer invullen. Dat bestaat uit 2 letters en 7 cijfers.",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"text\" class=\"text-input\" id=\"group0__reference\" aria-describedby=\"group0__referenceHelp\" name=\"group0__reference\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Hier niets invullen a.u.b.",
+        "nearby": "",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"text\" class=\"text-input\" id=\"form-h\" autocomplete=\"new-password\" tabindex=\"-1\" name=\"form-h\">",
+        "type": "text"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [
+      {
+        "fontSize": 24,
+        "fontWeight": 400,
+        "snippet": "<p>Wilt u meteen iemand spreken over uw vraag?<br>\n<a lang=\"nl\" href=\"/service/contact/informatie-rijksoverheid/whatsapp\" data-type=\"internal\">Stel dan uw vraag via WhatsApp</a>&nbsp;of&nbsp;<a lang=\"",
+        "text": "Wilt u meteen iemand spreken over uw vraag? Stel dan uw vraag via WhatsApp of bel ons met uw vraag."
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 400,
+        "snippet": "<div class=\"field-container__help-text\" id=\"group0__emailHelp\">Voer hier een geldig e-mailadres in. Bijvoorbeeld: 'naam@domein.nl'.</div>",
+        "text": "Voer hier een geldig e-mailadres in. Bijvoorbeeld: 'naam@domein.nl'."
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 400,
+        "snippet": "<div class=\"field-container__help-text\" id=\"group0__referenceHelp\">Heeft u eerder contact gezocht? Dan kunt u hier het referentienummer invullen. Dat bestaat uit 2 letters en 7 cijfers.</div>",
+        "text": "Heeft u eerder contact gezocht? Dan kunt u hier het referentienummer invullen. Dat bestaat uit 2 letters en 7 cijfers."
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 400,
+        "snippet": "<span class=\"label__text\">Akkoordverklaring<span class=\"label__required-text\">&nbsp;(<!-- -->verplicht<!-- -->)</span></span>",
+        "text": "Akkoordverklaring (verplicht)"
+      },
+      {
+        "fontSize": 18,
+        "fontWeight": 700,
+        "snippet": "<legend class=\"label field-container__label\">Heeft deze informatie u geholpen?</legend>",
+        "text": "Heeft deze informatie u geholpen?"
+      },
+      {
+        "fontSize": 32,
+        "fontWeight": 400,
+        "snippet": "<p class=\"site-footer__payoff\">De Rijksoverheid. Voor Nederland</p>",
+        "text": "De Rijksoverheid. Voor Nederland"
+      }
+    ],
+    "headings": 14
+  }
+}

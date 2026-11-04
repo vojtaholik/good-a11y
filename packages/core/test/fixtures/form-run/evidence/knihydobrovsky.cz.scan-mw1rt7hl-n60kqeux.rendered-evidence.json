@@ -1,0 +1,222 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form action=\"/kontakty\" method=\"post\" id=\"frm-contactForm-form\" class=\"form-std live-validate\" novalidate=\"\">\n        <p class=\"info\">\n            <span class=\"ico ico-info\"></span>\n            Než n"
+      },
+      {
+        "index": -1,
+        "skipped": "search",
+        "snippet": "<form class=\"form-suggest\" role=\"search\" id=\"form-search\" action=\"/vyhledavani\">\n    <fieldset>\n        <h2 class=\"vhide\"><label for=\"search\">Vyhledávání</label></h2>\n        <p class=\"btn-row\">\n     "
+      },
+      {
+        "index": 1,
+        "skipped": null,
+        "snippet": "<form action=\"/kontakty\" method=\"post\" id=\"frm-footerMonthlyTipsForm-form\" class=\"live-validate\" novalidate=\"\">\n    <p class=\"label-focus live-validate\">\n            <label for=\"newsletter-footer\" dat"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": ["https://c.seznam.cz/retargeting"],
+        "blockedCount": 1,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "Vyberte téma",
+              "native": "Please select an item in the list.",
+              "snippet": "<select name=\"topic\" placeholder=\"Vyberte téma\" id=\"frm-contactForm-form-topic\" required=\"\" data-nette-rules=\"[{&quot;op&quot;:&quot;:filled&quot;,&quot;msg&quot;:&quot;Vyberte téma&quot;}]\" class=\"in"
+            }
+          ],
+          "messages": [
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<label for=\"frm-contactForm-form-email\" class=\"red\"><span class=\"icon icon-close red\"></span>&nbsp;Zadejte email ve správném formátu.</label>",
+              "text": "Zadejte email ve správném formátu."
+            }
+          ]
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      },
+      {
+        "blocked": [
+          "https://c.seznam.cz/retargeting",
+          "https://c.seznam.cz/retargeting",
+          "https://c.seznam.cz/retargeting",
+          "https://www.google.com/recaptcha/api2/reload",
+          "https://www.knihydobrovsky.cz/kontakty"
+        ],
+        "blockedCount": 9,
+        "errors": {
+          "invalid": [],
+          "messages": [
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<label for=\"newsletter-footer\" data-label=\"Vaše emailová adresa\" class=\"red\"><span class=\"icon icon-close red\"></span>&nbsp;Ajaj, zadali jste e-mail ve špatném formátu.</label>",
+              "text": "Ajaj, zadali jste e-mail ve špatném formátu."
+            }
+          ]
+        },
+        "index": 1,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [
+      {
+        "guess": "pt",
+        "hits": 7,
+        "lang": "cs",
+        "snippet": "<li class=\"with-submenu js-menu-submenu\">\n                            <a href=\"/e-knihy\">E-knihy</a>\n                            <div class=\"submenu-toggle\">\n                                <span clas",
+        "text": "E-knihy Mohlo by vás zajímat Novinky Bestsellery Čtečky e-knih Zvýhodněné balíčky Longsellery E-knihy zdarma E-knihy ve slevě Dárkové poukazy Beletrie Vše Detektivky, Thrillery a Horory Sci-fi, Fantasy a Komiksy Romány pro ženy Erotické romány LGBTQ+ romány Young Adult Česká a slovenská beletrie Svě"
+      },
+      {
+        "guess": "pt",
+        "hits": 7,
+        "lang": "cs",
+        "snippet": "<p class=\"dtc\">\n                    <span class=\"shoproku\"><img loading=\"lazy\" src=\"/img/illust/heureka.svg\" alt=\"Heuréka - Ověřeno zákazníky\" width=\"70\"></span>\n                        <span class=\"r",
+        "text": "const retinoCompanyId = \"7c404eda-b97a-4057-92d4-7450325b54e6\"; (function(r,e,t,i,n,o){r.RetinoBadgeQueue=r.RetinoBadgeQueue||[];r.RetinoBadgeQueue.push({companyId:retinoCompanyId,type:\"icon\",staticUrl:\"https://cdn.retino.com/\",mediaUrl:\"https://cdn.retino.com/media/\",language:\"cs\"});n=e.createEleme"
+      }
+    ],
+    "pageLang": "cs"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Téma",
+        "nearby": "Vyberte témaStav objednávkyZměna objednávkyDotaz na produktKlub Knihy DobrovskýReklamaceNávrhy a připomínkyOstatníVyberte téma",
+        "placeholder": "Vyberte téma",
+        "required": true,
+        "snippet": "<select name=\"topic\" placeholder=\"Vyberte téma\" id=\"frm-contactForm-form-topic\" required=\"\" data-nette-rules=\"[{&quot;op&quot;:&quot;:filled&quot;,&quot;msg&quot;:&quot;Vyberte téma&quot;}]\" class=\"in",
+        "type": "select"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Kontakt na vás",
+        "nearby": "",
+        "placeholder": "Kontakt na vás",
+        "required": false,
+        "snippet": "<input type=\"email\" name=\"email\" placeholder=\"Kontakt na vás\" id=\"frm-contactForm-form-email\" data-nette-rules=\"[{&quot;op&quot;:&quot;:email&quot;,&quot;msg&quot;:&quot;Zadejte email ve správném form",
+        "type": "email"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Sem napište váš dotaz",
+        "nearby": "",
+        "placeholder": "Sem napište váš dotaz",
+        "required": false,
+        "snippet": "<textarea name=\"text\" cols=\"30\" rows=\"5\" id=\"frm-contactForm-form-text\" class=\"inp-text inp-big\" placeholder=\"Sem napište váš dotaz\"></textarea>",
+        "type": "textarea"
+      },
+      {
+        "describedBy": "",
+        "form": 2,
+        "label": "Sem zadejte hledané slovo Vyhledávání Vyhledávání",
+        "nearby": "Smazat hledaný text Vyhledat",
+        "placeholder": "Skvělé články najde",
+        "required": false,
+        "snippet": "<input id=\"search\" maxlength=\"300\" class=\"inp-text search-input\" name=\"search\" type=\"text\" value=\"\" data-search-length=\"300\" data-url=\"/search-autocomplete/search\" data-suggest=\"/search-autocomplete/s",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 3,
+        "label": "Vaše emailová adresa",
+        "nearby": "Odebírat",
+        "placeholder": "Vaše emailová adresa",
+        "required": false,
+        "snippet": "<input type=\"email\" name=\"newsletter\" id=\"newsletter-footer\" data-nette-rules=\"[{&quot;op&quot;:&quot;:email&quot;,&quot;msg&quot;:&quot;Ajaj, zadali jste e-mail ve špatném formátu.&quot;}]\" class=\"in",
+        "type": "email"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 15,
+    "candidates": [
+      {
+        "fontSize": 17,
+        "fontWeight": 700,
+        "snippet": "<strong class=\"big\">+420 226 292 192</strong>",
+        "text": "+420 226 292 192"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<span class=\"page-footer__title\">\n\t\t\t\t\t\t\t\t\tČasto navštěvované\n\t\t\t\t\t\t\t\t</span>",
+        "text": "Často navštěvované"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<span class=\"page-footer__title\">\n\t\t\t\t\t\t\t\t\tDodací podmínky\n\t\t\t\t\t\t\t\t</span>",
+        "text": "Dodací podmínky"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<span class=\"page-footer__title\">\n\t\t\t\t\t\t\t\t\tKariéra v Knihy Dobrovský\n\t\t\t\t\t\t\t\t</span>",
+        "text": "Kariéra v Knihy Dobrovský"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<span class=\"page-footer__title\">\n\t\t\t\t\t\t\t\t\tPíšeme Dobrý blog\n\t\t\t\t\t\t\t\t</span>",
+        "text": "Píšeme Dobrý blog"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<span class=\"page-footer__title\">\n\t\t\t\t\t\t\t\t\tPlatební metody\n\t\t\t\t\t\t\t\t</span>",
+        "text": "Platební metody"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<span class=\"page-footer__title\">\n\t\t\t\t\t\t\t\t\tVíce o nás\n\t\t\t\t\t\t\t\t</span>",
+        "text": "Více o nás"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<span class=\"page-footer__title\">\n\t\t\t\t\t\t\t\t\tSledujte nás\n\t\t\t\t\t\t\t\t</span>",
+        "text": "Sledujte nás"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<span class=\"page-footer__title mb-0\">\n                                Odebírejte nás\n                            </span>",
+        "text": "Odebírejte nás"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<span class=\"page-footer__title mb-0\">\n                                        Potřebujete s něčím poradit?\n                                    </span>",
+        "text": "Potřebujete s něčím poradit?"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<span class=\"page-footer__title mb-0\">\n\t\t\t\t\t\t\t\t\tKontaktujte nás\n\t\t\t\t\t\t\t\t</span>",
+        "text": "Kontaktujte nás"
+      }
+    ],
+    "headings": 16
+  }
+}

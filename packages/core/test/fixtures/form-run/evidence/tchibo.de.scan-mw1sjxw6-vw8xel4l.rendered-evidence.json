@@ -1,0 +1,137 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form data-v-1c449c6b=\"\"><div data-v-1c449c6b=\"\" class=\"newsletter-form\"><div data-v-1c449c6b=\"\" class=\"newsletter-form-mandatory-message\"><p data-v-35f95d87=\"\" data-v-1c449c6b=\"\" class=\"ds-text ds-te"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [
+          "https://www.tchibo.de/static/icons/chevron-up-16.svg",
+          "https://www.tchibo.de/static/icons/chevron-down-16.svg",
+          "https://www.tchibo.de/kljfEf/kzH-/YnE/dt8/bKxE5_DAMsg/3ft5LDiktEiaQ0/XUd3R1VALg/chcXEU/p-QDY",
+          "https://www.tchibo.de/kljfEf/kzH-/YnE/dt8/bKxE5_DAMsg/3ft5LDiktEiaQ0/XUd3R1VALg/chcXEU/p-QDY",
+          "https://www.tchibo.de/kljfEf/kzH-/YnE/dt8/bKxE5_DAMsg/3ft5LDiktEiaQ0/XUd3R1VALg/chcXEU/p-QDY"
+        ],
+        "blockedCount": 5,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "E-Mail-Adresse*",
+              "native": "Please fill out this field.",
+              "snippet": "<input data-v-a8b557c7=\"\" name=\"newsletterEmail\" maxlength=\"256\" autocomplete=\"email\" data-cy=\"email-input\" data-testid=\"email-input\" required=\"\" aria-describedby=\"newsletter-emailMessage\" id=\"newslet"
+            }
+          ],
+          "messages": [
+            {
+              "inForm": true,
+              "live": true,
+              "snippet": "<span data-v-ddf7cba6=\"\" class=\"ds-button-text\">Mehr anzeigen</span>",
+              "text": "Mehr anzeigen"
+            },
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<span data-v-35f95d87=\"\" data-v-de5598a0=\"\" class=\"ds-text ds-text-75\" data-weight=\"bold\">Rechtliche Hinweise zum Newsletter:</span>",
+              "text": "Rechtliche Hinweise zum Newsletter:"
+            },
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<p data-v-de5598a0=\"\" data-cy=\"legal-hint-content\" class=\"legal-notice-text\">Ich möchte den Tchibo Newsletter erhalten. Die Hinweise zum <a data-v-de5598a0=\"\" href=\"/privacy\" class=\"ds-text-link\" targ",
+              "text": "Ich möchte den Tchibo Newsletter erhalten. Die Hinweise zum habe ich gelesen. Selbstverständlich können Sie sich jederzeit problemlos vom Newsletter wieder abmelden. Am Ende eines jeden Newsletters finden Sie einen entsprechenden Abmeldelink. Mit der Anmeldung bestätigen Sie, dass Sie mindestens 16 "
+            },
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<a data-v-de5598a0=\"\" href=\"/privacy\" class=\"ds-text-link\" target=\"_blank\">Datenschutz</a>",
+              "text": "Datenschutz"
+            },
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<span data-v-81337552=\"\" class=\"ds-checkbox-label\">Ja, ich möchte personalisierte Angebote von Tchibo erhalten.<!----></span>",
+              "text": "Ja, ich möchte personalisierte Angebote von Tchibo erhalten."
+            },
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<p data-v-dffa93d5=\"\" data-v-8e41ded4=\"\" class=\"privacy-hint-text\">Hier finden Sie unsere <a data-v-dffa93d5=\"\" href=\"/privacy\" target=\"_blank\" class=\"privacy-hint-link\">Datenschutzhinweise</a>.</p>",
+              "text": "Hier finden Sie unsere ."
+            },
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<a data-v-dffa93d5=\"\" href=\"/privacy\" target=\"_blank\" class=\"privacy-hint-link\">Datenschutzhinweise</a>",
+              "text": "Datenschutzhinweise"
+            }
+          ]
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "de-DE"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "E-Mail-Adresse*",
+        "nearby": "",
+        "placeholder": "",
+        "required": true,
+        "snippet": "<input data-v-a8b557c7=\"\" name=\"newsletterEmail\" maxlength=\"256\" autocomplete=\"email\" data-cy=\"email-input\" data-testid=\"email-input\" required=\"\" aria-describedby=\"newsletter-emailMessage\" id=\"newslet",
+        "type": "email"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [
+      {
+        "fontSize": 17,
+        "fontWeight": 700,
+        "snippet": "<span data-v-1f10ed95=\"\" class=\"ds-banderole-text\">10% Willkommens-Gutschein¹</span>",
+        "text": "10% Willkommens-Gutschein¹"
+      },
+      {
+        "fontSize": 27,
+        "fontWeight": 700,
+        "snippet": "<p data-v-35f95d87=\"\" data-v-1c449c6b=\"\" class=\"ds-text ds-text-125\" data-weight=\"bold\">Zum Tchibo Newsletter anmelden und 10% auf viele Artikel sparen¹ </p>",
+        "text": "Zum Tchibo Newsletter anmelden und 10% auf viele Artikel sparen¹"
+      },
+      {
+        "fontSize": 17,
+        "fontWeight": 700,
+        "snippet": "<span class=\"ds-text ds-text-75 seo-group-header\" data-weight=\"bold\" id=\"seo-group-heading\" data-v-4c1c10e2=\"\" data-v-35f95d87=\"\"><!--[-->Unsere beliebtesten Kategorien<!--]--></span>",
+        "text": "Unsere beliebtesten Kategorien"
+      },
+      {
+        "fontSize": 17,
+        "fontWeight": 700,
+        "snippet": "<span class=\"ds-text ds-text-75\" data-weight=\"bold\" id=\"grouped-icons-heading-Siefindenunsauchauf\" data-v-35f95d87=\"\"><!--[-->Sie finden uns auch auf<!--]--></span>",
+        "text": "Sie finden uns auch auf"
+      },
+      {
+        "fontSize": 17,
+        "fontWeight": 700,
+        "snippet": "<span class=\"ds-text ds-text-75\" data-weight=\"bold\" id=\"grouped-icons-heading-TchiboApps\" data-v-35f95d87=\"\"><!--[-->Tchibo Apps<!--]--></span>",
+        "text": "Tchibo Apps"
+      }
+    ],
+    "headings": 1
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form id=\"newsletter-form\" class=\"mzp-c-newsletter-form\" action=\"https://abdri3ttkb.execute-api.us-east-2.amazonaws.com/api/newsletter/mozillaorg\" method=\"post\" data-testid=\"newsletter-form\">\n    \n   "
+      },
+      {
+        "index": 1,
+        "skipped": null,
+        "snippet": "<form id=\"lang_form\" class=\"moz24-c-language-switcher\" method=\"get\" action=\"#\">\n    <a class=\"mzp-c-language-switcher-link\" href=\"/locales/\">All languages</a>\n    <label for=\"page-language-select\">Lan"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [],
+        "blockedCount": 0,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "Your email address:",
+              "native": "Please fill out this field.",
+              "snippet": "<input type=\"email\" name=\"email\" required=\"\" data-testid=\"newsletter-email-input\" maxlength=\"320\" placeholder=\"yourname@example.com\" class=\"mzp-js-email-field\" id=\"id_email\">"
+            },
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "I’m okay with Mozilla handling my info as explained in this Privacy Notice",
+              "native": "Please check this box if you want to proceed.",
+              "snippet": "<input type=\"checkbox\" id=\"privacy\" name=\"privacy\" required=\"\" aria-required=\"true\" data-testid=\"newsletter-privacy-checkbox\">"
+            }
+          ],
+          "messages": []
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      },
+      {
+        "blocked": ["https://www.mozilla.org/en-US/newsletter/"],
+        "blockedCount": 1,
+        "errors": {
+          "invalid": [],
+          "messages": []
+        },
+        "index": 1,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "en"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Your email address:",
+        "nearby": "Mozilla Foundation Get Firefox news Please enter a valid email address Please select a country or region Please select a language Please check at least one of the newsletter options. You must agree to the privacy notice We are sorry, but there was a problem with our system. Please try again later! S",
+        "placeholder": "yourname@example.com",
+        "required": true,
+        "snippet": "<input type=\"email\" name=\"email\" required=\"\" data-testid=\"newsletter-email-input\" maxlength=\"320\" placeholder=\"yourname@example.com\" class=\"mzp-js-email-field\" id=\"id_email\">",
+        "type": "email"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Language",
+        "nearby": "All languages عربي Čeština Cymraeg Deutsch Ελληνικά English (Canadian) English (British) English Español (de Argentina) Español (de Chile) Español (de España) Español (de México) Français Frysk Galego Avañe'ẽ हिन्दी (भारत) magyar Bahasa Indonesia Italiano 日本語 ქართული Melayu Nederlands Polski Portugu",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<select id=\"page-language-select\" class=\"mzp-js-language-switcher-select\" name=\"lang\" dir=\"ltr\" data-testid=\"footer-language-select\" data-previous-language=\"en-US\">\n       \n         <option lang=\"ar\" ",
+        "type": "select"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [],
+    "headings": 27
+  }
+}

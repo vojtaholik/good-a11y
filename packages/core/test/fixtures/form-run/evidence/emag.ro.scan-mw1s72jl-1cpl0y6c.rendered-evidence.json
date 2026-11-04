@@ -1,0 +1,36 @@
+{
+  "emptySubmits": null,
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "ro"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "",
+        "nearby": "Cauta",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"text\" id=\"searchboxAutocomplete\" class=\"searchbox-suggestion js-searchbox-suggestion-input\" autocomplete=\"off\" aria-hidden=\"true\" tabindex=\"-1\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Începe o nouă căutare",
+        "nearby": "Cauta",
+        "placeholder": "Începe o nouă căutare",
+        "required": false,
+        "snippet": "<input type=\"search\" id=\"searchboxTrigger\" name=\"query\" class=\"searchbox-main gtm_search_bar_click_search_week js-searchbox-input\" placeholder=\"Începe o nouă căutare\" autocomplete=\"off\" aria-label=\"În",
+        "type": "search"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [],
+    "headings": 0
+  }
+}

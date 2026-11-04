@@ -1,0 +1,35 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "search",
+        "snippet": "<form action=\"/cs/vyhledavani\" method=\"GET\" class=\"header-search header-search-desktop\" role=\"search\"> <label for=\"header-search-input-desktop\" class=\"sr-only\">Hledaný výraz</label> <input type=\"text\""
+      }
+    ],
+    "submissions": []
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "cs"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Hledaný výraz",
+        "nearby": "Udržitelnost a etika O společnosti Kariéra Čeština Čeština English Deutsch Français",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"text\" name=\"query\" id=\"header-search-input-desktop\" autocomplete=\"off\" data-lb-init=\"true\" placeholder=\"\">",
+        "type": "text"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [],
+    "headings": 18
+  }
+}

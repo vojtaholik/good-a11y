@@ -1,0 +1,55 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "no_fields",
+        "snippet": "<form class=\"-mr-6 box-content flex h-14 shrink-0 flex-row flex-nowrap items-center justify-start overflow-hidden pr-6 transition-all w-11 bg-white dark:bg-black\"><button type=\"button\" class=\"outline-"
+      }
+    ],
+    "submissions": []
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "en"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Type to search Type to search",
+        "nearby": "Type to search",
+        "placeholder": "Type to search",
+        "required": false,
+        "snippet": "<input type=\"search\" id=\"navigation-search\" placeholder=\"Type to search\" aria-label=\"Type to search\" class=\"dark:text-on-dark-secondary h-full min-w-0 flex-1 border-none bg-transparent pr-0.5 pl-6 tex",
+        "type": "search"
+      },
+      {
+        "describedBy": "",
+        "form": -1,
+        "label": "Daily",
+        "nearby": "Weekly",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"radio\" class=\"focus-ring border-on-light-primary size-[18px] appearance-none rounded-full border-[1.25px] checked:bg-[radial-gradient(circle,var(--color-on-light-primary)_6.5px,transparen",
+        "type": "radio"
+      },
+      {
+        "describedBy": "",
+        "form": -1,
+        "label": "Weekly",
+        "nearby": "Daily",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"radio\" class=\"focus-ring border-on-light-primary size-[18px] appearance-none rounded-full border-[1.25px] checked:bg-[radial-gradient(circle,var(--color-on-light-primary)_6.5px,transparen",
+        "type": "radio"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [],
+    "headings": 10
+  }
+}

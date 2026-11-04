@@ -1,0 +1,50 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "no_fields",
+        "snippet": "<form action=\".\"><div class=\"_root_1pztz_1\"><div class=\"_root_1qbyq_6\"><input class=\"_input_1qbyq_1\" placeholder=\"Szukaj wśród milionów produktów\" type=\"search\" autocomplete=\"off\" name=\"search-input\" "
+      },
+      {
+        "index": -1,
+        "skipped": "no_fields",
+        "snippet": "<form action=\".\"><div class=\"_root_1pztz_1\"><div class=\"_root_1qbyq_6\"><input class=\"_input_1qbyq_1\" placeholder=\"Szukaj wśród milionów produktów\" type=\"search\" autocomplete=\"off\" name=\"search-input\" "
+      }
+    ],
+    "submissions": []
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "pl"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "",
+        "nearby": "Black Weeks do -70%",
+        "placeholder": "Szukaj wśród milionów produktów",
+        "required": false,
+        "snippet": "<input class=\"_input_1qbyq_1\" placeholder=\"Szukaj wśród milionów produktów\" type=\"search\" autocomplete=\"off\" name=\"search-input\" id=\"search-input-field\" value=\"\">",
+        "type": "search"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "",
+        "nearby": "",
+        "placeholder": "Szukaj wśród milionów produktów",
+        "required": false,
+        "snippet": "<input class=\"_input_1qbyq_1\" placeholder=\"Szukaj wśród milionów produktów\" type=\"search\" autocomplete=\"off\" name=\"search-input\" id=\"search-input-field\" value=\"\">",
+        "type": "search"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 14,
+    "candidates": [],
+    "headings": 42
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "no_fields",
+        "snippet": "<form class=\"ecl-search-form ecl-site-header__search\" data-drupal-selector=\"oe-search-search-form\" action=\"/contact-eu/write-us_en\" method=\"post\" id=\"oe-search-search-form\" accept-charset=\"UTF-8\" data"
+      }
+    ],
+    "submissions": []
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "en"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Search",
+        "nearby": "Search",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input id=\"edit-keys\" class=\"ecl-text-input ecl-text-input--m ecl-search-form__text-input form-search ecl-search-form__text-input\" name=\"keys\" type=\"search\">",
+        "type": "search"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>Disclaimer</strong>",
+        "text": "Disclaimer"
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 400,
+        "snippet": "<div class=\"ecl-site-footer__title ecl-site-footer__title--separator\">Contact the EU</div>",
+        "text": "Contact the EU"
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 400,
+        "snippet": "<div class=\"ecl-site-footer__title ecl-site-footer__title--separator\">Social media</div>",
+        "text": "Social media"
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 400,
+        "snippet": "<div class=\"ecl-site-footer__title ecl-site-footer__title--separator\">Legal</div>",
+        "text": "Legal"
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 400,
+        "snippet": "<div class=\"ecl-site-footer__title ecl-site-footer__title--separator\">EU institutions and bodies</div>",
+        "text": "EU institutions and bodies"
+      }
+    ],
+    "headings": 1
+  }
+}

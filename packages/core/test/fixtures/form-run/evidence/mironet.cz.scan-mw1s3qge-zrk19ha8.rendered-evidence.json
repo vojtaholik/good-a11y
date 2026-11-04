@@ -1,0 +1,121 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "search",
+        "snippet": "<form action=\"/ProductList/showSearch\" class=\"Search\" method=\"get\" name=\"dagFormSearch\" role=\"search\" onsubmit=\"return submitSearch();\">\n                    <div class=\"input-group\">\n                 "
+      },
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form action=\"/User/Newsmail\" method=\"post\">\n                <span class=\"formTitle\">\n                    <input type=\"hidden\" name=\"DELMAIL\" value=\"0\">\n                    <input type=\"hidden\" name=\""
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [],
+        "blockedCount": 0,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "Váš email",
+              "native": "Please fill out this field.",
+              "snippet": "<input type=\"email\" class=\"form-control\" name=\"SignNews\" id=\"footer-news-email\" placeholder=\"Váš email\" aria-label=\"Váš email\" required=\"\">"
+            }
+          ],
+          "messages": []
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "cs"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Hledaný výraz",
+        "nearby": "Hledat Zobraz všechny výsledky",
+        "placeholder": "Hledaný výraz",
+        "required": false,
+        "snippet": "<input type=\"text\" class=\"form-control\" id=\"EXPS\" name=\"EXPF\" value=\"\" aria-label=\"Hledaný výraz\" placeholder=\"Hledaný výraz\" role=\"combobox\" aria-autocomplete=\"list\" aria-controls=\"htlSearchResultsCo",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 5,
+        "label": "Váš email",
+        "nearby": "Nenechte si ujít akční nabídky Odebírat",
+        "placeholder": "Váš email",
+        "required": true,
+        "snippet": "<input type=\"email\" class=\"form-control\" name=\"SignNews\" id=\"footer-news-email\" placeholder=\"Váš email\" aria-label=\"Váš email\" required=\"\">",
+        "type": "email"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 13,
+    "candidates": [
+      {
+        "fontSize": 15.6,
+        "fontWeight": 700,
+        "snippet": "<div class=\"hbMenu mirbtn k-clickable\" id=\"headerMenu\" tabindex=\"0\" role=\"button\">\n                    Zobrazit katalog &nbsp;\n                    <svg class=\"fs\"><use xlink:href=\"/fonts/icons.svg#ang",
+        "text": "Zobrazit katalog"
+      },
+      {
+        "fontSize": 13,
+        "fontWeight": 700,
+        "snippet": "<span class=\"formTitle\">\n                    <input type=\"hidden\" name=\"DELMAIL\" value=\"0\">\n                    <input type=\"hidden\" name=\"SendMailForAuth\" value=\"1\">\n                    Nenechte si u",
+        "text": "Nenechte si ujít akční nabídky"
+      },
+      {
+        "fontSize": 15.99,
+        "fontWeight": 400,
+        "snippet": "<span>44 827 Výdejen <br> 16 Prodejen</span>",
+        "text": "44 827 Výdejen 16 Prodejen"
+      },
+      {
+        "fontSize": 20.8,
+        "fontWeight": 700,
+        "snippet": "<span class=\"cookiesTitle\">Nastavení souborů cookies</span>",
+        "text": "Nastavení souborů cookies"
+      },
+      {
+        "fontSize": 14.3,
+        "fontWeight": 700,
+        "snippet": "<span onclick=\"openPrivacyPolicyModal()\" class=\"cookiesMoreInfo\">Více o GDPR a Cookies</span>",
+        "text": "Více o GDPR a Cookies"
+      },
+      {
+        "fontSize": 14.3,
+        "fontWeight": 700,
+        "snippet": "<span>Rozumím</span>",
+        "text": "Rozumím"
+      },
+      {
+        "fontSize": 14.3,
+        "fontWeight": 700,
+        "snippet": "<span>Přizpůsobit nastavení</span>",
+        "text": "Přizpůsobit nastavení"
+      },
+      {
+        "fontSize": 14.3,
+        "fontWeight": 700,
+        "snippet": "<span>Odmítnout vše</span>",
+        "text": "Odmítnout vše"
+      }
+    ],
+    "headings": 4
+  }
+}

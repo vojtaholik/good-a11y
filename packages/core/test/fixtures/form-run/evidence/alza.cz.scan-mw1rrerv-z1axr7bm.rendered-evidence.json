@@ -1,0 +1,84 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form class=\"flex! w-full items-start gap-2 large:w-auto\"><div class=\"relative w-full self-center large:w-auto large:min-w-[413px]!\" data-slot=\"text-input-wrapper\"><div class=\"absolute top-1/2 left-3 "
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [],
+        "blockedCount": 0,
+        "errors": {
+          "invalid": [],
+          "messages": []
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "cs-CZ"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": -1,
+        "label": "",
+        "nearby": "Hledat",
+        "placeholder": "Co hledáte? Např. kabel AlzaPower...",
+        "required": false,
+        "snippet": "<input class=\"header-alz-xigua8-63 default-placeholder\" placeholder=\"Co hledáte? Např. kabel AlzaPower...\" type=\"text\" role=\"combobox\" aria-controls=\"search-whisperer\" aria-expanded=\"false\" aria-haspo",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "",
+        "nearby": "Odeslat",
+        "placeholder": "Napište zprávu...",
+        "required": false,
+        "snippet": "<input type=\"text\" id=\":R1klikq:\" disabled=\"\" placeholder=\"Napište zprávu...\" class=\"w-full rounded-normal border px-3 py-2 transition border-semantic-border-neutral bg-semantic-background-primary hov",
+        "type": "text"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 14,
+    "candidates": [
+      {
+        "fontSize": 24,
+        "fontWeight": 700,
+        "snippet": "<span class=\"text-headline-h1 text-semantic-text-headline-neutral\">S čím vám můžeme pomoci?</span>",
+        "text": "S čím vám můžeme pomoci?"
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 700,
+        "snippet": "<span class=\"mb-0 text-headline-h2 text-semantic-text-headline-neutral\">Nejčastější dotazy</span>",
+        "text": "Nejčastější dotazy"
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 700,
+        "snippet": "<span class=\"mb-0 text-headline-h2 text-semantic-text-headline-neutral\">S čím potřebujete poradit?</span>",
+        "text": "S čím potřebujete poradit?"
+      },
+      {
+        "fontSize": 20,
+        "fontWeight": 700,
+        "snippet": "<span class=\"cookies-info__heading\" id=\"cookies-info-heading\">Zkuste naše cookies</span>",
+        "text": "Zkuste naše cookies"
+      }
+    ],
+    "headings": 0
+  }
+}

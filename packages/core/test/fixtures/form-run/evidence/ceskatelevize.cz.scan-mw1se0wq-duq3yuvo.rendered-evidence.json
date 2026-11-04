@@ -1,0 +1,171 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form class=\"dxk0kk0 dxk0kk6 dxk0kk1\"><input aria-label=\"Hledat\" class=\"dxk0kk7 dxk0kkb dxk0kkc\" data-testid=\"search-input\" id=\"search-input\" minlength=\"0\" placeholder=\"Hledat...\" role=\"searchbox\" typ"
+      },
+      {
+        "index": 1,
+        "skipped": null,
+        "snippet": "<form data-sentry-element=\"Form\" data-sentry-source-file=\"GlobalContactForm.tsx\" novalidate=\"\"><div role=\"alert\"></div><div class=\"_1f2893o3\"><div style=\"margin-bottom:var(--_19mrhaa1q)\" data-sentry-c"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [],
+        "blockedCount": 0,
+        "errors": {
+          "invalid": [],
+          "messages": []
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      },
+      {
+        "blocked": ["https://spir.hit.gemius.pl/_1793776811581/redot.js"],
+        "blockedCount": 1,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": true,
+              "describedBy": "Zadejte jméno a příjmení",
+              "label": "Jméno a příjmení *",
+              "native": null,
+              "snippet": "<input aria-invalid=\"true\" class=\"ezh6b35 ezh6b37 ezh6b3a\" id=\"name\" autocomplete=\"name\" data-sentry-element=\"Input\" data-sentry-source-file=\"FormInput.tsx\" name=\"name\" aria-describedby=\"default-helpe"
+            },
+            {
+              "ariaInvalid": true,
+              "describedBy": "",
+              "label": "Co vás zajímá? *",
+              "native": null,
+              "snippet": "<select class=\"g65q210 ezh6b35 ezh6b37 ezh6b38\" id=\"interest\" name=\"interest\" data-sentry-element=\"Select\" data-sentry-source-file=\"FormSelect.tsx\" aria-invalid=\"true\"><option disabled=\"\" value=\"\" sel"
+            },
+            {
+              "ariaInvalid": true,
+              "describedBy": "Zadejte jméno a příjmení",
+              "label": "E-mail *",
+              "native": null,
+              "snippet": "<input aria-invalid=\"true\" class=\"ezh6b35 ezh6b37 ezh6b3a\" id=\"email\" autocomplete=\"email\" data-sentry-element=\"Input\" data-sentry-source-file=\"FormInput.tsx\" name=\"email\" aria-describedby=\"default-he"
+            },
+            {
+              "ariaInvalid": true,
+              "describedBy": "Napište Vaši zprávu",
+              "label": "Zpráva nebo dotaz*",
+              "native": null,
+              "snippet": "<textarea aria-invalid=\"true\" class=\"ctfo_1iunjn43 ctfo_1iunjn44 ctfo_12h03eh0 _1f2893ob showValidity focus-visible\" aria-describedby=\"error-message\" id=\"message\" name=\"message\" data-focus-visible-add"
+            },
+            {
+              "ariaInvalid": true,
+              "describedBy": "",
+              "label": "Souhlasím se zpracováním osobních údajů",
+              "native": null,
+              "snippet": "<input aria-invalid=\"true\" class=\"ezh6b3i\" type=\"checkbox\" id=\"gdpr\" name=\"gdpr\">"
+            }
+          ],
+          "messages": []
+        },
+        "index": 1,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [
+      {
+        "guess": "pt",
+        "hits": 3,
+        "lang": "cs",
+        "snippet": "<p class=\"_1ho972u3\">Informace o provozu podatelny a podmínkách přijímání dokumentů&nbsp;do&nbsp;České televize</p>",
+        "text": "Informace o provozu podatelny a podmínkách přijímání dokumentů do České televize"
+      }
+    ],
+    "pageLang": "cs"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Hledat",
+        "nearby": "ČTŽivé vysíláníTV programPočasíTeletextE-shopVše o ČTTV poplatkyKontakty",
+        "placeholder": "Hledat...",
+        "required": false,
+        "snippet": "<input aria-label=\"Hledat\" class=\"dxk0kk7 dxk0kkb dxk0kkd\" data-testid=\"search-input\" id=\"search-input\" minlength=\"0\" placeholder=\"Hledat...\" role=\"searchbox\" type=\"text\" value=\"\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Jméno a příjmení *",
+        "nearby": "",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input aria-invalid=\"false\" class=\"ezh6b35 ezh6b36 ezh6b38\" id=\"name\" autocomplete=\"name\" data-sentry-element=\"Input\" data-sentry-source-file=\"FormInput.tsx\" name=\"name\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Co vás zajímá? *",
+        "nearby": "Vyberte témaZpětná vazbaNámět na reportáž - zpravodajstvíNámět na reportáž - obecnéPřipomínka k pořaduTechnické potížeJiné",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<select class=\"g65q210 ezh6b35 ezh6b36 ezh6b38\" id=\"interest\" name=\"interest\" data-sentry-element=\"Select\" data-sentry-source-file=\"FormSelect.tsx\" aria-invalid=\"false\"><option disabled=\"\" value=\"\" se",
+        "type": "select"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Telefon",
+        "nearby": "",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input aria-invalid=\"false\" class=\"ezh6b35 ezh6b36 ezh6b38\" id=\"phone\" autocomplete=\"tel\" data-sentry-element=\"Input\" data-sentry-source-file=\"FormInput.tsx\" name=\"phone\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "E-mail *",
+        "nearby": "",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input aria-invalid=\"false\" class=\"ezh6b35 ezh6b36 ezh6b38\" id=\"email\" autocomplete=\"email\" data-sentry-element=\"Input\" data-sentry-source-file=\"FormInput.tsx\" name=\"email\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Zpráva nebo dotaz*",
+        "nearby": "",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<textarea aria-invalid=\"false\" class=\"ctfo_1iunjn43 ctfo_1iunjn44 ctfo_12h03eh0 _1f2893ob\" aria-describedby=\"error-message\" id=\"message\" name=\"message\"></textarea>",
+        "type": "textarea"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "",
+        "nearby": "Zde můžete vložit přílohuPřijímáme všechny přílohy typu JPG, PNG, PDF, DOC, DOCX do velikosti 1 MB.",
+        "placeholder": "",
+        "required": false,
+        "snippet": "<input type=\"file\" accept=\".doc,.png,.jpg,.jpeg,.docx,.pdf\" name=\"attachement\">",
+        "type": "file"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 18,
+    "candidates": [],
+    "headings": 18
+  }
+}

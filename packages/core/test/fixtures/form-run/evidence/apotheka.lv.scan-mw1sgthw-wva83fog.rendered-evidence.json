@@ -1,0 +1,99 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "search",
+        "snippet": "<form class=\"search\" action=\"https://www.apotheka.lv/catalogsearch/result/\" method=\"get\" role=\"search\"><div class=\"search__inner\" tabindex=\"0\"><div class=\"search__input\" role=\"search\"><input aria-labe"
+      },
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form method=\"post\" class=\"frame-epharma__footer__form\"><h2>Sazināties ar mums</h2><p>Šis lauks ir jāaizpilda obligāti</p><input type=\"hidden\" name=\"form_key\" value=\"6XHA24er8vSMEwOx\"><div class=\"form"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [],
+        "blockedCount": 0,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": false,
+              "describedBy": "",
+              "label": "Ieraksti šeit savu jautājumu*",
+              "native": "Please fill out this field.",
+              "snippet": "<textarea class=\"control-textarea-textarea\" required=\"\" spellcheck=\"false\" name=\"comment\" id=\"comment\" rows=\"1\" style=\"height: 86px !important;\"></textarea>"
+            }
+          ],
+          "messages": [
+            {
+              "inForm": false,
+              "live": false,
+              "snippet": "<button class=\"menu-toggle\"><img src=\"https://www.apotheka.lv/static/version12345/frontend/Opus/apotheka/lv_LV/images/icon_menu.svg\" alt=\"Izvēlne\">Izvēlne</button>",
+              "text": "Izvēlne"
+            }
+          ]
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "lv"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Meklēt",
+        "nearby": "",
+        "placeholder": "produkts, aktīvā viela, produktu grupa, atslēgvārds, …",
+        "required": false,
+        "snippet": "<input aria-label=\"Meklēt\" type=\"text\" autocomplete=\"off\" name=\"q\" placeholder=\"produkts, aktīvā viela, produktu grupa, atslēgvārds, …\" data-testid=\"header-search-input\" value=\"\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Vārds*",
+        "nearby": "",
+        "placeholder": "",
+        "required": true,
+        "snippet": "<input class=\"control-input-input\" type=\"text\" spellcheck=\"false\" aria-required=\"true\" autocomplete=\"nope\" name=\"name\" id=\"name\" value=\"\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "E-pasts*",
+        "nearby": "",
+        "placeholder": "",
+        "required": true,
+        "snippet": "<input class=\"control-input-input\" type=\"text\" spellcheck=\"false\" aria-required=\"true\" autocomplete=\"nope\" name=\"email\" id=\"email\" value=\"\">",
+        "type": "text"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Ieraksti šeit savu jautājumu*",
+        "nearby": "",
+        "placeholder": "",
+        "required": true,
+        "snippet": "<textarea class=\"control-textarea-textarea\" required=\"\" spellcheck=\"false\" name=\"comment\" id=\"comment\" rows=\"1\" style=\"height: 86px !important;\"></textarea>",
+        "type": "textarea"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [],
+    "headings": 13
+  }
+}

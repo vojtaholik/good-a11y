@@ -1,0 +1,52 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "no_fields",
+        "snippet": "<form class=\"dbKUuG_root\" method=\"post\"><div class=\"dbKUuG_compact\" data-testid=\"navigation-search\"><input id=\"navigation-search-input\" autocomplete=\"off\" class=\"dbKUuG_input\" placeholder=\"Waar ben je"
+      }
+    ],
+    "submissions": []
+  },
+  "foreignBlocks": {
+    "blocks": [],
+    "pageLang": "nl-NL"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "Waar ben je naar op zoek?",
+        "nearby": "",
+        "placeholder": "Waar ben je naar op zoek?",
+        "required": false,
+        "snippet": "<input id=\"navigation-search-input\" autocomplete=\"off\" class=\"dbKUuG_input\" placeholder=\"Waar ben je naar op zoek?\" aria-label=\"Waar ben je naar op zoek?\" type=\"search\" value=\"\">",
+        "type": "search"
+      },
+      {
+        "describedBy": "",
+        "form": -1,
+        "label": "Typ je vraag of bericht...",
+        "nearby": "",
+        "placeholder": "Typ je vraag of bericht...",
+        "required": false,
+        "snippet": "<textarea class=\"mORILW_textArea mORILW_scopedTypography mORILW_nativeFieldSizing\" rows=\"1\" id=\"textarea\" aria-label=\"Typ je vraag of bericht...\" aria-required=\"false\" placeholder=\"Typ je vraag of ber",
+        "type": "textarea"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<div class=\"Ep1DxG_root\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" height=\"24\" width=\"24\" fill=\"currentColor\" class=\"Ep1DxG_icon\"><path d=\"M23 12a11 11 0 1 1-22 0 11 11 0 0 1 22 0m-1",
+        "text": "Kies een bestand kleiner dan 10 MB"
+      }
+    ],
+    "headings": 10
+  }
+}

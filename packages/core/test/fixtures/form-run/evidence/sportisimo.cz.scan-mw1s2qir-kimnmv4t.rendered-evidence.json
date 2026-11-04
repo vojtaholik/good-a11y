@@ -1,0 +1,231 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": -1,
+        "skipped": "search",
+        "snippet": "<form class=\"zwa-form\" data-z-autocomplete=\"\" data-z-search-component-root=\"\" data-z-search-id=\"z-search-autocomplete-results\" data-z-data=\"{&quot;zType&quot;:&quot;Z_SEARCH_AUTOCOMPLETE_RESULTS&quot;"
+      },
+      {
+        "index": -1,
+        "skipped": "no_fields",
+        "snippet": "<form id=\"order-search-component-form\" class=\"relative flex_middle\" action=\"https://www.sportisimo.cz/vyhledani-objednavky/\" method=\"post\">\n    <div class=\"search-form__input\">\n      <div id=\"order-se"
+      },
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form action=\"https://www.sportisimo.cz/odber-novinek/?footer=1&amp;form_id=newsletter_bottom\" method=\"post\" class=\"footer__newsletter\">\n<div class=\"form-field mb-0\" id=\"form_field_newsletter_subscrip"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [
+          "https://www.google.com/recaptcha/api2/reload",
+          "https://www.google.com/recaptcha/api2/clr",
+          "https://sem.seznam.cz/rtgconv",
+          "https://www.sportisimo.cz/odber-novinek/",
+          "https://www.google.com/recaptcha/api2/clr"
+        ],
+        "blockedCount": 7,
+        "errors": {
+          "invalid": [],
+          "messages": []
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [
+      {
+        "guess": "pl",
+        "hits": 6,
+        "lang": "cs",
+        "snippet": "<p style=\"text-align: left;\">Buďte v klidu. Všechny dárky zakoupené na e-shopu nebo na prodejně od 1. 11. do 24. 12. 2026 můžete nepoužité a nepoškozené vyměnit/vrátit minimálně do konce ledna 2027. Č",
+        "text": "Buďte v klidu. Všechny dárky zakoupené na e-shopu nebo na prodejně od 1. 11. do 24. 12. 2026 můžete nepoužité a nepoškozené vyměnit/vrátit minimálně do konce ledna 2027. Členové Sportisimo Klubu mají na vše čas vždy 90 dní od nákupu, takže klidně i po tomto termínu."
+      },
+      {
+        "guess": "pl",
+        "hits": 3,
+        "lang": "cs",
+        "snippet": "<li><strong>Nákup z e-shopu </strong>můžete vyměnit/vrátit zasláním na naši adresu i na prodejně.</li>",
+        "text": "Nákup z e-shopu můžete vyměnit/vrátit zasláním na naši adresu i na prodejně."
+      }
+    ],
+    "pageLang": "cs"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 0,
+        "label": "",
+        "nearby": "Hledat",
+        "placeholder": "Hledat sport, boty, oblečení...",
+        "required": false,
+        "snippet": "<input type=\"search\" name=\"q\" id=\"header_search_q\" data-sm_input=\"{}\" value=\"\" placeholder=\"Hledat sport, boty, oblečení...\" maxlength=\"100\" autocomplete=\"off\" data-sm_input-initialized=\"\">",
+        "type": "search"
+      },
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Vyhledávání produktů Vyhledávání produktů",
+        "nearby": "Hledat",
+        "placeholder": "po",
+        "required": false,
+        "snippet": "<input class=\"zwa-input\" aria-autocomplete=\"both\" aria-labelledby=\"z-search-autocomplete-results-label\" id=\"z-search-autocomplete-results-input\" autocomplete=\"off\" autocorrect=\"off\" autocapitalize=\"of",
+        "type": "search"
+      },
+      {
+        "describedBy": "",
+        "form": 2,
+        "label": "",
+        "nearby": "",
+        "placeholder": "Číslo objednávky, e-mail, telefonní číslo",
+        "required": false,
+        "snippet": "<input type=\"search\" id=\"order-search-component-input\" name=\"search\" value=\"\" placeholder=\"Číslo objednávky, e-mail, telefonní číslo\" maxlength=\"100\" autocomplete=\"off\">",
+        "type": "search"
+      },
+      {
+        "describedBy": "",
+        "form": 3,
+        "label": "",
+        "nearby": "Odebírat novinky Přihlášením k odběru novinek souhlasíte se zpracováním osobních údajů.",
+        "placeholder": "Váš email",
+        "required": true,
+        "snippet": "<input type=\"text\" name=\"newsletter_subscription_email\" value=\"\" class=\"input\" id=\"newsletter_subscription_email-newsletter_bottom\" aria-describedby=\"newsletter_subscription_email-newsletter_bottom_er",
+        "type": "text"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 14,
+    "candidates": [
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>Možnost vrácení minimálně do 31. 1. 2027</strong>",
+        "text": "Možnost vrácení minimálně do 31. 1. 2027"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<strong>Kontakt na společnost</strong>",
+        "text": "Kontakt na společnost"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Ivana</div>",
+        "text": "Ivana"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Marta</div>",
+        "text": "Marta"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Pavla</div>",
+        "text": "Pavla"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Pavel</div>",
+        "text": "Pavel"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">jana</div>",
+        "text": "jana"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Jaromír</div>",
+        "text": "Jaromír"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Miloš</div>",
+        "text": "Miloš"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Jana</div>",
+        "text": "Jana"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Petr</div>",
+        "text": "Petr"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Jiří</div>",
+        "text": "Jiří"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Milan</div>",
+        "text": "Milan"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Hana</div>",
+        "text": "Hana"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Romana</div>",
+        "text": "Romana"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">jirina</div>",
+        "text": "jirina"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Ladislav Štefek</div>",
+        "text": "Ladislav Štefek"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Eva</div>",
+        "text": "Eva"
+      },
+      {
+        "fontSize": 14,
+        "fontWeight": 600,
+        "snippet": "<div class=\"heureka-component__review-author\">Vítěslava </div>",
+        "text": "Vítěslava"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 600,
+        "snippet": "<p>Zvolte svou zemi:</p>",
+        "text": "Zvolte svou zemi:"
+      }
+    ],
+    "headings": 22
+  }
+}

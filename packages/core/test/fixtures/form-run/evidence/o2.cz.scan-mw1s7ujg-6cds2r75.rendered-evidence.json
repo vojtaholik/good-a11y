@@ -1,0 +1,148 @@
+{
+  "emptySubmits": {
+    "forms": [
+      {
+        "index": 0,
+        "skipped": null,
+        "snippet": "<form class=\"d3-page-image__form d3-update js-d3-form d3-update--initialized js-d3-form--initialized\" method=\"POST\" data-d3update-url=\"/osobni/kontakty$a255431-createLead.xml?cmb_id=cmb-a410651-533&am"
+      },
+      {
+        "index": 1,
+        "skipped": null,
+        "snippet": "<form class=\"d3-call-me-back-item-form d3-update js-d3-form d3-update--initialized js-d3-form--initialized\" method=\"POST\" data-d3update-url=\"/osobni/kontakty$a255431-createLead.xml?cmb_id=cmb-a410651-"
+      }
+    ],
+    "submissions": [
+      {
+        "blocked": [
+          "https://www.o2.cz/osobni/kontakty$a255431-createLead.xml",
+          "https://www.o2.cz/osobni/-a310083"
+        ],
+        "blockedCount": 2,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": true,
+              "describedBy": "Toto pole je povinné.",
+              "label": "Telefonní číslo Telefonní číslo",
+              "native": "Please fill out this field.",
+              "snippet": "<input type=\"tel\" required=\"\" id=\"cmb-a410651-533-msisdn\" class=\"js3-cmb-msisdn d3-typo--size-2 js-d3-input-focus--initialized\" name=\"msisdn\" value=\"\" placeholder=\"Vaše telefonní číslo\" aria-label=\"Te"
+            }
+          ],
+          "messages": [
+            {
+              "inForm": true,
+              "live": false,
+              "snippet": "<p>Toto pole je povinné.</p>",
+              "text": "Toto pole je povinné."
+            }
+          ]
+        },
+        "index": 0,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      },
+      {
+        "blocked": [
+          "https://www.o2.cz/osobni/kontakty$a255431-createLead.xml",
+          "https://dynamic.o2.cz/probe-request"
+        ],
+        "blockedCount": 2,
+        "errors": {
+          "invalid": [
+            {
+              "ariaInvalid": true,
+              "describedBy": "Toto pole je povinné.",
+              "label": "Telefonní číslo Telefonní číslo",
+              "native": "Please fill out this field.",
+              "snippet": "<input type=\"tel\" required=\"\" id=\"cmb-a410651-2017-msisdn\" class=\"js3-cmb-msisdn d3-typo--size-2 js-d3-input-focus--initialized\" name=\"msisdn\" value=\"\" placeholder=\"Vaše telefonní číslo\" aria-label=\"T"
+            }
+          ],
+          "messages": []
+        },
+        "index": 1,
+        "left": false,
+        "submitted": {
+          "submitted": true
+        }
+      }
+    ]
+  },
+  "foreignBlocks": {
+    "blocks": [
+      {
+        "guess": "pt",
+        "hits": 3,
+        "lang": "cs",
+        "snippet": "<p data-cmb-match-of=\"subheadline\">Provozní doba O₂&nbsp;linky je od&nbsp;8:00 do&nbsp;19:00, nejvíc volných operátorů máme mezi 12:00 a&nbsp;16:00.</p>",
+        "text": "Provozní doba O₂ linky je od 8:00 do 19:00, nejvíc volných operátorů máme mezi 12:00 a 16:00."
+      },
+      {
+        "guess": "pt",
+        "hits": 6,
+        "lang": "cs",
+        "snippet": "<li data-exponea=\"2-boxes-1\">\n        <article class=\"d3-two-boxes__item\">\n            <div class=\"d3-two-boxes__inner\">\n\t\t\t\t<div class=\"d3-two-boxes__content\" style=\"height: 219px;\">\n\t\t\t\t\t<h3 class=\"",
+        "text": "Vše si pohodlně vyřešíte v aplikaci Moje O₂ Platby vyúčtování, změny a nákup služeb a spoustu dalšího vyřídíte přímo v Moje O₂. Včetně prioritního volání Přejít do Moje O₂"
+      },
+      {
+        "guess": "pt",
+        "hits": 3,
+        "lang": "cs",
+        "snippet": "<p>Platby vyúčtování, změny a&nbsp;nákup služeb&nbsp;a&nbsp;spoustu dalšího vyřídíte&nbsp;přímo v&nbsp;Moje&nbsp;O₂. Včetně prioritního volání</p>",
+        "text": "Platby vyúčtování, změny a nákup služeb a spoustu dalšího vyřídíte přímo v Moje O₂. Včetně prioritního volání"
+      },
+      {
+        "guess": "pt",
+        "hits": 3,
+        "lang": "cs",
+        "snippet": "<p>Provozní doba O₂&nbsp;linky je od 8:00 do 19:00, nejvíc volných operátorů máme mezi 12:00 a 16:00.</p>",
+        "text": "Provozní doba O₂ linky je od 8:00 do 19:00, nejvíc volných operátorů máme mezi 12:00 a 16:00."
+      }
+    ],
+    "pageLang": "cs"
+  },
+  "formInstructions": {
+    "fields": [
+      {
+        "describedBy": "",
+        "form": 1,
+        "label": "Telefonní číslo Telefonní číslo",
+        "nearby": "Telefonní číslo",
+        "placeholder": "Vaše telefonní číslo",
+        "required": true,
+        "snippet": "<input type=\"tel\" required=\"\" id=\"cmb-a410651-533-msisdn\" class=\"js3-cmb-msisdn d3-typo--size-2 js-d3-input-focus--initialized\" name=\"msisdn\" value=\"\" placeholder=\"Vaše telefonní číslo\" aria-label=\"Te",
+        "type": "tel"
+      },
+      {
+        "describedBy": "",
+        "form": 2,
+        "label": "Telefonní číslo Telefonní číslo",
+        "nearby": "Telefonní číslo",
+        "placeholder": "Vaše telefonní číslo",
+        "required": true,
+        "snippet": "<input type=\"tel\" required=\"\" id=\"cmb-a410651-2017-msisdn\" class=\"js3-cmb-msisdn d3-typo--size-2 js-d3-input-focus--initialized\" name=\"msisdn\" value=\"\" placeholder=\"Vaše telefonní číslo\" aria-label=\"T",
+        "type": "tel"
+      }
+    ]
+  },
+  "visualHeadings": {
+    "bodyFontSize": 16,
+    "candidates": [
+      {
+        "fontSize": 106,
+        "fontWeight": 700,
+        "snippet": "<span class=\"o3-footer__hero-text\">Více ze&nbsp;života</span>",
+        "text": "Více ze života"
+      },
+      {
+        "fontSize": 16,
+        "fontWeight": 700,
+        "snippet": "<span>Speciální nabídka</span>",
+        "text": "Speciální nabídka"
+      }
+    ],
+    "headings": 18
+  }
+}
