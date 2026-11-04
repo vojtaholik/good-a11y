@@ -254,3 +254,7 @@ Still open: R2-M1, R2-M2, R2-L2.
 - **R2-L2 fixed in code.** The evidence bucket has a 30-day `Age` lifecycle rule, and the crawl stores only the evidence JSON of each crawled page, no HTML body. The rule takes effect on the next dev deploy. I have not checked the deployed bucket.
 
 All round 2 findings except R2-M1 are closed. R2-M1 stays open as a cost item: the empty submits are contained (R2-H1) but feed no shown check.
+
+### Round 2 re-check 6 (08:25 CET) of 250dec1
+
+**R2-L6 (new, Low). The calibrator's cap can now be set to any value.** `apps/scanner/src/calibrator.ts` reads `Config.Int("CALIBRATION_JUDGE_TOKENS")` with the 100,000 share as default. Alchemy binds a `Config` value read while the Stack is built into the Worker's env (`alchemy/src/Runtime.ts`, `reifyBoundConfigProvider`), so a value in the shell or `.env.local` reaches the calibrator under `alchemy dev`. Nothing bounds it, and `.env.schema` declares it as a plain `number`. One `CALIBRATION_JUDGE_TOKENS=1000000` for a big calibration batch lets that day's calibration plus prod (250,000) plus dev (50,000) pass the ~458,000-token free allocation. That undoes the account ceiling R2-M2 just set up, and Workers AI then bills. Fix: clamp the override to the share left under the ceiling (`Math.min(value, 458_000 - PRODUCTION_JUDGE_TOKENS - STAGE_JUDGE_TOKENS)`), or drop the override and run a larger batch over two UTC days.
