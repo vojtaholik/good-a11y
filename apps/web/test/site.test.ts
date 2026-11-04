@@ -73,6 +73,11 @@ describe("the site for agents", () => {
       );
       expect(body).toContain("Accessibility guides for coding agents</h1>");
       expect(body).toContain("data-foldkit-app");
+      expect(body).toContain(
+        `<meta property="og:image" content="${ORIGIN}/assets/og.png"`
+      );
+      expect(body).toContain('<script type="application/ld+json">');
+      expect(body).toContain('"@type":"SoftwareApplication"');
       expect(body).toContain(`href="/guides/${firstGuide?.id ?? ""}"`);
     })
   );
@@ -108,6 +113,7 @@ describe("the site for agents", () => {
       );
 
       expect(llms.body.startsWith("# good-a11y\n\n> ")).toBe(true);
+      expect(llms.body).toContain("## When to use");
       expect(skill.response.headers.get("content-type")).toContain(MARKDOWN);
       expect(skill.body).toContain("name: good-a11y");
 
@@ -120,6 +126,25 @@ describe("the site for agents", () => {
 
       expect(reference.body).toContain(`# ${firstGuide?.name ?? ""}`);
     })
+  );
+
+  it.effect(
+    "lists every indexable page in the sitemap, named by robots.txt",
+    () =>
+      Effect.gen(function* sitemap() {
+        const map = yield* get("/sitemap.xml");
+        const robots = yield* get("/robots.txt");
+
+        expect(map.response.headers.get("content-type")).toContain("xml");
+        expect(map.body).toContain(`<loc>${ORIGIN}/</loc>`);
+        expect(map.body).toContain(`<loc>${ORIGIN}/check</loc>`);
+
+        for (const guide of GUIDES) {
+          expect(map.body).toContain(`<loc>${ORIGIN}/guides/${guide.id}</loc>`);
+        }
+
+        expect(robots.body).toContain(`Sitemap: ${ORIGIN}/sitemap.xml`);
+      })
   );
 
   it.effect("serves a demo sandboxed, framed only by the site", () =>

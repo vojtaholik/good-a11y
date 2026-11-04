@@ -162,6 +162,16 @@ export const llmsTxt = (origin: string): string =>
     "",
     `Every page is also served as Markdown: send \`Accept: text/markdown\`. Agents run the guides and the checker locally with \`${CLI}\`.`,
     "",
+    "## When to use",
+    "",
+    "Use good-a11y before you write or change UI: forms and validation, dialogs and popovers, menus, tabs, accordions, comboboxes, custom selects, navigation and skip links, route changes in single-page apps, toasts and status messages, icon buttons, focus styles, motion and images, in any framework.",
+    "",
+    `1. \`${CLI} search "<2-5 words>"\` finds the guide for the task, for example \`search "modal dialog focus"\`.`,
+    `2. \`${CLI} retrieve <id>\` prints it. Follow every DO and DO NOT while you build.`,
+    `3. \`${CLI} check <url>\` checks your running page, localhost included, in your own Chrome. Fix each issue with the guide it names, then check again.`,
+    "",
+    "Do not use it for backend code, build configuration, or copy edits that add no markup.",
+    "",
     "## Agents",
     "",
     `- [good-a11y skill](${origin}${SKILL_PATH}): triggers and the search, retrieve, build and check loop`,
@@ -175,3 +185,21 @@ export const llmsTxt = (origin: string): string =>
     ),
     "",
   ].join("\n");
+
+export const sitemapXml = (origin: string): string =>
+  [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...[
+      "/",
+      "/check",
+      ...GUIDES.map((guide) => guideRouter({ guideId: guide.id })),
+    ].map((path) => `  <url><loc>${origin}${path}</loc></url>`),
+    "</urlset>",
+    "",
+  ].join("\n");
+
+export const robotsTxt = (origin: string): string =>
+  ["User-agent: *", "Allow: /", "", `Sitemap: ${origin}/sitemap.xml`, ""].join(
+    "\n"
+  );

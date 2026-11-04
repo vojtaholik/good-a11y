@@ -7,7 +7,14 @@ import skill from "../../../../skills/good-a11y/SKILL.md?raw";
 import { pageMetaOf } from "../features/page-meta.js";
 import { AppRoute, parseRoute } from "../features/route.js";
 import { SKILL_PATH } from "../features/view.js";
-import { guideMarkdown, guideOf, llmsTxt, pageMarkdown } from "./markdown.js";
+import {
+  guideMarkdown,
+  guideOf,
+  llmsTxt,
+  pageMarkdown,
+  robotsTxt,
+  sitemapXml,
+} from "./markdown.js";
 import { isMissing, renderPage, scanOf, withPageMeta } from "./render.js";
 import type { BackendFetch } from "./rpc.js";
 
@@ -105,6 +112,17 @@ const agentFile = (url: URL): Response | null => {
     return textResponse(llmsTxt(url.origin), "text/plain; charset=utf-8");
   }
 
+  if (url.pathname === "/sitemap.xml") {
+    return textResponse(
+      sitemapXml(url.origin),
+      "application/xml; charset=utf-8"
+    );
+  }
+
+  if (url.pathname === "/robots.txt") {
+    return textResponse(robotsTxt(url.origin), "text/plain; charset=utf-8");
+  }
+
   if (url.pathname === SKILL_PATH) {
     return textResponse(skillMarkdown(url.origin), MARKDOWN);
   }
@@ -167,7 +185,12 @@ export const siteHandler =
 
     const shell = await assets(new Request(new URL("/", url.origin)));
 
-    const template = withPageMeta(await shell.text(), pageMetaOf(route));
+    const template = withPageMeta(
+      await shell.text(),
+      pageMetaOf(route),
+      route,
+      url.origin
+    );
 
     return await Server.handleRequest(request, {
       // @effect-diagnostics-next-line asyncFunction:off -- Foldkit's server entry is a Promise boundary.

@@ -14,6 +14,7 @@ Built 2026-11-04 by check for decision 11 of the good-a11y brief. `apps/web` is 
 | `/llms.txt` | none | The site and every guide |
 | `/skills/good-a11y/SKILL.md` | none | `skills/good-a11y/SKILL.md` with a References list |
 | `/skills/good-a11y/references/<id>.md` | none | The guide, as the guide page's Markdown |
+| `/sitemap.xml`, `/robots.txt` | none | `/`, `/check` and every guide; robots allows all and names the sitemap |
 
 Unknown paths and unknown guides answer 404 in both forms. Reports carry `robots: noindex` and `cache-control: no-store`; the other pages are cached for five minutes.
 
@@ -25,6 +26,8 @@ Unknown paths and unknown guides answer 404 in both forms. Reports carry `robots
 2. `server/site.ts` answers the agent files and demos.
 3. A GET or HEAD whose `Accept` prefers `text/markdown` over `text/html` gets Markdown (`server/markdown.ts`), with `Vary: Accept`.
 4. Anything else is rendered: the built `index.html` comes from the `ASSETS` binding, `withPageMeta` fills its description, Open Graph and robots tags from `pageMetaOf(route)`, and Foldkit's `Server.handleRequest` places `Server.renderToString` output into it. `lang`, `<title>`, `canonical` and `og:url` come from the view's `Document`.
+
+The home page also carries `WebSite` and `SoftwareApplication` JSON-LD, and every page `og:image` (`public/assets/og.png`, 1200×630, made once from an HTML card in Chrome).
 
 On a report route the Worker reads the scan from the scanner over the service binding (`server/read-scan.ts`, the same RPC group as the browser) and passes it in the Flags, so the server-rendered page and its Markdown hold the report. The browser hydrates from those Flags (`Runtime.hydrate`) and polls only while the scan runs.
 
@@ -44,3 +47,11 @@ On a report route the Worker reads the scan from the scanner over the service bi
 
 - `apps/web/test/site.test.ts`: the server-rendered start page and its metadata, Markdown for every route, `llms.txt` and the skill naming every guide, the demo's CSP, 404s, and the `Accept` negotiation.
 - `apps/web/test/own-page.test.ts`: our own checks pass on the start page, `/check`, every guide page and the report.
+
+## is-agentic
+
+Measured with is-agentic.com's public report API on the dev URL, 2026-11-04 (`GET https://is-agentic.com/api/v1/report?url=…`; a scan starts from the site's `/scan/<host>` page in a browser).
+
+- First scan: **90**. Essential 80 of 80 (6 of 6 checks pass), recommended 7 of 20, bonus 2.5. Failed: JSON-LD, agent when-to-use, sitemap, Organization schema, trust pages (About, Contact, Privacy), brand search; partial: `og:image` missing.
+- Fixed since: JSON-LD, the "When to use" section in `llms.txt`, `sitemap.xml` and `robots.txt`, `og:image`.
+- Left for Vojta, as proposals: Organization schema needs a real contact point and postal address; trust pages need real About, Contact and Privacy text (the contact is hidden by decision 2, and a privacy page states what the scanner stores); brand search needs the domain (decision 12).

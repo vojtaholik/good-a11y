@@ -4,6 +4,7 @@ import { Server } from "foldkit/experimental";
 
 import { Flags } from "../client/model.js";
 import { guidePageOf } from "../features/guides.js";
+import { SITE_NAME } from "../features/page-meta.js";
 import type { PageMeta } from "../features/page-meta.js";
 import { AppRoute } from "../features/route.js";
 import type { AppRouteState } from "../features/route.js";
@@ -31,7 +32,35 @@ const withContent = (
       `${start}${escapeAttribute(value)}${end}`
   );
 
-export const withPageMeta = (template: string, meta: PageMeta): string => {
+export const OG_IMAGE_PATH = "/assets/og.png";
+
+const jsonLdOf = (origin: string, meta: PageMeta): string =>
+  JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        description: meta.description,
+        name: SITE_NAME,
+        url: `${origin}/`,
+      },
+      {
+        "@type": "SoftwareApplication",
+        applicationCategory: "DeveloperApplication",
+        description: meta.description,
+        name: SITE_NAME,
+        operatingSystem: "Any",
+        url: `${origin}/`,
+      },
+    ],
+  }).replaceAll("<", "\\u003c");
+
+export const withPageMeta = (
+  template: string,
+  meta: PageMeta,
+  route: AppRouteState,
+  origin: string
+): string => {
   const described = withContent(
     template,
     "name",
@@ -48,12 +77,26 @@ export const withPageMeta = (template: string, meta: PageMeta): string => {
     meta.description
   );
 
-  return withContent(
+  const pictured = withContent(
     shared,
+    "property",
+    "og:image",
+    `${origin}${OG_IMAGE_PATH}`
+  );
+
+  const indexed = withContent(
+    pictured,
     "name",
     "robots",
     meta.isIndexed ? "index, follow" : "noindex"
   );
+
+  return Schema.is(AppRoute.Home)(route)
+    ? indexed.replace(
+        "</head>",
+        `<script type="application/ld+json">${jsonLdOf(origin, meta)}</script></head>`
+      )
+    : indexed;
 };
 
 export const isMissing = (route: AppRouteState): boolean =>

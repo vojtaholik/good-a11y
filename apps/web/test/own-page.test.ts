@@ -131,6 +131,8 @@ describe("our own page", () => {
       expect(order.map((index) => index >= 0)).toEqual(order.map(() => true));
       expect(order).toEqual(order.toSorted((left, right) => left - right));
       expect(html).toContain('href="/check#what-we-check"');
+      expect(html).toContain('href="/guides/image-alt"');
+      expect(html).toContain('href="/guides/icon-buttons"');
       expect(html.includes("Send message")).toBe(CONTACT_SHOWN);
       expect(html.includes("studio9")).toBe(CONTACT_SHOWN);
       expect(html.toLowerCase()).not.toContain("compliant");
