@@ -12,6 +12,8 @@ export const CALIBRATION_JUDGE_TOKENS = 100_000;
 
 export const CALIBRATION_JUDGE_TOKENS_NAME = "CALIBRATION_JUDGE_TOKENS";
 
+export const MAX_CALIBRATION_JUDGE_TOKENS = 220_000;
+
 export const dailyJudgeTokens = Stack.useSync(({ stage }) =>
   String(
     stage === PRODUCTION_STAGE ? PRODUCTION_JUDGE_TOKENS : STAGE_JUDGE_TOKENS

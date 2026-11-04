@@ -15,6 +15,7 @@ import * as HttpServerResponse from "effect/http/HttpServerResponse";
 import {
   CALIBRATION_JUDGE_TOKENS,
   CALIBRATION_JUDGE_TOKENS_NAME,
+  MAX_CALIBRATION_JUDGE_TOKENS,
 } from "./judge-limits.js";
 
 export const CALIBRATION_BATCH = 200;
@@ -51,9 +52,11 @@ export default class Calibrator extends Cloudflare.Worker<Calibrator>()(
     const budget = Context.get(stores, JudgeBudget);
     const ai = yield* Cloudflare.Workers.AI();
 
-    const dailyTokens = yield* Config.Int(CALIBRATION_JUDGE_TOKENS_NAME).pipe(
+    const asked = yield* Config.Int(CALIBRATION_JUDGE_TOKENS_NAME).pipe(
       Config.withDefault(CALIBRATION_JUDGE_TOKENS)
     );
+
+    const dailyTokens = Math.min(asked, MAX_CALIBRATION_JUDGE_TOKENS);
 
     const askOnce = (runner: Runner, request: JudgeRequest) =>
       Effect.gen(function* askClef() {
