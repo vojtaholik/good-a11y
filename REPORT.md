@@ -18,11 +18,11 @@ State at 08:50 CET on 2026-11-04, all on `main`, CI green, deployed to stage dev
 
 ## Repo
 
-- https://github.com/vojtaholik/eaa-check (private), `main` pushed after each green layer.
+- https://github.com/vojtaholik/good-a11y (private; renamed from `vojtaholik/eaa-check` on 2026-11-04, the old URL redirects), `main` pushed after each green layer.
 
 ## Deploy URL
 
-- Stage `dev` (non-production, workers.dev): https://eaacheck-website-dev-x6ihepvlvg74r7cg.vojtaholik.workers.dev . Alchemy plan was 5 creates, 0 updates or deletes (Website Worker, Scanner Worker, ScanWorkflow, D1 ScanDatabase, migrations). A scan runs through the XState machine inside the Cloudflare Workflow and the page shows the report.
+- Stage `dev` (non-production, workers.dev), Alchemy stack `GoodA11y` since 2026-11-04: https://gooda11y-website-dev-s2azigohuevma2wl.vojtaholik.workers.dev (canary: https://gooda11y-canary-dev-hrahc5q6lporawvt.vojtaholik.workers.dev). Checked end to end on 2026-11-04 10:33: a gov.uk scan published with the rendered and judged steps run. The old `EaaCheck` dev stack (https://eaacheck-website-dev-x6ihepvlvg74r7cg.vojtaholik.workers.dev) is still up until it is destroyed. At first deploy the Alchemy plan was 5 creates, 0 updates or deletes (Website Worker, Scanner Worker, ScanWorkflow, D1 ScanDatabase, migrations). A scan runs through the XState machine inside the Cloudflare Workflow and the page shows the report.
 
 ## Facts ledger coverage
 

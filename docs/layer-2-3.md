@@ -2,7 +2,7 @@
 
 Built 2026-11-03 by the builder-cloud agent, on top of layer 1 (`docs/layer-1.md`). A visitor pastes an address on a bare Foldkit page; the backend Worker records the scan in D1 and starts one Cloudflare Workflow instance, whose body runs an XState machine; the page polls until the report is published and renders it.
 
-Deployed to the non-production stage `dev`: https://eaacheck-website-dev-x6ihepvlvg74r7cg.vojtaholik.workers.dev
+Deployed to the non-production stage `dev`: https://gooda11y-website-dev-s2azigohuevma2wl.vojtaholik.workers.dev (stack `GoodA11y` since 2026-11-04; before that `EaaCheck` at https://eaacheck-website-dev-x6ihepvlvg74r7cg.vojtaholik.workers.dev)
 
 ## What was built
 
