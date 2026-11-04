@@ -6,8 +6,8 @@ import { Url } from "foldkit/url";
 
 export const Message = defineMessageUnion({
   ChangedUrl: { url: Url },
-  ClickedCopyCommand: { command: Schema.String },
   ClickedCopyFixPrompt: { key: Schema.String },
+  ClickedCopyText: { text: Schema.String },
   ClickedLink: { request: UrlRequest },
   CompletedFocusFragment: {},
   CompletedFocusMainHeading: {},

@@ -95,6 +95,9 @@ const block = stylex.create({
     overflowWrap: "anywhere",
     whiteSpace: "pre-wrap",
   },
+  preCompact: {
+    fontSize: "0.9375rem",
+  },
   preInverse: {
     backgroundColor: "transparent",
     color: colors["--on-inverse"],
@@ -112,7 +115,7 @@ const block = stylex.create({
   },
 });
 
-export type CommandTone = "inverse" | "light";
+export type CommandTone = "compact" | "inverse" | "light";
 
 const isCopied = (model: AppModel, command: string): boolean =>
   Schema.is(CopyState.Copied)(model.copy) && model.copy.key === command;
@@ -136,13 +139,20 @@ export const commandBlock = (
   tone: CommandTone,
   h: HtmlBuilder<AppMessage>
 ): Html => {
-  const isInverse = tone === "inverse";
+  const isInverse = tone !== "light";
 
   return h.div(
     [sx(h, block.box, isInverse ? block.boxInverse : block.boxLight)],
     [
       h.pre(
-        [sx(h, block.pre, isInverse ? block.preInverse : block.preLight)],
+        [
+          sx(
+            h,
+            block.pre,
+            isInverse ? block.preInverse : block.preLight,
+            tone === "compact" ? block.preCompact : null
+          ),
+        ],
         [
           h.code(
             [],
@@ -158,7 +168,7 @@ export const commandBlock = (
       h.button(
         [
           h.Type("button"),
-          h.OnClick(Message.ClickedCopyCommand({ command })),
+          h.OnClick(Message.ClickedCopyText({ text: command })),
           sx(
             h,
             block.button,

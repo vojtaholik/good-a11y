@@ -61,13 +61,10 @@ const routeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
   AppRoute.match<Html>(model.route, {
     Check: () => narrow(checkView(model, h), h),
     Guide: ({ guideId }) =>
-      narrow(
-        Option.match(guidePageOf(guideId), {
-          onNone: () => notFoundView(h),
-          onSome: (page) => guideView(page, h),
-        }),
-        h
-      ),
+      Option.match(guidePageOf(guideId), {
+        onNone: () => narrow(notFoundView(h), h),
+        onSome: (page) => guideView(page, model, h),
+      }),
     Home: () => homeView(model, h),
     NotFound: () => narrow(notFoundView(h), h),
     Report: ({ slug }) => narrow(reportView(model, slug, h), h),

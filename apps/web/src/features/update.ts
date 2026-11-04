@@ -257,11 +257,11 @@ const copyFixPrompt = (model: AppModel, key: string): AppUpdate => {
 export const update = (model: AppModel, message: AppMessage): AppUpdate =>
   Message.match<AppUpdate>(message, {
     ChangedUrl: ({ url }) => changeUrl(model, url),
-    ClickedCopyCommand: ({ command }) => ({
-      commands: [CopyText({ key: command, text: command })],
+    ClickedCopyFixPrompt: ({ key }) => copyFixPrompt(model, key),
+    ClickedCopyText: ({ text }) => ({
+      commands: [CopyText({ key: text, text })],
       model,
     }),
-    ClickedCopyFixPrompt: ({ key }) => copyFixPrompt(model, key),
     ClickedLink: ({ request }) =>
       UrlRequest.match<AppUpdate>(request, {
         External: ({ href }) => ({ commands: [LoadExternal({ href })], model }),
