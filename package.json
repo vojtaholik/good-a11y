@@ -1,8 +1,8 @@
 {
-  "name": "eaa-check",
+  "name": "good-a11y",
   "version": "0.1.0",
   "private": true,
-  "description": "EU accessibility (EAA) checker on rat-stack: Effect 4, XState 6 with @xstate/effect, Alchemy infra, and a lint/typecheck fence.",
+  "description": "Accessibility guidance for coding agents, with the checker on top: guides, search, retrieve and a local check, on rat-stack.",
   "license": "MIT",
   "bin": {
     "good-a11y": "apps/good-a11y/bundle/good-a11y.mjs"
@@ -15,7 +15,7 @@
   "scripts": {
     "build": "turbo run build",
     "check": "pnpm run lockfile:check && varlock load && turbo run typecheck && ultracite check && oxfmt --check .",
-    "cli": "turbo run build --filter=@eaa-check/cli && node apps/cli/dist/cli.js",
+    "cli": "turbo run build --filter=@good-a11y/cli && node apps/cli/dist/cli.js",
     "env:check": "varlock load",
     "fix": "ultracite fix && oxfmt .",
     "lint": "ultracite check && oxfmt --check .",
@@ -27,9 +27,9 @@
     "typecheck": "turbo run typecheck",
     "typecheck-scripts": "tsc --noEmit -p tsconfig.json",
     "vendor:agent-sources": "./scripts/vendor-agent-sources.sh",
-    "facts": "pnpm --filter @eaa-check/facts run facts",
-    "guides": "pnpm --filter @eaa-check/guides run guides",
-    "good-a11y:bundle": "turbo run build --filter=@eaa-check/good-a11y && pnpm --filter @eaa-check/good-a11y run bundle"
+    "facts": "pnpm --filter @good-a11y/facts run facts",
+    "guides": "pnpm --filter @good-a11y/guides run guides",
+    "good-a11y:bundle": "turbo run build --filter=@good-a11y/good-a11y && pnpm --filter @good-a11y/good-a11y run bundle"
   },
   "dependencies": {
     "puppeteer-core": "25.13.0"

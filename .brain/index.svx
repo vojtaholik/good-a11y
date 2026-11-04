@@ -1,4 +1,5 @@
 # Project Brain
 
 The rendered Brain index is programmatic. `.brain/**/*.svx` is discovered automatically.
-Working brief and decision ledger: `projects/eaa-checker/eaa-checker-brief.svx`.
+Product: good-a11y (repo `vojtaholik/good-a11y`, scope `@good-a11y`; named eaa-check until 2026-11-04).
+Working briefs and decision ledgers: `projects/good-a11y/good-a11y-brief.svx` (guidance, site, CLI) and `projects/eaa-checker/eaa-checker-brief.svx` (the checker).

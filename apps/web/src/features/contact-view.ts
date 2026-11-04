@@ -1,4 +1,4 @@
-import { MAX_MESSAGE_LENGTH } from "@eaa-check/core/contracts";
+import { MAX_MESSAGE_LENGTH } from "@good-a11y/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
 import { ContactState, Message } from "../client/model.js";

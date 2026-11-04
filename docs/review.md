@@ -223,7 +223,7 @@ Fix, verified with the same harness (0 requests after lockdown): (1) add `delete
 
 ### Round 2 re-check 2 (07:58 CET) of d510085
 
-Verified fixed (code read, `@eaa-check/core` tests 264/264):
+Verified fixed (code read, `@good-a11y/core` tests 264/264):
 
 - **R2-M3.** `decided.ts` now keeps the empty criteria apart for the served HTML (`null` when the page was not checked) and for the rendered page (`null` when the rendered step did not run). `requirements.ts` (`foundNothingEverywhere`) shows "Nothing to check on this page" only when every non-model method listed for the criterion ran and found nothing. The SPA case (rendered step skipped) now falls back to "Not checked on this scan" or "Needs a person".
 - **R2-L4.** The title reads "Points of Annex V the model judged missing from the accessibility statement". An Annex V row becomes "judged" only when the model noted the point. Otherwise it stays "Needs a person" and no longer claims "the model found this point".

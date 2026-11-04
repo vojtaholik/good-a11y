@@ -1,9 +1,9 @@
 // @effect-diagnostics nodeBuiltinImport:off -- The hanging runner stands in for a model that never answers, using an unreferenced timer.
 import { setTimeout as sleep } from "node:timers/promises";
 
-import { JUDGE_MODEL } from "@eaa-check/core";
-import type { JudgeRequest } from "@eaa-check/core";
 import { describe, expect, it, vi } from "@effect/vitest";
+import { JUDGE_MODEL } from "@good-a11y/core";
+import type { JudgeRequest } from "@good-a11y/core";
 import { Effect, Fiber } from "effect";
 import { TestClock } from "effect/testing";
 

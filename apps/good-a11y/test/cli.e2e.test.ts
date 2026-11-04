@@ -2,8 +2,8 @@
 import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 
-import { GUIDES } from "@eaa-check/guides";
 import { describe, expect, it } from "@effect/vitest";
+import { GUIDES } from "@good-a11y/guides";
 import { Effect } from "effect";
 import { build } from "esbuild";
 

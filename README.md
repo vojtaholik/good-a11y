@@ -1,6 +1,6 @@
-# eaa-check
+# good-a11y
 
-A checker that scans one public web page and reports how it stands against the European Accessibility Act (Directive (EU) 2019/882) and EN 301 549 (WCAG for web content), with the EU member states where each finding applies. Built on [rat-stack](https://github.com/joelhooks/rat-stack) the way `webproai` is: Effect `4.0.0`, XState `6.0.0-alpha.63` with `@xstate/effect` `0.1.0-alpha.6` (layer 2), and Alchemy for the cloud (layer 2).
+Accessibility guidance for coding agents, with the checker on top (`npx github:vojtaholik/good-a11y search|retrieve|check`, `skills/good-a11y/SKILL.md`). The checker scans a web page and reports how it stands against WCAG, and for the hosted report against the European Accessibility Act (Directive (EU) 2019/882) and EN 301 549, with the EU member states where each finding applies. Built on [rat-stack](https://github.com/joelhooks/rat-stack) the way `webproai` is: Effect `4.0.0`, XState `6.0.0-alpha.63` with `@xstate/effect` `0.1.0-alpha.6` (layer 2), and Alchemy for the cloud (layer 2).
 
 `AGENTS.md` is the repo law. `VISION.md` says what the product is for. `.brain/` holds the working brief and its decisions. `research/facts/` is the facts ledger every legal and normative claim comes from.
 

@@ -5,8 +5,8 @@ import {
   isTested,
   quietChecksOf,
   quietSummary,
-} from "@eaa-check/core/contracts";
-import type { Finding, Report, Sourced } from "@eaa-check/core/contracts";
+} from "@good-a11y/core/contracts";
+import type { Finding, Report, Sourced } from "@good-a11y/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
 import { ScanState } from "../client/model.js";

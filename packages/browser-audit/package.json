@@ -1,5 +1,5 @@
 {
-  "name": "@eaa-check/browser-audit",
+  "name": "@good-a11y/browser-audit",
   "version": "0.1.0",
   "private": true,
   "files": [
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@cloudflare/puppeteer": "1.4.0",
-    "@eaa-check/core": "workspace:*",
+    "@good-a11y/core": "workspace:*",
     "axe-core": "4.14.0",
     "effect": "4.0.0",
     "puppeteer-core": "25.13.0"

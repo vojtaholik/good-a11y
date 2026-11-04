@@ -1,5 +1,5 @@
-import { newerWcagLabel } from "@eaa-check/core/contracts";
-import type { FindingReference } from "@eaa-check/core/contracts";
+import { newerWcagLabel } from "@good-a11y/core/contracts";
+import type { FindingReference } from "@good-a11y/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/model.js";

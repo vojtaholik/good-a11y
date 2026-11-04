@@ -13,7 +13,7 @@ export interface ApprovalService {
 }
 
 export class Approval extends Context.Service<Approval, ApprovalService>()(
-  "@eaa-check/capability/Approval"
+  "@good-a11y/capability/Approval"
 ) {
   static readonly denyAll = Layer.succeed(
     Approval,

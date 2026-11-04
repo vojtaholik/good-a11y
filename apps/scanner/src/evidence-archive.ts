@@ -1,4 +1,4 @@
-import type { CrawlRole, ScanJob } from "@eaa-check/core";
+import type { CrawlRole, ScanJob } from "@good-a11y/core";
 import * as Cloudflare from "alchemy/Cloudflare";
 
 export const EVIDENCE_DAYS = 30;

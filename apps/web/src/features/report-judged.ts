@@ -1,5 +1,5 @@
-import { percent, sectionObservations } from "@eaa-check/core/contracts";
-import type { Observation, Report } from "@eaa-check/core/contracts";
+import { percent, sectionObservations } from "@good-a11y/core/contracts";
+import type { Observation, Report } from "@good-a11y/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/model.js";

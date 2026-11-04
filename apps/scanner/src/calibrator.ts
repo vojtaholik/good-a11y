@@ -1,12 +1,12 @@
-import { GATEWAY_ID } from "@eaa-check/ai-judge";
+import { GATEWAY_ID } from "@good-a11y/ai-judge";
 import {
   JUDGE_MODEL,
   JudgeRequestSchema,
   tokensToReserve,
-} from "@eaa-check/core";
-import type { JudgeRequest } from "@eaa-check/core";
-import { JudgeBudget, utcDayOf } from "@eaa-check/scan-store";
-import { scanStoreD1 } from "@eaa-check/scan-store/d1";
+} from "@good-a11y/core";
+import type { JudgeRequest } from "@good-a11y/core";
+import { JudgeBudget, utcDayOf } from "@good-a11y/scan-store";
+import { scanStoreD1 } from "@good-a11y/scan-store/d1";
 import * as Cloudflare from "alchemy/Cloudflare";
 import { Clock, Context, Effect, Layer, Option, Schema } from "effect";
 import * as HttpServerRequest from "effect/http/HttpServerRequest";

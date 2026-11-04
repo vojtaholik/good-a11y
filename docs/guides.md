@@ -22,7 +22,7 @@ category: widgets
 ```
 
 - `name` and `description` are one line each. Write the description as the words an agent would search for.
-- `criteria` lists at least one WCAG success criterion as a fact ID, `STD-SC-x.y.z` or `STD-SC22-x.y.z`. Each must be a verified fact in `research/facts/standards.md`, read through `@eaa-check/facts`.
+- `criteria` lists at least one WCAG success criterion as a fact ID, `STD-SC-x.y.z` or `STD-SC22-x.y.z`. Each must be a verified fact in `research/facts/standards.md`, read through `@good-a11y/facts`.
 - `category` is optional and must equal the folder when given. The folder is the source.
 - The guide id is the folder name. It is unique across categories, so `retrieve dialog-modal` needs no category.
 
@@ -32,7 +32,7 @@ Headings (`#` to `######` outside code) are indexed for search, so name sections
 
 ## The generated index
 
-`pnpm guides` reads every guide folder and writes `packages/guides/src/guides.generated.ts`: `GUIDES`, each with `id`, `category`, `name`, `description`, `criteria`, `headings`, `text` (the whole `guide.md`), `demo` and `expectations`. The site and the CLI import it from `@eaa-check/guides`; nothing reads the folders at run time. A test fails while it is stale. Never edit it by hand. `turbo.json` declares `guides/**` as an input of `@eaa-check/guides#test`.
+`pnpm guides` reads every guide folder and writes `packages/guides/src/guides.generated.ts`: `GUIDES`, each with `id`, `category`, `name`, `description`, `criteria`, `headings`, `text` (the whole `guide.md`), `demo` and `expectations`. The site and the CLI import it from `@good-a11y/guides`; nothing reads the folders at run time. A test fails while it is stale. Never edit it by hand. `turbo.json` declares `guides/**` as an input of `@good-a11y/guides#test`.
 
 ## Search
 

@@ -1,10 +1,10 @@
-import { implement } from "@eaa-check/capability/implement";
+import { implement } from "@good-a11y/capability/implement";
 import {
   DailyCapReached,
   ScanUnavailable,
   sendMessageContract,
-} from "@eaa-check/core";
-import { MessageStore } from "@eaa-check/scan-store";
+} from "@good-a11y/core";
+import { MessageStore } from "@good-a11y/scan-store";
 import { Clock, Effect } from "effect";
 
 import { DAILY_MESSAGE_CAP } from "../site-limits.js";

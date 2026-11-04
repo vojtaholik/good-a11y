@@ -4,8 +4,8 @@ import {
   SCANNER_USER_AGENT,
   TRAP_PRESSES,
   TRAP_SIZE,
-} from "@eaa-check/core";
-import type { UrlVet } from "@eaa-check/core";
+} from "@good-a11y/core";
+import type { UrlVet } from "@good-a11y/core";
 import { Clock, Effect, Result, Schema } from "effect";
 import type { Duration } from "effect";
 

@@ -7,9 +7,9 @@ import {
   createZstdDecompress,
 } from "node:zlib";
 
-import { TransportFailure } from "@eaa-check/core";
-import type { HopResponse } from "@eaa-check/core";
 import { NodeStream } from "@effect/platform-node";
+import { TransportFailure } from "@good-a11y/core";
+import type { HopResponse } from "@good-a11y/core";
 import { Stream } from "effect";
 
 const DECODERS = new Map<string, () => Transform>([

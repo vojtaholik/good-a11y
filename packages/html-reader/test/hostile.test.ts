@@ -1,3 +1,4 @@
+import { describe, expect, it } from "@effect/vitest";
 import {
   JUDGED_CHECKS,
   MAX_ELEMENTS_PER_KIND,
@@ -5,8 +6,7 @@ import {
   questionsOf,
   runChecks,
   summaryOf,
-} from "@eaa-check/core";
-import { describe, expect, it } from "@effect/vitest";
+} from "@good-a11y/core";
 
 import { readPage } from "../src/index.js";
 

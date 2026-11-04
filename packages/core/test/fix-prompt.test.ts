@@ -1,5 +1,5 @@
-import { VERIFIED_FACTS } from "@eaa-check/facts";
 import { describe, expect, it } from "@effect/vitest";
+import { VERIFIED_FACTS } from "@good-a11y/facts";
 
 import { QUOTE_MARK, fixPromptFor, issuesOf, judgePage } from "../src/index.js";
 import type { FetchResult, PageEvidence, PageReading } from "../src/index.js";

@@ -12,7 +12,7 @@ import { parseScanTarget } from "./scan-target.js";
 import type { ScanTarget } from "./scan-target.js";
 
 export const SCANNER_USER_AGENT =
-  "Mozilla/5.0 (compatible; eaa-check/0.1; accessibility checker by studio9)";
+  "Mozilla/5.0 (compatible; good-a11y/0.1; accessibility checker)";
 
 const HTML_TYPES = new Set(["text/html", "application/xhtml+xml"]);
 

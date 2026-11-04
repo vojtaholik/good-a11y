@@ -1,4 +1,4 @@
-import { PageReader } from "@eaa-check/core";
+import { PageReader } from "@good-a11y/core";
 import { Layer } from "effect";
 
 import { readPage } from "./read-page.js";

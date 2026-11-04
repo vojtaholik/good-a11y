@@ -75,13 +75,13 @@ const expectRuleSoft = (result: LintResult, message: string) => {
 describe("architecture boundary rules", () => {
   it("keeps the local check's private-address path out of the hosted apps", () => {
     const sources = [
-      'import { vetLocalUrl } from "@eaa-check/core";',
-      'import type { LocalUrl } from "@eaa-check/core";',
-      'import { LocalHopTransport } from "@eaa-check/core";',
-      'import { SafeFetch } from "@eaa-check/core";\nexport const layer = SafeFetch.localLayer;',
-      'import * as core from "@eaa-check/core";\nexport const run = core.checkLocally;',
-      'import { localNodeHopTransportLayer } from "@eaa-check/http-transport/node";',
-      'import { localRenderedAuditLayer } from "@eaa-check/browser-audit/node";',
+      'import { vetLocalUrl } from "@good-a11y/core";',
+      'import type { LocalUrl } from "@good-a11y/core";',
+      'import { LocalHopTransport } from "@good-a11y/core";',
+      'import { SafeFetch } from "@good-a11y/core";\nexport const layer = SafeFetch.localLayer;',
+      'import * as core from "@good-a11y/core";\nexport const run = core.checkLocally;',
+      'import { localNodeHopTransportLayer } from "@good-a11y/http-transport/node";',
+      'import { localRenderedAuditLayer } from "@good-a11y/browser-audit/node";',
       'export { launch } from "puppeteer-core";',
     ];
 
@@ -94,13 +94,13 @@ describe("architecture boundary rules", () => {
     expect(
       lintFixture(
         "apps/good-a11y/src",
-        'import { SafeFetch, vetLocalUrl } from "@eaa-check/core";\nexport const layer = [SafeFetch.localLayer, vetLocalUrl];'
+        'import { SafeFetch, vetLocalUrl } from "@good-a11y/core";\nexport const layer = [SafeFetch.localLayer, vetLocalUrl];'
       ).output
     ).not.toContain("Hosted apps cannot");
     expect(
       lintFixture(
         "apps/scanner/src",
-        'import { SafeFetch, vetUrl } from "@eaa-check/core";\nexport const layer = [SafeFetch.layer, vetUrl];'
+        'import { SafeFetch, vetUrl } from "@good-a11y/core";\nexport const layer = [SafeFetch.layer, vetUrl];'
       ).output
     ).not.toContain("Hosted apps cannot");
   });
@@ -114,9 +114,9 @@ describe("architecture boundary rules", () => {
       'type Client = import("effect/http/HttpClient").HttpClient;',
       'import * as client from "effect/unstable/http/HttpClient";',
       'export { HttpClientRequest } from "effect/unstable/http";',
-      'export * from "@eaa-check/subscriber-delivery";',
-      'const adapter = import("@eaa-check/subscriber-delivery");',
-      'const adapter = require("@eaa-check/subscriber-delivery");',
+      'export * from "@good-a11y/subscriber-delivery";',
+      'const adapter = import("@good-a11y/subscriber-delivery");',
+      'const adapter = require("@good-a11y/subscriber-delivery");',
       'type Client = import("effect/unstable/http/HttpClient").HttpClient;',
       'import { provider } from "../../adapters/provider.js";',
       'import { provider } from "./vendor/provider.js";',
@@ -136,7 +136,7 @@ describe("architecture boundary rules", () => {
       'import { Effect } from "effect";',
       'import { types } from "xstate";',
       'import { createEffectActor } from "@xstate/effect";',
-      'import { defineContract } from "@eaa-check/capability/contract";',
+      'import { defineContract } from "@good-a11y/capability/contract";',
       'import { SubscriberIntake } from "./interest-intake.js";',
     ]) {
       expect(lintFixture("packages/core/src", source).status).toBe(0);
@@ -298,7 +298,7 @@ describe("architecture boundary rules", () => {
     (area) => {
       const result = lintFixture(
         area,
-        'import * as contracts from "@eaa-check/core/contracts";\nimport { toRpcGroup } from "@eaa-check/capability/rpc-group";\n\nexport const browserContract = { contracts, toRpcGroup };\n'
+        'import * as contracts from "@good-a11y/core/contracts";\nimport { toRpcGroup } from "@good-a11y/capability/rpc-group";\n\nexport const browserContract = { contracts, toRpcGroup };\n'
       );
 
       expect(result.status).toBe(0);
@@ -315,11 +315,11 @@ describe("architecture boundary rules", () => {
   });
 
   it.each([
-    ["the core implementation barrel", "@eaa-check/core"],
+    ["the core implementation barrel", "@good-a11y/core"],
     ["a renamed core implementation barrel", "@sample/core"],
     [
       "the capability implementation entry point",
-      "@eaa-check/capability/implement",
+      "@good-a11y/capability/implement",
     ],
     [
       "a renamed capability implementation entry point",
@@ -674,12 +674,12 @@ describe("architecture boundary rules", () => {
 
     const contracts = lintFixture(
       "apps/web/src/dev/client",
-      'import * as contracts from "@eaa-check/core/contracts";\n\nexport const browserContracts = contracts;\n'
+      'import * as contracts from "@good-a11y/core/contracts";\n\nexport const browserContracts = contracts;\n'
     );
 
     const server = lintFixture(
       "apps/web/src/dev/client",
-      'import { capabilities } from "@eaa-check/core";\n\nexport const handlers = capabilities;\n'
+      'import { capabilities } from "@good-a11y/core";\n\nexport const handlers = capabilities;\n'
     );
 
     expect(overlay.status).toBe(0);

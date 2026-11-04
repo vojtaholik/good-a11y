@@ -1,5 +1,5 @@
-import { DEFAULT_MAX_REDIRECTS, RenderedAuditFailed } from "@eaa-check/core";
-import type { HeaderMap, UrlVet } from "@eaa-check/core";
+import { DEFAULT_MAX_REDIRECTS, RenderedAuditFailed } from "@good-a11y/core";
+import type { HeaderMap, UrlVet } from "@good-a11y/core";
 import { Effect, Result } from "effect";
 
 export interface Landing {

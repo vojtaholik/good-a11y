@@ -24,4 +24,4 @@ export type OpenHop<Url extends VettedUrl> = (
 export class HopTransport extends Context.Service<
   HopTransport,
   { readonly open: OpenHop<PublicUrl> }
->()("@eaa-check/core/HopTransport") {}
+>()("@good-a11y/core/HopTransport") {}

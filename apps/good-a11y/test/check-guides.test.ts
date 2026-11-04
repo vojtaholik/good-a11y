@@ -1,6 +1,6 @@
-import { AXE_RULES, CheckIdSchema, PROBES } from "@eaa-check/core";
-import { CHECK_GUIDES, GUIDES } from "@eaa-check/guides";
 import { describe, expect, it } from "@effect/vitest";
+import { AXE_RULES, CheckIdSchema, PROBES } from "@good-a11y/core";
+import { CHECK_GUIDES, GUIDES } from "@good-a11y/guides";
 import { Schema } from "effect";
 
 const isCheckKey = (key: string): boolean =>

@@ -1,10 +1,10 @@
+import { describe, expect, it } from "@effect/vitest";
 import {
   EmptySubmitsSchema,
   ForeignBlocksSchema,
   FormInstructionsSchema,
   VisualHeadingsSchema,
-} from "@eaa-check/core";
-import { describe, expect, it } from "@effect/vitest";
+} from "@good-a11y/core";
 import { Schema } from "effect";
 import { Window } from "happy-dom";
 

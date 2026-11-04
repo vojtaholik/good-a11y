@@ -72,4 +72,4 @@ export class Judge extends Context.Service<
       request: JudgeRequest
     ) => Effect.Effect<JudgeReply, JudgeUnavailable>;
   }
->()("@eaa-check/core/Judge") {}
+>()("@good-a11y/core/Judge") {}

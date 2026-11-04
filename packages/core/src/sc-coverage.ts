@@ -1,4 +1,4 @@
-import { VERIFIED_FACTS } from "@eaa-check/facts";
+import { VERIFIED_FACTS } from "@good-a11y/facts";
 
 import { AXE_RULES } from "./axe-rules.js";
 import { CATALOGUE } from "./catalogue.js";

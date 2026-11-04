@@ -25,7 +25,7 @@ export interface ActorWatchService {
 }
 
 export const ActorWatch = Context.Reference<ActorWatchService>(
-  "@eaa-check/capability/ActorWatch",
+  "@good-a11y/capability/ActorWatch",
   { defaultValue: () => ({ watch: () => Effect.void }) }
 );
 

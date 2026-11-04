@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import { Approval } from "@eaa-check/capability";
-import { SafeFetch } from "@eaa-check/core";
-import { htmlPageReaderLayer } from "@eaa-check/html-reader";
-import { nodeHopTransportLayer } from "@eaa-check/http-transport/node";
 import { NodeRuntime, NodeServices } from "@effect/platform-node";
+import { Approval } from "@good-a11y/capability";
+import { SafeFetch } from "@good-a11y/core";
+import { htmlPageReaderLayer } from "@good-a11y/html-reader";
+import { nodeHopTransportLayer } from "@good-a11y/http-transport/node";
 import { Console, Effect, Layer } from "effect";
 
 import { runCommand } from "./command.js";

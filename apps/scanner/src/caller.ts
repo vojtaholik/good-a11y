@@ -5,5 +5,5 @@ export const CALLER_HEADER = "x-eaa-caller";
 export const UNKNOWN_CALLER = "unknown";
 
 export class Caller extends Context.Service<Caller, { readonly key: string }>()(
-  "@eaa-check/scanner/Caller"
+  "@good-a11y/scanner/Caller"
 ) {}

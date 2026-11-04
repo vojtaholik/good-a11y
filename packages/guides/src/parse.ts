@@ -1,4 +1,4 @@
-import { verifiedFact } from "@eaa-check/facts";
+import { verifiedFact } from "@good-a11y/facts";
 import { Result, Schema } from "effect";
 import { parse as parseYaml } from "yaml";
 

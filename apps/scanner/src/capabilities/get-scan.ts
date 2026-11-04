@@ -1,12 +1,12 @@
-import { implement } from "@eaa-check/capability/implement";
+import { implement } from "@good-a11y/capability/implement";
 import {
   ScanUnavailable,
   UnknownScan,
   getScanContract,
   readAt,
   slugKey,
-} from "@eaa-check/core";
-import { ScanStore } from "@eaa-check/scan-store";
+} from "@good-a11y/core";
+import { ScanStore } from "@good-a11y/scan-store";
 import { Clock, Effect, Option } from "effect";
 
 export const getScan = implement(getScanContract, ({ scanId, slug }) =>

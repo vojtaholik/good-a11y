@@ -109,7 +109,7 @@ Then call `FileInspector.inspect` directly from the capability handler in `packa
 Delete:
 
 - `packages/devtools`
-- `@eaa-check/devtools` from `apps/cli/package.json`
+- `@good-a11y/devtools` from `apps/cli/package.json`
 - `devtoolsRoutes`, `devtoolsWebServer`, `mcpServer.devtools`, and `mcpServer.devtoolsCodeMode` from `apps/cli/src/surfaces.ts`
 - the `--devtools` flag from `apps/cli/src/command.ts`
 - the devtools cases from `apps/cli/test/serve.test.ts` and `apps/cli/test/cli.e2e.test.ts`

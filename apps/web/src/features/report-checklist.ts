@@ -4,13 +4,13 @@ import {
   checklistGroups,
   requirementsOf,
   tallyText,
-} from "@eaa-check/core/contracts";
+} from "@good-a11y/core/contracts";
 import type {
   Report,
   RequirementGroupView,
   RequirementRow,
   Sourced,
-} from "@eaa-check/core/contracts";
+} from "@good-a11y/core/contracts";
 import * as stylex from "@stylexjs/stylex";
 import type { Html, HtmlBuilder } from "foldkit/html";
 

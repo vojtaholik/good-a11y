@@ -4,7 +4,7 @@ import type { LookupFunction } from "node:net";
 
 import { isPublicAddress } from "./public-address.js";
 
-export const NOT_PUBLIC_CODE = "ERR_EAA_CHECK_NOT_PUBLIC_ADDRESS";
+export const NOT_PUBLIC_CODE = "ERR_GOOD_A11Y_NOT_PUBLIC_ADDRESS";
 
 const coded = (message: string, code: string): NodeJS.ErrnoException =>
   Object.assign(new Error(message), { code });

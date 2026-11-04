@@ -1,5 +1,5 @@
 {
-  "name": "@eaa-check/guides",
+  "name": "@good-a11y/guides",
   "version": "0.1.0",
   "private": true,
   "files": [
@@ -25,7 +25,7 @@
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {
-    "@eaa-check/facts": "workspace:*",
+    "@good-a11y/facts": "workspace:*",
     "effect": "4.0.0",
     "minisearch": "7.2.0",
     "stemmer": "2.0.1",

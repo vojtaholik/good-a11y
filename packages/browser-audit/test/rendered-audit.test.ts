@@ -1,6 +1,6 @@
-import { RenderedAuditFailed, vetUrl } from "@eaa-check/core";
-import type { PublicUrl } from "@eaa-check/core";
 import { describe, expect, it } from "@effect/vitest";
+import { RenderedAuditFailed, vetUrl } from "@good-a11y/core";
+import type { PublicUrl } from "@good-a11y/core";
 import { Effect, Fiber, Ref, Result } from "effect";
 import { TestClock } from "effect/testing";
 

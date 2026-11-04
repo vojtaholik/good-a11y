@@ -9,7 +9,7 @@ import {
   MAX_STRUCTURED_TYPES,
   MAX_TEXT_SAMPLE,
   MIN_PASSAGE_TEXT,
-} from "@eaa-check/core";
+} from "@good-a11y/core";
 import type {
   ControlEvidence,
   FrameEvidence,
@@ -20,7 +20,7 @@ import type {
   NamedEvidence,
   PageEvidence,
   PassageEvidence,
-} from "@eaa-check/core";
+} from "@good-a11y/core";
 import { constVoid } from "effect/Function";
 import { Tokenizer } from "htmlparser2";
 import type { TokenizerCallbacks } from "htmlparser2";

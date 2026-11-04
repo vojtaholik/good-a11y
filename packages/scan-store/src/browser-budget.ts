@@ -27,7 +27,7 @@ export class BrowserBudget extends Context.Service<
       reservation: Reservation
     ) => Effect.Effect<boolean, ScanStoreError>;
   }
->()("@eaa-check/scan-store/BrowserBudget", {
+>()("@good-a11y/scan-store/BrowserBudget", {
   make: Effect.gen(function* makeBrowserBudget() {
     const db = yield* StoreDatabase;
 

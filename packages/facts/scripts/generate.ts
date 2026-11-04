@@ -1,5 +1,5 @@
-import { readLedger, renderLedger } from "@eaa-check/facts";
 import { NodeRuntime, NodeServices } from "@effect/platform-node";
+import { readLedger, renderLedger } from "@good-a11y/facts";
 import { Console, Effect, FileSystem, Path } from "effect";
 
 const program = Effect.gen(function* generateLedger() {

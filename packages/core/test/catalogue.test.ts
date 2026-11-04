@@ -1,6 +1,6 @@
-import { readLedger } from "@eaa-check/facts";
 import { NodeServices } from "@effect/platform-node";
 import { expect, it } from "@effect/vitest";
+import { readLedger } from "@good-a11y/facts";
 import { Effect, Path } from "effect";
 
 import { CATALOGUE, catalogueIds } from "../src/index.js";

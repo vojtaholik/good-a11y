@@ -1,5 +1,5 @@
 {
-  "name": "@eaa-check/infra",
+  "name": "@good-a11y/infra",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -13,8 +13,8 @@
     "logs": "alchemy logs"
   },
   "dependencies": {
-    "@eaa-check/scanner": "workspace:*",
     "@effect/platform-node": "4.0.0",
+    "@good-a11y/scanner": "workspace:*",
     "alchemy": "2.0.0-beta.81",
     "effect": "4.0.0"
   },

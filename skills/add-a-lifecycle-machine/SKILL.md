@@ -96,7 +96,7 @@ XState owns states and moves between them. Effect owns side effects, errors, ser
 
 ## 4. Run it inside Effect
 
-Start the machine with `createEffectActor`. Do not use XState's `createActor`. Hand the actor to `watchActor` from `@eaa-check/capability/actor-watch`, then wait for it with `join` inside `Effect.scoped`:
+Start the machine with `createEffectActor`. Do not use XState's `createActor`. Hand the actor to `watchActor` from `@good-a11y/capability/actor-watch`, then wait for it with `join` inside `Effect.scoped`:
 
 ```ts
 export const runThingMachine = Effect.fn("runThingMachine")(function* (

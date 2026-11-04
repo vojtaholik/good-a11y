@@ -1408,8 +1408,8 @@ const isHostedApp = (filename: string) =>
   );
 
 const localOnlyModules = new Set([
-  "@eaa-check/browser-audit/node",
-  "@eaa-check/http-transport/node",
+  "@good-a11y/browser-audit/node",
+  "@good-a11y/http-transport/node",
   "puppeteer-core",
 ]);
 

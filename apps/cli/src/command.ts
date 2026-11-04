@@ -1,5 +1,5 @@
-import { toCommand } from "@eaa-check/capability";
-import { formatReport, scan } from "@eaa-check/core";
+import { toCommand } from "@good-a11y/capability";
+import { formatReport, scan } from "@good-a11y/core";
 import { Command } from "effect/cli";
 
 import { cliCapabilities } from "./surfaces.js";
@@ -13,9 +13,9 @@ const capabilityCommands = cliCapabilities.map((capability) =>
     : toCommand(capability)
 );
 
-export const rootCommand = Command.make("eaa-check").pipe(
+export const rootCommand = Command.make("good-a11y-scan").pipe(
   Command.withDescription(
-    "EU accessibility (EAA) checker for public web pages"
+    "Scan a public web page the way the hosted good-a11y checker does"
   ),
   Command.withSubcommands([...capabilityCommands])
 );

@@ -1,5 +1,5 @@
-import { MAX_CONTEXT, MAX_TEXT_SAMPLE } from "@eaa-check/core";
 import { describe, expect, it } from "@effect/vitest";
+import { MAX_CONTEXT, MAX_TEXT_SAMPLE } from "@good-a11y/core";
 
 import { readPage } from "../src/index.js";
 

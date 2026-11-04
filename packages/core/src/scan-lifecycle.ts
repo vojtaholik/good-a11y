@@ -1,4 +1,4 @@
-import { defineContract } from "@eaa-check/capability/contract";
+import { defineContract } from "@good-a11y/capability/contract";
 import { Schema } from "effect";
 
 import { ContactMessageSchema } from "./contact-message.js";

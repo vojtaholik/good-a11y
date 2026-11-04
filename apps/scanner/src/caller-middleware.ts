@@ -6,7 +6,7 @@ import { CALLER_HEADER, Caller, UNKNOWN_CALLER } from "./caller.js";
 export class CallerMiddleware extends RpcMiddleware.Service<
   CallerMiddleware,
   { provides: Caller }
->()("@eaa-check/scanner/CallerMiddleware") {}
+>()("@good-a11y/scanner/CallerMiddleware") {}
 
 export const callerMiddlewareLayer = Layer.succeed(
   CallerMiddleware,

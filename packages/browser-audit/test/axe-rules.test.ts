@@ -1,5 +1,5 @@
-import { AXE_CORE_VERSION, AXE_RULES, AXE_TAGS } from "@eaa-check/core";
 import { describe, expect, it } from "@effect/vitest";
+import { AXE_CORE_VERSION, AXE_RULES, AXE_TAGS } from "@good-a11y/core";
 import axe from "axe-core";
 
 const SC_TAG = /^wcag(?<principle>\d)(?<guideline>\d)(?<criterion>\d+)$/u;

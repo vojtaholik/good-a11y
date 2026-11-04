@@ -1,5 +1,5 @@
-import { ReportSchema, SCAN_FAILED, ScanStageSchema } from "@eaa-check/core";
-import type { Report, ScanView } from "@eaa-check/core";
+import { ReportSchema, SCAN_FAILED, ScanStageSchema } from "@good-a11y/core";
+import type { Report, ScanView } from "@good-a11y/core";
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { Context, Effect, Layer, Option, Schema } from "effect";
 
@@ -129,7 +129,7 @@ export class ScanStore extends Context.Service<
       settledAt: number
     ) => Effect.Effect<void, ScanStoreError>;
   }
->()("@eaa-check/scan-store/ScanStore", {
+>()("@good-a11y/scan-store/ScanStore", {
   make: Effect.gen(function* makeScanStore() {
     const db = yield* StoreDatabase;
 

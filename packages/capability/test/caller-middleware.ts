@@ -9,7 +9,7 @@ export const CALLER_HEADER = "x-caller";
 export class CallerMiddleware extends RpcMiddleware.Service<
   CallerMiddleware,
   { provides: Caller }
->()("@eaa-check/capability/test/CallerMiddleware", { error: NotFound }) {}
+>()("@good-a11y/capability/test/CallerMiddleware", { error: NotFound }) {}
 
 export const callerMiddlewareLayer = Layer.succeed(
   CallerMiddleware,

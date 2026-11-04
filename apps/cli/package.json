@@ -1,9 +1,9 @@
 {
-  "name": "@eaa-check/cli",
+  "name": "@good-a11y/cli",
   "version": "0.1.0",
   "private": true,
   "bin": {
-    "eaa-check": "./bin/eaa-check"
+    "good-a11y-scan": "./bin/good-a11y-scan"
   },
   "type": "module",
   "scripts": {
@@ -15,11 +15,11 @@
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {
-    "@eaa-check/capability": "workspace:*",
-    "@eaa-check/core": "workspace:*",
-    "@eaa-check/html-reader": "workspace:*",
-    "@eaa-check/http-transport": "workspace:*",
     "@effect/platform-node": "4.0.0",
+    "@good-a11y/capability": "workspace:*",
+    "@good-a11y/core": "workspace:*",
+    "@good-a11y/html-reader": "workspace:*",
+    "@good-a11y/http-transport": "workspace:*",
     "effect": "4.0.0"
   },
   "devDependencies": {

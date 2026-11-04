@@ -30,4 +30,4 @@ export class ScanSteps extends Context.Service<
       report: Report
     ) => Effect.Effect<void, ScanStepFailed>;
   }
->()("@eaa-check/core/ScanSteps") {}
+>()("@good-a11y/core/ScanSteps") {}

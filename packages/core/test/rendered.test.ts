@@ -2,8 +2,8 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { VERIFIED_FACTS } from "@eaa-check/facts";
 import { describe, expect, it } from "@effect/vitest";
+import { VERIFIED_FACTS } from "@good-a11y/facts";
 import { Schema } from "effect";
 
 import {

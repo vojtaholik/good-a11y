@@ -1,7 +1,7 @@
-import { CONTACT_SHOWN, reportOf, runChecks } from "@eaa-check/core";
-import type { ScanView } from "@eaa-check/core";
-import { readPage } from "@eaa-check/html-reader";
 import { describe, expect, it } from "@effect/vitest";
+import { CONTACT_SHOWN, reportOf, runChecks } from "@good-a11y/core";
+import type { ScanView } from "@good-a11y/core";
+import { readPage } from "@good-a11y/html-reader";
 import { Effect } from "effect";
 import { renderToString } from "foldkit/experimental/server";
 
@@ -32,7 +32,7 @@ const pageOf = (model: AppModel) =>
       SHELL.replace(
         '<div id="root"></div>',
         `<div id="root">${rendered.html}</div>`
-      ).replace("<title>eaa-check</title>", `<title>${rendered.title}</title>`)
+      ).replace("<title>good-a11y</title>", `<title>${rendered.title}</title>`)
     )
   );
 
@@ -86,7 +86,7 @@ describe("our own page", () => {
       const html = yield* pageOf({ ...home, route: AppRoute.Checks() });
 
       expect(failing(html)).toEqual([]);
-      expect(html).toContain("<title>What we check | eaa-check</title>");
+      expect(html).toContain("<title>What we check | good-a11y</title>");
       expect(html).toContain("1.1.1 Non-text Content (Level A)");
       expect(html).toContain("2.5.8 Target Size (Minimum) (Level AA)");
       expect(html).toContain("Not automated.");

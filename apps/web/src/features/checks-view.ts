@@ -3,8 +3,8 @@ import {
   TEST_METHOD_NAMES,
   newerWcagLabel,
   scCoverageSummary,
-} from "@eaa-check/core/contracts";
-import type { ScCoverageRow } from "@eaa-check/core/contracts";
+} from "@good-a11y/core/contracts";
+import type { ScCoverageRow } from "@good-a11y/core/contracts";
 import * as stylex from "@stylexjs/stylex";
 import type { Html, HtmlBuilder } from "foldkit/html";
 

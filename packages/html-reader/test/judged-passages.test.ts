@@ -1,5 +1,5 @@
-import { MAX_PRICES, MIN_PASSAGE_TEXT } from "@eaa-check/core";
 import { describe, expect, it } from "@effect/vitest";
+import { MAX_PRICES, MIN_PASSAGE_TEXT } from "@good-a11y/core";
 
 import { readPage } from "../src/index.js";
 

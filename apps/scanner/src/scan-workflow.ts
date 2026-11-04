@@ -1,8 +1,8 @@
 import type { BrowserWorker } from "@cloudflare/puppeteer";
-import { aiJudgeLayer } from "@eaa-check/ai-judge";
-import type { ModelRunner } from "@eaa-check/ai-judge";
-import { browserRenderedAuditLayer } from "@eaa-check/browser-audit";
-import type { OnClose } from "@eaa-check/browser-audit";
+import { aiJudgeLayer } from "@good-a11y/ai-judge";
+import type { ModelRunner } from "@good-a11y/ai-judge";
+import { browserRenderedAuditLayer } from "@good-a11y/browser-audit";
+import type { OnClose } from "@good-a11y/browser-audit";
 import {
   BUDGET_SPENT,
   DAILY_BROWSER_SECONDS,
@@ -32,21 +32,21 @@ import {
   withJudged,
   withRendered,
   withSite,
-} from "@eaa-check/core";
+} from "@good-a11y/core";
 import type {
   Judged,
   JudgedPages,
   RenderedOutcome,
   Report,
   ScanJob,
-} from "@eaa-check/core";
+} from "@good-a11y/core";
 import {
   BrowserBudget,
   JudgeBudget,
   ScanStore,
   utcDayOf,
-} from "@eaa-check/scan-store";
-import { scanStoreD1 } from "@eaa-check/scan-store/d1";
+} from "@good-a11y/scan-store";
+import { scanStoreD1 } from "@good-a11y/scan-store/d1";
 import * as Cloudflare from "alchemy/Cloudflare";
 import type { RuntimeContext } from "alchemy/RuntimeContext";
 import {

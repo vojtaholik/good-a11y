@@ -249,7 +249,7 @@ it.prop(
 
   it("asks for a size where the declared length is not a number it can read, and accepts any size there", () => {
     const withAnImportedLength = (options: string) => `${HEAD}
-import { CHECKS, MAX_TASK_STEPS } from "@eaa-check/core";
+import { CHECKS, MAX_TASK_STEPS } from "@good-a11y/core";
 
 it.prop(
   "any outcomes of the checks",

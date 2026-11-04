@@ -1,5 +1,5 @@
 {
-  "name": "@eaa-check/ai-judge",
+  "name": "@good-a11y/ai-judge",
   "version": "0.1.0",
   "private": true,
   "files": [
@@ -23,7 +23,7 @@
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {
-    "@eaa-check/core": "workspace:*",
+    "@good-a11y/core": "workspace:*",
     "effect": "4.0.0"
   },
   "devDependencies": {

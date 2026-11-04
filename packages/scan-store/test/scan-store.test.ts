@@ -1,5 +1,5 @@
-import { reportOf } from "@eaa-check/core";
 import { describe, expect, it } from "@effect/vitest";
+import { reportOf } from "@good-a11y/core";
 import { sql } from "drizzle-orm";
 import { Effect, Option } from "effect";
 

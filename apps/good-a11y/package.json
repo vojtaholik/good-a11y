@@ -1,5 +1,5 @@
 {
-  "name": "@eaa-check/good-a11y",
+  "name": "@good-a11y/good-a11y",
   "version": "0.1.0",
   "private": true,
   "bin": {
@@ -15,12 +15,12 @@
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {
-    "@eaa-check/browser-audit": "workspace:*",
-    "@eaa-check/core": "workspace:*",
-    "@eaa-check/guides": "workspace:*",
-    "@eaa-check/html-reader": "workspace:*",
-    "@eaa-check/http-transport": "workspace:*",
     "@effect/platform-node": "4.0.0",
+    "@good-a11y/browser-audit": "workspace:*",
+    "@good-a11y/core": "workspace:*",
+    "@good-a11y/guides": "workspace:*",
+    "@good-a11y/html-reader": "workspace:*",
+    "@good-a11y/http-transport": "workspace:*",
     "effect": "4.0.0"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
-import Calibrator from "@eaa-check/scanner/calibrator";
-import Canary, { CANARY_STAGE } from "@eaa-check/scanner/canary";
+import Calibrator from "@good-a11y/scanner/calibrator";
+import Canary, { CANARY_STAGE } from "@good-a11y/scanner/canary";
 import * as Alchemy from "alchemy";
 import * as Cloudflare from "alchemy/Cloudflare";
 import * as Drizzle from "alchemy/Drizzle";
@@ -9,7 +9,7 @@ import * as Layer from "effect/Layer";
 import { Website } from "../web/src/website.js";
 
 export default Alchemy.Stack(
-  "EaaCheck",
+  "GoodA11y",
   {
     providers: Layer.mergeAll(Cloudflare.providers(), Drizzle.providers()),
     state: Cloudflare.state(),

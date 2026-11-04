@@ -75,11 +75,11 @@ const notFoundView = (h: HtmlBuilder<AppMessage>): Html =>
 
 const titleOf = (model: AppModel): string =>
   AppRoute.match<string>(model.route, {
-    Checks: () => "What we check | eaa-check",
-    Home: () => "eaa-check: automated EU accessibility checks",
-    NotFound: () => "Page not found | eaa-check",
-    Report: ({ slug }) => `Report for ${slug} | eaa-check`,
-    Scan: ({ slug }) => `Report for ${slug} | eaa-check`,
+    Checks: () => "What we check | good-a11y",
+    Home: () => "good-a11y: accessibility checks and guidance",
+    NotFound: () => "Page not found | good-a11y",
+    Report: ({ slug }) => `Report for ${slug} | good-a11y`,
+    Scan: ({ slug }) => `Report for ${slug} | good-a11y`,
   });
 
 export const view = (
@@ -89,7 +89,7 @@ export const view = (
   body: h.div(
     [sx(h, styles.page)],
     [
-      h.header([], [h.nav([], [h.a([h.Href(homeRouter({}))], ["eaa-check"])])]),
+      h.header([], [h.nav([], [h.a([h.Href(homeRouter({}))], ["good-a11y"])])]),
       AppRoute.match<Html>(model.route, {
         Checks: () => checksView(h),
         Home: () => homeView(model, h),

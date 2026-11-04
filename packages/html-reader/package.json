@@ -1,5 +1,5 @@
 {
-  "name": "@eaa-check/html-reader",
+  "name": "@good-a11y/html-reader",
   "version": "0.1.0",
   "private": true,
   "files": [
@@ -23,7 +23,7 @@
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {
-    "@eaa-check/core": "workspace:*",
+    "@good-a11y/core": "workspace:*",
     "effect": "4.0.0",
     "htmlparser2": "12.0.0"
   },

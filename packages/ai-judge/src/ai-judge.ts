@@ -3,8 +3,8 @@ import {
   Judge,
   JudgeReplySchema,
   JudgeUnavailable,
-} from "@eaa-check/core";
-import type { JudgeReply, JudgeRequest } from "@eaa-check/core";
+} from "@good-a11y/core";
+import type { JudgeReply, JudgeRequest } from "@good-a11y/core";
 import { Effect, Layer, Schema } from "effect";
 import type { Duration } from "effect";
 

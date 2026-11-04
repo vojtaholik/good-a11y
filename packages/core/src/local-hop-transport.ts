@@ -6,4 +6,4 @@ import type { VettedUrl } from "./public-url.js";
 export class LocalHopTransport extends Context.Service<
   LocalHopTransport,
   { readonly open: OpenHop<VettedUrl> }
->()("@eaa-check/core/LocalHopTransport") {}
+>()("@good-a11y/core/LocalHopTransport") {}

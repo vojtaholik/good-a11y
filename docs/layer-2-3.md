@@ -8,7 +8,7 @@ Deployed to the non-production stage `dev`: https://eaacheck-website-dev-x6ihepv
 
 | Package | What it does |
 | --- | --- |
-| `packages/core` (new files) | `startScan` and `getScan` contracts (`scan-lifecycle.ts`), `ScanView` and its stages (`scan-view.ts`), `ScanJob` (`scan-job.ts`), the `ScanSteps` port, the scan machine (`scan-machine.ts`), and the failures `UnknownScan`, `DailyCapReached`, `ScanUnavailable`, `ScanStepFailed`. The browser-safe entry `@eaa-check/core/contracts` re-exports what the page needs |
+| `packages/core` (new files) | `startScan` and `getScan` contracts (`scan-lifecycle.ts`), `ScanView` and its stages (`scan-view.ts`), `ScanJob` (`scan-job.ts`), the `ScanSteps` port, the scan machine (`scan-machine.ts`), and the failures `UnknownScan`, `DailyCapReached`, `ScanUnavailable`, `ScanStepFailed`. The browser-safe entry `@good-a11y/core/contracts` re-exports what the page needs |
 | `packages/scan-store` | D1 through Drizzle. `ScanStore`: one row per scan (stage, report JSON, failure). `MessageStore`: one row per visitor message. `BrowserBudget`: one row per UTC day of reserved browser seconds. Migrations in `migrations/d1/`, declared for the Stack by `ScanDatabase` in `src/d1.ts` |
 | `apps/scanner` | The backend Worker. Serves `startScan`, `getScan` and `sendMessage` over RPC (`toRpc`), and owns `ScanWorkflow` |
 | `apps/infra` | The Alchemy Stack `EaaCheck`: the website Worker, the scanner Worker, the Workflow, D1 and its migrations, the R2 bucket for raw axe results, the Browser Run binding. No zone, no domain, no email |
@@ -48,10 +48,10 @@ Every settled report, refused ones included, ends with the studio9 contact text 
 
 | Command | Purpose |
 | --- | --- |
-| `pnpm exec alchemy dev --no-input` (in `apps/infra`) | The whole product in local workerd. The site is the `siteUrl` it prints. Build first: `pnpm turbo run build --filter=@eaa-check/web^...` |
-| `pnpm exec varlock run -- pnpm --filter @eaa-check/infra exec alchemy plan --stage dev --no-input` | Preview the Stack diff |
-| `pnpm exec varlock run -- pnpm --filter @eaa-check/infra exec alchemy deploy --stage dev --yes --no-input` | Deploy stage `dev` through the default Alchemy profile |
-| `pnpm --filter @eaa-check/scan-store exec drizzle-kit generate --dialect sqlite --schema src/schema/d1.ts --out migrations/d1 --name <name>` | A new migration after a schema change |
+| `pnpm exec alchemy dev --no-input` (in `apps/infra`) | The whole product in local workerd. The site is the `siteUrl` it prints. Build first: `pnpm turbo run build --filter=@good-a11y/web^...` |
+| `pnpm exec varlock run -- pnpm --filter @good-a11y/infra exec alchemy plan --stage dev --no-input` | Preview the Stack diff |
+| `pnpm exec varlock run -- pnpm --filter @good-a11y/infra exec alchemy deploy --stage dev --yes --no-input` | Deploy stage `dev` through the default Alchemy profile |
+| `pnpm --filter @good-a11y/scan-store exec drizzle-kit generate --dialect sqlite --schema src/schema/d1.ts --out migrations/d1 --name <name>` | A new migration after a schema change |
 
 ## Verified
 
@@ -66,7 +66,7 @@ Every settled report, refused ones included, ends with the studio9 contact text 
 - Contact messages are stored and never sent anywhere. Sending them (webproai notifies the owner's own address through Cloudflare Email) needs the destination address verified in Cloudflare, and is not built.
 - The contact form has no Turnstile or other bot check; the daily cap of 50 is the only limit.
 
-- The browser bundle is 650 kB: `@eaa-check/core/contracts` pulls the facts ledger. Splitting the page's schemas from the ledger is a later change.
+- The browser bundle is 650 kB: `@good-a11y/core/contracts` pulls the facts ledger. Splitting the page's schemas from the ledger is a later change.
 - Old rows on stage `dev` from before the Report schema changes read as outdated; nothing migrates them, by design.
 - Alchemy reports `2.0.0-beta.85` is available; the repo stays on the pinned `beta.81`.
 

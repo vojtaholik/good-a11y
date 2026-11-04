@@ -1,5 +1,5 @@
-import { DEFAULT_MAX_BYTES, SafeFetch } from "@eaa-check/core";
 import { describe, expect, it } from "@effect/vitest";
+import { DEFAULT_MAX_BYTES, SafeFetch } from "@good-a11y/core";
 import { Effect, Layer } from "effect";
 import { FetchHttpClient } from "effect/http";
 

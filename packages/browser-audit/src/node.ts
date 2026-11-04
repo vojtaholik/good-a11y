@@ -1,4 +1,4 @@
-import { isPrivateTarget, vetLocalUrl } from "@eaa-check/core";
+import { isPrivateTarget, vetLocalUrl } from "@good-a11y/core";
 import { launch } from "puppeteer-core";
 
 import { sessionOn } from "./puppeteer-session.js";

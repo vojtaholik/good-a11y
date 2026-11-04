@@ -1,4 +1,4 @@
-import { implement } from "@eaa-check/capability/implement";
+import { implement } from "@good-a11y/capability/implement";
 import { Effect } from "effect";
 
 import { scanContract } from "./contracts.js";

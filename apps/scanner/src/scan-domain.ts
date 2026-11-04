@@ -1,6 +1,6 @@
-import { SafeFetch } from "@eaa-check/core";
-import { htmlPageReaderLayer } from "@eaa-check/html-reader";
-import { httpHopTransportLayer } from "@eaa-check/http-transport";
+import { SafeFetch } from "@good-a11y/core";
+import { htmlPageReaderLayer } from "@good-a11y/html-reader";
+import { httpHopTransportLayer } from "@good-a11y/http-transport";
 import { Layer } from "effect";
 
 export const scanDomainLayer = Layer.mergeAll(

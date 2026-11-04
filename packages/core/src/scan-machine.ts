@@ -1,4 +1,4 @@
-import { watchActor } from "@eaa-check/capability/actor-watch";
+import { watchActor } from "@good-a11y/capability/actor-watch";
 import {
   createEffectActor,
   fromEffect,

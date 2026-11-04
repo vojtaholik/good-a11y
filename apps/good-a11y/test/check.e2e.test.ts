@@ -4,8 +4,8 @@ import { readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import path from "node:path";
 
-import { ReportSchema } from "@eaa-check/core";
 import { describe, expect, it } from "@effect/vitest";
+import { ReportSchema } from "@good-a11y/core";
 import { Effect, Schema } from "effect";
 
 import { BUNDLE_PATH } from "../scripts/bundle-options.ts";

@@ -5,7 +5,7 @@ Built 2026-11-03 by builder-core. After the static checks, a scan can open the p
 ## Flow
 
 1. The static scan runs as before and produces a `Report`.
-2. The Workflow reserves `RENDERED_AUDIT_RESERVE_SECONDS` (60) of browser time with `BrowserBudget.reserve` from `@eaa-check/scan-store`, against `DAILY_BROWSER_SECONDS` (1080, about 18 minutes a day). The insert is conditional, so the budget is never overspent. Nothing is refunded.
+2. The Workflow reserves `RENDERED_AUDIT_RESERVE_SECONDS` (60) of browser time with `BrowserBudget.reserve` from `@good-a11y/scan-store`, against `DAILY_BROWSER_SECONDS` (1080, about 18 minutes a day). The insert is conditional, so the budget is never overspent. Nothing is refunded.
 3. If the reservation fails, the report gets `withRendered(report, { skipped: BUDGET_SPENT })`.
 4. Otherwise `RenderedAudit.audit(finalUrl)` runs, and the report gets `withRendered(report, { ran: page })`. If it fails, the report gets `{ skipped: skippedBecause(failure) }`.
 5. `page.axe`, the raw axe JSON, is stored as evidence.

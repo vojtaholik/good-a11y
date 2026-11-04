@@ -1,6 +1,6 @@
 import { launch } from "@cloudflare/puppeteer";
 import type { BrowserWorker } from "@cloudflare/puppeteer";
-import { vetUrl } from "@eaa-check/core";
+import { vetUrl } from "@good-a11y/core";
 
 import type { OnClose } from "./browser-session.js";
 import { KEEP_ALIVE_MS, sessionOn } from "./puppeteer-session.js";

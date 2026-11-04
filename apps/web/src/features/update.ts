@@ -1,5 +1,5 @@
-import { ContactMessageSchema, fixPromptFor } from "@eaa-check/core/contracts";
-import type { ScanView } from "@eaa-check/core/contracts";
+import { ContactMessageSchema, fixPromptFor } from "@good-a11y/core/contracts";
+import type { ScanView } from "@good-a11y/core/contracts";
 import { Option, Schema } from "effect";
 import type { Runtime, Update } from "foldkit";
 import { UrlRequest } from "foldkit/navigation";

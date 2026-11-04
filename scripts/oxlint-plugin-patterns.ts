@@ -1050,7 +1050,7 @@ const watchEffectActors = defineRule({
     },
     messages: {
       unwatched:
-        'Call watchActor("<machine>", actor) from @eaa-check/capability/actor-watch after createEffectActor. It is a no-op until devtools provides a watcher, and without it rat_list_actors cannot see this machine.',
+        'Call watchActor("<machine>", actor) from @good-a11y/capability/actor-watch after createEffectActor. It is a no-op until devtools provides a watcher, and without it rat_list_actors cannot see this machine.',
     },
     type: "suggestion",
   },

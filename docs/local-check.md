@@ -16,7 +16,7 @@ npx github:vojtaholik/good-a11y check --chrome /path/to/chromium localhost:5173
 1. `parseLocalTarget` reads what was typed. Without a scheme, `localhost`, `*.localhost`, an IP address, a one-label host or any `host:port` gets `http://`; everything else gets `https://`.
 2. `SafeFetch.localLayer` fetches the page: the same hand-followed redirects, body cap, timeout and typed failures as the hosted scan, vetted per hop by `vetLocalUrl`.
 3. `PageReader` reads the HTML and every static check runs.
-4. `RenderedAudit` opens the page in the user's Chrome (`@eaa-check/browser-audit/node`): the same page scripts, the pinned axe-core 4.14.0 and the same rendered probes as Browser Run, at the same viewport and with the same timeouts. On a private target (below) the forms are also submitted empty, under the hosted fence.
+4. `RenderedAudit` opens the page in the user's Chrome (`@good-a11y/browser-audit/node`): the same page scripts, the pinned axe-core 4.14.0 and the same rendered probes as Browser Run, at the same viewport and with the same timeouts. On a private target (below) the forms are also submitted empty, under the hosted fence.
 5. `withRendered` adds the rendered findings, or a skip with its reason, to the `Report`.
 6. The shown judged questions that relate to a WCAG criterion are built with `questionsFor` from the static and rendered evidence. No model is asked.
 
@@ -48,7 +48,7 @@ The local check is the one place that may fetch and open localhost and private a
 
 The fences:
 
-- `rat-stack-boundaries/no-local-mode-in-hosted-apps` fails lint when `apps/scanner`, `apps/web` or `apps/infra` import `@eaa-check/browser-audit/node`, `@eaa-check/http-transport/node` or `puppeteer-core`, or name `vetLocalUrl`, `LocalUrl`, `VettedUrl`, `LocalHopTransport`, `localLayer`, `checkLocally`, `parseLocalTarget` or the local layers. `packages/core/test/boundaries-rule.test.ts` runs the rule on fixtures in each hosted app.
+- `rat-stack-boundaries/no-local-mode-in-hosted-apps` fails lint when `apps/scanner`, `apps/web` or `apps/infra` import `@good-a11y/browser-audit/node`, `@good-a11y/http-transport/node` or `puppeteer-core`, or name `vetLocalUrl`, `LocalUrl`, `VettedUrl`, `LocalHopTransport`, `localLayer`, `checkLocally`, `parseLocalTarget` or the local layers. `packages/core/test/boundaries-rule.test.ts` runs the rule on fixtures in each hosted app.
 - `packages/core/test/local-target.test.ts` holds a `@ts-expect-error` on passing a `LocalUrl` to `HopTransport.open`: if the hosted port ever accepts one, the typecheck fails.
 - The same test file checks that `parseScanTarget` still refuses `localhost:5173` and `127.0.0.1`.
 

@@ -1,9 +1,9 @@
 // @effect-diagnostics nodeBuiltinImport:off -- The test builds compressed bodies with node:zlib.
 import { brotliCompressSync, gzipSync } from "node:zlib";
 
-import { TransportFailure } from "@eaa-check/core";
-import type { HopResponse } from "@eaa-check/core";
 import { describe, expect, it } from "@effect/vitest";
+import { TransportFailure } from "@good-a11y/core";
+import type { HopResponse } from "@good-a11y/core";
 import { Effect, Stream } from "effect";
 
 import { decompressed } from "../src/decompress.js";

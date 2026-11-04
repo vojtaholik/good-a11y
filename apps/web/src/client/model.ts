@@ -1,4 +1,4 @@
-import { ScanViewSchema } from "@eaa-check/core/contracts";
+import { ScanViewSchema } from "@good-a11y/core/contracts";
 import { Schema } from "effect";
 import { defineMessageUnion } from "foldkit/message";
 import { UrlRequest } from "foldkit/navigation";

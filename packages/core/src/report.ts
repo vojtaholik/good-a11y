@@ -1,4 +1,4 @@
-import { VERIFIED_FACTS } from "@eaa-check/facts";
+import { VERIFIED_FACTS } from "@good-a11y/facts";
 import { Schema } from "effect";
 
 import { APPLICABILITY, ApplicabilitySchema } from "./applicability.js";

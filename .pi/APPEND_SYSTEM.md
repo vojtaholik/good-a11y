@@ -3,8 +3,8 @@
 Pi appends this file to its system prompt for sessions in this repo.
 
 - Repo law lives in `AGENTS.md`; product intent in `VISION.md`. Read both before substantial work.
-- eaa-check is an EU accessibility (EAA) checker on rat-stack, built the same way as webproai. A visitor pastes a URL; deterministic checks report findings against Directive (EU) 2019/882 and EN 301 549 (WCAG), per EU member state. It sells web and accessibility work for studio9. English UI first.
-- The working brief and decision ledger: `.brain/projects/eaa-checker/eaa-checker-brief.svx`. Durable status: `REPORT.md`.
+- good-a11y (named eaa-check until 2026-11-04) is accessibility guidance for coding agents with an EU accessibility (EAA) checker on top, on rat-stack, built the same way as webproai. Guides are searched and retrieved by agents (`npx github:vojtaholik/good-a11y`); the checker runs deterministic checks against Directive (EU) 2019/882 and EN 301 549 (WCAG), per EU member state. English UI first.
+- The working briefs and decision ledgers: `.brain/projects/good-a11y/good-a11y-brief.svx` and `.brain/projects/eaa-checker/eaa-checker-brief.svx`. Durable status: `REPORT.md`.
 - The overriding rule: every legal and normative claim traces to a `verified` fact in `research/facts/` (format in `research/facts/README.md`). Gaps show "unknown". The report never says a site is "compliant" and states that automated checks catch only part of WCAG.
 - webproai (`~/Developer/vojtaholik/webproai`) is read-only reference; reuse by copying.
 - Validation gate: `pnpm turbo run check test build`. Lefthook runs `pnpm check` and `pnpm test` on commit; CI runs the full gate on a cold cache.

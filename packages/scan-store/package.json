@@ -1,5 +1,5 @@
 {
-  "name": "@eaa-check/scan-store",
+  "name": "@good-a11y/scan-store",
   "version": "0.1.0",
   "private": true,
   "files": [
@@ -35,7 +35,7 @@
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {
-    "@eaa-check/core": "workspace:*",
+    "@good-a11y/core": "workspace:*",
     "alchemy": "2.0.0-beta.81",
     "drizzle-orm": "1.0.0-rc.5-ab785fc",
     "effect": "4.0.0"

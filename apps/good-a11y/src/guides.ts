@@ -1,5 +1,5 @@
-import { GUIDES, makeGuideIndex } from "@eaa-check/guides";
-import type { GuideHit } from "@eaa-check/guides";
+import { GUIDES, makeGuideIndex } from "@good-a11y/guides";
+import type { GuideHit } from "@good-a11y/guides";
 import { Console, Effect } from "effect";
 import { Argument, Command } from "effect/cli";
 

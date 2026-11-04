@@ -7,5 +7,5 @@ export interface PageReading {
 }
 
 export class PageReader extends Context.Service<PageReader, PageReading>()(
-  "@eaa-check/core/PageReader"
+  "@good-a11y/core/PageReader"
 ) {}

@@ -2,8 +2,8 @@ import {
   RENDERED_HTML_CHARACTERS,
   RenderedAudit,
   RenderedAuditFailed,
-} from "@eaa-check/core";
-import type { RenderedPage, UrlVet, VettedUrl } from "@eaa-check/core";
+} from "@good-a11y/core";
+import type { RenderedPage, UrlVet, VettedUrl } from "@good-a11y/core";
 import { Effect, Layer, Result, Schema } from "effect";
 import type { Duration } from "effect";
 

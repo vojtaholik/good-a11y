@@ -1,6 +1,6 @@
-import { HopTransport, LocalHopTransport } from "@eaa-check/core";
-import type { HopRequest, VettedUrl } from "@eaa-check/core";
 import { NodeHttpClient } from "@effect/platform-node";
+import { HopTransport, LocalHopTransport } from "@good-a11y/core";
+import type { HopRequest, VettedUrl } from "@good-a11y/core";
 import { Effect, Layer } from "effect";
 
 import { decompressed } from "./decompress.js";

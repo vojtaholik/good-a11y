@@ -1,5 +1,5 @@
-import { VERIFIED_FACTS } from "@eaa-check/facts";
 import { describe, expect, it } from "@effect/vitest";
+import { VERIFIED_FACTS } from "@good-a11y/facts";
 
 import {
   CATALOGUE,

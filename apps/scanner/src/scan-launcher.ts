@@ -1,4 +1,4 @@
-import type { ScanJob } from "@eaa-check/core";
+import type { ScanJob } from "@good-a11y/core";
 import { Context } from "effect";
 import type { Effect } from "effect";
 
@@ -9,4 +9,4 @@ export class ScanLauncher extends Context.Service<
   {
     readonly launch: (job: ScanJob) => Effect.Effect<void, ScanLaunchFailed>;
   }
->()("@eaa-check/scanner/ScanLauncher") {}
+>()("@good-a11y/scanner/ScanLauncher") {}

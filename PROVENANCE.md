@@ -6,7 +6,7 @@ The repository was created from the [joelhooks/rat-stack](https://github.com/joe
 
 | Code | Origin | Notes |
 | --- | --- | --- |
-| Root config, `scripts/`, `tools/`, `skills/`, `.claude/`, `.cursor/`, `.pi/`, `.github/`, `packages/capability` | webproai at its `main` on 2026-11-03 | Copied, scope renamed to `@eaa-check`. `no-core-adapters` also allows `packages/facts` |
+| Root config, `scripts/`, `tools/`, `skills/`, `.claude/`, `.cursor/`, `.pi/`, `.github/`, `packages/capability` | webproai at its `main` on 2026-11-03 | Copied, scope renamed to `@eaa-check`, then to `@good-a11y` on 2026-11-04. `no-core-adapters` also allows `packages/facts` |
 | `packages/core/src/safe-fetch.ts`, `hop-transport.ts`, `public-url.ts`, `fetch-result.ts`, `transport-failure.ts`, `body.ts`, `challenge.ts`, `refusal.ts`, `scan-target.ts` | webproai `packages/core/src` | Copied; Czech texts rewritten in English |
 | `packages/http-transport` | webproai `packages/http-transport` | Copied unchanged apart from the scope |
 | `packages/html-reader` | webproai `packages/html-reader` (package shape, tokenizer approach) | The reader itself is new: it reads accessibility evidence, not webproai's page facts |

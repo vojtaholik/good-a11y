@@ -10,7 +10,7 @@ Built 2026-11-03 by the builder-core agent. `pnpm cli scan <url>` fetches one pu
 | `packages/core` | The `scan` capability, `SafeFetch`, the `PageReader` port, `PageEvidence`, ten checks, the catalogue, applicability, the reference benchmark, the report and its text rendering |
 | `packages/html-reader` | `PageReader` adapter: one pass over the `htmlparser2` tokenizer, no tree |
 | `packages/http-transport` | `HopTransport` adapter, unchanged from webproai |
-| `apps/cli` | The `eaa-check` bin; one command per capability |
+| `apps/cli` | The `good-a11y-scan` bin; one command per capability |
 
 ### Checks
 
@@ -55,9 +55,9 @@ Elements under `hidden`, `aria-hidden="true"`, `<template>` or `<noscript>` are 
 
 | From | Change |
 | --- | --- |
-| Root config, `scripts/`, `tools/`, `skills/`, `.claude/`, `.cursor/`, `.pi/`, `.github/`, `pnpm-lock.yaml` | Scope renamed to `@eaa-check`. `minimumReleaseAgeExclude` trimmed to what is used. Oxfmt ignores `.brain/**`, `research/**`, `BRIEF.md`, `REPORT.md` (other agents write them) and the generated ledger; Oxlint ignores the generated ledger |
+| Root config, `scripts/`, `tools/`, `skills/`, `.claude/`, `.cursor/`, `.pi/`, `.github/`, `pnpm-lock.yaml` | Scope renamed to `@good-a11y`. `minimumReleaseAgeExclude` trimmed to what is used. Oxfmt ignores `.brain/**`, `research/**`, `BRIEF.md`, `REPORT.md` (other agents write them) and the generated ledger; Oxlint ignores the generated ledger |
 | `scripts/oxlint-plugin-boundaries.ts` | `no-core-adapters` also allows `packages/facts`: it is data and pure parsing, no adapter |
-| `packages/core/test` fence tests | `docs-pins.test.ts` removed and the `@eaa-check/infra` case of `boundaries-rule.test.ts` dropped: both need XState and `apps/infra`, which layer 2 adds. Restore them with layer 2 |
+| `packages/core/test` fence tests | `docs-pins.test.ts` removed and the `@good-a11y/infra` case of `boundaries-rule.test.ts` dropped: both need XState and `apps/infra`, which layer 2 adds. Restore them with layer 2 |
 | `packages/capability`, `packages/http-transport` | Unchanged apart from the scope |
 | `safe-fetch.ts`, `public-url.ts`, `body.ts`, `challenge.ts`, `refusal.ts`, `scan-target.ts`, `fetch-result.ts`, `hop-transport.ts`, `transport-failure.ts` | Czech texts rewritten in English; `messageCs` is `reason`; `accept-language` asks for English |
 | `packages/html-reader` | Package shape and tokenizer technique kept; the reader is new and reads accessibility evidence |

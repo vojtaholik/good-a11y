@@ -1,4 +1,4 @@
-import Scanner from "@eaa-check/scanner/worker";
+import Scanner from "@good-a11y/scanner/worker";
 import * as Cloudflare from "alchemy/Cloudflare";
 
 import {

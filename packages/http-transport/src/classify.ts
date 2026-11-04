@@ -1,4 +1,4 @@
-import { TransportFailure } from "@eaa-check/core";
+import { TransportFailure } from "@good-a11y/core";
 import { Option, Schema } from "effect";
 import type { HttpClientError } from "effect/http";
 

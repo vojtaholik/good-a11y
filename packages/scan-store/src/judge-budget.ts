@@ -27,7 +27,7 @@ export class JudgeBudget extends Context.Service<
       settlement: TokenSettlement
     ) => Effect.Effect<void, ScanStoreError>;
   }
->()("@eaa-check/scan-store/JudgeBudget", {
+>()("@good-a11y/scan-store/JudgeBudget", {
   make: Effect.gen(function* makeJudgeBudget() {
     const db = yield* StoreDatabase;
 

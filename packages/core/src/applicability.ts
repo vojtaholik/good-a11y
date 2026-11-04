@@ -1,9 +1,9 @@
-import { STATE_PROFILES, VERIFIED_FACTS, factsOfState } from "@eaa-check/facts";
+import { STATE_PROFILES, VERIFIED_FACTS, factsOfState } from "@good-a11y/facts";
 import type {
   ProfileField,
   StateProfile,
   VerifiedFact,
-} from "@eaa-check/facts";
+} from "@good-a11y/facts";
 import { Schema } from "effect";
 
 import { SourcedSchema, verifiedText } from "./reference.js";

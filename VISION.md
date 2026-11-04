@@ -1,8 +1,10 @@
 # Vision
 
-eaa-check tells a company where its public website stands against the European Accessibility Act, in every EU member state it sells in, and sells studio9's web and accessibility work off that report.
+good-a11y is accessibility guidance for coding agents, with the checker on top: an agent searches and retrieves the guide for its task, builds with it, and checks its own work locally. People get the same guides as pages, and a checker on the home page. The working brief is `.brain/projects/good-a11y/good-a11y-brief.svx`.
 
-A visitor pastes a URL. The checker fetches the public page, runs deterministic checks over what it fetched, and shows each finding with the WCAG success criterion and EN 301 549 clause it relates to, and the member states where the EAA's rules reach it. The report ends with a contact call to action.
+The checker, which this repo began as (eaa-check), tells a company where its public website stands against the European Accessibility Act, in every EU member state it sells in.
+
+A visitor pastes a URL. The checker fetches the public page, runs deterministic checks over what it fetched, and shows each finding with the WCAG success criterion and EN 301 549 clause it relates to, and the member states where the EAA's rules reach it. The studio9 contact call to action is hidden for now (`CONTACT_SHOWN`, decision 2 of the good-a11y brief).
 
 Audience: people who own or run e-commerce and service websites sold across the EU. The owner of this repo, and the agents who build it.
 

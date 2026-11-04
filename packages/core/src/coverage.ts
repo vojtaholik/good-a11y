@@ -1,5 +1,5 @@
-import { VERIFIED_FACTS } from "@eaa-check/facts";
-import type { VerifiedFact } from "@eaa-check/facts";
+import { VERIFIED_FACTS } from "@good-a11y/facts";
+import type { VerifiedFact } from "@good-a11y/facts";
 import { Schema } from "effect";
 
 import { CATALOGUE, criteriaOf } from "./catalogue.js";

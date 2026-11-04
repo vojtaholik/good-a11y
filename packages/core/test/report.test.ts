@@ -1,6 +1,6 @@
-import { VERIFIED_FACTS } from "@eaa-check/facts";
-import type { StateProfile } from "@eaa-check/facts";
 import { describe, expect, it } from "@effect/vitest";
+import { VERIFIED_FACTS } from "@good-a11y/facts";
+import type { StateProfile } from "@good-a11y/facts";
 import { Schema } from "effect";
 
 import {

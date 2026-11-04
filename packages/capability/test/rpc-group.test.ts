@@ -1,5 +1,5 @@
-import { defineContract } from "@eaa-check/capability/contract";
-import { toRpcGroup } from "@eaa-check/capability/rpc-group";
+import { defineContract } from "@good-a11y/capability/contract";
+import { toRpcGroup } from "@good-a11y/capability/rpc-group";
 import { Schema } from "effect";
 import { expect, it } from "vitest";
 

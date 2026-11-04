@@ -1,6 +1,6 @@
-import { CATALOGUE, runChecks } from "@eaa-check/core";
-import type { CheckId, CheckStatus } from "@eaa-check/core";
 import { describe, expect, it } from "@effect/vitest";
+import { CATALOGUE, runChecks } from "@good-a11y/core";
+import type { CheckId, CheckStatus } from "@good-a11y/core";
 
 import { readPage } from "../src/index.js";
 

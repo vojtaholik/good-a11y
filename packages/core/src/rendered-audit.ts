@@ -28,4 +28,4 @@ export class RenderedAudit extends Context.Service<
       url: VettedUrl
     ) => Effect.Effect<RenderedPage, RenderedAuditFailed>;
   }
->()("@eaa-check/core/RenderedAudit") {}
+>()("@good-a11y/core/RenderedAudit") {}

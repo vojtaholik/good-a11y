@@ -44,7 +44,7 @@ const countOf = (issue: Issue): string =>
 
 export const fixPromptOf = (report: Report, issue: Issue): string =>
   [
-    `Fix this accessibility issue on ${report.finalUrl ?? report.requestedUrl}. An automated check (eaa-check, ${methodOf(issue)}) found it on ${report.scannedAt.slice(0, 10)}.`,
+    `Fix this accessibility issue on ${report.finalUrl ?? report.requestedUrl}. An automated check (good-a11y, ${methodOf(issue)}) found it on ${report.scannedAt.slice(0, 10)}.`,
     [
       `Issue: ${issue.title} [${issue.key}], ${countOf(issue)}`,
       ...(issue.whatFails === null ? [] : [`What fails: ${issue.whatFails}`]),

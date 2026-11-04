@@ -2,8 +2,8 @@ import {
   NOT_SELLING_LEAD,
   notSellingBasis,
   sellsLine,
-} from "@eaa-check/core/contracts";
-import type { ProfileLine, Report, StateRef } from "@eaa-check/core/contracts";
+} from "@good-a11y/core/contracts";
+import type { ProfileLine, Report, StateRef } from "@good-a11y/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/model.js";

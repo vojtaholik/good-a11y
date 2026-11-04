@@ -33,7 +33,7 @@
       ],
       "outputs": []
     },
-    "@eaa-check/core#test": {
+    "@good-a11y/core#test": {
       "dependsOn": ["build"],
       "outputs": [],
       "inputs": [
@@ -50,12 +50,12 @@
         "$TURBO_ROOT$/research/facts/**"
       ]
     },
-    "@eaa-check/facts#test": {
+    "@good-a11y/facts#test": {
       "dependsOn": ["build"],
       "outputs": [],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/research/facts/**"]
     },
-    "@eaa-check/scanner#test": {
+    "@good-a11y/scanner#test": {
       "dependsOn": ["build"],
       "outputs": [],
       "inputs": [
@@ -63,7 +63,7 @@
         "$TURBO_ROOT$/packages/scan-store/migrations/**"
       ]
     },
-    "@eaa-check/guides#test": {
+    "@good-a11y/guides#test": {
       "dependsOn": ["build"],
       "outputs": [],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/guides/**"]

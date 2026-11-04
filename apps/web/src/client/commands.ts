@@ -3,7 +3,7 @@ import {
   ScanTargetRejected,
   ScanUnavailable,
   UnknownScan,
-} from "@eaa-check/core/contracts";
+} from "@good-a11y/core/contracts";
 import { Cause, Effect, Option, Schema } from "effect";
 import { Command } from "foldkit";
 import { load, pushUrl } from "foldkit/navigation";

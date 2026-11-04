@@ -237,7 +237,7 @@ export class SafeFetch extends Context.Service<
       options: FetchOptions
     ) => Effect.Effect<FetchResult>;
   }
->()("@eaa-check/core/SafeFetch") {
+>()("@good-a11y/core/SafeFetch") {
   static readonly layer = Layer.effect(
     this,
     HopTransport.pipe(Effect.map(({ open }) => safeFetchOn(vetUrl, open)))

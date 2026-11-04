@@ -1,5 +1,5 @@
-import { HopTransport, LocalHopTransport } from "@eaa-check/core";
-import type { HopRequest, VettedUrl } from "@eaa-check/core";
+import { HopTransport, LocalHopTransport } from "@good-a11y/core";
+import type { HopRequest, VettedUrl } from "@good-a11y/core";
 import { Effect, Layer, Stream } from "effect";
 import { FetchHttpClient, HttpClient, HttpClientRequest } from "effect/http";
 

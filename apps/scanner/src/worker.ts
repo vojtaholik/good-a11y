@@ -1,6 +1,6 @@
-import { toRpc } from "@eaa-check/capability/rpc";
-import { ScanJobSchema } from "@eaa-check/core";
-import { scanStoreD1 } from "@eaa-check/scan-store/d1";
+import { toRpc } from "@good-a11y/capability/rpc";
+import { ScanJobSchema } from "@good-a11y/core";
+import { scanStoreD1 } from "@good-a11y/scan-store/d1";
 import * as Cloudflare from "alchemy/Cloudflare";
 import { Effect, Layer, Schema } from "effect";
 import { RpcSerialization, RpcServer } from "effect/rpc";

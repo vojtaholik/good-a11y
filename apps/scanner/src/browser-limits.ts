@@ -1,4 +1,4 @@
-import { DAILY_BROWSER_SECONDS } from "@eaa-check/core";
+import { DAILY_BROWSER_SECONDS } from "@good-a11y/core";
 import { Stack } from "alchemy/Stack";
 import { Config } from "effect";
 

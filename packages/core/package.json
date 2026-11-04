@@ -1,5 +1,5 @@
 {
-  "name": "@eaa-check/core",
+  "name": "@good-a11y/core",
   "version": "0.1.0",
   "private": true,
   "files": [
@@ -29,8 +29,8 @@
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {
-    "@eaa-check/capability": "workspace:*",
-    "@eaa-check/facts": "workspace:*",
+    "@good-a11y/capability": "workspace:*",
+    "@good-a11y/facts": "workspace:*",
     "@xstate/effect": "0.1.0-alpha.6",
     "effect": "4.0.0",
     "xstate": "6.0.0-alpha.63"

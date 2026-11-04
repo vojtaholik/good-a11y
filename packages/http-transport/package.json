@@ -1,5 +1,5 @@
 {
-  "name": "@eaa-check/http-transport",
+  "name": "@good-a11y/http-transport",
   "version": "0.1.0",
   "private": true,
   "files": [
@@ -28,8 +28,8 @@
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {
-    "@eaa-check/core": "workspace:*",
     "@effect/platform-node": "4.0.0",
+    "@good-a11y/core": "workspace:*",
     "effect": "4.0.0"
   },
   "devDependencies": {

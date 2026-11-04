@@ -1,13 +1,13 @@
-import { localRenderedAuditLayer } from "@eaa-check/browser-audit/node";
+import { localRenderedAuditLayer } from "@good-a11y/browser-audit/node";
 import {
   ReportSchema,
   SafeFetch,
   checkLocally,
   formatLocalCheck,
-} from "@eaa-check/core";
-import { guidesForCheck } from "@eaa-check/guides";
-import { htmlPageReaderLayer } from "@eaa-check/html-reader";
-import { localNodeHopTransportLayer } from "@eaa-check/http-transport/node";
+} from "@good-a11y/core";
+import { guidesForCheck } from "@good-a11y/guides";
+import { htmlPageReaderLayer } from "@good-a11y/html-reader";
+import { localNodeHopTransportLayer } from "@good-a11y/http-transport/node";
 import { Console, Effect, Layer, Option, Schema } from "effect";
 import { Argument, Command, Flag } from "effect/cli";
 

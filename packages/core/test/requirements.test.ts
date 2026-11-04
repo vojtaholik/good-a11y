@@ -1,5 +1,5 @@
-import type { VerifiedFact } from "@eaa-check/facts";
 import { describe, expect, it } from "@effect/vitest";
+import type { VerifiedFact } from "@good-a11y/facts";
 
 import {
   EAA_ROWS,

@@ -4,4 +4,4 @@ import { Context } from "effect";
 export class StoreDatabase extends Context.Service<
   StoreDatabase,
   EffectSQLiteD1Database
->()("@eaa-check/scan-store/StoreDatabase") {}
+>()("@good-a11y/scan-store/StoreDatabase") {}

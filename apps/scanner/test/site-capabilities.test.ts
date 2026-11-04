@@ -1,6 +1,6 @@
-import type { ScanJob } from "@eaa-check/core";
-import { localStores } from "@eaa-check/scan-store/testing";
 import { describe, expect, it } from "@effect/vitest";
+import type { ScanJob } from "@good-a11y/core";
+import { localStores } from "@good-a11y/scan-store/testing";
 import { Effect, Layer, Ref } from "effect";
 import { TestClock } from "effect/testing";
 

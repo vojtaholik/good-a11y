@@ -2,8 +2,8 @@ import {
   NEWER_ISSUES_TITLE,
   SAMPLE_SOURCE_LABELS,
   issueGroupsOf,
-} from "@eaa-check/core/contracts";
-import type { Issue, IssueSample, Report } from "@eaa-check/core/contracts";
+} from "@good-a11y/core/contracts";
+import type { Issue, IssueSample, Report } from "@good-a11y/core/contracts";
 import { Schema } from "effect";
 import type { Html, HtmlBuilder } from "foldkit/html";
 

@@ -1,4 +1,4 @@
-import type { ContactMessage } from "@eaa-check/core";
+import type { ContactMessage } from "@good-a11y/core";
 import { eq, sql } from "drizzle-orm";
 import { Context, Effect, Layer } from "effect";
 
@@ -24,7 +24,7 @@ export class MessageStore extends Context.Service<
       message: NewMessage
     ) => Effect.Effect<KeepOutcome, ScanStoreError>;
   }
->()("@eaa-check/scan-store/MessageStore", {
+>()("@good-a11y/scan-store/MessageStore", {
   make: Effect.gen(function* makeMessageStore() {
     const db = yield* StoreDatabase;
 

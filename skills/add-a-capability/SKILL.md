@@ -24,7 +24,7 @@ Effect describes work with typed failures and required dependencies. Schema defi
 
 ## 1. Define the contract
 
-Put cross-process contracts in `packages/core/src/contracts.ts` and import `defineContract` from `@eaa-check/capability/contract`.
+Put cross-process contracts in `packages/core/src/contracts.ts` and import `defineContract` from `@good-a11y/capability/contract`.
 
 1. Define the input, output, and [expected failure](/lore/error-model) schemas.
 2. Give the contract a stable name and short description.
@@ -46,7 +46,7 @@ Schemas must encode and decode without services. Keep server dependencies out of
 
 ## 2. Implement it
 
-Import `implement` from `@eaa-check/capability/implement`. Put the handler next to its service or server-side data. Keep it small; put real work in a service or lifecycle machine.
+Import `implement` from `@good-a11y/capability/implement`. Put the handler next to its service or server-side data. Keep it small; put real work in a service or lifecycle machine.
 
 ```ts
 export const inspectFile = implement(inspectFileContract, ({ path }) =>
@@ -81,7 +81,7 @@ The CLI, HTTP, MCP, RPC, and code-mode projections take implemented capabilities
 
 `toCommand` builds one CLI command from the registered tuple. Open `apps/cli/src/command.ts` only when the command needs a positional argument, custom renderer, or alias. Use `name`, `positional`, and `render` for those cases. `toCommand` adds `--json`; do not parse fields again or call the service directly.
 
-RPC means remote procedure call: a client calls a named server operation. Browser clients import contracts from `@eaa-check/core/contracts` and `toRpcGroup` from `@eaa-check/capability/rpc-group`; they do not import a handler or the server-side `toRpc` projection.
+RPC means remote procedure call: a client calls a named server operation. Browser clients import contracts from `@good-a11y/core/contracts` and `toRpcGroup` from `@good-a11y/capability/rpc-group`; they do not import a handler or the server-side `toRpc` projection.
 
 ## 5. Test it
 

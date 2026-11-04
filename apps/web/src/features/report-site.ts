@@ -1,5 +1,5 @@
-import { ROLE_NAMES, siteSummary } from "@eaa-check/core/contracts";
-import type { Report, SitePageResult } from "@eaa-check/core/contracts";
+import { ROLE_NAMES, siteSummary } from "@good-a11y/core/contracts";
+import type { Report, SitePageResult } from "@good-a11y/core/contracts";
 import * as stylex from "@stylexjs/stylex";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
