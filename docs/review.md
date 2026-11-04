@@ -220,3 +220,14 @@ Fix, verified with the same harness (0 requests after lockdown): (1) add `delete
 
 - **74d2255 (canary)** is the right instrument for R2-H1 but does not cover its main path: the page registers no service worker, so a canary run can come back clean while the worker leak stays open. It needs `/sw.js` served as script, registered on load, and a submit handler that posts a message to the worker, which then fetches `/hit/service-worker`. Its `anchor-blank` and `form-target-blank` channels should hit today (popups, R2-H1). Sent to builder-cloud.
 - **6594671 (verdict split, scope line)**: the headline counts (`needPerson + checked` of `ofCriteria`) match the detail line, and the 4.1.1 note is unchanged. New Low, **R2-L5**: `NOT_SELLING_LEAD` (`packages/core/src/judged-placement.ts`) turns a model judgment into a legal conclusion ("so they may not apply to this site") and puts a verified definition link beside it. The line only appears when EU-DEF-1 is verified, but the sentence itself does not say it rests on the model, which AGENTS.md forbids for judged observations ("never presented as fact-backed"). In the round 2 set the model also called a consumer bank (ING) non-selling, and the EAA reaches banking services through other rules. Fix: start the sentence with the judgment ("The model judged that this site does not sell to consumers online; if so, ...") and keep "e-commerce" explicit.
+
+### Round 2 re-check 2 (07:58 CET) of d510085
+
+Verified fixed (code read, `@eaa-check/core` tests 264/264):
+
+- **R2-M3.** `decided.ts` now keeps the empty criteria apart for the served HTML (`null` when the page was not checked) and for the rendered page (`null` when the rendered step did not run). `requirements.ts` (`foundNothingEverywhere`) shows "Nothing to check on this page" only when every non-model method listed for the criterion ran and found nothing. The SPA case (rendered step skipped) now falls back to "Not checked on this scan" or "Needs a person".
+- **R2-L4.** The title reads "Points of Annex V the model judged missing from the accessibility statement". An Annex V row becomes "judged" only when the model noted the point. Otherwise it stays "Needs a person" and no longer claims "the model found this point".
+- **R2-L5.** `NOT_SELLING_LEAD` opens with "If the model is right," so the scope line is tied to the model.
+- The fail headline now counts distinct failing WCAG 2.1 criteria (`failingCriteria`, from `wcag` references of level A/AA issues). That is always at least 1 when `kind` is `fails`, because a level comes from a verified `wcag` reference.
+
+Still open: R2-H1 (submits off on dev; builder-cloud is adding the browser-level fix and the service-worker channel to the canary), R2-M1, R2-M2, R2-L1, R2-L2, R2-L3.
