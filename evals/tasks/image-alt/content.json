@@ -2,5 +2,8 @@
   "guide": "image-alt",
   "app": "content",
   "path": "/articles/breaking-in-boots.html",
-  "prompt": "Add a site logo image to the header that links home, a photo of the trail above the article title, and a chart image of blister count per week (week 1: 0, week 2: 3, week 3: 1)."
+  "prompt": "On the boots article (articles/breaking-in-boots.html): add the site logo, a simple boot-print mark you draw as assets/logo.svg, before the \"Trail Notes\" title in the header, linking to the home page. Add a photo of the trail above the article title using assets/ridge.svg. And after the first paragraph, add a bar chart image you draw as assets/km-per-week.svg showing how far we walked while breaking the boots in: week 1: 12 km, week 2: 27 km, week 3: 41 km. Plain HTML and SVG. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "chartData": ["12", "27", "41"]
+  }
 }

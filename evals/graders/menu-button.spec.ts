@@ -2,14 +2,22 @@
 import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
-import { targetUrl } from "./demo.ts";
+import { open, target } from "./task.ts";
 
-const trigger = (page: Page) => page.getByRole("button", { name: "Actions" });
+const trigger = (page: Page) =>
+  target(page, "trigger", { name: "Actions", role: "button" });
 
-const item = (page: Page, name: string) => page.getByRole("menuitem", { name });
+const menu = (page: Page) => page.getByRole("menu").filter({ visible: true });
+
+const items = (page: Page) => menu(page).getByRole("menuitem");
+
+const openMenu = async (page: Page) => {
+  await trigger(page).focus();
+  await page.keyboard.press("ArrowDown");
+};
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(targetUrl("menu-button"));
+  await open(page, "menu-button");
 });
 
 test("E1 the trigger declares a collapsed menu popup", async ({ page }) => {
@@ -21,36 +29,35 @@ test("E1 the trigger declares a collapsed menu popup", async ({ page }) => {
 });
 
 test("E2 Arrow Down opens the menu on its first item", async ({ page }) => {
-  await trigger(page).focus();
-  await page.keyboard.press("ArrowDown");
-  await expect(page.getByRole("menu")).toBeVisible();
+  await openMenu(page);
+  await expect(menu(page)).toHaveCount(1);
   await expect(trigger(page)).toHaveAttribute("aria-expanded", "true");
-  await expect(item(page, "Rename")).toBeFocused();
+  await expect(items(page).first()).toBeFocused();
 });
 
 test("E3 arrow keys wrap around the items", async ({ page }) => {
-  await trigger(page).focus();
-  await page.keyboard.press("ArrowDown");
+  await openMenu(page);
+  await expect(items(page).first()).toBeFocused();
   await page.keyboard.press("ArrowUp");
-  await expect(item(page, "Delete")).toBeFocused();
+  await expect(items(page).last()).toBeFocused();
   await page.keyboard.press("ArrowDown");
-  await expect(item(page, "Rename")).toBeFocused();
+  await expect(items(page).first()).toBeFocused();
 });
 
 test("E4 Escape closes and focuses the trigger", async ({ page }) => {
-  await trigger(page).focus();
-  await page.keyboard.press("ArrowDown");
+  await openMenu(page);
+  await expect(menu(page)).toHaveCount(1);
   await page.keyboard.press("Escape");
-  await expect(page.getByRole("menu")).toBeHidden();
+  await expect(menu(page)).toHaveCount(0);
   await expect(trigger(page)).toHaveAttribute("aria-expanded", "false");
   await expect(trigger(page)).toBeFocused();
 });
 
 test("E5 Tab closes the menu and leaves it", async ({ page }) => {
-  await trigger(page).focus();
-  await page.keyboard.press("ArrowDown");
+  await openMenu(page);
+  await expect(menu(page)).toHaveCount(1);
   await page.keyboard.press("Tab");
-  await expect(page.getByRole("menu")).toBeHidden();
+  await expect(menu(page)).toHaveCount(0);
 
   const inMenu = await page.evaluate(() =>
     Boolean(document.activeElement?.closest('[role="menu"]'))
@@ -59,14 +66,27 @@ test("E5 Tab closes the menu and leaves it", async ({ page }) => {
   expect(inMenu).toBe(false);
 });
 
-test("E6 Enter runs the item, closes and focuses the trigger", async ({
+test("E6 Enter on an item closes the menu and focuses the trigger", async ({
   page,
 }) => {
-  await trigger(page).focus();
-  await page.keyboard.press("ArrowDown");
-  await page.keyboard.press("ArrowDown");
+  await openMenu(page);
+  await expect(items(page).first()).toBeFocused();
+
+  const safe = target(page, "safeItem", {
+    name: "Duplicate",
+    role: "menuitem",
+  });
+
+  for (let press = 0; press < 10; press += 1) {
+    if (await safe.evaluate((node) => node === document.activeElement)) {
+      break;
+    }
+
+    await page.keyboard.press("ArrowDown");
+  }
+
+  await expect(safe).toBeFocused();
   await page.keyboard.press("Enter");
-  await expect(page.locator("#log")).toHaveText("Duplicate chosen.");
-  await expect(page.getByRole("menu")).toBeHidden();
+  await expect(menu(page)).toHaveCount(0);
   await expect(trigger(page)).toBeFocused();
 });

@@ -1,10 +1,10 @@
 // @effect-diagnostics asyncFunction:off -- Playwright drives the browser through Promise-based callbacks; this package holds no Effect code.
 import { expect, test } from "@playwright/test";
 
-import { targetUrl } from "./demo.ts";
+import { open } from "./task.ts";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(targetUrl("skip-link-landmarks"));
+  await open(page, "skip-link-landmarks");
 });
 
 test("E1 the first Tab shows a skip link", async ({ page }) => {
@@ -39,13 +39,15 @@ test("E4 one main, one banner, one content info", async ({ page }) => {
 });
 
 test("E5 navigation landmarks have distinct names", async ({ page }) => {
-  const names = await page
-    .locator("nav, [role=navigation]")
-    .evaluateAll((navs) => navs.map((nav) => nav.getAttribute("aria-label")));
+  const tree = await page.locator("body").ariaSnapshot();
+
+  const names = [
+    ...tree.matchAll(/^\s*- navigation(?: "(?<name>[^"]*)")?/gmu),
+  ].map((match) => match.groups?.name ?? "");
 
   expect(names.length).toBeGreaterThan(1);
+  expect(names).not.toContain("");
   expect(new Set(names).size).toBe(names.length);
-  expect(names).not.toContain(null);
 });
 
 test("E6 one h1, inside main", async ({ page }) => {

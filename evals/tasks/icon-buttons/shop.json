@@ -1,6 +1,20 @@
 {
   "guide": "icon-buttons",
   "app": "shop",
-  "path": "/cart",
-  "prompt": "The cart's Less, More and Remove text buttons look heavy. Replace them with compact icon buttons: minus, plus and a trash can. Draw the icons as inline SVG."
+  "path": "/",
+  "prompt": "The cart's \"Less\", \"More\" and \"Remove\" text buttons look heavy. Replace them on the cart page with compact square icon buttons with no visible text: a minus, a plus and a trash can, drawn as inline SVG at 20px. They keep doing what the text buttons do. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "setup": [
+    {
+      "click": {
+        "role": "button",
+        "name": "Add to cart"
+      }
+    },
+    {
+      "click": {
+        "role": "link",
+        "name": "Cart (1)"
+      }
+    }
+  ]
 }

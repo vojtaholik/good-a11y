@@ -1,6 +1,30 @@
 {
   "guide": "dialog-modal",
   "app": "shop",
-  "path": "/cart",
-  "prompt": "When a customer clicks \"Empty cart\", ask them to confirm first in a popup over the page with \"Empty cart\" and \"Keep items\" buttons. Only empty the cart when they confirm."
+  "path": "/",
+  "prompt": "On the cart page, when a customer clicks \"Empty cart\", ask them to confirm first in a popup over the page. The popup is titled \"Empty your cart?\", says \"This removes every item from your cart.\", and has two buttons: \"Empty cart\", which empties the cart and closes the popup, and \"Keep items\", which closes it and changes nothing. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "setup": [
+    {
+      "click": {
+        "role": "button",
+        "name": "Add to cart"
+      }
+    },
+    {
+      "click": {
+        "role": "link",
+        "name": "Cart (1)"
+      }
+    }
+  ],
+  "targets": {
+    "opener": {
+      "role": "button",
+      "name": "Empty cart"
+    },
+    "close": {
+      "role": "button",
+      "name": "Keep items"
+    }
+  }
 }

@@ -1,6 +1,30 @@
 {
   "guide": "menu-button",
   "app": "shop",
-  "path": "/cart",
-  "prompt": "Each cart row has too many buttons. Replace the \"Remove\" button with a single \"Options\" button that opens a small dropdown with \"Save for later\", \"Duplicate line\" and \"Remove\"."
+  "path": "/",
+  "prompt": "On the cart page each row has too many buttons. Replace each row's \"Remove\" button with one \"Options\" button that opens a small dropdown with \"Save for later\" (moves the line to a \"Saved for later\" list under the cart), \"Duplicate line\" (adds a copy of the line below it) and \"Remove\" (removes the line). Choosing one closes the dropdown, and so does clicking outside it. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "setup": [
+    {
+      "click": {
+        "role": "button",
+        "name": "Add to cart"
+      }
+    },
+    {
+      "click": {
+        "role": "link",
+        "name": "Cart (1)"
+      }
+    }
+  ],
+  "targets": {
+    "trigger": {
+      "role": "button",
+      "name": "Options"
+    },
+    "safeItem": {
+      "role": "menuitem",
+      "name": "Duplicate line"
+    }
+  }
 }

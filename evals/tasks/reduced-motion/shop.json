@@ -2,5 +2,5 @@
   "guide": "reduced-motion",
   "app": "shop",
   "path": "/",
-  "prompt": "Add a promo banner at the top of the shop page that rotates through three offers every few seconds, sliding from one to the next."
+  "prompt": "Add a promo banner at the top of the shop page, above \"Outdoor gear\", that rotates through three offers every 5 seconds, sliding from one to the next: \"Free shipping over 100 EUR\", \"20% off all tents this week\" and \"New: wool beanies in four colours\". Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions."
 }

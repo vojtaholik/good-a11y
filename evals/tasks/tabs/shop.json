@@ -2,5 +2,13 @@
   "guide": "tabs",
   "app": "shop",
   "path": "/",
-  "prompt": "In the quick view popup, split the product information into three tabs: Description, Specs (from the product's specs) and Shipping. Show one tab's content at a time."
+  "prompt": "In the product quick view popup, split the product information into three tabs: \"Description\" (the product description, shown at first), \"Specs\" (the product's specs from src/data.ts as a list) and \"Shipping\" (the text \"Ships within two working days. Free returns for 30 days.\"). Only one tab's content is visible at a time. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "setup": [
+    {
+      "click": {
+        "role": "button",
+        "name": "Quick view"
+      }
+    }
+  ]
 }

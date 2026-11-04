@@ -2,5 +2,11 @@
   "guide": "status-messages-toast",
   "app": "shop",
   "path": "/",
-  "prompt": "When a product is added to the cart, show a small notification at the bottom of the screen saying which product was added and how many items are now in the cart. It disappears by itself after a while."
+  "prompt": "When a product is added to the cart, show a small notification at the bottom of the screen that names the product and the new cart count, for example \"Rain jacket added. 1 item in your cart.\" It disappears by itself after 4 seconds. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "action": {
+      "role": "button",
+      "name": "Add to cart"
+    }
+  }
 }

@@ -2,5 +2,17 @@
   "guide": "required-and-hints",
   "app": "shop",
   "path": "/checkout",
-  "prompt": "Add a phone number field (required, delivery drivers call it; tell people to include the country code) and an optional \"Delivery notes\" field to checkout. Also mark which existing fields are mandatory."
+  "prompt": "Add two fields to checkout: a required \"Phone number\", with the help text \"Our delivery driver calls this number. Include the country code, for example +420.\", and an optional \"Delivery notes\" text area. Also make it clear which of the existing fields (Full name, Email, Street and number, City, Postal code, Country) must be filled in; all of them must. Write it in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "required": [
+      "Full name",
+      "Email",
+      "Street and number",
+      "City",
+      "Postal code",
+      "Country",
+      "Phone number"
+    ],
+    "hinted": ["Phone number"]
+  }
 }

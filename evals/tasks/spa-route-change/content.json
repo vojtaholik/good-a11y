@@ -2,5 +2,12 @@
   "guide": "spa-route-change",
   "app": "content",
   "path": "/index.html",
-  "prompt": "Make moving between pages on the site feel instant: when a header link is clicked, fetch the next page and swap in its main content without a full reload, updating the address bar. Back and Forward must still work."
+  "prompt": "Make moving between pages on the site feel instant: when a link in the header navigation (Stories, Routes, Gear, About) is clicked, fetch that page and swap in its main content without a full reload, updating the address bar. Underline and bold the header link of the page being shown. Back and Forward must still work. Plain JavaScript in one assets/nav.js file included on every page, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "link": {
+      "role": "link",
+      "name": "About"
+    },
+    "current": "About"
+  }
 }

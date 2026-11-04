@@ -2,47 +2,81 @@
 import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
-import { targetUrl } from "./demo.ts";
+import { open, target } from "./task.ts";
 
-const size = (page: Page) => page.getByRole("combobox", { name: "Size (EU)" });
+const control = (page: Page) =>
+  target(page, "control", { name: "Size (EU)", role: "combobox" });
 
-test.beforeEach(async ({ page }) => {
-  await page.goto(targetUrl("custom-select"));
-});
+const valueOf = async (page: Page): Promise<string> =>
+  await control(page).evaluate((node) =>
+    node instanceof HTMLSelectElement
+      ? node.value
+      : (node.textContent?.trim() ?? "")
+  );
 
-test("E1 a combobox named by its label", async ({ page }) => {
-  await expect(size(page)).toBeVisible();
-});
-
-test("E2 the label focuses the control", async ({ page }) => {
-  await page.locator('label[for="size"]').click();
-  await expect(size(page)).toBeFocused();
-});
-
-test("E3 Arrow Down changes the value", async ({ page }) => {
-  await size(page).focus();
+const change = async (page: Page): Promise<string> => {
+  const before = await valueOf(page);
+  await control(page).focus();
   await page.keyboard.press("ArrowDown");
 
-  if ((await size(page).inputValue()) === "") {
+  if ((await valueOf(page)) === before) {
     await page.keyboard.press("ArrowDown");
     await page.keyboard.press("Enter");
   }
 
-  await expect(size(page)).toHaveValue("40");
+  return before;
+};
+
+test.beforeEach(async ({ page }) => {
+  await open(page, "custom-select");
+});
+
+test("E1 a combobox named by its label", async ({ page }) => {
+  await expect(control(page)).toBeVisible();
+});
+
+test("E2 a native select's label focuses it", async ({ page }) => {
+  const native = await control(page).evaluate(
+    (node) => node instanceof HTMLSelectElement
+  );
+
+  if (native) {
+    await control(page).evaluate((node) => {
+      if (node instanceof HTMLSelectElement) {
+        node.labels[0]?.click();
+      }
+    });
+    await expect(control(page)).toBeFocused();
+  }
+});
+
+test("E3 the keyboard changes the value", async ({ page }) => {
+  const before = await change(page);
+  expect(await valueOf(page)).not.toBe(before);
 });
 
 test("E4 one Tab stop, options are not stops", async ({ page }) => {
-  await page.getByRole("heading", { level: 1 }).click();
+  await control(page).focus();
   await page.keyboard.press("Tab");
-  await expect(size(page)).toBeFocused();
-  await page.keyboard.press("Tab");
-  await expect(page.getByRole("combobox", { name: "Color" })).toBeFocused();
+
+  const stop = await page.evaluate(() => {
+    const node = document.activeElement;
+
+    return {
+      option:
+        node?.closest('[role="option"], [role="listbox"], option') !== null &&
+        node !== null,
+      tag: node?.tagName ?? "",
+    };
+  });
+
+  expect(stop.option).toBe(false);
+  await expect(control(page)).not.toBeFocused();
 });
 
 test("E5 a change neither navigates nor moves focus", async ({ page }) => {
-  const before = page.url();
-  await size(page).focus();
-  await size(page).selectOption("42");
-  expect(page.url()).toBe(before);
-  await expect(size(page)).toBeFocused();
+  const url = page.url();
+  await change(page);
+  expect(page.url()).toBe(url);
+  await expect(control(page)).toBeFocused();
 });

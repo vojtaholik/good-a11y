@@ -1,7 +1,7 @@
 // @effect-diagnostics asyncFunction:off -- Playwright drives the browser through Promise-based callbacks; this package holds no Effect code.
 import { expect, test } from "@playwright/test";
 
-import { targetUrl } from "./demo.ts";
+import { open } from "./task.ts";
 
 const ring = () => {
   const node = document.activeElement;
@@ -24,7 +24,7 @@ const ring = () => {
 };
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(targetUrl("focus-visible"));
+  await open(page, "focus-visible");
 });
 
 test("E1 every Tab stop has a 2px or wider outline", async ({ page }) => {
@@ -51,7 +51,7 @@ test("E2 the outline color is not the background", async ({ page }) => {
 });
 
 test("E3 a mouse click on a button shows no ring", async ({ page }) => {
-  await page.getByRole("button", { name: "Save profile" }).click();
+  await page.getByRole("button").filter({ visible: true }).first().click();
 
   const keyboard = await page.evaluate(
     () => document.activeElement?.matches(":focus-visible") ?? false
@@ -60,30 +60,58 @@ test("E3 a mouse click on a button shows no ring", async ({ page }) => {
   expect(keyboard).toBe(false);
 });
 
-test("E4 focus is not hidden under the sticky header", async ({ page }) => {
+test("E4 focus is never fully hidden under sticky content", async ({
+  page,
+}) => {
   await page.evaluate(() => {
     window.scrollTo(0, document.body.scrollHeight);
   });
-  await page.getByRole("link", { name: "Delete my account" }).focus();
+  await page
+    .locator("a[href], button, input, select, textarea")
+    .filter({ visible: true })
+    .last()
+    .focus();
 
-  for (let press = 0; press < 6; press += 1) {
+  for (let press = 0; press < 8; press += 1) {
     await page.keyboard.press("Shift+Tab");
 
-    const clear = await page.evaluate(() => {
-      const header = document.querySelector("header");
+    const hidden = await page.evaluate(() => {
       const node = document.activeElement;
 
-      if (header === null || node === null || header.contains(node)) {
-        return true;
+      if (!(node instanceof HTMLElement) || node === document.body) {
+        return false;
       }
 
-      return (
-        node.getBoundingClientRect().top >=
-        header.getBoundingClientRect().bottom - 1
-      );
+      const box = node.getBoundingClientRect();
+
+      const points = [
+        [box.left + box.width / 2, box.top + box.height / 2],
+        [box.left + 2, box.top + 2],
+        [box.right - 2, box.top + 2],
+        [box.left + 2, box.bottom - 2],
+        [box.right - 2, box.bottom - 2],
+      ];
+
+      return points.every(([x = 0, y = 0]) => {
+        const top = document.elementFromPoint(x, y);
+
+        if (top === null || node.contains(top) || top.contains(node)) {
+          return false;
+        }
+
+        for (let up: Element | null = top; up !== null; up = up.parentElement) {
+          const { position } = getComputedStyle(up);
+
+          if (position === "fixed" || position === "sticky") {
+            return true;
+          }
+        }
+
+        return false;
+      });
     });
 
-    expect(clear).toBe(true);
+    expect(hidden).toBe(false);
   }
 });
 

@@ -2,5 +2,5 @@
   "guide": "icon-buttons",
   "app": "content",
   "path": "/articles/tatras-in-october.html",
-  "prompt": "Add a row of small share icons under the Tatras article (email, copy link, print) as icon-only buttons with inline SVG icons, and a heart icon readers can click to save the story, which stays highlighted once saved."
+  "prompt": "Add a row of small icon-only buttons under the title of the Tatras article (articles/tatras-in-october.html), drawn as inline SVG with no visible text: an envelope that opens an email to share the page (mailto: with the page address in the body), a chain link that copies the page address, a printer that prints the page, and a heart that saves the story. The heart stays filled once clicked and empties when clicked again; remember it in localStorage. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions."
 }

@@ -11,7 +11,7 @@ Layer 3 of good-a11y (brief decisions 9 and 10): measure whether a guide changes
 - Timers run on Playwright's fake clock (`page.clock`), so a 10-second carousel check takes milliseconds. All graders run in about 6 seconds, so `pnpm test` includes them; `pnpm evals:graders` runs them alone. `turbo.json` declares `guides/**` as an input of `@good-a11y/evals#test`.
 - The grader specs carry `@effect-diagnostics asyncFunction:off`, and `oxlint.config.ts` turns off `no-await-in-loop` for `evals/graders/**`: Playwright is Promise-based and key presses are sequential by nature. The package holds no Effect code.
 
-Most graders locate controls by the names their demo uses ("Delete project"). To grade an agent's page, a task names the visible text it asks for, and the grader needs those names instead. Retargeting through an optional `targets` map in the task file is the next step; graders that already grade any page as written: `skip-link-landmarks` (all), `image-alt` E1, E2, E5, `focus-visible` E1, E2, E5, `status-messages-toast` E1, E4.
+Graders find structure by role and computed accessible name (Playwright's `getByRole`, `ariaSnapshot` and `toHaveAccessibleName`), never by reading `aria-label` or `aria-labelledby` attributes. Where a grader needs a specific control, it reads it from the task named by `EVAL_TASK` (`evals/graders/task.ts`) and falls back to its demo's names when `EVAL_TASK` is unset. A task's `targets` maps a grader's key to a `{ role, name }` or `{ text }` locator, a string, or a list of strings; `setup` lists clicks and key presses that bring the served app to the page under test (adding a product and opening the cart, say) before every test. The keys each grader reads are the `target`, `text` and `texts` calls in its spec.
 
 ## Base apps
 
@@ -30,9 +30,17 @@ Oxlint skips `evals/apps/**`: the repo fence (no comments, Effect rules) is for 
 {
   "guide": "dialog-modal",
   "app": "shop",
-  "path": "/cart",
-  "prompt": "When a customer clicks \"Empty cart\", ask them to confirm first ..."
+  "path": "/",
+  "prompt": "On the cart page, when a customer clicks \"Empty cart\", ask them to confirm first in a popup ... Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "setup": [
+    { "click": { "role": "button", "name": "Add to cart" } },
+    { "click": { "role": "link", "name": "Cart (1)" } }
+  ],
+  "targets": {
+    "opener": { "role": "button", "name": "Empty cart" },
+    "close": { "role": "button", "name": "Keep items" }
+  }
 }
 ```
 
-`path` is the page the grader opens on the served app. A prompt is what a product owner would ask for. It never names the accessibility technique, ARIA, focus, labels, keyboards or screen readers. Where a realistic request pulls toward the failure (the focus-visible shop task asks to drop the browser's default outlines), that pull is the point.
+`path` is the page the grader opens on the served app. A prompt is what a product owner would ask for, fully specified: every name, label, route and line of copy the change needs, so an agent never has to stop and ask, and every prompt ends by telling the agent to make reasonable assumptions and finish without asking. The names in `targets` are the ones the prompt asks for. It never names the accessibility technique, ARIA, focus, labels, keyboards or screen readers. Where a realistic request pulls toward the failure (the focus-visible shop task asks to drop the browser's default outlines), that pull is the point.

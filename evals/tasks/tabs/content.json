@@ -2,5 +2,5 @@
   "guide": "tabs",
   "app": "content",
   "path": "/index.html",
-  "prompt": "On the home page, replace the \"Latest stories\" list with two tabs, \"Latest\" and \"Most read\", each showing its own list of stories. Only one list is visible at a time."
+  "prompt": "On the home page (index.html), replace the \"Latest stories\" heading and list with two tabs, \"Latest\" and \"Most read\", each showing its own list of the story cards. \"Latest\" is shown at first, with the cards in their current order. \"Most read\" lists \"Five lakes in one day\", then \"Crossing the Tatras in October\", then \"Breaking in leather boots\". Only one list is visible at a time. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions."
 }

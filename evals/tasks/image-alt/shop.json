@@ -2,5 +2,8 @@
   "guide": "image-alt",
   "app": "shop",
   "path": "/",
-  "prompt": "Show each product's photo on its card in the product grid. The photos are already in public/products/ (jacket, boot, pack, bottle, tent, beanie). Make the photo clickable to open the quick view."
+  "prompt": "Show each product's photo at the top of its card in the product grid. The photos are already in public/products/ and each product's image path is in src/data.ts. Clicking the photo opens the product's quick view, the same as the \"Quick view\" button. Write it in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "chartData": []
+  }
 }

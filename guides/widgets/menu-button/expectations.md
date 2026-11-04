@@ -5,4 +5,4 @@
 3. Pressing Arrow Down on the last menu item moves focus to the first item; Arrow Up on the first moves to the last.
 4. Pressing Escape in the open menu closes it, sets `aria-expanded="false"` and focuses the trigger.
 5. Menu items are not in the Tab order: pressing Tab in the open menu closes the menu and focus leaves it.
-6. Pressing Enter on a menu item runs its action, closes the menu and focuses the trigger.
+6. Pressing Enter on a menu item closes the menu and focuses the trigger.

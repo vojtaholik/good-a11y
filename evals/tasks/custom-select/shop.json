@@ -2,5 +2,11 @@
   "guide": "custom-select",
   "app": "shop",
   "path": "/",
-  "prompt": "Add a \"Sort by\" control above the product grid with Name, Price low to high and Price high to low. Make it look like our buttons: green border, rounded corners, custom arrow, no default browser look."
+  "prompt": "Add a \"Sort by\" control above the product grid on the shop page with three choices: \"Name\", \"Price: low to high\" and \"Price: high to low\". \"Name\" is chosen at first and choosing another one re-sorts the grid. Make it look like our buttons instead of the browser default: a 2px border in the accent green (var(--accent)), 6px rounded corners and a custom arrow. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "control": {
+      "role": "combobox",
+      "name": "Sort by"
+    }
+  }
 }

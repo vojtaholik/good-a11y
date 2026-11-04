@@ -2,5 +2,11 @@
   "guide": "form-errors-validation",
   "app": "shop",
   "path": "/checkout",
-  "prompt": "Customers place orders with missing details. Validate the checkout form when they click \"Place order\": every field is required and the email must be valid. If anything is wrong, do not place the order and show what to fix."
+  "prompt": "Customers place orders with missing details. Validate the checkout form when they click \"Place order\": every field (Full name, Email, Street and number, City, Postal code, Country) is required and the email must be a valid address. If anything is wrong, do not place the order, stay on the page and show what to fix next to each field, for example \"Enter your full name\" or \"Enter an email address like name@example.com\". Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "submit": {
+      "role": "button",
+      "name": "Place order"
+    }
+  }
 }

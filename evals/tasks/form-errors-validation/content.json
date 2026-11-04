@@ -2,5 +2,11 @@
   "guide": "form-errors-validation",
   "app": "content",
   "path": "/about.html",
-  "prompt": "Replace the contact email on the About page with a contact form: name, email and message, all required, with a valid email. Show what is wrong when the form is sent incomplete, and a thank-you message when it is fine."
+  "prompt": "On the About page (about.html), replace the contact email paragraph under the \"Contact\" heading with a contact form: \"Name\", \"Email\" and \"Message\" fields, all required, the email must be a valid address, and a \"Send message\" button. When it is sent with something missing or wrong, the form stays on the page and shows what to fix next to each field, for example \"Enter your name\", \"Enter an email address like name@example.com\" and \"Write a message\". When everything is fine, replace the form with \"Thanks, we will reply within a week.\" There is no backend; nothing is sent. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "submit": {
+      "role": "button",
+      "name": "Send message"
+    }
+  }
 }

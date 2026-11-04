@@ -1,64 +1,97 @@
 // @effect-diagnostics asyncFunction:off -- Playwright drives the browser through Promise-based callbacks; this package holds no Effect code.
 import { expect, test } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
-import { targetUrl } from "./demo.ts";
+import { accessibleName } from "./name.ts";
+import { open } from "./task.ts";
+
+const markIconControls = async (page: Page): Promise<number> =>
+  await page.evaluate(() => {
+    // oxlint-disable-next-line unicorn/consistent-function-scoping -- runs inside the page through page.evaluate, which cannot capture module scope
+    const shown = (node: Node): string => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const parent = node.parentElement;
+        const box = parent?.getBoundingClientRect();
+
+        return box !== undefined && box.width > 1 && box.height > 1
+          ? (node.textContent ?? "")
+          : "";
+      }
+
+      return [...node.childNodes].map(shown).join("");
+    };
+
+    const controls = [
+      ...document.querySelectorAll<HTMLElement>(
+        "button, a[href], [role=button]"
+      ),
+    ].filter(
+      (node) =>
+        node.checkVisibility() &&
+        node.querySelector("svg, img") !== null &&
+        shown(node).trim() === ""
+    );
+
+    for (const [index, node] of controls.entries()) {
+      node.dataset.graderIcon = String(index);
+    }
+
+    return controls.length;
+  });
+
+const icons = (page: Page) => page.locator("[data-grader-icon]");
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(targetUrl("icon-buttons"));
+  await open(page, "icon-buttons");
+  expect(await markIconControls(page)).toBeGreaterThan(0);
 });
 
 test("E1 every icon-only control has a name", async ({ page }) => {
-  for (const control of await page.locator(".icon-button").all()) {
-    const name = await control.evaluate(
-      (node) =>
-        node.getAttribute("aria-label") ??
-        node.querySelector(".visually-hidden")?.textContent ??
-        ""
+  for (const control of await icons(page).all()) {
+    await expect(control).toHaveAccessibleName(/\S/u);
+  }
+});
+
+test("E2 repeated icon buttons have distinct names", async ({ page }) => {
+  const names: string[] = [];
+
+  for (const control of await icons(page).all()) {
+    const repeated = await control.evaluate(
+      (node) => node.closest("li, tr, article") !== null
     );
 
-    expect(name.trim()).not.toBe("");
+    if (repeated) {
+      names.push(await accessibleName(control));
+    }
   }
 
-  await expect(page.getByRole("link", { name: "Help" })).toBeVisible();
+  expect(new Set(names).size).toBe(names.length);
 });
 
-test("E2 repeated buttons name their item", async ({ page }) => {
+test("E3 icons inside named controls are hidden", async ({ page }) => {
   await expect(
-    page.getByRole("button", { name: "Remove Rain jacket" })
-  ).toBeVisible();
-  await expect(
-    page.getByRole("button", { name: "Remove Hiking boot" })
-  ).toBeVisible();
-});
-
-test("E3 icons inside named buttons are hidden", async ({ page }) => {
-  await expect(
-    page.locator(".icon-button svg:not([aria-hidden='true'])")
+    page.locator("[data-grader-icon] svg:not([aria-hidden='true'])")
   ).toHaveCount(0);
 });
 
 test("E4 a toggle keeps its name and flips aria-pressed", async ({ page }) => {
-  const toggle = page.getByRole("button", {
-    exact: true,
-    name: "Save cart for later",
-  });
+  const toggle = page.locator("[data-grader-icon][aria-pressed]").first();
+  await expect(toggle).toHaveAttribute("aria-pressed", /^(?:true|false)$/u);
+  const before = await toggle.getAttribute("aria-pressed");
 
-  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+  const name = await accessibleName(toggle);
+
   await toggle.focus();
   await page.keyboard.press("Space");
-  await expect(
-    page.getByRole("button", {
-      exact: true,
-      name: "Save cart for later",
-      pressed: true,
-    })
-  ).toBeVisible();
-  await page.keyboard.press("Enter");
-  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+  await expect(toggle).toHaveAttribute(
+    "aria-pressed",
+    before === "true" ? "false" : "true"
+  );
+  await expect(toggle).toHaveAccessibleName(name);
 });
 
 test("E5 icon targets are at least 24 by 24", async ({ page }) => {
-  for (const control of await page.locator(".icon-button").all()) {
+  for (const control of await icons(page).all()) {
     const box = await control.boundingBox();
     expect(box?.width ?? 0).toBeGreaterThanOrEqual(24);
     expect(box?.height ?? 0).toBeGreaterThanOrEqual(24);

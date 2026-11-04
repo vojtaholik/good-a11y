@@ -2,5 +2,15 @@
   "guide": "dialog-modal",
   "app": "content",
   "path": "/index.html",
-  "prompt": "Add a \"Subscribe\" button to the footer of the home page. It opens a small popup over the page where readers enter their email address to get new stories, with a way to close it without subscribing."
+  "prompt": "Add a \"Subscribe\" button to the footer of the home page (index.html). Clicking it opens a small popup over the page titled \"Get new stories\" with the text \"One email a month, no spam.\", an \"Email address\" field and a \"Subscribe\" button that shows \"Thanks, you are on the list.\" in the popup. A \"Close\" button closes the popup without subscribing. There is no backend; nothing is sent. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "opener": {
+      "role": "button",
+      "name": "Subscribe"
+    },
+    "close": {
+      "role": "button",
+      "name": "Close"
+    }
+  }
 }

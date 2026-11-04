@@ -2,5 +2,5 @@
   "guide": "reduced-motion",
   "app": "content",
   "path": "/index.html",
-  "prompt": "Make the home page feel more alive: story cards slide up into place as they scroll into view, links to sections on the same page scroll smoothly, and the hero image drifts slowly in the background."
+  "prompt": "Make the home page (index.html) feel more alive: each story card in \"Latest stories\" fades and slides up 24px into place over 600 ms as it scrolls into view, links to sections of the same page scroll smoothly, and the big ridge image at the top drifts slowly sideways in a 30-second loop. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions."
 }

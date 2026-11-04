@@ -2,5 +2,11 @@
   "guide": "custom-select",
   "app": "content",
   "path": "/index.html",
-  "prompt": "Add a topic filter above the story list on the home page (All, Routes, Gear) as a styled dropdown that matches the site's look, filtering the list when a topic is chosen."
+  "prompt": "Add a topic filter above the \"Latest stories\" list on the home page (index.html). It is a dropdown labelled \"Topic\" with the choices All, Routes and Gear; All is chosen at first. \"Crossing the Tatras in October\" and \"Five lakes in one day\" are Routes, \"Breaking in leather boots\" is Gear. Choosing a topic shows only its stories. Style it to match the site: no default browser look, a custom arrow, the site's colours from assets/site.css. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "control": {
+      "role": "combobox",
+      "name": "Topic"
+    }
+  }
 }
