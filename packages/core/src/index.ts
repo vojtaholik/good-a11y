@@ -439,19 +439,15 @@ export {
 export {
   ControlNameSchema,
   MAX_CONTROL_NAMES,
-  MAX_HELP_LINKS,
-  MAX_NAVIGATION_LINKS,
   PageRoleSchema,
   PageSummarySchema,
   SiteEvidenceSchema,
-  SiteLinkSchema,
   SitePageSchema,
   summaryOf,
   type ControlName,
   type PageRole,
   type PageSummary,
   type SiteEvidence,
-  type SiteLink,
   type SitePage,
 } from "./site-evidence.js";
 

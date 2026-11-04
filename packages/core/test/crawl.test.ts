@@ -103,7 +103,7 @@ describe("pickPages", () => {
 });
 
 describe("summaryOf", () => {
-  it("collects navigation, help links, search, site map and names", () => {
+  it("collects search, site map, structured types and names", () => {
     const summary = summaryOf(
       "entered",
       "https://shop.example/a/",
@@ -128,20 +128,6 @@ describe("summaryOf", () => {
     );
 
     expect(summary).toEqual({
-      help: [
-        {
-          href: "https://shop.example/hilfe",
-          landmark: "footer",
-          position: 3,
-          text: "Hilfe",
-        },
-        {
-          href: "tel:+420123",
-          landmark: "footer",
-          position: 6,
-          text: "Call us",
-        },
-      ],
       linkCount: 9,
       names: [
         { href: "https://shop.example/shop", kind: "link", text: "Shop" },
@@ -161,26 +147,6 @@ describe("summaryOf", () => {
           text: "Sitemap",
         },
         { href: null, kind: "button", text: "Buy" },
-      ],
-      navigation: [
-        {
-          href: "https://shop.example/shop",
-          landmark: "nav",
-          position: 0,
-          text: "Shop",
-        },
-        {
-          href: "https://shop.example/",
-          landmark: "header",
-          position: 1,
-          text: "Logo",
-        },
-        {
-          href: "https://shop.example/a/",
-          landmark: "header",
-          position: 4,
-          text: "Kontakt",
-        },
       ],
       role: "entered",
       search: true,

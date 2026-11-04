@@ -15,7 +15,6 @@ import type {
   PageEvidence,
   PageSummary,
   SiteEvidence,
-  SiteLink,
 } from "../src/index.js";
 import { BUDGET_SPENT } from "../src/rendered.js";
 
@@ -56,30 +55,9 @@ const PAGE: FetchResult = {
   truncated: false,
 };
 
-const link = (text: string, path: string, position: number): SiteLink => ({
-  href: `https://shop.example${path}`,
-  landmark: "nav",
-  position,
-  text,
-});
-
-const NAV = ["Home:/", "Women:/women", "Men:/men", "Sale:/sale"].map(
-  (item, position) => {
-    const [text = "", path = ""] = item.split(":");
-
-    return link(text, path, position);
-  }
-);
-
-const summary = (
-  role: PageSummary["role"],
-  path: string,
-  navigation: readonly SiteLink[]
-): PageSummary => ({
-  help: [],
-  linkCount: navigation.length,
+const summary = (role: PageSummary["role"], path: string): PageSummary => ({
+  linkCount: 4,
   names: [],
-  navigation,
   role,
   search: role === "entered",
   sitemap: false,
@@ -114,16 +92,7 @@ const SITE: SiteEvidence = {
       url: "https://shop.example/p/1",
     },
   ],
-  summaries: [
-    summary("entered", "/", NAV),
-    summary(
-      "contact",
-      "/contact",
-      [NAV[0], NAV[2], NAV[1], NAV[3]].flatMap((item, position) =>
-        item === undefined ? [] : [{ ...item, position }]
-      )
-    ),
-  ],
+  summaries: [summary("entered", "/"), summary("contact", "/contact")],
 };
 
 const checked = judgePage(PAGE, { read: () => EVIDENCE }, AT);
