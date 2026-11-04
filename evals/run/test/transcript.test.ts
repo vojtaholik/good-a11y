@@ -1,0 +1,139 @@
+import { describe, expect, it } from "@effect/vitest";
+
+import { summarizeTranscript } from "../src/transcript.js";
+
+const lines = (...values: readonly unknown[]): string =>
+  values.map((value) => JSON.stringify(value)).join("\n");
+
+describe("reading an agent transcript", () => {
+  it("finds good-a11y searches, retrievals and checks in Claude Code tool calls, and its usage", () => {
+    const summary = summarizeTranscript(
+      [
+        lines(
+          {
+            message: { content: [{ text: "ok", type: "text" }] },
+            type: "assistant",
+          },
+          {
+            message: {
+              content: [
+                {
+                  input: { skill: "good-a11y" },
+                  name: "Skill",
+                  type: "tool_use",
+                },
+              ],
+            },
+            type: "assistant",
+          },
+          {
+            message: {
+              content: [
+                {
+                  input: {
+                    command:
+                      'node /x/bundle/good-a11y.mjs search "modal dialog focus" && node /x/bundle/good-a11y.mjs retrieve "dialog-modal,form-errors-validation"',
+                  },
+                  name: "Bash",
+                  type: "tool_use",
+                },
+              ],
+            },
+            type: "assistant",
+          },
+          {
+            message: {
+              content: [
+                {
+                  input: {
+                    command:
+                      "npx -y github:vojtaholik/good-a11y check --json localhost:8080/",
+                  },
+                  name: "Bash",
+                  type: "tool_use",
+                },
+              ],
+            },
+            type: "assistant",
+          },
+          {
+            total_cost_usd: 0.42,
+            type: "result",
+            usage: {
+              cache_creation_input_tokens: 20,
+              cache_read_input_tokens: 300,
+              input_tokens: 50,
+              output_tokens: 70,
+            },
+          }
+        ),
+        "not json",
+      ].join("\n")
+    );
+
+    expect(summary.use).toEqual({
+      checks: ["localhost:8080/"],
+      retrieved: ["dialog-modal", "form-errors-validation"],
+      searches: ["modal dialog focus"],
+      skillOpened: true,
+    });
+    expect(summary.usage).toEqual({
+      cachedInputTokens: 320,
+      costUsd: 0.42,
+      inputTokens: 50,
+      outputTokens: 70,
+    });
+    expect(summary.toolUses).toBe(3);
+  });
+
+  it("reads Codex command executions and adds up its turns", () => {
+    const summary = summarizeTranscript(
+      lines(
+        {
+          item: {
+            command: "bash -lc 'cat .claude/skills/good-a11y/SKILL.md'",
+            type: "command_execution",
+          },
+          type: "item.completed",
+        },
+        {
+          item: {
+            command:
+              "bash -lc \"node /b/good-a11y.mjs search 'skip link landmarks'\"",
+            type: "command_execution",
+          },
+          type: "item.completed",
+        },
+        {
+          type: "turn.completed",
+          usage: {
+            cached_input_tokens: 1000,
+            input_tokens: 2000,
+            output_tokens: 300,
+          },
+        },
+        {
+          type: "turn.completed",
+          usage: { input_tokens: 10, output_tokens: 1 },
+        }
+      )
+    );
+
+    expect(summary.use.searches).toEqual(["skip link landmarks"]);
+    expect(summary.use.skillOpened).toBe(true);
+    expect(summary.usage).toEqual({
+      cachedInputTokens: 1000,
+      costUsd: null,
+      inputTokens: 2010,
+      outputTokens: 301,
+    });
+  });
+
+  it("reports no usage and no use for an empty transcript", () => {
+    expect(summarizeTranscript("")).toEqual({
+      toolUses: 0,
+      usage: null,
+      use: { checks: [], retrieved: [], searches: [], skillOpened: false },
+    });
+  });
+});

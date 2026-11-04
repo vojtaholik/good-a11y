@@ -1,0 +1,26 @@
+{
+  "name": "@good-a11y/eval-run",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "build": "tsc -p tsconfig.build.json",
+    "check": "pnpm run typecheck",
+    "eval": "pnpm run --silent build && node dist/cli.js",
+    "pretest": "pnpm run --silent build"
+  },
+  "dependencies": {
+    "@effect/platform-node": "4.0.0",
+    "@good-a11y/core": "workspace:*",
+    "@good-a11y/guides": "workspace:*",
+    "effect": "4.0.0"
+  },
+  "devDependencies": {
+    "@effect/vitest": "4.0.0",
+    "@types/node": "24.13.6",
+    "typescript": "7.0.2",
+    "vitest": "5.0.1"
+  }
+}

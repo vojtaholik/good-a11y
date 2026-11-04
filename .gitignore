@@ -28,3 +28,8 @@ env.d.ts
 
 # Muster packet reports and notes in worker clones
 .pi/muster/
+
+# Eval runs: keep only each summary
+evals/results/**
+!evals/results/**/
+!evals/results/**/summary.md

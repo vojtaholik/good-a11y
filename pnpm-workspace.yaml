@@ -3,6 +3,9 @@ verifyDepsBeforeRun: error
 packages:
   - "apps/*"
   - "packages/*"
+  - "evals"
+  - "evals/*"
+  - "evals/apps/*"
 
 # One copy of the D1 client and of the Workers types. Alchemy and Drizzle take
 # both as peers by range; without these pins pnpm installs a second Drizzle
