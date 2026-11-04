@@ -283,3 +283,9 @@ No defect. Both newly shown checks clear the bar on items their thresholds were 
 - `passage-language-marked` (3.1.2): 32 of 32 notes right on the holdout half (88 scored blocks, 47 sites). The threshold was chosen on the other half.
 
 Both are judged observations ("never counted") on top of the deterministic checks, and `judged-round3-calibration.test.ts` ties each `shown` flag to its holdout precision.
+
+### Round 2 re-check 10 (09:10 CET) of 87c0489
+
+- **R2-L6 fixed.** The `CALIBRATION_JUDGE_TOKENS` override is deleted from `calibrator.ts`, `judge-limits.ts` and `.env.schema`, and no reference is left (`grep`). The calibrator reserves against the fixed 100,000 share, so prod + dev + calibrator = 400,000 again.
+
+**Round 2 closed.** All 10 findings are fixed and re-checked: R2-H1, R2-M1, R2-M2, R2-M3 and R2-L1 to R2-L6. Residual, recorded only: every local `alchemy dev` stage also gets the 50,000 non-prod share (re-check 5).
