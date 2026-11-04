@@ -43,14 +43,22 @@ const { replies } = Schema.decodeUnknownSync(Recorded)(
 );
 
 const answeredFor = (page: PageEvidence): Answered[] =>
-  questionsOf(JUDGED_CHECKS, page).flatMap((asked) => {
+  questionsOf(JUDGED_CHECKS, {
+    entered: page,
+    rendered: null,
+    statement: null,
+  }).flatMap((asked) => {
     const recorded = replies.find(({ id }) => id === asked.id);
 
     return recorded === undefined ? [] : [{ asked, reply: recorded.reply }];
   });
 
 const idsAskedFor = (page: PageEvidence) =>
-  questionsOf(JUDGED_CHECKS, page).map(({ id }) => id);
+  questionsOf(JUDGED_CHECKS, {
+    entered: page,
+    rendered: null,
+    statement: null,
+  }).map(({ id }) => id);
 
 const ran = (judged: Judged) => {
   if (judged.status !== "ran") {
@@ -113,7 +121,11 @@ describe("link purpose in the page content", () => {
     };
 
     expect(
-      questionsOf(JUDGED_CHECKS, page)
+      questionsOf(JUDGED_CHECKS, {
+        entered: page,
+        rendered: null,
+        statement: null,
+      })
         .find(({ id }) => id === "link-purpose")
         ?.items.map(({ sample }) => sample)
     ).toEqual(['"more"', '"Read more"', '"Sidebar"']);
@@ -132,18 +144,20 @@ describe("the accessibility statement against Annex V", () => {
   it("is asked only when the crawl found a statement with enough text", () => {
     expect(idsAskedFor(evidence)).not.toContain("statement-annex-v");
     expect(
-      questionsOf(JUDGED_CHECKS, evidence, statement("Too short.")).map(
-        ({ id }) => id
-      )
+      questionsOf(JUDGED_CHECKS, {
+        entered: evidence,
+        rendered: null,
+        statement: statement("Too short."),
+      }).map(({ id }) => id)
     ).not.toContain("statement-annex-v");
   });
 
   it("asks one question per Annex V point about the statement text outside navigation", () => {
-    const asked = questionsOf(
-      JUDGED_CHECKS,
-      evidence,
-      statement("We sell bikes online. ".repeat(20))
-    ).find(({ id }) => id === "statement-annex-v");
+    const asked = questionsOf(JUDGED_CHECKS, {
+      entered: evidence,
+      rendered: null,
+      statement: statement("We sell bikes online. ".repeat(20)),
+    }).find(({ id }) => id === "statement-annex-v");
 
     expect(asked?.items.map(({ key }) => key)).toEqual([
       "statement_1",
@@ -156,11 +170,11 @@ describe("the accessibility statement against Annex V", () => {
 
 describe("checks hidden until calibrated on real pages", () => {
   it("are not asked and not reported", () => {
-    expect(questionsFor(evidence).map(({ id }) => id)).toEqual([
-      "link-purpose",
-      "page-language-matches",
-      "sells-to-consumers",
-    ]);
+    expect(
+      questionsFor({ entered: evidence, rendered: null, statement: null }).map(
+        ({ id }) => id
+      )
+    ).toEqual(["link-purpose", "page-language-matches", "sells-to-consumers"]);
     expect(
       ran(judgedOf(answeredFor(evidence))).observations.map(({ id }) => id)
     ).toEqual(["link-purpose", "page-language-matches", "sells-to-consumers"]);
@@ -169,7 +183,11 @@ describe("checks hidden until calibrated on real pages", () => {
 
 describe("questionsFor", () => {
   it("asks one question per distinct item, for each judged check", () => {
-    const asked = questionsOf(JUDGED_CHECKS, evidence);
+    const asked = questionsOf(JUDGED_CHECKS, {
+      entered: evidence,
+      rendered: null,
+      statement: null,
+    });
 
     expect(asked.map(({ id }) => id)).toEqual([
       "alt-text-describes",
@@ -194,9 +212,13 @@ describe("questionsFor", () => {
       })),
     };
 
-    expect(questionsOf(JUDGED_CHECKS, many)[0]?.items).toHaveLength(
-      MAX_JUDGED_ITEMS
-    );
+    expect(
+      questionsOf(JUDGED_CHECKS, {
+        entered: many,
+        rendered: null,
+        statement: null,
+      })[0]?.items
+    ).toHaveLength(MAX_JUDGED_ITEMS);
   });
 
   it("asks nothing about a page language it cannot compare", () => {
@@ -215,7 +237,13 @@ describe("questionsFor", () => {
     );
 
     expect(
-      tokensToReserve(questionsOf(JUDGED_CHECKS, evidence))
+      tokensToReserve(
+        questionsOf(JUDGED_CHECKS, {
+          entered: evidence,
+          rendered: null,
+          statement: null,
+        })
+      )
     ).toBeGreaterThanOrEqual(used);
   });
 });

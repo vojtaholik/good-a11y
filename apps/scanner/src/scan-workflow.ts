@@ -36,7 +36,7 @@ import {
 } from "@eaa-check/core";
 import type {
   Judged,
-  PageEvidence,
+  JudgedPages,
   RenderedOutcome,
   Report,
   ScanJob,
@@ -301,9 +301,18 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
         return yield* Schema.encodeEffect(ReportJson)(rendered);
       }).pipe(Effect.mapError(spentIn(job, "render")));
 
-    const askModel = (evidence: PageEvidence, statement: PageEvidence | null) =>
+    const archived = <S extends Schema.Top>(key: string, schema: S) =>
+      Effect.gen(function* readArchived() {
+        const stored = yield* archive.get(key);
+
+        return stored === null
+          ? null
+          : yield* Schema.decodeEffect(schema)(yield* stored.text());
+      });
+
+    const askModel = (pages: JudgedPages) =>
       Effect.gen(function* askModelStep() {
-        const asked = questionsFor(evidence, statement);
+        const asked = questionsFor(pages);
 
         const day = utcDayOf(yield* Clock.currentTimeMillis);
         const tokens = tokensToReserve(asked);
@@ -378,18 +387,21 @@ export default class ScanWorkflow extends Cloudflare.Workflow<ScanWorkflow>()(
           yield* stored.text()
         );
 
-        const statementStored = yield* archive.get(
-          crawledEvidenceKey(job, "statement")
+        const statement = yield* archived(
+          crawledEvidenceKey(job, "statement"),
+          EvidenceJson
         );
 
-        const statement =
-          statementStored === null
-            ? null
-            : yield* Schema.decodeEffect(EvidenceJson)(
-                yield* statementStored.text()
-              );
+        const rendered = yield* archived(
+          renderedEvidenceKey(job),
+          RenderedEvidenceJson
+        );
 
-        const judged = yield* askModel(evidence, statement);
+        const judged = yield* askModel({
+          entered: evidence,
+          rendered,
+          statement,
+        });
 
         yield* Effect.logInfo(
           `Judged step for ${job.target.url}: ${judged.status === "ran" ? `${judged.inputTokens} input tokens` : judged.reason}`

@@ -131,9 +131,11 @@ const notesFor = (
   statement: PageEvidence | null,
   asking: number
 ) => {
-  const asked = questionsOf(JUDGED_CHECKS, entered, statement).find(
-    (each) => each.id === id
-  );
+  const asked = questionsOf(JUDGED_CHECKS, {
+    entered,
+    rendered: null,
+    statement,
+  }).find((each) => each.id === id);
 
   const check = JUDGED_CHECKS.find((each) => each.id === id);
   const recorded = replies.find((each) => each.key === `${id}:${site}`);
@@ -277,7 +279,7 @@ describe("judged checks on the round 2 real labelled items", () => {
       "statement-annex-v": scoreOf(statementJudgements),
     }).toEqual({
       "link-purpose": { bad: 44, caught: 29, items: 209, noted: 31 },
-      "page-language-matches": { bad: 0, caught: 0, items: 60, noted: 0 },
+      "page-language-matches": { bad: 18, caught: 18, items: 89, noted: 18 },
       "sells-to-consumers": { covered: 60, items: 71, right: 60 },
       "statement-annex-v": { bad: 29, caught: 27, items: 64, noted: 27 },
     });
@@ -285,6 +287,7 @@ describe("judged checks on the round 2 real labelled items", () => {
 
   it.each([
     ["link-purpose", precisionOf(scoreOf(linkJudgements))],
+    ["page-language-matches", precisionOf(scoreOf(languageJudgements))],
     ["statement-annex-v", precisionOf(scoreOf(statementJudgements))],
     [
       "sells-to-consumers",
@@ -298,8 +301,4 @@ describe("judged checks on the round 2 real labelled items", () => {
       );
     }
   );
-
-  it("notes no page of the real set for its language", () => {
-    expect(scoreOf(languageJudgements).noted).toBe(0);
-  });
 });

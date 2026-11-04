@@ -106,9 +106,11 @@ const judge = (
   labels: readonly boolean[],
   reply: typeof JudgeReplySchema.Type
 ): Judgement[] => {
-  const asked = questionsOf(JUDGED_CHECKS, evidence).find(
-    (each) => each.id === id
-  );
+  const asked = questionsOf(JUDGED_CHECKS, {
+    entered: evidence,
+    rendered: null,
+    statement: null,
+  }).find((each) => each.id === id);
 
   const check = JUDGED_CHECKS.find((each) => each.id === id);
 

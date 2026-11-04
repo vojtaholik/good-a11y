@@ -32,6 +32,8 @@ At most 20 distinct items per check (`MAX_JUDGED_ITEMS`), taken in document orde
 | `page-language-matches` | 3.1.1 | the page, when it declares `lang` and has at least 200 characters of visible text | Choice over the 24 EU official languages plus "other": which language is most of the text in? |
 | `sells-to-consumers` | EAA scope (EU-SCOPE-1, EU-DEF-1); no WCAG criterion | the entered page: title, first 1,200 characters of text, up to 20 prices, up to 10 links whose text or href names a cart, checkout, subscription or booking, schema.org types | Does this website let consumers buy, order, book or subscribe online, so that a consumer contract is concluded through the site? A note says either "appears to sell" or "does not appear to sell"; no note means the model was not sure. Shown beside the member-state list, never changes it |
 | `statement-annex-v` | Art. 13 and Annex V point 1 (EU-STMT-3, -4, -5); no WCAG criterion | the statement page the crawl found, when its text outside `nav`, `header` and `footer` is at least 300 characters; the text is capped at 6,000 characters | Three questions, items `statement_1` to `statement_3`: does the text give (a) a general description of the service, (b) an explanation of how the service works, (c) a description of how it meets the accessibility requirements? A note per point the model judged missing |
+| `visual-headings-marked` | 1.3.1 | the rendered page's `visualHeadings` candidates (builder-cloud's probe: short blocks outside heading elements set at 1.2 times body size or larger, or bold at body size alone on their line; none that contains a heading or follows one), with at least three letters once currency words are removed, each text once, up to 20 | Is the text the title of a section of the page, the way a heading names the content below it? No for a price, a card or teaser name, a slogan, a date, a number, an icon name, a button or link label, a notice or part of a sentence. State: text, size, weight, body size, the start of its HTML. Noted where P(yes) is high. Hidden, calibrating (round 3) |
+| `passage-language-marked` | 3.1.2 | the rendered page's `foreignBlocks` (blocks whose common words point to another language than the `lang` in force on them), when that `lang` is an EU language, each text once, up to 20 | Choice over the EU languages: which language is most of the block written in, names not counting? Noted like `page-language-matches`. Hidden, calibrating (round 3) |
 
 The static reader collects the extra evidence in its single tokenizer pass: link context (the innermost `p`, `li`, `td`, `th`, `dd`, `dt`, `caption`, `figcaption` or heading, capped at 300 characters), headings with level, label texts, the image file name (last path segment, no query, none for `data:`), the first 1,200 characters of visible text, each block's text (`passages`: paragraph, list item, cell or heading of at least 40 characters, with its effective `lang` and landmark, at most 400), and up to 20 distinct prices (an amount with a currency sign or code, or `,-`, also when the currency is in the next text node).
 
@@ -44,7 +46,7 @@ The static reader collects the extra evidence in its single tokenizer pass: link
 | `alt-text-describes` | P(no) ≥ 0.70 | 1.00 (30/30) | 1.00 (30/30) |
 | `link-purpose` | P(no) ≥ 0.90 (round 2, real items) | 0.94 (29/31) | 0.66 (29/44) |
 | `headings-labels-describe` | P(no) ≥ 0.70 | 1.00 (26/26) | 0.96 (26/27) |
-| `page-language-matches` | P(not declared) ≥ 0.80 and the top choice is another language | 1.00 (15/15) | 1.00 (15/15) |
+| `page-language-matches` | P(not declared) ≥ 0.80 and the top choice is another language | 1.00 (18/18, round 3, real items) | 1.00 (18/18) |
 | `sells-to-consumers` | P(yes) ≥ 0.85 or P(no) ≥ 0.85 (round 2, real items) | 1.00 (60/60) | answers 60 of 71 sites |
 | `statement-annex-v` | P(no) ≥ 0.80 per point (round 2, real items) | 1.00 (27/27) | 0.93 (27/29) |
 
@@ -61,9 +63,11 @@ Each check has a `shown` flag in `packages/core/src/judged.ts`. A check that is 
 | `alt-text-describes` | no | On real pages it noted a correct logo alt (idnes.cz `alt="iDNES.cz"` on `idnes.svg`, 83%): 0 of 1 real notes were right (docs/accuracy-qa.md, round 4) |
 | `link-purpose` | yes | 0.94 on 209 real items (round 2) |
 | `headings-labels-describe` | no | 1 of 6 real notes right. It noted ordinary Czech headings and labels on seznam.cz ("Vyhledat", "Hlavní obsah", "Méně služeb") at 70 to 98% |
-| `page-language-matches` | yes | No note on 60 real pages; no real page in the set mismatches, so its recall on real pages is unmeasured |
+| `page-language-matches` | yes | 18 of 18 real notes right, no note on 71 correct real pages (round 3) |
 | `sells-to-consumers` | yes | 60 of 60 real answers right (round 2) |
 | `statement-annex-v` | yes | 27 of 27 real notes right (round 2) |
+| `visual-headings-marked` | no | Calibrating: needs a holdout of real candidates the probe drops were not designed on (round 3) |
+| `passage-language-marked` | no | Calibrating: 2 real positives in 81 real blocks so far, too few to measure precision (round 3) |
 
 The hand-written set above did not predict the failures on real pages. A hidden check comes back only when it reaches precision 0.9 on a set of at least 30 real items, labelled by hand, taken from scanned pages.
 
@@ -82,7 +86,7 @@ Answers: one Clef run of 174 requests through builder-cloud's local calibrator (
 | Check | Items | Bad | Threshold | Noted | Right | Precision | Recall |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `link-purpose` | 209 links, 14 sites | 44 | 0.90 | 31 | 29 | 0.94 | 0.66 |
-| `page-language-matches` | 60 pages | 0 | 0.80 | 0 | 0 | none noted | unmeasured |
+| `page-language-matches` | 60 pages | 0 | 0.80 | 0 | 0 | none noted | unmeasured (measured in round 3) |
 | `sells-to-consumers` | 71 sites (34 sell, 37 do not) |  | 0.85 | 60 answers | 60 | 1.00 | 60 of 71 answered |
 | `statement-annex-v` | 64 points, 24 statements | 29 missing | 0.80 | 27 | 27 | 1.00 | 0.93 |
 
@@ -103,6 +107,25 @@ Answers: one Clef run of 174 requests through builder-cloud's local calibrator (
 | Product accessibility information | Annex I IV (g)(i) | The obligation is to pass on accessibility information "when this information is provided by the responsible economic operator". A scan cannot see whether the manufacturer provided any. A note that a product page has no accessibility information would read as a failure the scan cannot show, so the row stays with a person. |
 
 The rendered questions in decision 29 (visual headings 1.3.1, form instructions 3.3.2, error messages 3.3.1 and 3.3.3, consistent identification 3.2.4) wait for evidence from the rendered session; none is in this round.
+
+## Round 3: wrong page languages and rendered evidence (2026-11-04)
+
+### Page language on real mismatches
+
+Round 2 had no real page whose `lang` is wrong, so the question was shown with its precision on real pages unmeasured (review R2-L3). Round 3 found real ones: the links on the round 2 pages, and the links on those pages two levels further, gave 1,690 host names on EU country domains; each home page was fetched once, its `lang` read, and its text matched against short common-word lists. Each candidate the lists flagged was read with the product's own reader and labelled by hand before Clef was asked. Kept: 18 real pages whose `lang` is wrong (17 Czech pages declaring `en` or `en-US`, such as cuni.cz, platba.portalprazana.cz, chytravolba.gov.cz and region24.cz, and klaranademlynska.cz, which declares `cs` over English text) and 11 Czech pages that declare `cs` correctly. A page whose `lang` is not a language code (`cz`, `en_US_POSIX`) was left out: the question is not asked for it, and 3.1.1 covers it as a static check.
+
+| Check | Items | Bad | Threshold | Noted | Right | Precision | Recall |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `page-language-matches` | 89 pages (60 round 2, 29 round 3) | 18 | 0.80 | 18 | 18 | 1.00 | 1.00 |
+
+Every wrong page was noted with P(declared) at most 0.014. The lowest P(declared) on a correct page was 0.60 (jiri-vancura-kresby.cz). The question stays shown.
+
+### Retired without a model question
+
+| Question | Relates to | Why |
+| --- | --- | --- |
+| Labels or instructions | 3.3.2 | The rendered form evidence was read on 49 real contact, newsletter and registration pages: 242 fields. Every field with a visible label had one a person would accept. The failures were fields with no label, or only a placeholder (alza.cz chat, sportisimo.cz and pilulka.cz newsletters). That is a fact about the markup, not a judgement, so a model adds nothing and only costs tokens. A deterministic check for placeholder-only fields would be a check, not a judged question. |
+| Consistent identification | 3.2.4 | It would read the same per-page link lists as the cross-page checks dropped in accuracy round 6. Every false positive there came from that evidence: skip links and self-links that share an address with Home or the logo, and page-local links next to the shared navigation. A model reading those lists inherits the same errors. 3.2.4 stays "Needs a person", and builder-cloud dropped the navigation and help lists from the page summary (1614b61). |
 
 ## Real-item calibration
 

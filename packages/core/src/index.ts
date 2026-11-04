@@ -398,6 +398,7 @@ export {
   type Asked,
   type Judged,
   type JudgedId,
+  type JudgedPages,
   type Observation,
 } from "./judged.js";
 

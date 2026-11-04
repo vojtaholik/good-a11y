@@ -75,7 +75,11 @@ describe("hostile input at the size cap", () => {
           const evidence = readPage(html);
 
           runChecks(evidence);
-          questionsOf(JUDGED_CHECKS, evidence, evidence);
+          questionsOf(JUDGED_CHECKS, {
+            entered: evidence,
+            rendered: null,
+            statement: evidence,
+          });
           pickPages("https://shop.example/", evidence.links);
           summaryOf("entered", "https://shop.example/", evidence);
         })

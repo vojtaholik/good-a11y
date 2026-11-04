@@ -3665,6 +3665,1195 @@
         "model": "clef",
         "usage": { "input_tokens": 739, "output_tokens": 0 }
       }
+    },
+    {
+      "key": "page-language-matches:aivk.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0038,
+              "cs": 0.8963,
+              "da": 0.0024,
+              "de": 0.0031,
+              "el": 0.0021,
+              "en": 0.0144,
+              "es": 0.0032,
+              "et": 0.0027,
+              "fi": 0.002,
+              "fr": 0.0027,
+              "ga": 0.0017,
+              "hr": 0.0051,
+              "hu": 0.0027,
+              "it": 0.0024,
+              "lt": 0.0022,
+              "lv": 0.0028,
+              "mt": 0.0018,
+              "nl": 0.0024,
+              "other": 0.0054,
+              "pl": 0.0042,
+              "pt": 0.0019,
+              "ro": 0.0025,
+              "sk": 0.0268,
+              "sl": 0.0032,
+              "sv": 0.0022
+            },
+            "confidence": 0.7963
+          }
+        },
+        "usage": { "input_tokens": 902, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:burdastory.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0042,
+              "cs": 0.8905,
+              "da": 0.0025,
+              "de": 0.0031,
+              "el": 0.0024,
+              "en": 0.0037,
+              "es": 0.0027,
+              "et": 0.0023,
+              "fi": 0.0021,
+              "fr": 0.0033,
+              "ga": 0.0017,
+              "hr": 0.0072,
+              "hu": 0.0024,
+              "it": 0.0023,
+              "lt": 0.0019,
+              "lv": 0.0025,
+              "mt": 0.0017,
+              "nl": 0.0023,
+              "other": 0.0046,
+              "pl": 0.0054,
+              "pt": 0.002,
+              "ro": 0.0027,
+              "sk": 0.0417,
+              "sl": 0.0026,
+              "sv": 0.0022
+            },
+            "confidence": 0.7864
+          }
+        },
+        "usage": { "input_tokens": 963, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:chytravolba.gov.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0034,
+              "cs": 0.9226,
+              "da": 0.0022,
+              "de": 0.0024,
+              "el": 0.0019,
+              "en": 0.003,
+              "es": 0.0024,
+              "et": 0.0023,
+              "fi": 0.0019,
+              "fr": 0.0019,
+              "ga": 0.0015,
+              "hr": 0.0051,
+              "hu": 0.0021,
+              "it": 0.002,
+              "lt": 0.0019,
+              "lv": 0.0023,
+              "mt": 0.0015,
+              "nl": 0.002,
+              "other": 0.0035,
+              "pl": 0.0041,
+              "pt": 0.0017,
+              "ro": 0.0021,
+              "sk": 0.0215,
+              "sl": 0.0027,
+              "sv": 0.002
+            },
+            "confidence": 0.8456
+          }
+        },
+        "usage": { "input_tokens": 921, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:cuni.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0038,
+              "cs": 0.921,
+              "da": 0.0022,
+              "de": 0.003,
+              "el": 0.002,
+              "en": 0.0087,
+              "es": 0.0027,
+              "et": 0.0023,
+              "fi": 0.002,
+              "fr": 0.0023,
+              "ga": 0.0016,
+              "hr": 0.005,
+              "hu": 0.0024,
+              "it": 0.0021,
+              "lt": 0.0022,
+              "lv": 0.0025,
+              "mt": 0.0017,
+              "nl": 0.0023,
+              "other": 0.0038,
+              "pl": 0.0035,
+              "pt": 0.0019,
+              "ro": 0.0021,
+              "sk": 0.0143,
+              "sl": 0.0025,
+              "sv": 0.0021
+            },
+            "confidence": 0.8425
+          }
+        },
+        "usage": { "input_tokens": 915, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:tcs.cuni.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0032,
+              "cs": 0.9335,
+              "da": 0.002,
+              "de": 0.0021,
+              "el": 0.0017,
+              "en": 0.0035,
+              "es": 0.002,
+              "et": 0.002,
+              "fi": 0.0017,
+              "fr": 0.0018,
+              "ga": 0.0014,
+              "hr": 0.0045,
+              "hu": 0.0022,
+              "it": 0.0017,
+              "lt": 0.0017,
+              "lv": 0.0019,
+              "mt": 0.0014,
+              "nl": 0.0019,
+              "other": 0.0034,
+              "pl": 0.0035,
+              "pt": 0.0016,
+              "ro": 0.0018,
+              "sk": 0.0153,
+              "sl": 0.0024,
+              "sv": 0.0018
+            },
+            "confidence": 0.8665
+          }
+        },
+        "usage": { "input_tokens": 885, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:dalap.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0033,
+              "cs": 0.9207,
+              "da": 0.0031,
+              "de": 0.0022,
+              "el": 0.0017,
+              "en": 0.0048,
+              "es": 0.0021,
+              "et": 0.0022,
+              "fi": 0.0018,
+              "fr": 0.0018,
+              "ga": 0.0013,
+              "hr": 0.0056,
+              "hu": 0.0022,
+              "it": 0.0019,
+              "lt": 0.0018,
+              "lv": 0.0023,
+              "mt": 0.0015,
+              "nl": 0.002,
+              "other": 0.0031,
+              "pl": 0.0048,
+              "pt": 0.0016,
+              "ro": 0.0021,
+              "sk": 0.0215,
+              "sl": 0.0027,
+              "sv": 0.0019
+            },
+            "confidence": 0.8421
+          }
+        },
+        "usage": { "input_tokens": 926, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:platba.portalprazana.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0031,
+              "cs": 0.9355,
+              "da": 0.0019,
+              "de": 0.002,
+              "el": 0.0017,
+              "en": 0.0023,
+              "es": 0.002,
+              "et": 0.0019,
+              "fi": 0.0016,
+              "fr": 0.0017,
+              "ga": 0.0013,
+              "hr": 0.004,
+              "hu": 0.0018,
+              "it": 0.0018,
+              "lt": 0.0017,
+              "lv": 0.0022,
+              "mt": 0.0016,
+              "nl": 0.0019,
+              "other": 0.0025,
+              "pl": 0.0041,
+              "pt": 0.0016,
+              "ro": 0.002,
+              "sk": 0.0157,
+              "sl": 0.0022,
+              "sv": 0.0019
+            },
+            "confidence": 0.8704
+          }
+        },
+        "usage": { "input_tokens": 946, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:scott-and-rose.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0031,
+              "cs": 0.9207,
+              "da": 0.0021,
+              "de": 0.0026,
+              "el": 0.0018,
+              "en": 0.004,
+              "es": 0.0024,
+              "et": 0.0021,
+              "fi": 0.0018,
+              "fr": 0.002,
+              "ga": 0.0014,
+              "hr": 0.0048,
+              "hu": 0.0023,
+              "it": 0.002,
+              "lt": 0.0018,
+              "lv": 0.0021,
+              "mt": 0.0015,
+              "nl": 0.0021,
+              "other": 0.0038,
+              "pl": 0.0038,
+              "pt": 0.0018,
+              "ro": 0.0023,
+              "sk": 0.0232,
+              "sl": 0.0024,
+              "sv": 0.0021
+            },
+            "confidence": 0.842
+          }
+        },
+        "usage": { "input_tokens": 871, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:trvalaobnovaskoly.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0038,
+              "cs": 0.9248,
+              "da": 0.0022,
+              "de": 0.0022,
+              "el": 0.002,
+              "en": 0.0031,
+              "es": 0.0024,
+              "et": 0.0022,
+              "fi": 0.002,
+              "fr": 0.0022,
+              "ga": 0.0015,
+              "hr": 0.0057,
+              "hu": 0.002,
+              "it": 0.002,
+              "lt": 0.0019,
+              "lv": 0.0023,
+              "mt": 0.0016,
+              "nl": 0.0022,
+              "other": 0.0033,
+              "pl": 0.0031,
+              "pt": 0.0017,
+              "ro": 0.0021,
+              "sk": 0.0188,
+              "sl": 0.0028,
+              "sv": 0.0021
+            },
+            "confidence": 0.8498
+          }
+        },
+        "usage": { "input_tokens": 915, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.boldfuture.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0048,
+              "cs": 0.9019,
+              "da": 0.0035,
+              "de": 0.0029,
+              "el": 0.0019,
+              "en": 0.0059,
+              "es": 0.0024,
+              "et": 0.0028,
+              "fi": 0.002,
+              "fr": 0.0024,
+              "ga": 0.0014,
+              "hr": 0.0088,
+              "hu": 0.0023,
+              "it": 0.0023,
+              "lt": 0.002,
+              "lv": 0.0027,
+              "mt": 0.0016,
+              "nl": 0.0025,
+              "other": 0.0048,
+              "pl": 0.0064,
+              "pt": 0.0017,
+              "ro": 0.0022,
+              "sk": 0.0257,
+              "sl": 0.0027,
+              "sv": 0.0024
+            },
+            "confidence": 0.8066
+          }
+        },
+        "usage": { "input_tokens": 882, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.brno1645.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.003,
+              "cs": 0.917,
+              "da": 0.002,
+              "de": 0.0024,
+              "el": 0.0018,
+              "en": 0.0026,
+              "es": 0.0022,
+              "et": 0.0022,
+              "fi": 0.0018,
+              "fr": 0.002,
+              "ga": 0.0015,
+              "hr": 0.0075,
+              "hu": 0.0022,
+              "it": 0.002,
+              "lt": 0.0019,
+              "lv": 0.0023,
+              "mt": 0.0015,
+              "nl": 0.002,
+              "other": 0.0033,
+              "pl": 0.0042,
+              "pt": 0.0017,
+              "ro": 0.0019,
+              "sk": 0.0251,
+              "sl": 0.0031,
+              "sv": 0.0028
+            },
+            "confidence": 0.8351
+          }
+        },
+        "usage": { "input_tokens": 894, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.matikacesku.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0028,
+              "cs": 0.9346,
+              "da": 0.0018,
+              "de": 0.0024,
+              "el": 0.0018,
+              "en": 0.0025,
+              "es": 0.0021,
+              "et": 0.002,
+              "fi": 0.0016,
+              "fr": 0.0018,
+              "ga": 0.0013,
+              "hr": 0.0048,
+              "hu": 0.002,
+              "it": 0.0018,
+              "lt": 0.0018,
+              "lv": 0.0021,
+              "mt": 0.0014,
+              "nl": 0.002,
+              "other": 0.0026,
+              "pl": 0.0027,
+              "pt": 0.0015,
+              "ro": 0.0019,
+              "sk": 0.0166,
+              "sl": 0.0023,
+              "sv": 0.0018
+            },
+            "confidence": 0.8686
+          }
+        },
+        "usage": { "input_tokens": 928, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.region24.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0029,
+              "cs": 0.9502,
+              "da": 0.0015,
+              "de": 0.0018,
+              "el": 0.0015,
+              "en": 0.0024,
+              "es": 0.0016,
+              "et": 0.0015,
+              "fi": 0.0014,
+              "fr": 0.0015,
+              "ga": 0.0011,
+              "hr": 0.0034,
+              "hu": 0.0016,
+              "it": 0.0015,
+              "lt": 0.0014,
+              "lv": 0.0016,
+              "mt": 0.0012,
+              "nl": 0.0016,
+              "other": 0.0018,
+              "pl": 0.003,
+              "pt": 0.0014,
+              "ro": 0.0015,
+              "sk": 0.0093,
+              "sl": 0.0018,
+              "sv": 0.0015
+            },
+            "confidence": 0.8989
+          }
+        },
+        "usage": { "input_tokens": 978, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.viaaurea.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0043,
+              "cs": 0.9159,
+              "da": 0.0023,
+              "de": 0.0025,
+              "el": 0.002,
+              "en": 0.0036,
+              "es": 0.0025,
+              "et": 0.0023,
+              "fi": 0.0019,
+              "fr": 0.0021,
+              "ga": 0.0016,
+              "hr": 0.0057,
+              "hu": 0.0025,
+              "it": 0.0021,
+              "lt": 0.0021,
+              "lv": 0.0028,
+              "mt": 0.0016,
+              "nl": 0.0022,
+              "other": 0.0036,
+              "pl": 0.0044,
+              "pt": 0.0018,
+              "ro": 0.0024,
+              "sk": 0.0228,
+              "sl": 0.0028,
+              "sv": 0.0022
+            },
+            "confidence": 0.8328
+          }
+        },
+        "usage": { "input_tokens": 928, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.vlmnative.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0037,
+              "cs": 0.9106,
+              "da": 0.0023,
+              "de": 0.0029,
+              "el": 0.002,
+              "en": 0.008,
+              "es": 0.0026,
+              "et": 0.0026,
+              "fi": 0.0023,
+              "fr": 0.0024,
+              "ga": 0.0015,
+              "hr": 0.0059,
+              "hu": 0.0023,
+              "it": 0.0023,
+              "lt": 0.002,
+              "lv": 0.0025,
+              "mt": 0.0017,
+              "nl": 0.0024,
+              "other": 0.0044,
+              "pl": 0.0044,
+              "pt": 0.0019,
+              "ro": 0.0023,
+              "sk": 0.022,
+              "sl": 0.0029,
+              "sv": 0.0021
+            },
+            "confidence": 0.8229
+          }
+        },
+        "usage": { "input_tokens": 908, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.zivotvrohliku.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0034,
+              "cs": 0.9338,
+              "da": 0.0025,
+              "de": 0.0028,
+              "el": 0.002,
+              "en": 0.0034,
+              "es": 0.0022,
+              "et": 0.0022,
+              "fi": 0.0018,
+              "fr": 0.0019,
+              "ga": 0.0015,
+              "hr": 0.0047,
+              "hu": 0.0025,
+              "it": 0.002,
+              "lt": 0.002,
+              "lv": 0.0021,
+              "mt": 0.0016,
+              "nl": 0.0024,
+              "other": 0.0025,
+              "pl": 0.0026,
+              "pt": 0.0017,
+              "ro": 0.0026,
+              "sk": 0.0114,
+              "sl": 0.0024,
+              "sv": 0.002
+            },
+            "confidence": 0.8669
+          }
+        },
+        "usage": { "input_tokens": 961, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:pedf.cuni.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.004,
+              "cs": 0.9198,
+              "da": 0.0019,
+              "de": 0.0026,
+              "el": 0.0019,
+              "en": 0.0043,
+              "es": 0.0024,
+              "et": 0.0023,
+              "fi": 0.0021,
+              "fr": 0.0021,
+              "ga": 0.0015,
+              "hr": 0.0043,
+              "hu": 0.0023,
+              "it": 0.002,
+              "lt": 0.0018,
+              "lv": 0.0023,
+              "mt": 0.0016,
+              "nl": 0.0021,
+              "other": 0.0034,
+              "pl": 0.0045,
+              "pt": 0.0018,
+              "ro": 0.0019,
+              "sk": 0.0223,
+              "sl": 0.0029,
+              "sv": 0.0019
+            },
+            "confidence": 0.8403
+          }
+        },
+        "usage": { "input_tokens": 913, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.klaranademlynska.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "en",
+            "probabilities": {
+              "bg": 0.0057,
+              "cs": 0.0052,
+              "da": 0.004,
+              "de": 0.0091,
+              "el": 0.003,
+              "en": 0.9038,
+              "es": 0.0033,
+              "et": 0.0056,
+              "fi": 0.0037,
+              "fr": 0.0035,
+              "ga": 0.0018,
+              "hr": 0.0038,
+              "hu": 0.0031,
+              "it": 0.0029,
+              "lt": 0.0042,
+              "lv": 0.0054,
+              "mt": 0.0019,
+              "nl": 0.0036,
+              "other": 0.0052,
+              "pl": 0.0035,
+              "pt": 0.0022,
+              "ro": 0.0031,
+              "sk": 0.0031,
+              "sl": 0.0044,
+              "sv": 0.0049
+            },
+            "confidence": 0.8096
+          }
+        },
+        "usage": { "input_tokens": 839, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.doprava-brno.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0026,
+              "cs": 0.9244,
+              "da": 0.002,
+              "de": 0.0028,
+              "el": 0.0019,
+              "en": 0.0048,
+              "es": 0.0025,
+              "et": 0.0021,
+              "fi": 0.0017,
+              "fr": 0.0021,
+              "ga": 0.0015,
+              "hr": 0.0048,
+              "hu": 0.0021,
+              "it": 0.0021,
+              "lt": 0.0019,
+              "lv": 0.0024,
+              "mt": 0.0015,
+              "nl": 0.0023,
+              "other": 0.0039,
+              "pl": 0.0031,
+              "pt": 0.0019,
+              "ro": 0.0021,
+              "sk": 0.0187,
+              "sl": 0.0028,
+              "sv": 0.002
+            },
+            "confidence": 0.8489
+          }
+        },
+        "usage": { "input_tokens": 905, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.ipm.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0035,
+              "cs": 0.9234,
+              "da": 0.0021,
+              "de": 0.0028,
+              "el": 0.002,
+              "en": 0.0066,
+              "es": 0.0026,
+              "et": 0.0025,
+              "fi": 0.0022,
+              "fr": 0.0024,
+              "ga": 0.0015,
+              "hr": 0.0048,
+              "hu": 0.0024,
+              "it": 0.0022,
+              "lt": 0.0021,
+              "lv": 0.0024,
+              "mt": 0.0017,
+              "nl": 0.0021,
+              "other": 0.0034,
+              "pl": 0.0032,
+              "pt": 0.0018,
+              "ro": 0.0021,
+              "sk": 0.0153,
+              "sl": 0.0027,
+              "sv": 0.0022
+            },
+            "confidence": 0.8469
+          }
+        },
+        "usage": { "input_tokens": 904, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.jiri-vancura-kresby.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0054,
+              "cs": 0.5962,
+              "da": 0.0041,
+              "de": 0.0058,
+              "el": 0.0035,
+              "en": 0.2894,
+              "es": 0.005,
+              "et": 0.0045,
+              "fi": 0.0035,
+              "fr": 0.0041,
+              "ga": 0.0033,
+              "hr": 0.0069,
+              "hu": 0.0034,
+              "it": 0.004,
+              "lt": 0.0036,
+              "lv": 0.0035,
+              "mt": 0.0032,
+              "nl": 0.0042,
+              "other": 0.0154,
+              "pl": 0.0051,
+              "pt": 0.0039,
+              "ro": 0.0036,
+              "sk": 0.0101,
+              "sl": 0.0046,
+              "sv": 0.0037
+            },
+            "confidence": 0.4167
+          }
+        },
+        "usage": { "input_tokens": 861, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.mevatec.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0047,
+              "cs": 0.9108,
+              "da": 0.0022,
+              "de": 0.0026,
+              "el": 0.0021,
+              "en": 0.0035,
+              "es": 0.0026,
+              "et": 0.0025,
+              "fi": 0.0021,
+              "fr": 0.0023,
+              "ga": 0.0015,
+              "hr": 0.006,
+              "hu": 0.0024,
+              "it": 0.0022,
+              "lt": 0.0021,
+              "lv": 0.0025,
+              "mt": 0.0017,
+              "nl": 0.0023,
+              "other": 0.0033,
+              "pl": 0.0046,
+              "pt": 0.0019,
+              "ro": 0.0023,
+              "sk": 0.0265,
+              "sl": 0.0031,
+              "sv": 0.0022
+            },
+            "confidence": 0.8234
+          }
+        },
+        "usage": { "input_tokens": 946, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.ndbrno.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0036,
+              "cs": 0.8763,
+              "da": 0.0044,
+              "de": 0.0141,
+              "el": 0.0023,
+              "en": 0.0199,
+              "es": 0.0031,
+              "et": 0.003,
+              "fi": 0.0024,
+              "fr": 0.0026,
+              "ga": 0.0018,
+              "hr": 0.0107,
+              "hu": 0.0038,
+              "it": 0.0026,
+              "lt": 0.0024,
+              "lv": 0.0031,
+              "mt": 0.0018,
+              "nl": 0.0031,
+              "other": 0.0075,
+              "pl": 0.0035,
+              "pt": 0.0021,
+              "ro": 0.0026,
+              "sk": 0.0171,
+              "sl": 0.0036,
+              "sv": 0.0026
+            },
+            "confidence": 0.7594
+          }
+        },
+        "usage": { "input_tokens": 900, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.simploshop.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0033,
+              "cs": 0.8883,
+              "da": 0.0025,
+              "de": 0.0079,
+              "el": 0.0021,
+              "en": 0.0052,
+              "es": 0.0027,
+              "et": 0.0026,
+              "fi": 0.0021,
+              "fr": 0.0022,
+              "ga": 0.0015,
+              "hr": 0.0054,
+              "hu": 0.0026,
+              "it": 0.0021,
+              "lt": 0.0021,
+              "lv": 0.0024,
+              "mt": 0.0017,
+              "nl": 0.0027,
+              "other": 0.0051,
+              "pl": 0.0041,
+              "pt": 0.0019,
+              "ro": 0.0025,
+              "sk": 0.04,
+              "sl": 0.0045,
+              "sv": 0.0025
+            },
+            "confidence": 0.7822
+          }
+        },
+        "usage": { "input_tokens": 898, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.vri.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0035,
+              "cs": 0.9251,
+              "da": 0.0018,
+              "de": 0.0024,
+              "el": 0.0017,
+              "en": 0.0055,
+              "es": 0.0024,
+              "et": 0.002,
+              "fi": 0.0016,
+              "fr": 0.0019,
+              "ga": 0.0013,
+              "hr": 0.0048,
+              "hu": 0.0022,
+              "it": 0.0019,
+              "lt": 0.0017,
+              "lv": 0.0021,
+              "mt": 0.0014,
+              "nl": 0.002,
+              "other": 0.0034,
+              "pl": 0.0033,
+              "pt": 0.0015,
+              "ro": 0.0019,
+              "sk": 0.0203,
+              "sl": 0.0025,
+              "sv": 0.0018
+            },
+            "confidence": 0.8505
+          }
+        },
+        "usage": { "input_tokens": 940, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:www.wn24.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0051,
+              "cs": 0.9058,
+              "da": 0.0024,
+              "de": 0.0027,
+              "el": 0.002,
+              "en": 0.0059,
+              "es": 0.0029,
+              "et": 0.0024,
+              "fi": 0.0021,
+              "fr": 0.0023,
+              "ga": 0.0015,
+              "hr": 0.0073,
+              "hu": 0.0024,
+              "it": 0.0024,
+              "lt": 0.0023,
+              "lv": 0.0027,
+              "mt": 0.0017,
+              "nl": 0.0023,
+              "other": 0.0052,
+              "pl": 0.0049,
+              "pt": 0.0019,
+              "ro": 0.0024,
+              "sk": 0.0243,
+              "sl": 0.003,
+              "sv": 0.0021
+            },
+            "confidence": 0.8138
+          }
+        },
+        "usage": { "input_tokens": 946, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:csirt.muni.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0031,
+              "cs": 0.9347,
+              "da": 0.0018,
+              "de": 0.0019,
+              "el": 0.0016,
+              "en": 0.0046,
+              "es": 0.002,
+              "et": 0.0021,
+              "fi": 0.0016,
+              "fr": 0.0018,
+              "ga": 0.0013,
+              "hr": 0.0049,
+              "hu": 0.002,
+              "it": 0.0017,
+              "lt": 0.0016,
+              "lv": 0.0021,
+              "mt": 0.0013,
+              "nl": 0.0017,
+              "other": 0.0032,
+              "pl": 0.0034,
+              "pt": 0.0015,
+              "ro": 0.0018,
+              "sk": 0.0145,
+              "sl": 0.0022,
+              "sv": 0.0016
+            },
+            "confidence": 0.8688
+          }
+        },
+        "usage": { "input_tokens": 936, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:knihovna.lf2.cuni.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0031,
+              "cs": 0.9177,
+              "da": 0.0021,
+              "de": 0.0024,
+              "el": 0.0018,
+              "en": 0.0064,
+              "es": 0.0025,
+              "et": 0.0022,
+              "fi": 0.0019,
+              "fr": 0.0019,
+              "ga": 0.0014,
+              "hr": 0.0045,
+              "hu": 0.0022,
+              "it": 0.002,
+              "lt": 0.0019,
+              "lv": 0.0025,
+              "mt": 0.0016,
+              "nl": 0.002,
+              "other": 0.0043,
+              "pl": 0.0034,
+              "pt": 0.0018,
+              "ro": 0.0024,
+              "sk": 0.0231,
+              "sl": 0.0028,
+              "sv": 0.0021
+            },
+            "confidence": 0.8364
+          }
+        },
+        "usage": { "input_tokens": 1002, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "page-language-matches:perspektiv.cz",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "language": {
+            "type": "choice",
+            "choice": "cs",
+            "probabilities": {
+              "bg": 0.0028,
+              "cs": 0.925,
+              "da": 0.0024,
+              "de": 0.0041,
+              "el": 0.0017,
+              "en": 0.0071,
+              "es": 0.0023,
+              "et": 0.0022,
+              "fi": 0.0016,
+              "fr": 0.0019,
+              "ga": 0.0013,
+              "hr": 0.0048,
+              "hu": 0.002,
+              "it": 0.0019,
+              "lt": 0.0018,
+              "lv": 0.0021,
+              "mt": 0.0014,
+              "nl": 0.0019,
+              "other": 0.0035,
+              "pl": 0.0034,
+              "pt": 0.0016,
+              "ro": 0.002,
+              "sk": 0.0167,
+              "sl": 0.0027,
+              "sv": 0.0018
+            },
+            "confidence": 0.8501
+          }
+        },
+        "usage": { "input_tokens": 883, "output_tokens": 0 }
+      }
     }
   ]
 }

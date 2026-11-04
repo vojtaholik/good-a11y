@@ -8,6 +8,7 @@ import type { Answer, JudgeReply, JudgeRequest, Question } from "./judge.js";
 import type { Landmark, LinkEvidence, PageEvidence } from "./page-evidence.js";
 import { REFERENCE } from "./reference.js";
 import type { Reference } from "./reference.js";
+import type { RenderedEvidence } from "./rendered-evidence.js";
 
 export const MAX_JUDGED_ITEMS = 20;
 
@@ -17,6 +18,8 @@ export const DAILY_JUDGE_TOKENS = 400_000;
 
 const CHARACTERS_PER_TOKEN = 3;
 
+const MAX_SNIPPET = 160;
+
 const TOKENS_PER_QUESTION = 40;
 
 const TOKENS_PER_CALL = 300;
@@ -25,9 +28,11 @@ export const JudgedIdSchema = Schema.Literals([
   "alt-text-describes",
   "link-purpose",
   "headings-labels-describe",
+  "passage-language-marked",
   "page-language-matches",
   "sells-to-consumers",
   "statement-annex-v",
+  "visual-headings-marked",
 ]);
 
 export type JudgedId = typeof JudgedIdSchema.Type;
@@ -37,8 +42,10 @@ export const NOTE_AT = {
   "headings-labels-describe": 0.7,
   "link-purpose": 0.9,
   "page-language-matches": 0.8,
+  "passage-language-marked": 0.8,
   "sells-to-consumers": 0.85,
   "statement-annex-v": 0.8,
+  "visual-headings-marked": 0.8,
 } as const satisfies Record<JudgedId, number>;
 
 const Count = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0));
@@ -109,6 +116,7 @@ export interface Asked {
 
 export interface JudgedPages {
   readonly entered: PageEvidence;
+  readonly rendered: RenderedEvidence | null;
   readonly statement: PageEvidence | null;
 }
 
@@ -199,6 +207,17 @@ const notedWhereNo =
 
       return yes !== null && 1 - yes >= noteAt
         ? [{ confidence: rounded(1 - yes), item: key, sample }]
+        : [];
+    });
+
+const notedWhereYes =
+  (noteAt: number) =>
+  (asked: Asked, reply: JudgeReply): readonly JudgedNote[] =>
+    asked.items.flatMap(({ key, sample }) => {
+      const yes = noulAnswer(reply.answers[key]);
+
+      return yes !== null && yes >= noteAt
+        ? [{ confidence: rounded(yes), item: key, sample }]
         : [];
     });
 
@@ -407,6 +426,30 @@ const declaredLanguage = (lang: string | null): string | null => {
   return EU_LANGUAGES.has(primary) ? primary : "other";
 };
 
+const notDeclaredNote = (
+  item: Item,
+  answer: Answer | undefined,
+  noteAt: number
+): JudgedNote[] => {
+  const declared = item.expected;
+
+  if (answer?.type !== "choice" || declared === undefined) {
+    return [];
+  }
+
+  const notDeclared = 1 - (answer.probabilities[declared] ?? 0);
+
+  return notDeclared >= noteAt && answer.choice !== declared
+    ? [
+        {
+          confidence: rounded(notDeclared),
+          item: item.key,
+          sample: `${item.sample}, text reads as ${EU_LANGUAGES.get(answer.choice) ?? answer.choice}`,
+        },
+      ]
+    : [];
+};
+
 const pageLanguageMatches: JudgedCheck = {
   about:
     "The model read the start of the page's text and judged that it is not written in the language the page declares in its lang attribute.",
@@ -430,34 +473,77 @@ const pageLanguageMatches: JudgedCheck = {
   },
   criteria: ["3.1.1"],
   decide: (asked, reply) => {
-    const answer = reply.answers[LANGUAGE_KEY];
     const [item] = asked.items;
-    const declared = item?.expected;
 
-    if (
-      answer?.type !== "choice" ||
-      item === undefined ||
-      declared === undefined
-    ) {
-      return [];
-    }
-
-    const notDeclared = 1 - (answer.probabilities[declared] ?? 0);
-
-    return notDeclared >= NOTE_AT["page-language-matches"] &&
-      answer.choice !== declared
-      ? [
-          {
-            confidence: rounded(notDeclared),
-            item: item.key,
-            sample: `${item.sample}, text reads as ${EU_LANGUAGES.get(answer.choice) ?? answer.choice}`,
-          },
-        ]
-      : [];
+    return item === undefined
+      ? []
+      : notDeclaredNote(
+          item,
+          reply.answers[LANGUAGE_KEY],
+          NOTE_AT["page-language-matches"]
+        );
   },
   id: "page-language-matches",
   shown: true,
   title: "Declared page language may not match the text",
+};
+
+const passageLanguageMarked: JudgedCheck = {
+  about:
+    "The model read text blocks whose common words point to another language than the lang in force on them, and judged that the block is written in another language, which its markup does not say.",
+  ask: ({ rendered }) => {
+    const foreign = rendered?.foreignBlocks ?? null;
+
+    if (foreign === null) {
+      return null;
+    }
+
+    const blocks = distinctFirst(
+      foreign.blocks.flatMap((block) => {
+        const declared = declaredLanguage(block.lang);
+
+        return declared === null || declared === "other"
+          ? []
+          : [{ declared, text: block.text }];
+      }),
+      ({ text }) => text
+    );
+
+    const entries = blocks.map(({ declared, text }, index) => ({
+      expected: declared,
+      key: `block_${index + 1}`,
+      question: {
+        criteria: LANGUAGE_NAMES,
+        instructions: `Which language is most of Block ${index + 1} written in? Names of people, places, products and brands do not count.`,
+        type: "choice" as const,
+      },
+      sample: `${quoted(capped(text, MAX_SNIPPET))} under lang=${quoted(declared)}`,
+    }));
+
+    return askedOf(
+      "passage-language-marked",
+      [
+        "Text blocks from a rendered web page.",
+        ...blocks.map(
+          ({ text }, index) =>
+            `Block ${index + 1}: ${quoted(capped(text, MAX_SNIPPET))}.`
+        ),
+      ].join("\n"),
+      entries
+    );
+  },
+  criteria: ["3.1.2"],
+  decide: (asked, reply) =>
+    asked.items.flatMap((item) =>
+      notDeclaredNote(
+        item,
+        reply.answers[item.key],
+        NOTE_AT["passage-language-marked"]
+      )
+    ),
+  id: "passage-language-marked",
+  shown: false,
+  title: "Passages that may be in another language than marked",
 };
 
 const SHOPPING_LINK =
@@ -603,13 +689,67 @@ const statementAnnexV: JudgedCheck = {
     "Points of Annex V the model judged missing from the accessibility statement",
 };
 
+const MIN_HEADING_LETTERS = /\p{L}{3}/u;
+
+const CURRENCY_WORDS =
+  /(?<!\p{L})(?:EUR|CZK|PLN|RON|HUF|SEK|DKK|NOK|BGN|Kč|zł|lei|Ft|kr|лв)(?!\p{L})/giu;
+
+const mayTitle = (text: string): boolean =>
+  MIN_HEADING_LETTERS.test(text.replace(CURRENCY_WORDS, ""));
+
+const visualHeadingsMarked: JudgedCheck = {
+  about:
+    "The model read short texts the page sets larger or bolder than its body text outside any heading element, with their markup, and judged that the text is the title of a section, so it would be marked up as a heading.",
+  ask: ({ rendered }) => {
+    const visual = rendered?.visualHeadings ?? null;
+
+    if (visual === null) {
+      return null;
+    }
+
+    const { bodyFontSize, candidates } = visual;
+
+    const texts = distinctFirst(
+      candidates.filter(({ text }) => mayTitle(text)),
+      ({ text }) => text.trim().toLowerCase()
+    );
+
+    const entries = texts.map((text, index) => ({
+      key: `text_${index + 1}`,
+      question: noul(
+        `Is Text ${index + 1} the title of a section of the page, the way a heading names the content below it? Answer no if it is a price, a product or teaser name inside a card, a slogan, a date, a number, an icon name, a button or link label, a notice, or part of a sentence.`
+      ),
+      sample: quoted(text.text),
+    }));
+
+    return askedOf(
+      "visual-headings-marked",
+      [
+        `Short texts on a rendered web page that are not marked up as headings but are set larger or bolder than the body text (${bodyFontSize}px), each with its size, weight and the start of its HTML.`,
+        ...texts.map(
+          (text, index) =>
+            `Text ${index + 1}: ${quoted(text.text)}; ${text.fontSize}px, weight ${text.fontWeight}; markup ${quoted(capped(text.snippet, MAX_SNIPPET))}.`
+        ),
+      ].join("\n"),
+      entries
+    );
+  },
+  criteria: ["1.3.1"],
+  decide: notedWhereYes(NOTE_AT["visual-headings-marked"]),
+  id: "visual-headings-marked",
+  shown: false,
+  title: "Text that may look like a heading but is not marked up as one",
+};
+
 export const JUDGED_CHECKS: readonly JudgedCheck[] = [
   altTextDescribes,
   linkPurpose,
   headingsLabelsDescribe,
   pageLanguageMatches,
+  passageLanguageMarked,
   sellsToConsumers,
   statementAnnexV,
+  visualHeadingsMarked,
 ];
 
 export const SHOWN_JUDGED_CHECKS: readonly JudgedCheck[] = JUDGED_CHECKS.filter(
@@ -630,19 +770,16 @@ export const judgedCriteria = (): readonly string[] =>
 
 export const questionsOf = (
   checks: readonly JudgedCheck[],
-  entered: PageEvidence,
-  statement: PageEvidence | null = null
+  pages: JudgedPages
 ): readonly Asked[] =>
   checks.flatMap((check) => {
-    const asked = check.ask({ entered, statement });
+    const asked = check.ask(pages);
 
     return asked === null ? [] : [asked];
   });
 
-export const questionsFor = (
-  entered: PageEvidence,
-  statement: PageEvidence | null = null
-): readonly Asked[] => questionsOf(SHOWN_JUDGED_CHECKS, entered, statement);
+export const questionsFor = (pages: JudgedPages): readonly Asked[] =>
+  questionsOf(SHOWN_JUDGED_CHECKS, pages);
 
 export const tokensToReserve = (
   asked: readonly Pick<Asked, "request">[]
