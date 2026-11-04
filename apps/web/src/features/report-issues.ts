@@ -14,13 +14,13 @@ const countText = (issue: Issue): string =>
     ? `${issue.failing} ${issue.failing === 1 ? "element" : "elements"} failing`
     : `${issue.failing} of ${issue.checked} failing`;
 
-const metaText = (issue: Issue): string =>
-  [
-    issue.level === null ? "" : `WCAG Level ${issue.level}`,
-    `found in the ${issue.sources.map((source) => SAMPLE_SOURCE_LABELS[source]).join(" and the ")}`,
-  ]
-    .filter((part) => part !== "")
-    .join(", ");
+const metaText = (issue: Issue): string => {
+  const where = `in the ${issue.sources.map((source) => SAMPLE_SOURCE_LABELS[source]).join(" and the ")}`;
+
+  return issue.level === null
+    ? `Found ${where}`
+    : `WCAG Level ${issue.level}, found ${where}`;
+};
 
 const COPY_LABEL = "Copy fix prompt";
 
