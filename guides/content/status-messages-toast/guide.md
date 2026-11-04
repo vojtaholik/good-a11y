@@ -39,6 +39,10 @@ addButton.addEventListener("click", async () => {
 
 Clearing and setting after a short delay makes the same message announce again when the user repeats the action.
 
+## The second rule agents break: a toast that leaves too soon
+
+An auto-dismissing toast stays on screen for at least 6000 ms (more than 5 seconds), even when the request asks for less, such as "disappears after 4 seconds". Use 6000 ms and tell the user why in your reply: people who read slowly, magnify the screen or look away lose a message that leaves sooner. This is the one place to override the requested number.
+
 ## Polite or assertive
 
 - `role="status"` (polite, atomic): confirmations, counts, progress. Waits until the screen reader is done speaking. Use this for almost everything.
@@ -50,7 +54,7 @@ Clearing and setting after a short delay makes the same message announce again w
 A visible toast and the live region can be the same element, but toasts are often animated, stacked and removed, which breaks announcements. The robust split: render the toast visually, and send its text to the persistent status region.
 
 - Do not move focus to the toast. Focus stays where the user was working.
-- Do not auto-dismiss in under about 5 seconds, and pause the timer while the toast is hovered or has focus. A user who needs longer to read must not lose the message.
+- Pause the dismiss timer while the toast is hovered or has focus, and restart it when the pointer and focus leave.
 - If the toast holds an action ("Undo"), that action must also be reachable some other way, or the toast must stay until dismissed. Keyboard users cannot reach a button that vanishes before they Tab to it.
 - Give a close button an accessible name ("Dismiss").
 - Do not put long or important content only in a toast; errors that block progress belong next to the field or at the top of the form.
@@ -73,9 +77,40 @@ A visible toast and the live region can be the same element, but toasts are ofte
 
 Mount the live region once in the root layout and expose an `announce()` function through context, instead of rendering `<div role="status">` inside each toast component that mounts with its message. Toast libraries vary; check that the library keeps a persistent region, does not move focus, and pauses on hover and focus. Conditional rendering like `{message && <div role="status">{message}</div>}` is the classic bug: the region and its text appear together.
 
+```jsx
+const TOAST_MS = 6000;
+
+function Toast({ message, onDone }) {
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const timer = setTimeout(onDone, TOAST_MS);
+    return () => clearTimeout(timer);
+  }, [message, paused, onDone]);
+
+  return (
+    <div
+      className="toast"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      {message}
+      <button type="button" aria-label="Dismiss" onClick={onDone}>
+        ×
+      </button>
+    </div>
+  );
+}
+```
+
+The toast is visual only; its text goes to the persistent status region through `announce()`.
+
 ## What to verify
 
 - With a screen reader on, trigger each action: the message is spoken once, without focus moving.
 - Repeat the same action: the message is spoken again.
 - The status region element is in the DOM before the first message.
-- A toast stays while hovered or focused, and any action in it is also available elsewhere or the toast waits for dismissal.
+- A toast stays at least 6 seconds, stays while hovered or focused, and any action in it is also available elsewhere or the toast waits for dismissal.

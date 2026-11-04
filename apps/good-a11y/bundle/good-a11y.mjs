@@ -3495,9 +3495,33 @@ The same photo can need different alt text on different pages. A product photo o
 
 <figure>
   <img src="q-sales.png" alt="Bar chart: sales rose each quarter of 2026." />
-  <figcaption>
-    Quarterly sales, 2026. Full figures in the table below.
-  </figcaption>
+  <figcaption>Quarterly sales, 2026.</figcaption>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Quarter</th>
+        <th scope="col">Sales (EUR)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Q1</td>
+        <td>400</td>
+      </tr>
+      <tr>
+        <td>Q2</td>
+        <td>600</td>
+      </tr>
+      <tr>
+        <td>Q3</td>
+        <td>850</td>
+      </tr>
+      <tr>
+        <td>Q4</td>
+        <td>1,100</td>
+      </tr>
+    </tbody>
+  </table>
 </figure>
 
 <svg role="img" aria-labelledby="rating-title" viewBox="0 0 100 20">
@@ -3517,7 +3541,7 @@ In the card, one link wraps image and heading and the image is \`alt=""\`, so th
 - Keep informative alt short and specific to why the image is there. Mention color, text or detail only when it matters to the page (color matters on a product page).
 - For inline SVG with meaning, use \`role="img"\` and name it with \`aria-label\` or a \`<title>\` referenced by \`aria-labelledby\`. For decorative SVG, \`aria-hidden="true"\`.
 - For CSS background images that carry meaning, add the meaning as real text (visually hidden if needed), or use an \`<img>\`.
-- For a chart, put the data in a table or list next to it; the alt only summarizes.
+- For a chart, put every data value in a real \`<table>\` or list next to it, even a three-bar chart, and keep the alt to a one-line summary. Values packed into the alt, an SVG \`<title>\` or a figcaption sentence are hard to compare one by one; a table or list lets screen reader users move value by value.
 
 ## DO NOT
 
@@ -4975,7 +4999,7 @@ Run the focus and title code in an effect keyed on the location (\`useEffect(() 
     </script>
   </body>
 </html>
-`,description:'Announce toasts, snackbars, "added to cart" and save confirmations to screen readers with role status, aria-live and no focus move',expectations:'# Expectations: status-messages-toast\n\n1. An element with role `status` (or `aria-live="polite"`) is in the DOM on page load, before any action.\n2. Activating the action (for example "Add to cart") puts a message naming the result into that same pre-existing live region.\n3. After the action, `document.activeElement` is still the control that was activated.\n4. Success messages are not in an element with role `alert` or `aria-live="assertive"`.\n5. A visible toast remains visible for at least 5 seconds, and stays visible while it has focus or is hovered.\n6. A toast close button has an accessible name.\n',headings:["Status messages and toasts","When to use","The rule that agents break: the region must exist first","Polite or assertive","Visible toasts","DO","DO NOT","React and frameworks","What to verify"],id:"status-messages-toast",name:"Status messages and toasts",text:`---
+`,description:'Announce toasts, snackbars, "added to cart" and save confirmations to screen readers with role status, aria-live and no focus move',expectations:'# Expectations: status-messages-toast\n\n1. An element with role `status` (or `aria-live="polite"`) is in the DOM on page load, before any action.\n2. Activating the action (for example "Add to cart") puts a message naming the result into that same pre-existing live region.\n3. After the action, `document.activeElement` is still the control that was activated.\n4. Success messages are not in an element with role `alert` or `aria-live="assertive"`.\n5. A visible toast remains visible for at least 5 seconds, and stays visible while it has focus or is hovered.\n6. A toast close button has an accessible name.\n',headings:["Status messages and toasts","When to use","The rule that agents break: the region must exist first","The second rule agents break: a toast that leaves too soon","Polite or assertive","Visible toasts","DO","DO NOT","React and frameworks","What to verify"],id:"status-messages-toast",name:"Status messages and toasts",text:`---
 name: Status messages and toasts
 description: Announce toasts, snackbars, "added to cart" and save confirmations to screen readers with role status, aria-live and no focus move
 criteria:
@@ -5016,6 +5040,10 @@ addButton.addEventListener("click", async () => {
 
 Clearing and setting after a short delay makes the same message announce again when the user repeats the action.
 
+## The second rule agents break: a toast that leaves too soon
+
+An auto-dismissing toast stays on screen for at least 6000 ms (more than 5 seconds), even when the request asks for less, such as "disappears after 4 seconds". Use 6000 ms and tell the user why in your reply: people who read slowly, magnify the screen or look away lose a message that leaves sooner. This is the one place to override the requested number.
+
 ## Polite or assertive
 
 - \`role="status"\` (polite, atomic): confirmations, counts, progress. Waits until the screen reader is done speaking. Use this for almost everything.
@@ -5027,7 +5055,7 @@ Clearing and setting after a short delay makes the same message announce again w
 A visible toast and the live region can be the same element, but toasts are often animated, stacked and removed, which breaks announcements. The robust split: render the toast visually, and send its text to the persistent status region.
 
 - Do not move focus to the toast. Focus stays where the user was working.
-- Do not auto-dismiss in under about 5 seconds, and pause the timer while the toast is hovered or has focus. A user who needs longer to read must not lose the message.
+- Pause the dismiss timer while the toast is hovered or has focus, and restart it when the pointer and focus leave.
 - If the toast holds an action ("Undo"), that action must also be reachable some other way, or the toast must stay until dismissed. Keyboard users cannot reach a button that vanishes before they Tab to it.
 - Give a close button an accessible name ("Dismiss").
 - Do not put long or important content only in a toast; errors that block progress belong next to the field or at the top of the form.
@@ -5050,12 +5078,43 @@ A visible toast and the live region can be the same element, but toasts are ofte
 
 Mount the live region once in the root layout and expose an \`announce()\` function through context, instead of rendering \`<div role="status">\` inside each toast component that mounts with its message. Toast libraries vary; check that the library keeps a persistent region, does not move focus, and pauses on hover and focus. Conditional rendering like \`{message && <div role="status">{message}</div>}\` is the classic bug: the region and its text appear together.
 
+\`\`\`jsx
+const TOAST_MS = 6000;
+
+function Toast({ message, onDone }) {
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const timer = setTimeout(onDone, TOAST_MS);
+    return () => clearTimeout(timer);
+  }, [message, paused, onDone]);
+
+  return (
+    <div
+      className="toast"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      {message}
+      <button type="button" aria-label="Dismiss" onClick={onDone}>
+        \xD7
+      </button>
+    </div>
+  );
+}
+\`\`\`
+
+The toast is visual only; its text goes to the persistent status region through \`announce()\`.
+
 ## What to verify
 
 - With a screen reader on, trigger each action: the message is spoken once, without focus moving.
 - Repeat the same action: the message is spoken again.
 - The status region element is in the DOM before the first message.
-- A toast stays while hovered or focused, and any action in it is also available elsewhere or the toast waits for dismissal.
+- A toast stays at least 6 seconds, stays while hovered or focused, and any action in it is also available elsewhere or the toast waits for dismissal.
 `},{category:"widgets",criteria:["STD-SC-1.3.1","STD-SC-2.1.1","STD-SC-4.1.2"],demo:`<!doctype html>
 <html lang="en">
   <head>

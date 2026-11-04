@@ -40,9 +40,33 @@ The same photo can need different alt text on different pages. A product photo o
 
 <figure>
   <img src="q-sales.png" alt="Bar chart: sales rose each quarter of 2026." />
-  <figcaption>
-    Quarterly sales, 2026. Full figures in the table below.
-  </figcaption>
+  <figcaption>Quarterly sales, 2026.</figcaption>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Quarter</th>
+        <th scope="col">Sales (EUR)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Q1</td>
+        <td>400</td>
+      </tr>
+      <tr>
+        <td>Q2</td>
+        <td>600</td>
+      </tr>
+      <tr>
+        <td>Q3</td>
+        <td>850</td>
+      </tr>
+      <tr>
+        <td>Q4</td>
+        <td>1,100</td>
+      </tr>
+    </tbody>
+  </table>
 </figure>
 
 <svg role="img" aria-labelledby="rating-title" viewBox="0 0 100 20">
@@ -62,7 +86,7 @@ In the card, one link wraps image and heading and the image is `alt=""`, so the 
 - Keep informative alt short and specific to why the image is there. Mention color, text or detail only when it matters to the page (color matters on a product page).
 - For inline SVG with meaning, use `role="img"` and name it with `aria-label` or a `<title>` referenced by `aria-labelledby`. For decorative SVG, `aria-hidden="true"`.
 - For CSS background images that carry meaning, add the meaning as real text (visually hidden if needed), or use an `<img>`.
-- For a chart, put the data in a table or list next to it; the alt only summarizes.
+- For a chart, put every data value in a real `<table>` or list next to it, even a three-bar chart, and keep the alt to a one-line summary. Values packed into the alt, an SVG `<title>` or a figcaption sentence are hard to compare one by one; a table or list lets screen reader users move value by value.
 
 ## DO NOT
 
