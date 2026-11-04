@@ -4,6 +4,7 @@ import { describe, expect, it } from "@effect/vitest";
 import { Schema } from "effect";
 
 import {
+  CONTACT_SHOWN,
   APPLICABILITY,
   AUTOMATED_LIMIT,
   BLOCKED_CONTACT_TEXT,
@@ -167,7 +168,7 @@ describe("the report", () => {
     );
   });
 
-  it("ends with the studio9 contact, marked as a placeholder", () => {
+  it("keeps the studio9 contact in the report and shows it only when CONTACT_SHOWN is on", () => {
     const [, report] = reports;
 
     expect(report?.contact.placeholder).toBe(true);
@@ -175,8 +176,8 @@ describe("the report", () => {
     expect(
       report === undefined
         ? false
-        : formatReport(report).trimEnd().endsWith(report.contact.text)
-    ).toBe(true);
+        : formatReport(report).includes(report.contact.text)
+    ).toBe(CONTACT_SHOWN);
   });
 
   it("runs every check on a page and reports what failed", () => {

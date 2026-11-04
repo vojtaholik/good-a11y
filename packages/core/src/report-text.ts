@@ -17,6 +17,7 @@ import {
   quietSummary,
 } from "./report-sections.js";
 import type { Issue } from "./report-sections.js";
+import { CONTACT_SHOWN } from "./report.js";
 import type { Report } from "./report.js";
 import {
   EXAMPLE_LABEL,
@@ -227,6 +228,5 @@ export const formatReport = (report: Report): string =>
     report.statement.factId === null
       ? report.statement.text
       : `${report.statement.text}  (${report.statement.factId})`,
-    "",
-    report.contact.text,
+    ...(CONTACT_SHOWN ? ["", report.contact.text] : []),
   ].join("\n");

@@ -1,4 +1,4 @@
-import { reportOf, runChecks } from "@eaa-check/core";
+import { CONTACT_SHOWN, reportOf, runChecks } from "@eaa-check/core";
 import type { ScanView } from "@eaa-check/core";
 import { readPage } from "@eaa-check/html-reader";
 import { describe, expect, it } from "@effect/vitest";
@@ -108,16 +108,13 @@ describe("our own page", () => {
         "Where the EAA applies",
         "had nothing to check",
         "About the rules",
-        "Send message",
       ].map((marker) => html.indexOf(marker));
 
       expect(order.map((index) => index >= 0)).toEqual(order.map(() => true));
       expect(order).toEqual(order.toSorted((left, right) => left - right));
-      expect(html).toContain("Send message");
       expect(html).toContain('href="/checks"');
-      expect(html).toContain(
-        "studio9 keeps your e-mail, name, message and the scanned address only to answer you."
-      );
+      expect(html.includes("Send message")).toBe(CONTACT_SHOWN);
+      expect(html.includes("studio9")).toBe(CONTACT_SHOWN);
       expect(html.toLowerCase()).not.toContain("compliant");
       expect(failing(html)).toEqual([]);
     })

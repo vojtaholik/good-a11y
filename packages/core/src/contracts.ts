@@ -4,7 +4,7 @@ import { Schema } from "effect";
 import { ReportSchema } from "./report.js";
 import { ScanTargetRejected } from "./scan-target-rejected.js";
 
-export { ReportSchema } from "./report.js";
+export { CONTACT_SHOWN, ReportSchema } from "./report.js";
 
 export type { Finding, Report } from "./report.js";
 

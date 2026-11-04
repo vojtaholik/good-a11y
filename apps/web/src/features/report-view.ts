@@ -1,4 +1,5 @@
 import {
+  CONTACT_SHOWN,
   METHOD_NAMES,
   verdictDetail,
   isTested,
@@ -194,7 +195,9 @@ const rulesView = (report: Report, h: HtmlBuilder<AppMessage>): Html => {
 
 const closingView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] => [
   h.p([sx(h, styles.statement)], [report.statement.text]),
-  h.aside([sx(h, styles.contact)], [h.p([], [report.contact.text])]),
+  ...(CONTACT_SHOWN
+    ? [h.aside([sx(h, styles.contact)], [h.p([], [report.contact.text])])]
+    : []),
 ];
 
 const publishedView = (
@@ -254,11 +257,15 @@ export const reportView = (
               ]
             : [
                 ...publishedView(model, view.report, h),
-                contactView(
-                  model,
-                  view.report.finalUrl ?? view.report.requestedUrl,
-                  h
-                ),
+                ...(CONTACT_SHOWN
+                  ? [
+                      contactView(
+                        model,
+                        view.report.finalUrl ?? view.report.requestedUrl,
+                        h
+                      ),
+                    ]
+                  : []),
               ],
         Unavailable: () => [
           h.p(

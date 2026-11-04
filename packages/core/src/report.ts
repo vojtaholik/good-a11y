@@ -39,6 +39,8 @@ export const AUTOMATED_LIMIT_FACT = "STD-AUTO-1";
 export const AUTOMATED_LIMIT =
   "Automated checks find only part of the accessibility issues WCAG covers, and only those visible to the checker in the page it read. This report does not show whether the page meets the European Accessibility Act. A manual review by a person is needed.";
 
+export const CONTACT_SHOWN = false;
+
 export const CONTACT_TEXT =
   "studio9 can review this page by hand, explain what the findings mean for your site, and fix them. Get in touch with studio9.";
 
