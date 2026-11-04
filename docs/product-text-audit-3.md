@@ -145,3 +145,13 @@ Stored report on dev, no new scan (builder-cloud asked for a hold on third-party
 - Note, not a text defect: the 1.4.3 samples are `<span class="word">` pieces of an animated heading, which axe may have read mid-animation. The verdict on this page also rests on the empty carousel links (`<a class="carousel-item__prev" href="#">` holding only an SVG, 2.4.4 and 4.1.2), which are real, so the headline holds.
 
 Audit 3: no open text defects once `ce417ac` is deployed.
+
+## Issue order and newer-WCAG heading (5f01dff, 2026-11-04, about 08:20 CET)
+
+Fresh scan on dev after builder-cloud's all-clear: navlacil.cz, scan `mw1rpzus-x9rp48yq`.
+
+- `ce417ac` is live: "39 elements failing. Found in the rendered page."
+- The WCAG 2.1 issues (1.4.3 contrast, link names) come first. The two WCAG 2.2-only issues (2.4.11, 2.5.8) sit under "Against the newer WCAG 2.2 (not counted in the verdict)", although they have more failing elements. Only issues with no WCAG 2.1 level and a WCAG 2.2 reference move there (`isNewerOnly`).
+- The detail line "3 failing criteria in 2 issues below; 2 more issues are against the newer WCAG 2.2 and not counted." matches the headline (3 failing criteria), the 2 + 2 issues listed, and the checklist (WCAG 2.1: 3 fail; WCAG 2.2: 2 fail).
+
+Audit 3 has no open text defects.
