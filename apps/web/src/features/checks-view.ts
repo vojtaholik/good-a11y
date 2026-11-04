@@ -9,7 +9,6 @@ import * as stylex from "@stylexjs/stylex";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/model.js";
-import { homeRouter } from "./route.js";
 import { sx } from "./sx.js";
 
 const MUTED = "#4a5160";
@@ -94,10 +93,10 @@ const rowView = (row: ScCoverageRow, h: HtmlBuilder<AppMessage>): Html =>
   );
 
 export const checksView = (h: HtmlBuilder<AppMessage>): Html =>
-  h.main(
-    [],
+  h.section(
+    [h.AriaLabelledBy("what-we-check")],
     [
-      h.h1([], ["What we check"]),
+      h.h2([h.Id("what-we-check")], ["What we check"]),
       ...scCoverageSummary(SC_COVERAGE).map((line) => h.p([], [line])),
       h.table(
         [sx(h, local.table)],
@@ -130,6 +129,5 @@ export const checksView = (h: HtmlBuilder<AppMessage>): Html =>
           ),
         ]
       ),
-      h.p([], [h.a([h.Href(homeRouter({}))], ["Check a page"])]),
     ]
   );

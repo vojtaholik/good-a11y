@@ -3,11 +3,12 @@ import { Runtime } from "foldkit";
 
 import { init, update } from "../features/update.js";
 import { view } from "../features/view.js";
-import { Message, Model } from "./model.js";
+import { Flags, Message, Model } from "./model.js";
 import { subscriptions } from "./polling.js";
 import { ScanApi } from "./scan-api.js";
 
 const application = Runtime.makeApplication({
+  Flags,
   Model,
   container: document.querySelector<HTMLElement>("#root"),
   devTools: false,
@@ -22,4 +23,4 @@ const application = Runtime.makeApplication({
   view,
 });
 
-Runtime.run(application);
+Runtime.hydrate(application, { buildId: __BUILD_ID__ });

@@ -53,6 +53,7 @@ export const Model = Schema.Struct({
   contact: ContactForm,
   copy: CopyState,
   generation: Schema.Int,
+  origin: Schema.String,
   route: AppRoute,
   scan: ScanState,
   start: StartState,
@@ -60,6 +61,13 @@ export const Model = Schema.Struct({
 });
 
 export type AppModel = typeof Model.Type;
+
+export const Flags = Schema.Struct({
+  maybeScan: Schema.OptionFromNullOr(ScanViewSchema),
+  origin: Schema.String,
+});
+
+export type AppFlags = typeof Flags.Type;
 
 export const Message = defineMessageUnion({
   ChangedUrl: { url: Url },

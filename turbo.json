@@ -72,6 +72,16 @@
       "dependsOn": ["build"],
       "outputs": [],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/guides/**"]
+    },
+    "@good-a11y/web#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/skills/good-a11y/**"]
+    },
+    "@good-a11y/web#test": {
+      "dependsOn": ["build"],
+      "outputs": [],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/skills/good-a11y/**"]
     }
   }
 }

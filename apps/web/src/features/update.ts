@@ -22,7 +22,7 @@ import {
   ScanState,
   StartState,
 } from "../client/model.js";
-import type { AppMessage, AppModel } from "../client/model.js";
+import type { AppFlags, AppMessage, AppModel } from "../client/model.js";
 import { pollTarget } from "../client/polling.js";
 import type { ScanApi } from "../client/scan-api.js";
 import { AppRoute, parseRoute, reportSlugOf, scanRouter } from "./route.js";
@@ -36,17 +36,13 @@ export const EMPTY_ADDRESS =
 const isSettled = (view: ScanView): boolean =>
   view.stage === "published" || view.stage === "failed";
 
+const scanStateOf = (view: ScanView) =>
+  isSettled(view) ? ScanState.Settled({ view }) : ScanState.Running({ view });
+
 const readScan = (model: AppModel, view: ScanView): AppUpdate =>
   Schema.is(ScanState.Settled)(model.scan)
     ? { model }
-    : {
-        model: modifyFields(model, {
-          scan: () =>
-            isSettled(view)
-              ? ScanState.Settled({ view })
-              : ScanState.Running({ view }),
-        }),
-      };
+    : { model: modifyFields(model, { scan: () => scanStateOf(view) }) };
 
 const followedScan = (model: AppModel): Option.Option<string> => {
   if (Schema.is(AppRoute.Scan)(model.route)) {
@@ -129,7 +125,11 @@ const editContact = (
   }),
 });
 
-const enterRoute = (model: AppModel, route: AppRouteState): AppUpdate => {
+const enterRoute = (
+  model: AppModel,
+  route: AppRouteState,
+  maybeView: Option.Option<ScanView> = Option.none()
+): AppUpdate => {
   const generation = model.generation + 1;
   const maybeSlug = reportSlugOf(route);
 
@@ -138,21 +138,22 @@ const enterRoute = (model: AppModel, route: AppRouteState): AppUpdate => {
     copy: CopyState.Idle(),
     generation,
     route,
-    scan: Option.isSome(maybeSlug) ? ScanState.Loading() : ScanState.Idle(),
+    scan: Option.isNone(maybeSlug)
+      ? ScanState.Idle()
+      : Option.match(maybeView, {
+          onNone: () => ScanState.Loading(),
+          onSome: scanStateOf,
+        }),
     start: StartState.Idle(),
     url:
-      Schema.is(AppRoute.Home)(route) && route.url !== undefined
+      Schema.is(AppRoute.Check)(route) && route.url !== undefined
         ? route.url
         : model.url,
   };
 
-  return Option.match(maybeSlug, {
-    onNone: () => ({ model: entered }),
-    onSome: (slug) => ({
-      commands: [getScanOf(entered, slug)],
-      model: entered,
-    }),
-  });
+  return Option.isSome(maybeSlug) && !Schema.is(ScanState.Settled)(entered.scan)
+    ? { commands: [getScanOf(entered, maybeSlug.value)], model: entered }
+    : { model: entered };
 };
 
 const submitScan = (model: AppModel): AppUpdate => {
@@ -179,9 +180,9 @@ const submitScan = (model: AppModel): AppUpdate => {
 export const init: Runtime.RoutingApplicationInit<
   AppModel,
   AppMessage,
-  void,
+  AppFlags,
   ScanApi
-> = (url) =>
+> = (flags, url) =>
   enterRoute(
     {
       contact: {
@@ -192,12 +193,14 @@ export const init: Runtime.RoutingApplicationInit<
       },
       copy: CopyState.Idle(),
       generation: 0,
-      route: AppRoute.Home({}),
+      origin: flags.origin,
+      route: AppRoute.Home(),
       scan: ScanState.Idle(),
       start: StartState.Idle(),
       url: "",
     },
-    parseRoute(url)
+    parseRoute(url),
+    flags.maybeScan
   );
 
 const copyFixPrompt = (model: AppModel, key: string): AppUpdate => {

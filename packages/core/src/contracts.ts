@@ -25,6 +25,8 @@ export type { Applicability, ProfileLine, StateRef } from "./applicability.js";
 
 export { fixPromptFor } from "./fix-prompt.js";
 
+export { verifiedText } from "./reference.js";
+
 export {
   isTested,
   SAMPLE_SOURCE_LABELS,

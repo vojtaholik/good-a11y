@@ -18,7 +18,7 @@ import { judgedSection } from "./report-judged.js";
 import { siteSection } from "./report-site.js";
 import { statesSection } from "./report-states.js";
 import { report as local } from "./report-styles.js";
-import { checksRouter, homeRouter } from "./route.js";
+import { checkRouter } from "./route.js";
 import { styles } from "./styles.js";
 import { sx } from "./sx.js";
 
@@ -90,7 +90,10 @@ const topView = (report: Report, h: HtmlBuilder<AppMessage>): Html =>
               [],
               [
                 `${report.coverage.text} `,
-                h.a([h.Href(checksRouter())], ["What we check"]),
+                h.a(
+                  [h.Href(`${checkRouter({})}#what-we-check`)],
+                  ["What we check"]
+                ),
               ]
             ),
           ]),
@@ -249,7 +252,7 @@ export const reportView = (
                   [],
                   [
                     h.a(
-                      [h.Href(homeRouter({ url: view.url }))],
+                      [h.Href(checkRouter({ url: view.url }))],
                       ["Start a new scan"]
                     ),
                   ]
@@ -276,12 +279,12 @@ export const reportView = (
           ),
           h.p(
             [],
-            [h.a([h.Href(homeRouter({ url: slug }))], ["Start a new scan"])]
+            [h.a([h.Href(checkRouter({ url: slug }))], ["Start a new scan"])]
           ),
         ],
         Unknown: () => [
           h.p([], [`There is no scan of ${slug} yet.`]),
-          h.p([], [h.a([h.Href(homeRouter({ url: slug }))], ["Start one"])]),
+          h.p([], [h.a([h.Href(checkRouter({ url: slug }))], ["Start one"])]),
         ],
       }),
     ]

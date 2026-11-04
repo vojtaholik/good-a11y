@@ -16,7 +16,7 @@ import type { Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/model.js";
 import { report as styles } from "./report-styles.js";
-import { checksRouter } from "./route.js";
+import { checkRouter } from "./route.js";
 import { sx } from "./sx.js";
 
 const MUTED = "oklch(0.47 0.02 265)";
@@ -167,7 +167,10 @@ export const checklistSection = (
         [sx(h, styles.text)],
         [
           "Each WCAG 2.1 Level A and AA criterion, the WCAG 2.2 additions, and the EAA service requirements a website touches, with what this scan could say about each. Only a failure is certain; everything else still needs a person. ",
-          h.a([h.Href(checksRouter()), sx(h, styles.link)], ["What we check"]),
+          h.a(
+            [h.Href(`${checkRouter({})}#what-we-check`), sx(h, styles.link)],
+            ["What we check"]
+          ),
         ]
       ),
       ...checklistGroups(requirementsOf(report)).map((group) =>

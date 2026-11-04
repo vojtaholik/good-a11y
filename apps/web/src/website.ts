@@ -9,7 +9,10 @@ import {
 } from "./server/limits.js";
 
 export class Website extends Cloudflare.Website.Foldkit<Website>()("Website", {
-  assets: { runWorkerFirst: ["/rpc", "/rpc/*"] },
+  assets: {
+    notFoundHandling: "none",
+    runWorkerFirst: ["/*", "!/assets/*"],
+  },
   compatibility: { date: "2026-09-01" },
   env: {
     BACKEND: Scanner,

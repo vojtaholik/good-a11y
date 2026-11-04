@@ -14,15 +14,21 @@ const { group } = toRpcGroup([
   sendMessageContract,
 ]);
 
-const protocol = RpcClient.layerProtocolHttp({ url: "/rpc" }).pipe(
-  Layer.provide([FetchHttpClient.layer, RpcSerialization.layerJson])
-);
+const scanApiProtocol = (url: string) =>
+  RpcClient.layerProtocolHttp({ url }).pipe(
+    Layer.provide([FetchHttpClient.layer, RpcSerialization.layerJson])
+  );
 
-const make = RpcClient.make(group).pipe(Effect.provide(protocol));
+const makeScanApi = RpcClient.make(group);
 
 export class ScanApi extends Context.Service<
   ScanApi,
-  Effect.Success<typeof make>
->()("@good-a11y/web/ScanApi", { make }) {
+  Effect.Success<typeof makeScanApi>
+>()("@good-a11y/web/ScanApi", {
+  make: makeScanApi.pipe(Effect.provide(scanApiProtocol("/rpc"))),
+}) {
   static readonly layer = Layer.effect(this, this.make);
+
+  static readonly layerAt = (url: string) =>
+    Layer.effect(this, makeScanApi.pipe(Effect.provide(scanApiProtocol(url))));
 }

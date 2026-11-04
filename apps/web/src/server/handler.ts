@@ -96,11 +96,11 @@ const callerOf = (request: Request): string =>
 export const RPC_METHOD_ONLY = "The RPC endpoint takes POST only.";
 
 export const websiteHandler =
-  (rpc: BackendFetch, assets: BackendFetch, allow: CallerLimit): BackendFetch =>
+  (rpc: BackendFetch, pages: BackendFetch, allow: CallerLimit): BackendFetch =>
   // @effect-diagnostics-next-line asyncFunction:off -- A Worker fetch handler is a Promise boundary.
   async (request) => {
     if (!isRpcPath(new URL(request.url).pathname)) {
-      return await assets(request);
+      return await pages(request);
     }
 
     if (request.method !== "POST") {

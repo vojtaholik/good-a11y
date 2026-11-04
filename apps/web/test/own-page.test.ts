@@ -13,6 +13,7 @@ import {
   StartState,
 } from "../src/client/model.js";
 import type { AppModel } from "../src/client/model.js";
+import { GUIDE_PAGES } from "../src/features/guides.js";
 import { AppRoute } from "../src/features/route.js";
 import { view } from "../src/features/view.js";
 
@@ -40,7 +41,8 @@ const home: AppModel = {
   contact: { email: "", message: "", name: "", state: ContactState.Editing() },
   copy: CopyState.Idle(),
   generation: 0,
-  route: AppRoute.Home({}),
+  origin: "https://good-a11y.example",
+  route: AppRoute.Home(),
   scan: ScanState.Idle(),
   start: StartState.Idle(),
   url: "",
@@ -77,16 +79,32 @@ describe("our own page", () => {
       const html = yield* pageOf(home);
 
       expect(failing(html)).toEqual([]);
-      expect(html).toContain('href="/checks"');
+      expect(html).toContain('href="/check"');
+      expect(html).toContain('href="/guides/dialog-modal"');
+    })
+  );
+
+  it.effect("passes our own checks on every guide page", () =>
+    Effect.gen(function* guidePages() {
+      for (const page of GUIDE_PAGES) {
+        const html = yield* pageOf({
+          ...home,
+          route: AppRoute.Guide({ guideId: page.id }),
+        });
+
+        expect(failing(html)).toEqual([]);
+        expect(html).toContain(`src="/guides/${page.id}/demo.html"`);
+        expect(html).toContain(`retrieve ${page.id}`);
+      }
     })
   );
 
   it.effect("passes our own checks on the page that lists what we check", () =>
     Effect.gen(function* checksPage() {
-      const html = yield* pageOf({ ...home, route: AppRoute.Checks() });
+      const html = yield* pageOf({ ...home, route: AppRoute.Check({}) });
 
       expect(failing(html)).toEqual([]);
-      expect(html).toContain("<title>What we check | good-a11y</title>");
+      expect(html).toContain("<title>Check a page | good-a11y</title>");
       expect(html).toContain("1.1.1 Non-text Content (Level A)");
       expect(html).toContain("2.5.8 Target Size (Minimum) (Level AA)");
       expect(html).toContain("Not automated.");
@@ -112,7 +130,7 @@ describe("our own page", () => {
 
       expect(order.map((index) => index >= 0)).toEqual(order.map(() => true));
       expect(order).toEqual(order.toSorted((left, right) => left - right));
-      expect(html).toContain('href="/checks"');
+      expect(html).toContain('href="/check#what-we-check"');
       expect(html.includes("Send message")).toBe(CONTACT_SHOWN);
       expect(html.includes("studio9")).toBe(CONTACT_SHOWN);
       expect(html.toLowerCase()).not.toContain("compliant");
@@ -173,12 +191,16 @@ describe("our own page", () => {
         });
 
         expect(failed).toContain(
-          `href="/?url=${encodeURIComponent("https://example.com/")}"`
+          `href="/check?url=${encodeURIComponent("https://example.com/")}"`
         );
         expect(failed.toLowerCase()).not.toContain("compliant");
         expect(failing(failed)).toEqual([]);
 
-        const start = yield* pageOf({ ...home, url: "https://example.com/" });
+        const start = yield* pageOf({
+          ...home,
+          route: AppRoute.Check({}),
+          url: "https://example.com/",
+        });
 
         expect(start).toContain('value="https://example.com/"');
       })

@@ -1,12 +1,89 @@
+import * as stylex from "@stylexjs/stylex";
+import { Option } from "effect";
 import type { Document, Html, HtmlBuilder } from "foldkit/html";
 
 import { Message, StartState } from "../client/model.js";
 import type { AppMessage, AppModel } from "../client/model.js";
 import { checksView } from "./checks-view.js";
+import { guideView } from "./guide-view.js";
+import { categoryName, guidePageOf, guidesByCategory } from "./guides.js";
+import { pageMetaOf } from "./page-meta.js";
 import { reportView } from "./report-view.js";
-import { AppRoute, checksRouter, homeRouter } from "./route.js";
+import {
+  AppRoute,
+  checkRouter,
+  guideRouter,
+  homeRouter,
+  reportRouter,
+  scanRouter,
+} from "./route.js";
+import type { AppRouteState } from "./route.js";
 import { styles } from "./styles.js";
 import { sx } from "./sx.js";
+
+export const CLI = "npx -y github:vojtaholik/good-a11y";
+
+export const SKILL_PATH = "/skills/good-a11y/SKILL.md";
+
+const local = stylex.create({
+  agents: {
+    backgroundColor: "var(--code-bg)",
+    borderRadius: "0.375rem",
+    marginBlock: "1.5rem 0",
+    paddingBlock: "0.75rem",
+    paddingInline: "1rem",
+  },
+  brand: {
+    color: "var(--ink)",
+    fontWeight: 700,
+    marginInlineEnd: "auto",
+    textDecoration: "none",
+  },
+  category: {
+    color: "var(--muted)",
+    fontSize: "0.875rem",
+    fontWeight: 600,
+    letterSpacing: "0.02em",
+    marginBlock: "2rem 0.25rem",
+    textTransform: "uppercase",
+  },
+  command: {
+    display: "block",
+    marginBlockStart: "0.25rem",
+    overflowWrap: "anywhere",
+  },
+  guide: {
+    borderBlockStartColor: "var(--rule)",
+    borderBlockStartStyle: "solid",
+    borderBlockStartWidth: "1px",
+    paddingBlock: "0.75rem",
+  },
+  guideDescription: {
+    color: "var(--muted)",
+    display: "block",
+  },
+  guideName: {
+    fontSize: "1.125rem",
+    fontWeight: 600,
+  },
+  guides: {
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+  },
+  hero: {
+    fontSize: "var(--text-hero)",
+    lineHeight: 1.15,
+    marginBlock: "0 0.75rem",
+  },
+  nav: {
+    alignItems: "baseline",
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "0.5rem 1.25rem",
+    marginBlockEnd: "2.5rem",
+  },
+});
 
 const startStatus = (model: AppModel): string =>
   StartState.match<string>(model.start, {
@@ -24,43 +101,107 @@ const isSubmitting = (model: AppModel): boolean =>
     () => false
   );
 
+const scanForm = (model: AppModel, h: HtmlBuilder<AppMessage>): Html[] => [
+  h.form(
+    [h.OnSubmit(Message.SubmittedScanForm())],
+    [
+      h.label([h.For("scan-url")], ["Page address"]),
+      h.input([
+        h.Id("scan-url"),
+        h.Name("url"),
+        h.Type("text"),
+        h.Autocomplete("url"),
+        h.Placeholder("example.com"),
+        h.Value(model.url),
+        h.AriaDescribedBy("scan-status"),
+        h.OnInput((value) => Message.UpdatedScanUrl({ value })),
+        sx(h, styles.input),
+      ]),
+      h.button(
+        [
+          h.Type("submit"),
+          h.Disabled(isSubmitting(model)),
+          sx(h, styles.button),
+        ],
+        ["Check the page"]
+      ),
+    ]
+  ),
+  h.p([h.Id("scan-status"), h.Role("status")], [startStatus(model)]),
+];
+
+const guideList = (h: HtmlBuilder<AppMessage>): Html[] =>
+  guidesByCategory().flatMap(([category, pages]) => [
+    h.h3([sx(h, local.category)], [categoryName(category)]),
+    h.ul(
+      [sx(h, local.guides)],
+      pages.map((page) =>
+        h.li(
+          [sx(h, local.guide)],
+          [
+            h.a(
+              [
+                h.Href(guideRouter({ guideId: page.id })),
+                sx(h, local.guideName),
+              ],
+              [page.name]
+            ),
+            h.span([sx(h, local.guideDescription)], [page.description]),
+          ]
+        )
+      )
+    ),
+  ]);
+
 const homeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
   h.main(
     [],
     [
-      h.h1([], ["Find accessibility issues on one page"]),
+      h.h1([sx(h, local.hero)], ["Accessibility guides for coding agents"]),
       h.p(
         [],
         [
-          "Paste the address of a web page. We read its HTML and open it in a browser, then list the issues the automated checks found, worst first, each with the WCAG success criterion and EN 301 549 clause it relates to. For each of the 27 EU member states the report shows what verified sources say about the European Accessibility Act there. You get no verdict on whether the page meets the Act: automated checks find only part of the issues, and a person reviews the rest. ",
-          h.a([h.Href(checksRouter())], ["What we check"]),
+          "Each guide is what an agent needs to build one thing right: a dialog, a form, a menu. Each comes with a working demo. Check a page below: we read its HTML and open it in a browser, then list the issues worst first, each with its WCAG success criterion and the guide that fixes it.",
         ]
       ),
-      h.form(
-        [h.OnSubmit(Message.SubmittedScanForm())],
+      ...scanForm(model, h),
+      h.div(
+        [sx(h, local.agents)],
         [
-          h.label([h.For("scan-url")], ["Page address"]),
-          h.input([
-            h.Id("scan-url"),
-            h.Name("url"),
-            h.Autocomplete("url"),
-            h.Placeholder("example.com"),
-            h.Value(model.url),
-            h.AriaDescribedBy("scan-status"),
-            h.OnInput((value) => Message.UpdatedScanUrl({ value })),
-            sx(h, styles.input),
-          ]),
-          h.button(
+          h.strong([], ["For agents"]),
+          h.code([sx(h, local.command)], [`${CLI} search "modal dialog"`]),
+          h.span(
+            [],
             [
-              h.Type("submit"),
-              h.Disabled(isSubmitting(model)),
-              sx(h, styles.button),
-            ],
-            ["Check the page"]
+              "Read ",
+              h.a([h.Href(SKILL_PATH)], ["the skill"]),
+              " for the search, retrieve, build and check loop.",
+            ]
           ),
         ]
       ),
-      h.p([h.Id("scan-status"), h.Role("status")], [startStatus(model)]),
+      h.section(
+        [h.AriaLabelledBy("guides")],
+        [h.h2([h.Id("guides")], ["Guides"]), ...guideList(h)]
+      ),
+    ]
+  );
+
+const checkView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
+  h.main(
+    [],
+    [
+      h.h1([sx(h, local.hero)], ["Check a page"]),
+      h.p(
+        [],
+        [
+          "Paste the address of a web page. We read its HTML and open it in a browser, then list the issues the automated checks found, worst first, each with its WCAG success criterion, its EN 301 549 clause and the guide that fixes it. Automated checks find only part of the issues; a person reviews the rest. To check a page on your own machine, run ",
+          h.code([], [`${CLI} check localhost:5173`]),
+          ".",
+        ]
+      ),
+      ...scanForm(model, h),
+      checksView(h),
     ]
   );
 
@@ -69,17 +210,32 @@ const notFoundView = (h: HtmlBuilder<AppMessage>): Html =>
     [],
     [
       h.h1([], ["Page not found"]),
-      h.p([], [h.a([h.Href(homeRouter({}))], ["Back to the start"])]),
+      h.p([], [h.a([h.Href(homeRouter())], ["Back to the start"])]),
     ]
   );
 
-const titleOf = (model: AppModel): string =>
-  AppRoute.match<string>(model.route, {
-    Checks: () => "What we check | good-a11y",
-    Home: () => "good-a11y: accessibility checks and guidance",
-    NotFound: () => "Page not found | good-a11y",
-    Report: ({ slug }) => `Report for ${slug} | good-a11y`,
-    Scan: ({ slug }) => `Report for ${slug} | good-a11y`,
+const routeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
+  AppRoute.match<Html>(model.route, {
+    Check: () => checkView(model, h),
+    Guide: ({ guideId }) =>
+      Option.match(guidePageOf(guideId), {
+        onNone: () => notFoundView(h),
+        onSome: (page) => guideView(page, h),
+      }),
+    Home: () => homeView(model, h),
+    NotFound: () => notFoundView(h),
+    Report: ({ slug }) => reportView(model, slug, h),
+    Scan: ({ slug }) => reportView(model, slug, h),
+  });
+
+export const pathOf = (route: AppRouteState): string =>
+  AppRoute.match<string>(route, {
+    Check: () => checkRouter({}),
+    Guide: ({ guideId }) => guideRouter({ guideId }),
+    Home: () => homeRouter(),
+    NotFound: ({ path }) => path,
+    Report: ({ slug }) => reportRouter({ slug }),
+    Scan: ({ scanId, slug }) => scanRouter({ scanId, slug }),
   });
 
 export const view = (
@@ -89,16 +245,23 @@ export const view = (
   body: h.div(
     [sx(h, styles.page)],
     [
-      h.header([], [h.nav([], [h.a([h.Href(homeRouter({}))], ["good-a11y"])])]),
-      AppRoute.match<Html>(model.route, {
-        Checks: () => checksView(h),
-        Home: () => homeView(model, h),
-        NotFound: () => notFoundView(h),
-        Report: ({ slug }) => reportView(model, slug, h),
-        Scan: ({ slug }) => reportView(model, slug, h),
-      }),
+      h.header(
+        [],
+        [
+          h.nav(
+            [sx(h, local.nav), h.AriaLabel("Site")],
+            [
+              h.a([h.Href(homeRouter()), sx(h, local.brand)], ["good-a11y"]),
+              h.a([h.Href(`${homeRouter()}#guides`)], ["Guides"]),
+              h.a([h.Href(checkRouter({}))], ["Check a page"]),
+            ]
+          ),
+        ]
+      ),
+      routeView(model, h),
     ]
   ),
+  canonical: `${model.origin}${pathOf(model.route)}`,
   lang: "en",
-  title: titleOf(model),
+  title: pageMetaOf(model.route).title,
 });

@@ -4,13 +4,16 @@ import {
   issueGroupsOf,
 } from "@good-a11y/core/contracts";
 import type { Issue, IssueSample, Report } from "@good-a11y/core/contracts";
-import { Schema } from "effect";
+import { guidesForCheck } from "@good-a11y/guides/check-guides";
+import { Array, Schema } from "effect";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
 import { CopyState, Message } from "../client/model.js";
 import type { AppMessage, AppModel } from "../client/model.js";
+import { guidePageOf } from "./guides.js";
 import { referenceList } from "./report-references.js";
 import { report as styles } from "./report-styles.js";
+import { guideRouter } from "./route.js";
 import { sx } from "./sx.js";
 
 const countText = (issue: Issue): string =>
@@ -24,6 +27,27 @@ const metaText = (issue: Issue): string => {
   return issue.level === null
     ? `Found ${where}`
     : `WCAG Level ${issue.level}, found ${where}`;
+};
+
+const guideLinks = (issue: Issue, h: HtmlBuilder<AppMessage>): Html[] => {
+  const pages = Array.getSomes(guidesForCheck(issue.key).map(guidePageOf));
+
+  return pages.length === 0
+    ? []
+    : [
+        h.p(
+          [sx(h, styles.text)],
+          [
+            h.strong([], [pages.length === 1 ? "Guide: " : "Guides: "]),
+            ...Array.intersperse(
+              pages.map((page) =>
+                h.a([h.Href(guideRouter({ guideId: page.id }))], [page.name])
+              ),
+              ", "
+            ),
+          ]
+        ),
+      ];
 };
 
 const COPY_LABEL = "Copy fix prompt";
@@ -123,6 +147,7 @@ const issueCard = (
               issue.samples.map((sample) => sampleView(sample, h))
             ),
           ]),
+      ...guideLinks(issue, h),
       copyButton(model, issue, h),
       h.p(
         [h.AriaLive("polite"), sx(h, styles.visuallyHidden)],
