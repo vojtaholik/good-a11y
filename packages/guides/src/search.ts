@@ -1,5 +1,6 @@
 import { Result, Schema } from "effect";
 import MiniSearch from "minisearch";
+import { stemmer } from "stemmer";
 
 import type { Guide } from "./guide.js";
 
@@ -37,6 +38,7 @@ export const makeGuideIndex = (guides: readonly Guide[]) => {
   const index = new MiniSearch<SearchDocument>({
     fields: ["slug", "name", "description", "headings"],
     idField: "id",
+    processTerm: (term) => stemmer(term.toLowerCase()),
     searchOptions: {
       boost: { description: 2, name: 3, slug: 2 },
       combineWith: "OR",

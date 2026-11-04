@@ -28,6 +28,7 @@
     "@eaa-check/facts": "workspace:*",
     "effect": "4.0.0",
     "minisearch": "7.2.0",
+    "stemmer": "2.0.1",
     "yaml": "2.9.0"
   },
   "devDependencies": {
