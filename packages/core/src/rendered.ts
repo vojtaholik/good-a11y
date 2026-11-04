@@ -46,6 +46,7 @@ export const RenderedSchema = Schema.Union([
     criteria: Schema.Array(Schema.String),
     engine: Schema.String,
     findings: Schema.Array(RenderedFindingSchema),
+    inapplicable: Schema.Array(Schema.String),
     passed: Schema.Array(Schema.String),
     probes: Schema.Array(ProbeResultSchema),
     rules: Schema.Array(Schema.String),
@@ -182,6 +183,13 @@ export const renderedOf = (
       }),
       ...kept.flatMap((probe) => probeFindingOf(probe, reference)),
     ],
+    inapplicable: [
+      ...new Set(
+        results.inapplicable
+          .filter((rule) => verifiedCriteria(rule).length > 0)
+          .map((rule) => rule.id)
+      ),
+    ].toSorted(),
     passed: [
       ...new Set(
         results.passes.map((rule) => rule.id).filter((id) => !undecided.has(id))

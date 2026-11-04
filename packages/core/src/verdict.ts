@@ -1,21 +1,32 @@
 import { Schema } from "effect";
 
 import type { Coverage } from "./coverage.js";
-import { SourcedSchema } from "./reference.js";
+import { SourcedSchema, verifiedText } from "./reference.js";
 import type { Sourced } from "./reference.js";
 import type { Issue } from "./report-sections.js";
 
 export const VERDICT_FACT = "STD-WCAG21-3";
 
+export const ALWAYS_MET_FACT = "STD-WCAG21-2";
+
+export const ALWAYS_MET_CRITERION = "4.1.1";
+
+export const alwaysMet = (): Sourced | null => verifiedText(ALWAYS_MET_FACT);
+
+export const alwaysMetCount = (decided: ReadonlySet<string>): number =>
+  alwaysMet() === null || decided.has(ALWAYS_MET_CRITERION) ? 0 : 1;
+
 const Count = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0));
 
 export const VerdictSchema = Schema.Struct({
+  checked: Count,
   fact: Schema.NullOr(SourcedSchema),
   failures: Count,
   kind: Schema.Literals(["fails", "no_failure"]),
   needPerson: Count,
   newer: Count,
   ofCriteria: Count,
+  settled: Count,
 });
 
 export type Verdict = typeof VerdictSchema.Type;
@@ -29,17 +40,20 @@ const failsOnlyNewer = (issue: Issue): boolean =>
 export const verdictFrom = (
   issues: readonly Issue[],
   coverage: Coverage,
-  fact: Sourced | null
+  fact: Sourced | null,
+  settled = 0
 ): Verdict => {
   const failures = issues.filter(failsWcag21).length;
 
   return {
+    checked: coverage.criteria,
     fact,
     failures,
     kind: failures > 0 ? "fails" : "no_failure",
-    needPerson: coverage.ofCriteria - coverage.criteria,
+    needPerson: coverage.ofCriteria - coverage.criteria - settled,
     newer: issues.filter(failsOnlyNewer).length,
     ofCriteria: coverage.ofCriteria,
+    settled,
   };
 };
 
@@ -58,5 +72,10 @@ export const verdictText = (verdict: Verdict): string | null => {
       ? ""
       : `, and ${plural(verdict.newer, "issue")} against the newer WCAG 2.2`;
 
-  return `Automated checks found no failures against WCAG 2.1 Level AA${newer}. That is not a pass: ${verdict.needPerson} of the ${verdict.ofCriteria} WCAG 2.1 Level A and AA success criteria were not checked automatically on this scan, and a person needs to review them.`;
+  const settled =
+    verdict.settled === 0
+      ? ""
+      : `, and ${ALWAYS_MET_CRITERION} Parsing is always met by HTML`;
+
+  return `Automated checks found no failures against WCAG 2.1 Level AA${newer}. That is not a pass: ${verdict.needPerson} of the ${verdict.ofCriteria} WCAG 2.1 Level A and AA success criteria were not checked automatically on this scan, and the other ${verdict.checked} only in part${settled}. A person needs to review all of them.`;
 };

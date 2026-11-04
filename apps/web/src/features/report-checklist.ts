@@ -1,14 +1,15 @@
 import {
   EXAMPLE_LABEL,
   REQUIREMENT_STATUS_NAMES,
-  newerWcagLabel,
+  checklistGroups,
   requirementsOf,
-  statusCounts,
+  tallyText,
 } from "@eaa-check/core/contracts";
 import type {
   Report,
+  RequirementGroupView,
   RequirementRow,
-  RequirementStatus,
+  Sourced,
 } from "@eaa-check/core/contracts";
 import * as stylex from "@stylexjs/stylex";
 import type { Html, HtmlBuilder } from "foldkit/html";
@@ -71,20 +72,30 @@ const local = stylex.create({
 });
 
 const tone = stylex.create({
+  always_met: { color: MUTED },
   fails: { color: ISSUE },
   judged: { color: JUDGED },
   needs_person: { color: INK },
   no_failure: { color: MUTED },
   not_checked: { color: MUTED },
+  nothing_to_check: { color: MUTED },
 });
 
-const STATUS_ORDER: readonly RequirementStatus[] = [
-  "fails",
-  "judged",
-  "no_failure",
-  "not_checked",
-  "needs_person",
-];
+const secondary = (text: string, h: HtmlBuilder<AppMessage>): Html =>
+  h.p([sx(h, local.example)], [text]);
+
+const sourcedLine = (
+  label: string,
+  value: Sourced,
+  h: HtmlBuilder<AppMessage>
+): Html =>
+  h.p(
+    [sx(h, local.example)],
+    [
+      `${label}: `,
+      h.a([h.Href(value.source), sx(h, styles.link)], [value.text]),
+    ]
+  );
 
 const rowView = (row: RequirementRow, h: HtmlBuilder<AppMessage>): Html =>
   h.keyed("li")(
@@ -101,69 +112,51 @@ const rowView = (row: RequirementRow, h: HtmlBuilder<AppMessage>): Html =>
           h.a(
             [h.Href(row.requirement.source), sx(h, styles.link)],
             [
-              row.group === "eaa"
-                ? `${row.citation}: ${row.requirement.text}`
-                : row.requirement.text,
+              row.group === "wcag"
+                ? row.requirement.text
+                : `${row.citation}: ${row.requirement.text}`,
             ]
           ),
+          ...(row.noteFact === null
+            ? []
+            : [sourcedLine("Why", row.noteFact, h)]),
           ...(row.example === null
             ? []
-            : [
-                h.p(
-                  [sx(h, local.example)],
-                  [`${EXAMPLE_LABEL}: ${row.example.text}`]
-                ),
-              ]),
+            : [secondary(`${EXAMPLE_LABEL}: ${row.example.text}`, h)]),
           ...(row.status === "needs_person" && row.note !== null
-            ? [h.p([sx(h, local.example)], [row.note])]
+            ? [secondary(row.note, h)]
             : []),
+          ...(row.judged === null ? [] : [secondary(row.judged, h)]),
         ]
       ),
     ]
   );
 
-const tallyText = (rows: readonly RequirementRow[]): string => {
-  const counts = statusCounts(rows);
-
-  return STATUS_ORDER.flatMap((status) =>
-    counts[status] === 0
-      ? []
-      : [`${counts[status]} ${REQUIREMENT_STATUS_NAMES[status].toLowerCase()}`]
-  ).join(", ");
-};
-
 const groupView = (
-  title: string,
-  rows: readonly RequirementRow[],
+  group: RequirementGroupView,
   h: HtmlBuilder<AppMessage>
-): Html[] =>
-  rows.length === 0
-    ? []
-    : [
-        h.details(
-          [sx(h, styles.disclosure)],
-          [
-            h.summary(
-              [sx(h, styles.summary)],
-              [`${title} (${rows.length}): ${tallyText(rows)}`]
-            ),
-            h.ul(
-              [sx(h, local.rows)],
-              rows.map((row) => rowView(row, h))
-            ),
-          ]
-        ),
-      ];
+): Html =>
+  h.keyed("details")(
+    group.key,
+    [sx(h, styles.disclosure)],
+    [
+      h.summary(
+        [sx(h, styles.summary)],
+        [`${group.title} (${group.rows.length}): ${tallyText(group.rows)}`]
+      ),
+      ...group.basis.map((value) => sourcedLine("Basis", value, h)),
+      h.ul(
+        [sx(h, local.rows)],
+        group.rows.map((row) => rowView(row, h))
+      ),
+    ]
+  );
 
 export const checklistSection = (
   report: Report,
   h: HtmlBuilder<AppMessage>
-): Html => {
-  const rows = requirementsOf(report);
-
-  const counts = statusCounts(rows);
-
-  return h.section(
+): Html =>
+  h.section(
     [sx(h, styles.section), h.AriaLabelledBy("checklist")],
     [
       h.h2(
@@ -173,38 +166,12 @@ export const checklistSection = (
       h.p(
         [sx(h, styles.text)],
         [
-          "Every WCAG criterion and EAA requirement, and what this scan could say about it. Only a failure is certain; everything else still needs a person. ",
+          "Each WCAG 2.1 Level A and AA criterion, the WCAG 2.2 additions, and the EAA service requirements a website touches, with what this scan could say about each. Only a failure is certain; everything else still needs a person. ",
           h.a([h.Href(checksRouter()), sx(h, styles.link)], ["What we check"]),
         ]
       ),
-      h.ul(
-        [sx(h, local.tally), h.AriaLabel("Requirements by status")],
-        STATUS_ORDER.flatMap((status) =>
-          counts[status] === 0
-            ? []
-            : [
-                h.li(
-                  [sx(h, local.status, tone[status])],
-                  [`${REQUIREMENT_STATUS_NAMES[status]}: ${counts[status]}`]
-                ),
-              ]
-        )
-      ),
-      ...groupView(
-        "WCAG 2.1 Level A and AA",
-        rows.filter((row) => row.group === "wcag" && !row.newer),
-        h
-      ),
-      ...groupView(
-        newerWcagLabel(),
-        rows.filter((row) => row.group === "wcag" && row.newer),
-        h
-      ),
-      ...groupView(
-        "European Accessibility Act",
-        rows.filter((row) => row.group === "eaa"),
-        h
+      ...checklistGroups(requirementsOf(report)).map((group) =>
+        groupView(group, h)
       ),
     ]
   );
-};

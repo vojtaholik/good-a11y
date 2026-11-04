@@ -246,7 +246,7 @@ describe("withRendered", () => {
     );
   });
 
-  it("drops a served-HTML failure when the rendered page passes the same concern, and keeps it when axe could not decide", () => {
+  it("drops a served-HTML failure, from the issues and the verdict, when the rendered page passes the same concern or no longer has it, and keeps it when axe could not decide", () => {
     const servedOnly = judgePage(
       fetched,
       {
@@ -267,9 +267,12 @@ describe("withRendered", () => {
       AT
     );
 
-    const withoutImageAlt = (where: "incomplete" | "passes") =>
+    type Where = "inapplicable" | "incomplete" | "passes";
+
+    const withoutImageAlt = (where: Where) =>
       JSON.stringify({
         ...RESULTS,
+        inapplicable: [],
         incomplete: [],
         passes: [],
         violations: RESULTS.violations.filter(
@@ -278,12 +281,18 @@ describe("withRendered", () => {
         [where]: [rule({ id: "image-alt" })],
       });
 
-    const imageIssues = (where: "incomplete" | "passes") =>
-      issuesOf(
-        withRendered(servedOnly, { ran: page({ axe: withoutImageAlt(where) }) })
-      ).filter((issue) => issue.key === "image-alt");
+    const reportFor = (where: Where) =>
+      withRendered(servedOnly, { ran: page({ axe: withoutImageAlt(where) }) });
+
+    const imageIssues = (where: Where) =>
+      issuesOf(reportFor(where)).filter((issue) => issue.key === "image-alt");
 
     expect(imageIssues("passes")).toEqual([]);
+    expect(imageIssues("inapplicable")).toEqual([]);
+    expect(reportFor("passes").verdict?.failures).toBe(
+      issuesOf(reportFor("passes")).filter((issue) => issue.level !== null)
+        .length
+    );
     expect(imageIssues("incomplete").map((issue) => issue.sources)).toEqual([
       ["static"],
     ]);
@@ -297,7 +306,7 @@ describe("withRendered", () => {
       status: "skipped",
     });
     expect(report.findings).toEqual(STATIC.findings);
-    expect(report.coverage).toEqual(STATIC_COVERAGE);
+    expect(report.coverage).toEqual(STATIC.coverage);
     expect(formatReport(report)).toContain(
       `Rendered page check skipped: ${BUDGET_SPENT}`
     );

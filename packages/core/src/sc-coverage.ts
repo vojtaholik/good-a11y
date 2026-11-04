@@ -6,13 +6,15 @@ import { SHOWN_JUDGED_CHECKS } from "./judged.js";
 import { PROBES } from "./probes.js";
 import type { Sourced } from "./reference.js";
 import { DROPPED_RULES } from "./rendered.js";
+import { SITE_CHECKS } from "./site-checks.js";
 
-export type TestMethod = "served_html" | "rendered_page" | "model";
+export type TestMethod = "served_html" | "rendered_page" | "site" | "model";
 
 export const TEST_METHOD_NAMES: Readonly<Record<TestMethod, string>> = {
   model: "asked of a model (labelled, never counted as an issue)",
   rendered_page: "rendered page",
   served_html: "served HTML",
+  site: "several pages of the site compared",
 };
 
 export interface TestedBy {
@@ -51,7 +53,10 @@ const MANUAL_NOTES = new Map<string, string>([
   ["2.1.4", "A person tries the single-key shortcuts."],
   ["2.3.1", "A person watches the page for flashing."],
   ["2.4.3", "A person compares the focus order with the reading order."],
-  ["2.4.5", "Needs the whole site, not one page."],
+  [
+    "2.4.5",
+    "A person checks that each page can be found in two ways. The report lists the search and site map the scan saw, but navigation and links between pages can be enough, so no automated result is given.",
+  ],
   [
     "2.4.6",
     "A model question exists, but it stays hidden until it is accurate on real pages. A person reads the headings and labels.",
@@ -68,15 +73,15 @@ const MANUAL_NOTES = new Map<string, string>([
     "3.2.2",
     "Changing controls on someone else's site could set off real actions, so a person checks it.",
   ],
-  ["3.2.3", "Needs several pages of the site."],
-  ["3.2.4", "Needs several pages of the site."],
-  ["3.2.6", "Needs several pages of the site."],
   ["3.3.1", "Needs a form to be sent, which the checker never does."],
   ["3.3.3", "Needs a form to be sent, which the checker never does."],
   ["3.3.4", "Needs a real transaction, which the checker never makes."],
   ["3.3.7", "Needs a process of several steps."],
   ["3.3.8", "Needs a login, which the checker never uses."],
-  ["4.1.1", "Obsolete: WCAG 2.2 removes it."],
+  [
+    "4.1.1",
+    "Always met by content in HTML (STD-WCAG21-2); WCAG 2.2 removes it.",
+  ],
   ["4.1.3", "A person sets off the status messages and listens for them."],
 ]);
 
@@ -107,6 +112,12 @@ const titlesFor = (number: string): readonly TestedBy[] => {
           criterion === number ? [title] : []
         ),
       ],
+    },
+    {
+      method: "site",
+      titles: SITE_CHECKS.flatMap(({ criterion, title }) =>
+        criterion === number ? [title] : []
+      ),
     },
     {
       method: "model",
@@ -187,6 +198,7 @@ const countsOf = (rows: readonly ScCoverageRow[]): ScCoverageCounts => {
       model: using("model"),
       rendered_page: using("rendered_page"),
       served_html: using("served_html"),
+      site: using("site"),
     },
     criteria: rows.length,
     tested,
@@ -212,8 +224,8 @@ export const scCoverageSummary = (
   const { current, newer } = scCoverageCounts(rows);
 
   return [
-    `Of the ${current.criteria} WCAG 2.1 Level A and AA success criteria, ${current.tested} have at least one automated check: ${current.byMethod.served_html} on the served HTML, ${current.byMethod.rendered_page} on the rendered page and ${current.byMethod.model} asked of a model. ${current.untested} have none, and a person reviews them.`,
-    `WCAG 2.2 adds ${newer.criteria} criteria, newer than the reference benchmark: ${newer.byMethod.rendered_page} have a check on the rendered page, ${newer.untested} have none.`,
+    `Of the ${current.criteria} WCAG 2.1 Level A and AA success criteria, ${current.tested} have at least one automated check: ${current.byMethod.served_html} on the served HTML, ${current.byMethod.rendered_page} on the rendered page, ${current.byMethod.site} by comparing several pages of the site and ${current.byMethod.model} asked of a model. ${current.untested} have none, and a person reviews them.`,
+    `WCAG 2.2 adds ${newer.criteria} criteria, newer than the reference benchmark: ${newer.tested} have an automated check, ${newer.untested} have none.`,
     "A check covers only part of what its criterion asks, so a criterion with a check still needs a manual review. The rendered page is checked with axe-core and our own probes; a model's answers are shown apart and never counted as issues.",
   ];
 };

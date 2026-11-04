@@ -3,7 +3,7 @@ import { Schema } from "effect";
 
 import { APPLICABILITY, ApplicabilitySchema } from "./applicability.js";
 import type { Applicability } from "./applicability.js";
-import { CATALOGUE, criteriaOf } from "./catalogue.js";
+import { CATALOGUE, criteriaOf, entryOf } from "./catalogue.js";
 import type { CatalogueEntry } from "./catalogue.js";
 import {
   CheckIdSchema,
@@ -11,13 +11,10 @@ import {
   CheckStatusSchema,
 } from "./check.js";
 import type { CheckResult } from "./check.js";
-import type { Coverage } from "./coverage.js";
-import {
-  CoverageSchema,
-  STATIC_COVERAGE,
-  STATIC_TESTED,
-  coverageFrom,
-} from "./coverage.js";
+import type { Method } from "./coverage.js";
+import { CoverageSchema, coverageFrom } from "./coverage.js";
+import { CrawlRoleSchema } from "./crawl.js";
+import { decidedOf } from "./decided.js";
 import { FindingReferenceSchema, referencesFor } from "./finding-reference.js";
 import type { FindingReference } from "./finding-reference.js";
 import { JudgedSchema } from "./judged.js";
@@ -26,15 +23,17 @@ import type { PageEvidence } from "./page-evidence.js";
 import { REFERENCE, ReferenceSchema, verifiedText } from "./reference.js";
 import type { Reference } from "./reference.js";
 import { RenderedSchema, renderedFrom } from "./rendered.js";
-import type { Rendered, RenderedOutcome } from "./rendered.js";
+import type { RenderedOutcome } from "./rendered.js";
 import { concernsRun, issuesFrom } from "./report-sections.js";
+import { SiteFindingSchema, runSiteChecks } from "./site-checks.js";
+import type { SiteEvidence, SitePage } from "./site-evidence.js";
 import {
   VERDICT_FACT,
+  alwaysMetCount,
   VerdictSchema,
   verdictFrom,
   verdictText,
 } from "./verdict.js";
-import type { Verdict } from "./verdict.js";
 
 export const AUTOMATED_LIMIT_FACT = "STD-AUTO-1";
 
@@ -86,6 +85,25 @@ export const OutcomeSchema = Schema.Literals([
 
 export type Outcome = typeof OutcomeSchema.Type;
 
+export const SitePageResultSchema = Schema.Struct({
+  detail: Schema.NullOr(Schema.String),
+  failing: Schema.Array(Schema.String),
+  outcome: Schema.Literals(["read", "failed"]),
+  role: CrawlRoleSchema,
+  url: Schema.String,
+});
+
+export type SitePageResult = typeof SitePageResultSchema.Type;
+
+export const SiteSchema = Schema.Struct({
+  findings: Schema.Array(SiteFindingSchema),
+  pages: Schema.Array(SitePageResultSchema),
+  search: Schema.Boolean,
+  sitemap: Schema.Boolean,
+});
+
+export type Site = typeof SiteSchema.Type;
+
 export const ReportSchema = Schema.Struct({
   applicability: ApplicabilitySchema,
   contact: Schema.Struct({
@@ -105,6 +123,7 @@ export const ReportSchema = Schema.Struct({
   rendered: Schema.NullOr(RenderedSchema),
   requestedUrl: Schema.String,
   scannedAt: Schema.String,
+  site: Schema.NullOr(SiteSchema),
   statement: Schema.Struct({
     factId: Schema.NullOr(Schema.String),
     text: Schema.String,
@@ -147,11 +166,6 @@ export interface PageVisit {
   readonly truncated: boolean;
 }
 
-interface Judgement {
-  readonly headline: string;
-  readonly verdict: Verdict | null;
-}
-
 const UNTESTED_HEADLINES: Readonly<
   Record<Exclude<Outcome, "checked">, string>
 > = {
@@ -160,24 +174,61 @@ const UNTESTED_HEADLINES: Readonly<
   unreachable: UNREACHABLE_HEADLINE,
 };
 
-const judgementOf = (
-  findings: readonly Finding[],
-  rendered: Rendered | null,
-  coverage: Coverage
-): Judgement => {
-  const issues = issuesFrom(findings, rendered);
+const methodOf = (served: boolean, rendered: boolean): Method => {
+  if (served && rendered) {
+    return "static_html_and_rendered";
+  }
 
-  const verdict = verdictFrom(issues, coverage, verifiedText(VERDICT_FACT));
+  return served ? "static_html" : "rendered_page";
+};
 
-  const checks = concernsRun(
-    findings.map((finding) => finding.id),
-    rendered
+const assessed = (report: Report): Report => {
+  const served = report.outcome === "checked";
+
+  const rendered = report.rendered?.status === "ran" ? report.rendered : null;
+
+  if (!served && rendered === null) {
+    return report;
+  }
+
+  const site = report.site?.findings ?? [];
+
+  const siteRan = site.filter((finding) => finding.status !== "not_applicable");
+
+  const findings = served ? report.findings : [];
+
+  const coverage = coverageFrom(
+    {
+      checks: concernsRun(
+        [
+          ...findings.map((finding) => finding.id),
+          ...siteRan.map((finding) => finding.id),
+        ],
+        rendered
+      ),
+      criteria: [...decidedOf(report).decided].map(
+        (number) => `STD-SC-${number}`
+      ),
+    },
+    VERIFIED_FACTS,
+    methodOf(served, rendered !== null)
+  );
+
+  const issues = issuesFrom(findings, rendered, site);
+
+  const verdict = verdictFrom(
+    issues,
+    coverage,
+    verifiedText(VERDICT_FACT),
+    alwaysMetCount(decidedOf(report).decided)
   );
 
   return {
+    ...report,
+    coverage,
     headline:
       verdictText(verdict) ??
-      `${issues.length} ${issues.length === 1 ? "issue" : "issues"} found by ${checks} automated checks`,
+      `${issues.length} ${issues.length === 1 ? "issue" : "issues"} found by ${coverage.checks} automated checks`,
     verdict,
   };
 };
@@ -186,92 +237,88 @@ export const reportOf = (
   visit: PageVisit,
   findings: readonly Finding[],
   applicability: Applicability = APPLICABILITY
-): Report => ({
-  ...visit,
-  applicability,
-  contact: {
-    placeholder: true,
-    studio: "studio9",
-    text: visit.outcome === "refused" ? BLOCKED_CONTACT_TEXT : CONTACT_TEXT,
-  },
-  coverage: visit.outcome === "checked" ? STATIC_COVERAGE : null,
-  findings,
-  ...(visit.outcome === "checked"
-    ? judgementOf(findings, null, STATIC_COVERAGE)
-    : { headline: UNTESTED_HEADLINES[visit.outcome], verdict: null }),
-  judged: null,
-  reference: REFERENCE,
-  rendered: null,
-  statement: {
-    factId: verifiedText(AUTOMATED_LIMIT_FACT)?.factId ?? null,
-    text: AUTOMATED_LIMIT,
-  },
-});
-
-const renderedCoverage = (rendered: Rendered) =>
-  rendered.status === "ran"
-    ? coverageFrom(
-        {
-          checks: concernsRun(
-            CATALOGUE.map(({ check }) => check.id),
-            rendered
-          ),
-          criteria: [
-            ...STATIC_TESTED.criteria,
-            ...rendered.criteria.map((number) => `STD-SC-${number}`),
-          ],
-        },
-        VERIFIED_FACTS,
-        "static_html_and_rendered"
-      )
-    : STATIC_COVERAGE;
-
-const renderedAfterRefusal = (report: Report, rendered: Rendered): Report => {
-  if (rendered.status !== "ran") {
-    return report;
-  }
-
-  const coverage = coverageFrom(
-    {
-      checks: concernsRun([], rendered),
-      criteria: rendered.criteria.map((number) => `STD-SC-${number}`),
+): Report =>
+  assessed({
+    ...visit,
+    applicability,
+    contact: {
+      placeholder: true,
+      studio: "studio9",
+      text: visit.outcome === "refused" ? BLOCKED_CONTACT_TEXT : CONTACT_TEXT,
     },
-    VERIFIED_FACTS,
-    "rendered_page"
-  );
-
-  return {
-    ...report,
-    contact: { ...report.contact, text: CONTACT_TEXT },
-    coverage,
-    ...judgementOf([], rendered, coverage),
-    outcomeDetail: `${REFUSED_THEN_RENDERED} ${report.outcomeDetail}`,
-    rendered,
-  };
-};
+    coverage: null,
+    findings,
+    headline:
+      visit.outcome === "checked" ? "" : UNTESTED_HEADLINES[visit.outcome],
+    judged: null,
+    reference: REFERENCE,
+    rendered: null,
+    site: null,
+    statement: {
+      factId: verifiedText(AUTOMATED_LIMIT_FACT)?.factId ?? null,
+      text: AUTOMATED_LIMIT,
+    },
+    verdict: null,
+  });
 
 export const withRendered = (
   report: Report,
   outcome: RenderedOutcome
 ): Report => {
-  if (report.outcome === "refused") {
-    return renderedAfterRefusal(report, renderedFrom(outcome));
-  }
-
-  if (report.outcome !== "checked") {
-    return report;
-  }
-
   const rendered = renderedFrom(outcome);
 
-  const coverage = renderedCoverage(rendered);
+  if (report.outcome === "refused") {
+    return rendered.status === "ran"
+      ? assessed({
+          ...report,
+          contact: { ...report.contact, text: CONTACT_TEXT },
+          outcomeDetail: `${REFUSED_THEN_RENDERED} ${report.outcomeDetail}`,
+          rendered,
+        })
+      : report;
+  }
 
-  return {
+  return report.outcome === "checked"
+    ? assessed({ ...report, rendered })
+    : report;
+};
+
+const pageOf = (page: SitePage): SitePageResult =>
+  page.outcome === "read"
+    ? {
+        detail: null,
+        failing: page.checks.flatMap((result) =>
+          result.status === "fail"
+            ? [entryOf(result.id)?.check.title ?? result.id]
+            : []
+        ),
+        outcome: "read",
+        role: page.role,
+        url: page.finalUrl,
+      }
+    : {
+        detail: page.detail,
+        failing: [],
+        outcome: "failed",
+        role: page.role,
+        url: page.url,
+      };
+
+export const withSite = (report: Report, evidence: SiteEvidence): Report => {
+  const [entered] = evidence.summaries;
+
+  return assessed({
     ...report,
-    coverage,
-    ...judgementOf(report.findings, rendered, coverage),
-    rendered,
-  };
+    site: {
+      findings:
+        entered?.role === "entered" && report.outcome === "checked"
+          ? runSiteChecks(evidence.summaries, report.reference)
+          : [],
+      pages: evidence.pages.map(pageOf),
+      search: evidence.summaries.some((summary) => summary.search),
+      sitemap: evidence.summaries.some((summary) => summary.sitemap),
+    },
+  });
 };
 
 export const withJudged = (report: Report, judged: Judged): Report => ({

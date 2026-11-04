@@ -3,6 +3,7 @@ import { describe, expect, it } from "@effect/vitest";
 
 import {
   EAA_ROWS,
+  checklistGroups,
   citationOf,
   eaaRowsFrom,
   formatReport,
@@ -81,6 +82,32 @@ const fact = (id: string, usedBy: string, value: string): VerifiedFact => ({
   value,
 });
 
+const observed = (scanned: Report) =>
+  withJudged(scanned, {
+    inputTokens: 1,
+    label: "Judged by a model",
+    model: "model",
+    observations: [
+      {
+        about: "about",
+        asked: 3,
+        id: "link-purpose",
+        noted: 1,
+        notes: [{ confidence: 0.9, sample: "more" }],
+        relatesTo: [
+          {
+            factId: "STD-SC-2.4.4",
+            kind: "wcag",
+            source: "https://www.w3.org/TR/WCAG21/#link-purpose-in-context",
+            text: "2.4.4 Link Purpose (In Context) (Level A)",
+          },
+        ],
+        title: "Links whose purpose may be unclear",
+      },
+    ],
+    status: "ran",
+  });
+
 describe("the requirement checklist", () => {
   it("marks a criterion with a failing check as failing and one whose check found nothing as no failure found", () => {
     expect(statusOf(report, "1.1.1")).toBe("fails");
@@ -92,6 +119,41 @@ describe("the requirement checklist", () => {
     expect(statusOf(report, "2.3.1")).toBe("needs_person");
   });
 
+  it("says nothing to check, not no failure found, for a criterion whose checks found no item, and counts it as left for a person", () => {
+    expect(statusOf(report, "2.2.1")).toBe("nothing_to_check");
+    expect(statusOf(report, "2.4.4")).toBe("nothing_to_check");
+    expect(report.coverage?.criteria).toBe(
+      requirementsOf(report).filter(
+        (row) =>
+          row.group === "wcag" &&
+          !row.newer &&
+          (row.status === "fails" || row.status === "no_failure")
+      ).length
+    );
+  });
+
+  it("shows 4.1.1 as always met by HTML, from STD-WCAG21-2, and leaves it out of the criteria left for a person", () => {
+    const row = requirementsOf(report).find((item) => item.key === "4.1.1");
+
+    expect(row?.status).toBe("always_met");
+    expect(row?.noteFact?.factId).toBe("STD-WCAG21-2");
+    expect(report.verdict?.settled).toBe(1);
+    expect(report.verdict?.needPerson).toBe(
+      (report.coverage?.ofCriteria ?? 0) - (report.coverage?.criteria ?? 0) - 1
+    );
+  });
+
+  it("puts the verified basis of the accessibility information above its Annex V rows", () => {
+    const statement = checklistGroups(requirementsOf(report)).find(
+      (group) => group.key === "statement"
+    );
+
+    expect(statement?.basis.map((value) => value.factId)).toContain(
+      "EU-STMT-2"
+    );
+    expect(formatReport(report)).toContain("Basis: ");
+  });
+
   it("has one row for every WCAG 2.1 A and AA criterion, and labels the WCAG 2.2 additions newer", () => {
     const rows = requirementsOf(report).filter((row) => row.group === "wcag");
 
@@ -99,34 +161,41 @@ describe("the requirement checklist", () => {
     expect(rows.find((row) => row.key === "2.5.8")?.newer).toBe(true);
   });
 
-  it("marks a criterion a shown model observation noted as judged, never as failing", () => {
-    const judged = withJudged(report, {
-      inputTokens: 1,
-      label: "Judged by a model",
-      model: "model",
-      observations: [
-        {
-          about: "about",
-          asked: 3,
-          id: "link-purpose",
-          noted: 1,
-          notes: [{ confidence: 0.9, sample: "more" }],
-          relatesTo: [
-            {
-              factId: "STD-SC-2.4.4",
-              kind: "wcag",
-              source: "https://www.w3.org/TR/WCAG21/#link-purpose-in-context",
-              text: "2.4.4 Link Purpose (In Context) (Level A)",
-            },
-          ],
-          title: "Links whose purpose may be unclear",
-        },
-      ],
-      status: "ran",
-    });
+  it("marks a criterion no check decided as judged when a shown model observation relates to it, never as failing", () => {
+    const judged = observed(report);
 
     expect(statusOf(judged, "2.4.4")).toBe("judged");
     expect(judged.verdict).toEqual(report.verdict);
+  });
+
+  it("keeps a deterministic status when a model also judged the criterion, and shows the model's note under it", () => {
+    const linked = judgePage(
+      PAGE,
+      {
+        read: () => ({
+          ...EVIDENCE,
+          links: [
+            {
+              context: "",
+              href: "/sale",
+              labelled: false,
+              landmark: null,
+              language: false,
+              snippet: '<a href="/sale">Sale</a>',
+              text: "Sale",
+            },
+          ],
+        }),
+      },
+      AT
+    );
+
+    const row = requirementsOf(observed(linked)).find(
+      (item) => item.key === "2.4.4"
+    );
+
+    expect(row?.status).toBe("no_failure");
+    expect(row?.judged).toContain("Judged by a model, not counted:");
   });
 
   it("builds the EAA rows only from the facts it is given, with Annex citations and their non-binding examples", () => {

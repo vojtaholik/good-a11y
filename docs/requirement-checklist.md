@@ -44,3 +44,17 @@ EAA rows are "Needs a person" until a judged question covers them (decision 27, 
 A judged status is never "Fails": model output stays out of the deterministic result.
 
 The checklist sits after the issues and the judged observations, before the member states, on the page and in the CLI. On the page each group (WCAG 2.1, WCAG 2.2, EAA) is a closed disclosure whose summary carries its counts, so the report stays short at 360 px.
+
+## Site section and cross-page checks (decision 28)
+
+builder-cloud's crawl hands over `SiteEvidence`: the pages it tried (read with their static check results, or failed with a reason) and one `PageSummary` per page read, the page entered first. `withSite(report, evidence)` adds `Report.site` and recomputes coverage, headline and verdict, so it can run before or after the rendered step.
+
+Cross-page checks (`packages/core/src/site-checks.ts`) compare each other page with the page entered. Each needs at least 3 navigation links shared by the two pages, else it has nothing to check.
+
+- **3.2.3 Consistent Navigation** (`consistent-navigation`): the shared navigation links (nav and header landmarks, first occurrence of each address) must come in the same order. A repeated address, such as a logo and a Home link, counts once.
+- **3.2.4 Consistent Identification** (`consistent-identification`): a navigation link to the same address must have a related name on both pages. Names are compared lowercased with digits removed (so "Cart (0)" and "Cart (2)" agree), and one name containing the other agrees (so a hidden "current page" marker does not fail).
+- **3.2.6 Consistent Help** (`consistent-help`, WCAG 2.2, labelled newer): a contact or help link on both pages must have the same set of shared navigation links before it. Comparing sets, not order, keeps a navigation reorder from also failing help.
+
+A failure is an issue like any other (source "pages of the site compared"), counts in the verdict when its criterion is WCAG 2.1 A/AA (3.2.3, 3.2.4), and marks its checklist row "Fails". The static check results of the other pages are listed per page in the site section and never count in the verdict: the report stays the report for the page entered.
+
+**2.4.5 Multiple Ways stays manual.** The crawl sees search and site-map links, but navigation plus links between pages already satisfy 2.4.5, so a missing search or site map is not a failure and their presence is not a pass. The site section reports what the scan saw; the checklist row says a person decides.

@@ -1,55 +1,73 @@
 import { VERIFIED_FACTS } from "@eaa-check/facts";
 import type { VerifiedFact } from "@eaa-check/facts";
 
-import { CATALOGUE } from "./catalogue.js";
+import { decidedOf, numbersOf } from "./decided.js";
+import type { Decided } from "./decided.js";
 import { shownObservations } from "./judged.js";
 import type { Observation } from "./judged.js";
-import { sourced } from "./reference.js";
+import { newerWcagLabel, sourced } from "./reference.js";
 import type { Sourced } from "./reference.js";
 import { issuesOf } from "./report-sections.js";
-import type { FindingReference, Report } from "./report.js";
+import type { Report } from "./report.js";
 import { SC_COVERAGE } from "./sc-coverage.js";
 import type { ScCoverageRow } from "./sc-coverage.js";
+import { ALWAYS_MET_CRITERION, alwaysMet } from "./verdict.js";
 
 export type RequirementStatus =
+  | "always_met"
   | "fails"
   | "judged"
   | "needs_person"
   | "no_failure"
-  | "not_checked";
+  | "not_checked"
+  | "nothing_to_check";
 
 export const REQUIREMENT_STATUS_NAMES: Readonly<
   Record<RequirementStatus, string>
 > = {
+  always_met: "Always met by HTML",
   fails: "Fails",
   judged: "Judged by a model",
   needs_person: "Needs a person",
   no_failure: "No failure found",
   not_checked: "Not checked on this scan",
+  nothing_to_check: "Nothing to check on this page",
 };
 
-export type RequirementGroup = "eaa" | "wcag";
+export const REQUIREMENT_STATUS_ORDER: readonly RequirementStatus[] = [
+  "fails",
+  "no_failure",
+  "judged",
+  "nothing_to_check",
+  "always_met",
+  "not_checked",
+  "needs_person",
+];
+
+export type RequirementGroup = "eaa" | "statement" | "wcag";
 
 export interface RequirementRow {
   readonly citation: string;
   readonly example: Sourced | null;
   readonly group: RequirementGroup;
+  readonly judged: string | null;
   readonly key: string;
   readonly newer: boolean;
   readonly note: string | null;
+  readonly noteFact: Sourced | null;
   readonly requirement: Sourced;
   readonly status: RequirementStatus;
 }
 
 export const EXAMPLE_LABEL = "Example from Annex II (non-binding)";
 
+export const JUDGED_PREFIX = "Judged by a model, not counted:";
+
 const REQUIREMENT_USE = /(?:^|[\s,])eaa\.requirement\.(?<key>[\w-]+)/u;
 
 const STATEMENT_USE = /(?:^|[\s,])eaa\.statement\.(?<point>\d+)/u;
 
 const EXAMPLE_USE = /(?:^|[\s,])eaa\.example\.(?<key>[\w-]+)/gu;
-
-const SC_NUMBER = /^STD-SC(?:22)?-(?<number>\d+\.\d+\.\d+)$/u;
 
 const STATEMENT_POINTS = ["a", "b", "c"];
 
@@ -65,71 +83,84 @@ export const citationOf = (key: string): string => {
   return `Annex I, Section ${groups.section} (${groups.point})${groups.sub === undefined ? "" : `(${groups.sub})`}`;
 };
 
-const numbersOf = (references: readonly FindingReference[]): string[] =>
-  references.flatMap((reference) => {
-    const number = SC_NUMBER.exec(reference.factId)?.groups?.number;
-
-    return number === undefined ? [] : [number];
-  });
-
 interface ScanResults {
+  readonly decided: Decided;
   readonly failing: ReadonlySet<string>;
   readonly judged: readonly Observation[];
-  readonly ran: ReadonlySet<string>;
 }
 
-const resultsOf = (report: Report): ScanResults => {
-  const rendered = report.rendered?.status === "ran" ? report.rendered : null;
+const resultsOf = (report: Report): ScanResults => ({
+  decided: decidedOf(report),
+  failing: new Set(
+    issuesOf(report).flatMap((issue) => numbersOf(issue.references))
+  ),
+  judged:
+    report.judged?.status === "ran"
+      ? shownObservations(report.judged.observations)
+      : [],
+});
 
-  return {
-    failing: new Set(
-      issuesOf(report).flatMap((issue) => numbersOf(issue.references))
-    ),
-    judged:
-      report.judged?.status === "ran"
-        ? shownObservations(report.judged.observations)
-        : [],
-    ran: new Set([
-      ...(report.outcome === "checked"
-        ? CATALOGUE.flatMap(({ criteria }) => criteria)
-        : []),
-      ...(rendered === null
-        ? []
-        : [
-            ...rendered.criteria,
-            ...rendered.probes.flatMap((probe) =>
-              probe.status === "not_applicable" ? [] : [probe.criterion]
-            ),
-          ]),
-    ]),
-  };
+const deterministic = (
+  row: ScCoverageRow,
+  { decided, failing }: ScanResults
+): RequirementStatus | null => {
+  if (failing.has(row.number)) {
+    return "fails";
+  }
+
+  return decided.decided.has(row.number) ? "no_failure" : null;
 };
 
-const wcagStatus = (
+const fallback = (
   row: ScCoverageRow,
-  results: ScanResults
+  { decided }: ScanResults
 ): RequirementStatus => {
+  if (row.number === ALWAYS_MET_CRITERION && alwaysMet() !== null) {
+    return "always_met";
+  }
+
+  if (decided.empty.has(row.number)) {
+    return "nothing_to_check";
+  }
+
+  if (decided.undecided.has(row.number)) {
+    return "needs_person";
+  }
+
+  return row.tests.length > 0 ? "not_checked" : "needs_person";
+};
+
+const judgedLine = (observations: readonly Observation[]): string | null =>
+  observations.length === 0
+    ? null
+    : `${JUDGED_PREFIX} ${observations
+        .map(
+          (observation) =>
+            `${observation.title}: noted for ${observation.noted} of ${observation.asked}`
+        )
+        .join("; ")}`;
+
+const wcagRow = (row: ScCoverageRow, results: ScanResults): RequirementRow => {
   const judged = results.judged.filter((observation) =>
     numbersOf(observation.relatesTo).includes(row.number)
   );
 
-  if (results.failing.has(row.number)) {
-    return "fails";
-  }
+  const status =
+    deterministic(row, results) ??
+    (judged.length > 0 ? "judged" : fallback(row, results));
 
-  if (judged.some((observation) => observation.noted > 0)) {
-    return "judged";
-  }
-
-  if (results.ran.has(row.number)) {
-    return "no_failure";
-  }
-
-  if (judged.length > 0) {
-    return "judged";
-  }
-
-  return row.tests.length > 0 ? "not_checked" : "needs_person";
+  return {
+    citation: row.number,
+    example: null,
+    group: "wcag",
+    judged: judgedLine(judged),
+    key: row.number,
+    newer: row.newer,
+    note: status === "always_met" ? null : row.note,
+    noteFact: status === "always_met" ? alwaysMet() : null,
+    requirement: row.criterion,
+    status,
+  };
 };
 
 const exampleOf = (
@@ -148,14 +179,17 @@ const eaaRow = (
   key: string,
   citation: string,
   fact: VerifiedFact,
-  facts: readonly VerifiedFact[]
+  facts: readonly VerifiedFact[],
+  group: RequirementGroup = "eaa"
 ): RequirementRow => ({
   citation,
   example: exampleOf(key, facts),
-  group: "eaa",
+  group,
+  judged: null,
   key,
   newer: false,
   note: null,
+  noteFact: null,
   requirement: { factId: fact.id, source: fact.source, text: fact.value },
   status: "needs_person",
 });
@@ -181,7 +215,8 @@ export const eaaRowsFrom = (
             `statement-${point}`,
             `Art. 13 and Annex V, point 1(${letter})`,
             fact,
-            facts
+            facts,
+            "statement"
           ),
         ];
   });
@@ -198,6 +233,25 @@ export const eaaRowsFrom = (
 
 export const EAA_ROWS: readonly RequirementRow[] = eaaRowsFrom(VERIFIED_FACTS);
 
+const STATEMENT_BASIS_USE = /(?:^|[\s,])eaa\.statement-basis\./u;
+
+export const statementBasisFrom = (
+  facts: readonly VerifiedFact[]
+): readonly Sourced[] =>
+  facts
+    .filter((fact) => STATEMENT_BASIS_USE.test(fact.usedBy))
+    .toSorted((left, right) =>
+      left.id.localeCompare(right.id, "en", { numeric: true })
+    )
+    .map((fact) => ({
+      factId: fact.id,
+      source: fact.source,
+      text: fact.value,
+    }));
+
+export const STATEMENT_BASIS: readonly Sourced[] =
+  statementBasisFrom(VERIFIED_FACTS);
+
 export const requirementsFrom = (
   report: Report,
   coverage: readonly ScCoverageRow[],
@@ -205,19 +259,7 @@ export const requirementsFrom = (
 ): readonly RequirementRow[] => {
   const results = resultsOf(report);
 
-  return [
-    ...coverage.map((row): RequirementRow => ({
-      citation: row.number,
-      example: null,
-      group: "wcag",
-      key: row.number,
-      newer: row.newer,
-      note: row.note,
-      requirement: row.criterion,
-      status: wcagStatus(row, results),
-    })),
-    ...eaa,
-  ];
+  return [...coverage.map((row) => wcagRow(row, results)), ...eaa];
 };
 
 export const requirementsOf = (report: Report): readonly RequirementRow[] =>
@@ -230,10 +272,62 @@ export const statusCounts = (
     rows.filter((row) => row.status === status).length;
 
   return {
+    always_met: count("always_met"),
     fails: count("fails"),
     judged: count("judged"),
     needs_person: count("needs_person"),
     no_failure: count("no_failure"),
     not_checked: count("not_checked"),
+    nothing_to_check: count("nothing_to_check"),
   };
+};
+
+export interface RequirementGroupView {
+  readonly basis: readonly Sourced[];
+  readonly key: string;
+  readonly rows: readonly RequirementRow[];
+  readonly title: string;
+}
+
+export const checklistGroups = (
+  rows: readonly RequirementRow[]
+): readonly RequirementGroupView[] =>
+  [
+    {
+      basis: [],
+      key: "wcag21",
+      rows: rows.filter((row) => row.group === "wcag" && !row.newer),
+      title: "WCAG 2.1 Level A and AA success criteria",
+    },
+    {
+      basis: [],
+      key: "wcag22",
+      rows: rows.filter((row) => row.group === "wcag" && row.newer),
+      title: newerWcagLabel(),
+    },
+    {
+      basis: [],
+      key: "annex-1",
+      rows: rows.filter((row) => row.group === "eaa"),
+      title: "EAA service requirements (Annex I)",
+    },
+    {
+      basis: STATEMENT_BASIS,
+      key: "statement",
+      rows: rows.filter((row) => row.group === "statement"),
+      title: "EAA accessibility information (Art. 13 and Annex V)",
+    },
+  ].filter((group) => group.rows.length > 0);
+
+const lowerFirst = (text: string): string =>
+  `${text.slice(0, 1).toLowerCase()}${text.slice(1)}`;
+
+export const tallyText = (rows: readonly RequirementRow[]): string => {
+  const counts = statusCounts(rows);
+
+  return REQUIREMENT_STATUS_ORDER.flatMap((status) =>
+    counts[status] === 0
+      ? []
+      : [`${counts[status]} ${lowerFirst(REQUIREMENT_STATUS_NAMES[status])}`]
+  ).join(", ");
 };

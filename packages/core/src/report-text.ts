@@ -15,10 +15,12 @@ import type { Report } from "./report.js";
 import {
   EXAMPLE_LABEL,
   REQUIREMENT_STATUS_NAMES,
+  checklistGroups,
   requirementsOf,
-  statusCounts,
+  tallyText,
 } from "./requirements.js";
-import type { RequirementRow, RequirementStatus } from "./requirements.js";
+import type { RequirementRow } from "./requirements.js";
+import { ROLE_NAMES, siteSummary } from "./site-checks.js";
 
 const KIND_LABELS: Readonly<Record<FindingReference["kind"], string>> = {
   "en-newer": NEWER_VERSION_LABEL,
@@ -75,57 +77,44 @@ const STATUS_WIDTH = Math.max(
   ...Object.values(REQUIREMENT_STATUS_NAMES).map((name) => name.length)
 );
 
-const STATUS_ORDER: readonly RequirementStatus[] = [
-  "fails",
-  "judged",
-  "no_failure",
-  "not_checked",
-  "needs_person",
-];
+const indent = (text: string): string =>
+  `    ${"".padEnd(STATUS_WIDTH)}  ${text}`;
+
+const sourcedText = (label: string, value: Sourced): string =>
+  `${label}: ${value.text}  (${value.factId})`;
 
 const rowLines = (row: RequirementRow): string[] => [
-  `    ${REQUIREMENT_STATUS_NAMES[row.status].padEnd(STATUS_WIDTH)}  ${row.group === "eaa" ? `${row.citation}: ` : ""}${row.requirement.text}  (${row.requirement.factId})`,
+  `    ${REQUIREMENT_STATUS_NAMES[row.status].padEnd(STATUS_WIDTH)}  ${row.group === "wcag" ? "" : `${row.citation}: `}${row.requirement.text}  (${row.requirement.factId})`,
+  ...(row.noteFact === null ? [] : [indent(sourcedText("Why", row.noteFact))]),
   ...(row.example === null
     ? []
-    : [
-        `    ${"".padEnd(STATUS_WIDTH)}  ${EXAMPLE_LABEL}: ${row.example.text}  (${row.example.factId})`,
-      ]),
+    : [indent(sourcedText(EXAMPLE_LABEL, row.example))]),
+  ...(row.judged === null ? [] : [indent(row.judged)]),
 ];
 
-const groupLines = (
-  title: string,
-  rows: readonly RequirementRow[]
-): string[] =>
-  rows.length === 0 ? [] : [`  ${title}:`, ...rows.flatMap(rowLines)];
+export const checklistBlock = (report: Report): string[] => [
+  "Requirement checklist for this scan:",
+  ...checklistGroups(requirementsOf(report)).flatMap((group) => [
+    `  ${group.title} (${group.rows.length}): ${tallyText(group.rows)}`,
+    ...group.basis.map((value) => `    ${sourcedText("Basis", value)}`),
+    ...group.rows.flatMap(rowLines),
+  ]),
+  "",
+];
 
-export const checklistBlock = (report: Report): string[] => {
-  const rows = requirementsOf(report);
-
-  const counts = statusCounts(rows);
-
-  return [
-    `Requirement checklist for this scan (${STATUS_ORDER.flatMap((status) =>
-      counts[status] === 0
-        ? []
-        : [
-            `${REQUIREMENT_STATUS_NAMES[status].toLowerCase()}: ${counts[status]}`,
-          ]
-    ).join(", ")}):`,
-    ...groupLines(
-      "WCAG 2.1 Level A and AA success criteria",
-      rows.filter((row) => row.group === "wcag" && !row.newer)
-    ),
-    ...groupLines(
-      newerWcagLabel(),
-      rows.filter((row) => row.group === "wcag" && row.newer)
-    ),
-    ...groupLines(
-      "European Accessibility Act requirements",
-      rows.filter((row) => row.group === "eaa")
-    ),
-    "",
-  ];
-};
+const siteBlock = (report: Report): string[] =>
+  report.site === null || report.site.pages.length === 0
+    ? []
+    : [
+        "Other pages of the site:",
+        `  ${siteSummary(report.site)}`,
+        ...report.site.pages.map((page) =>
+          page.outcome === "read"
+            ? `  ${ROLE_NAMES[page.role]}: ${page.url}  ${page.failing.length === 0 ? "no issue found by the static checks" : `issues: ${page.failing.join("; ")}`}`
+            : `  ${ROLE_NAMES[page.role]}: ${page.url}  not read: ${page.detail ?? ""}`
+        ),
+        "",
+      ];
 
 const statesBlock = (report: Report): string[] => {
   const { applies, exemption, unknown } = report.applicability;
@@ -196,7 +185,7 @@ export const formatReport = (report: Report): string =>
     ...methodLine(report),
     "",
     report.verdict?.kind === "fails" && report.verdict.fact !== null
-      ? `${report.headline}  (${report.verdict.fact.factId})`
+      ? `${report.headline}  (${[report.verdict.fact.factId, ...(report.reference.benchmark === null ? [] : [report.reference.benchmark.factId])].join(", ")})`
       : report.headline,
     ...(report.coverage === null ? [] : [report.coverage.text]),
     report.outcomeDetail,
@@ -208,7 +197,11 @@ export const formatReport = (report: Report): string =>
     "",
     ...issuesBlock(report),
     ...(isTested(report)
-      ? [...checklistBlock(report), ...statesBlock(report)]
+      ? [
+          ...checklistBlock(report),
+          ...siteBlock(report),
+          ...statesBlock(report),
+        ]
       : []),
     ...quietBlock(report),
     ...renderedBlock(report),

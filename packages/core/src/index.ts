@@ -148,6 +148,11 @@ export {
   reportOf,
   runChecks,
   withRendered,
+  withSite,
+  SitePageResultSchema,
+  SiteSchema,
+  type Site,
+  type SitePageResult,
   type Finding,
   type FindingReference,
   type Outcome,
@@ -158,9 +163,32 @@ export {
 export { formatReport } from "./report-text.js";
 
 export {
+  MIN_SHARED_LINKS,
+  ROLE_NAMES,
+  SITE_CHECKS,
+  SiteCheckIdSchema,
+  SiteFindingSchema,
+  consistentHelp,
+  consistentIdentification,
+  consistentNavigation,
+  runSiteChecks,
+  siteSummary,
+  type SiteCheck,
+  type SiteCheckId,
+  type SiteFinding,
+} from "./site-checks.js";
+
+export {
   EAA_ROWS,
   EXAMPLE_LABEL,
   REQUIREMENT_STATUS_NAMES,
+  REQUIREMENT_STATUS_ORDER,
+  JUDGED_PREFIX,
+  STATEMENT_BASIS,
+  checklistGroups,
+  statementBasisFrom,
+  tallyText,
+  type RequirementGroupView,
   citationOf,
   eaaRowsFrom,
   requirementsFrom,
@@ -171,7 +199,13 @@ export {
   type RequirementStatus,
 } from "./requirements.js";
 
+export { decidedOf, numbersOf, type Decided } from "./decided.js";
+
 export {
+  ALWAYS_MET_CRITERION,
+  ALWAYS_MET_FACT,
+  alwaysMet,
+  alwaysMetCount,
   VERDICT_FACT,
   VerdictSchema,
   verdictFrom,

@@ -1,7 +1,16 @@
 import { Schema } from "effect";
 
+import { criterion } from "./catalogue.js";
 import { CheckStatusSchema, MAX_SAMPLES } from "./check.js";
 import type { CheckStatus } from "./check.js";
+import type { CrawlRole } from "./crawl.js";
+import {
+  FindingReferenceSchema,
+  newerReferencesFor,
+  referencesFor,
+} from "./finding-reference.js";
+import type { FindingReference } from "./finding-reference.js";
+import type { Reference } from "./reference.js";
 import type { PageSummary, SiteLink } from "./site-evidence.js";
 
 export const SiteCheckIdSchema = Schema.Literals([
@@ -35,6 +44,28 @@ export interface SiteCheck {
 }
 
 export const MIN_SHARED_LINKS = 3;
+
+export const ROLE_NAMES: Readonly<Record<CrawlRole, string>> = {
+  contact: "Contact page",
+  product: "Product page",
+  sign_in: "Sign-in page",
+  statement: "Accessibility statement",
+};
+
+export const siteSummary = (site: {
+  readonly pages: readonly { readonly outcome: "failed" | "read" }[];
+  readonly search: boolean;
+  readonly sitemap: boolean;
+}): string => {
+  const read = site.pages.filter((page) => page.outcome === "read").length;
+
+  const ways = [
+    site.search ? "a search" : null,
+    site.sitemap ? "a link to a site map" : null,
+  ].filter((way) => way !== null);
+
+  return `Besides the page entered, the scan read ${read} of ${site.pages.length} pages it picked from the page's links, and compared them with it. ${ways.length === 0 ? "It saw no search and no site map link." : `It saw ${ways.join(" and ")}.`}`;
+};
 
 const MAX_LISTED = 6;
 
@@ -211,7 +242,7 @@ export const consistentHelp: SiteCheck = {
 
     return resultOf(
       "consistent-help",
-      compared.length,
+      compared.reduce((total, { help }) => total + help.length, 0),
       compared.flatMap(({ around, first, help, other, second }) =>
         help.flatMap((href) =>
           before(href, first, around) === before(href, second, around)
@@ -278,7 +309,7 @@ export const consistentIdentification: SiteCheck = {
 
     return resultOf(
       "consistent-identification",
-      compared.length,
+      compared.reduce((total, { common }) => total + common.length, 0),
       compared.flatMap(({ common, left, other, right }) =>
         common.flatMap((href) => {
           const here = left.get(href) ?? [];
@@ -308,3 +339,41 @@ export const SITE_CHECKS: readonly SiteCheck[] = [
   consistentIdentification,
   consistentHelp,
 ];
+
+export const SiteFindingSchema = Schema.Struct({
+  ...SiteCheckResultSchema.fields,
+  howToFix: Schema.String,
+  references: Schema.Array(FindingReferenceSchema),
+  title: Schema.String,
+  whatFails: Schema.String,
+});
+
+export type SiteFinding = typeof SiteFindingSchema.Type;
+
+const referencesOfSite = (
+  check: SiteCheck,
+  reference: Reference
+): FindingReference[] =>
+  check.newer
+    ? newerReferencesFor(`STD-SC22-${check.criterion}`)
+    : referencesFor([criterion(check.criterion)], reference);
+
+export const runSiteChecks = (
+  summaries: readonly PageSummary[],
+  reference: Reference
+): readonly SiteFinding[] =>
+  SITE_CHECKS.flatMap((check) => {
+    const references = referencesOfSite(check, reference);
+
+    return references.length === 0
+      ? []
+      : [
+          {
+            ...check.evaluate(summaries),
+            howToFix: check.howToFix,
+            references,
+            title: check.title,
+            whatFails: check.whatFails,
+          },
+        ];
+  });

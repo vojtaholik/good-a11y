@@ -13,6 +13,7 @@ import { contactView } from "./contact-view.js";
 import { checklistSection } from "./report-checklist.js";
 import { issuesSection } from "./report-issues.js";
 import { judgedSection } from "./report-judged.js";
+import { siteSection } from "./report-site.js";
 import { statesSection } from "./report-states.js";
 import { report as local } from "./report-styles.js";
 import { checksRouter, homeRouter } from "./route.js";
@@ -59,6 +60,20 @@ const topView = (report: Report, h: HtmlBuilder<AppMessage>): Html =>
                   [h.Href(report.verdict.fact.source), sx(h, local.link)],
                   [`WCAG 2.1 conformance: ${report.verdict.fact.text}`]
                 ),
+                ...(report.reference.benchmark === null
+                  ? []
+                  : [
+                      "; ",
+                      h.a(
+                        [
+                          h.Href(report.reference.benchmark.source),
+                          sx(h, local.link),
+                        ],
+                        [
+                          `Reference benchmark: ${report.reference.benchmark.text}`,
+                        ]
+                      ),
+                    ]),
               ]
             ),
           ]
@@ -189,6 +204,7 @@ const publishedView = (
         ...issuesSection(model, report, h),
         ...judgedSection(report, h),
         checklistSection(report, h),
+        ...siteSection(report, h),
         statesSection(report, h),
         ...quietView(report, h),
         rulesView(report, h),
