@@ -274,3 +274,12 @@ All round 2 findings except R2-M1 are closed. R2-M1 stays open as a cost item: t
 - **R2-M1 fixed.** The empty submits now run only when `options.emptySubmits && stayed` (`puppeteer-session.ts`). The Workflow reads `Config.Boolean("EMPTY_SUBMITS")` with default `false`. The scanner Worker's env carries the deploy-time value (default `"false"`), and `.env.schema` declares it as a boolean that is unset everywhere. A normal scan no longer submits forms or spends browser time on them. A 3.3.x calibration run can turn them on per deploy, with the R2-H1 containment still in place.
 
 Open: R2-L6 only (lead's one-day exception; closes when the calibrator override is deleted).
+
+### Round 2 re-check 9 (09:05 CET) of d5542ab
+
+No defect. Both newly shown checks clear the bar on items their thresholds were not chosen on:
+
+- `visual-headings-marked` (1.3.1): 16 of 16 notes right on a holdout of 38 scored candidates from 10 pages that neither the threshold nor the probe drops were chosen on. Labels were set before asking. The holdout is mostly footer column titles (13 of 17 headings), so precision on other kinds of heading rests on the design set: 0.89 before the two probe drops in 766c553, which removed the false-note pattern.
+- `passage-language-marked` (3.1.2): 32 of 32 notes right on the holdout half (88 scored blocks, 47 sites). The threshold was chosen on the other half.
+
+Both are judged observations ("never counted") on top of the deterministic checks, and `judged-round3-calibration.test.ts` ties each `shown` flag to its holdout precision.
