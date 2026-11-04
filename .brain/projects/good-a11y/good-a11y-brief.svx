@@ -1,0 +1,38 @@
+---
+title: "good-a11y"
+type: "brief"
+status: "open"
+created_at: "2026-11-04"
+privacy: "private"
+---
+
+# good-a11y
+
+Accessibility guidance for coding agents, with the checker on top. An agent told "use good-a11y.com" reads the skill, searches and retrieves the guide for the task at hand, builds with it, and checks its own work with its own tokens and its own browser. People get the same guides as pages with live specimens, and a checker input on the home page. Global and WCAG-first; the EAA view lives in the checker's report. Grilled with Vojta on 2026-11-04; the eaa-checker project (`../eaa-checker/eaa-checker-brief.svx`) is its foundation.
+
+Inspiration only, nothing copied: good-css (how it is presented: a list for people, a skill for agents, live specimens) and GoogleChrome/modern-web-guidance (guide folders, search and retrieve CLI, guided vs unguided evals, culling what models know). Seed material: badass-courses/a11y-agent, Vojta's own, absorbed and kept where it is.
+
+## Layers
+
+1. Rename this repo to good-a11y; hide the studio9 CTA (nothing deleted).
+2. `packages/guides` with the guide format, the CLI (`search`, `retrieve`, `check`) and `SKILL.md`, seeded with about 15 guides.
+3. The eval harness: two base apps, tasks, graders, guided vs unguided.
+4. The server-rendered Foldkit site: home with checker and guide list, guide pages with specimens, `/check`, Markdown pages, `llms.txt`, 100 on is-agentic.
+5. The full suite, every guide gated by the eval.
+
+## Decision ledger
+
+| # | Date | Decision | Why |
+| --- | --- | --- | --- |
+| 1 | 2026-11-04 | This repo is renamed in place to good-a11y (repo, package scope, product name). It stays on rat-stack with Foldkit. Private until launch, then public. | Vojta: build the whole thing on rat-stack; the checker, facts and fence already live here. |
+| 2 | 2026-11-04 | No studio9 CTA anywhere for now: hidden, not deleted. The CTA will be different later. | Vojta. |
+| 3 | 2026-11-04 | Global, WCAG-first guidance. EAA, member states and the verdict stay in the checker's report. | Vojta. |
+| 4 | 2026-11-04 | A guide is a folder `guides/<category>/<slug>/`: `guide.md` (agent-facing, frontmatter `name`, `description`, `criteria` as STD-SC fact IDs, DO / DO NOT, self-contained, about 2k tokens, no links), `demo.html` (working reference, the live specimen), `expectations.md` (testable claims for graders). Parsed and tested by `packages/guides`; a test fails on a criterion ID that is not a verified fact. Generated files are never edited by hand. | Agent-first output (Vojta); modern-web-guidance shape; our facts law. |
+| 5 | 2026-11-04 | Retrieval is keyword search (MiniSearch, BM25-style) over name, description and headings. A local embedding model is added only if a retrieval benchmark of real agent queries shows misses. | Simplest that fits a few hundred guides; no 22 MB model. |
+| 6 | 2026-11-04 | One CLI run from the repo, never published: `npx github:vojtaholik/good-a11y search|retrieve|check`. `check` runs our static checks, axe-core and our rendered probes in the agent's local Chrome (works on localhost, no bot walls, no budget of ours) and prints Markdown findings, each linked to its guide. Judged questions are handed to the agent with evidence and rubric, labelled "judged by your agent, not calibrated". No telemetry. | Vojta: people use their own tokens; no npm. |
+| 7 | 2026-11-04 | `SKILL.md` has explicit trigger and do-not-trigger lists, the search, retrieve, build, check loop, and ends each answer with a short "Accessibility guidance used" section. Served from the site and from the repo. | modern-web-guidance pattern; agent-first. |
+| 8 | 2026-11-04 | Guides are written from W3C sources and our verified facts, never copied from modern-web-guidance. good-a11y is the accessibility layer that works alongside it. | Clean authorship; their a11y coverage is 4 guides. |
+| 9 | 2026-11-04 | Evals: two base apps (a React/Vite shop: products, cart, checkout form, dialog; a plain-HTML content site: nav, article, media, search). Task prompts never name the technique. Each task is graded by our checker and by Playwright expectations per guide, each expectation grader calibrated to pass on the reference and fail on the unguided baseline. Agents: Claude Code at low effort and Codex, on Vojta's subscriptions, 3 runs per arm. | Vojta: Claude on low effort; measure, do not assume. |
+| 10 | 2026-11-04 | A guide ships only with a measured gap: unguided pass rate under 70% and guided minus unguided at least 15 points over 3 runs. Drafting uses the common-knowledge method (Claude and Codex list what they know; intersect) to trim. | Cull what models know by default; tokens are the cost. |
+| 11 | 2026-11-04 | The site: Foldkit, server-rendered and hydrated; every page also as Markdown (`Accept: text/markdown`), `llms.txt`, `/skills/good-a11y/SKILL.md`, canonical, lang, Open Graph. Home: checker input and the guide list; `/check`; `/check/<host>/<id>` reports whose findings link to guides; one page per guide with its `demo.html` live in an isolated iframe. CI runs the checker on every demo; a demo that fails is a broken guide. Target: 100 on is-agentic. | is-agentic weights server-rendered content, HTTP, structure, identity metadata at 80 of 100. |
+| 12 | 2026-11-04 | No domain yet: everything runs on stage dev's workers.dev URL until Vojta buys good-a11y.com. | Vojta. |
