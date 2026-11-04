@@ -12,6 +12,7 @@ import type { Guide } from "@good-a11y/guides/guide";
 import { Array, Option } from "effect";
 
 import { CLI, SKILL_PATH } from "../features/agent-links.js";
+import { LOCAL_CHECK } from "../features/check-view.js";
 import { RETRIEVE, demoPath } from "../features/guide-view.js";
 import { categoryName, guidesByCategory } from "../features/guides.js";
 import {
@@ -89,7 +90,7 @@ const checkMarkdown = (): string[] => [
   "",
   CHECK_DESCRIPTION,
   "",
-  `Check a page on your own machine, localhost included: \`${CLI} check localhost:5173\`. It runs the same checks in your own Chrome and prints the issues worst first, each with the guide that fixes it.`,
+  `Check a page on your own machine, localhost included: \`${LOCAL_CHECK}\`. It runs the same checks in your own Chrome and prints the issues worst first, each with the guide that fixes it.`,
   "",
   "## What we check",
   "",

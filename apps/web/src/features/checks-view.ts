@@ -10,32 +10,49 @@ import type { Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/message.js";
 import { sx } from "./sx.js";
-import { colors } from "./tokens.stylex.js";
-
-const MUTED = colors["--ink-muted"];
-
-const RULE = colors["--line"];
+import { colors, radius } from "./tokens.stylex.js";
 
 const local = stylex.create({
+  card: {
+    backgroundColor: colors["--surface"],
+    borderColor: colors["--line"],
+    borderRadius: radius["--radius-lg"],
+    borderStyle: "solid",
+    borderWidth: "1px",
+    overflowX: "auto",
+  },
   cell: {
-    borderBlockStartColor: RULE,
+    borderBlockStartColor: colors["--line"],
     borderBlockStartStyle: "solid",
     borderBlockStartWidth: "1px",
-    paddingBlock: "0.75rem",
-    paddingInlineEnd: "0.75rem",
+    paddingBlock: "12px",
+    paddingInline: "20px",
     textAlign: "start",
     verticalAlign: "top",
   },
   criterion: {
+    fontWeight: 400,
     inlineSize: "40%",
   },
   head: {
-    color: MUTED,
-    fontSize: "0.875rem",
-    fontWeight: 600,
-    paddingBlockEnd: "0.5rem",
-    paddingInlineEnd: "0.75rem",
+    backgroundColor: colors["--sunken"],
+    fontWeight: 800,
+    paddingBlock: "12px",
+    paddingInline: "20px",
     textAlign: "start",
+  },
+  heading: {
+    fontSize: "clamp(1.75rem, 1cqi + 1.375rem, 2.25rem)",
+    fontWeight: 800,
+    lineHeight: 1.15,
+    margin: 0,
+  },
+  intro: {
+    alignItems: "baseline",
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "8px 24px",
+    justifyContent: "space-between",
   },
   list: {
     margin: 0,
@@ -46,13 +63,26 @@ const local = stylex.create({
     margin: 0,
   },
   newer: {
-    color: MUTED,
+    color: colors["--ink-muted"],
     display: "block",
-    fontSize: "0.75rem",
+    fontSize: "0.8125rem",
   },
   none: {
-    color: MUTED,
+    color: colors["--ink-muted"],
     margin: 0,
+  },
+  note: {
+    color: colors["--ink-muted"],
+    margin: 0,
+  },
+  section: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "16px",
+  },
+  summary: {
+    margin: 0,
+    maxInlineSize: "72ch",
   },
   table: {
     borderCollapse: "collapse",
@@ -62,6 +92,14 @@ const local = stylex.create({
   titles: {
     fontSize: "0.875rem",
     marginBlock: "0 0.5rem",
+  },
+  visuallyHidden: {
+    blockSize: "1px",
+    clipPath: "inset(50%)",
+    inlineSize: "1px",
+    overflow: "clip",
+    position: "absolute",
+    whiteSpace: "nowrap",
   },
 });
 
@@ -95,38 +133,57 @@ const rowView = (row: ScCoverageRow, h: HtmlBuilder<AppMessage>): Html =>
 
 export const checksView = (h: HtmlBuilder<AppMessage>): Html =>
   h.section(
-    [h.AriaLabelledBy("what-we-check")],
+    [h.AriaLabelledBy("what-we-check"), sx(h, local.section)],
     [
-      h.h2([h.Id("what-we-check")], ["What we check"]),
-      ...scCoverageSummary(SC_COVERAGE).map((line) => h.p([], [line])),
-      h.table(
-        [sx(h, local.table)],
+      h.div(
+        [sx(h, local.intro)],
         [
-          h.caption(
-            [sx(h, local.head)],
-            ["Each success criterion, and how it is tested today"]
+          h.h2(
+            [h.Id("what-we-check"), sx(h, local.heading)],
+            ["What we check"]
           ),
-          h.thead(
-            [],
+          h.p(
+            [sx(h, local.note)],
+            ["Anything not checked here needs a person to review it."]
+          ),
+        ]
+      ),
+      ...scCoverageSummary(SC_COVERAGE).map((line) =>
+        h.p([sx(h, local.summary)], [line])
+      ),
+      h.div(
+        [sx(h, local.card)],
+        [
+          h.table(
+            [sx(h, local.table)],
             [
-              h.tr(
+              h.caption(
+                [sx(h, local.visuallyHidden)],
+                ["Each success criterion, and how it is tested today"]
+              ),
+              h.thead(
                 [],
                 [
-                  h.th(
-                    [h.Attribute("scope", "col"), sx(h, local.head)],
-                    ["Success criterion"]
-                  ),
-                  h.th(
-                    [h.Attribute("scope", "col"), sx(h, local.head)],
-                    ["How we test it"]
+                  h.tr(
+                    [],
+                    [
+                      h.th(
+                        [h.Attribute("scope", "col"), sx(h, local.head)],
+                        ["Success criterion"]
+                      ),
+                      h.th(
+                        [h.Attribute("scope", "col"), sx(h, local.head)],
+                        ["How we test it"]
+                      ),
+                    ]
                   ),
                 ]
               ),
+              h.tbody(
+                [],
+                SC_COVERAGE.map((row) => rowView(row, h))
+              ),
             ]
-          ),
-          h.tbody(
-            [],
-            SC_COVERAGE.map((row) => rowView(row, h))
           ),
         ]
       ),
