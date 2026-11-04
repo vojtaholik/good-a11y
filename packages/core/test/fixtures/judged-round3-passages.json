@@ -1,0 +1,3872 @@
+{
+  "recorded": "2026-11-04",
+  "sites": [
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li class=\" m12 sgLine\">\n            <a href=\"kariera.aspx\">\n              <span>Kariéra</span>\n            </a>\n            <ul>\n              <li>\n                <a href=\"clanek/obecne-informace-o-",
+            "text": "Kariéra Obecné informace o zaměstnání u HZS ČR Přijetí do služebního poměru Přijetí do pracovního poměru Právní předpisy (služební a pracovní poměr) Personální oddělení Nábor Vzdělávání"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "archiv_hzscr_gov_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"mb-0 font-bold text-base-ui sm:text-xl-ui \"><a href=\"https://www.denik.cz/pocasi/predpoved-pocasi-cesko-kraje-listopad-zima-srudena-fronta-snih-silny-vitr/\" class=\"no-underline group-hover/",
+            "text": "Nová předpověď na listopad: Dorazí déšť, mlhy i sníh. Teploty klesnou i pod nulu"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "berounsky_denik_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3 class=\"article-title\"><a href=\"https://archiv.hn.cz/c1-67952130-meni-s-ai-praci-pravniku-a-ohromne-roste-s-viceprezidentem-svedske-legory-o-zakladech-uspechu-a-dobyvani-trhu-v-usa\">Mění s AI práci",
+            "text": "Mění s AI práci právníků a ohromně roste. S viceprezidentem švédské Legory o základech úspěchu a dobývání trhu v USA"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "byznys_hn_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p class=\"b-post__excerpt\">Prvních 26 milionů získali před třemi měsíci, teď polský startup e2e nabral dalších 174 milionů i od Kaya VC a…</p>",
+            "text": "Prvních 26 milionů získali před třemi měsíci, teď polský startup e2e nabral dalších 174 milionů i od Kaya VC a…"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"b-post__title\"><a href=\"https://cc.cz/do-jizniho-tyrolska-se-bude-letat-z-prahy-na-sjezdovkach-kde-ziskali-cesi-medaile-si-zalyzujete-i-vy/\">Do Jižního Tyrolska se bude létat z Prahy. Na sj",
+            "text": "Do Jižního Tyrolska se bude létat z Prahy. Na sjezdovkách, kde získali Češi medaile, si zalyžujete i vy"
+          },
+          {
+            "guess": "pl",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<h2 class=\"b-post-simple__title\"><a href=\"https://cc.cz/chlapi-ji-na-lod-nechteli-tak-zalozila-vlastni-tym-twinky-holky-maji-uspech-na-mori-i-na-jezerech/\">Chlapi ji na loď nechtěli, tak založila vlas",
+            "text": "Chlapi ji na loď nechtěli, tak založila vlastní tým. Twinky holky mají úspěch na moři i na jezerech"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false, false],
+      "set": "holdout",
+      "site": "cc_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 5,
+            "lang": "cs-CZ",
+            "snippet": "<li role=\"menuitem\" id=\"menu-item-135\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children nav-item menu-item-135 dropdown\"><a title=\"Pro spotřebitele\" href=\"#\" data",
+            "text": "Pro spotřebitele Podávání podnětů Poučení o náležitostech podání podle správního řádu Informace o provozu podatelny a podmínkách přijímání dokumentů Spotřebitelský průvodce Aukce energií Pokuty za nejakostní paliva Informace o mimosoudním řešení spotřebitelských sporů (ADR) Rizikové e-shopy Evropské"
+          }
+        ],
+        "pageLang": "cs-CZ"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "coi_gov_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 5,
+            "lang": "cs-CZ",
+            "snippet": "<li onmouseout=\"trayOff(this)\" onmouseover=\"trayOn(this)\">\n\t\t\t<a title=\"O resortu\" href=\"/O-resortu.aspx\">O resortu</a>\n\t\t\t<ul>\n\t\t\t\t<li onmouseout=\"trayOff(this)\" onmouseover=\"trayOn(this)\" class=\"fir",
+            "text": "O resortu Slovo předsedy Struktura resortu Působnost úřadů Statuty a jednací a organizační řády úřadů v resortu Boj proti korupci Rozpočty resortu Poradci a poradní orgány Výzkum a vývoj Mezinárodní spolupráce Strukturální fondy Užitečné odkazy Nemoforum"
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs-CZ",
+            "snippet": "<li onmouseout=\"trayOff(this)\" onmouseover=\"trayOn(this)\">\n\t\t\t<a title=\"Katastr nemovitostí\" href=\"/Katastr-nemovitosti.aspx\">Katastr nemovitostí</a>\n\t\t\t<ul>\n\t\t\t\t<li onmouseout=\"trayOff(this)\" onmouse",
+            "text": "Katastr nemovitostí O katastru nemovitostí Informace o katastrálních územích Poskytování údajů z KN Zápisy do KN Katastrální mapa Obnova katastrálního operátu novým mapováním Revize katastru Formuláře Poplatky Statistické údaje o transakcích"
+          },
+          {
+            "guess": "nl",
+            "hits": 3,
+            "lang": "cs-CZ",
+            "snippet": "<li onmouseout=\"trayOff(this)\" onmouseover=\"trayOn(this)\">\n\t\t\t<a title=\"DMVS\" href=\"/DMVS/O-IS-DMVS.aspx\">DMVS</a>\n\t\t\t<ul>\n\t\t\t\t<li onmouseout=\"trayOff(this)\" onmouseover=\"trayOn(this)\" class=\"first\">\n",
+            "text": "DMVS O IS DMVS Novinky Portál DMVS Poskytování dat Popis rozhraní JVF DTM Právní předpisy Metodika Podklady IS DTM Kontakty Odkazy"
+          }
+        ],
+        "pageLang": "cs-CZ"
+      },
+      "labels": [false, false, false],
+      "set": "design",
+      "site": "cuzk_gov_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li class=\"trifork__list-item trifork__list-item--tunebutton\">\n      <a href=\"node/8934966\">\n\t\t\t  <h3>Jak naladit Český rozhlas v síti DAB+</h3>\n\t\t\t  <p>Poradíme vám, jak jednoduše naladit všechny sta",
+            "text": "Jak naladit Český rozhlas v síti DAB+ Poradíme vám, jak jednoduše naladit všechny stanice Českého rozhlasu v síti DAB+. Jak naladit"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "digital_rozhlas_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<td _ngcontent-eko-c121=\"\" class=\"cell-nazev\"><esel-odkaz-pravniho-aktu _ngcontent-eko-c121=\"\" typ=\"interni\" _nghost-eko-c120=\"\"><!----><a _ngcontent-eko-c120=\"\" aria-label=\"361/2000 Sb. Zákon o provo",
+            "text": "Zákon o provozu na pozemních komunikacích a o změnách některých zákonů"
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<p _ngcontent-eko-c116=\"\"><p>O Velikonočním víkendu byla úspěšně dokončena migrace informačního systému e-Sbírka do státního cloudu vedeném Státní pokladnou Centrem Sdílených služeb, s. p. Nově nalezn",
+            "text": "O Velikonočním víkendu byla úspěšně dokončena migrace informačního systému e-Sbírka do státního cloudu vedeném Státní pokladnou Centrem Sdílených služeb, s. p. Nově naleznete e-Sbírku pod doménou gov.cz nebo CMS2."
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<p>O Velikonočním víkendu byla úspěšně dokončena migrace informačního systému e-Sbírka do státního cloudu vedeném Státní pokladnou Centrem Sdílených služeb, s. p. Nově naleznete e-Sbírku pod doménou <",
+            "text": "O Velikonočním víkendu byla úspěšně dokončena migrace informačního systému e-Sbírka do státního cloudu vedeném Státní pokladnou Centrem Sdílených služeb, s. p. Nově naleznete e-Sbírku pod doménou gov.cz nebo CMS2."
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 _ngcontent-eko-c116=\"\"><a _ngcontent-eko-c116=\"\" href=\"/aktuality/20150\">Omezení e-Sbírky spojené s postupným spouštěním e-Legislativy do ostrého provozu</a></h2>",
+            "text": "Omezení e-Sbírky spojené s postupným spouštěním e-Legislativy do ostrého provozu"
+          },
+          {
+            "guess": "pt",
+            "hits": 8,
+            "lang": "cs",
+            "snippet": "<p _ngcontent-eko-c116=\"\"><p><span style=\"color: black;\">Režim postupného spouštění e-Sbírky a e-Legislativy do praxe bude vedle přínosů pro uživatele e-Sbírky do praxe spojen i s dílčími omezeními př",
+            "text": "Režim postupného spouštění e-Sbírky a e-Legislativy do praxe bude vedle přínosů pro uživatele e-Sbírky do praxe spojen i s dílčími omezeními při používání e-Sbírky a jejích dat."
+          },
+          {
+            "guess": "pt",
+            "hits": 8,
+            "lang": "cs",
+            "snippet": "<p><span style=\"color: black;\">Režim postupného spouštění e-Sbírky a e-Legislativy do praxe bude vedle přínosů pro uživatele e-Sbírky do praxe spojen i s dílčími omezeními při používání e-Sbírky a jej",
+            "text": "Režim postupného spouštění e-Sbírky a e-Legislativy do praxe bude vedle přínosů pro uživatele e-Sbírky do praxe spojen i s dílčími omezeními při používání e-Sbírky a jejích dat."
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 _ngcontent-eko-c116=\"\"><a _ngcontent-eko-c116=\"\" href=\"/aktuality/20169\">Nové kontakty na podporu systému e-Sbírka a e-Legislativa od 1. 1. 2026</a></h2>",
+            "text": "Nové kontakty na podporu systému e-Sbírka a e-Legislativa od 1. 1. 2026"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false, false, false, false],
+      "set": "design",
+      "site": "e_sbirka_gov_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "sk-SK",
+            "snippet": "<p class=\"framer-text framer-styles-preset-1cz5t0q\" data-styles-preset=\"W37Xjpmu_\" dir=\"auto\" style=\"--framer-text-color:var(--token-4f14f7db-b1ce-43a0-8333-08d2c11c29d8, rgb(255, 255, 255))\">Poskytuj",
+            "text": "Poskytujeme profesionálne riešenia na kľúč s dôrazom na energetickú efektívnosť, udržateľnosť a dlhodobú prevádzkovú spoľahlivosť s cieľom zníženia energetickej náročnosti prevádzky."
+          },
+          {
+            "guess": "pt",
+            "hits": 7,
+            "lang": "sk-SK",
+            "snippet": "<p class=\"framer-text framer-styles-preset-1cz5t0q\" data-styles-preset=\"W37Xjpmu_\" dir=\"auto\" style=\"--framer-text-color:var(--token-6b4bc788-9833-4309-806f-9e2d934567f9, rgb(1, 43, 39))\"><strong clas",
+            "text": "ESCO Integra, s. r. o. vznikla spojením dlhodobo úspešných spoločností – e-Dome a.s. (od 2015), ESCO Slovensko, a.s. - činnosť energetických služieb (od 2021) a AZ KLIMA SK, s.r.o. (od 2000). Vďaka ich skúsenostiam, tímom odborníkov a stovkám realizovaných projektov prinášame dnes komplexné energeti"
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "sk-SK",
+            "snippet": "<p style=\"line-height: 1.2em; margin: 0px; padding: 0px; font-size: 16px; font-family: Rubik, &quot;Rubik Placeholder&quot;, sans-serif; font-style: normal; font-weight: 400; letter-spacing: 0em; colo",
+            "text": "Súbory cookie používame na optimalizáciu našej webovej stránky, prispôsobenie a meranie účinnosti reklamy a zhromažďovanie štatistík o používaní. Čítajte naše zásady používania súborov cookie."
+          }
+        ],
+        "pageLang": "sk-SK"
+      },
+      "labels": [false, false, false],
+      "set": "holdout",
+      "site": "escointegra_sk_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs-CZ",
+            "snippet": "<p class=\"paragraph blog-card-description no-line\">Prohlédněte si hobby stavební stroje GORILA i profesionální techniku SHANTUI, vyzkoušejte si ovládání minibagru a zapojte se do soutěže o vlastní str",
+            "text": "Prohlédněte si hobby stavební stroje GORILA i profesionální techniku SHANTUI, vyzkoušejte si ovládání minibagru a zapojte se do soutěže o vlastní stroj."
+          }
+        ],
+        "pageLang": "cs-CZ"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "forarch_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li class=\"navigation-menu__elem desktop\">\n                        <button class=\"navigation-menu__title has-submenu\" aria-haspopup=\"true\" data-type=\"desktop\">\n                            Centrum komp",
+            "text": "Centrum kompetencí O nás Projekty Konference Vzdělávání a rozvoj Spolupráce a partnerství Kontakty"
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li class=\"event-card__item\">\n    <a href=\"https://icv.mendelu.cz/akce/kurz-act-pro-studenty/\" class=\"event-card\">\n        <div class=\"event-card__date-container\">\n            <div class=\"event-card__",
+            "text": "03 Lis Míň stresu, víc klidu. Zvládejte stres a posilujte psychickou odolnost s ACT 3. 11. 2026 – 1. 12. 2026 9:00 – 11:30 Svg Vector Icons : http://www.onlinewebfonts.com/icon Budova E – učebna E21, Zemědělská 5, Brno"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false],
+      "set": "holdout",
+      "site": "icv_mendelu_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "cs",
+            "hits": 4,
+            "lang": "en",
+            "snippet": "<li><a href=\"/MYLIFE-113.html\" data-childs=\"1\" data-node=\"113\">Co hledám</a>\n            <div class=\"submenu\" style=\"display: none;\">\n                <div class=\"container-fluid\">\n                    ",
+            "text": "Co hledám Uživatelský účet a hesloTýmová komunikaceVzdálený přístup VPNMobilní aplikace UniKarlovaE-mailySoftware a licencePrůkazy a čipyStudijní informační systémCertifikáty, elektronické podpisyTisk a kopírováníBezdrátové připojení Wi-fiPodpora, Helpdesk"
+          },
+          {
+            "guess": "cs",
+            "hits": 6,
+            "lang": "en",
+            "snippet": "<li><a href=\"/MYLIFE-194.html\" data-childs=\"1\" data-node=\"194\">IT Systémy</a>\n            <div class=\"submenu\" style=\"display: none;\">\n                <div class=\"container-fluid\">\n                   ",
+            "text": "IT Systémy Systémy a aplikaceCloudové službySoftware a licenceServery a databázeSpráva výpočetní techniky a ITInformace pro IT správceTelekomunikace a infrastruktura"
+          },
+          {
+            "guess": "cs",
+            "hits": 5,
+            "lang": "en",
+            "snippet": "<li><a href=\"/MYLIFE-202.html\" data-childs=\"1\" data-node=\"202\">Kyberbezpečnost</a>\n            <div class=\"submenu\" style=\"display: none;\">\n                <div class=\"container-fluid\">\n              ",
+            "text": "Kyberbezpečnost Základní pravidla bezpečného chování onlineOchrana zařízeníBezpečné přihlašování do prostředí UKJak postupovat při podezření na bezpečností incidentSlovníček základních pojmůOchrana vaší identity a osobních údajůAktuální hrozbyInternetová rizika a jak je poznatOchrana dat a dokumentů"
+          },
+          {
+            "guess": "cs",
+            "hits": 4,
+            "lang": "en",
+            "snippet": "<p align=\"left\">Naším cílem je jediné: abyste rychle našli odpověď, pochopili potřebný postup a mohli se v klidu věnovat své práci nebo studiu.</p>",
+            "text": "Naším cílem je jediné: abyste rychle našli odpověď, pochopili potřebný postup a mohli se v klidu věnovat své práci nebo studiu."
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<p align=\"center\">Už u nás studujete, ale ztrácíte se v závalu informací? Vše jsme pro vás přehledně sepsali a roztřídili.</p>",
+            "text": "Už u nás studujete, ale ztrácíte se v závalu informací? Vše jsme pro vás přehledně sepsali a roztřídili."
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<p align=\"center\">Pracujete u nás a hledáte důležité informace? Připravili jsme pro vás přehled všeho, co by se vám mohlo hodit.</p>",
+            "text": "Pracujete u nás a hledáte důležité informace? Připravili jsme pro vás přehled všeho, co by se vám mohlo hodit."
+          },
+          {
+            "guess": "pt",
+            "hits": 6,
+            "lang": "en",
+            "snippet": "<p align=\"left\">E-mail: <noscript>\n<a href=\"mailto:\" class=\"i-email\">[e-mail]</a>\n</noscript>\n<script>document.write(\"<a href='mailto:\");document.write(\"@\");document.write(\"' class='i-email'>\");docume",
+            "text": "E-mail: <a href=\"mailto:\" class=\"i-email\">[e-mail]</a> document.write(\"<a href='mailto:\");document.write(\"@\");document.write(\"' class='i-email'>\");document.write(\"u\"+\"k\"+\"@\"+\"c\"+\"u\"+\"n\"+\"i\"+\".\"+\"c\"+\"z\");document.write(\"</a>\");uk@cuni.cz"
+          },
+          {
+            "guess": "pt",
+            "hits": 7,
+            "lang": "en",
+            "snippet": "<p align=\"left\">E-mail:&nbsp;<noscript>\n<a href=\"mailto:\" class=\"i-email\">[e-mail]</a>\n</noscript>\n<script>document.write(\"<a href='mailto:\");document.write(\"@\");document.write(\"' class='i-email'>\");d",
+            "text": "E-mail: <a href=\"mailto:\" class=\"i-email\">[e-mail]</a> document.write(\"<a href='mailto:\");document.write(\"@\");document.write(\"' class='i-email'>\");document.write(\"i\"+\"n\"+\"f\"+\"o\"+\"@\"+\"c\"+\"u\"+\"n\"+\"i\"+\".\"+\"c\"+\"z\");document.write(\"</a>\");info@cuni.cz"
+          },
+          {
+            "guess": "pt",
+            "hits": 8,
+            "lang": "en",
+            "snippet": "<p align=\"left\">E-mail: <noscript>\n<a href=\"mailto:\" class=\"i-email\">[e-mail]</a>\n</noscript>\n<script>document.write(\"<a href='mailto:\");document.write(\"@\");document.write(\"' class='i-email'>\");docume",
+            "text": "E-mail: <a href=\"mailto:\" class=\"i-email\">[e-mail]</a> document.write(\"<a href='mailto:\");document.write(\"@\");document.write(\"' class='i-email'>\");document.write(\"o\"+\"f\"+\"f\"+\"i\"+\"c\"+\"e\"+\"@\"+\"u\"+\"v\"+\"t\"+\".\"+\"c\"+\"u\"+\"n\"+\"i\"+\".\"+\"c\"+\"z\");document.write(\"</a>\");office@uvt.cuni.cz"
+          }
+        ],
+        "pageLang": "en"
+      },
+      "labels": [true, true, true, true, true, true, null, null, null],
+      "set": "design",
+      "site": "it_cuni_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 8,
+            "lang": "cs",
+            "snippet": "<p class=\"calc-list__perex\">O tom, jak se zajistíme na staří, rozhoduje zejména průběh druhé poloviny našeho produktivního života. V zásadě není nikdy příliš brzy na to začít myslet na důchod. Kdy půj",
+            "text": "O tom, jak se zajistíme na staří, rozhoduje zejména průběh druhé poloviny našeho produktivního života. V zásadě není nikdy příliš brzy na to začít myslet na důchod. Kdy půjdeme do důchodu? A jak se budeme v penzi mít? Spočítejte si to."
+          },
+          {
+            "guess": "pt",
+            "hits": 6,
+            "lang": "cs",
+            "snippet": "<p class=\"footer-top__newsletter__info\">Odesláním registrace souhlasím se zpracováním svých osobních údajů pro účely zasílání Newsletteru a servisních kampaní a zároveň potvrzuji seznámení s <a href=\"",
+            "text": "Odesláním registrace souhlasím se zpracováním svých osobních údajů pro účely zasílání Newsletteru a servisních kampaní a zároveň potvrzuji seznámení s Podmínkami o zpracování osobních údajů společností Next Page Media s.r.o. a Heroine s.r.o."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false],
+      "set": "design",
+      "site": "kalkulacky_heroine_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"mb-0 font-bold text-base-ui sm:text-xl-ui \"><a href=\"https://kolinsky.denik.cz/krimi/opily-muz-napadl-zenu-na-namesti-v-ceskem-brode-pak-se-pustil-i-do-strazniku/\" class=\"no-underline group",
+            "text": "Opilý muž napadl ženu na náměstí v Českém Brodě. Pak se pustil i do strážníků"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"mb-0 font-bold text-base-ui sm:text-xl-ui \"><a href=\"https://www.denik.cz/pocasi/predpoved-pocasi-cesko-kraje-listopad-zima-srudena-fronta-snih-silny-vitr/\" class=\"no-underline group-hover/",
+            "text": "Nová předpověď na listopad: Dorazí déšť, mlhy i sníh. Teploty klesnou i pod nulu"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false],
+      "set": "design",
+      "site": "kolinsky_denik_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<p class=\"slide-subtext\">Pojeďte s námi v zimě lyžovat do Rakouska i Krkonoš anebo na běžky na Šumavu</p>",
+            "text": "Pojeďte s námi v zimě lyžovat do Rakouska i Krkonoš anebo na běžky na Šumavu"
+          },
+          {
+            "guess": "pl",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<p class=\"slide-subtext\">Pojeďte s námi v zimě lyžovat do Rakouska i Krkonoš anebo na běžky na Šumavu</p>",
+            "text": "Pojeďte s námi v zimě lyžovat do Rakouska i Krkonoš anebo na běžky na Šumavu"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "ktv_mff_cuni_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li class=\"c-shows__item grid__cell size--4-12@sm size--3-12@xl size--1-5@fhd\">\n\t  \n<article class=\"b-show\" data-entry=\"{&quot;id&quot;:&quot;1620320&quot;,&quot;uuid&quot;:&quot;a605cfd1-e23e-32a6-8e",
+            "text": ".image[data-id=\"9f4a122d5ea37e2bcdbf691eedef98f4\"]::before { padding-top: 56.153846153846%; } Thriller Poslechněte si Neklid. Podcastový thriller o vině, strachu a vztahu, který zašel příliš daleko Možnosti pořadu"
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li class=\"c-shows__item grid__cell size--4-12@sm size--3-12@xl size--1-5@fhd\">\n\t        \n<article class=\"b-show\" data-entry=\"{&quot;id&quot;:&quot;2868925&quot;,&quot;uuid&quot;:&quot;66290167-5f6e-3",
+            "text": ".image[data-id=\"6f2ac7a18e33d1b77ba35f4f0395432e\"]::before { padding-top: 56.153846153846%; } Česká literatura O mulo! Dvě romské duchařinky. Duchové mrtvých přicházejí, aby pohnuli naším svědomím Možnosti pořadu"
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li class=\"c-shows__item grid__cell size--4-12@sm size--3-12@xl size--1-5@fhd\">\n\t        \n<article class=\"b-show b-show--validity\" data-entry=\"{&quot;id&quot;:&quot;3637160&quot;,&quot;uuid&quot;:&quo",
+            "text": ".image[data-id=\"237ca6b2f14e6364ad5a02db302a35f7\"]::before { padding-top: 56.153846153846%; } Česká literatura Podzim… Podzimní Šumava v deníkových záznamech romantického rozervance, tuláka a pozorovatele počasí Možnosti pořadu 18"
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li class=\"c-shows__item grid__cell size--4-12@sm size--3-12@xl size--1-5@fhd\">\n\t    \n<article class=\"b-show\" data-entry=\"{&quot;id&quot;:&quot;575572&quot;,&quot;uuid&quot;:&quot;be39d135-9e67-36c0-9",
+            "text": ".image[data-id=\"a41873ed2e2ca67c3e787dd9d292be23\"]::before { padding-top: 56.153846153846%; } Četba na pokračování Možnosti pořadu"
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li class=\"c-shows__item grid__cell size--4-12@sm size--3-12@xl size--1-5@fhd\">\n\t    \n<article class=\"b-show\" data-entry=\"{&quot;id&quot;:&quot;944364&quot;,&quot;uuid&quot;:&quot;1e941700-d85a-358c-9",
+            "text": ".image[data-id=\"01f240e2078a876b066a42090bc8402c\"]::before { padding-top: 56.153846153846%; } Četba s hvězdičkou Možnosti pořadu"
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li class=\"c-shows__item grid__cell size--4-12@sm size--3-12@xl size--1-5@fhd\">\n\t    \n<article class=\"b-show\" data-entry=\"{&quot;id&quot;:&quot;774602&quot;,&quot;uuid&quot;:&quot;bd617ec0-2b0c-3197-b",
+            "text": ".image[data-id=\"06a315e40d1e452840d418da421f7cb2\"]::before { padding-top: 56.153846153846%; } Četba na pokračování Možnosti pořadu"
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p class=\"b-episode__title\" id=\"horko-chlad-o-aktualnich-title\">\n\t\t\t\t\tHorko a chlad. O aktuálních vztazích Varšavy a Kyjeva s polským bohemistou\n\t\t\t\t</p>",
+            "text": "Horko a chlad. O aktuálních vztazích Varšavy a Kyjeva s polským bohemistou"
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li class=\"c-categories__item grid__cell size--6-12 size--4-12@xs size--3-12@sm size--2-12@md\">\n  <a href=\"/temata/dokumenty\" class=\"b-category\">\n\t<figure class=\"b-category__img\">\n\t\t\n\n<div class=\"imag",
+            "text": ".image[data-id=\"bd6a507a2d1d2f8e3b0d3696c96524b0\"]::before { padding-top: 100%; } Dokumenty"
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li class=\"c-media__item grid__cell size--6-12 size--4-12@xs size--3-12@sm size--1-5@lg\">\n  <a href=\"/nebe-nad-nickem/nebe-nad-nickem-rocker-basnik-v-biograficke-serii-pavla-klusaka\" class=\"b-square\">",
+            "text": ".image[data-id=\"c5f50e91f32a17789fdf3bf802e4d032\"]::before { padding-top: 100%; } Biografie Nebe nad Nickem. Rocker a básník v biografické sérii Pavla Klusáka"
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li class=\"c-media__item grid__cell size--6-12 size--4-12@xs size--3-12@sm size--1-5@lg\">\n  <a href=\"/starter/zlomena-srdicka-ztracene-idealy-ve-starteru-vyzdvihujeme-uveritelnost-i-vokalni-akrobacii\"",
+            "text": ".image[data-id=\"885306da3b106941cadcc48924a83fbb\"]::before { padding-top: 100%; } Zlomená srdíčka a ztracené ideály. Ve Startéru vyzdvihujeme uvěřitelnost i vokální akrobacii"
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li class=\"c-carousel-eshop__item\">\n\t\t\t\n\n<div class=\"b-media\">\n\t<a href=\"https://www.radioteka.cz/detail/crohudba-1032543-detail\" class=\"b-media__link\">\n\t\t\t\t\t<figure class=\"b-media__img\">\n\t\t\t\t\n\n<div c",
+            "text": ".image[data-id=\"10a0312905d4bf5e41ceb648942a3bfd\"]::before { padding-top: 100%; } 299 Kč Gramotingltangl Suchý+Šlitr"
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li class=\"c-carousel-eshop__item\">\n\t\t\t\n\n<div class=\"b-media\">\n\t<a href=\"https://www.radioteka.cz/detail/croslovo-1004159-detail\" class=\"b-media__link\">\n\t\t\t\t\t<figure class=\"b-media__img\">\n\t\t\t\t\n\n<div c",
+            "text": ".image[data-id=\"bc7d5f5fa92e72a37392b9e6f33ae3ef\"]::before { padding-top: 100%; } 329 Kč Karel Čapek: Krakatit"
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li class=\"c-carousel-eshop__item\">\n\t\t\t\n\n<div class=\"b-media\">\n\t<a href=\"https://www.radioteka.cz/detail/croslovo-989417-detail\" class=\"b-media__link\">\n\t\t\t\t\t<figure class=\"b-media__img\">\n\t\t\t\t\n\n<div cl",
+            "text": ".image[data-id=\"9eee1dc038008c58a5748307e2bef63f\"]::before { padding-top: 100%; } 349 Kč Petr Čornej: Jan Žižka - Život a doba husitského válečníka"
+          },
+          {
+            "guess": "it",
+            "hits": 5,
+            "lang": "cs",
+            "snippet": "<li class=\"c-carousel-eshop__item\">\n\t\t\t\n\n<div class=\"b-media\">\n\t<a href=\"https://www.radioteka.cz/detail/croslovo-854846-detail\" class=\"b-media__link\">\n\t\t\t\t\t<figure class=\"b-media__img\">\n\t\t\t\t\n\n<div cl",
+            "text": ".image[data-id=\"639997caf36e2e3f95e9b4d1e88e6629\"]::before { padding-top: 100%; } 229 Kč P. D. Jamesová: Vánoční vražda"
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li class=\"c-carousel-eshop__item\">\n\t\t\t\n\n<div class=\"b-media\">\n\t<a href=\"https://www.radioteka.cz/detail/croslovo-153725-detail\" class=\"b-media__link\">\n\t\t\t\t\t<figure class=\"b-media__img\">\n\t\t\t\t\n\n<div cl",
+            "text": ".image[data-id=\"e3619fe7b7ac3952a23a190c978338a7\"]::before { padding-top: 100%; } 179 Kč Josef Mareš: Záhadné bodnutí"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        false,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "set": "holdout",
+      "site": "mujrozhlas_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li class=\"b-004__list-item b-004f__list-item\">\n\t\t<div class=\"image\"><a class=\"image-link b-004__image-link\" href=\"/soutez-obleceme-cesko-poslouchejte-nase-vysilani-a-poridte-si-neco-pekneho-do-934380",
+            "text": "1 minutaSoutěžSOUTĚŽ: Oblečeme Česko! Poslouchejte naše vysílání a pořiďte si něco pěkného do šatníkuSoutěžte s námi od 2. do 30. listopadu a vyhrajte poukázku na oblečení v hodnotě 1 000 korun."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "pardubice_rozhlas_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li>zadejte Vaši e-mailovou adresu, na kterou Vám bude zasláno potvrzení o&nbsp;platbě a&nbsp;pokračujte tlačítkem \"Zaplatit pomocí GP WebPay\",</li>",
+            "text": "zadejte Vaši e-mailovou adresu, na kterou Vám bude zasláno potvrzení o platbě a pokračujte tlačítkem \"Zaplatit pomocí GP WebPay\","
+          }
+        ],
+        "pageLang": "en"
+      },
+      "labels": [true],
+      "set": "design",
+      "site": "platba_portalprazana_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 9,
+            "lang": "cs-CZ",
+            "snippet": "<p><script>var a,s,n;function ba61a2d5a2cf4b67754f718add6647758(s){r='';for(i=0;i<s.length;i++){n=s.charCodeAt(i);if(n>=8364){n=128;}r+=String.fromCharCode(n-2);}return r;}a='>c\"jtgh?$ocknvq<kphqBrnpq",
+            "text": "var a,s,n;function ba61a2d5a2cf4b67754f718add6647758(s){r='';for(i=0;i<s.length;i++){n=s.charCodeAt(i);if(n>=8364){n=128;}r+=String.fromCharCode(n-2);}return r;}a='>c\"jtgh?$ocknvq<kphqBrnpqmpkj0e|$@kphqBrnpqmpkj0e|>1c@';document.write (ba61a2d5a2cf4b67754f718add6647758(a));info@plnoknih.cz"
+          }
+        ],
+        "pageLang": "cs-CZ"
+      },
+      "labels": [null],
+      "set": "holdout",
+      "site": "plnoknih_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p class=\"site-description\">Magazín o pojišťovnách, pojištění a o zdraví</p>",
+            "text": "Magazín o pojišťovnách, pojištění a o zdraví"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "pojmag_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "nl",
+            "hits": 7,
+            "lang": "fr",
+            "snippet": "<p>\n        \n          Attestation de niveau de français en début de parcours, évaluation continue tout au long de la formation, puis attestation de fin de formation.\n        \n      </p>",
+            "text": "Attestation de niveau de français en début de parcours, évaluation continue tout au long de la formation, puis attestation de fin de formation."
+          }
+        ],
+        "pageLang": "fr"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "progresser_orthographe_lemonde_fr_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li class=\"dk-banner__carousel__item splide__slide\" id=\"splide01-slide03\" role=\"tabpanel\" aria-roledescription=\"slide\" aria-label=\"3 of 7\" style=\"width: calc(100%);\" aria-hidden=\"true\">\n              ",
+            "text": "e-SALON 2026 Veletrh čisté mobility, technologií a řešení pro e-mobilitu VSTUPENKY"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "pvaexpo_cz_cs"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p>Retail Donátova a.s. (1.11.2026), EQUANTA Software s.r.o. (1.11.2026), Š&amp;M Office s.r.o. (1.11.2026). <a href=\"https://rejstrik-firem.kurzy.cz/\">Další nové firmy</a>.</p>",
+            "text": "Retail Donátova a.s. (1.11.2026), EQUANTA Software s.r.o. (1.11.2026), Š&M Office s.r.o. (1.11.2026). Další nové firmy."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "rejstrik_firem_kurzy_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en-US",
+            "snippet": "<p>Nabídka pro vítěze je uvedená na portále <a href=\"https://mbpoint.cz/8212-Nabidka-prezentace-pro-viteze-souteze-Financni-produkt-roku-2023.aspx\">MBpoint.cz</a>.</p>",
+            "text": "Nabídka pro vítěze je uvedená na portále MBpoint.cz."
+          }
+        ],
+        "pageLang": "en-US"
+      },
+      "labels": [true],
+      "set": "design",
+      "site": "scott_and_rose_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"m-0 !leading-normal text-xl \"><a href=\"/laska-a-vztahy/pribeh-eva-narozeniny/\" data-click-measurement=\"true\" data-module=\"\" data-type=\"block\" data-name=\"click_article_list\" data-measurement",
+            "text": "Evě bylo do pláče. Na šedesátiny pozvala celou rodinu, ale nedorazil nikdo. Důvod ji bolel víc než samota"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "story_kafe_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 6,
+            "lang": "cs",
+            "snippet": "<li class=\"b-004__list-item b-004f__list-item\">\n\t\t<div class=\"image\"><a class=\"image-link b-004__image-link\" href=\"https://vltava.rozhlas.cz/s-radkem-baborakem-o-j-v-stichu-puntovi-lesnim-rohu-a-ceske",
+            "text": "103 minutS Radkem Baborákem o J. V. Stichu-Puntovi, lesním rohu a české hornové školeS hornistou a dirigentem Radkem Baborákem o J. V. Stichu-Puntovi a o všemožných věcech kolem lesního rohu. Reprízu z roku 2023 uvádíme k 280. jubileu Stichova narození."
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<p>S hornistou a dirigentem Radkem Baborákem o J. V. Stichu-Puntovi a o všemožných věcech kolem lesního rohu. Reprízu z roku 2023 uvádíme k 280. jubileu Stichova narození.</p>",
+            "text": "S hornistou a dirigentem Radkem Baborákem o J. V. Stichu-Puntovi a o všemožných věcech kolem lesního rohu. Reprízu z roku 2023 uvádíme k 280. jubileu Stichova narození."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false],
+      "set": "holdout",
+      "site": "temata_rozhlas_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li style=\"padding-left: 0px; padding-right: 0px; width: 97.1875px; text-align: center;\">\n       \t   \t     <a class=\"mobileLinkInMenu\" href=\"IPSC-16.html\" style=\"padding-left: 0px; padding-right: 0px;",
+            "text": "O nás O nás Otevírací doba Kontakty a oddělení Projekty Virtuální prohlídka"
+          },
+          {
+            "guess": "pl",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<p align=\"left\">A hlavně si odnesou praktickou zkušenost, která se hodí nejen do CV, ale i do života.</p>",
+            "text": "A hlavně si odnesou praktickou zkušenost, která se hodí nejen do CV, ale i do života."
+          },
+          {
+            "guess": "en",
+            "hits": 10,
+            "lang": "cs",
+            "snippet": "<p align=\"left\">Join our walk through Prague and uncover the hidden beauty, symbolism, and quiet rebellion behind these often misunderstood architectural giants. You’ll explore stories of architecture",
+            "text": "Join our walk through Prague and uncover the hidden beauty, symbolism, and quiet rebellion behind these often misunderstood architectural giants. You’ll explore stories of architecture built in the 50s and 90s, shaped by an oppressive era and decide for yourself whether these structures deserve admi"
+          },
+          {
+            "guess": "en",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3><a class=\"clanekTitle\" href=\"IPSC-303.html?event=32379&amp;lang=CZ\">How to use AI at the university? (AI for advanced)</a></h3>",
+            "text": "How to use AI at the university? (AI for advanced)"
+          },
+          {
+            "guess": "en",
+            "hits": 8,
+            "lang": "cs",
+            "snippet": "<p align=\"left\"><b>Level up your AI skills in this hands‑on workshop for university students.</b>  You’ll learn to craft stronger prompts, build simple AI assistants without coding, and analyze academ",
+            "text": "Level up your AI skills in this hands‑on workshop for university students. You’ll learn to craft stronger prompts, build simple AI assistants without coding, and analyze academic sources more effectively. A great chance to boost your studies with smart, ethical AI tools!"
+          },
+          {
+            "guess": "en",
+            "hits": 6,
+            "lang": "cs",
+            "snippet": "<p align=\"left\">Music Therapy can provide a therapeutic space for expression and interaction that does not rely exclusively on verbal communication, allowing students to explore emotional, relational,",
+            "text": "Music Therapy can provide a therapeutic space for expression and interaction that does not rely exclusively on verbal communication, allowing students to explore emotional, relational, and self-regulation processes through musical experiences."
+          },
+          {
+            "guess": "en",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<p align=\"left\">To address anxiety, tension, and emotional overload associated with academic life and other.</p>",
+            "text": "To address anxiety, tension, and emotional overload associated with academic life and other."
+          },
+          {
+            "guess": "en",
+            "hits": 9,
+            "lang": "cs",
+            "snippet": "<p align=\"left\">Join us for First Practical Aid: English Edition, a hands‑on introduction to essential first‑aid skills for international students. The event is organized in cooperation with the Assoc",
+            "text": "Join us for First Practical Aid: English Edition, a hands‑on introduction to essential first‑aid skills for international students. The event is organized in cooperation with the Association of Medical Students IFSMA."
+          },
+          {
+            "guess": "pl",
+            "hits": 6,
+            "lang": "cs",
+            "snippet": "<p align=\"left\">Asi ten pocit znáte, víte, že byste to měli udělat, uvědomujete si, jak moc je to důležité, ale i tak to neuděláte. Prokrastinujete... Naštěstí existují ověřené postupy, které vám pomo",
+            "text": "Asi ten pocit znáte, víte, že byste to měli udělat, uvědomujete si, jak moc je to důležité, ale i tak to neuděláte. Prokrastinujete... Naštěstí existují ověřené postupy, které vám pomohou prokrastinaci překonat."
+          },
+          {
+            "guess": "pl",
+            "hits": 8,
+            "lang": "cs",
+            "snippet": "<p align=\"left\">Emoce jsou přirozenou součástí našeho života, ale ne vždy se nám daří s nimi zacházet tak, jak bychom chtěli. Jak porozumět tomu, co v nás emoce spouští, a jak ovlivňují naše myšlení i",
+            "text": "Emoce jsou přirozenou součástí našeho života, ale ne vždy se nám daří s nimi zacházet tak, jak bychom chtěli. Jak porozumět tomu, co v nás emoce spouští, a jak ovlivňují naše myšlení i jednání? Na praktickém workshopu se zaměříme na vlastní emoční prožívání a vyzkoušíme si konkrétní způsoby, jak s e"
+          },
+          {
+            "guess": "pt",
+            "hits": 8,
+            "lang": "cs",
+            "snippet": "<p align=\"left\">E-mail: <noscript>\n<a href=\"mailto:\" class=\"i-email\">[e-mail]</a>\n</noscript>\n<script>document.write(\"<a href='mailto:\");document.write(\"i\"+\"n\"+\"f\"+\"o\"+\"@\"+\"c\"+\"u\"+\"n\"+\"i\"+\".\"+\"c\"+\"z\")",
+            "text": "E-mail: <a href=\"mailto:\" class=\"i-email\">[e-mail]</a> document.write(\"<a href='mailto:\");document.write(\"i\"+\"n\"+\"f\"+\"o\"+\"@\"+\"c\"+\"u\"+\"n\"+\"i\"+\".\"+\"c\"+\"z\");document.write(\"' class='i-email'>\");document.write(\"i\"+\"n\"+\"f\"+\"o\"+\"@\"+\"c\"+\"u\"+\"n\"+\"i\"+\".\"+\"c\"+\"z\");document.write(\"</a>\");info@cuni.cz"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        null
+      ],
+      "set": "design",
+      "site": "ukpoint_cuni_cz_IPSC_1_html"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p class=\"box__text\" style=\"height: 61.3125px;\">Přihlášky a žádosti lze vyplnit a podat pomocí přímého on‑line podání přes e‑portál Úřadu průmyslového vlastnictví</p>",
+            "text": "Přihlášky a žádosti lze vyplnit a podat pomocí přímého on‑line podání přes e‑portál Úřadu průmyslového vlastnictví"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "upv_gov_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3 class=\"font-semibold text-lg tracking-h5-m desk:tracking-h5 text-heading leading-h5 line-clamp-3\">Senátorský klub ODS a TOP 09 zvolil nové vedení a nominoval kandidáty do vedení Senátu</h3>",
+            "text": "Senátorský klub ODS a TOP 09 zvolil nové vedení a nominoval kandidáty do vedení Senátu"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "vrecionova_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "en",
+            "snippet": "<li><a href=\"/ETFN-234.html\" data-childs=\"1\" data-node=\"234\">Fakulta</a>\n            <div class=\"submenu\" style=\"display: none;\">\n                <div class=\"container-fluid\">\n                    <div",
+            "text": "Fakulta Úvodní slovo děkanaStatut a předpisy fakultyZákladní dokumentyDlouhodobý záměrVýroční zpráva o činnosti a hospodařeníZápisy ze zasedání kolegia děkanaPodpora rozvoje studijního prostředíOrgány fakultyAkademický senátDěkan a proděkaniVědecká radaKomiseDěkanátTajemníkSekretariát děkanaEkonomic"
+          },
+          {
+            "guess": "cs",
+            "hits": 6,
+            "lang": "en",
+            "snippet": "<li><a href=\"/ETFN-875.html\" data-childs=\"1\" data-node=\"875\">Katedry a pracoviště</a>\n            <div class=\"submenu\" style=\"display: none;\">\n                <div class=\"container-fluid\">\n           ",
+            "text": "Katedry a pracoviště Katedra sociální práceAktualityVýukaLidé na katedřeProjektyMezinárodní spolupráceStudenti a absolventiPracovní příležitosti pro naše studentyPraxeKombinované studiumDěkanát a jeho pracovištěKatedra biblických studiíAktualityLidé na katedřePísemné práceZkouškyDoporučená literatur"
+          },
+          {
+            "guess": "cs",
+            "hits": 5,
+            "lang": "en",
+            "snippet": "<li><a href=\"/ETFN-121.html\" data-childs=\"1\" data-node=\"121\">Věda a výzkum</a>\n            <div class=\"submenu\" style=\"display: none;\">\n                <div class=\"container-fluid\">\n                  ",
+            "text": "Věda a výzkum Projekty a výzkumné skupinyCentrum excelence UK: Teologická antropologie v ekumenické perspektivěUniverzitní centrum pro studium antické a středověké myšlenkové tradiceBadatelská skupina Teologie a současná kulturaKřesťanství po křesťanstvu: Zkoumání postavení člověka v digitálním věku"
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<p align=\"left\">Ve dnech 9. a 13. října jsme měli příležitost představit nově vydanou knihu <i>Encountering Culture Theologically</i>, která vyšla jako Festschrift na počest prof. Ivany Noble.</p>",
+            "text": "Ve dnech 9. a 13. října jsme měli příležitost představit nově vydanou knihu Encountering Culture Theologically, která vyšla jako Festschrift na počest prof. Ivany Noble."
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<p align=\"left\">Ve dnech 10. a 13. října jsme měli příležitost představit nově vydanou knihu <i>Encountering Culture Theologically</i>, která vyšla jako Festschrift na počest prof. Ivany Noble. </p>",
+            "text": "Ve dnech 10. a 13. října jsme měli příležitost představit nově vydanou knihu Encountering Culture Theologically, která vyšla jako Festschrift na počest prof. Ivany Noble."
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li>\n<p align=\"left\">\n<b>Štěch</b>: <i>Kým je člověk v době AI? Hodnota lidství není měřena výkonem, ale zranitelností a péčí, míní teolog Štěch </i><a href=\"https://plus.rozhlas.cz/kym-je-clovek-v-do",
+            "text": "Štěch: Kým je člověk v době AI? Hodnota lidství není měřena výkonem, ale zranitelností a péčí, míní teolog Štěch Český rozhlas, 29. 9. 2026"
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<p align=\"left\">\n<b>Štěch</b>: <i>Kým je člověk v době AI? Hodnota lidství není měřena výkonem, ale zranitelností a péčí, míní teolog Štěch </i><a href=\"https://plus.rozhlas.cz/kym-je-clovek-v-dobe-ai",
+            "text": "Štěch: Kým je člověk v době AI? Hodnota lidství není měřena výkonem, ale zranitelností a péčí, míní teolog Štěch Český rozhlas, 29. 9. 2026"
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li>\n<p align=\"left\">\n<b>Bartoň</b>: <i>Podmínka za sexuální zneužívání chlapců: Soud se nemá opírat o mýty. Je to signál, že justice nerozumí obětem, říká advokát</i> <a href=\"https://www.dvtv.cz/dvt",
+            "text": "Bartoň: Podmínka za sexuální zneužívání chlapců: Soud se nemá opírat o mýty. Je to signál, že justice nerozumí obětem, říká advokát DVTV, 16. 9. 2026"
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<p align=\"left\">\n<b>Bartoň</b>: <i>Podmínka za sexuální zneužívání chlapců: Soud se nemá opírat o mýty. Je to signál, že justice nerozumí obětem, říká advokát</i> <a href=\"https://www.dvtv.cz/dvtv/vid",
+            "text": "Bartoň: Podmínka za sexuální zneužívání chlapců: Soud se nemá opírat o mýty. Je to signál, že justice nerozumí obětem, říká advokát DVTV, 16. 9. 2026"
+          },
+          {
+            "guess": "pt",
+            "hits": 10,
+            "lang": "en",
+            "snippet": "<p align=\"left\">\n<noscript>\n<a href=\"mailto:\" class=\"i-email\">[e-mail]</a>\n</noscript>\n<script>document.write(\"<a href='mailto:\");document.write(\"o\"+\"f\"+\"f\"+\"i\"+\"c\"+\"e\"+\"@\"+\"e\"+\"t\"+\"f\"+\".\"+\"c\"+\"u\"+\"n\"",
+            "text": "<a href=\"mailto:\" class=\"i-email\">[e-mail]</a> document.write(\"<a href='mailto:\");document.write(\"o\"+\"f\"+\"f\"+\"i\"+\"c\"+\"e\"+\"@\"+\"e\"+\"t\"+\"f\"+\".\"+\"c\"+\"u\"+\"n\"+\"i\"+\" \"+\"c\"+\"z\");document.write(\"' class='i-email'>\");document.write(\"o\"+\"f\"+\"f\"+\"i\"+\"c\"+\"e\"+\"@\"+\"e\"+\"t\"+\"f\"+\".\"+\"c\"+\"u\"+\"n\"+\"i\"+\".\"+\"c\"+\"z\");docum"
+          }
+        ],
+        "pageLang": "en"
+      },
+      "labels": [true, true, true, true, true, true, true, null],
+      "set": "holdout",
+      "site": "web_etf_cuni_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 5,
+            "lang": "cs-CZ",
+            "snippet": "<p>A s naším bezplatným newsletterem můžete využívat exkluzivní kupóny, informace o trendech a individuální nabídky. Chytrá móda přímo do Vaší e-mailové schránky.</p>",
+            "text": "A s naším bezplatným newsletterem můžete využívat exkluzivní kupóny, informace o trendech a individuální nabídky. Chytrá móda přímo do Vaší e-mailové schránky."
+          }
+        ],
+        "pageLang": "cs-CZ"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "www_bonprix_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li role=\"listitem\" class=\"zw-carousel-item\"><div data-z-item=\"\" data-z-data=\"{&quot;recommendationId&quot;:&quot;f5afe41c-0598-40d7-a975-549f2ec6b147&quot;,&quot;uiType&quot;:&quot;CAROUSEL&quot;,&qu",
+            "text": "Herní monitor MSI MAG 255F E20 (MAG 255F E20) černý4,8(69) 2 190 KčVložit do košíkuDo košíku"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "www_datart_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "nl",
+            "snippet": "<li class=\"editorial-nav__item\"><a href=\"/bereid-je-voor\" class=\"editorial-nav__link\"><img src=\"https://www.denkvooruit.nl/site/binaries/content/gallery/site-content/iconen-afbeeldingen/icoon-rugzak.p",
+            "text": "Bereid je voorMet spullen in een noodpakket ben je goed voorbereid op rampen, calamiteiten en noodsituaties. Het meeste heb je waarschijnlijk al in huis."
+          },
+          {
+            "guess": "en",
+            "hits": 3,
+            "lang": "nl",
+            "snippet": "<li class=\"__cq-card\"><a href=\"/bereid-je-voor/stel-je-noodpakket-samen\" class=\"card card--default is-internal-link\"><figure class=\"card__figure\"><div class=\"card__image-container\"><img alt=\"\" loading",
+            "text": "Stel je noodpakket samenMet spullen in jouw noodpakket ben je goed voorbereid op rampen, calamiteiten of noodsituaties die 72 uur of langer duren.Beeld: © NCTVLees verder"
+          },
+          {
+            "guess": "en",
+            "hits": 3,
+            "lang": "nl",
+            "snippet": "<p class=\"card__text\">Met spullen in jouw noodpakket ben je goed voorbereid op rampen, calamiteiten of noodsituaties die 72 uur of langer duren.</p>",
+            "text": "Met spullen in jouw noodpakket ben je goed voorbereid op rampen, calamiteiten of noodsituaties die 72 uur of langer duren."
+          }
+        ],
+        "pageLang": "nl"
+      },
+      "labels": [false, false, false],
+      "set": "holdout",
+      "site": "www_denkvooruit_nl_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"hero-h\">Prázdné židle i chodby, reprízy pořadů. Jak to funguje v televizi během stávky</h2>",
+            "text": "Prázdné židle i chodby, reprízy pořadů. Jak to funguje v televizi během stávky"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3>Prázdné židle i chodby, reprízy pořadů. Jak to funguje v televizi během stávky</h3>",
+            "text": "Prázdné židle i chodby, reprízy pořadů. Jak to funguje v televizi během stávky"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "www_drbna_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "cs",
+            "hits": 5,
+            "lang": "cs_CZ",
+            "snippet": "<p style=\"line-height:40px\">Speciální projekty vymýšlí a realizují netradiční a originální partnerské projekty, píší články do novin i na web. Tvoří inspirativní online microsity a infografiky, vydáva",
+            "text": "Speciální projekty vymýšlí a realizují netradiční a originální partnerské projekty, píší články do novin i na web. Tvoří inspirativní online microsity a infografiky, vydávají tematické magazíny a přílohy, organizují inspirativní či společenské eventy."
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "cs_CZ",
+            "snippet": "<p>Co už dnes AI umí a jak mění světový byznys? Máme být optimisty, nebo se bát? Širší pohled nám nabídnou přední čeští AI odborníci.</p>",
+            "text": "Co už dnes AI umí a jak mění světový byznys? Máme být optimisty, nebo se bát? Širší pohled nám nabídnou přední čeští AI odborníci."
+          },
+          {
+            "guess": "cs",
+            "hits": 5,
+            "lang": "cs_CZ",
+            "snippet": "<p>9. ročník konference z oblasti elektromobility, který nabídne komplexní pohled na vývoj trhu v EU a ČR formou přednášek, panelových diskusí a příkladů z realizovaných projektů. Chybět nebude výstav",
+            "text": "9. ročník konference z oblasti elektromobility, který nabídne komplexní pohled na vývoj trhu v EU a ČR formou přednášek, panelových diskusí a příkladů z realizovaných projektů. Chybět nebude výstava vozidel a testovací jízdy."
+          },
+          {
+            "guess": "cs",
+            "hits": 4,
+            "lang": "cs_CZ",
+            "snippet": "<p>4. ročník summitu Hospodářských novin a Druhé ekonomické transformace&nbsp; o rozhodujících krocích pro budoucnost České republiky a také Evropy.</p>",
+            "text": "4. ročník summitu Hospodářských novin a Druhé ekonomické transformace o rozhodujících krocích pro budoucnost České republiky a také Evropy."
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "cs_CZ",
+            "snippet": "<p>AI jako příležitost: Jak najít nové zdroje růstu pro českou ekonomiku a trh práce.</p>",
+            "text": "AI jako příležitost: Jak najít nové zdroje růstu pro českou ekonomiku a trh práce."
+          },
+          {
+            "guess": "cs",
+            "hits": 6,
+            "lang": "cs_CZ",
+            "snippet": "<p>Hospodářské noviny již potřetí pořádají&nbsp;<strong>celodenní konferenci k projektu TOP ženy Česka</strong>, která navazuje na stejnojmennou anketu, která oceňuje úspěšné ženy z byznysu, managemen",
+            "text": "Hospodářské noviny již potřetí pořádají celodenní konferenci k projektu TOP ženy Česka, která navazuje na stejnojmennou anketu, která oceňuje úspěšné ženy z byznysu, managementu a veřejné sféry. Stejné příležitosti pro muže a ženy? Nejen v Česku je to stále spíše sen. Přestože se zastoupení žen ve v"
+          },
+          {
+            "guess": "cs",
+            "hits": 5,
+            "lang": "cs_CZ",
+            "snippet": "<p><img decoding=\"async\" class=\"CToWUd\" src=\"https://ci3.googleusercontent.com/meips/ADKq_NbJzgIDk6szHj8EAQ0jQ1eREHrCT72zYZQdiGjB7rv6OXNaYVMvfI-5y88x-vJtiFDCltV8PG5OgH2MZEwtHzDCSZVNCzaOCOwoEK5_AdZ5uSN",
+            "text": "Tři podcasty, které dlouhodobě spoluvytvářejí českou debatu o politice a ekonomice, o Česku, Evropě a světě se poprvé potkají na jednom pódiu v Divadle Hybernia."
+          },
+          {
+            "guess": "pl",
+            "hits": 5,
+            "lang": "cs_CZ",
+            "snippet": "<p>Evropa a tím pádem i Česko potřebuje co nejrychleji zkombinovat tři zdánlivě neslučitelné vlastnosti: konkurenceschopnost, ekonomickou bezpečnost a udržitelnost.&nbsp;Co k tomu potřebujeme, jak na ",
+            "text": "Evropa a tím pádem i Česko potřebuje co nejrychleji zkombinovat tři zdánlivě neslučitelné vlastnosti: konkurenceschopnost, ekonomickou bezpečnost a udržitelnost. Co k tomu potřebujeme, jak na to reagují zásadní stakeholdeři a jak jsme v jednotlivých oblastech daleko?"
+          },
+          {
+            "guess": "cs",
+            "hits": 5,
+            "lang": "cs_CZ",
+            "snippet": "<p>Odborné networkingové setkání týdeníku Ekonom zaměřené na současné výzvy nemovitostního trhu, investiční příležitosti<br>\nv oblasti rezidenčních i komerčních nemovitostí a problematiku současného s",
+            "text": "Odborné networkingové setkání týdeníku Ekonom zaměřené na současné výzvy nemovitostního trhu, investiční příležitosti v oblasti rezidenčních i komerčních nemovitostí a problematiku současného stavebnictví, jako jsou vysoké ceny energií, vývoj poptávky v oboru, možnosti investic a jejich návratnost n"
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "cs_CZ",
+            "snippet": "<p>Investiční konference Hospodářských novin určená pro všechny, kdo usilují o finanční svobodu a její zachování pro sebe i svou rodinu - i v turbulentní době.</p>",
+            "text": "Investiční konference Hospodářských novin určená pro všechny, kdo usilují o finanční svobodu a její zachování pro sebe i svou rodinu - i v turbulentní době."
+          },
+          {
+            "guess": "cs",
+            "hits": 6,
+            "lang": "cs_CZ",
+            "snippet": "<p>Diskuse se povede o strategiích a opatřeních, jež mohou zásadně zlepšit podnikatelské prostředí, dostupnost talentu a kapitálu i mezinárodní reputaci Česka. Konference se opírá o dlouhodobé pilíře ",
+            "text": "Diskuse se povede o strategiích a opatřeních, jež mohou zásadně zlepšit podnikatelské prostředí, dostupnost talentu a kapitálu i mezinárodní reputaci Česka. Konference se opírá o dlouhodobé pilíře Druhé ekonomické transformace a zároveň reaguje na dynamický vývoj globální ekonomiky i geopolitiky."
+          },
+          {
+            "guess": "cs",
+            "hits": 8,
+            "lang": "cs_CZ",
+            "snippet": "<p><span style=\"font-weight: 400;\">Exkluzivní žebříček Hospodářských novin TOP ženy Česka slaví 20 let. Cílem projektu je zviditelnit úspěšné ženy ve veřejné i byznysové sféře, příběhy úspěšných žen i",
+            "text": "Exkluzivní žebříček Hospodářských novin TOP ženy Česka slaví 20 let. Cílem projektu je zviditelnit úspěšné ženy ve veřejné i byznysové sféře, příběhy úspěšných žen inspirovat jejich následovnice a také se zabývat tématy, jako jsou rovné pracovní příležitosti a působení žen na postech s rozhodovacími"
+          },
+          {
+            "guess": "cs",
+            "hits": 4,
+            "lang": "cs_CZ",
+            "snippet": "<p><span style=\"font-weight: 400;\">Infografiky, seriály a speciální projekty připravované redakcí online deníku Aktuálně.cz ve spolupráci s partnery, kteří se chtějí spojit s důležitými tématy a tím s",
+            "text": "Infografiky, seriály a speciální projekty připravované redakcí online deníku Aktuálně.cz ve spolupráci s partnery, kteří se chtějí spojit s důležitými tématy a tím se zviditelnit v široké veřejnosti."
+          },
+          {
+            "guess": "cs",
+            "hits": 6,
+            "lang": "cs_CZ",
+            "snippet": "<p><span style=\"font-weight: 400;\">Výzkum Hospodářských novin Nejlepší banka a Nejlepší pojišťovna má za cíl podpořit rozvoj bankovního a pojišťovacího sektoru, poskytnout veřejnosti ucelený obraz o f",
+            "text": "Výzkum Hospodářských novin Nejlepší banka a Nejlepší pojišťovna má za cíl podpořit rozvoj bankovního a pojišťovacího sektoru, poskytnout veřejnosti ucelený obraz o finančním trhu a pomoci se snadnější orientací v produktech a službách, které finanční instituce nabízejí. Slavnostní vyhlášení probíhá "
+          },
+          {
+            "guess": "cs",
+            "hits": 4,
+            "lang": "en-US",
+            "snippet": "<p class=\"no-margin\">Vyplněním a odesláním formuláře berete na vědomí, že dochází ke sbírání a zpracování osobních údajů za účelem zodpovězení vašeho dotazu. Více informací o zásadách ochany osobních ",
+            "text": "Vyplněním a odesláním formuláře berete na vědomí, že dochází ke sbírání a zpracování osobních údajů za účelem zodpovězení vašeho dotazu. Více informací o zásadách ochany osobních údajů naleznete zde."
+          }
+        ],
+        "pageLang": "cs_CZ"
+      },
+      "labels": [true],
+      "set": "holdout",
+      "site": "www_economia_cz_specialni_projekty_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<p class=\"grid__cell size--t-6-12 mb0 fz-sm color-gray text-left--m text-right\">\n                                Your IP address: 2a00:1028:83da:3052:d9c8:66b5:923a:6494\n                        </p>",
+            "text": "Your IP address: 2a00:1028:83da:3052:d9c8:66b5:923a:6494"
+          }
+        ],
+        "pageLang": "en"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_fit_vut_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "nl",
+            "hits": 10,
+            "lang": "fr",
+            "snippet": "<li class=\"MainItem_mainItem_14OoY\"><a href=\"https://www.footshop.fr/fr/7126-le-sport\" title=\"Tous - Sport\">Sport</a><div class=\"MainItem_child_2v48z\"><div class=\"PageContainer_wrapper_Isqhi\"><div cla",
+            "text": "SportSportRunningBasket-ballPadelHyroxCyclismeOutdoorFitnessChaussures de sportShoe FinderRunningChaussures de basketOutdoorFitnessToutes les chaussures de sportVêtements de sportT-shirts de sportShort de sportSweatshirt de sportPantalon de sportSous-vêtements de sportSoutiens-gorge de sportVestes d"
+          }
+        ],
+        "pageLang": "fr"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_footshop_fr_fr_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "en",
+            "hits": 7,
+            "lang": "fr",
+            "snippet": "<p class=\"paragraph-m\">Your language (English) does not match the language of the content you are trying to visit (Français)</p>",
+            "text": "Your language (English) does not match the language of the content you are trying to visit (Français)"
+          },
+          {
+            "guess": "en",
+            "hits": 3,
+            "lang": "fr",
+            "snippet": "<p class=\"AfAlert__cta\"><button data-v-6458d367=\"\" class=\"AfButton AfButton--primary AfButton--small AfButton--red label-s\"><!----><!----><!----><span data-v-6458d367=\"\" class=\"AfButton__text\">Continu",
+            "text": "Continue in FrançaisBring me to the version English"
+          },
+          {
+            "guess": "nl",
+            "hits": 11,
+            "lang": "fr",
+            "snippet": "<p class=\"AfHero__intro paragraph-xl bg-white radius-s\" data-v-3350bb46=\"\" tabindex=\"-1\">Et si l’on faisait le tour de France des vins ? De l’Alsace à la Provence en passant par le Bordelais et la Bou",
+            "text": "Et si l’on faisait le tour de France des vins ? De l’Alsace à la Provence en passant par le Bordelais et la Bourgogne, il y a autant de routes des vins à parcourir que de nectars à découvrir en chemin. Dégustations de produits du terroir, fêtes de villages, visites de caves, de châteaux et de chais,"
+          },
+          {
+            "guess": "nl",
+            "hits": 6,
+            "lang": "fr",
+            "snippet": "<p class=\"AfHero__intro paragraph-xl bg-white radius-s\" data-v-3350bb46=\"\" tabindex=\"-1\">Le point sur l'entrée en vigueur de l'Entry Exit System (EES). Il s'applique aux ressortissants de pays tiers à",
+            "text": "Le point sur l'entrée en vigueur de l'Entry Exit System (EES). Il s'applique aux ressortissants de pays tiers à l'Union européenne souhaitant entrer ou sortir de France ainsi que de l’ensemble de l’Espace Schengen, qu'ils disposent d'un visa ou non."
+          },
+          {
+            "guess": "nl",
+            "hits": 6,
+            "lang": "fr",
+            "snippet": "<p class=\"AfHero__intro paragraph-xl bg-white radius-s\" data-v-3350bb46=\"\" tabindex=\"-1\">Cinq ans après l’incendie de Notre-Dame de Paris, le plus iconique des monuments parisiens rouvre ses portes au",
+            "text": "Cinq ans après l’incendie de Notre-Dame de Paris, le plus iconique des monuments parisiens rouvre ses portes aux visiteurs. Conseils de visite, programme des festivités... plongez dans les coulisses de cet évènement planétaire tout en redécouvrant l’histoire de ce joyau du patrimoine français qui in"
+          },
+          {
+            "guess": "nl",
+            "hits": 11,
+            "lang": "fr",
+            "snippet": "<p class=\"AfHero__intro paragraph-xl bg-white radius-s\" data-v-3350bb46=\"\" tabindex=\"-1\">Et si l’on faisait le tour de France des vins ? De l’Alsace à la Provence en passant par le Bordelais et la Bou",
+            "text": "Et si l’on faisait le tour de France des vins ? De l’Alsace à la Provence en passant par le Bordelais et la Bourgogne, il y a autant de routes des vins à parcourir que de nectars à découvrir en chemin. Dégustations de produits du terroir, fêtes de villages, visites de caves, de châteaux et de chais,"
+          },
+          {
+            "guess": "nl",
+            "hits": 6,
+            "lang": "fr",
+            "snippet": "<p class=\"AfHero__intro paragraph-xl bg-white radius-s\" data-v-3350bb46=\"\" tabindex=\"-1\">Le point sur l'entrée en vigueur de l'Entry Exit System (EES). Il s'applique aux ressortissants de pays tiers à",
+            "text": "Le point sur l'entrée en vigueur de l'Entry Exit System (EES). Il s'applique aux ressortissants de pays tiers à l'Union européenne souhaitant entrer ou sortir de France ainsi que de l’ensemble de l’Espace Schengen, qu'ils disposent d'un visa ou non."
+          },
+          {
+            "guess": "nl",
+            "hits": 6,
+            "lang": "fr",
+            "snippet": "<p class=\"AfHero__intro paragraph-xl bg-white radius-s\" data-v-3350bb46=\"\" tabindex=\"-1\">Cinq ans après l’incendie de Notre-Dame de Paris, le plus iconique des monuments parisiens rouvre ses portes au",
+            "text": "Cinq ans après l’incendie de Notre-Dame de Paris, le plus iconique des monuments parisiens rouvre ses portes aux visiteurs. Conseils de visite, programme des festivités... plongez dans les coulisses de cet évènement planétaire tout en redécouvrant l’histoire de ce joyau du patrimoine français qui in"
+          },
+          {
+            "guess": "nl",
+            "hits": 11,
+            "lang": "fr",
+            "snippet": "<p class=\"AfHero__intro paragraph-xl bg-white radius-s\" data-v-3350bb46=\"\" tabindex=\"-1\">Et si l’on faisait le tour de France des vins ? De l’Alsace à la Provence en passant par le Bordelais et la Bou",
+            "text": "Et si l’on faisait le tour de France des vins ? De l’Alsace à la Provence en passant par le Bordelais et la Bourgogne, il y a autant de routes des vins à parcourir que de nectars à découvrir en chemin. Dégustations de produits du terroir, fêtes de villages, visites de caves, de châteaux et de chais,"
+          },
+          {
+            "guess": "nl",
+            "hits": 6,
+            "lang": "fr",
+            "snippet": "<p class=\"AfHero__intro paragraph-xl bg-white radius-s\" data-v-3350bb46=\"\" tabindex=\"-1\">Le point sur l'entrée en vigueur de l'Entry Exit System (EES). Il s'applique aux ressortissants de pays tiers à",
+            "text": "Le point sur l'entrée en vigueur de l'Entry Exit System (EES). Il s'applique aux ressortissants de pays tiers à l'Union européenne souhaitant entrer ou sortir de France ainsi que de l’ensemble de l’Espace Schengen, qu'ils disposent d'un visa ou non."
+          },
+          {
+            "guess": "nl",
+            "hits": 6,
+            "lang": "fr",
+            "snippet": "<p class=\"AfHero__intro paragraph-xl bg-white radius-s\" data-v-3350bb46=\"\">Cinq ans après l’incendie de Notre-Dame de Paris, le plus iconique des monuments parisiens rouvre ses portes aux visiteurs. C",
+            "text": "Cinq ans après l’incendie de Notre-Dame de Paris, le plus iconique des monuments parisiens rouvre ses portes aux visiteurs. Conseils de visite, programme des festivités... plongez dans les coulisses de cet évènement planétaire tout en redécouvrant l’histoire de ce joyau du patrimoine français qui in"
+          },
+          {
+            "guess": "nl",
+            "hits": 3,
+            "lang": "fr",
+            "snippet": "<li class=\"AfCarousel-slide\" aria-hidden=\"true\" style=\"margin-right:24px;width:calc(41.5% - (24px * 1) / 2);order:19;\" aria-label=\"0 of 10\" data-v-5b06e93a=\"\" data-v-1a4d3280=\"\" tabindex=\"-1\"><article",
+            "text": "Balade automnale en Val de LoireVal de Loire"
+          },
+          {
+            "guess": "nl",
+            "hits": 3,
+            "lang": "fr",
+            "snippet": "<li class=\"AfCarousel-slide\" aria-hidden=\"true\" style=\"margin-right:24px;width:calc(41.5% - (24px * 1) / 2);order:29;\" aria-label=\"0 of 10\" data-v-5b06e93a=\"\" data-v-1a4d3280=\"\" tabindex=\"-1\"><article",
+            "text": "Balade automnale en Val de LoireVal de Loire"
+          },
+          {
+            "guess": "nl",
+            "hits": 3,
+            "lang": "fr",
+            "snippet": "<li class=\"AfCarousel-slide\" aria-hidden=\"true\" style=\"margin-right:24px;width:calc(41.5% - (24px * 1) / 2);order:9;\" aria-label=\"0 of 10\" data-v-5b06e93a=\"\" data-v-1a4d3280=\"\" tabindex=\"-1\"><article ",
+            "text": "Balade automnale en Val de LoireVal de Loire"
+          },
+          {
+            "guess": "nl",
+            "hits": 3,
+            "lang": "fr",
+            "snippet": "<li class=\"gridM-6 gridS-6\" data-v-f6927cc5=\"\"><a class=\"AfLink AfLink--horizontal\" href=\"/fr/article/voyager-en-france-en-situation-de-handicap/\" data-v-f6927cc5=\"\"><span class=\"AfLink__icon radius-s",
+            "text": "Voyager en France en situation de handicap"
+          }
+        ],
+        "pageLang": "fr"
+      },
+      "labels": [true, true, false, false, false, false, false],
+      "set": "design",
+      "site": "www_france_fr_fr_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "en",
+            "hits": 6,
+            "lang": "de",
+            "snippet": "<p>The International Science &amp; Policy Symposium (ISPS) 2026 on June 24-25, 2026 in Hannover brought together global experts to explore how international collaboration can advance research and inno",
+            "text": "The International Science & Policy Symposium (ISPS) 2026 on June 24-25, 2026 in Hannover brought together global experts to explore how international collaboration can advance research and innovation in a time of profound transition."
+          }
+        ],
+        "pageLang": "de"
+      },
+      "labels": [true],
+      "set": "holdout",
+      "site": "www_german_u15_de_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 5,
+            "lang": "cs",
+            "snippet": "<h1 class=\"_text_yrczc_117 _size_title_6_yrczc_1345 _@xs:size_title_4_yrczc_3916 _@lg:size_title_2_yrczc_12065 _actionitem_1gads_1\" style=\"--actionitem-transition-duration:.3s;--actionitem-decoration-",
+            "text": "Advent bez shonu, silvestr bez kompromisů. W Prague zve na brunche, steaky i párty do tří do rána"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h1 class=\"_text_yrczc_117 _size_title_6_yrczc_1345 _@xs:size_title_4_yrczc_3916 _@lg:size_title_2_yrczc_12065 _actionitem_1gads_1\" style=\"--actionitem-transition-duration:.3s;--actionitem-decoration-",
+            "text": "Z miliardového byznysu do longevity. Jan Ježek investuje desítky milionů do klubu, kde má být člověk na prvním místě"
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h1 class=\"_text_yrczc_117 _size_title_6_yrczc_1345 _@xs:size_title_4_yrczc_3916 _@lg:size_title_2_yrczc_12065 _actionitem_1gads_1\" style=\"--actionitem-transition-duration:.3s;--actionitem-decoration-",
+            "text": "„Do jara na Ukrajině mír nebude.“ Echo Salon o USA, Rusku a vyjednávání konce války"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false, false],
+      "set": "design",
+      "site": "www_hrot24_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "en",
+            "hits": 5,
+            "lang": "cs",
+            "snippet": "<h2 class=\"title\"><a href=\"/publikace/universal-access-to-diabetes-technology-is-key-to-reducing-hba1c-disparities-in-children\" rel=\"bookmark\">‘Universal access to diabetes technology is key to reduci",
+            "text": "‘Universal access to diabetes technology is key to reducing HbA1c disparities in children with type 1 diabetes’"
+          },
+          {
+            "guess": "en",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"title\"><a href=\"/publikace/among-women-with-ulcerative-colitis-treated-with-tofacitinib-we-observed-no-adverse\" rel=\"bookmark\">‘Among women with ulcerative colitis treated with tofacitinib,",
+            "text": "‘Among women with ulcerative colitis treated with tofacitinib, we observed no adverse pregnancy or infant outcomes’"
+          },
+          {
+            "guess": "en",
+            "hits": 5,
+            "lang": "cs",
+            "snippet": "<h2 class=\"title\"><a href=\"/publikace/universal-access-to-diabetes-technology-is-key-to-reducing-hba1c-disparities-in-children\" rel=\"bookmark\">‘Universal access to diabetes technology is key to reduci",
+            "text": "‘Universal access to diabetes technology is key to reducing HbA1c disparities in children with type 1 diabetes’"
+          },
+          {
+            "guess": "en",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"title\"><a href=\"/publikace/among-women-with-ulcerative-colitis-treated-with-tofacitinib-we-observed-no-adverse\" rel=\"bookmark\">‘Among women with ulcerative colitis treated with tofacitinib,",
+            "text": "‘Among women with ulcerative colitis treated with tofacitinib, we observed no adverse pregnancy or infant outcomes’"
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<p>Rehabilitační lékař a&nbsp;výzkumník hovoří o&nbsp;podobách rehabilitační péče i&nbsp;o&nbsp;výzvách, kterým čelí lékařky a&nbsp;lékaři na začátku své kariéry. Moderuje prof. Josef Zámečník.</p>",
+            "text": "Rehabilitační lékař a výzkumník hovoří o podobách rehabilitační péče i o výzvách, kterým čelí lékařky a lékaři na začátku své kariéry. Moderuje prof. Josef Zámečník."
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<p>Rehabilitační lékař a&nbsp;výzkumník hovoří o&nbsp;podobách rehabilitační péče i&nbsp;o&nbsp;výzvách, kterým čelí lékařky a&nbsp;lékaři na začátku své kariéry. Moderuje prof. Josef Zámečník.</p>",
+            "text": "Rehabilitační lékař a výzkumník hovoří o podobách rehabilitační péče i o výzvách, kterým čelí lékařky a lékaři na začátku své kariéry. Moderuje prof. Josef Zámečník."
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<p>Rehabilitační lékař a&nbsp;výzkumník hovoří o&nbsp;podobách rehabilitační péče i&nbsp;o&nbsp;výzvách, kterým čelí lékařky a&nbsp;lékaři na začátku své kariéry. Moderuje prof. Josef Zámečník.</p>",
+            "text": "Rehabilitační lékař a výzkumník hovoří o podobách rehabilitační péče i o výzvách, kterým čelí lékařky a lékaři na začátku své kariéry. Moderuje prof. Josef Zámečník."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [true, true, false],
+      "set": "design",
+      "site": "www_lf2_cuni_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"article-box__title\">Největší radost mám z&nbsp;okamžiku, kdy žák zjistí, jak na to</h2>",
+            "text": "Největší radost mám z okamžiku, kdy žák zjistí, jak na to"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_matfyz_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "en-US",
+            "snippet": "<p class=\"text-13\">\n      <span class=\"cf-footer-item sm:block sm:mb-1\">Cloudflare Ray ID: <strong class=\"font-semibold\">a551ca724ab597f1</strong></span>\n      <span class=\"cf-footer-separator sm:hidd",
+            "text": "Cloudflare Ray ID: a551ca724ab597f1 • Your IP: Click to reveal 2a00:1028:83da:3052:d9c8:66b5:923a:6494 • Performance & security by Cloudflare"
+          }
+        ],
+        "pageLang": "en-US"
+      },
+      "labels": [null],
+      "set": "design",
+      "site": "www_osf_mvcr_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "en",
+            "hits": 5,
+            "lang": "de",
+            "snippet": "<h3 class=\"bpa-pub-details-pp__title-wrapper\">\n<span class=\"bpa-pub-details-pp__label\">\nBildung, Familie, Senioren, Frauen und Jugend (BMBFSFJ)\n</span>\n<span class=\"bpa-pub-details-pp__title\">\n<span x",
+            "text": "Bildung, Familie, Senioren, Frauen und Jugend (BMBFSFJ) First Monitoring Report on the National Action Plan to Prevent and Combat Trafficking in ... Reporting period: up to 31 December 2025"
+          },
+          {
+            "guess": "en",
+            "hits": 5,
+            "lang": "de",
+            "snippet": "<p class=\"bpa-pub-details-pp__text\">\n<span xml:lang=\"en-GB\" lang=\"en-GB\">The first monitoring report documents the progress made during the first National Action Plan to prevent and combat human ...</",
+            "text": "The first monitoring report documents the progress made during the first National Action Plan to prevent and combat human ..."
+          }
+        ],
+        "pageLang": "de"
+      },
+      "labels": [true, true],
+      "set": "design",
+      "site": "www_publikationen_bundesregierung_de_pp_de_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3 class=\"entry-title td-module-title\"><a href=\"https://www.serialovysvet.cz/komisar-rex-moser-nesnasel-psi-olizovani-a-nechal-svou-postavu-zabit-brandtner-zase-nedodrzel-smlouvu-a-utekl-do-usa/\" rel",
+            "text": "Komisař Rex: Moser nesnášel psí olizování a nechal svou postavu zabít. Brandtner zase nedodržel smlouvu a utekl do USA"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_serialovysvet_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p class=\"perex\">Degustační expozice o víně, vinařství, vinohradnictví a&nbsp;vinné kultuře Moravy a&nbsp;Čech.\n</p>",
+            "text": "Degustační expozice o víně, vinařství, vinohradnictví a vinné kultuře Moravy a Čech."
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p class=\"perex\">Degustační expozice o víně, vinařství, vinohradnictví a&nbsp;vinné kultuře Moravy a&nbsp;Čech.\n</p>",
+            "text": "Degustační expozice o víně, vinařství, vinohradnictví a vinné kultuře Moravy a Čech."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_spilberk_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "en",
+            "hits": 3,
+            "lang": "es",
+            "snippet": "<p class=\"body__title\">\n            Miu sings (Sittin' On) The Dock of the Bay | Otis Redding Vocal Cover #singer #vocalist\n        </p>",
+            "text": "Miu sings (Sittin' On) The Dock of the Bay | Otis Redding Vocal Cover #singer #vocalist"
+          },
+          {
+            "guess": "nl",
+            "hits": 5,
+            "lang": "es",
+            "snippet": "<p class=\"text-xs text-neutral-600 mt-4 text-center le:text-left le:mt-6\">\n                Haciendo clic en \"Regístrate ahora\", acepto recibir publicidad vía email. Darse de baja es posible en cualqui",
+            "text": "Haciendo clic en \"Regístrate ahora\", acepto recibir publicidad vía email. Darse de baja es posible en cualquier momento. Puedes encontrar más información sobre Newsletter en nuestra política de privacidad."
+          },
+          {
+            "guess": "nl",
+            "hits": 4,
+            "lang": "es",
+            "snippet": "<p data-testid=\"payments-text\" class=\"text-sm\">\n                    El pago se puede realizar de forma segura a través de Transferencia bancaria, PayPal, Amazon Pay, <a href=\"faq_question_es_posible_p",
+            "text": "El pago se puede realizar de forma segura a través de Transferencia bancaria, PayPal, Amazon Pay, Klarna Paga Ahora, Klarna Paga en 3 o Tarjeta de crédito/débito."
+          }
+        ],
+        "pageLang": "es"
+      },
+      "labels": [null, false, false],
+      "set": "holdout",
+      "site": "www_thomann_es_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "en",
+            "hits": 3,
+            "lang": "ro",
+            "snippet": "<p class=\"body__title\">\n            Miu sings (Sittin' On) The Dock of the Bay | Otis Redding Vocal Cover #singer #vocalist\n        </p>",
+            "text": "Miu sings (Sittin' On) The Dock of the Bay | Otis Redding Vocal Cover #singer #vocalist"
+          },
+          {
+            "guess": "en",
+            "hits": 3,
+            "lang": "ro",
+            "snippet": "<p class=\"body__title\">\n            Get&nbsp;the&nbsp;perfect&nbsp;custom-made&nbsp;flight&nbsp;case&nbsp;for&nbsp;your&nbsp;gear&nbsp;with&nbsp;Case&nbsp;Factory&nbsp;🛠️❤️\n        </p>",
+            "text": "Get the perfect custom-made flight case for your gear with Case Factory 🛠️❤️"
+          }
+        ],
+        "pageLang": "ro"
+      },
+      "labels": [null, true],
+      "set": "holdout",
+      "site": "www_thomann_ro_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 5,
+            "lang": "cs",
+            "snippet": "<p>Reverzní dveře se otevírají do zárubně. Pomohou vyřešit kolizi dvou křídel, uvolnit stěnu pro nábytek nebo srovnat chodbu do jedné linie. Mají ale svá technická omezení a&nbsp;rozhodnutí o&nbsp;nic",
+            "text": "Reverzní dveře se otevírají do zárubně. Pomohou vyřešit kolizi dvou křídel, uvolnit stěnu pro nábytek nebo srovnat chodbu do jedné linie. Mají ale svá technická omezení a rozhodnutí o nich patří do projektové fáze stavby. Článek shrnuje doporučení odborníků ze ..."
+          },
+          {
+            "guess": "sk",
+            "hits": 6,
+            "lang": "cs",
+            "snippet": "<p><span class=\"object-labels\" style=\"position:inherit;\"><span>Recenzovaný</span>  </span>Čo môže začať ako bežná obhliadka stropnej dosky garáže z&nbsp;dôvodu pretekania nánosovej vody na nižšie podl",
+            "text": "Recenzovaný Čo môže začať ako bežná obhliadka stropnej dosky garáže z dôvodu pretekania nánosovej vody na nižšie podlažia, vie vyústiť do komplexných diagnostických prác a podrobnej numerickej analýzy. Na konkrétnom prípade stropnej dosky budú prezentované nielen typické diagnostické práce, ako sú m"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3><a href=\"https://www.tzb-info.cz/povodne/30534-samotna-prehrada-nestaci-jak-lepe-chranit-mesta-i-krajinu-pred-povodnemi-i-suchem\" title=\"Samotná přehrada nestačí. Jak lépe chránit města i krajinu ",
+            "text": "Samotná přehrada nestačí. Jak lépe chránit města i krajinu před povodněmi i suchem?"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, true, false],
+      "set": "holdout",
+      "site": "www_tzb_info_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "nl",
+            "hits": 3,
+            "lang": "es",
+            "snippet": "<p class=\"MagazineTeaser_description__uS47p\">En este magazine de gatos encontrarás mucha información clave y consejos para cuando decidas tener un gatito en casa.</p>",
+            "text": "En este magazine de gatos encontrarás mucha información clave y consejos para cuando decidas tener un gatito en casa."
+          }
+        ],
+        "pageLang": "es"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_zooplus_es_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "da",
+            "hits": 4,
+            "lang": "de",
+            "snippet": "<li id=\"menu-item-273\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-273\"><a href=\"https://48ertandler.wien.gv.at/der-48er-tandler/\">48er-Tandler</a>",
+            "text": "48er-Tandler Standorte und Öffnungszeiten Der 48er-Tandler Das Konzept Abgabe von Altwaren Verkauf von Altwaren Karitatives Engagement Prominente Unterstützung Die 48er-Tandler-Band"
+          }
+        ],
+        "pageLang": "de"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "48ertandler_wien_gv_at_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs-CZ",
+            "snippet": "<p class=\"text-gray mb-4 sm:text-lg\">Stačí zanechat e-mail a o všem důležitém vám dáme vědět.</p>",
+            "text": "Stačí zanechat e-mail a o všem důležitém vám dáme vědět."
+          }
+        ],
+        "pageLang": "cs-CZ"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "blog_seznam_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3>KVÍZ: Strašidla, dýně i vzpomínky na blízké. Jak dobře znáte podzimní svátky?</h3>",
+            "text": "KVÍZ: Strašidla, dýně i vzpomínky na blízké. Jak dobře znáte podzimní svátky?"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "budejcka_drbna_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://burda-international-cz.shorthandstories.com/caje-ahmad/\" target=\"_blank\">\n                  <div class=\"T",
+            "text": "Příběh čaje, který nikdy nekončí jen u jednoho šálku Proč na původu, zpracování a detailech opravdu záleží"
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://www.burdastory.cz/marianne/jizni-cechy\" target=\"_blank\">\n                  <div class=\"Theme-Layer-Galler",
+            "text": "Marianne: Nechte se okouzlit Jižní Čechy jsou opravdu pohádkové - a to nejen o Vánocích"
+          },
+          {
+            "guess": "cs",
+            "hits": 7,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://www.burdastory.cz/elle/co-si-vezmu-na-sebe-o-vanocich\" target=\"_blank\">\n                  <div class=\"The",
+            "text": "ELLE: Co si vezmu na sebe o Vánocích? Ať už se chystáte na slavnostní večeři, nebo novoroční oslavu, je důležité cítit se stylově a přirozeně."
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://www.burdastory.cz/elle/zrodila-se-krasa\">\n                  <div class=\"Theme-Layer-Gallery-Item-Media\">\n",
+            "text": "ELLE: A zdrodila se krása V překrásné přírodě Nového Zélandu se zrodila unikátní kosmetika plná přírodních bohatství..."
+          },
+          {
+            "guess": "cs",
+            "hits": 5,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://www.burdastory.cz/marianne/sperk-nausnice\">\n                  <div class=\"Theme-Layer-Gallery-Item-Media\"",
+            "text": "MARIANNE: Šperk jako symbol lásky a výjimečného mezilidského pouta Kouzlo náušnic tkví v tom, že se dokážou přizpůsobit každé ženě, bez ohledu na věk"
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://www.burdastory.cz/marianne/vanocni-outfit-2023\" target=\"_blank\">\n                  <div class=\"Theme-Laye",
+            "text": "MARIANNE: Už máte perfektní sváteční outfit? Že ne? Je načase to změnit a obléknout stylově sebe i své nejbližší"
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://www.burdastory.cz/marianne/mastercard-extra-vyhody\" target=\"_blank\">\n                  <div class=\"Theme-",
+            "text": "MARIANNE: Jedna z nejoblíbenějších nákupních událostí je zase tady! Užíjte si s Mastercard nakupování na maximum - ještě vyšší slevy, dárky a mnoho dalších výhod"
+          },
+          {
+            "guess": "cs",
+            "hits": 5,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://www.burdastory.cz/chip/se-smartphony-na-dovolenych\">\n                  <div class=\"Theme-Layer-Gallery-It",
+            "text": "CHIP: Se smartphony na dovolených Pro prázdninové pobyty je dobré znát pár triků, jejichž pomocí můžete ušetřit mobilní data a nakonec i svou peněženku."
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://www.burdastory.cz/marianne/na-navsteve-tmbk\">\n                  <div class=\"Theme-Layer-Gallery-Item-Medi",
+            "text": "MARIANNE: Na návštěvě: TMBK a jeho pracovna Místo pro maximální kreativitu"
+          },
+          {
+            "guess": "cs",
+            "hits": 5,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://www.burdastory.cz/elle-stories/neni-bond-jako-bond\">\n                  <div class=\"Theme-Layer-Gallery-It",
+            "text": "ELLE: Není BOND jako BOND Nenechte se zmást a mluvte anglicky jako profík"
+          },
+          {
+            "guess": "cs",
+            "hits": 4,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://www.burdastory.cz/marianne/vrasky-nechte-si-jen-ty-ktere-vam-slusi\">\n                  <div class=\"Theme-",
+            "text": "MARIANNE: Vrásky: nechte si jen ty, které vám sluší Vrásky vyprávějí váš osobní příběh. Zbavte se jen těch, které vás skutečně trápí a ty ostatní si s hrdostí ponechte"
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://www.burdastory.cz/marianne/kovy-jeho-partner-mira-jak-na-moderni-pracovnu\">\n                  <div class=",
+            "text": "MARIANNE: Jak na moderní pracovnu? Kovy a jeho partner Míra udělali životní rozhodnutí, které si nemohou vynachválit!"
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-Gallery-Item\" style=\"overflow:hidden\">\n                <a href=\"https://www.burdastory.cz/apetit/veschny-chute-vasi-duse-podle-maresi\">\n                  <div class=\"Theme-Layer",
+            "text": "APETIT: Všechny chutě a touhy vaší duše: Jak je objevit? Láska k jídlu, vaše osobnost a touha cestovat. Mají společného víc, než si myslíte."
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-BodyText-ListItem\">ELLE: <a href=\"https://www.burdastory.cz/elle/apart-krasa-diamantu-laska-na-cely-zivot \" target=\"_blank\">Proč jsou diamanty láskou na první pohled (a celý živ",
+            "text": "ELLE: Proč jsou diamanty láskou na první pohled (a celý život)?"
+          },
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "en",
+            "snippet": "<li class=\"Theme-Layer-BodyText-ListItem\">APETIT: <a href=\"https://www.burdastory.cz/apetit/top-20-zdravi-na-taliri \" target=\"_blank\">Které ovoce a zeleninu zvolit pro dokonalou hydrataci? </a></li>",
+            "text": "APETIT: Které ovoce a zeleninu zvolit pro dokonalou hydrataci?"
+          }
+        ],
+        "pageLang": "en"
+      },
+      "labels": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "set": "holdout",
+      "site": "burda_international_cz_shorthandstories_com_burda_story_index_html"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 6,
+            "lang": "cs-CZ",
+            "snippet": "<li class=\"bno-grid__tile\">\n    <article class=\"bno-preview-tile bno-preview-tile--no-border bno-preview-tile--no-offset-x\">\n        <div class=\"bno-preview-tile__header\">\n                    <div cla",
+            "text": "03. listopadu 2026 BM 11/2026 Rozhovory Kam na netradiční „rande“ s rodiči? Třeba na burlesku Až budete hledat, jak si zpestřit šedivé listopadové dny, narazíte mezi brněnskými akcemi i na Bohemian Burlesque Festival (www.bohemianburlesquefestival.com). Pokud jste na burlesce ještě nebyli a..."
+          },
+          {
+            "guess": "pl",
+            "hits": 4,
+            "lang": "cs-CZ",
+            "snippet": "<p class=\"bno-note\">Až budete hledat, jak si zpestřit šedivé listopadové dny, narazíte mezi brněnskými akcemi i na Bohemian Burlesque Festival (www.bohemianburlesquefestival.com). Pokud jste na burles",
+            "text": "Až budete hledat, jak si zpestřit šedivé listopadové dny, narazíte mezi brněnskými akcemi i na Bohemian Burlesque Festival (www.bohemianburlesquefestival.com). Pokud jste na burlesce ještě nebyli a..."
+          }
+        ],
+        "pageLang": "cs-CZ"
+      },
+      "labels": [false, false],
+      "set": "holdout",
+      "site": "cosedeje_brno_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 6,
+            "lang": "cs",
+            "snippet": "<p>Místo, kde se informace mění v&nbsp;zisk. Spolehlivý průvodce světem financí nabízí každý den aktuální zprávy z&nbsp;trhů, analýzy, rozhovory s&nbsp;odborníky i&nbsp;praktické tipy. Zaměřuje se nej",
+            "text": "Místo, kde se informace mění v zisk. Spolehlivý průvodce světem financí nabízí každý den aktuální zprávy z trhů, analýzy, rozhovory s odborníky i praktické tipy. Zaměřuje se nejen na investory, ale i na ty, kteří teprve začínají. Články i videa nabízí svým čtenářům a divákům už více než 16 let."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "eshop_nextpagemedia_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"mb-0 font-bold text-base-ui sm:text-xl-ui \"><a href=\"https://www.denik.cz/pocasi/predpoved-pocasi-cesko-kraje-listopad-zima-srudena-fronta-snih-silny-vitr/\" class=\"no-underline group-hover/",
+            "text": "Nová předpověď na listopad: Dorazí déšť, mlhy i sníh. Teploty klesnou i pod nulu"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "fm_denik_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 7,
+            "lang": "cs",
+            "snippet": "<li class=\"menu-primary__item with-subbox\" style=\"\">\n                    <span class=\"menu-primary__links\">\n                            <span class=\"menu-primary__link\">\n                              ",
+            "text": "IT služby Sítě a Wi-Fi Informační systémy Účty, hesla, ID karty Uživatelská podpora E-mail, spolupráce, Microsoft 365 Telefonování, audio, video Tiskové služby Knihovny a nakladatelství PC studovny a učebny Mapy a GIS Výuka a vzdělávání Software a hardware Web, hosting, propagace Datová úložiště Inf"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "it_muni_cz_phil"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<h2 class=\"mb-0 font-bold text-base-ui sm:text-xl-ui \"><a href=\"https://jablonecky.denik.cz/fotbal-cfl-msfl/jablonec-b-3-liga-josef-just-rozhovor-pet-vyher/\" class=\"no-underline group-hover/item:text-",
+            "text": "Rezerva Jablonce jede na vlně. Kluky to baví a baví to i nás, říká trenér Just"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"mb-0 font-bold text-base-ui sm:text-xl-ui \"><a href=\"https://www.denik.cz/pocasi/predpoved-pocasi-cesko-kraje-listopad-zima-srudena-fronta-snih-silny-vitr/\" class=\"no-underline group-hover/",
+            "text": "Nová předpověď na listopad: Dorazí déšť, mlhy i sníh. Teploty klesnou i pod nulu"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false],
+      "set": "design",
+      "site": "jablonecky_denik_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p>Aktuální Grundfunk zamířil také do Bristolu za The Allergies, do Londýna za Nathanem Hainesem a představil návrat Amany Melome' s albem Recalibration.</p>",
+            "text": "Aktuální Grundfunk zamířil také do Bristolu za The Allergies, do Londýna za Nathanem Hainesem a představil návrat Amany Melome' s albem Recalibration."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "jazz_rozhlas_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 11,
+            "lang": "cs",
+            "snippet": "<p align=\"left\">e-mail: <noscript>\n<a href=\"mailto:\" class=\"i-email\">[e-mail]</a>\n</noscript>\n<script>document.write(\"<a href='mailto:\");document.write(\"k\"+\"a\"+\"m\"+\"p\"+\"u\"+\"s\"+\".\"+\"a\"+\"l\"+\"b\"+\"e\"+\"r\"+",
+            "text": "e-mail: <a href=\"mailto:\" class=\"i-email\">[e-mail]</a> document.write(\"<a href='mailto:\");document.write(\"k\"+\"a\"+\"m\"+\"p\"+\"u\"+\"s\"+\".\"+\"a\"+\"l\"+\"b\"+\"e\"+\"r\"+\"t\"+\"o\"+\"v\"+\"@\"+\"r\"+\"u\"+\"k\"+\".\"+\"c\"+\"u\"+\"n\"+\"i\"+\".\"+\"c\"+\"z\");document.write(\"' class='i-email'>\");document.write(\"k\"+\"a\"+\"m\"+\"p\"+\"u\"+\"s\"+\".\"+\"a\"+\"l"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [null],
+      "set": "holdout",
+      "site": "kampusalbertov_cuni_cz_KA_1_html"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p class=\"text-white text-xs leading-5 block\">© O2 Czech Republic a.s. - Informace o\n                                zpracování osobních\n                                údajů najdete <a href=\"https://",
+            "text": "© O2 Czech Republic a.s. - Informace o zpracování osobních údajů najdete zde."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "kariera_o2_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3>Prázdné židle i chodby, reprízy pořadů. Jak to funguje v televizi během stávky</h3>",
+            "text": "Prázdné židle i chodby, reprízy pořadů. Jak to funguje v televizi během stávky"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3>Prázdné židle i chodby, reprízy pořadů. Jak to funguje v televizi během stávky</h3>",
+            "text": "Prázdné židle i chodby, reprízy pořadů. Jak to funguje v televizi během stávky"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "karlovarska_drbna_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3 class=\"article-title\">\n            <a href=\"https://lajk.iprima.cz/jak-zacit-behat-na-bezeckem-pasu-aniz-byste-to-hned-vzdali-518660\" class=\"line-clamp line-clamp-2 relative line-clamped\" data-lin",
+            "text": "Jak začít běhat na běžeckém pásu, aniž byste to hned vzdali"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3 class=\"article-title\">\n            <a href=\"https://lajk.iprima.cz/jak-zacit-behat-na-bezeckem-pasu-aniz-byste-to-hned-vzdali-518660\" class=\"line-clamp line-clamp-2 relative line-clamped\" data-lin",
+            "text": "Jak začít běhat na běžeckém pásu, aniž byste to hned vzdali"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3 class=\"article-title\">\n            <a href=\"https://lajk.iprima.cz/jak-zacit-behat-na-bezeckem-pasu-aniz-byste-to-hned-vzdali-518660\" class=\"line-clamp line-clamp-2 relative line-clamped\" data-lin",
+            "text": "Jak začít běhat na běžeckém pásu, aniž byste to hned vzdali"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "lajk_iprima_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "cs",
+            "hits": 8,
+            "lang": "en",
+            "snippet": "<li><p>Renata Berkyová (cs.wikipedia.org/wiki/Renata_...) je doktorandkou sociálních dějin na Filozofická fakultě Karlovy Univerzity, zároveň působí na Ústavu pro soudobé dějiny AV ČR. Věnuje se váleč",
+            "text": "Renata Berkyová (cs.wikipedia.org/wiki/Renata_...) je doktorandkou sociálních dějin na Filozofická fakultě Karlovy Univerzity, zároveň působí na Ústavu pro soudobé dějiny AV ČR. Věnuje se válečným a poválečným dějinám ve vztahu k Romům a Sintům, odškodňování, politice paměti a reprezentacím.02. 12. "
+          },
+          {
+            "guess": "cs",
+            "hits": 8,
+            "lang": "en",
+            "snippet": "<p>Renata Berkyová (cs.wikipedia.org/wiki/Renata_...) je doktorandkou sociálních dějin na Filozofická fakultě Karlovy Univerzity, zároveň působí na Ústavu pro soudobé dějiny AV ČR. Věnuje se válečným ",
+            "text": "Renata Berkyová (cs.wikipedia.org/wiki/Renata_...) je doktorandkou sociálních dějin na Filozofická fakultě Karlovy Univerzity, zároveň působí na Ústavu pro soudobé dějiny AV ČR. Věnuje se válečným a poválečným dějinám ve vztahu k Romům a Sintům, odškodňování, politice paměti a reprezentacím."
+          },
+          {
+            "guess": "cs",
+            "hits": 7,
+            "lang": "en",
+            "snippet": "<li><p>Přiblíží témata transgeneračního traumatu, úsilí o odškodnění či navrácení zabaveného majetku a o plné společenské a historické uznání genocidy Romů a Sintů. Nabídne také pohled na to, jak se t",
+            "text": "Přiblíží témata transgeneračního traumatu, úsilí o odškodnění či navrácení zabaveného majetku a o plné společenské a historické uznání genocidy Romů a Sintů. Nabídne také pohled na to, jak se tyto otázky promítají do současné identity, paměti a občanského aktivismu členů jednotlivých rodin.02. 12. 2"
+          },
+          {
+            "guess": "cs",
+            "hits": 7,
+            "lang": "en",
+            "snippet": "<p>Přiblíží témata transgeneračního traumatu, úsilí o odškodnění či navrácení zabaveného majetku a o plné společenské a historické uznání genocidy Romů a Sintů. Nabídne také pohled na to, jak se tyto ",
+            "text": "Přiblíží témata transgeneračního traumatu, úsilí o odškodnění či navrácení zabaveného majetku a o plné společenské a historické uznání genocidy Romů a Sintů. Nabídne také pohled na to, jak se tyto otázky promítají do současné identity, paměti a občanského aktivismu členů jednotlivých rodin."
+          },
+          {
+            "guess": "cs",
+            "hits": 7,
+            "lang": "en",
+            "snippet": "<li><p><a href=\"https://bsky.app/profile/ehri-cz.bsky.social\" target=\"_blank\">@ehri-cz.bsky.social</a> vás srdečně zve na přednášku romistky Renaty Berkyové „Transgenerační trauma a současné podoby ro",
+            "text": "@ehri-cz.bsky.social vás srdečně zve na přednášku romistky Renaty Berkyové „Transgenerační trauma a současné podoby romské a sintské identity“, která se zaměří na zkušenosti druhé a třetí generace rodin přeživších Romů a Sintů.02. 12. 2025 14:04 · View on Bluesky"
+          },
+          {
+            "guess": "cs",
+            "hits": 7,
+            "lang": "en",
+            "snippet": "<p><a href=\"https://bsky.app/profile/ehri-cz.bsky.social\" target=\"_blank\">@ehri-cz.bsky.social</a> vás srdečně zve na přednášku romistky Renaty Berkyové „Transgenerační trauma a současné podoby romské",
+            "text": "@ehri-cz.bsky.social vás srdečně zve na přednášku romistky Renaty Berkyové „Transgenerační trauma a současné podoby romské a sintské identity“, která se zaměří na zkušenosti druhé a třetí generace rodin přeživších Romů a Sintů."
+          }
+        ],
+        "pageLang": "en"
+      },
+      "labels": [true, true, true, true, true, true],
+      "set": "holdout",
+      "site": "lindat_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<h2 class=\"mb-0 font-bold text-base-ui sm:text-xl-ui \"><a href=\"https://litomericky.denik.cz/zpravy-region/litomerice-radnice-vedeni-mesto-volby-nova-koalice-nezvoleni-nahradnici/\" class=\"no-underline",
+            "text": "Zvolili je, ale necítili se na to. Vést Litoměřice tak mají i dva nezvolení"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "litomericky_denik_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 5,
+            "lang": "cs",
+            "snippet": "<p class=\"request-thumbnail-content mb-0\">\n            Dobrý deň , mám malý e shop s vlastnými produktami, som zaneprázdnená výrobou a pod. Potrebujem pomôcť s rozbehnutím a nastavením &amp;#8211; Pre",
+            "text": "Dobrý deň , mám malý e shop s vlastnými produktami, som zaneprázdnená výrobou a pod. Potrebujem pomôcť s rozbehnutím a nastavením &#8211; Prepojenie &#8211; XML feedy,kampane a pod.. Prosím o cenovú ponuku. Jednorázovo, alebo aj dlhodobú spoluprácu."
+          },
+          {
+            "guess": "pl",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<p><b>Momentálně je příjem do partnerského programu pozastaven</b>, ale i tak si vás do seznamu zájemců rádi zařadíme.<br aria-hidden=\"true\"><b>Přihlášky nadále evidujeme a oslovujeme zájemce, jejichž",
+            "text": "Momentálně je příjem do partnerského programu pozastaven, ale i tak si vás do seznamu zájemců rádi zařadíme.Přihlášky nadále evidujeme a oslovujeme zájemce, jejichž zaměření odpovídá aktuálním potřebám partnerského programu."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [true, false],
+      "set": "holdout",
+      "site": "partneri_shoptet_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li><article class=\"group relative text-black\"><div class=\"relative mb-5 md:mb-6 rounded-lg overflow-hidden bg-white border border-line-subtle\"><img alt=\"\" loading=\"lazy\" width=\"500\" height=\"500\" deco",
+            "text": "O násVše co jste chtěli vědět o policii a báli jste se zeptat."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "policie_gov_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"m-0 !leading-normal text-xl \"><a href=\"/laska-a-vztahy/pribeh-eva-narozeniny/\" data-click-measurement=\"true\" data-module=\"\" data-type=\"block\" data-name=\"click_article_list\" data-measurement",
+            "text": "Evě bylo do pláče. Na šedesátiny pozvala celou rodinu, ale nedorazil nikdo. Důvod ji bolel víc než samota"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "praktickazena_kafe_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p>Exkluzivní klub a předplatné Hospodářských novin. Získejte kompletní přístup do světa byznysu, ekonomiky,\n            investic, eventů a network navíc.</p>",
+            "text": "Exkluzivní klub a předplatné Hospodářských novin. Získejte kompletní přístup do světa byznysu, ekonomiky, investic, eventů a network navíc."
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p>Rozhovory s&nbsp;osobnostmi nejen ze&nbsp;světa byznysu o&nbsp;tom, jak&nbsp;rozjet kariéru, jak&nbsp;začít podnikat, jak&nbsp;se&nbsp;zbavit pochybností.</p>",
+            "text": "Rozhovory s osobnostmi nejen ze světa byznysu o tom, jak rozjet kariéru, jak začít podnikat, jak se zbavit pochybností."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false],
+      "set": "holdout",
+      "site": "predplatne_hn_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "ro",
+            "hits": 6,
+            "lang": "en-US",
+            "snippet": "<p class=\"ng-binding ng-scope\" name=\"dnn649StaticText\" af-bind-html=\"form.fields.StaticText.value\" ng-bind-html=\"afBoundHtml\"><h1><span style=\"color: #2a3e81;\"><strong>Ce este SAL?</strong></span></h1",
+            "text": "Ce este SAL? Soluționarea Alternativă a Litigiilor (SAL) reprezintă un instrument oferit de către Autoritatea Națională pentru Protecția Consumatorilor (ANPC) pentru a facilita rezolvarea reciproc avantajoasă și eficientă a litigiilor între consumatori și comercianți și își desfășoară activitatea in"
+          },
+          {
+            "guess": "ro",
+            "hits": 5,
+            "lang": "en-US",
+            "snippet": "<p style=\"text-align: justify;\"><span>Soluționarea Alternativă a Litigiilor (SAL) reprezintă un instrument oferit de către Autoritatea Națională pentru Protecția Consumatorilor (ANPC) pentru a facilit",
+            "text": "Soluționarea Alternativă a Litigiilor (SAL) reprezintă un instrument oferit de către Autoritatea Națională pentru Protecția Consumatorilor (ANPC) pentru a facilita rezolvarea reciproc avantajoasă și eficientă a litigiilor între consumatori și comercianți și își desfășoară activitatea independent de "
+          },
+          {
+            "guess": "ro",
+            "hits": 8,
+            "lang": "en-US",
+            "snippet": "<p style=\"text-align: justify;\"><span>Scopul SAL este să ofere o soluție într-un mod independent și echitabil, evitând astfel complexitatea procedurilor judiciare. Echipa noastră de consilieri vă va g",
+            "text": "Scopul SAL este să ofere o soluție într-un mod independent și echitabil, evitând astfel complexitatea procedurilor judiciare. Echipa noastră de consilieri vă va ghida pe tot parcursul procedurii, asigurându-se că fiecare etapă va fi gestionată cu profesionalism și în conformitate cu legislația în vi"
+          },
+          {
+            "guess": "ro",
+            "hits": 6,
+            "lang": "en-US",
+            "snippet": "<p style=\"text-align: justify;\"><span>SAL acționează în limitele competențelor sale, rezolvând litigii naționale și transfrontaliere în sectorul de activitate al ANPC. Ne angajăm să furnizăm o alterna",
+            "text": "SAL acționează în limitele competențelor sale, rezolvând litigii naționale și transfrontaliere în sectorul de activitate al ANPC. Ne angajăm să furnizăm o alternativă reciproc avantajoasă, eficientă și imparțială pentru rezolvarea litigiilor, contribuind la menținerea echilibrului între consumatori "
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "en-US",
+            "snippet": "<p style=\"text-align: justify;\"><span>După validarea contului, depuneți cererea de soluționare a litigiului. Includeți toate detaliile importante și documentele relevante pentru o analiză detaliată a ",
+            "text": "După validarea contului, depuneți cererea de soluționare a litigiului. Includeți toate detaliile importante și documentele relevante pentru o analiză detaliată a situației."
+          },
+          {
+            "guess": "ro",
+            "hits": 9,
+            "lang": "en-US",
+            "snippet": "<p style=\"text-align: justify;\"><span>Comerciantul este notificat și primește cererea și probele depuse de consumator pentru a evalua în detaliu litigiul. Acest pas permite ambelor părți să discute, s",
+            "text": "Comerciantul este notificat și primește cererea și probele depuse de consumator pentru a evalua în detaliu litigiul. Acest pas permite ambelor părți să discute, să formuleze contraoferte și să găsească soluții alternative. Consumatorul poate refuza sau accepta soluția propusă de comerciant sau poate"
+          },
+          {
+            "guess": "ro",
+            "hits": 5,
+            "lang": "en-US",
+            "snippet": "<p style=\"text-align: justify;\"><span>Consilierii SAL formulează o propunere de soluționare a litigiului, care este transmisă ambelor părți. Acestea vor avea la dispoziție 15 zile calendaristice pentr",
+            "text": "Consilierii SAL formulează o propunere de soluționare a litigiului, care este transmisă ambelor părți. Acestea vor avea la dispoziție 15 zile calendaristice pentru a accepta sau respinge soluția propusă."
+          },
+          {
+            "guess": "ro",
+            "hits": 6,
+            "lang": "en-US",
+            "snippet": "<p style=\"text-align: justify;\"><span>Întregul proces este conceput să se desfășoare în maxim 90 de zile calendaristice de la data la care entitatea SAL a primit dosarul complet al reclamaţiei. Aceast",
+            "text": "Întregul proces este conceput să se desfășoare în maxim 90 de zile calendaristice de la data la care entitatea SAL a primit dosarul complet al reclamaţiei. Această limită de timp asigură o soluționare rapidă și eficientă, oferindu-vă certitudinea unei rezolvări într-un interval rezonabil."
+          },
+          {
+            "guess": "ro",
+            "hits": 5,
+            "lang": "en-US",
+            "snippet": "<p style=\"text-align: justify;\"><span>Pentru fiecare etapă, ne străduim să facilităm comunicarea transparentă și să oferim oportunități pentru părți să-și exprime opiniile și să găsească soluții recip",
+            "text": "Pentru fiecare etapă, ne străduim să facilităm comunicarea transparentă și să oferim oportunități pentru părți să-și exprime opiniile și să găsească soluții reciproce avantajoase."
+          },
+          {
+            "guess": "ro",
+            "hits": 8,
+            "lang": "en-US",
+            "snippet": "<p class=\"ng-binding ng-scope\" name=\"dnn649StaticText5\" af-bind-html=\"form.fields.StaticText5.value\" ng-bind-html=\"afBoundHtml\"><h1><span style=\"color: #2a3e81;\"><strong>Care sunt condițiile în care s",
+            "text": "Care sunt condițiile în care se poate accesa procedura SAL? Procedura de Soluționare Alternativă a Litigiilor (SAL) reprezintă modalitate eficientă pentru rezolvarea litigiilor, cu condiția ca acestea să fie izvorâte din contractele de vânzări sau din contractele de prestări de servicii încheiate în"
+          },
+          {
+            "guess": "ro",
+            "hits": 4,
+            "lang": "en-US",
+            "snippet": "<h1><span style=\"color: #2a3e81;\"><strong>Care sunt condițiile în care se poate accesa procedura SAL?&nbsp;</strong></span></h1>",
+            "text": "Care sunt condițiile în care se poate accesa procedura SAL?"
+          },
+          {
+            "guess": "ro",
+            "hits": 6,
+            "lang": "en-US",
+            "snippet": "<p style=\"text-align: justify;\"><span>Procedura de Soluționare Alternativă a Litigiilor (SAL) reprezintă modalitate eficientă pentru rezolvarea litigiilor, cu condiția ca acestea să fie izvorâte din c",
+            "text": "Procedura de Soluționare Alternativă a Litigiilor (SAL) reprezintă modalitate eficientă pentru rezolvarea litigiilor, cu condiția ca acestea să fie izvorâte din contractele de vânzări sau din contractele de prestări de servicii încheiate între un comerciant care desfășoară activități în România și u"
+          },
+          {
+            "guess": "ro",
+            "hits": 5,
+            "lang": "en-US",
+            "snippet": "<li style=\"text-align: justify;\"><span>Reclamație în termen de un an: Consumatorul trebuie să depună reclamația în termen de un an de la data prezentării acesteia comerciantului sau de la data săvârși",
+            "text": "Reclamație în termen de un an: Consumatorul trebuie să depună reclamația în termen de un an de la data prezentării acesteia comerciantului sau de la data săvârșirii faptei ce a generat litigiul."
+          },
+          {
+            "guess": "ro",
+            "hits": 5,
+            "lang": "en-US",
+            "snippet": "<li style=\"text-align: justify;\"><span>Evitarea litigiilor ofensatoare: Procedura SAL nu este destinată litigiilor promovate cu rea credință sau care au caracter ofensator.</span></li>",
+            "text": "Evitarea litigiilor ofensatoare: Procedura SAL nu este destinată litigiilor promovate cu rea credință sau care au caracter ofensator."
+          },
+          {
+            "guess": "ro",
+            "hits": 4,
+            "lang": "en-US",
+            "snippet": "<li style=\"text-align: justify;\"><span>Negocieri Directe: Litigiile rezultate din negocieri directe între consumator și comerciant nu sunt incluse în procedură.</span></li>",
+            "text": "Negocieri Directe: Litigiile rezultate din negocieri directe între consumator și comerciant nu sunt incluse în procedură."
+          }
+        ],
+        "pageLang": "en-US"
+      },
+      "labels": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "set": "design",
+      "site": "reclamatiisal_anpc_ro_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "cs",
+            "hits": 3,
+            "lang": "nl-NL",
+            "snippet": "<p class=\"typography_root__DxBMo typography_variant-paragraph__xoJU4 typography_weight-semi__uBAop typography_left__UoSCP typography_hasMargin__4kAuL\">Wil je weten of je bestelling, of je laatste wijz",
+            "text": "Wil je weten of je bestelling, of je laatste wijzigingen zijn doorgekomen?"
+          }
+        ],
+        "pageLang": "nl-NL"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "static_ah_nl_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li class=\"menu-primary__item with-submenu\" style=\"\">\n        <span class=\"menu-primary__links\">\n            <a href=\"/o-nas\" class=\"menu-primary__link\">\n                <span class=\"menu-primary__inn",
+            "text": "O nás Kdo jsme a co děláme Strategie a cíle Výroční zprávy o udržitelnosti Rada pro udržitelný rozvoj MU Regionální partnerství Kontakt"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "sustain_muni_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3 class=\"article-title\"><a href=\"https://archiv.hn.cz/c1-67944340-bdquo-zazrak-ldquo-od-zuckerberga-meta-se-vraci-do-prvni-ligy-ai-modelu-jeji-muse-wonder-ma-ale-i-sve-slabiny\">„Zázrak“ od Zuckerber",
+            "text": "„Zázrak“ od Zuckerberga. Meta se vrací do první ligy AI modelů, její Muse Wonder má ale i své slabiny"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "tech_hn_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3><a href=\"/v-knihovne-se-muze-i-tancit-a-predvadet-moda-do-zdaru-nad-sazavou-za-miri-9653467\">V knihovně se může i&nbsp;tančit a předvádět móda. Do Žďáru nad Sázavou za to míří prestižní ocenění</a",
+            "text": "V knihovně se může i tančit a předvádět móda. Do Žďáru nad Sázavou za to míří prestižní ocenění"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "vysocina_rozhlas_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li class=\"b-044b__list-item b-044b__list-item--list-following\">\n      <div class=\"image b-044b__image\"><a class=\"image-link __image-link\" href=\"/na-internetu-roste-poptavka-po-kouzlech-lide-si-preji-",
+            "text": "Na internetu roste poptávka po kouzlech. Lidé si přejí dobré počasí na svatbě i úspěch v práci"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3><a href=\"/na-internetu-roste-poptavka-po-kouzlech-lide-si-preji-dobre-pocasi-na-svatbe-i-9653905\">Na internetu roste poptávka po kouzlech. Lidé si přejí dobré počasí na svatbě i&nbsp;úspěch v&nbsp",
+            "text": "Na internetu roste poptávka po kouzlech. Lidé si přejí dobré počasí na svatbě i úspěch v práci"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "wave_rozhlas_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 6,
+            "lang": "cs",
+            "snippet": "<p>Nový rok přinesl pořádnou sněhovou nadílku. Desítky centimetrů sněhu zasypaly i velká města, která tak na pár dní opět zažila nefalšovanou ladovskou zimu. Množství sněhu však kromě dopravy dokáže p",
+            "text": "Nový rok přinesl pořádnou sněhovou nadílku. Desítky centimetrů sněhu zasypaly i velká města, která tak na pár dní opět zažila nefalšovanou ladovskou zimu. Množství sněhu však kromě dopravy dokáže prověřit i stav střechy na domu. Na co si v následujících dnech dát pozor, a jak předejít problémům radí"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3 _ngcontent-ng-c2861050956=\"\" class=\"title\">Architekturu města poznáte i podle střech. Češi volí klasiku, ale na soláry myslí už ve výkresech</h3>",
+            "text": "Architekturu města poznáte i podle střech. Češi volí klasiku, ale na soláry myslí už ve výkresech"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p>Volba střechy určuje nejen dům, ale i tvář místa, říká Matěj Irra a Aliance taškových střech. Češi sází na skládané tašky, ukázal průzkum.</p>",
+            "text": "Volba střechy určuje nejen dům, ale i tvář místa, říká Matěj Irra a Aliance taškových střech. Češi sází na skládané tašky, ukázal průzkum."
+          },
+          {
+            "guess": "pt",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3 _ngcontent-ng-c2861050956=\"\" class=\"title\">Mýty o střechách: Expert radí, co (ne)dělat a jak se starat o střechu, aby vydržela generace</h3>",
+            "text": "Mýty o střechách: Expert radí, co (ne)dělat a jak se starat o střechu, aby vydržela generace"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false, false, false],
+      "set": "design",
+      "site": "www_alitas_cz_cs"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs-CZ",
+            "snippet": "<p class=\"w3-large\">Každý den jiná nabídka! Ve <strong>velké prostorné hale</strong> nabízíme nejen <strong>nábytek</strong>, ale i <strong>spotřebiče, pračky, lednice, nádobí</strong> a další <strong",
+            "text": "Každý den jiná nabídka! Ve velké prostorné hale nabízíme nejen nábytek, ale i spotřebiče, pračky, lednice, nádobí a další vybavení do domácnosti."
+          }
+        ],
+        "pageLang": "cs-CZ"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_bazar_nabytku_kolin_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p class=\"text-article-annotation hidden flex-1 text-lg md:block md:text-sm md:leading-[17px]\">U Výšinky na Trutnovsku na stavbě dálnice D11 z Jaroměře do Trutnova stavbaři začali razit tunel Kamenný.",
+            "text": "U Výšinky na Trutnovsku na stavbě dálnice D11 z Jaroměře do Trutnova stavbaři začali razit tunel Kamenný..."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_centrum_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs-CZ",
+            "snippet": "<li role=\"none\">\n\t\t\t\t\t\t\t<a role=\"menuitem\" tabindex=\"-1\" aria-haspopup=\"true\" aria-expanded=\"false\">O společnosti<svg class=\"cpost-primary-menu-arrow\" width=\"10\" height=\"6\" viewBox=\"0 0 10 6\" fill=\"no",
+            "text": "O společnosti Aktuality Profil společnosti Informace a právní předpisy Veřejné zakázky Udržitelnost a ESG Bezpečnostní informace Zprostředkování akvizic Prodej a pronájem Historie České pošty Ochrana osobních údajů - GDPR"
+          }
+        ],
+        "pageLang": "cs-CZ"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "www_ceskaposta_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3>\n          <a class=\"block text-gray-800 hover:text-red-400 transition-all tracking-tight col-span-2 font-bold\" href=\"/bezpecnost/whatsapp-podvodne-skupiny-ochrana\">Ajťák radí: Jak se bránit novém",
+            "text": "Ajťák radí: Jak se bránit novému triku podvodníků na WhatsAppu. Přidají vás do skupiny, aniž byste o tom věděli"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3>\n          <a class=\"block text-gray-800 hover:text-red-400 transition-all tracking-tight col-span-2 font-bold\" href=\"/bezpecnost/whatsapp-podvodne-skupiny-ochrana\">Ajťák radí: Jak se bránit novém",
+            "text": "Ajťák radí: Jak se bránit novému triku podvodníků na WhatsAppu. Přidají vás do skupiny, aniž byste o tom věděli"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<li>\n            <h4>\n              <a class=\"link font-normal text-gray-800 transition-all duration-300 \" href=\"/tipy-triky/jak-napsat-hashtag-na-klavesnici\">Mřížka, hashtag nebo křížek. Říkáme mu rů",
+            "text": "Mřížka, hashtag nebo křížek. Říkáme mu různě, ale víte jak symbol # napsat na klávesnici?"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h4>\n              <a class=\"link font-normal text-gray-800 transition-all duration-300 \" href=\"/tipy-triky/jak-napsat-hashtag-na-klavesnici\">Mřížka, hashtag nebo křížek. Říkáme mu různě, ale víte jak",
+            "text": "Mřížka, hashtag nebo křížek. Říkáme mu různě, ale víte jak symbol # napsat na klávesnici?"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false],
+      "set": "holdout",
+      "site": "www_chip_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "nl",
+            "hits": 3,
+            "lang": "fr",
+            "snippet": "<p class=\"cta4Blocks-text\">\n                Découvrez nos produits fabriqués en France et soutenez les projets de restauration de l'Elysée\n            </p>",
+            "text": "Découvrez nos produits fabriqués en France et soutenez les projets de restauration de l'Elysée"
+          }
+        ],
+        "pageLang": "fr"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "www_elysee_fr_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 5,
+            "lang": "cs",
+            "snippet": "<p>Odpovědi na nejčastější otázky snažilek. Jak ovlivnit plodnost? Které doplňky na podporu otěhotnění pomáhají? Kdy měřit bazální teplotu a jak ovlivnit pohlaví miminka? To vše najdete v sekci naší e",
+            "text": "Odpovědi na nejčastější otázky snažilek. Jak ovlivnit plodnost? Které doplňky na podporu otěhotnění pomáhají? Kdy měřit bazální teplotu a jak ovlivnit pohlaví miminka? To vše najdete v sekci naší encyklopedie - Snažení."
+          },
+          {
+            "guess": "pt",
+            "hits": 7,
+            "lang": "cs",
+            "snippet": "<p>Shrnuli jsme všechno podstatné o snažení do jedné jediné e-knihy. Jaké polohy při sexu pomáhají početí, kdy máte plodné dny a ovulaci, jaký koupit těhotenský test a jak mluvit o snažení s partnerem",
+            "text": "Shrnuli jsme všechno podstatné o snažení do jedné jediné e-knihy. Jaké polohy při sexu pomáhají početí, kdy máte plodné dny a ovulaci, jaký koupit těhotenský test a jak mluvit o snažení s partnerem a další tipy."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false],
+      "set": "holdout",
+      "site": "www_emimino_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li class=\"c-licenses__item grid__cell grid__cell--grow size--t-6-12\">\t<a href=\"/pages/prispevek/7377/cz\" class=\"b-license\"><div class=\"b-license__img\"><div class=\"b-license__img-inner\" style=\"backgro",
+            "text": "Negotiated Resilience: cyklus přednášek ukáže, jak vznikají odolná města Jak navrhovat města, která dokážou reagovat na klimatické,sociální i ekonomické výzvy současnosti? Odpovědi nabídne nový přednáškovýcyklus..."
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p>    Jak navrhovat města, která dokážou reagovat na klimatické,sociální i ekonomické výzvy současnosti? Odpovědi nabídne nový přednáškovýcyklus...</p>",
+            "text": "Jak navrhovat města, která dokážou reagovat na klimatické,sociální i ekonomické výzvy současnosti? Odpovědi nabídne nový přednáškovýcyklus..."
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false],
+      "set": "design",
+      "site": "www_fa_vutbr_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "nl",
+            "hits": 3,
+            "lang": "sk",
+            "snippet": "<p class=\"extraContent__projectSpecificText\">\n           Ďalšie jazykové verzie tejto stránky:\n               <a href=\"https://www.flashfutebol.com.br\">PT-BR</a>, \n               <a href=\"https://www.",
+            "text": "Ďalšie jazykové verzie tejto stránky: PT-BR, EN, DE, ES, FR, IT, NL, PL, RO, US-EN"
+          }
+        ],
+        "pageLang": "sk"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "www_flashfutbal_sk_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 4,
+            "lang": "hr",
+            "snippet": "<li class=\"MainItem_mainItem_14OoY\"><a href=\"https://www.footshop.hr/hr/61-dodaci\" title=\"Sve - Dodaci\">Dodaci</a><div class=\"MainItem_child_2v48z\"><div class=\"PageContainer_wrapper_Isqhi\"><div class=",
+            "text": "DodaciDodaciSav priborPremium dodaciPribor na akcijiPribor za cipeleNjega cipelaVezice za obućuTorbe i ruksaciSve torbe i ruksaciTorbe oko strukaRuksaciGymsacksCrossbody torbeGradski ruksaciKape i šiltericeSve kapeKapeŠeširiPribor za nošenjeSunčane naočaleNakitSatoviRukaviceŠaloviOstali dodaciPoklon"
+          }
+        ],
+        "pageLang": "hr"
+      },
+      "labels": [false],
+      "set": "design",
+      "site": "www_footshop_hr_hr_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "cs",
+            "hits": 4,
+            "lang": "sk",
+            "snippet": "<li class=\"MainItem_mainItem_14OoY\"><a href=\"https://www.footshop.sk/sk/61-doplnky\" title=\"Všetko - Doplnky\">Doplnky</a><div class=\"MainItem_child_2v48z\"><div class=\"PageContainer_wrapper_Isqhi\"><div ",
+            "text": "DoplnkyDoplnkyVšetky doplnkyPrémiové doplnkyDoplnky v zľaveDoplnky k topánkamStarostlivosť o obuvŠnúrkyBatohy a taškyVšetky tašky a batohyĽadvinkyBatohyGymsacksTašky cez ramenoMestské batohyČiapky a šiltovkyVšetky čiapkyŠiltovkyKlobúkyDoplnky na sebaSlnečné okuliareŠperkyHodinkyRukaviceŠályOstatné d"
+          }
+        ],
+        "pageLang": "sk"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_footshop_sk_sk_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h2 class=\"m-0 !leading-normal text-xl \"><a href=\"/laska-a-vztahy/pribeh-eva-narozeniny/\" data-click-measurement=\"true\" data-module=\"\" data-type=\"block\" data-name=\"click_article_list\" data-measurement",
+            "text": "Evě bylo do pláče. Na šedesátiny pozvala celou rodinu, ale nedorazil nikdo. Důvod ji bolel víc než samota"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_kafe_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 7,
+            "lang": "cs",
+            "snippet": "<li class=\"with-submenu js-menu-submenu\">\n                            <a href=\"/e-knihy\">E-knihy</a>\n                            <div class=\"submenu-toggle\">\n                                <span clas",
+            "text": "E-knihy Mohlo by vás zajímat Novinky Bestsellery Čtečky e-knih Zvýhodněné balíčky Longsellery E-knihy zdarma E-knihy ve slevě Dárkové poukazy Beletrie Vše Detektivky, Thrillery a Horory Sci-fi, Fantasy a Komiksy Romány pro ženy Erotické romány LGBTQ+ romány Young Adult Česká a slovenská beletrie Svě"
+          },
+          {
+            "guess": "pt",
+            "hits": 7,
+            "lang": "cs",
+            "snippet": "<p class=\"dtc\">\n                    <span class=\"shoproku\"><img loading=\"lazy\" src=\"/img/illust/heureka.svg\" alt=\"Heuréka - Ověřeno zákazníky\" width=\"70\"></span>\n                        <span class=\"r",
+            "text": "const retinoCompanyId = \"7c404eda-b97a-4057-92d4-7450325b54e6\"; (function(r,e,t,i,n,o){r.RetinoBadgeQueue=r.RetinoBadgeQueue||[];r.RetinoBadgeQueue.push({companyId:retinoCompanyId,type:\"icon\",staticUrl:\"https://cdn.retino.com/\",mediaUrl:\"https://cdn.retino.com/media/\",language:\"cs\"});n=e.createEleme"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, null],
+      "set": "design",
+      "site": "www_knihydobrovsky_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "nl",
+            "hits": 5,
+            "lang": "fr",
+            "snippet": "<p class=\"chapo\">\n                                De nombreux chrétiens des États-Unis, catholiques en tête, ont donné de la voix pour condamner la décision de retransmettre en direct l’exécution du t",
+            "text": "De nombreux chrétiens des États-Unis, catholiques en tête, ont donné de la voix pour condamner la décision de retransmettre en direct l’exécution du terroriste Nidal Hasan."
+          }
+        ],
+        "pageLang": "fr"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_lavie_fr_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "ro",
+            "hits": 6,
+            "lang": "fr",
+            "snippet": "<li class=\"cols_6 multi\">\n\t\t\t<ul>\n\t\t\t\t<li class=\" bloc cols_1 multi rescol_x res_spe\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li>\n\n\n\n\n\n\n\n\n\n \n\t\n\t\n\t\n\t \n\n\n\n\n\n<a href=\"/carnet/2026-10-09-Espagne-la-greve-contre-la-rente\" class",
+            "text": "Espagne, la grève contre la rente La valise diplomatique • 9 octobre 2026 Terminus du néolibéralisme ou terminus de la démocratie Blogs • Frédéric Lordon, 24 septembre 2026 « Notre ami » Thaçi, criminel de guerre La valise diplomatique • 18 septembre 2026 Face à l’ordre médiatique Henri Maler, mai 2"
+          },
+          {
+            "guess": "ro",
+            "hits": 6,
+            "lang": "fr",
+            "snippet": "<li class=\" bloc cols_1 multi rescol_x res_spe\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li>\n\n\n\n\n\n\n\n\n\n \n\t\n\t\n\t\n\t \n\n\n\n\n\n<a href=\"/carnet/2026-10-09-Espagne-la-greve-contre-la-rente\" class=\"yalogo\">\n<div class=\"unarticle\">\n\t<d",
+            "text": "Espagne, la grève contre la rente La valise diplomatique • 9 octobre 2026 Terminus du néolibéralisme ou terminus de la démocratie Blogs • Frédéric Lordon, 24 septembre 2026 « Notre ami » Thaçi, criminel de guerre La valise diplomatique • 18 septembre 2026 Face à l’ordre médiatique Henri Maler, mai 2"
+          },
+          {
+            "guess": "es",
+            "hits": 3,
+            "lang": "fr",
+            "snippet": "<li>\n\n\n\n\n\n\n\n\n\n \n\t\n\t\n\t\n\t \n\n\n\n\n\n<a href=\"/carnet/2026-10-09-Espagne-la-greve-contre-la-rente\" class=\"yalogo\">\n<div class=\"unarticle\">\n\t<div class=\"logo large\">\n\t\t<img src=\"IMG/logo/rentista600.jpg?17915",
+            "text": "Espagne, la grève contre la rente La valise diplomatique • 9 octobre 2026"
+          }
+        ],
+        "pageLang": "fr"
+      },
+      "labels": [false, false],
+      "set": "design",
+      "site": "www_monde_diplomatique_fr_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li class=\"ui-crosspromo-footer__articles__article-item\"><a class=\"ui-crosspromo-footer__articles__article-link\" href=\"https://www.nkz.cz/rady-nasi-zahradnice/sloupove-jablone-setri-misto\">\n          ",
+            "text": "Nemáte místo na klasickou jabloň? Sloupové odrůdy se vejdou i do květináče na balkon"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_nkz_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 5,
+            "lang": "cs",
+            "snippet": "<li class=\"header__MenuItem\">\n        <a href=\"/magazin\">Magazín</a>\n        <span>\n            <i class=\"icon-angle-down\"></i>\n        </span>\n        <ul class=\"submenu\">\n            <li>\n          ",
+            "text": "Magazín Tipy a triky Zdraví a diety Slavní kuchaři Pomocníci do kuchyně Dobroty do spíže a ledničky Krok za krokem"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false],
+      "set": "holdout",
+      "site": "www_prostreno_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "nl",
+            "hits": 3,
+            "lang": "fr",
+            "snippet": "<li class=\"fr-col-12 fr-col-sm-6 fr-col-lg-4\"><div class=\"fr-card fr-card--sm fr-enlarge-link \" data-test=\"carte\"><div class=\"fr-card__body\"><div class=\"fr-card__content\"><h3 class=\"fr-card__title\" da",
+            "text": "Informer son employeur de la prise du congé supplémentaire de naissanceModèle de document"
+          },
+          {
+            "guess": "es",
+            "hits": 3,
+            "lang": "fr",
+            "snippet": "<li class=\"fr-col-12 fr-col-sm-6 fr-col-lg-4\" data-test=\"actu-alaune-home-sp\"><div class=\"fr-card fr-card--sm fr-enlarge-link \" data-test=\"carte\"><div class=\"fr-card__body\"><div class=\"fr-card__conten",
+            "text": "La licence portail santé remplacera les PASS/LAS dès la rentrée 2027Études de santé"
+          },
+          {
+            "guess": "es",
+            "hits": 3,
+            "lang": "fr",
+            "snippet": "<h3 class=\"fr-card__title\" data-test=\"carte-titre\"><a href=\"https://www.service-public.gouv.fr/particuliers/actualites/A18890\" data-test=\"cards-private\">La licence portail santé remplacera les PASS/LA",
+            "text": "La licence portail santé remplacera les PASS/LAS dès la rentrée 2027"
+          }
+        ],
+        "pageLang": "fr"
+      },
+      "labels": [false, false, false],
+      "set": "design",
+      "site": "www_service_public_gouv_fr_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "en",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p class=\"body__title\">\n            Miu sings (Sittin' On) The Dock of the Bay | Otis Redding Vocal Cover #singer #vocalist\n        </p>",
+            "text": "Miu sings (Sittin' On) The Dock of the Bay | Otis Redding Vocal Cover #singer #vocalist"
+          },
+          {
+            "guess": "en",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<p class=\"body__title\">\n            Get&nbsp;the&nbsp;perfect&nbsp;custom-made&nbsp;flight&nbsp;case&nbsp;for&nbsp;your&nbsp;gear&nbsp;with&nbsp;Case&nbsp;Factory&nbsp;🛠️❤️\n        </p>",
+            "text": "Get the perfect custom-made flight case for your gear with Case Factory 🛠️❤️"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [null, true],
+      "set": "design",
+      "site": "www_thomann_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "en",
+            "hits": 3,
+            "lang": "it",
+            "snippet": "<p class=\"body__title\">\n            Miu sings (Sittin' On) The Dock of the Bay | Otis Redding Vocal Cover #singer #vocalist\n        </p>",
+            "text": "Miu sings (Sittin' On) The Dock of the Bay | Otis Redding Vocal Cover #singer #vocalist"
+          }
+        ],
+        "pageLang": "it"
+      },
+      "labels": [null],
+      "set": "design",
+      "site": "www_thomann_it_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3 class=\"b-horizontal__title h3 b-horizontal__title--clamp\" style=\"-webkit-line-clamp: 2;\">\n\t\t\t<a href=\"/clanky/11276-jak-pripravit-krupave-kureci-krokety-podle-csn-pozor-na-veku-vyber-masa-i-spravn",
+            "text": "Jak připravit křupavé kuřecí krokety podle ČSN: Pozor na veku, výběr masa i správné smažení"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3 class=\"b-horizontal__title h3 b-horizontal__title--clamp\" style=\"-webkit-line-clamp: 2;\">\n\t\t\t<a href=\"/clanky/9505-jak-na-tradicni-vepro-knedlo-zelo-poklad-ceske-kuchyne-si-podle-tohoto-receptu-za",
+            "text": "Jak na tradiční vepřo knedlo zelo? Poklad české kuchyně si podle tohoto receptu zamilujete na první ochutnání"
+          },
+          {
+            "guess": "pl",
+            "hits": 3,
+            "lang": "cs",
+            "snippet": "<h3 class=\"b-horizontal__title h3 b-horizontal__title--clamp\" style=\"-webkit-line-clamp: 2;\">\n\t\t\t<a href=\"/clanky/8983-prazdniny-u-babicky-nejlepsi-bramborove-placky-pripravite-za-chvili-nezapomente-a",
+            "text": "Prázdniny u babičky: Nejlepší bramborové placky připravíte za chvíli. Nezapomeňte ale na sádlo, i když je smažíte nasucho"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false, false],
+      "set": "design",
+      "site": "www_toprecepty_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "en",
+            "hits": 4,
+            "lang": "cs-CZ",
+            "snippet": "<p>Readers of <i>FORUM EN</i>&nbsp;can read the latest issue or older ones in our complete online archive.</p>",
+            "text": "Readers of FORUM EN can read the latest issue or older ones in our complete online archive."
+          }
+        ],
+        "pageLang": "cs-CZ"
+      },
+      "labels": [true],
+      "set": "design",
+      "site": "www_ukforum_cz_"
+    },
+    {
+      "foreignBlocks": {
+        "blocks": [
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li>Veřejné zakázky malého rozsahu na dodávky a služby nad 50 000 Kč do 750 000 Kč bez DPH včetně a stavební práce nad 50 000 Kč do 1 000 000 Kč bez DPH včetně</li>",
+            "text": "Veřejné zakázky malého rozsahu na dodávky a služby nad 50 000 Kč do 750 000 Kč bez DPH včetně a stavební práce nad 50 000 Kč do 1 000 000 Kč bez DPH včetně"
+          },
+          {
+            "guess": "pt",
+            "hits": 4,
+            "lang": "cs",
+            "snippet": "<li>Veřejné zakázky malého rozsahu na dodávky a služby nad 750 000 Kč do 3 000 000 Kč bez DPH včetně a stavební práce nad 1 000 000 Kč do 9 000 000 Kč bez DPH včetně</li>",
+            "text": "Veřejné zakázky malého rozsahu na dodávky a služby nad 750 000 Kč do 3 000 000 Kč bez DPH včetně a stavební práce nad 1 000 000 Kč do 9 000 000 Kč bez DPH včetně"
+          }
+        ],
+        "pageLang": "cs"
+      },
+      "labels": [false, false],
+      "set": "design",
+      "site": "zakazky_brno_cz_"
+    }
+  ],
+  "replies": [
+    {
+      "key": "passage-language-marked:archiv_hzscr_gov_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9897 } },
+        "usage": { "input_tokens": 229, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:berounsky_denik_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9905 } },
+        "usage": { "input_tokens": 208, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:byznys_hn_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9883 } },
+        "usage": { "input_tokens": 216, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:cc_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9829 },
+          "block_2": { "type": "noul", "noul": 0.9795 },
+          "block_3": { "type": "noul", "noul": 0.9546 }
+        },
+        "usage": { "input_tokens": 501, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:coi_gov_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9895 } },
+        "usage": { "input_tokens": 221, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:cuzk_gov_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9813 },
+          "block_2": { "type": "noul", "noul": 0.9465 },
+          "block_3": { "type": "noul", "noul": 0.8651 }
+        },
+        "usage": { "input_tokens": 534, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:digital_rozhlas_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9896 } },
+        "usage": { "input_tokens": 221, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:e_sbirka_gov_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9855 },
+          "block_2": { "type": "noul", "noul": 0.9845 },
+          "block_3": { "type": "noul", "noul": 0.9504 },
+          "block_4": { "type": "noul", "noul": 0.9706 },
+          "block_5": { "type": "noul", "noul": 0.9585 }
+        },
+        "usage": { "input_tokens": 798, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:escointegra_sk_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9914 },
+          "block_2": { "type": "noul", "noul": 0.9844 },
+          "block_3": { "type": "noul", "noul": 0.9654 }
+        },
+        "usage": { "input_tokens": 554, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:forarch_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9883 } },
+        "usage": { "input_tokens": 225, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:icv_mendelu_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9881 },
+          "block_2": { "type": "noul", "noul": 0.9604 }
+        },
+        "usage": { "input_tokens": 387, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:it_cuni_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.0198 },
+          "block_2": { "type": "noul", "noul": 0.0391 },
+          "block_3": { "type": "noul", "noul": 0.0438 },
+          "block_4": { "type": "noul", "noul": 0.0213 },
+          "block_5": { "type": "noul", "noul": 0.0208 },
+          "block_6": { "type": "noul", "noul": 0.0645 },
+          "block_7": { "type": "noul", "noul": 0.3516 },
+          "block_8": { "type": "noul", "noul": 0.3411 },
+          "block_9": { "type": "noul", "noul": 0.3724 }
+        },
+        "usage": { "input_tokens": 1412, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:kalkulacky_heroine_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9935 },
+          "block_2": { "type": "noul", "noul": 0.9897 }
+        },
+        "usage": { "input_tokens": 376, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:kolinsky_denik_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9928 },
+          "block_2": { "type": "noul", "noul": 0.9901 }
+        },
+        "usage": { "input_tokens": 342, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:ktv_mff_cuni_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9905 } },
+        "usage": { "input_tokens": 206, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:mujrozhlas_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9188 },
+          "block_2": { "type": "noul", "noul": 0.9375 },
+          "block_3": { "type": "noul", "noul": 0.8094 },
+          "block_4": { "type": "noul", "noul": 0.7592 },
+          "block_5": { "type": "noul", "noul": 0.7156 },
+          "block_6": { "type": "noul", "noul": 0.7776 },
+          "block_7": { "type": "noul", "noul": 0.8681 },
+          "block_8": { "type": "noul", "noul": 0.3512 },
+          "block_9": { "type": "noul", "noul": 0.785 },
+          "block_10": { "type": "noul", "noul": 0.8505 },
+          "block_11": { "type": "noul", "noul": 0.5003 },
+          "block_12": { "type": "noul", "noul": 0.4402 },
+          "block_13": { "type": "noul", "noul": 0.7923 },
+          "block_14": { "type": "noul", "noul": 0.7461 },
+          "block_15": { "type": "noul", "noul": 0.679 }
+        },
+        "usage": { "input_tokens": 2681, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:pardubice_rozhlas_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.99 } },
+        "usage": { "input_tokens": 242, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:platba_portalprazana_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.0067 } },
+        "usage": { "input_tokens": 216, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:plnoknih_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.0062 } },
+        "usage": { "input_tokens": 255, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:pojmag_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.989 } },
+        "usage": { "input_tokens": 192, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:progresser_orthographe_lemonde_fr_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9913 } },
+        "usage": { "input_tokens": 204, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:pvaexpo_cz_cs",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9465 } },
+        "usage": { "input_tokens": 209, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:rejstrik_firem_kurzy_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.8608 } },
+        "usage": { "input_tokens": 233, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:scott_and_rose_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.0076 } },
+        "usage": { "input_tokens": 193, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:story_kafe_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9908 } },
+        "usage": { "input_tokens": 215, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:temata_rozhlas_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9898 },
+          "block_2": { "type": "noul", "noul": 0.9926 }
+        },
+        "usage": { "input_tokens": 407, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:ukpoint_cuni_cz_IPSC_1_html",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9509 },
+          "block_2": { "type": "noul", "noul": 0.9634 },
+          "block_3": { "type": "noul", "noul": 0.0137 },
+          "block_4": { "type": "noul", "noul": 0.0174 },
+          "block_5": { "type": "noul", "noul": 0.0181 },
+          "block_6": { "type": "noul", "noul": 0.028 },
+          "block_7": { "type": "noul", "noul": 0.0241 },
+          "block_8": { "type": "noul", "noul": 0.0279 },
+          "block_9": { "type": "noul", "noul": 0.9385 },
+          "block_10": { "type": "noul", "noul": 0.9563 },
+          "block_11": { "type": "noul", "noul": 0.296 }
+        },
+        "usage": { "input_tokens": 1626, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:upv_gov_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9909 } },
+        "usage": { "input_tokens": 214, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:vrecionova_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9898 } },
+        "usage": { "input_tokens": 204, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:web_etf_cuni_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.0188 },
+          "block_2": { "type": "noul", "noul": 0.0225 },
+          "block_3": { "type": "noul", "noul": 0.0965 },
+          "block_4": { "type": "noul", "noul": 0.0507 },
+          "block_5": { "type": "noul", "noul": 0.0597 },
+          "block_6": { "type": "noul", "noul": 0.0386 },
+          "block_7": { "type": "noul", "noul": 0.0394 },
+          "block_8": { "type": "noul", "noul": 0.1513 }
+        },
+        "usage": { "input_tokens": 1386, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_bonprix_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9916 } },
+        "usage": { "input_tokens": 225, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_datart_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9611 } },
+        "usage": { "input_tokens": 229, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_denkvooruit_nl_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9908 },
+          "block_2": { "type": "noul", "noul": 0.9901 },
+          "block_3": { "type": "noul", "noul": 0.9877 }
+        },
+        "usage": { "input_tokens": 508, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_drbna_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9907 } },
+        "usage": { "input_tokens": 205, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_economia_cz_specialni_projekty_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.0058 } },
+        "usage": { "input_tokens": 227, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_fit_vut_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.8622 } },
+        "usage": { "input_tokens": 218, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_footshop_fr_fr_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.8634 } },
+        "usage": { "input_tokens": 212, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_france_fr_fr_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.0321 },
+          "block_2": { "type": "noul", "noul": 0.5755 },
+          "block_3": { "type": "noul", "noul": 0.9777 },
+          "block_4": { "type": "noul", "noul": 0.9087 },
+          "block_5": { "type": "noul", "noul": 0.9562 },
+          "block_6": { "type": "noul", "noul": 0.8217 },
+          "block_7": { "type": "noul", "noul": 0.9266 }
+        },
+        "usage": { "input_tokens": 989, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_german_u15_de_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.0102 } },
+        "usage": { "input_tokens": 217, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_hrot24_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9534 },
+          "block_2": { "type": "noul", "noul": 0.9705 },
+          "block_3": { "type": "noul", "noul": 0.9288 }
+        },
+        "usage": { "input_tokens": 484, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_lf2_cuni_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.0178 },
+          "block_2": { "type": "noul", "noul": 0.0261 },
+          "block_3": { "type": "noul", "noul": 0.9648 }
+        },
+        "usage": { "input_tokens": 490, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_matfyz_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.991 } },
+        "usage": { "input_tokens": 197, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_osf_mvcr_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9788 } },
+        "usage": { "input_tokens": 247, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_publikationen_bundesregierung_de_pp_de_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.3264 },
+          "block_2": { "type": "noul", "noul": 0.0077 }
+        },
+        "usage": { "input_tokens": 338, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_serialovysvet_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9871 } },
+        "usage": { "input_tokens": 216, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_spilberk_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.99 } },
+        "usage": { "input_tokens": 207, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_thomann_es_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.0283 },
+          "block_2": { "type": "noul", "noul": 0.9846 },
+          "block_3": { "type": "noul", "noul": 0.8737 }
+        },
+        "usage": { "input_tokens": 493, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_thomann_ro_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.0077 },
+          "block_2": { "type": "noul", "noul": 0.0091 }
+        },
+        "usage": { "input_tokens": 330, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_tzb_info_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9707 },
+          "block_2": { "type": "noul", "noul": 0.0722 },
+          "block_3": { "type": "noul", "noul": 0.9321 }
+        },
+        "usage": { "input_tokens": 531, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_zooplus_es_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9928 } },
+        "usage": { "input_tokens": 197, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:48ertandler_wien_gv_at_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9895 } },
+        "usage": { "input_tokens": 211, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:blog_seznam_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9916 } },
+        "usage": { "input_tokens": 195, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:budejcka_drbna_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9913 } },
+        "usage": { "input_tokens": 206, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:burda_international_cz_shorthandstories_com_burda_story_index_html",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.0074 },
+          "block_2": { "type": "noul", "noul": 0.0116 },
+          "block_3": { "type": "noul", "noul": 0.0163 },
+          "block_4": { "type": "noul", "noul": 0.0164 },
+          "block_5": { "type": "noul", "noul": 0.0132 },
+          "block_6": { "type": "noul", "noul": 0.015 },
+          "block_7": { "type": "noul", "noul": 0.0201 },
+          "block_8": { "type": "noul", "noul": 0.0434 },
+          "block_9": { "type": "noul", "noul": 0.0247 },
+          "block_10": { "type": "noul", "noul": 0.0423 },
+          "block_11": { "type": "noul", "noul": 0.0154 },
+          "block_12": { "type": "noul", "noul": 0.0416 },
+          "block_13": { "type": "noul", "noul": 0.0446 },
+          "block_14": { "type": "noul", "noul": 0.0182 },
+          "block_15": { "type": "noul", "noul": 0.0196 }
+        },
+        "usage": { "input_tokens": 2286, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:cosedeje_brno_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9903 },
+          "block_2": { "type": "noul", "noul": 0.9821 }
+        },
+        "usage": { "input_tokens": 400, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:eshop_nextpagemedia_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9915 } },
+        "usage": { "input_tokens": 230, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:fm_denik_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9905 } },
+        "usage": { "input_tokens": 208, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:it_muni_cz_phil",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9837 } },
+        "usage": { "input_tokens": 225, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:jablonecky_denik_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9917 },
+          "block_2": { "type": "noul", "noul": 0.9925 }
+        },
+        "usage": { "input_tokens": 342, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:jazz_rozhlas_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9748 } },
+        "usage": { "input_tokens": 221, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:kampusalbertov_cuni_cz_KA_1_html",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.0133 } },
+        "usage": { "input_tokens": 262, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:kariera_o2_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9832 } },
+        "usage": { "input_tokens": 196, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:karlovarska_drbna_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9907 } },
+        "usage": { "input_tokens": 205, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:lajk_iprima_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9889 } },
+        "usage": { "input_tokens": 196, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:lindat_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.0101 },
+          "block_2": { "type": "noul", "noul": 0.0146 },
+          "block_3": { "type": "noul", "noul": 0.0117 },
+          "block_4": { "type": "noul", "noul": 0.01 },
+          "block_5": { "type": "noul", "noul": 0.0192 },
+          "block_6": { "type": "noul", "noul": 0.0232 }
+        },
+        "usage": { "input_tokens": 1007, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:litomericky_denik_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9894 } },
+        "usage": { "input_tokens": 203, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:partneri_shoptet_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.6095 },
+          "block_2": { "type": "noul", "noul": 0.9504 }
+        },
+        "usage": { "input_tokens": 393, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:policie_gov_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9887 } },
+        "usage": { "input_tokens": 198, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:praktickazena_kafe_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9908 } },
+        "usage": { "input_tokens": 215, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:predplatne_hn_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9925 },
+          "block_2": { "type": "noul", "noul": 0.9909 }
+        },
+        "usage": { "input_tokens": 364, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:reclamatiisal_anpc_ro_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.0084 },
+          "block_2": { "type": "noul", "noul": 0.0097 },
+          "block_3": { "type": "noul", "noul": 0.0131 },
+          "block_4": { "type": "noul", "noul": 0.011 },
+          "block_5": { "type": "noul", "noul": 0.0126 },
+          "block_6": { "type": "noul", "noul": 0.0115 },
+          "block_7": { "type": "noul", "noul": 0.0158 },
+          "block_8": { "type": "noul", "noul": 0.0167 },
+          "block_9": { "type": "noul", "noul": 0.0358 },
+          "block_10": { "type": "noul", "noul": 0.0122 },
+          "block_11": { "type": "noul", "noul": 0.0136 },
+          "block_12": { "type": "noul", "noul": 0.0126 },
+          "block_13": { "type": "noul", "noul": 0.0163 },
+          "block_14": { "type": "noul", "noul": 0.0125 },
+          "block_15": { "type": "noul", "noul": 0.0151 }
+        },
+        "usage": { "input_tokens": 2279, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:static_ah_nl_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9917 } },
+        "usage": { "input_tokens": 194, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:sustain_muni_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9887 } },
+        "usage": { "input_tokens": 219, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:tech_hn_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9816 } },
+        "usage": { "input_tokens": 208, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:vysocina_rozhlas_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9909 } },
+        "usage": { "input_tokens": 211, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:wave_rozhlas_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9909 } },
+        "usage": { "input_tokens": 207, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_alitas_cz_cs",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9907 },
+          "block_2": { "type": "noul", "noul": 0.9895 },
+          "block_3": { "type": "noul", "noul": 0.9601 },
+          "block_4": { "type": "noul", "noul": 0.9768 }
+        },
+        "usage": { "input_tokens": 672, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_bazar_nabytku_kolin_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9911 } },
+        "usage": { "input_tokens": 224, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_centrum_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9909 } },
+        "usage": { "input_tokens": 215, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_ceskaposta_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9867 } },
+        "usage": { "input_tokens": 217, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_chip_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9918 },
+          "block_2": { "type": "noul", "noul": 0.9827 }
+        },
+        "usage": { "input_tokens": 355, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_elysee_fr_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9911 } },
+        "usage": { "input_tokens": 197, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_emimino_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9931 },
+          "block_2": { "type": "noul", "noul": 0.9903 }
+        },
+        "usage": { "input_tokens": 398, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_fa_vutbr_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9896 },
+          "block_2": { "type": "noul", "noul": 0.9935 }
+        },
+        "usage": { "input_tokens": 371, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_flashfutbal_sk_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9336 } },
+        "usage": { "input_tokens": 211, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_footshop_hr_hr_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9645 } },
+        "usage": { "input_tokens": 238, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_footshop_sk_sk_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9786 } },
+        "usage": { "input_tokens": 250, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_kafe_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9908 } },
+        "usage": { "input_tokens": 215, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_knihydobrovsky_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9652 },
+          "block_2": { "type": "noul", "noul": 0.024 }
+        },
+        "usage": { "input_tokens": 412, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_lavie_fr_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9908 } },
+        "usage": { "input_tokens": 213, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_monde_diplomatique_fr_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.992 },
+          "block_2": { "type": "noul", "noul": 0.9891 }
+        },
+        "usage": { "input_tokens": 352, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_nkz_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9902 } },
+        "usage": { "input_tokens": 206, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_prostreno_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.9898 } },
+        "usage": { "input_tokens": 218, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_service_public_gouv_fr_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9906 },
+          "block_2": { "type": "noul", "noul": 0.9828 },
+          "block_3": { "type": "noul", "noul": 0.9542 }
+        },
+        "usage": { "input_tokens": 451, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_thomann_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.0066 },
+          "block_2": { "type": "noul", "noul": 0.0085 }
+        },
+        "usage": { "input_tokens": 330, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_thomann_it_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.006 } },
+        "usage": { "input_tokens": 205, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_toprecepty_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9893 },
+          "block_2": { "type": "noul", "noul": 0.9896 },
+          "block_3": { "type": "noul", "noul": 0.9778 }
+        },
+        "usage": { "input_tokens": 499, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:www_ukforum_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": { "block_1": { "type": "noul", "noul": 0.0124 } },
+        "usage": { "input_tokens": 195, "output_tokens": 0 }
+      }
+    },
+    {
+      "key": "passage-language-marked:zakazky_brno_cz_",
+      "reply": {
+        "model": "clef",
+        "answers": {
+          "block_1": { "type": "noul", "noul": 0.9938 },
+          "block_2": { "type": "noul", "noul": 0.9923 }
+        },
+        "usage": { "input_tokens": 429, "output_tokens": 0 }
+      }
+    }
+  ]
+}

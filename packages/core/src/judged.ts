@@ -43,7 +43,7 @@ export const NOTE_AT = {
   "passage-language-marked": 0.8,
   "sells-to-consumers": 0.85,
   "statement-annex-v": 0.8,
-  "visual-headings-marked": 0.8,
+  "visual-headings-marked": 0.6,
 } as const satisfies Record<JudgedId, number>;
 
 const Count = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0));
@@ -488,7 +488,7 @@ const pageLanguageMatches: JudgedCheck = {
 
 const passageLanguageMarked: JudgedCheck = {
   about:
-    "The model read text blocks whose common words point to another language than the lang in force on them, and judged that the block is written in another language, which its markup does not say.",
+    "The model read text blocks whose common words point to another language than the lang in force on them, and judged that the block is not written in that language, which its markup does not say.",
   ask: ({ rendered }) => {
     const foreign = rendered?.foreignBlocks ?? null;
 
@@ -500,22 +500,22 @@ const passageLanguageMarked: JudgedCheck = {
       foreign.blocks.flatMap((block) => {
         const declared = declaredLanguage(block.lang);
 
-        return declared === null || declared === "other"
-          ? []
-          : [{ declared, text: block.text }];
+        const name =
+          declared === null || declared === "other"
+            ? undefined
+            : EU_LANGUAGES.get(declared);
+
+        return name === undefined ? [] : [{ name, text: block.text }];
       }),
       ({ text }) => text
     );
 
-    const entries = blocks.map(({ declared, text }, index) => ({
-      expected: declared,
+    const entries = blocks.map(({ name, text }, index) => ({
       key: `block_${index + 1}`,
-      question: {
-        criteria: LANGUAGE_NAMES,
-        instructions: `Which language is most of Block ${index + 1} written in? Names of people, places, products and brands do not count.`,
-        type: "choice" as const,
-      },
-      sample: `${quoted(capped(text, MAX_SNIPPET))} under lang=${quoted(declared)}`,
+      question: noul(
+        `Is most of Block ${index + 1} written in ${name}? Names of people, places, products and brands do not count.`
+      ),
+      sample: `${quoted(capped(text, MAX_SNIPPET))} marked as ${name}`,
     }));
 
     return askedOf(
@@ -531,16 +531,9 @@ const passageLanguageMarked: JudgedCheck = {
     );
   },
   criteria: ["3.1.2"],
-  decide: (asked, reply) =>
-    asked.items.flatMap((item) =>
-      notDeclaredNote(
-        item,
-        reply.answers[item.key],
-        NOTE_AT["passage-language-marked"]
-      )
-    ),
+  decide: notedWhereNo(NOTE_AT["passage-language-marked"]),
   id: "passage-language-marked",
-  shown: false,
+  shown: true,
   title: "Passages that may be in another language than marked",
 };
 
@@ -735,7 +728,7 @@ const visualHeadingsMarked: JudgedCheck = {
   criteria: ["1.3.1"],
   decide: notedWhereYes(NOTE_AT["visual-headings-marked"]),
   id: "visual-headings-marked",
-  shown: false,
+  shown: true,
   title: "Text that may look like a heading but is not marked up as one",
 };
 

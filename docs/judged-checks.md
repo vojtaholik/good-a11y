@@ -32,8 +32,8 @@ At most 20 distinct items per check (`MAX_JUDGED_ITEMS`), taken in document orde
 | `page-language-matches` | 3.1.1 | the page, when it declares `lang` and has at least 200 characters of visible text | Choice over the 24 EU official languages plus "other": which language is most of the text in? |
 | `sells-to-consumers` | EAA scope (EU-SCOPE-1, EU-DEF-1); no WCAG criterion | the entered page: title, first 1,200 characters of text, up to 20 prices, up to 10 links whose text or href names a cart, checkout, subscription or booking, schema.org types | Does this website let consumers buy, order, book or subscribe online, so that a consumer contract is concluded through the site? A note says either "appears to sell" or "does not appear to sell"; no note means the model was not sure. Shown beside the member-state list, never changes it |
 | `statement-annex-v` | Art. 13 and Annex V point 1 (EU-STMT-3, -4, -5); no WCAG criterion | the statement page the crawl found, when its text outside `nav`, `header` and `footer` is at least 300 characters; the text is capped at 6,000 characters | Three questions, items `statement_1` to `statement_3`: does the text give (a) a general description of the service, (b) an explanation of how the service works, (c) a description of how it meets the accessibility requirements? A note per point the model judged missing |
-| `visual-headings-marked` | 1.3.1 | the rendered page's `visualHeadings` candidates (builder-cloud's probe: short blocks outside heading elements set at 1.2 times body size or larger, or bold at body size alone on their line; none that contains a heading or follows one), with at least three letters once currency words are removed, each text once, up to 20 | Is the text the title of a section of the page, the way a heading names the content below it? No for a price, a card or teaser name, a slogan, a date, a number, an icon name, a button or link label, a notice or part of a sentence. State: text, size, weight, body size, the start of its HTML. Noted where P(yes) is high. Hidden, calibrating (round 3) |
-| `passage-language-marked` | 3.1.2 | the rendered page's `foreignBlocks` (blocks whose common words point to another language than the `lang` in force on them), when that `lang` is an EU language, each text once, up to 20 | Choice over the EU languages: which language is most of the block written in, names not counting? Noted like `page-language-matches`. Hidden, calibrating (round 3) |
+| `visual-headings-marked` | 1.3.1 | the rendered page's `visualHeadings` candidates (builder-cloud's probe: short blocks outside heading elements set at 1.2 times body size or larger, or bold at body size alone on their line; none that contains a heading or follows one), with at least three letters once currency words are removed, each text once, up to 20 | Is the text the title of a section of the page, the way a heading names the content below it? No for a price, a card or teaser name, a slogan, a date, a number, an icon name, a button or link label, a notice or part of a sentence. State: text, size, weight, body size, the start of its HTML. Noted where P(yes) ≥ 0.60. Shown (round 3) |
+| `passage-language-marked` | 3.1.2 | the rendered page's `foreignBlocks` (blocks whose common words point to another language than the `lang` in force on them), when that `lang` is an EU language, each text once, up to 20 | Is most of the block written in the language its `lang` names? Names of people, places, products and brands do not count. Noted where P(no) ≥ 0.80. Shown (round 3) |
 
 The static reader collects the extra evidence in its single tokenizer pass: link context (the innermost `p`, `li`, `td`, `th`, `dd`, `dt`, `caption`, `figcaption` or heading, capped at 300 characters), headings with level, label texts, the image file name (last path segment, no query, none for `data:`), the first 1,200 characters of visible text, each block's text (`passages`: paragraph, list item, cell or heading of at least 40 characters, with its effective `lang` and landmark, at most 400), and up to 20 distinct prices (an amount with a currency sign or code, or `,-`, also when the currency is in the next text node).
 
@@ -49,6 +49,8 @@ The static reader collects the extra evidence in its single tokenizer pass: link
 | `page-language-matches` | P(not declared) ≥ 0.80 and the top choice is another language | 1.00 (18/18, round 3, real items) | 1.00 (18/18) |
 | `sells-to-consumers` | P(yes) ≥ 0.85 or P(no) ≥ 0.85 (round 2, real items) | 1.00 (60/60) | answers 60 of 71 sites |
 | `statement-annex-v` | P(no) ≥ 0.80 per point (round 2, real items) | 1.00 (27/27) | 0.93 (27/29) |
+| `visual-headings-marked` | P(yes) ≥ 0.60 (round 3, holdout) | 1.00 (16/16) | 0.94 (16/17) |
+| `passage-language-marked` | P(no) ≥ 0.80 (round 3, holdout) | 1.00 (32/32) | 0.97 (32/33) |
 
 - Each note shows the model's confidence in that answer (the probability above, rounded to a percent).
 - What a note means: the model, reading only the text shown, thinks this item probably does not do what the success criterion asks. It is a pointer for a person to look at, not a failure. A check with no notes means nothing was noted, never that the criterion is met.
@@ -66,8 +68,8 @@ Each check has a `shown` flag in `packages/core/src/judged.ts`. A check that is 
 | `page-language-matches` | yes | 18 of 18 real notes right, no note on 71 correct real pages (round 3) |
 | `sells-to-consumers` | yes | 60 of 60 real answers right (round 2) |
 | `statement-annex-v` | yes | 27 of 27 real notes right (round 2) |
-| `visual-headings-marked` | no | Calibrating: needs a holdout of real candidates the probe drops were not designed on (round 3) |
-| `passage-language-marked` | no | Calibrating: 2 real positives in 81 real blocks so far, too few to measure precision (round 3) |
+| `visual-headings-marked` | yes | 16 of 16 real notes right on a holdout of 10 pages the threshold and the probe drops were not chosen on (round 3) |
+| `passage-language-marked` | yes | 32 of 32 real notes right on the holdout half of 95 pages; threshold chosen on the other half (round 3) |
 
 The hand-written set above did not predict the failures on real pages. A hidden check comes back only when it reaches precision 0.9 on a set of at least 30 real items, labelled by hand, taken from scanned pages.
 
@@ -103,7 +105,7 @@ Answers: one Clef run of 174 requests through builder-cloud's local calibrator (
 | Question | Relates to | Why it was retired |
 | --- | --- | --- |
 | Sensory instructions | 1.3.3 | A phrase prefilter for an instruction verb together with a colour, shape, position or sound word, in 12 EU languages, found 8 candidate sentences in 135 real pages, 53 of them help pages. A first version also matched "links" (German "left") and "use" and fired on navigation. So the 30 real items the bar needs cannot be collected from scanned pages, and per scan the question would almost never be asked. One true candidate was seen: knihydobrovsky.cz marks unavailable goods "with a red cross". |
-| Passages in another language | 3.1.2 | 2,251 passages of at least 80 characters whose effective `lang` equals the page's were checked by a word-list heuristic. It found no passage in another language: the only hits were the fixture page and a Finnish passage misread by the heuristic. Real pages in the set give the question nothing to find, so it cannot reach the bar, and it would cost about 3,000 tokens a scan. |
+| Passages in another language (static passages; brought back on rendered evidence in round 3) | 3.1.2 | 2,251 passages of at least 80 characters whose effective `lang` equals the page's were checked by a word-list heuristic. It found no passage in another language: the only hits were the fixture page and a Finnish passage misread by the heuristic. Real pages in the set give the question nothing to find, so it cannot reach the bar, and it would cost about 3,000 tokens a scan. |
 | Product accessibility information | Annex I IV (g)(i) | The obligation is to pass on accessibility information "when this information is provided by the responsible economic operator". A scan cannot see whether the manufacturer provided any. A note that a product page has no accessibility information would read as a failure the scan cannot show, so the row stays with a person. |
 
 The rendered questions in decision 29 (visual headings 1.3.1, form instructions 3.3.2, error messages 3.3.1 and 3.3.3, consistent identification 3.2.4) wait for evidence from the rendered session; none is in this round.
@@ -120,12 +122,58 @@ Round 2 had no real page whose `lang` is wrong, so the question was shown with i
 
 Every wrong page was noted with P(declared) at most 0.014. The lowest P(declared) on a correct page was 0.60 (jiri-vancura-kresby.cz). The question stays shown.
 
+### Text styled as a heading (1.3.1)
+
+builder-cloud's probe (`__eaaEvidence.visualHeadings`, docs/rendered-probes.md) was run locally: the built page script in a headless Chrome at the scan's viewport, read only, no budget. The design set is the 76 round 2 home and contact pages with candidates: 424 candidates, labelled by hand before Clef was asked (140 headings, 250 not, 34 too ambiguous to score, such as teaser titles over a picture). The best precision was 0.89 at P(yes) ≥ 0.60, and every confident false note came from the evidence: a block that wraps a real heading (wikipedia's `mp-welcome` around its `h1`) and the description under a real heading (debian.org's `<h2>People</h2><p>Who we are and what we do</p>`, 8 notes). builder-cloud dropped both in the probe (766c553). Without those two pages the design set gives 74 of 74 at 0.60.
+
+The probe drops and the threshold were chosen on that set, so the result is the holdout: 10 pages the set does not hold (heureka.cz, hornbach.de, cuni.cz, mpsv.cz, kb.cz, csob.cz, mediamarkt.de, muni.cz, obi.cz, ceskaposta.cz), read with the new probe, 51 candidates labelled before asking, 38 scorable.
+
+| Set | Scored | Headings | Noted at 0.60 | Right | Precision | Recall | Tokens |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Design (74 pages, without wikipedia and debian) | 381 | 140 | 74 | 74 | 1.00 | 0.53 | 92,346 (all 76 pages) |
+| Holdout (10 pages) | 38 | 17 | 16 | 16 | 1.00 | 0.94 | 11,119 |
+
+Most holdout headings are footer column titles (hornbach.de 9, heureka.cz 4), so the holdout says the most about that kind. The one heading missed was cuni.cz's cookie dialog title (P(yes) 0.27). Prices, card names, slogans, icon ligatures and button labels were not noted on either set. The question is shown.
+
+### Passages in another language (3.1.2)
+
+Round 2 retired this question because the static passages held no foreign text. The rendered probe's `foreignBlocks` prefilter (docs/rendered-probes.md) finds candidates, so it came back. Two sets, both read locally with the page script and labelled by hand before Clef was asked:
+
+- The round 2 pages: 81 blocks, 76 scorable, 2 in another language (coolblue.nl's "The website is in Dutch. Would you rather see it in English?" on two pages). Asked with a first version, a choice over the EU languages: 2 of 2 noted, nothing else above 0.5, but 46,215 tokens for 30 pages. That cost replaced it with the yes/no question, and this set is kept only as a reference.
+- 260 pages linked from the language hunt above, 99 with candidates: 221 blocks, 194 scorable, 70 in another language. Script and CSS that leaked into a block, song titles and similar are left unscored. The sites, sorted by name, were split in alternate halves: the threshold was chosen on one half and the precision is the other half's.
+
+| Half | Pages | Scored | Other language | Noted at 0.80 | Right | Precision | Recall |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Design | 48 | 106 | 37 | 35 | 35 | 1.00 | 0.95 |
+| Holdout | 47 | 88 | 33 | 32 | 32 | 1.00 | 0.97 |
+
+On the design half no block marked correctly reached P(no) 0.60, so any threshold from 0.6 to 0.9 had precision 1.00; 0.80 matches `page-language-matches`. The yes/no run took 39,821 tokens for 99 pages, about 400 a page that has candidates.
+
+Many positives sit on pages whose whole `lang` is wrong (Czech text under `en` on cuni.cz faculty sites, burda's story page, Romanian under `en` on anpc.ro), which 3.1.1 also reports. The others are real unmarked passages: English event blurbs on ukpoint.cuni.cz, English quotes on lf2.cuni.cz, a Slovak article on tzb-info.cz, English banners on france.fr and thomann.ro, English report titles on publikationen-bundesregierung.de. The question is shown.
+
 ### Retired without a model question
 
 | Question | Relates to | Why |
 | --- | --- | --- |
 | Labels or instructions | 3.3.2 | The rendered form evidence was read on 49 real contact, newsletter and registration pages: 242 fields. Every field with a visible label had one a person would accept. The failures were fields with no label, or only a placeholder (alza.cz chat, sportisimo.cz and pilulka.cz newsletters). That is a fact about the markup, not a judgement, so a model adds nothing and only costs tokens. A deterministic check for placeholder-only fields would be a check, not a judged question. |
 | Consistent identification | 3.2.4 | It would read the same per-page link lists as the cross-page checks dropped in accuracy round 6. Every false positive there came from that evidence: skip links and self-links that share an address with Home or the logo, and page-local links next to the shared navigation. A model reading those lists inherits the same errors. 3.2.4 stays "Needs a person", and builder-cloud dropped the navigation and help lists from the page summary (1614b61). |
+
+### Tokens used for calibration on 2026-11-04
+
+All through the local calibrator (local D1 `judge_budget` row), each figure the model's reported input tokens. The lead approved going past the calibrator's 100,000 share for this day, up to 410,000 (builder-cloud 250dec1, 48f0706, 619b502), the override local only and removed afterwards.
+
+| Run | Requests | Input tokens |
+| --- | --- | --- |
+| Round 2 (links, language, scope, statements) | 174 | 162,148 |
+| Visual headings, design set | 76 | 92,346 |
+| Page language, round 3 pages | 29 | 26,596 |
+| Unaccounted in the row before round 3's holdout (281,790 read) |  | 700 |
+| Visual headings, holdout | 10 | 11,119 |
+| Passage language, choice version, round 2 pages | 30 | 46,215 |
+| Passage language, yes/no, 260-page set | 99 | 39,821 |
+| Total |  | 378,945 |
+
+Dev's own judged steps (other agents' scans and builder-cloud's form run) count on dev's row, not this one.
 
 ## Real-item calibration
 
@@ -193,6 +241,7 @@ Measured on the fixture page (`packages/core/test/fixtures/judged-page.html`, 4 
 - `packages/core/test/judged-calibration.test.ts` rebuilds the hand-written calibration requests with `questionsOf`, decides them with each check's `decide` on the recorded answers, and checks precision and recall per check.
 - `packages/ai-judge/test/ai-judge.test.ts` checks the pinned model and gateway, decoding, and the `service`, `unreadable` and `timeout` failures.
 - `packages/scan-store/test/judge-budget.test.ts` checks the daily token cap.
-- `packages/core/test/judged-round2-calibration.test.ts` scores the round 2 real items (above) and ties each shown flag to its real-item precision.
+- `packages/core/test/judged-round2-calibration.test.ts` scores the round 2 real items (above), with the round 3 page-language pages, and ties each shown flag to its real-item precision.
+- `packages/core/test/judged-round3-calibration.test.ts` scores the rendered questions on their design sets and holdouts (`judged-round3-headings.json`, `judged-round3-passages.json`: the recorded probe evidence, the hand labels and the recorded answers) and ties each shown flag to the holdout precision.
 - `packages/html-reader/test/judge-evidence.test.ts` checks the link, heading and label evidence. `judged-passages.test.ts` checks passages (language, landmark, no doubled text, hidden blocks left out) and prices. The hostile-input test runs every judged question, shown or not, on input at the size cap, with digit runs and prices among the units, and checks it stays within the linear-time budget.
 - `packages/core/test/scan-machine.test.ts` checks that a failed judge step still publishes.
