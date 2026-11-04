@@ -48,7 +48,8 @@ On a report route the Worker reads the scan from the scanner over the service bi
 ## Tests
 
 - `apps/web/test/site.test.ts`: the server-rendered start page and its metadata, Markdown for every route, `llms.txt` and the skill naming every guide, the demo's CSP, 404s, and the `Accept` negotiation.
-- `apps/web/test/own-page.test.ts`: our own checks pass on the start page, `/check`, every guide page and the report.
+- `apps/web/test/own-page.test.ts`: our own static checks pass on the server-rendered start page, `/check`, every guide page and the report.
+- `apps/web/test/own-site.e2e.test.ts`: the rendered check on our own built pages. It serves `dist/client` through `siteHandler` on a local port and runs the committed `check --json` bundle in Chrome on the start page, `/check`, a 404 and every guide page, like the demo gate; any issue, axe and rendered probes included, or a rendered check that did not run, fails it. The build writes its id to `dist/build-id.txt` and Vitest renders with that id, so the built client hydrates the test's pages (Foldkit refuses a handoff from another build and leaves the body inert). The report page is not in it yet: it needs a scan from the backend; it joins with the report redesign.
 - `apps/web/test/story.test.ts`: `update` for starting a scan (refused, started, refused by the scanner), reading a report (unknown scan, a stale answer ignored), focus on navigation and the contact form.
 - `apps/web/test/scene.test.ts`: the rendered start page, the skip link, the empty-address status, the disabled button while a scan starts, a report heading.
 
