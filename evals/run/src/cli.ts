@@ -23,7 +23,7 @@ import { regradeOne } from "./regrade.js";
 import { failedRun, runOne } from "./run.js";
 import type { RunPaths, RunResult, RunSpec } from "./run.js";
 import { queryLogOf, summaryOf } from "./summary.js";
-import { ARMS, ArmSchema, readTasks } from "./task.js";
+import { ArmSchema, DEFAULT_ARMS, readTasks } from "./task.js";
 
 const commaList = (text: string): string[] =>
   text
@@ -141,8 +141,10 @@ const evalCommand = Command.make(
       )
     ),
     arms: Flag.String("arms").pipe(
-      Flag.withDefault(ARMS.join(",")),
-      Flag.withDescription("Comma-separated: unguided, guided")
+      Flag.withDefault(DEFAULT_ARMS.join(",")),
+      Flag.withDescription(
+        "Comma-separated: unguided, guided, url (the only guidance is the good-a11y.com prompt)"
+      )
     ),
     concurrency: concurrencyFlag,
     guide: Flag.String("guide").pipe(

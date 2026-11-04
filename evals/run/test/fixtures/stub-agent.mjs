@@ -8,6 +8,10 @@ const line = (value) => process.stdout.write(`${JSON.stringify(value)}\n`);
 
 const prompt = process.argv[2] ?? "";
 
+if (prompt.includes("/skill.md")) {
+  writeFileSync("prompt.txt", `${prompt}\n`);
+}
+
 writeFileSync(
   "index.html",
   prompt.includes("BREAK THE BUILD")

@@ -1,6 +1,8 @@
 import { Effect, FileSystem, Path, Schema } from "effect";
 
-export const ARMS = ["unguided", "guided"] as const;
+export const ARMS = ["unguided", "guided", "url"] as const;
+
+export const DEFAULT_ARMS = ["unguided", "guided"] as const;
 
 export const ArmSchema = Schema.Literals(ARMS);
 

@@ -17,6 +17,7 @@ export interface InvocationInput {
   readonly project: string;
   readonly prompt: string;
   readonly stubScript: string;
+  readonly web: boolean;
 }
 
 export const CLAUDE_ALLOWED_TOOLS = [
@@ -43,6 +44,29 @@ export const CLAUDE_SANDBOX_SETTINGS = {
   },
 } as const;
 
+export const WEB_DOMAINS = [
+  "good-a11y.com",
+  "github.com",
+  "codeload.github.com",
+  "objects.githubusercontent.com",
+  "registry.npmjs.org",
+] as const;
+
+export const CLAUDE_WEB_SETTINGS = {
+  ...CLAUDE_SANDBOX_SETTINGS,
+  permissions: { deny: ["WebSearch"] },
+  sandbox: {
+    ...CLAUDE_SANDBOX_SETTINGS.sandbox,
+    network: {
+      ...CLAUDE_SANDBOX_SETTINGS.sandbox.network,
+      allowedDomains: [
+        ...CLAUDE_SANDBOX_SETTINGS.sandbox.network.allowedDomains,
+        ...WEB_DOMAINS,
+      ],
+    },
+  },
+} as const;
+
 export const invocationOf = (
   agent: AgentName,
   input: InvocationInput
@@ -64,11 +88,14 @@ export const invocationOf = (
         "--mcp-config",
         '{"mcpServers":{}}',
         "--settings",
-        JSON.stringify(CLAUDE_SANDBOX_SETTINGS),
+        JSON.stringify(
+          input.web ? CLAUDE_WEB_SETTINGS : CLAUDE_SANDBOX_SETTINGS
+        ),
         "--permission-mode",
         "acceptEdits",
         "--allowedTools",
         ...CLAUDE_ALLOWED_TOOLS,
+        ...(input.web ? ["WebFetch"] : []),
       ],
       command: "claude",
       env: {},

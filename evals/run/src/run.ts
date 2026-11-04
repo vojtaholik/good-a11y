@@ -73,6 +73,9 @@ export const runIdOf = (
 export const installedSkill = (skill: string, bundle: string): string =>
   skill.replaceAll(SHIPPED_COMMAND, `node ${bundle}`);
 
+export const URL_PROMPT =
+  "Use https://good-a11y.com for accessibility in this project: read https://good-a11y.com/skill.md and follow it.";
+
 export const AGENTS_POINTER =
   "\n\n## Accessibility\n\nBefore any UI, HTML, form or component work, read `.claude/skills/good-a11y/SKILL.md` and follow it.\n";
 
@@ -230,8 +233,12 @@ const runAgent = Effect.fn("runAgent")(function* runAgent(
   const invocation = invocationOf(spec.agent, {
     home,
     project,
-    prompt: spec.loaded.task.prompt,
+    prompt:
+      spec.arm === "url"
+        ? `${URL_PROMPT}\n\n${spec.loaded.task.prompt}`
+        : spec.loaded.task.prompt,
     stubScript: paths.stubScript,
+    web: spec.arm === "url",
   });
 
   const finished: AgentOutcome = yield* runToEnd(

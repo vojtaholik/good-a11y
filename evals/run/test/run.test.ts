@@ -6,7 +6,7 @@ import { FetchHttpClient, HttpClient } from "effect/http";
 import { GradeFailed, Graders } from "../src/grade.js";
 import type { GradeInput } from "../src/grade.js";
 import { readResult, regradeOne } from "../src/regrade.js";
-import { SHIPPED_COMMAND, runOne } from "../src/run.js";
+import { SHIPPED_COMMAND, URL_PROMPT, runOne } from "../src/run.js";
 import type { RunPaths } from "../src/run.js";
 import { summaryOf } from "../src/summary.js";
 import { readTask } from "../src/task.js";
@@ -174,6 +174,42 @@ it.layer(NodeServices.layer)("one eval run", (test) => {
 
         expect(patch).toContain("Skip to main content");
         expect(patch).not.toContain("dist/");
+      })
+  );
+
+  test.effect(
+    "gives the url arm the good-a11y.com prompt and no installed skill",
+    () =>
+      Effect.gen(function* urlRun() {
+        const fileSystem = yield* FileSystem.FileSystem;
+        const path = yield* Path.Path;
+        const outDir = yield* fileSystem.makeTempDirectoryScoped();
+
+        const loaded = yield* readTask(
+          paths.evalsRoot,
+          "skip-link-landmarks",
+          "mini"
+        );
+
+        const result = yield* runOne(
+          {
+            agent: "stub",
+            arm: "url",
+            index: 1,
+            loaded,
+            outDir,
+            timeout: Duration.minutes(1),
+          },
+          paths
+        ).pipe(Effect.provide(pageGraders(false)));
+
+        const patch = yield* fileSystem.readFileString(
+          path.join(outDir, "runs", result.id, "changes.patch")
+        );
+
+        expect(result.arm).toBe("url");
+        expect(patch).toContain(`+${URL_PROMPT}`);
+        expect(patch).not.toContain(".claude/skills");
       })
   );
 
