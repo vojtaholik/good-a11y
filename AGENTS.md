@@ -41,7 +41,7 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 | `@good-a11y/evals` | `evals` | Layer 3 of good-a11y: one Playwright grader per guide (`evals/graders/<guide-id>.spec.ts`, one `E<n>` test per claim in its `expectations.md`), the base apps in `evals/apps`, and two task prompts per guide in `evals/tasks/<guide-id>/<app>.json` (`docs/evals.md`) |
 | `@good-a11y/eval-shop` | `evals/apps/shop` | Eval base app: a React and Vite shop (products, quick-view dialog, cart, checkout). `evals/apps/content` is its static sibling, plain HTML with no package |
 
-| `@good-a11y/scan-store` | `packages/scan-store` | Cartridge on D1: `ScanStore` (one row per scan: stage, report or failure; same-URL reuse within an hour; daily cap), `MessageStore` (contact messages, daily cap) and `BrowserBudget` (daily browser time for the rendered check). Each cap is one conditional insert. Declares its database and migrations for the Stack | | `@good-a11y/scanner` | `apps/scanner` | The backend Worker: `startScan`, `getScan`, `sendMessage` over RPC, and `ScanWorkflow`, one Workflow instance per scan whose body runs the XState scan machine with each step as a Workflow task | | `@good-a11y/web` | `apps/web` | The site: a Foldkit app styled with StyleX, rendered on the Worker and hydrated. Home with the checker and the guide list, a page per guide with its live demo, `/check` and its reports, every page also as Markdown, `llms.txt` and the skill (`docs/site.md`) | | `@good-a11y/infra` | `apps/infra` | The Alchemy Stack: website Worker, scanner Worker, the Workflow, D1. No zone, no domain |
+| `@good-a11y/scan-store` | `packages/scan-store` | Cartridge on D1: `ScanStore` (one row per scan: stage, report or failure; same-URL reuse within an hour; daily cap), `MessageStore` (contact messages, daily cap) and `BrowserBudget` (daily browser time for the rendered check). Each cap is one conditional insert. Declares its database and migrations for the Stack | | `@good-a11y/scanner` | `apps/scanner` | The backend Worker: `startScan`, `getScan`, `sendMessage` over RPC, and `ScanWorkflow`, one Workflow instance per scan whose body runs the XState scan machine with each step as a Workflow task | | `@good-a11y/web` | `apps/web` | The site: a Foldkit app styled with StyleX, rendered on the Worker and hydrated. Home with the checker and the guide list, a page per guide with its live demo, `/check` and its reports, every page also as Markdown, `llms.txt` and the skill (`docs/site.md`) | | `@good-a11y/infra` | `apps/infra` | The Alchemy Stack: website Worker, scanner Worker, the Workflow, D1, and the good-a11y.com zone (adopted and retained). Only stage `prod` puts the site on good-a11y.com (decision 13 of the good-a11y brief) |
 
 ## Nouns
 
@@ -69,7 +69,7 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 | `pnpm facts` | Regenerate `packages/facts/src/ledger.generated.ts` from the ledger. A test fails while it is stale |
 | `pnpm cli scan <url>` | Build and run the CLI; `--json` prints the schema-encoded result |
 | `pnpm exec alchemy dev --no-input` (in `apps/infra`) | The whole product in local workerd, no cloud calls |
-| `pnpm exec varlock run -- pnpm --filter @good-a11y/infra exec alchemy plan --stage dev --no-input` | Preview the Stack diff. Use `deploy --stage dev --yes --no-input` to apply. Name the stage every time; only non-production stages are authorized |
+| `pnpm exec varlock run -- pnpm --filter @good-a11y/infra exec alchemy plan --stage dev --no-input` | Preview the Stack diff. Use `deploy --stage dev --yes --no-input` to apply. Name the stage every time; non-production stages, and stage `prod` for this site (authorized by Vojta on 2026-11-04), are authorized |
 | `pnpm vendor:agent-sources` | Clone the pinned source mirrors agents read before writing Effect or XState code |
 | `pnpm exec lefthook install` | Install git hooks (also via `prepare`) |
 | `pnpm evals:graders` | Run every grader against its guide's `demo.html` (also part of `pnpm test`); `EVAL_TARGET_URL` points them at another page |
@@ -127,4 +127,4 @@ Preserve existing work. Inspect status before editing, stage only files changed 
 
 ## Boundaries and sign-off
 
-See `VISION.md`, "Needs sign-off". Never enter credentials. Deploy only to a non-production stage.
+See `VISION.md`, "Needs sign-off". Never enter credentials. Deploy to a non-production stage, or to stage `prod` for this site (authorized by Vojta on 2026-11-04, decision 13 of the good-a11y brief).
