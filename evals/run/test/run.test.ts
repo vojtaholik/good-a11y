@@ -35,7 +35,9 @@ const pageGraders = (fail: boolean) =>
           ? Effect.fail(
               new GradeFailed({ grader: "playwright", problem: "no browser" })
             )
-          : HttpClient.get(input.url).pipe(
+          : HttpClient.get(input.url, {
+              headers: { accept: "text/html" },
+            }).pipe(
               Effect.flatMap((response) => response.text),
               Effect.provide(FetchHttpClient.layer),
               Effect.mapError(
@@ -127,6 +129,70 @@ it.layer(NodeServices.layer)("one eval run", (test) => {
           "| stub | 1/1 (100%) | 1/1 (100%) | 0 points | 1/1 | 1/1 |"
         );
       })
+  );
+
+  test.effect(
+    "installs, builds and serves an app with a package.json as a single-page app",
+    () =>
+      Effect.gen(function* builtRun() {
+        const fileSystem = yield* FileSystem.FileSystem;
+        const path = yield* Path.Path;
+        const outDir = yield* fileSystem.makeTempDirectoryScoped();
+
+        const loaded = yield* readTask(
+          paths.evalsRoot,
+          "skip-link-landmarks",
+          "built"
+        );
+
+        const result = yield* runOne(
+          {
+            agent: "stub",
+            arm: "unguided",
+            index: 1,
+            loaded,
+            outDir,
+            timeout: Duration.minutes(1),
+          },
+          paths
+        ).pipe(Effect.provide(pageGraders(false)));
+
+        expect([result.status, result.problem]).toEqual(["graded", null]);
+        expect(result.expectations.every((expectation) => expectation.ok)).toBe(
+          true
+        );
+
+        const patch = yield* fileSystem.readFileString(
+          path.join(outDir, "runs", result.id, "changes.patch")
+        );
+
+        expect(patch).toContain("Skip to main content");
+        expect(patch).not.toContain("dist/");
+      })
+  );
+
+  test.effect("fails a run whose app no longer builds", () =>
+    Effect.gen(function* brokenBuild() {
+      const fileSystem = yield* FileSystem.FileSystem;
+      const outDir = yield* fileSystem.makeTempDirectoryScoped();
+      const loaded = yield* readTask(paths.evalsRoot, "tabs", "built");
+
+      const result = yield* runOne(
+        {
+          agent: "stub",
+          arm: "unguided",
+          index: 1,
+          loaded,
+          outDir,
+          timeout: Duration.minutes(1),
+        },
+        paths
+      ).pipe(Effect.provide(pageGraders(false)));
+
+      expect(result.status).toBe("graded");
+      expect(result.passed).toBe(false);
+      expect(result.problem).toContain("build error: BROKEN marker");
+    })
   );
 
   test.effect(

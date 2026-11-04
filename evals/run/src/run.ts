@@ -57,16 +57,32 @@ export interface RunResult {
   readonly transcript: TranscriptSummary;
 }
 
-export class AppNotServable extends Schema.TaggedError<AppNotServable>()(
-  "AppNotServable",
+export class AppSetupFailed extends Schema.TaggedError<AppSetupFailed>()(
+  "AppSetupFailed",
   {
     app: Schema.String,
+    output: Schema.String,
+    step: Schema.String,
   }
 ) {
   override get message(): string {
-    return `The eval app "${this.app}" has a package.json, so it needs a build before it can be served; the runner serves static apps only so far.`;
+    return `Setting up the eval app "${this.app}" failed at \`${this.step}\`. Check that evals/apps/${this.app} installs offline from the pnpm store (pnpm install --offline --ignore-workspace):\n${this.output.slice(-800)}`;
   }
 }
+
+export interface Finished {
+  readonly exitCode: number;
+  readonly stderr: string;
+  readonly stdout: string;
+}
+
+interface AgentOutcome {
+  readonly exitCode: number | null;
+  readonly stderr: string;
+  readonly stdout: string;
+}
+
+const NOT_COPIED = new Set(["node_modules", "dist"]);
 
 export const runIdOf = (
   spec: Pick<RunSpec, "agent" | "arm" | "index" | "loaded">
@@ -89,6 +105,36 @@ const collect = (stream: Stream.Stream<Uint8Array, unknown>) =>
     Effect.orElseSucceed(() => "")
   );
 
+const runToEnd = (
+  command: string,
+  args: readonly string[],
+  options: {
+    readonly cwd: string;
+    readonly env?: Readonly<Record<string, string>>;
+  }
+) =>
+  Effect.scoped(
+    Effect.gen(function* processToEnd() {
+      const spawner = yield* ChildProcessSpawner.ChildProcessSpawner;
+
+      const handle = yield* spawner.spawn(
+        ChildProcess.make(command, [...args], {
+          cwd: options.cwd,
+          env: { ...options.env },
+          extendEnv: true,
+          stdin: "ignore",
+        })
+      );
+
+      const [stdout, stderr, exitCode] = yield* Effect.all(
+        [collect(handle.stdout), collect(handle.stderr), handle.exitCode],
+        { concurrency: "unbounded" }
+      );
+
+      return { exitCode: Number(exitCode), stderr, stdout } satisfies Finished;
+    })
+  );
+
 const prepareProject = Effect.fn("prepareProject")(function* prepareProject(
   spec: RunSpec,
   paths: RunPaths,
@@ -100,11 +146,15 @@ const prepareProject = Effect.fn("prepareProject")(function* prepareProject(
   const project = path.join(workDir, "project");
   const app = path.join(paths.evalsRoot, "apps", spec.loaded.task.app);
 
-  yield* fileSystem.copy(app, project);
+  yield* fileSystem.makeDirectory(project, { recursive: true });
 
-  if (yield* fileSystem.exists(path.join(project, "package.json"))) {
-    return yield* new AppNotServable({ app: spec.loaded.task.app });
+  for (const entry of yield* fileSystem.readDirectory(app)) {
+    if (!NOT_COPIED.has(entry)) {
+      yield* fileSystem.copy(path.join(app, entry), path.join(project, entry));
+    }
   }
+
+  const built = yield* fileSystem.exists(path.join(project, "package.json"));
 
   if (spec.arm === "guided") {
     const skillDir = path.join(project, ".claude", "skills", "good-a11y");
@@ -140,10 +190,32 @@ const prepareProject = Effect.fn("prepareProject")(function* prepareProject(
     );
 
   yield* git(["init", "-q"]);
+
+  if (built) {
+    yield* fileSystem.writeFileString(
+      path.join(project, ".git", "info", "exclude"),
+      "node_modules/\ndist/\n"
+    );
+
+    const install = yield* runToEnd(
+      "pnpm",
+      ["install", "--offline", "--ignore-workspace"],
+      { cwd: project }
+    );
+
+    if (install.exitCode !== 0) {
+      return yield* new AppSetupFailed({
+        app: spec.loaded.task.app,
+        output: `${install.stdout}${install.stderr}`,
+        step: "pnpm install --offline --ignore-workspace",
+      });
+    }
+  }
+
   yield* git(["add", "-A"]);
   yield* git(["commit", "-q", "-m", "base app"]);
 
-  return project;
+  return { built, project };
 });
 
 const codexHomeOf = Effect.fn("codexHomeOf")(function* codexHomeOf(
@@ -169,7 +241,6 @@ const runAgent = Effect.fn("runAgent")(function* runAgent(
   project: string,
   workDir: string
 ) {
-  const spawner = yield* ChildProcessSpawner.ChildProcessSpawner;
   const codexHome = spec.agent === "codex" ? yield* codexHomeOf(workDir) : "";
 
   const invocation = invocationOf(spec.agent, {
@@ -179,35 +250,23 @@ const runAgent = Effect.fn("runAgent")(function* runAgent(
     stubScript: paths.stubScript,
   });
 
-  return yield* Effect.scoped(
-    Effect.gen(function* agentProcess() {
-      const handle = yield* spawner.spawn(
-        ChildProcess.make(invocation.command, [...invocation.args], {
-          cwd: project,
-          env: invocation.env,
-          extendEnv: true,
-          stdin: "ignore",
-        })
-      );
-
-      const [stdout, stderr, exitCode] = yield* Effect.all(
-        [collect(handle.stdout), collect(handle.stderr), handle.exitCode],
-        { concurrency: "unbounded" }
-      );
-
-      return { exitCode: Number(exitCode), stderr, stdout };
-    })
+  const finished: AgentOutcome = yield* runToEnd(
+    invocation.command,
+    invocation.args,
+    { cwd: project, env: invocation.env }
   ).pipe(
     Effect.timeoutOrElse({
       duration: spec.timeout,
       orElse: () =>
-        Effect.succeed({
+        Effect.succeed<AgentOutcome>({
           exitCode: null,
           stderr: `timed out after ${Duration.format(spec.timeout)}`,
           stdout: "",
         }),
     })
   );
+
+  return finished;
 });
 
 const changesOf = Effect.fn("changesOf")(function* changesOf(project: string) {
@@ -240,7 +299,7 @@ export const runOne = Effect.fn("runOne")(function* runOne(
 
   yield* fileSystem.makeDirectory(runDir, { recursive: true });
 
-  const project = yield* prepareProject(spec, paths, workDir);
+  const { built, project } = yield* prepareProject(spec, paths, workDir);
   const agent = yield* runAgent(spec, paths, project, workDir);
   const transcript = summarizeTranscript(agent.stdout);
 
@@ -294,7 +353,26 @@ export const runOne = Effect.fn("runOne")(function* runOne(
     });
   }
 
-  const url = `${yield* serveDirectory(project)}${task.path}`;
+  if (built) {
+    const build = yield* runToEnd("pnpm", ["run", "build"], { cwd: project });
+
+    if (build.exitCode !== 0) {
+      return yield* finish({
+        ...base,
+        check: null,
+        expectations: [],
+        passed: false,
+        problem: `the app no longer builds: ${`${build.stdout}${build.stderr}`.slice(-800)}`,
+        status: "graded",
+      });
+    }
+  }
+
+  const served = built
+    ? yield* serveDirectory(path.join(project, "dist"), { spa: true })
+    : yield* serveDirectory(project, { spa: false });
+
+  const url = `${served}${task.path}`;
   const input = { guide: task.guide, taskFile, url };
 
   return yield* Effect.all([

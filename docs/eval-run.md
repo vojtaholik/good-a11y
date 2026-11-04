@@ -11,14 +11,14 @@ Flags: `--guide`, `--app` (required), `--agents` (`claude`, `codex`, `stub`; def
 ## One run
 
 1. Read `evals/tasks/<guide>/<app>.json` (`guide`, `app`, `prompt`, `path`).
-2. Copy `evals/apps/<app>` into a fresh temp directory outside the repo, so no `CLAUDE.md` or `AGENTS.md` of this repo is in reach. Static apps only so far: an app with a `package.json` fails with `AppNotServable` until the build step lands.
+2. Copy `evals/apps/<app>` (without `node_modules` and `dist`) into a fresh temp directory outside the repo, so no `CLAUDE.md` or `AGENTS.md` of this repo is in reach. An app with a `package.json` (the shop) gets `pnpm install --offline --ignore-workspace` from the pnpm store, with `node_modules/` and `dist/` excluded from git; a failed install stops the run with `AppSetupFailed`.
 3. Guided arm only: install `skills/good-a11y/SKILL.md` as `.claude/skills/good-a11y/SKILL.md` and append a pointer to it in `AGENTS.md` for Codex. The shipped `npx -y github:vojtaholik/good-a11y` is rewritten to `node <repo>/apps/good-a11y/bundle/good-a11y.mjs`: the eval measures the guides, not npx's cold install. The task prompt is the same in both arms and never names the guide; the agent finds it itself.
 4. `git init` and commit, so the agent's changes are a diff.
 5. Run the agent headless in the project, stdin closed, with a timeout:
    - Claude Code: `claude -p <prompt> --effort low --output-format stream-json --verbose --no-session-persistence --setting-sources project --strict-mcp-config --mcp-config '{"mcpServers":{}}' --permission-mode acceptEdits --allowedTools <list>`. `--setting-sources project` keeps the user's `CLAUDE.md`, skills, plugins and hooks out; the empty MCP config keeps their MCP servers out. Bash is limited to `node`, `npx`, `npm`, `pnpm`, `python3 -m http.server`, `ls`, `cat`, `curl` and `git`. Uses the logged-in subscription, so no `--bare`, which needs an API key.
    - Codex: `codex exec --json --ephemeral --skip-git-repo-check --sandbox workspace-write -c model_reasoning_effort="low" -C <project> <prompt>`, with `CODEX_HOME` set to a temp directory whose `auth.json` is a symlink to the user's, so their config, global `AGENTS.md` and skills stay out.
 6. Save `transcript.jsonl`, `stderr.txt` and `changes.patch` under `<out>/runs/<guide>--<app>--<agent>--<arm>--<n>/`.
-7. Serve the project directory on `127.0.0.1` and grade `<url><path>`:
+7. An app with a `package.json` is built with `pnpm run build`; a build that fails is a failed run, with the build output as its problem. Serve `dist/` as a single-page app (unknown paths that accept HTML get `index.html`, as `vite preview` does, on a free port so runs never collide), or a static app's directory as is, on `127.0.0.1`, and grade `<url><path>`:
    - our local check: `good-a11y check --json`, decoded with `ReportSchema`; the failing issue keys, and those that `guidesForCheck` maps to this guide;
    - the guide's Playwright grader: `playwright test graders/<guide>.spec.ts --reporter=json` in `evals/`, with `EVAL_TARGET_URL` and `EVAL_TASK` (the task file, for its `targets`).
 8. A run passes when every expectation passes and the check finds no failing issue mapped to the guide. A run whose agent fails or times out is `agent-failed`; one whose grader cannot run is `grade-failed`. Neither counts as a pass or a fail in the rates; both are listed.

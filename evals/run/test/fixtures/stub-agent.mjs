@@ -6,9 +6,13 @@ const guided = existsSync(skill);
 
 const line = (value) => process.stdout.write(`${JSON.stringify(value)}\n`);
 
+const prompt = process.argv[2] ?? "";
+
 writeFileSync(
   "index.html",
-  '<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>Mini</title></head>\n<body><a href="#main">Skip to main content</a><header>Mini</header><main id="main">Mini site</main></body></html>\n'
+  prompt.includes("BREAK THE BUILD")
+    ? "BROKEN"
+    : '<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>Mini</title></head>\n<body><a href="#main">Skip to main content</a><header>Mini</header><main id="main">Mini site</main></body></html>\n'
 );
 
 if (guided) {

@@ -8,7 +8,7 @@ import { HttpStaticServer } from "effect/http";
 const TcpAddress = Schema.Struct({ port: Schema.Int });
 
 export const serveDirectory = Effect.fn("serveDirectory")(
-  function* serveDirectory(root: string) {
+  function* serveDirectory(root: string, options: { readonly spa: boolean }) {
     const server = yield* NodeHttpServer.make(() => createServer(), {
       host: "127.0.0.1",
       port: 0,
@@ -17,6 +17,7 @@ export const serveDirectory = Effect.fn("serveDirectory")(
     const app = yield* HttpStaticServer.make({
       index: "index.html",
       root,
+      spa: options.spa,
     }).pipe(Effect.provide(NodeHttpPlatform.layer));
 
     yield* server.serve(app);
