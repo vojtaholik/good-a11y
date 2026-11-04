@@ -1,0 +1,8 @@
+# Task: check (worktree ../ga-check)
+
+Read `_common-ga.md`, `docs/rendered-audit.md`, `docs/rendered-probes.md`, `docs/judged-checks.md`. Build the local `check` command (decision 6):
+1. A Node adapter for `RenderedAudit` (new `packages/browser-audit-node` or a `./node` entry of browser-audit, your call, recorded) driving the user's local Chrome through Puppeteer (pin; use a system Chrome or Puppeteer's managed one; no Browser Run, no budget). Same page script, same pinned axe-core, same probes, same safety fences (no form submits; navigation vetting still applies, but `localhost` and private addresses ARE allowed in this local mode, explicitly and only here: the user is checking their own app).
+2. `check <url|localhost:port>`: static fetch through SafeFetch (local mode allows private hosts), PageReader, all checks, rendered audit, the report. Output: Markdown for agents: the verdict line, issues worst first, each with samples, its SC from verified facts, the fix prompt, and `retrieve <guide-id>` for the guide that fixes it (a mapping from check id to guide ids in `packages/guides`; coordinate with `guides` and `writer`). `--json` prints the schema-encoded report.
+3. Judged questions: print each calibrated question with its evidence and rubric as a "Questions for you" section, labelled "judged by your agent, not calibrated"; never counted.
+4. Same bin as `guides` (`npx github:vojtaholik/good-a11y check ...`); prove it runs from a clean temp dir against a local test page and a public URL.
+Tests with fixture pages (a local static server in the test). Doc: `docs/local-check.md`. Report per green step.
