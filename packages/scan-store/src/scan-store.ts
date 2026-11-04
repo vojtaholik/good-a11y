@@ -155,6 +155,12 @@ export class ScanStore extends Context.Service<
     return {
       begin: Effect.fn("ScanStore.begin")(
         function* begin(scan: NewScan) {
+          const dayStart = scan.requestedAt - DAY_MILLIS;
+
+          yield* db.run(
+            sql`UPDATE scans SET caller = '' WHERE caller <> '' AND requested_at <= ${dayStart}`
+          );
+
           yield* db.run(
             sql`UPDATE scans SET stage = 'failed', failure = ${SCAN_FAILED}, settled_at = ${scan.requestedAt} WHERE url = ${scan.url} AND stage IN ('queued', 'scanning') AND requested_at < ${scan.requestedAt - scan.staleAfter}`
           );
@@ -169,7 +175,6 @@ export class ScanStore extends Context.Service<
             }
           }
 
-          const dayStart = scan.requestedAt - DAY_MILLIS;
           const runningSince = scan.requestedAt - unsettledWindow(scan);
 
           const inserted = yield* db.all<{ readonly id: string }>(

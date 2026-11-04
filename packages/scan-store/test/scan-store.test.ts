@@ -233,5 +233,42 @@ describe("ScanStore", () => {
           ).toEqual({ kind: "begun" });
         })
     );
+
+    scoped.effect("keeps a caller only while the daily caps read it", () =>
+      Effect.gen(function* forgetsCallers() {
+        const store = yield* ScanStore;
+        const db = yield* StoreDatabase;
+        const at = 100 * HOUR;
+
+        yield* store.begin({
+          ...scanAt("caller-old", at, 1000),
+          slug: "forget.example",
+          url: "https://forget.example/old",
+        });
+        yield* store.begin({
+          ...scanAt("caller-recent", at + 2 * HOUR, 1000),
+          slug: "forget.example",
+          url: "https://forget.example/recent",
+        });
+        yield* store.begin({
+          ...scanAt("caller-new", at + 24 * HOUR + 1, 1000),
+          slug: "forget.example",
+          url: "https://forget.example/new",
+        });
+
+        const rows = yield* db.all<{
+          readonly caller: string;
+          readonly id: string;
+        }>(
+          sql`SELECT id, caller FROM scans WHERE slug = 'forget.example' ORDER BY requested_at`
+        );
+
+        expect(rows).toEqual([
+          { caller: "", id: "caller-old" },
+          { caller: "203.0.113.7", id: "caller-recent" },
+          { caller: "203.0.113.7", id: "caller-new" },
+        ]);
+      })
+    );
   });
 });

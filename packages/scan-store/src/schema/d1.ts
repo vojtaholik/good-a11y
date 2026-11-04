@@ -23,6 +23,9 @@ export const Scans = sqliteTable(
   (table) => [
     index("scans_slug_recent_idx").on(table.slug, table.requestedAt, table.id),
     index("scans_requested_idx").on(table.requestedAt),
+    index("scans_caller_kept_idx")
+      .on(table.requestedAt)
+      .where(sql`${table.caller} <> ''`),
     index("scans_site_caller_idx").on(
       table.slug,
       table.caller,
