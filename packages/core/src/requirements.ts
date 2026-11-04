@@ -11,6 +11,7 @@ import { issuesOf } from "./report-sections.js";
 import type { Report } from "./report.js";
 import { SC_COVERAGE } from "./sc-coverage.js";
 import type { ScCoverageRow } from "./sc-coverage.js";
+import type { SiteFinding } from "./site-checks.js";
 import { ALWAYS_MET_CRITERION, alwaysMet } from "./verdict.js";
 
 export type RequirementStatus =
@@ -48,6 +49,7 @@ export type RequirementGroup = "eaa" | "statement" | "wcag";
 
 export interface RequirementRow {
   readonly citation: string;
+  readonly compared: string | null;
   readonly example: Sourced | null;
   readonly group: RequirementGroup;
   readonly judged: string | null;
@@ -84,6 +86,7 @@ export const citationOf = (key: string): string => {
 };
 
 interface ScanResults {
+  readonly site: readonly SiteFinding[];
   readonly decided: Decided;
   readonly failing: ReadonlySet<string>;
   readonly judged: readonly Observation[];
@@ -98,6 +101,7 @@ const resultsOf = (report: Report): ScanResults => ({
     report.judged?.status === "ran"
       ? shownObservations(report.judged.observations)
       : [],
+  site: report.site?.findings ?? [],
 });
 
 const deterministic = (
@@ -130,6 +134,28 @@ const fallback = (
   return row.tests.length > 0 ? "not_checked" : "needs_person";
 };
 
+export const COMPARED_PREFIX = "Compared across pages, not yet counted:";
+
+export const COMPARED_RESULTS: Readonly<Record<SiteFinding["status"], string>> =
+  {
+    fail: "differences found",
+    not_applicable: "too little shared to compare",
+    pass: "no difference found",
+  };
+
+const comparedLine = (
+  number: string,
+  site: readonly SiteFinding[]
+): string | null => {
+  const found = site.filter((finding) =>
+    numbersOf(finding.references).includes(number)
+  );
+
+  return found.length === 0
+    ? null
+    : `${COMPARED_PREFIX} ${found.map((finding) => COMPARED_RESULTS[finding.status]).join("; ")}`;
+};
+
 const judgedLine = (observations: readonly Observation[]): string | null =>
   observations.length === 0
     ? null
@@ -151,6 +177,7 @@ const wcagRow = (row: ScCoverageRow, results: ScanResults): RequirementRow => {
 
   return {
     citation: row.number,
+    compared: comparedLine(row.number, results.site),
     example: null,
     group: "wcag",
     judged: judgedLine(judged),
@@ -183,6 +210,7 @@ const eaaRow = (
   group: RequirementGroup = "eaa"
 ): RequirementRow => ({
   citation,
+  compared: null,
   example: exampleOf(key, facts),
   group,
   judged: null,

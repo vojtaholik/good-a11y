@@ -129,19 +129,22 @@ const checked = judgePage(PAGE, { read: () => EVIDENCE }, AT);
 const report = withSite(checked, SITE);
 
 describe("withSite", () => {
-  it("adds a cross-page failure as an issue from the pages of the site, counted in the verdict and the checklist", () => {
-    const issue = issuesOf(report).find(
-      (item) => item.key === "site:consistent-navigation"
-    );
+  it("shows a cross-page difference as compared, not yet counted: no issue, no verdict, no coverage, no failing row", () => {
+    const row = requirementsOf(report).find((item) => item.key === "3.2.3");
 
-    expect(issue?.sources).toEqual(["site"]);
-    expect(issue?.level).toBe("AA");
-    expect(report.verdict?.kind).toBe("fails");
     expect(
-      requirementsOf(report).find((row) => row.key === "3.2.3")?.status
-    ).toBe("fails");
-    expect(report.coverage?.criteria).toBeGreaterThan(
-      checked.coverage?.criteria ?? 0
+      report.site?.findings.find((item) => item.id === "consistent-navigation")
+        ?.status
+    ).toBe("fail");
+    expect(issuesOf(report)).toEqual(issuesOf(checked));
+    expect(report.verdict).toEqual(checked.verdict);
+    expect(report.coverage).toEqual(checked.coverage);
+    expect(row?.status).toBe("needs_person");
+    expect(row?.compared).toBe(
+      "Compared across pages, not yet counted: differences found"
+    );
+    expect(formatReport(report)).toContain(
+      "Compared across pages, not yet counted: Navigation in the same order on every page: differences found"
     );
   });
 
@@ -162,17 +165,15 @@ describe("withSite", () => {
         url: "https://shop.example/p/1",
       },
     ]);
-    expect(report.verdict?.failures).toBe(1);
+    expect(report.verdict?.failures).toBe(0);
     expect(report.site?.search).toBe(true);
     expect(formatReport(report)).toContain("Other pages of the site:");
   });
 
-  it("keeps the site findings when the rendered step comes after, and round-trips through the schema", () => {
+  it("keeps the site section when the rendered step comes after, and round-trips through the schema", () => {
     const later = withRendered(report, { skipped: BUDGET_SPENT });
 
-    expect(issuesOf(later).map((issue) => issue.key)).toContain(
-      "site:consistent-navigation"
-    );
+    expect(later.site).toEqual(report.site);
     expect(
       Schema.decodeUnknownSync(ReportSchema)(
         Schema.encodeSync(ReportSchema)(later)

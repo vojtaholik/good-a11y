@@ -1,5 +1,14 @@
-import { ROLE_NAMES, siteSummary } from "@eaa-check/core/contracts";
-import type { Report, SitePageResult } from "@eaa-check/core/contracts";
+import {
+  COMPARED_PREFIX,
+  COMPARED_RESULTS,
+  ROLE_NAMES,
+  siteSummary,
+} from "@eaa-check/core/contracts";
+import type {
+  Report,
+  SiteFinding,
+  SitePageResult,
+} from "@eaa-check/core/contracts";
 import * as stylex from "@stylexjs/stylex";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
@@ -28,6 +37,34 @@ const local = stylex.create({
     overflowWrap: "anywhere",
   },
 });
+
+const comparedView = (
+  findings: readonly SiteFinding[],
+  h: HtmlBuilder<AppMessage>
+): Html[] =>
+  findings.length === 0
+    ? []
+    : [
+        h.p([sx(h, styles.text)], [COMPARED_PREFIX]),
+        h.ul(
+          [sx(h, local.pages)],
+          findings.map((finding) =>
+            h.keyed("li")(
+              finding.id,
+              [sx(h, local.page)],
+              [
+                h.p(
+                  [sx(h, styles.text)],
+                  [`${finding.title}: ${COMPARED_RESULTS[finding.status]}`]
+                ),
+                ...finding.samples.map((sample) =>
+                  h.p([sx(h, styles.meta, local.url)], [sample])
+                ),
+              ]
+            )
+          )
+        ),
+      ];
 
 const resultText = (page: SitePageResult): string => {
   if (page.outcome === "failed") {
@@ -65,10 +102,11 @@ export const siteSection = (
               ["Other pages of the site"]
             ),
             h.p([sx(h, styles.text)], [siteSummary(report.site)]),
+            ...comparedView(report.site.findings, h),
             h.p(
               [sx(h, styles.meta)],
               [
-                "Differences between these pages and the page entered are listed with the issues above. Issues on these pages alone do not change the result for the page entered.",
+                "Issues on these pages alone do not change the result for the page entered.",
               ]
             ),
             h.ul(

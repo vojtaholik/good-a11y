@@ -55,6 +55,10 @@ Cross-page checks (`packages/core/src/site-checks.ts`) compare each other page w
 - **3.2.4 Consistent Identification** (`consistent-identification`): a navigation link to the same address must have a related name on both pages. Names are compared lowercased with digits removed (so "Cart (0)" and "Cart (2)" agree), and one name containing the other agrees (so a hidden "current page" marker does not fail).
 - **3.2.6 Consistent Help** (`consistent-help`, WCAG 2.2, labelled newer): a contact or help link on both pages must have the same set of shared navigation links before it. Comparing sets, not order, keeps a navigation reorder from also failing help.
 
-A failure is an issue like any other (source "pages of the site compared"), counts in the verdict when its criterion is WCAG 2.1 A/AA (3.2.3, 3.2.4), and marks its checklist row "Fails". The static check results of the other pages are listed per page in the site section and never count in the verdict: the report stays the report for the page entered.
+**Not yet counted (lead, after verifier N1).** Until an accuracy run on the 21 QA sites shows these checks precise, with every fail checked by hand, their results do not feed the issues, the verdict, the coverage line or a checklist "Fails". The site section lists each as "Compared across pages, not yet counted" with its result and samples, and the 3.2.3, 3.2.4 and 3.2.6 rows stay "Needs a person" with the same line under them. The accuracy run goes in `docs/accuracy-qa.md`; then they are counted or dropped.
+
+The static check results of the other pages are listed per page in the site section and never count in the verdict: the report stays the report for the page entered.
 
 **2.4.5 Multiple Ways stays manual.** The crawl sees search and site-map links, but navigation plus links between pages already satisfy 2.4.5, so a missing search or site map is not a failure and their presence is not a pass. The site section reports what the scan saw; the checklist row says a person decides.
+
+**IV (g)(i) stays "Needs a person"** (builder-judge): the shop must pass on accessibility information only when the responsible economic operator provides it, and the scan cannot see whether one did, so no model question is asked about it.

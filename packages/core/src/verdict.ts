@@ -75,7 +75,7 @@ export const verdictText = (verdict: Verdict): string | null => {
   const settled =
     verdict.settled === 0
       ? ""
-      : `, and ${ALWAYS_MET_CRITERION} Parsing is always met by HTML`;
+      : ` ${ALWAYS_MET_CRITERION} Parsing is always met by HTML.`;
 
-  return `Automated checks found no failures against WCAG 2.1 Level AA${newer}. That is not a pass: ${verdict.needPerson} of the ${verdict.ofCriteria} WCAG 2.1 Level A and AA success criteria were not checked automatically on this scan, and the other ${verdict.checked} only in part${settled}. A person needs to review all of them.`;
+  return `Automated checks found no failures against WCAG 2.1 Level AA${newer}. That is not a pass: ${verdict.needPerson} of the ${verdict.ofCriteria} WCAG 2.1 Level A and AA success criteria were not checked automatically on this scan and ${verdict.checked} only in part, so a person needs to review those ${verdict.needPerson + verdict.checked}.${settled}`;
 };

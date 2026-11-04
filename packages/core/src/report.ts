@@ -191,19 +191,12 @@ const assessed = (report: Report): Report => {
     return report;
   }
 
-  const site = report.site?.findings ?? [];
-
-  const siteRan = site.filter((finding) => finding.status !== "not_applicable");
-
   const findings = served ? report.findings : [];
 
   const coverage = coverageFrom(
     {
       checks: concernsRun(
-        [
-          ...findings.map((finding) => finding.id),
-          ...siteRan.map((finding) => finding.id),
-        ],
+        findings.map((finding) => finding.id),
         rendered
       ),
       criteria: [...decidedOf(report).decided].map(
@@ -214,7 +207,7 @@ const assessed = (report: Report): Report => {
     methodOf(served, rendered !== null)
   );
 
-  const issues = issuesFrom(findings, rendered, site);
+  const issues = issuesFrom(findings, rendered);
 
   const verdict = verdictFrom(
     issues,

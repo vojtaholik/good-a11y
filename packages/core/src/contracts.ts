@@ -53,12 +53,14 @@ export type { Verdict } from "./verdict.js";
 
 export type { Site, SitePageResult } from "./report.js";
 
-export { ROLE_NAMES, siteSummary } from "./site-checks.js";
+export { ROLE_NAMES, siteSummary, type SiteFinding } from "./site-checks.js";
 
 export {
   EXAMPLE_LABEL,
   REQUIREMENT_STATUS_NAMES,
   REQUIREMENT_STATUS_ORDER,
+  COMPARED_PREFIX,
+  COMPARED_RESULTS,
   checklistGroups,
   requirementsOf,
   statusCounts,
