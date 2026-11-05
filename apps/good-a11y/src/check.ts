@@ -11,6 +11,7 @@ import {
 } from "@good-a11y/core";
 import type { Flow, Scenario } from "@good-a11y/core";
 import {
+  claudeDriverLayer,
   playwrightFlowAuditLayer,
   playwrightScenarioAuditLayer,
 } from "@good-a11y/graders";
@@ -55,7 +56,9 @@ const localLayer = (executablePath: string | null) =>
     htmlPageReaderLayer,
     localRenderedAuditLayer({ executablePath }),
     playwrightFlowAuditLayer({ executablePath }),
-    playwrightScenarioAuditLayer({ executablePath })
+    playwrightScenarioAuditLayer({ executablePath }).pipe(
+      Layer.provide(claudeDriverLayer)
+    )
   );
 
 const decodeFlows = Schema.decodeUnknownEffect(
@@ -118,7 +121,7 @@ export const checkCommand = Command.make(
     ),
     scenarios: Flag.String("scenarios").pipe(
       Flag.withDescription(
-        "A JSON file with one scenario or a list: a task (goal, path, keys, inputs) and its success condition. Each is replayed by keyboard only on a local page and counted in Task completion"
+        "A JSON file with one scenario or a list: a task (goal, path, inputs, keys) and its success condition. A scenario with keys is replayed by keyboard only; one without keys is driven by Claude Code (claude on your PATH) seeing only the accessibility tree, in 3 runs, each confirmed by a replay without the model. Counted in Task completion on a local page"
       ),
       Flag.optional
     ),

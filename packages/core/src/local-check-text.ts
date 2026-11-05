@@ -10,8 +10,8 @@ import { REFERENCE } from "./reference.js";
 import { issueGroupsOf } from "./report-sections.js";
 import type { Issue } from "./report-sections.js";
 import type { Report } from "./report.js";
-import { tasksFinished } from "./scenario.js";
-import type { ScenarioResult } from "./scenario.js";
+import { DRIVEN_RUNS_NEEDED, tasksFinished } from "./scenario.js";
+import type { ScenarioResult, ScenarioRun, ScenarioStep } from "./scenario.js";
 import { verdictDetail } from "./verdict.js";
 
 export const AGENT_JUDGED_LABEL =
@@ -216,7 +216,7 @@ const flowsBlock = (check: LocalCheck, text: LocalCheckText): string[] => {
 };
 
 export const TASKS_LABEL =
-  "Each task was replayed from the keys in your scenario file, with no pointer, and counts as finished when its success condition held in the accessibility tree. This shows whether these tasks can be done this way. It is not a WCAG or EAA result, it does not count as issues, and it is not part of the verdict.";
+  "Each task was done with the keyboard only, with no pointer. A task with keys in your scenario file was replayed from them. A task without keys was driven by a model that saw only the accessibility tree, the focused element and the page path, in 3 runs, and each run's keys were then replayed in a fresh page without the model. A task counts as finished when its success condition held in the accessibility tree in that replay: once for a replayed task, in 2 of 3 runs for a driven one. The model never decides success. This shows whether these tasks can be done this way. It is not a WCAG or EAA result, it does not count as issues, and it is not part of the verdict.";
 
 export const tasksHeadline = (results: readonly ScenarioResult[]): string => {
   const { finished, total } = tasksFinished(results);
@@ -224,24 +224,80 @@ export const tasksHeadline = (results: readonly ScenarioResult[]): string => {
   return `Task completion: ${finished} of ${total} ${total === 1 ? "task" : "tasks"} finished with the keyboard and the accessibility tree only.`;
 };
 
-const taskSection = (task: ScenarioResult): string[] => [
-  `### ${task.goal} \`task:${task.id}\``,
-  "",
-  task.status === "finished"
-    ? `Finished on ${task.url} after ${task.steps} of ${task.keys} keys.`
-    : `Not finished on ${task.url}: the success condition did not hold after ${task.steps} of ${task.keys} keys.`,
-  "",
-  ...(task.problem === null ? [] : [task.problem, ""]),
-  ...(task.status === "finished" || task.focused === null
-    ? []
-    : ["Focus was on:", "", fenced(task.focused), ""]),
-  ...(task.blocked.length === 0
-    ? []
-    : [
-        `Requests to other origins were blocked: ${task.blocked.slice(0, 5).join(", ")}${task.blocked.length > 5 ? `, and ${task.blocked.length - 5} more` : ""}.`,
-        "",
-      ]),
-];
+const stepLabel = (step: ScenarioStep): string =>
+  "press" in step ? step.press : `type:${step.type}`;
+
+const keysText = (count: number): string =>
+  `${count} ${count === 1 ? "key" : "keys"}`;
+
+const runOutcome = (run: ScenarioRun): string => {
+  if (run.confirmed) {
+    return "reached the success condition, confirmed by replay";
+  }
+
+  if (run.reached) {
+    return "reached the success condition, but the replay without the model did not";
+  }
+
+  return "did not reach the success condition";
+};
+
+const runLine = (run: ScenarioRun, index: number): string =>
+  `- Run ${index + 1}: ${runOutcome(run)} after ${keysText(run.trace.length)}.${run.problem === null ? "" : ` ${run.problem}`}`;
+
+const taskOutcome = (task: ScenarioResult): string[] => {
+  const [first] = task.runs;
+
+  if (task.mode === "replayed") {
+    const keys = keysText(first?.trace.length ?? 0);
+
+    return [
+      task.status === "finished"
+        ? `Finished on ${task.url} after ${keys}.`
+        : `Not finished on ${task.url}: the success condition did not hold after ${keys}.`,
+      "",
+      ...(first?.problem === null || first === undefined
+        ? []
+        : [first.problem, ""]),
+    ];
+  }
+
+  const confirmed = task.runs.find((run) => run.confirmed);
+
+  return [
+    `${task.status === "finished" ? "Finished" : "Not finished"} on ${task.url}: driven by ${task.driver ?? "a model"}, ${task.runs.filter((run) => run.confirmed).length} of ${task.runs.length} runs confirmed by replay, ${DRIVEN_RUNS_NEEDED} needed.`,
+    "",
+    ...task.runs.map(runLine),
+    "",
+    ...(confirmed === undefined
+      ? []
+      : [
+          "Keys of the first confirmed run, which you can keep as this scenario's keys:",
+          "",
+          fenced(confirmed.trace.map(stepLabel).join(" ")),
+          "",
+        ]),
+  ];
+};
+
+const taskSection = (task: ScenarioResult): string[] => {
+  const focused = task.runs.findLast((run) => !run.confirmed)?.focused ?? null;
+
+  return [
+    `### ${task.goal} \`task:${task.id}\``,
+    "",
+    ...taskOutcome(task),
+    ...(task.status === "finished" || focused === null
+      ? []
+      : ["Focus was on:", "", fenced(focused), ""]),
+    ...(task.blocked.length === 0
+      ? []
+      : [
+          `Requests to other origins were blocked: ${task.blocked.slice(0, 5).join(", ")}${task.blocked.length > 5 ? `, and ${task.blocked.length - 5} more` : ""}.`,
+          "",
+        ]),
+  ];
+};
 
 const tasksBlock = (check: LocalCheck): string[] => {
   if (check.tasks === null) {

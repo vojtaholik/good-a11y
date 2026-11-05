@@ -527,9 +527,14 @@ export {
   ALREADY_REACHED,
   SCENARIO_KEYS,
   ScenarioAudit,
+  DEFAULT_BUDGET,
+  DRIVEN_RUNS,
+  DRIVEN_RUNS_NEEDED,
+  STUCK_REPEATS,
   ScenarioFileSchema,
   ScenarioKeySchema,
   ScenarioResultSchema,
+  ScenarioRunSchema,
   ScenarioSchema,
   ScenarioStepSchema,
   SuccessSchema,
@@ -537,12 +542,15 @@ export {
   TreeTargetSchema,
   isOnTree,
   reached,
+  runsNeeded,
+  statusOf,
   tasksFinished,
   treeOf,
   unknownInput,
   type Scenario,
   type ScenarioKey,
   type ScenarioResult,
+  type ScenarioRun,
   type ScenarioState,
   type ScenarioStep,
   type Success,
@@ -554,6 +562,18 @@ export {
 } from "./scenario.js";
 
 export { ScenarioAuditFailed } from "./scenario-audit-failed.js";
+
+export {
+  DriverDecisionSchema,
+  ScenarioDriver,
+  actionOf,
+  driverPrompt,
+  type DriverAction,
+  type DriverDecision,
+  type DriverTurn,
+} from "./scenario-driver.js";
+
+export { ScenarioDriverFailed } from "./scenario-driver-failed.js";
 
 export { ScenarioFileUnreadable } from "./scenario-file-unreadable.js";
 

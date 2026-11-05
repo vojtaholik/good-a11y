@@ -48,10 +48,15 @@ export const SuccessSchema = Schema.Struct({
 export type Success = typeof SuccessSchema.Type;
 
 export const ScenarioSchema = Schema.Struct({
+  budget: Schema.optional(
+    Schema.Int.check(Schema.isBetween({ maximum: 200, minimum: 1 }))
+  ),
   goal: Schema.String,
   id: Schema.String,
   inputs: Schema.optional(Schema.Record(Schema.String, Schema.String)),
-  keys: Schema.Array(ScenarioStepSchema).check(Schema.isMinLength(1)),
+  keys: Schema.optional(
+    Schema.Array(ScenarioStepSchema).check(Schema.isMinLength(1))
+  ),
   path: Schema.optional(Schema.String),
   success: SuccessSchema,
 });
@@ -160,15 +165,32 @@ export const reached = (success: Success, state: ScenarioState): boolean =>
   success.present.every((target) => isOnTree(target, state)) &&
   (success.absent ?? []).every((target) => !isOnTree(target, state));
 
+export const DRIVEN_RUNS = 3;
+
+export const DRIVEN_RUNS_NEEDED = 2;
+
+export const DEFAULT_BUDGET = 60;
+
+export const STUCK_REPEATS = 5;
+
+export const ScenarioRunSchema = Schema.Struct({
+  confirmed: Schema.Boolean,
+  focused: Schema.NullOr(Schema.String),
+  problem: Schema.NullOr(Schema.String),
+  reached: Schema.Boolean,
+  trace: Schema.Array(ScenarioStepSchema),
+});
+
+export type ScenarioRun = typeof ScenarioRunSchema.Type;
+
 export const ScenarioResultSchema = Schema.Struct({
   blocked: Schema.Array(Schema.String),
-  focused: Schema.NullOr(Schema.String),
+  driver: Schema.NullOr(Schema.String),
   goal: Schema.String,
   id: Schema.String,
-  keys: Schema.Int,
-  problem: Schema.NullOr(Schema.String),
+  mode: Schema.Literals(["replayed", "driven"]),
+  runs: Schema.Array(ScenarioRunSchema),
   status: Schema.Literals(["finished", "not_finished"]),
-  steps: Schema.Int,
   url: Schema.String,
 });
 
@@ -198,6 +220,17 @@ export const tasksFinished = (
   finished: results.filter((result) => result.status === "finished").length,
   total: results.length,
 });
+
+export const runsNeeded = (mode: ScenarioResult["mode"]): number =>
+  mode === "driven" ? DRIVEN_RUNS_NEEDED : 1;
+
+export const statusOf = (
+  mode: ScenarioResult["mode"],
+  runs: readonly ScenarioRun[]
+): ScenarioResult["status"] =>
+  runs.filter((run) => run.confirmed).length >= runsNeeded(mode)
+    ? "finished"
+    : "not_finished";
 
 export class ScenarioAudit extends Context.Service<
   ScenarioAudit,

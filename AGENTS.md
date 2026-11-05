@@ -39,7 +39,7 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 | `@good-a11y/browser-audit` | `packages/browser-audit` | Adapter for `RenderedAudit`: one Browser Run session through `@cloudflare/puppeteer`, fixed viewport and user agent, runs the pinned axe-core, closes the browser in a finalizer, hard timeout |
 | `@good-a11y/html-reader` | `packages/html-reader` | Adapter for `PageReader`: reads the accessibility evidence out of HTML in one pass over the `htmlparser2` tokenizer, with no tree |
 | `@good-a11y/cli` | `apps/cli` | Composition root for the `good-a11y-scan` bin. One command per capability |
-| `@good-a11y/graders` | `packages/graders` | One grader per guide (`src/guides/<guide-id>.ts`, one claim per item in its `expectations.md`) and `playwrightFlowAuditLayer`, the adapter for core's `FlowAudit` port that runs them on the flows an agent passes to the local check (`docs/flows.md`), and `playwrightScenarioAuditLayer`, the `ScenarioAudit` adapter that replays scenarios by keyboard (`docs/scenarios.md`). Local mode only |
+| `@good-a11y/graders` | `packages/graders` | One grader per guide (`src/guides/<guide-id>.ts`, one claim per item in its `expectations.md`) and `playwrightFlowAuditLayer`, the adapter for core's `FlowAudit` port that runs them on the flows an agent passes to the local check (`docs/flows.md`), and `playwrightScenarioAuditLayer`, the `ScenarioAudit` adapter that replays scenarios by keyboard or drives them through core's `ScenarioDriver` port, and `claudeDriverLayer`, that port's adapter, one tool-less `claude -p` call per key (`docs/scenarios.md`). Local mode only |
 | `@good-a11y/evals` | `evals` | Layer 3 of good-a11y: registers each grader with Playwright Test (`evals/graders/<guide-id>.spec.ts`, one `E<n>` test per claim), the base apps in `evals/apps`, and two task prompts per guide in `evals/tasks/<guide-id>/<app>.json` (`docs/evals.md`) |
 | `@good-a11y/eval-shop` | `evals/apps/shop` | Eval base app: a React and Vite shop (products, quick-view dialog, cart, checkout). `evals/apps/content` is its static sibling, plain HTML with no package |
 
@@ -56,7 +56,7 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 | Check | `packages/core/src/checks/<id>.ts` | One pure function from page evidence to a check result |
 | Catalogue | `packages/core/src/catalogue.ts` | Maps each check to the fact IDs of its WCAG success criterion and EN 301 549 clauses |
 | State profile | `packages/facts` | Per member state: one verified fact per field, or unknown |
-| Scenario | `a11y-tasks.json` beside the flow file; schema and `reached` in `packages/core/src/scenario.ts` | A task a person must be able to finish: goal, start path, keyboard steps and a success condition a pure function decides over the accessibility tree. Counted as Task completion, never as issues (`docs/scenarios.md`) |
+| Scenario | `a11y-tasks.json` beside the flow file; schema and `reached` in `packages/core/src/scenario.ts` | A task a person must be able to finish: goal, start path, keyboard steps (or none, for a blind model to drive in 3 runs confirmed by replay) and a success condition a pure function decides over the accessibility tree. Counted as Task completion, never as issues (`docs/scenarios.md`) |
 | Projection | `packages/capability/src/to-<surface>.ts` | Expose implemented capabilities on one runtime surface |
 
 ## Commands

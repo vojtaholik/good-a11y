@@ -2,13 +2,17 @@ import { describe, expect, it } from "@effect/vitest";
 import { Schema } from "effect";
 
 import {
+  DriverDecisionSchema,
   ScenarioFileSchema,
+  actionOf,
+  driverPrompt,
   isOnTree,
   reached,
+  statusOf,
   tasksHeadline,
   treeOf,
 } from "../src/index.js";
-import type { ScenarioResult } from "../src/index.js";
+import type { ScenarioResult, ScenarioRun } from "../src/index.js";
 
 const PLACED = `- banner:
   - link "Trail Shop":
@@ -104,15 +108,22 @@ describe("the scenario file", () => {
   });
 });
 
+const run = (confirmed: boolean): ScenarioRun => ({
+  confirmed,
+  focused: null,
+  problem: null,
+  reached: confirmed,
+  trace: [{ press: "Tab" }, { press: "Enter" }],
+});
+
 const result = (status: ScenarioResult["status"]): ScenarioResult => ({
   blocked: [],
-  focused: null,
+  driver: null,
   goal: "Buy",
   id: "buy",
-  keys: 4,
-  problem: null,
+  mode: "replayed",
+  runs: [run(status === "finished")],
   status,
-  steps: 4,
   url: "http://localhost:4173/",
 });
 
@@ -124,5 +135,60 @@ describe("the task score", () => {
     expect(tasksHeadline([result("finished")])).toBe(
       "Task completion: 1 of 1 task finished with the keyboard and the accessibility tree only."
     );
+  });
+
+  it("finishes a driven task only when two of its three runs are confirmed by replay", () => {
+    const reachedUnconfirmed: ScenarioRun = { ...run(false), reached: true };
+
+    expect(statusOf("driven", [run(true), run(true), run(false)])).toBe(
+      "finished"
+    );
+    expect(
+      statusOf("driven", [run(true), reachedUnconfirmed, reachedUnconfirmed])
+    ).toBe("not_finished");
+    expect(statusOf("replayed", [run(true)])).toBe("finished");
+    expect(statusOf("replayed", [reachedUnconfirmed])).toBe("not_finished");
+  });
+});
+
+describe("the driver", () => {
+  it("turns a decision into one keyboard step, a give-up or nothing", () => {
+    expect(actionOf({ action: "press", key: "Tab" })).toStrictEqual({
+      press: "Tab",
+    });
+    expect(actionOf({ action: "type", input: "email" })).toStrictEqual({
+      type: "email",
+    });
+    expect(actionOf({ action: "give_up", reason: "trapped" })).toStrictEqual({
+      giveUp: "trapped",
+    });
+    expect(actionOf({ action: "press", key: null })).toBeNull();
+    expect(actionOf({ action: "type" })).toBeNull();
+  });
+
+  it("refuses a key outside the keyboard set", () => {
+    expect(() =>
+      Schema.decodeUnknownSync(DriverDecisionSchema)({
+        action: "press",
+        key: "MouseLeft",
+      })
+    ).toThrow();
+  });
+
+  it("gives the model the input names, its own steps and the tree as data", () => {
+    const prompt = driverPrompt({
+      focused: '- textbox "Email"',
+      goal: "Place the order",
+      inputs: ["email"],
+      left: 10,
+      path: "/checkout",
+      taken: [{ press: "Tab" }, { type: "email" }],
+      tree: '- heading "Checkout" [level=1]',
+    });
+
+    expect(prompt).toContain('<tree>\n- heading "Checkout" [level=1]\n</tree>');
+    expect(prompt).toContain("by name: email.");
+    expect(prompt).toContain('press Tab; type the input "email"');
+    expect(prompt).toContain('Focus is on: - textbox "Email"');
   });
 });
