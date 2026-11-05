@@ -91,3 +91,11 @@ Before measuring, each scenario was run on one Claude guided shop build that alr
 | form-errors-validation | `url2-form-errors-validation`, run 2 | finished, 3 of 3 confirmed, 17 to 26 keys |
 | redundant-entry | `l5-redundant-entry-r`, run 3 | finished, 3 of 3 confirmed, 18 keys |
 | unprompted-popups | `m5-unprompted-popups-shop`, run 1 | finished, 3 of 3 confirmed, 25 keys |
+
+Result (guides agent, 2026-11-05, `docs/evals.md`): Task completion 15 of 15 in every agent and variant, with no driver errors. The outcome is at its ceiling, so it shows no uplift. The step changes behavior: Claude wrote and ran its own scenarios in 0 of 15 runs without it and 12 of 15 with it; Codex did in 13 of 15 and 12 of 15, since it follows the guides' sections. The step stays.
+
+## Next measurement: a seeded barrier the prompt does not name
+
+Parked until after launch (lead, 2026-11-05). The tasks above finish on every guided build because nothing in the flow is broken once the agent builds the feature. To measure the outcome, the base app needs a keyboard barrier in the flow the task touches, which the prompt never mentions and which only shows when someone does the task by keyboard. For example, the shop checkout's Place order as a clickable `div`, or a focus trap on Email like the calibration's. An agent that replays its task finds the barrier and fixes it. An agent that does not ships it. Task completion then separates the two variants.
+
+What it needs: a base-app variant with the seeded barrier (`evals/apps`, so it does not break the existing tasks' baselines), eval tasks on it whose prompts name only the feature, and the same check as above: each scenario finishes on a fixed build and fails on the unchanged variant. Then the same two `SKILL.md` variants, from one commit.
