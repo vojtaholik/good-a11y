@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A page that declares open</title>
+  </head>
+  <body>
+    <button id="menu" type="button">Menu</button>
+    <script>
+      const open = () => {
+        document.body.dataset.opened = "yes";
+      };
+      document.getElementById("menu").addEventListener("click", open);
+      document.body.dataset.ran = "yes";
+      document.body.dataset.popup = String(window.open("/elsewhere.html"));
+    </script>
+  </body>
+</html>

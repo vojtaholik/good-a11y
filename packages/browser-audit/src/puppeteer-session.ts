@@ -27,7 +27,7 @@ export const NAVIGATION_TIMEOUT_MS = 30_000;
 export const KEEP_ALIVE_MS = 60_000;
 
 const NO_POPUPS =
-  'delete Navigator.prototype.serviceWorker; Object.defineProperty(window, "open", { configurable: false, value: () => null, writable: false });';
+  'delete Navigator.prototype.serviceWorker; Object.defineProperty(window, "open", { configurable: true, value: () => null, writable: true });';
 
 const AXE_RUN = `axe.run(document, ${JSON.stringify({
   resultTypes: ["violations"],
