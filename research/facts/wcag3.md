@@ -466,8 +466,8 @@ or guide it relates to.
 - excerpt: "Core requirement Content does not include pseudo-motion or visual motion lasting longer than 5 seconds."
 - retrieved: 2026-11-05
 - used_by: guides.moving-content.wcag3
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Verified by writer 2026-11-05: fetched the draft myself; heading id x2-6-1-3-no-visual-motion gives section 2.6.1.3, the title and core type match, the excerpt is verbatim at the anchor (tags removed, whitespace normalised) and stops before the draft's exception for essential motion, which the claim does not restate; the WCAG 2 criterion named is in the guide's criteria.
 
 ### STD-W3-FOCUS-USER-CONTROLLED-1
 - claim: WCAG 3 draft requirement 2.4.1.8 "Focus user-controlled" is a core requirement: keyboard focus only moves as a result of user interaction, except when it moves to the next field on completion of a user action (such as a one-time code), results from a security or emergency situation (such as an imminent session timeout), or the user is informed before the move and given the chance to avoid it. It relates to the unprompted-popups guide (WCAG 2 SC 2.4.3).
@@ -477,8 +477,8 @@ or guide it relates to.
 - excerpt: "Core requirement The keyboard focus only moves as a result of user interaction. Except when The keyboard focus automatically moves to the next interactive elements in keyboard navigation order on completion of some user action, such when the focus moves between the fields for a time-based one-time password (TOTP) code. The keyboard focus results from security or emergency situations, such as warning about an imminent session timeout that would cause the user to lose their work. The user is informed of the potential keyboard focus move before it happens and given the chance to avoid the move."
 - retrieved: 2026-11-05
 - used_by: guides.unprompted-popups.wcag3
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Verified by writer 2026-11-05: fetched the draft myself; heading id x2-4-1-8-focus-user-controlled gives section 2.4.1.8, the title and core type match, the excerpt is verbatim at the anchor (tags removed, whitespace normalised) with all three exceptions, the draft's 'such when' kept as written; the claim states the three exceptions faithfully; the WCAG 2 criterion named is in the guide's criteria.
 
 ### STD-W3-OVERLAY-CONTENT-DISMISSIBLE-1
 - claim: WCAG 3 draft requirement 2.7.4.1 "Overlay content dismissible" is a core requirement. It relates to the unprompted-popups guide.
@@ -488,8 +488,8 @@ or guide it relates to.
 - excerpt: "Core requirement When new content becomes visible and covers the main content, a mechanism is available to dismiss the new content."
 - retrieved: 2026-11-05
 - used_by: guides.unprompted-popups.wcag3
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Verified by writer 2026-11-05: fetched the draft myself; heading id x2-7-4-1-overlay-content-dismissible gives section 2.7.4.1, the title and core type match, the excerpt is verbatim at the anchor (tags removed, whitespace normalised); the claim names no WCAG 2 criterion.
 
 ### STD-W3-AUTOMATED-ENTRY-ALLOWED-1
 - claim: WCAG 3 draft requirement 2.9.1.1 "Automated entry allowed" is a core requirement. It relates to the input-purpose guide (WCAG 2 SC 1.3.5).
@@ -499,5 +499,5 @@ or guide it relates to.
 - excerpt: "Core requirement Automated input of personal information from user agents, third-party tools, or paste is not prevented."
 - retrieved: 2026-11-05
 - used_by: guides.input-purpose.wcag3
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Verified by writer 2026-11-05: fetched the draft myself; heading id x2-9-1-1-automated-entry-allowed gives section 2.9.1.1, the title and core type match, the excerpt is verbatim at the anchor (tags removed, whitespace normalised); the WCAG 2 criterion named is in the guide's criteria.
