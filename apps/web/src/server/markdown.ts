@@ -1,8 +1,6 @@
 import { formatLocalCheck } from "@good-a11y/core";
 import {
-  SC_COVERAGE,
   TEST_METHOD_NAMES,
-  scCoverageSummary,
   verifiedText,
   CONTACT_SHOWN,
 } from "@good-a11y/core/contracts";
@@ -14,6 +12,7 @@ import { makeGuideIndex } from "@good-a11y/guides/search";
 import { Array, Option } from "effect";
 
 import { CLI, SKILL_PATH, agentPrompt } from "../features/agent-links.js";
+import { CHECK_TABLE, checkTableSummary } from "../features/check-table.js";
 import { LOCAL_CHECK } from "../features/check-view.js";
 import { RETRIEVE, demoPath } from "../features/guide-view.js";
 import { categoryName, guidesByCategory } from "../features/guides.js";
@@ -96,7 +95,24 @@ export const guideMarkdown = (guide: Guide, origin: string): string[] => [
   "",
 ];
 
-const checkMarkdown = (): string[] => [
+export const guideMarkdownPath = (id: string): string =>
+  `${guideRouter({ guideId: id })}.md`;
+
+const checkSummaryLines = (): string[] => {
+  const { columns, lead, newer, statement } = checkTableSummary(CHECK_TABLE);
+
+  return [
+    lead,
+    "",
+    ...columns.map((line) => `- ${line}`),
+    "",
+    newer,
+    "",
+    statement,
+  ];
+};
+
+const checkMarkdown = (origin: string): string[] => [
   "# Check a page",
   "",
   CHECK_DESCRIPTION,
@@ -105,17 +121,19 @@ const checkMarkdown = (): string[] => [
   "",
   "## What we check",
   "",
-  ...scCoverageSummary(SC_COVERAGE),
+  ...checkSummaryLines(),
   "",
-  ...SC_COVERAGE.flatMap((row) => [
-    `### ${row.criterion.text}`,
+  ...CHECK_TABLE.flatMap(({ coverage, guides, local }) => [
+    `### ${coverage.criterion.text}`,
     "",
-    ...(row.tests.length === 0
-      ? [`Not automated. ${row.note ?? ""}`.trim()]
-      : row.tests.map(
+    ...(coverage.tests.length === 0
+      ? [`- Online check: not automated. ${coverage.note ?? ""}`.trim()]
+      : coverage.tests.map(
           ({ method, titles }) =>
-            `- ${TEST_METHOD_NAMES[method]}: ${titles.join("; ")}`
+            `- Online check, ${TEST_METHOD_NAMES[method]}: ${titles.join("; ")}`
         )),
+    `- Local check: ${local.length === 0 ? "nothing more than online." : `${local.join("; ")}.`}`,
+    `- Guide: ${guides.length === 0 ? "no guide yet." : guides.map((guide) => `[${guide.name}](${origin}${guideMarkdownPath(guide.id)})`).join(", ")}`,
     "",
   ]),
 ];
@@ -185,7 +203,7 @@ export const pageMarkdown = (
 ): string =>
   AppRoute.match<string[]>(route, {
     About: () => infoMarkdown(ABOUT),
-    Check: checkMarkdown,
+    Check: () => checkMarkdown(origin),
     Contact: () =>
       CONTACT_SHOWN
         ? [
@@ -207,9 +225,6 @@ export const pageMarkdown = (
   }).join("\n");
 
 export const GUIDE_MARKDOWN_PATH = /^\/(?<id>[a-z\d-]+)\.md$/u;
-
-export const guideMarkdownPath = (id: string): string =>
-  `${guideRouter({ guideId: id })}.md`;
 
 export const SEARCH_PATH = "/search.md";
 

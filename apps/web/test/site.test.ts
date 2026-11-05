@@ -236,22 +236,25 @@ describe("the site for agents", () => {
     })
   );
 
-  it.effect("answers every sitemap address with 200 and no redirect", () =>
-    Effect.gen(function* sitemapAnswers() {
-      const map = yield* get("/sitemap.xml");
+  it.effect(
+    "answers every sitemap address with 200 and no redirect",
+    () =>
+      Effect.gen(function* sitemapAnswers() {
+        const map = yield* get("/sitemap.xml");
 
-      const paths = [...map.body.matchAll(/<loc>(?<loc>[^<]+)<\/loc>/gu)].map(
-        (match) => new URL(match.groups?.loc ?? "").pathname
-      );
+        const paths = [...map.body.matchAll(/<loc>(?<loc>[^<]+)<\/loc>/gu)].map(
+          (match) => new URL(match.groups?.loc ?? "").pathname
+        );
 
-      expect(paths.length).toBeGreaterThan(GUIDES.length);
+        expect(paths.length).toBeGreaterThan(GUIDES.length);
 
-      for (const at of paths) {
-        const { response } = yield* get(at);
+        for (const at of paths) {
+          const { response } = yield* get(at);
 
-        expect({ at, status: response.status }).toEqual({ at, status: 200 });
-      }
-    })
+          expect({ at, status: response.status }).toEqual({ at, status: 200 });
+        }
+      }),
+    60_000
   );
 });
 

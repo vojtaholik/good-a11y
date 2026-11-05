@@ -435,7 +435,6 @@ export {
   TEST_METHOD_NAMES,
   scCoverageCounts,
   scCoverageFrom,
-  scCoverageSummary,
   type ScCoverageRow,
   type TestMethod,
   type TestedBy,

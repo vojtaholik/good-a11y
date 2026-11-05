@@ -217,15 +217,3 @@ export const scCoverageCounts = (
   current: countsOf(rows.filter(({ newer }) => !newer)),
   newer: countsOf(rows.filter(({ newer }) => newer)),
 });
-
-export const scCoverageSummary = (
-  rows: readonly ScCoverageRow[]
-): readonly string[] => {
-  const { current, newer } = scCoverageCounts(rows);
-
-  return [
-    `Of the ${current.criteria} WCAG 2.1 Level A and AA success criteria, ${current.tested} have at least one automated check: ${current.byMethod.served_html} on the served HTML, ${current.byMethod.rendered_page} on the rendered page, ${current.byMethod.site} by comparing several pages of the site and ${current.byMethod.model} asked of a model. ${current.untested} have none, and a person reviews them.`,
-    `WCAG 2.2 adds ${newer.criteria} criteria, newer than the reference benchmark: ${newer.tested} have an automated check, ${newer.untested} have none.`,
-    "A check covers only part of what its criterion asks, so a criterion with a check still needs a manual review. The rendered page is checked with axe-core and our own probes; a model's answers are shown apart and never counted as issues.",
-  ];
-};

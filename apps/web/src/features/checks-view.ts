@@ -1,18 +1,18 @@
-import {
-  SC_COVERAGE,
-  TEST_METHOD_NAMES,
-  newerWcagLabel,
-  scCoverageSummary,
-} from "@good-a11y/core/contracts";
+import { TEST_METHOD_NAMES, newerWcagLabel } from "@good-a11y/core/contracts";
 import type { ScCoverageRow } from "@good-a11y/core/contracts";
 import * as stylex from "@stylexjs/stylex";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/message.js";
+import { CHECK_TABLE, checkTableSummary } from "./check-table.js";
+import type { CheckTableRow } from "./check-table.js";
+import { guideRouter } from "./route.js";
 import { sx } from "./sx.js";
 import { colors, radius } from "./tokens.stylex.js";
 
-const local = stylex.create({
+const TABLE_CAPTION_ID = "what-we-check-table";
+
+const styles = stylex.create({
   card: {
     backgroundColor: colors["--surface"],
     borderColor: colors["--line"],
@@ -30,9 +30,18 @@ const local = stylex.create({
     textAlign: "start",
     verticalAlign: "top",
   },
+  column: {
+    minInlineSize: "12rem",
+  },
   criterion: {
     fontWeight: 400,
-    inlineSize: "40%",
+    inlineSize: "28%",
+    minInlineSize: "12rem",
+  },
+  guideLink: {
+    display: "inline-block",
+    minBlockSize: "24px",
+    paddingBlock: "2px",
   },
   head: {
     backgroundColor: colors["--sunken"],
@@ -105,61 +114,128 @@ const local = stylex.create({
 
 const testsView = (row: ScCoverageRow, h: HtmlBuilder<AppMessage>): Html[] =>
   row.tests.length === 0
-    ? [h.p([sx(h, local.none)], [`Not automated. ${row.note ?? ""}`.trim()])]
+    ? [h.p([sx(h, styles.none)], [`Not automated. ${row.note ?? ""}`.trim()])]
     : row.tests.flatMap(({ method, titles }) => [
-        h.p([sx(h, local.method)], [TEST_METHOD_NAMES[method]]),
+        h.p([sx(h, styles.method)], [TEST_METHOD_NAMES[method]]),
         h.ul(
-          [sx(h, local.list, local.titles)],
+          [sx(h, styles.list, styles.titles)],
           titles.map((title) => h.li([], [title]))
         ),
       ]);
 
-const rowView = (row: ScCoverageRow, h: HtmlBuilder<AppMessage>): Html =>
+const localView = (
+  { local }: CheckTableRow,
+  h: HtmlBuilder<AppMessage>
+): Html[] =>
+  local.length === 0
+    ? [h.p([sx(h, styles.none)], ["Nothing more than online."])]
+    : [
+        h.ul(
+          [sx(h, styles.list, styles.titles)],
+          local.map((line) => h.li([], [line]))
+        ),
+      ];
+
+const guidesView = (
+  { guides }: CheckTableRow,
+  h: HtmlBuilder<AppMessage>
+): Html[] =>
+  guides.length === 0
+    ? [h.p([sx(h, styles.none)], ["No guide yet."])]
+    : [
+        h.ul(
+          [sx(h, styles.list, styles.titles)],
+          guides.map((guide) =>
+            h.keyed("li")(
+              guide.id,
+              [],
+              [
+                h.a(
+                  [
+                    h.Href(guideRouter({ guideId: guide.id })),
+                    sx(h, styles.guideLink),
+                  ],
+                  [guide.name]
+                ),
+              ]
+            )
+          )
+        ),
+      ];
+
+const rowView = (row: CheckTableRow, h: HtmlBuilder<AppMessage>): Html =>
   h.tr(
     [],
     [
       h.th(
-        [h.Attribute("scope", "row"), sx(h, local.cell, local.criterion)],
+        [h.Attribute("scope", "row"), sx(h, styles.cell, styles.criterion)],
         [
-          h.a([h.Href(row.criterion.source)], [row.criterion.text]),
-          ...(row.newer
-            ? [h.span([sx(h, local.newer)], [newerWcagLabel()])]
+          h.a(
+            [h.Href(row.coverage.criterion.source)],
+            [row.coverage.criterion.text]
+          ),
+          ...(row.coverage.newer
+            ? [h.span([sx(h, styles.newer)], [newerWcagLabel()])]
             : []),
         ]
       ),
-      h.td([sx(h, local.cell)], testsView(row, h)),
+      h.td([sx(h, styles.cell, styles.column)], testsView(row.coverage, h)),
+      h.td([sx(h, styles.cell, styles.column)], localView(row, h)),
+      h.td([sx(h, styles.cell, styles.column)], guidesView(row, h)),
     ]
   );
 
+const headOf = (label: string, h: HtmlBuilder<AppMessage>): Html =>
+  h.th([h.Attribute("scope", "col"), sx(h, styles.head)], [label]);
+
+const summaryView = (h: HtmlBuilder<AppMessage>): Html[] => {
+  const { columns, lead, newer, statement } = checkTableSummary(CHECK_TABLE);
+
+  return [
+    h.p([sx(h, styles.summary)], [lead]),
+    h.ul(
+      [sx(h, styles.summary, styles.list)],
+      columns.map((line) => h.li([], [line]))
+    ),
+    h.p([sx(h, styles.summary)], [newer]),
+    h.p([sx(h, styles.summary)], [statement]),
+  ];
+};
+
 export const checksView = (h: HtmlBuilder<AppMessage>): Html =>
   h.section(
-    [h.AriaLabelledBy("what-we-check"), sx(h, local.section)],
+    [h.AriaLabelledBy("what-we-check"), sx(h, styles.section)],
     [
       h.div(
-        [sx(h, local.intro)],
+        [sx(h, styles.intro)],
         [
           h.h2(
-            [h.Id("what-we-check"), sx(h, local.heading)],
+            [h.Id("what-we-check"), sx(h, styles.heading)],
             ["What we check"]
           ),
           h.p(
-            [sx(h, local.note)],
+            [sx(h, styles.note)],
             ["Anything not checked here needs a person to review it."]
           ),
         ]
       ),
-      ...scCoverageSummary(SC_COVERAGE).map((line) =>
-        h.p([sx(h, local.summary)], [line])
-      ),
+      ...summaryView(h),
       h.div(
-        [sx(h, local.card)],
+        [
+          h.Role("region"),
+          h.AriaLabelledBy(TABLE_CAPTION_ID),
+          h.Tabindex(0),
+          sx(h, styles.card),
+        ],
         [
           h.table(
-            [sx(h, local.table)],
+            [sx(h, styles.table)],
             [
               h.caption(
-                [sx(h, local.visuallyHidden)],
-                ["Each success criterion, and how it is tested today"]
+                [h.Id(TABLE_CAPTION_ID), sx(h, styles.visuallyHidden)],
+                [
+                  "Each success criterion: the online check, what the local check adds, and the guide that covers it",
+                ]
               ),
               h.thead(
                 [],
@@ -167,21 +243,17 @@ export const checksView = (h: HtmlBuilder<AppMessage>): Html =>
                   h.tr(
                     [],
                     [
-                      h.th(
-                        [h.Attribute("scope", "col"), sx(h, local.head)],
-                        ["Success criterion"]
-                      ),
-                      h.th(
-                        [h.Attribute("scope", "col"), sx(h, local.head)],
-                        ["How we test it"]
-                      ),
+                      headOf("Success criterion", h),
+                      headOf("Online check", h),
+                      headOf("Local check (your agent)", h),
+                      headOf("Guide", h),
                     ]
                   ),
                 ]
               ),
               h.tbody(
                 [],
-                SC_COVERAGE.map((row) => rowView(row, h))
+                CHECK_TABLE.map((row) => rowView(row, h))
               ),
             ]
           ),

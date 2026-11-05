@@ -118,7 +118,6 @@ export {
   SC_COVERAGE,
   TEST_METHOD_NAMES,
   scCoverageCounts,
-  scCoverageSummary,
   type ScCoverageRow,
   type TestMethod,
 } from "./sc-coverage.js";
