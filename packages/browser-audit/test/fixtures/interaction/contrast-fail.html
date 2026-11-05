@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Faint borders and icons</title>
+    <style>
+      body {
+        background: #fff;
+        font: 16px sans-serif;
+      }
+      input {
+        border: 1px solid #ddd;
+        background: #fff;
+        padding: 6px;
+        outline: none;
+      }
+      button {
+        border: 0;
+        background: transparent;
+        padding: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <label for="e">Email</label> <input id="e" type="email" />
+      <button type="button" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 20 20">
+          <path
+            d="M2 2 L18 18 M18 2 L2 18"
+            stroke="#ccc"
+            stroke-width="3"
+            fill="none"
+          />
+        </svg>
+      </button>
+    </main>
+  </body>
+</html>

@@ -5,6 +5,8 @@ export const CHECK_GUIDES = {
   "axe:bypass": ["skip-link-landmarks"],
   "axe:focus-obscured": ["focus-visible"],
   "axe:focus-visible": ["focus-visible"],
+  "axe:hover-content": ["hover-popups"],
+  "axe:orientation": ["orientation"],
   "button-name": ["icon-buttons"],
   "document-title": ["spa-route-change"],
   "form-labels": ["required-and-hints", "custom-select"],

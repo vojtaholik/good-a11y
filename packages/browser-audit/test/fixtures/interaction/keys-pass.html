@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Shortcuts only in the editor</title>
+  </head>
+  <body>
+    <main>
+      <h1>Editor</h1>
+      <label for="ed">Notes</label> <textarea id="ed"></textarea>
+      <div id="saved" hidden>Saved</div>
+      <p id="clock">0</p>
+    </main>
+    <script>
+      const editor = document.getElementById("ed");
+      editor.addEventListener("keydown", (event) => {
+        if (event.key === "s") document.getElementById("saved").hidden = false;
+      });
+      let tick = 0;
+      setInterval(() => {
+        document.getElementById("clock").textContent = String(++tick);
+      }, 150);
+      document.addEventListener("keydown", () =>
+        document.documentElement.setAttribute("data-input", "keyboard")
+      );
+    </script>
+  </body>
+</html>

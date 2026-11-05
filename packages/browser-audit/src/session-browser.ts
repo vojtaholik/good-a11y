@@ -23,10 +23,29 @@ export interface SessionResponse {
   status: () => number;
 }
 
+export type InteractionKey =
+  | "/"
+  | "?"
+  | "s"
+  | "f"
+  | "k"
+  | "j"
+  | "m"
+  | "1"
+  | "Escape";
+
 export interface SessionKeyboard {
   down: (key: "Shift") => Promise<void>;
-  press: (key: "Tab") => Promise<void>;
+  press: (key: "Tab" | InteractionKey) => Promise<void>;
   up: (key: "Shift") => Promise<void>;
+}
+
+export interface SessionMouse {
+  move: (
+    x: number,
+    y: number,
+    options: { readonly steps: number }
+  ) => Promise<void>;
 }
 
 export interface SessionPage {
@@ -41,6 +60,7 @@ export interface SessionPage {
   ) => Promise<SessionResponse | null>;
   readonly keyboard: SessionKeyboard;
   mainFrame: () => object;
+  readonly mouse: SessionMouse;
   on: (event: "request", handler: (request: SessionRequest) => void) => void;
   setBypassServiceWorker: (bypass: boolean) => Promise<void>;
   setOfflineMode: (enabled: boolean) => Promise<void>;
@@ -48,6 +68,7 @@ export interface SessionPage {
   setUserAgent: (userAgent: string) => Promise<void>;
   setViewport: (viewport: {
     readonly height: number;
+    readonly isLandscape?: boolean;
     readonly width: number;
   }) => Promise<void>;
   url: () => string;

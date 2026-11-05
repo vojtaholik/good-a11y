@@ -55,7 +55,78 @@ const WalkMeasuredSchema = Schema.Struct({
 
 type WalkMeasured = typeof WalkMeasuredSchema.Type;
 
+const LowSchema = Schema.Struct({
+  ratio: Schema.Finite,
+  snippet: Schema.String,
+});
+
+const ContrastPartSchema = Schema.Struct({
+  judged: Count,
+  low: Schema.Array(LowSchema),
+});
+
+const OrientationRuleSchema = Schema.Struct({
+  active: Schema.Boolean,
+  hide: Schema.Boolean,
+  media: Schema.String,
+  rotate: Schema.Boolean,
+  selector: Schema.String,
+  share: Schema.Finite,
+});
+
+const OrientationReadSchema = Schema.Struct({
+  rules: Schema.Array(OrientationRuleSchema),
+  text: Count,
+});
+
+const KeyReadSchema = Schema.Struct({
+  changed: Schema.Array(Schema.String),
+  focus: Schema.NullOr(Schema.String),
+  snippet: Schema.NullOr(Schema.String),
+});
+
+const KeyTrialSchema = Schema.Struct({
+  control: Schema.NullOr(KeyReadSchema),
+  navigated: Schema.Boolean,
+  pressed: Schema.NullOr(KeyReadSchema),
+});
+
+const KeyMeasuredSchema = Schema.Struct({
+  key: Schema.String,
+  trials: Schema.Array(KeyTrialSchema),
+});
+
+const HoverMeasuredSchema = Schema.Struct({
+  closedOnLeave: Schema.Boolean,
+  escapeClosed: Schema.Boolean,
+  focusEscapeClosed: Schema.NullOr(Schema.Boolean),
+  focusShown: Schema.Boolean,
+  obscures: Schema.Boolean,
+  persisted: Schema.Boolean,
+  reshown: Schema.Boolean,
+  snippet: Schema.String,
+  stayedOnHover: Schema.Boolean,
+  trigger: Schema.String,
+});
+
+export const InteractionMeasuredSchema = Schema.Struct({
+  contrast: Schema.NullOr(
+    Schema.Struct({ fields: ContrastPartSchema, icons: ContrastPartSchema })
+  ),
+  hover: Schema.NullOr(Schema.Array(HoverMeasuredSchema)),
+  keys: Schema.NullOr(Schema.Array(KeyMeasuredSchema)),
+  orientation: Schema.NullOr(
+    Schema.Struct({
+      landscape: OrientationReadSchema,
+      portrait: OrientationReadSchema,
+    })
+  ),
+});
+
+export type InteractionMeasured = typeof InteractionMeasuredSchema.Type;
+
 export const ProbesMeasuredSchema = Schema.Struct({
+  interaction: Schema.NullOr(InteractionMeasuredSchema),
   reflow: Schema.NullOr(ReflowMeasuredSchema),
   targetSize: Schema.NullOr(Schema.String),
   walk: Schema.NullOr(WalkMeasuredSchema),
@@ -73,6 +144,10 @@ export const ProbeIdSchema = Schema.Literals([
   "focus-obscured",
   "on-focus",
   "target-size",
+  "character-keys",
+  "hover-content",
+  "orientation",
+  "non-text-contrast",
 ]);
 
 export type ProbeId = typeof ProbeIdSchema.Type;
@@ -96,6 +171,12 @@ interface ProbeSpec {
 }
 
 export const PROBES: Readonly<Record<ProbeId, ProbeSpec>> = {
+  "character-keys": {
+    criterion: "2.1.4",
+    help: "With no field focused, pressing one letter, number or symbol key moved focus, changed the page or sent it elsewhere, the same way twice.",
+    newer: false,
+    title: "Single-key shortcuts that fire with no field focused",
+  },
   "focus-obscured": {
     criterion: "2.4.11",
     help: "A focused control was fully hidden behind a fixed or sticky layer.",
@@ -107,6 +188,12 @@ export const PROBES: Readonly<Record<ProbeId, ProbeSpec>> = {
     help: "A control reached with the Tab key showed no visible change when it got focus.",
     newer: false,
     title: "Focus that cannot be seen",
+  },
+  "hover-content": {
+    criterion: "1.4.13",
+    help: "Content that appeared on hover or focus vanished when the pointer moved onto it or while it rested there, or covered other content and Escape did not close it.",
+    newer: false,
+    title: "Hover content that cannot be reached or dismissed",
   },
   "keyboard-reach": {
     criterion: "2.1.1",
@@ -120,11 +207,23 @@ export const PROBES: Readonly<Record<ProbeId, ProbeSpec>> = {
     newer: false,
     title: "Keyboard focus that cannot leave",
   },
+  "non-text-contrast": {
+    criterion: "1.4.11",
+    help: "A form field's border, or the one solid colour of an icon-only control, has less than 3:1 contrast with the solid background next to it.",
+    newer: false,
+    title: "Field borders and icons below 3:1 contrast",
+  },
   "on-focus": {
     criterion: "3.2.1",
     help: "Moving focus to a control with the Tab key sent the page to another address.",
     newer: false,
     title: "Focus that moves the page elsewhere",
+  },
+  orientation: {
+    criterion: "1.3.4",
+    help: "A style for one screen orientation hides or turns most of the page, so the page works in one orientation only.",
+    newer: false,
+    title: "Content locked to one screen orientation",
   },
   reflow: {
     criterion: "1.4.10",
@@ -365,6 +464,189 @@ export const decideTargetSize = (axeJson: string): ProbeResult | null => {
     : notApplicable("target-size");
 };
 
+type KeyTrial = typeof KeyTrialSchema.Type;
+
+const effectOf = (trial: KeyTrial): string | null => {
+  const { control, navigated, pressed } = trial;
+
+  if (
+    control === null ||
+    pressed === null ||
+    control.focus !== null ||
+    control.changed.length > 0
+  ) {
+    return null;
+  }
+
+  if (navigated) {
+    return "sends the page to another address";
+  }
+
+  if (pressed.focus !== null) {
+    return `moves focus to ${pressed.snippet ?? pressed.focus}`;
+  }
+
+  return pressed.changed.length > 0
+    ? `changes the page: ${pressed.changed.toSorted().join(", ")}`
+    : "";
+};
+
+const cleanTrial = (trial: KeyTrial): boolean => effectOf(trial) !== null;
+
+export const decideCharacterKeys = (
+  keys: NonNullable<InteractionMeasured["keys"]>
+): ProbeResult => {
+  const judgedKeys = keys.filter(({ trials }) => trials.some(cleanTrial));
+
+  if (judgedKeys.length === 0) {
+    return notApplicable("character-keys");
+  }
+
+  return judged(
+    "character-keys",
+    judgedKeys.flatMap(({ key, trials }) => {
+      const [first, second] = trials.map(effectOf);
+
+      return first !== undefined &&
+        first !== null &&
+        first !== "" &&
+        first === second
+        ? [`Pressing "${key}" with no field focused ${first}`]
+        : [];
+    })
+  );
+};
+
+type HoverMeasured = typeof HoverMeasuredSchema.Type;
+
+const hoverFailure = (hover: HoverMeasured): string | null => {
+  if (!hover.stayedOnHover) {
+    return "disappears when the pointer moves onto it";
+  }
+
+  if (!hover.persisted) {
+    return "disappears by itself while the pointer rests on it";
+  }
+
+  if (hover.obscures && !hover.escapeClosed) {
+    return "covers other content and Escape does not close it";
+  }
+
+  return hover.obscures && hover.focusEscapeClosed === false
+    ? "opens on focus, covers other content and Escape does not close it"
+    : null;
+};
+
+export const decideHoverContent = (
+  hovers: readonly HoverMeasured[]
+): ProbeResult => {
+  const confirmed = hovers.filter(
+    (hover) => hover.closedOnLeave && hover.reshown
+  );
+
+  if (confirmed.length === 0) {
+    return notApplicable("hover-content");
+  }
+
+  return judged(
+    "hover-content",
+    confirmed.flatMap((hover) => {
+      const failure = hoverFailure(hover);
+
+      return failure === null
+        ? []
+        : [
+            `${hover.snippet} (shown on hover over ${hover.trigger}) ${failure}`,
+          ];
+    })
+  );
+};
+
+export const LOCKED_SHARE = 0.5;
+
+type OrientationRead = typeof OrientationReadSchema.Type;
+
+const lockedIn = (
+  name: string,
+  here: OrientationRead,
+  there: OrientationRead
+): readonly string[] =>
+  here.rules.flatMap((rule) => {
+    if (!rule.active) {
+      return [];
+    }
+
+    const elsewhere =
+      there.rules.find(
+        (other) =>
+          other.selector === rule.selector && other.media === rule.media
+      )?.share ?? 0;
+
+    const rotated =
+      rule.rotate && Math.max(rule.share, elsewhere) >= LOCKED_SHARE;
+
+    const hidden =
+      rule.hide &&
+      elsewhere >= LOCKED_SHARE &&
+      here.text < there.text * LOCKED_SHARE;
+
+    return rotated || hidden
+      ? [
+          `In ${name} orientation, @media ${rule.media} ${rotated ? "turns" : "hides"} ${rule.selector}`,
+        ]
+      : [];
+  });
+
+export const decideOrientation = (
+  orientation: NonNullable<InteractionMeasured["orientation"]>
+): ProbeResult => {
+  const { landscape, portrait } = orientation;
+
+  if (landscape.text === 0 && portrait.text === 0) {
+    return notApplicable("orientation");
+  }
+
+  return judged("orientation", [
+    ...lockedIn("portrait", portrait, landscape),
+    ...lockedIn("landscape", landscape, portrait),
+  ]);
+};
+
+export const decideNonTextContrast = (
+  contrast: NonNullable<InteractionMeasured["contrast"]>
+): ProbeResult => {
+  const { fields, icons } = contrast;
+
+  if (fields.judged + icons.judged === 0) {
+    return notApplicable("non-text-contrast");
+  }
+
+  return judged("non-text-contrast", [
+    ...fields.low.map(
+      (low) =>
+        `Field border ${low.ratio}:1 against its background: ${low.snippet}`
+    ),
+    ...icons.low.map(
+      (low) => `Icon ${low.ratio}:1 against its background: ${low.snippet}`
+    ),
+  ]);
+};
+
+export const interactionResults = (
+  interaction: InteractionMeasured
+): readonly ProbeResult[] => [
+  ...(interaction.contrast === null
+    ? []
+    : [decideNonTextContrast(interaction.contrast)]),
+  ...(interaction.hover === null
+    ? []
+    : [decideHoverContent(interaction.hover)]),
+  ...(interaction.keys === null ? [] : [decideCharacterKeys(interaction.keys)]),
+  ...(interaction.orientation === null
+    ? []
+    : [decideOrientation(interaction.orientation)]),
+];
+
 export const probeResults = (
   measured: ProbesMeasured
 ): readonly ProbeResult[] => [
@@ -383,4 +665,7 @@ export const probeResults = (
     : [decideTargetSize(measured.targetSize)].filter(
         (decided): decided is ProbeResult => decided !== null
       )),
+  ...(measured.interaction === null
+    ? []
+    : interactionResults(measured.interaction)),
 ];

@@ -43,14 +43,7 @@ const MANUAL_NOTES = new Map<string, string>([
     "1.3.3",
     "A person reads instructions that may rely on shape, size or position.",
   ],
-  ["1.3.4", "A person turns the screen; this is not checked yet."],
   ["1.4.5", "A person looks at each image for text that could be real text."],
-  [
-    "1.4.11",
-    "A person checks borders and icons; shadows and gradients make automated results unreliable.",
-  ],
-  ["1.4.13", "A person hovers and focuses to see what appears."],
-  ["2.1.4", "A person tries the single-key shortcuts."],
   ["2.3.1", "A person watches the page for flashing."],
   ["2.4.3", "A person compares the focus order with the reading order."],
   [

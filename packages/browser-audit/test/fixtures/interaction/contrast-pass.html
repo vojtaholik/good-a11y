@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Clear borders and icons</title>
+    <style>
+      body {
+        background: #fff;
+        font: 16px sans-serif;
+      }
+      input {
+        border: 1px solid #767676;
+        background: #fff;
+        padding: 6px;
+      }
+      #soft {
+        border: 1px solid #eee;
+        background: #444;
+        color: #fff;
+      }
+      #fancy {
+        border: 1px solid #eee;
+        background-image: linear-gradient(#fff, #f6f6f6);
+      }
+      button {
+        border: 0;
+        background: transparent;
+        padding: 4px;
+      }
+      .photo {
+        background: url("data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==")
+          #888;
+        padding: 8px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <label for="e">Email</label> <input id="e" type="email" />
+      <label for="s">Name</label> <input id="s" type="text" />
+      <label for="soft">Code</label> <input id="soft" type="text" />
+      <label for="fancy">City</label> <input id="fancy" type="text" />
+      <button type="button" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 20 20">
+          <path
+            d="M2 2 L18 18 M18 2 L2 18"
+            stroke="#333"
+            stroke-width="3"
+            fill="none"
+          />
+        </svg>
+      </button>
+      <span class="photo"
+        ><button type="button" aria-label="Next">
+          <svg width="20" height="20" viewBox="0 0 20 20">
+            <path
+              d="M5 2 L15 10 L5 18"
+              stroke="#999"
+              stroke-width="3"
+              fill="none"
+            />
+          </svg></button
+      ></span>
+      <a href="/" aria-label="Home"
+        ><svg class="logo" width="40" height="20">
+          <rect width="40" height="20" fill="#eee" /></svg
+      ></a>
+    </main>
+  </body>
+</html>

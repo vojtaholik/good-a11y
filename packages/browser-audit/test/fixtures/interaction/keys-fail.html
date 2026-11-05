@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Shortcuts fire anywhere</title>
+  </head>
+  <body>
+    <main>
+      <h1>Docs</h1>
+      <label for="q">Search</label> <input id="q" type="search" />
+      <div id="help" hidden>Keyboard shortcuts: / search</div>
+      <p>Some text.</p>
+    </main>
+    <script>
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "/") {
+          event.preventDefault();
+          document.getElementById("q").focus();
+        }
+        if (event.key === "?") {
+          const help = document.getElementById("help");
+          help.hidden = !help.hidden;
+        }
+      });
+    </script>
+  </body>
+</html>

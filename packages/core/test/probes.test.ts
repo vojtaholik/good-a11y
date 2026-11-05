@@ -10,6 +10,7 @@ import {
 import type { ProbeResult, ProbesMeasured } from "../src/index.js";
 
 const NOTHING: ProbesMeasured = {
+  interaction: null,
   reflow: null,
   targetSize: null,
   walk: null,

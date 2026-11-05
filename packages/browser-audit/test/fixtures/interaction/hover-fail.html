@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Hover content that fails</title>
+    <style>
+      body {
+        margin: 0;
+        font: 16px sans-serif;
+      }
+      nav ul {
+        display: flex;
+        gap: 24px;
+        list-style: none;
+        margin: 0;
+        padding: 16px;
+      }
+      nav li {
+        position: relative;
+      }
+      nav li .panel {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 400px;
+        padding: 16px;
+        background: #fff;
+        border: 1px solid #333;
+      }
+      nav li:hover .panel {
+        display: block;
+      }
+      #tip {
+        position: absolute;
+        top: 120px;
+        left: 300px;
+        padding: 8px;
+        background: #222;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <a href="/shop">Shop</a>
+            <div class="panel">
+              <a href="/shop/new">New in</a> <a href="/shop/sale">Sale</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <p>
+        Main text under the menu. Main text under the menu. Main text under the
+        menu.
+      </p>
+      <p style="margin-top: 40px">
+        Delivery
+        <button id="info" type="button" aria-describedby="tip">?</button>
+      </p>
+      <div id="tip" role="tooltip" hidden>
+        Free delivery over 50 euro, read the delivery terms
+      </div>
+    </main>
+    <script>
+      const info = document.getElementById("info"),
+        tip = document.getElementById("tip");
+      info.addEventListener("mouseenter", () => {
+        tip.hidden = false;
+      });
+      info.addEventListener("mouseleave", () => {
+        tip.hidden = true;
+      });
+    </script>
+  </body>
+</html>

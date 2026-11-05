@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Landscape only</title>
+    <style>
+      .turn {
+        display: none;
+      }
+      @media (orientation: portrait) {
+        main {
+          display: none;
+        }
+        .turn {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="turn">Turn your device</p>
+    <main>
+      <h1>Shop</h1>
+      <p>
+        Every product is listed here with its price, its size and its colour,
+        and more text follows so that the main content holds most of the page.
+      </p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Hover content that passes</title>
+    <style>
+      body {
+        margin: 0;
+        font: 16px sans-serif;
+      }
+      nav ul {
+        display: flex;
+        gap: 24px;
+        list-style: none;
+        margin: 0;
+        padding: 16px;
+      }
+      nav li {
+        position: relative;
+      }
+      nav li .panel {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 400px;
+        padding: 16px;
+        background: #fff;
+        border: 1px solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li id="item">
+            <a href="/shop" aria-haspopup="true">Shop</a>
+            <div class="panel" hidden>
+              <a href="/shop/new">New in</a> <a href="/shop/sale">Sale</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <p>
+        Main text under the menu. Main text under the menu. Main text under the
+        menu.
+      </p>
+    </main>
+    <script>
+      const item = document.getElementById("item"),
+        panel = item.querySelector(".panel");
+      const show = () => {
+          panel.hidden = false;
+        },
+        hide = () => {
+          panel.hidden = true;
+        };
+      item.addEventListener("mouseenter", show);
+      item.addEventListener("mouseleave", hide);
+      item.addEventListener("focusin", show);
+      item.addEventListener("focusout", (event) => {
+        if (!item.contains(event.relatedTarget)) hide();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") hide();
+      });
+    </script>
+  </body>
+</html>

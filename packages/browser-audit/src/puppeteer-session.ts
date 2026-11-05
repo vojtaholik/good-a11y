@@ -13,6 +13,7 @@ import { axeSource, evidenceSource, probesSource } from "#page-scripts";
 
 import { navigationAllowed, step } from "./browser-session.js";
 import type { BrowserSession, LaunchSession } from "./browser-session.js";
+import { interact } from "./interaction.js";
 import type {
   PausedRequest,
   SessionBrowser,
@@ -42,7 +43,9 @@ const READ_EVERY = 10;
 
 const REFLOW_SETTLE = "1 second";
 
-const PROBE_TIMEOUT = "75 seconds";
+const PROBE_TIMEOUT = "100 seconds";
+
+const INTERACTION_TIMEOUT = "40 seconds";
 
 const READ_TIMEOUT = "5 seconds";
 
@@ -153,6 +156,7 @@ export const sessionOn = (
     const held: string[] = [];
     const holding = { everything: false, navigations: false };
     const blocked: string[] = [];
+    const sent = { navigations: 0 };
 
     // @effect-diagnostics-next-line asyncFunction:off -- Puppeteer calls this request listener itself and awaits nothing, so it settles each paused request with a promise that never rejects.
     const guard = async (request: SessionRequest): Promise<void> => {
@@ -162,6 +166,7 @@ export const sessionOn = (
 
       if (holding.everything) {
         blocked.push(request.url().slice(0, 200));
+        sent.navigations += request.isNavigationRequest() ? 1 : 0;
         await Promise.allSettled([
           request.isNavigationRequest()
             ? request.respond({ body: "", status: 204 })
@@ -504,6 +509,7 @@ export const sessionOn = (
 
           cdp.on("Fetch.requestPaused", (paused: PausedRequest) => {
             blocked.push(paused.request.url.slice(0, 200));
+            sent.navigations += paused.resourceType === "Document" ? 1 : 0;
             void Promise.allSettled([
               paused.resourceType === "Document"
                 ? cdp.send("Fetch.fulfillRequest", {
@@ -528,11 +534,30 @@ export const sessionOn = (
           );
         });
 
-        const submitAll = Effect.gen(function* submitEmptyForms() {
+        const blockEverything = Effect.gen(function* blockEverything() {
           yield* failEveryRequest;
           holding.everything = true;
           yield* step("audit", page.setOfflineMode.bind(page, true));
           yield* evaluate(NO_SENDING);
+
+          return true;
+        });
+
+        const blocking = stayed ? yield* optional(blockEverything) : null;
+
+        const interaction =
+          blocking === true
+            ? yield* optionalWithin(
+                INTERACTION_TIMEOUT,
+                interact({
+                  navigations: () => sent.navigations,
+                  page,
+                  viewport: VIEWPORT,
+                })
+              )
+            : null;
+
+        const submitAll = Effect.gen(function* submitEmptyForms() {
           yield* evaluate(evidenceSource);
 
           const forms = yield* evaluate("__eaaEvidence.listForms()");
@@ -572,7 +597,9 @@ export const sessionOn = (
         });
 
         const emptySubmits =
-          options.emptySubmits(startUrl) && stayed
+          options.emptySubmits(startUrl) &&
+          blocking === true &&
+          page.url() === startUrl
             ? yield* optionalWithin(SUBMIT_TIMEOUT, submitAll)
             : null;
 
@@ -583,6 +610,7 @@ export const sessionOn = (
             formInstructions,
             visualHeadings,
           },
+          interaction,
           reflow,
           targetSize: Result.getOrNull(decodeText(targetSize)),
           walk: walked,

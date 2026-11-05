@@ -252,6 +252,32 @@ Task `ga-probes`. Round 6 named what a return needs; this run is that. Rules in 
 
 **Decision: shipped.** 3.2.3 and 3.2.4 count in the verdict; 3.2.6 stays with the WCAG 2.2 issues. Recall is unmeasured: the checks see only static HTML, navigation inside `nav` or `header`, and pairs that share 3 addresses.
 
+## Round 9: interaction probes (2026-11-05)
+
+Task `ga-probes`. Rules in `docs/consistency-and-interaction.md`, layer 2.
+
+**Method.** `good-a11y check <site> --json` from the committed bundle over the 61 sites of round 8, three at a time, in the local Chrome (from the third run on, chrome-headless-shell). It runs the same session code as Browser Run, under the same full request blocking. Three runs: the first build, after the hit-test rework, and the final build. Every fail was checked by hand from a screenshot taken with the scanner's own user agent, and its computed styles.
+
+**Coverage, final run.** The rendered page was checked on 44 sites. The rest refused or dropped the fetch (alza.cz and bol.com sent 403s after a day of runs; datart.cz failed TLS once and ran on a rerun) or blocked the browser. 2.1.4 was judged on 44, 1.3.4 on 43, 1.4.11 on 8 (fields with their own border and plain icons are rarer than expected), 1.4.13 on 2 to 4: most navigation opens on click, and pages whose consent dialog makes the page inert are not hovered.
+
+| Site | Probe | Run | Result | Hand check | Fix |
+| --- | --- | --- | --- | --- | --- |
+| zalando.de, o2.cz, datart.cz | 1.4.13 | 1 | menus "cover content and Escape does not close them" | zalando: false positive, Escape closes it; per-element visibility read its clipped panel wrong | hit tests on a grid replace per-element visibility |
+| otto.de | 1.4.13 | 1, 2 | not judged | its mega menu is in a shadow root inside a clipping container | hit tests go through open shadow roots; the menu is found in a plain browser, but not yet in the session, where the hover part ran out of time |
+| datart.cz | 1.4.13 | 2, 3 | "Akce" submenu covers content, Escape does not close it | true: the dropdown stays over the right column after Escape | none |
+| ikea.com/cz/cs | 2.1.4 | 2 | "s" changes the page: an image | false positive: a carousel slide | key effects count only shown elements with text |
+| mamacoffee.cz | 2.1.4 | 2 | "j" changes the page: `span.progress` | false positive: a carousel progress bar | same |
+| alza.cz | 2.1.4 | 2 | "/" moves focus to the search field | true: a single-key shortcut, and the page shows no setting to turn it off | none |
+| alza.cz | 1.4.11 | 1, 2 | search border 1.2:1, cart icon 2.49:1 | true: `#e0e0e0` border on white with the field unfocused; a grey cart on white | none |
+| pilulka.cz | 1.4.11 | 1, 2, 3 | search border 1.48:1 | true: a `#cbd5e1` border around a `#f1f5f9` field on white | none |
+| mamacoffee.cz | 1.4.11 | 1, 2 | newsletter field border 2.92:1 | true by measurement (`#919191` on an off-white footer); too close to see | none |
+| wikipedia.org | 1.4.11 | 1 | not judged | its search field has a fully transparent inset shadow | a fully transparent shadow does not skip a field |
+| zalando.de | 1.4.13 | 3 | hover part timed out, all lost |  | a timed-out hover part keeps the triggers it finished |
+
+**Result.** After the fixes, no false positive is left: every remaining fail was confirmed by hand. 1.3.4 found nothing on 61 sites; its fail path rests on `orientation-fail.html`. Recall is unmeasured and low for 1.4.13 and 1.4.11.
+
+**Decision: shipped,** all four. 2.1.4, 1.4.13, 1.3.4 and 1.4.11 count in the verdict like any WCAG 2.1 AA failure.
+
 ## Round 7: the verdict on 31 sites (2026-11-04)
 
 Asked by the lead: the verdict ("This page does not meet WCAG 2.1 Level AA") raises the cost of every false positive, so each WCAG 2.1 Level A or AA failure behind a "does not meet" verdict is checked by hand, and a false positive that flips a verdict is fixed or taken out of the verdict.
