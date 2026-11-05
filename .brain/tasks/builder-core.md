@@ -2,7 +2,7 @@
 
 ## Ground rules
 
-- Repo: /Users/vojta/Developer/vojtaholik/eaa-check. Read `BRIEF.md`, `.brain/projects/eaa-checker/eaa-checker-brief.svx`, `research/facts/README.md` first.
+- Repo: this repository (named eaa-check then). Read `BRIEF.md`, `.brain/projects/eaa-checker/eaa-checker-brief.svx`, `research/facts/README.md` first.
 - Reference stack: ~/Developer/vojtaholik/webproai (READ ONLY; never modify it). Read its `AGENTS.md` (long; the Stack contract, Packages, Project law, Architecture sections), `README.md`, `VISION.md`.
 - Lead is hc terminal `t1t`. Report with `hc send t1t "..."` at each milestone below, when blocked, and when done.
 - Do not start other agents. Do not commit or push: tell the lead when a layer is green and the lead commits.

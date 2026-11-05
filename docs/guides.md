@@ -63,4 +63,4 @@ The guide commands are plain commands, not capabilities: they have one surface, 
 
 ## The skill
 
-`skills/good-a11y/SKILL.md` is hand-written and short: a mandatory trigger for UI work, trigger and do-not-trigger lists, the search, retrieve, build, check, fix loop, and the closing "Accessibility guidance used" section. `skills/good-a11y/README.md` holds the install lines; they work once the repo is public under its new name.
+`skills/good-a11y/SKILL.md` is hand-written and short: a mandatory trigger for UI work, trigger and do-not-trigger lists, the search, retrieve, build, check, fix loop, and the closing "Accessibility guidance used" section. The install routes (URL only, `npx skills add`, the Claude Code plugin in `.claude-plugin/`, by hand) are in the root `README.md`. The other skills in `skills/` are for working on this repo and carry `metadata.internal: true`, so `npx skills add` and the plugin offer only `good-a11y`.

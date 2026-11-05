@@ -1,6 +1,8 @@
 ---
 name: gardener
 description: Keep rat-stack current and clean. Update exact dependency versions, learn from repos on the same versions, and add lint rules before cleanup.
+metadata:
+  internal: true
 plain: "Bump one pin line at a time, learn from peers, and write a failing lint rule before cleaning up a bad pattern."
 diagram: |-
   check the pins

@@ -4,6 +4,8 @@ const appDirectory = `${import.meta.dirname}/..`;
 
 export const BUNDLE_PATH = `${appDirectory}/bundle/good-a11y.mjs`;
 
+export const LICENSES_PATH = `${appDirectory}/bundle/THIRD-PARTY-LICENSES.md`;
+
 export const bundleOptions: BuildOptions = {
   absWorkingDir: appDirectory,
   banner: {

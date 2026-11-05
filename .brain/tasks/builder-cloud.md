@@ -2,7 +2,7 @@
 
 ## Ground rules
 
-- Repo: /Users/vojta/Developer/vojtaholik/eaa-check. Read `AGENTS.md`, `VISION.md`, `BRIEF.md`, `.brain/projects/eaa-checker/eaa-checker-brief.svx` (decision ledger), `research/facts/README.md`, and `docs/layer-1.md` (what builder-core built) first.
+- Repo: this repository (named eaa-check then). Read `AGENTS.md`, `VISION.md`, `BRIEF.md`, `.brain/projects/eaa-checker/eaa-checker-brief.svx` (decision ledger), `research/facts/README.md`, and `docs/layer-1.md` (what builder-core built) first.
 - Reference stack: ~/Developer/vojtaholik/webproai (READ ONLY). Its slice-era commits are the closest template for this layer: `062401a` (lifecycle contracts), `76991af` (scan store on D1), `47b7170` (machine in a Workflow behind capabilities), `f6978ef` (bare Foldkit page), `72eed5e` (site wired to backend), `933cbc0` (deploy report). Read them with `git -C ~/Developer/vojtaholik/webproai show <sha>`; the current tree there is much bigger than you need. Also its `.brain/projects/rat-stack-rebuild/` steps on the replay proof and deploy.
 - Lead is hc terminal `t1t`. Report with `hc send t1t "..."` at each milestone, when blocked, and when done.
 - Do not start other agents. Do not commit or push: tell the lead when a layer is green; the lead commits. The pre-commit hook runs the full gate, so keep the tree green between milestones.

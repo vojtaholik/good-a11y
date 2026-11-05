@@ -21,7 +21,9 @@
     "good-a11y": "bundle/good-a11y.mjs"
   },
   "files": [
-    "bundle"
+    "bundle",
+    "README.md",
+    "LICENSE"
   ],
   "type": "module",
   "publishConfig": {

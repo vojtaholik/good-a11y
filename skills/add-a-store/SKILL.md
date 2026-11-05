@@ -1,6 +1,8 @@
 ---
 name: add-a-store
 description: Add persistence through a service named for an application job, with validation, vendor Layers, migrations, bounded reads, and shared backend tests.
+metadata:
+  internal: true
 plain: "Name the facts and their writer, then put validated, bounded reads and writes behind one job-shaped port."
 diagram: |-
   facts + one writer

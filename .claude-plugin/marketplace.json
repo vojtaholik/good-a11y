@@ -1,0 +1,17 @@
+{
+  "name": "good-a11y",
+  "owner": {
+    "name": "Vojta Holík",
+    "url": "https://github.com/vojtaholik"
+  },
+  "description": "The good-a11y skill as a Claude Code plugin.",
+  "plugins": [
+    {
+      "name": "good-a11y",
+      "source": "./",
+      "skills": ["./skills/good-a11y"],
+      "description": "Accessibility guides for coding agents, and a checker for the page they build.",
+      "category": "development"
+    }
+  ]
+}

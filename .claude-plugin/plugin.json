@@ -1,0 +1,12 @@
+{
+  "name": "good-a11y",
+  "description": "Accessibility guides for coding agents, and a checker for the page they build. The agent reads a short guide before it builds a UI pattern, then checks its running page against WCAG 2.1 Level AA.",
+  "author": {
+    "name": "Vojta Holík",
+    "url": "https://github.com/vojtaholik"
+  },
+  "homepage": "https://good-a11y.com",
+  "repository": "https://github.com/vojtaholik/good-a11y",
+  "license": "MIT",
+  "keywords": ["accessibility", "a11y", "wcag", "aria", "frontend", "skills"]
+}

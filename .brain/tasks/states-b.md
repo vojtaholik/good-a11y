@@ -2,7 +2,7 @@
 
 ## Ground rules (all agents)
 
-- Repo: /Users/vojta/Developer/vojtaholik/eaa-check. Read `BRIEF.md`, `.brain/projects/eaa-checker/eaa-checker-brief.svx` and `research/facts/README.md` first.
+- Repo: this repository (named eaa-check then). Read `BRIEF.md`, `.brain/projects/eaa-checker/eaa-checker-brief.svx` and `research/facts/README.md` first.
 - Lead is hc terminal `t1t` (name `eaa-lead`). Report with `hc send t1t "..."` when done, when blocked, or at a meaningful milestone. Keep messages short; put long content in files and send paths.
 - Do not start other agents. Do not edit files outside your scope. Do not commit; the lead commits.
 - Never enter credentials. Never touch ~/Developer/vojtaholik/webproai except to read it.
