@@ -1,6 +1,6 @@
 ---
 name: Input purpose and autofill
-description: Give name, email, phone, address, payment and account fields the exact autocomplete tokens so browsers, password managers and assistive tools fill and label them, also when asked to turn autofill off
+description: Give name, email, phone, address, payment and account fields the exact autocomplete tokens so browsers, password managers and assistive tools fill and label them, also on a confirm email field and when asked to turn autofill off
 criteria:
   - STD-SC-1.3.5
 ---
@@ -71,6 +71,19 @@ Use these exact values. A made-up value (`phone`, `zip`, `city`, `firstname`) is
 
 "Stop the browser filling old addresses" is not a reason for `autocomplete="off"` on the address fields. It takes the purpose away for everyone, and the people who need autofill most lose it. Keep every token, even when the request asks for less. If stale saved entries are the problem, the user removes them in the browser's saved addresses. Say in your reply that the tokens stay and why.
 
+## The third rule agents break: confirm fields
+
+A "Confirm email" or "Repeat password" field is where agents most often switch autofill off or block paste, to make the person type it twice. It shuts out exactly the people autofill and paste are for: someone who types slowly, uses voice input or a switch, or keeps the address in a password manager. Give the confirm field the same token as the field it confirms (`email`, or `new-password` for a new password), and never stop paste or drop into it. A typo check still works: it compares the two values on blur or on submit.
+
+The WCAG 3 Working Draft of 10 September 2026 states this as core requirement 2.9.1.1 "Automated entry allowed": automated input of personal information from user agents, third-party tools, or paste is not prevented. WCAG 3 is a draft, not law or a standard yet; a confirm field built this way also meets WCAG 2.2 success criterion 1.3.5.
+
+```html
+<label for="email">Email</label>
+<input id="email" type="email" autocomplete="email" />
+<label for="email-confirm">Confirm email</label>
+<input id="email-confirm" type="email" autocomplete="email" />
+```
+
 ## DO
 
 - Match the token to the label. A field labelled "Last name" gets `family-name`, never `name`.
@@ -81,7 +94,8 @@ Use these exact values. A made-up value (`phone`, `zip`, `city`, `firstname`) is
 ## DO NOT
 
 - Do not set `autocomplete="off"` on a whole checkout form to stop browser suggestions.
-- Do not give two fields in one section the same token.
+- Do not give two fields in one section the same token, except a confirm field, which repeats the token of the field it confirms.
+- Do not block paste, drop or autofill on any personal-data field, a confirm field included: no `onpaste` that cancels, no `autocomplete="off"`.
 - Do not count on browsers guessing the purpose from `name` or `id` attributes such as `name="email"`. A guess is not a declared purpose.
 
 ## React and frameworks

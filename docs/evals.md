@@ -176,4 +176,35 @@ Both ship for Claude under the per-agent rule, as hover-popups and orientation d
 
 ## Known limit: Codex follows the request over the guide
 
-When a task asks for the very thing a guide forbids (a sideways-turn overlay, autofill turned off, a remove button that acts on press), Codex reads the guide and still does what the request says: orientation 0 of 6, autofill-off 0 of 3 and press-remove 1 of 3 guided, with the guide read in nearly every run. Claude follows the guide's "also when the request asks for less" rule in all of them. Guides for such cases ship for Claude only; stronger wording is not expected to change Codex, since it already reads the guide that states the rule.
+When a task asks for the very thing a guide forbids (a sideways-turn overlay, autofill turned off, a remove button that acts on press, a ticker that scrolls continuously), Codex reads the guide and still does what the request says: orientation 0 of 6, autofill-off 0 of 3, press-remove 1 of 3 and moving-content 0 of 6 guided, with the guide read in nearly every run. Claude follows the guide's "also when the request asks for less" rule in all of them. Guides for such cases ship for Claude only; stronger wording is not expected to change Codex, since it already reads the guide that states the rule.
+
+## Layer 5, screen 5: the WCAG 3 draft (2026-11-05)
+
+Candidates come from the WCAG 3 Working Draft of 10 September 2026: requirements that are new or stricter than WCAG 2.2, decided in code and gradeable by a probe, and not already covered by a guide (lead, 2026-11-05). 11 tasks, both agents, unguided, one run, graded by screening probes:
+
+| Task | WCAG 3 draft requirement | Claude | Codex |
+| --- | --- | --- | --- |
+| text size from px specs | 2.2.1.6 Text size adjustable, user settings supported | pass | pass |
+| brand ticker | 2.6.1.3 No visual motion | fail | fail |
+| newsletter popup after 3 s | 2.4.1.8 Focus user-controlled, 2.7.4.1 Overlay content dismissible | fail | fail |
+| confirm email field | 2.9.1.1 Automated entry allowed | pass | fail |
+| email and postal code validation | Data entry validated (on blur or submit) | pass | pass |
+| three-step checkout | All steps listed, current step indicated, going back supported | pass | pass |
+| product page links on cards | No repetitive adjacent interactive elements | pass | pass |
+| keyboard shortcuts | No keyboard conflicts, custom keys documented | pass | pass |
+| order button disabled until filled | Disabled controls explained | pass | pass |
+| insurance on by default | Preselections visible | pass | pass |
+| order and delivery dates | Numerical metadata available | pass | pass |
+
+Text size held on a second task too, a fresh page with its own stylesheet and a px design spec: both agents wrote rem in 6 of 6 runs. Both failures are rules WCAG 2.2 does not have: the ticker had a Pause button (enough for 2.2.2), and the popups opened with `showModal()` on a timer, which moves focus. Two guides came out of them, each stating that its stricter rule is from the dated WCAG 3 draft and that the guide also meets WCAG 2.2. 3 runs per cell:
+
+| Guide | Task | Claude unguided | Claude guided | Codex unguided | Codex guided |
+| --- | --- | --- | --- | --- | --- |
+| moving-content | content: brand ticker | 0/3 | 3/3 | 0/3 | 0/3 |
+| moving-content | shop: announcement bar | 0/3 | 3/3 | 0/3 | 0/3 |
+| unprompted-popups | content: newsletter popup | 0/3 | 3/3 | 0/3 | 3/3 |
+| unprompted-popups | shop: consent banner | 3/3 | 3/3 | 0/3 | 3/3 |
+
+moving-content ships for Claude (0/6 to 6/6). Codex read the guide in all 6 guided runs and still built an endless animation, because the prompt says "continuously" (the known limit above). unprompted-popups ships for both: Claude 3/6 to 6/6, Codex 0/6 to 6/6. Codex's unguided consent banner had no accessible name. The transcript count of guide reads misses an agent that changes into the guides folder and reads `<id>.md` by its bare name, so "guide read" counts here come from the guide's text quoted in the transcripts.
+
+The confirm email failure repeated for Codex (0 of 3 more unguided runs, `autocomplete="off"` on the confirm field each time) and never for Claude. It became a section of input-purpose rather than a new guide: a confirm field repeats the token of the field it confirms and never blocks paste (WCAG 3 draft 2.9.1.1 "Automated entry allowed"), with a fourth grader claim that paste works in every field. Graded by the screening probe, 3 runs per cell: Claude 3/3 unguided and 3/3 guided, Codex 0/3 unguided and 3/3 guided, with the new section read in all three. It ships for Codex.

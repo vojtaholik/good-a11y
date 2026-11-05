@@ -1,0 +1,8 @@
+{
+  "moving": {
+    "means": "The part that moves on its own: the ticker, strip, carousel or animated banner.",
+    "demo": {
+      "css": ".brand-strip"
+    }
+  }
+}

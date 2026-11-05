@@ -81,6 +81,41 @@ export const grader: Grader = {
         expect(await wrongTokens(page, GROUPS.address, flow)).toEqual([]);
       }
     ),
+    claim(
+      4,
+      "pasting into the fields is not blocked",
+      async ({ page, flow }) => {
+        const blocked: string[] = [];
+
+        for (const { label } of fields(flow)) {
+          const field = page.getByLabel(label, { exact: false }).first();
+
+          if ((await field.count()) === 0) {
+            continue;
+          }
+
+          const cancelled = await field.evaluate((element) => {
+            const data = new DataTransfer();
+
+            data.setData("text/plain", "pasted");
+
+            return !element.dispatchEvent(
+              new ClipboardEvent("paste", {
+                bubbles: true,
+                cancelable: true,
+                clipboardData: data,
+              })
+            );
+          });
+
+          if (cancelled) {
+            blocked.push(label);
+          }
+        }
+
+        expect(blocked, "fields that block paste").toEqual([]);
+      }
+    ),
   ],
   guide: "input-purpose",
 };

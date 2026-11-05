@@ -1,0 +1,8 @@
+{
+  "popup": {
+    "means": "Text in the popup that opens on its own, such as its heading.",
+    "demo": {
+      "text": "Get new trail notes"
+    }
+  }
+}

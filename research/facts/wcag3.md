@@ -457,3 +457,47 @@ or guide it relates to.
 - used_by: checks.form-labels.wcag3, checks.link-name.wcag3, checks.button-name.wcag3
 - status: verified
 - verifier_note: Verified by writer 2026-11-05: fetched the draft myself; 2.3.5.6 is titled "Roles, values, states, properties available" with commas, a core requirement, excerpt verbatim at the anchor; form-labels, link-name and button-name map to 4.1.2 in packages/core/src/catalogue.ts.
+
+### STD-W3-NO-VISUAL-MOTION-1
+- claim: WCAG 3 draft requirement 2.6.1.3 "No visual motion" is a core requirement. It relates to the moving-content guide (WCAG 2 SC 2.2.2).
+- field: other
+- value: 2.6.1.3 No visual motion (core requirement)
+- source: https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/#no-visual-motion
+- excerpt: "Core requirement Content does not include pseudo-motion or visual motion lasting longer than 5 seconds."
+- retrieved: 2026-11-05
+- used_by: guides.moving-content.wcag3
+- status: unverified
+- verifier_note:
+
+### STD-W3-FOCUS-USER-CONTROLLED-1
+- claim: WCAG 3 draft requirement 2.4.1.8 "Focus user-controlled" is a core requirement: keyboard focus only moves as a result of user interaction, except when it moves to the next field on completion of a user action (such as a one-time code), results from a security or emergency situation (such as an imminent session timeout), or the user is informed before the move and given the chance to avoid it. It relates to the unprompted-popups guide (WCAG 2 SC 2.4.3).
+- field: other
+- value: 2.4.1.8 Focus user-controlled (core requirement)
+- source: https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/#focus-user-controlled
+- excerpt: "Core requirement The keyboard focus only moves as a result of user interaction. Except when The keyboard focus automatically moves to the next interactive elements in keyboard navigation order on completion of some user action, such when the focus moves between the fields for a time-based one-time password (TOTP) code. The keyboard focus results from security or emergency situations, such as warning about an imminent session timeout that would cause the user to lose their work. The user is informed of the potential keyboard focus move before it happens and given the chance to avoid the move."
+- retrieved: 2026-11-05
+- used_by: guides.unprompted-popups.wcag3
+- status: unverified
+- verifier_note:
+
+### STD-W3-OVERLAY-CONTENT-DISMISSIBLE-1
+- claim: WCAG 3 draft requirement 2.7.4.1 "Overlay content dismissible" is a core requirement. It relates to the unprompted-popups guide.
+- field: other
+- value: 2.7.4.1 Overlay content dismissible (core requirement)
+- source: https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/#overlay-content-dismissible
+- excerpt: "Core requirement When new content becomes visible and covers the main content, a mechanism is available to dismiss the new content."
+- retrieved: 2026-11-05
+- used_by: guides.unprompted-popups.wcag3
+- status: unverified
+- verifier_note:
+
+### STD-W3-AUTOMATED-ENTRY-ALLOWED-1
+- claim: WCAG 3 draft requirement 2.9.1.1 "Automated entry allowed" is a core requirement. It relates to the input-purpose guide (WCAG 2 SC 1.3.5).
+- field: other
+- value: 2.9.1.1 Automated entry allowed (core requirement)
+- source: https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/#automated-entry-allowed
+- excerpt: "Core requirement Automated input of personal information from user agents, third-party tools, or paste is not prevented."
+- retrieved: 2026-11-05
+- used_by: guides.input-purpose.wcag3
+- status: unverified
+- verifier_note:

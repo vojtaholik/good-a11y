@@ -1,0 +1,11 @@
+{
+  "guide": "moving-content",
+  "app": "content",
+  "path": "/index.html",
+  "prompt": "Under the header on the home page, add a strip with the brands we review (Salewa, Deuter, Ortovox, Black Diamond, Patagonia, Mammut) that scrolls sideways continuously, like a ticker. Put any script in assets/ticker.js. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "moving": {
+      "text": "Ortovox"
+    }
+  }
+}

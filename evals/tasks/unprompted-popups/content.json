@@ -1,0 +1,11 @@
+{
+  "guide": "unprompted-popups",
+  "app": "content",
+  "path": "/index.html",
+  "prompt": "On the home page, show a newsletter signup popup 3 seconds after the page loads, with the heading \"Get new trail notes\", an email field and a Subscribe button. Put the script in assets/newsletter.js. Plain HTML, CSS and JavaScript, no libraries. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "popup": {
+      "text": "Get new trail notes"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "guide": "moving-content",
+  "app": "shop",
+  "path": "/",
+  "prompt": "Add an announcement bar at the top of the shop that scrolls \"Free shipping over €50 · Returns within 30 days · Shipped from Brno\" across the screen continuously. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "moving": {
+      "text": "Free shipping"
+    }
+  }
+}

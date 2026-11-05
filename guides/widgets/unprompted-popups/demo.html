@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Popups that open on their own demo</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #ffffff;
+        --fg: #1a1a1a;
+        --card: #f2f2f2;
+        --line: #6b6b6b;
+        --accent: #0b57d0;
+        --on-accent: #ffffff;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --fg: #f0f0f0;
+          --card: #1f1f1f;
+          --line: #9a9a9a;
+          --accent: #8ab4f8;
+          --on-accent: #062e6f;
+        }
+      }
+      html {
+        scroll-padding-bottom: 6rem;
+      }
+      body {
+        margin: 0;
+        font:
+          1rem/1.5 system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      header,
+      main {
+        max-width: 50rem;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+      nav ul {
+        display: flex;
+        gap: 1rem;
+        list-style: none;
+        padding: 0;
+      }
+      a {
+        color: var(--accent);
+      }
+      .consent {
+        position: fixed;
+        inset: auto 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        background: var(--card);
+        border-top: 1px solid var(--line);
+      }
+      .newsletter {
+        position: fixed;
+        right: 1rem;
+        bottom: 6rem;
+        width: min(20rem, calc(100vw - 2rem));
+        padding: 1rem;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 0.5rem;
+      }
+      .newsletter h2 {
+        margin-top: 0;
+      }
+      button {
+        font: inherit;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        border: 1px solid var(--accent);
+        background: var(--accent);
+        color: var(--on-accent);
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+      [hidden] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="consent" aria-labelledby="consent-title">
+      <h2 id="consent-title" class="consent-title">Cookies</h2>
+      <p>We use one cookie to count visits.</p>
+      <button type="button" data-consent="accept">Accept</button>
+      <button type="button" data-consent="reject">Reject</button>
+    </section>
+    <header>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="#routes">Routes</a></li>
+          <li><a href="#huts">Huts</a></li>
+          <li><a href="#gear">Gear</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h1>Trail notes</h1>
+      <p id="routes">Routes we walked this year.</p>
+      <p id="huts">Huts worth the climb.</p>
+      <p id="gear">Gear we would buy again.</p>
+    </main>
+    <aside class="newsletter" aria-labelledby="newsletter-title" hidden>
+      <h2 id="newsletter-title">Get new trail notes</h2>
+      <form>
+        <label for="newsletter-email">Email</label>
+        <input id="newsletter-email" type="email" autocomplete="email" />
+        <button type="submit">Subscribe</button>
+      </form>
+      <button type="button" class="newsletter-close">Close</button>
+    </aside>
+    <script>
+      const consent = document.querySelector(".consent");
+      for (const button of consent.querySelectorAll("button")) {
+        button.addEventListener("click", () => {
+          consent.hidden = true;
+        });
+      }
+      const popup = document.querySelector(".newsletter");
+      const close = () => {
+        const inside = popup.contains(document.activeElement);
+        popup.hidden = true;
+        if (inside) {
+          document.querySelector("main h1").setAttribute("tabindex", "-1");
+          document.querySelector("main h1").focus();
+        }
+      };
+      popup.querySelector(".newsletter-close").addEventListener("click", close);
+      popup.querySelector("form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        close();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !popup.hidden) {
+          close();
+        }
+      });
+      setTimeout(() => {
+        popup.hidden = false;
+      }, 2000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Moving content demo</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #ffffff;
+        --fg: #1a1a1a;
+        --band: #f2f2f2;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --fg: #f0f0f0;
+          --band: #1f1f1f;
+        }
+      }
+      body {
+        margin: 0;
+        font:
+          1rem/1.5 system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      main {
+        max-width: 60rem;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+      .brands {
+        background: var(--band);
+        padding: 1rem;
+      }
+      .brand-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem 2rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-weight: 700;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .brand-strip li {
+          animation: slide-in 0.6s ease-out both;
+          animation-delay: calc(var(--i) * 0.3s);
+        }
+      }
+      @keyframes slide-in {
+        from {
+          opacity: 0;
+          transform: translateX(2rem);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Gear we review</h1>
+      <section class="brands" aria-labelledby="brands-title">
+        <h2 id="brands-title">Brands</h2>
+        <ul class="brand-strip">
+          <li style="--i: 0">Salewa</li>
+          <li style="--i: 1">Deuter</li>
+          <li style="--i: 2">Ortovox</li>
+          <li style="--i: 3">Black Diamond</li>
+          <li style="--i: 4">Patagonia</li>
+          <li style="--i: 5">Mammut</li>
+        </ul>
+      </section>
+      <p>The strip slides in once and stops within three seconds.</p>
+    </main>
+  </body>
+</html>

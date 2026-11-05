@@ -11,6 +11,7 @@ import { grader as iconButtons } from "./guides/icon-buttons.js";
 import { grader as imageAlt } from "./guides/image-alt.js";
 import { grader as inputPurpose } from "./guides/input-purpose.js";
 import { grader as menuButton } from "./guides/menu-button.js";
+import { grader as movingContent } from "./guides/moving-content.js";
 import { grader as orientation } from "./guides/orientation.js";
 import { grader as reducedMotion } from "./guides/reduced-motion.js";
 import { grader as redundantEntry } from "./guides/redundant-entry.js";
@@ -22,6 +23,7 @@ import { grader as statusMessagesToast } from "./guides/status-messages-toast.js
 import { grader as swipeAndDrag } from "./guides/swipe-and-drag.js";
 import { grader as tabs } from "./guides/tabs.js";
 import { grader as timeoutsAndWarnings } from "./guides/timeouts-and-warnings.js";
+import { grader as unpromptedPopups } from "./guides/unprompted-popups.js";
 
 export const GRADERS: readonly Grader[] = [
   comboboxAutocomplete,
@@ -36,6 +38,7 @@ export const GRADERS: readonly Grader[] = [
   imageAlt,
   inputPurpose,
   menuButton,
+  movingContent,
   orientation,
   reducedMotion,
   redundantEntry,
@@ -47,6 +50,7 @@ export const GRADERS: readonly Grader[] = [
   swipeAndDrag,
   tabs,
   timeoutsAndWarnings,
+  unpromptedPopups,
 ];
 
 export const graderFor = (guide: string): Grader | undefined =>

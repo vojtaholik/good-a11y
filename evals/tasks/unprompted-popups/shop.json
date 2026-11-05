@@ -1,0 +1,11 @@
+{
+  "guide": "unprompted-popups",
+  "app": "shop",
+  "path": "/",
+  "prompt": "On the first visit, show a cookie consent banner saying \"We use cookies to remember your cart and count visits\", with Accept and Reject buttons, and remember the choice. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
+  "targets": {
+    "popup": {
+      "text": "remember your cart"
+    }
+  }
+}
