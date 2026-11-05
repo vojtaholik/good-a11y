@@ -212,3 +212,16 @@ Text size held on a second task too, a fresh page with its own stylesheet and a 
 moving-content ships for Claude (0/6 to 6/6). Codex read the guide in all 6 guided runs and still built an endless animation, because the prompt says "continuously" (the known limit above). unprompted-popups ships for both: Claude 3/6 to 6/6, Codex 0/6 to 6/6. Codex's unguided consent banner had no accessible name. A guide counts as read when a tool's output shows its file (its `# <name>` heading), or when a Read or WebFetch call names its file or URL. The counter used to match command text and missed `cd guides && cat <id>.md` and `guides/{a,b}.md`; the reads in this section and in screen 4 were recounted from the saved transcripts with the new counter.
 
 The confirm email failure repeated for Codex (0 of 3 more unguided runs, `autocomplete="off"` on the confirm field each time) and never for Claude. It became a section of input-purpose rather than a new guide: a confirm field repeats the token of the field it confirms and never blocks paste (WCAG 3 draft 2.9.1.1 "Automated entry allowed"), with a fourth grader claim that paste works in every field. Graded by the screening probe, 3 runs per cell: Claude 3/3 unguided and 3/3 guided, Codex 0/3 unguided and 3/3 guided, with the new section read in all three. It ships for Codex.
+
+## Layer 5: the scenarios step in the skill (2026-11-05)
+
+Does step 6 of `SKILL.md` (write the guide's task into `a11y-tasks.json` and run `check --scenarios`) make guided agents finish more keyboard tasks? Five shop tasks (confirm-before-purchase, form-errors-validation, redundant-entry, sign-in-without-puzzles, unprompted-popups), guided arm, 3 runs per agent, both variants from baa8ba0 with the same guides, which carry their "Scenario for check" sections. Baseline: `SKILL.md` at f40c759 (no step 6), passed with `--skill`. Task completion is the task's own scenario, driven by the model in 3 runs and confirmed by replay.
+
+| Agent | Skill | Pass | Task completion | Ran `check` | Wrote and ran its own scenarios |
+| --- | --- | --- | --- | --- | --- |
+| Claude | no step | 15/15 | 15/15 | 13/15 | 0/15 |
+| Claude | step 6 | 15/15 | 15/15 | 15/15 | 12/15 |
+| Codex | no step | 15/15 | 15/15 | 13/15 | 13/15 |
+| Codex | step 6 | 15/15 | 15/15 | 12/15 | 12/15 |
+
+No driver errors. Both variants are at the ceiling: every guided build already finishes its task, so the step shows no uplift in Task completion on these tasks. It changes what Claude does (0 to 12 of 15 runs write and run scenarios); Codex writes them from the guides' sections without the step. The step stays as a check the agent runs on its own page; measuring an outcome needs tasks where the guided build still fails its scenario.
