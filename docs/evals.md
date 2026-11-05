@@ -140,3 +140,7 @@ The orientation task asks for the overlay, so the base app (no overlay) passes t
 | orientation | 0/6 | 6/6 | 0/6 | 0/6 | Claude |
 
 The orientation guided arm is the first on the HTTP `SKILL.md` (decision 15): guides installed as local files and linked from the index. Codex read the orientation guide in all six runs and still built the overlay the prompt asked for; it follows the request over the guide's "override this one part" rule.
+
+## Known gap: Codex without network
+
+Codex runs `workspace-write` without network by default, so an agent given only the good-a11y.com prompt cannot fetch `/skill.md` and never reads the guides: 1 of 12 url-arm runs passed on 2026-11-05, against 12 of 12 for Claude, whose WebFetch reaches the site. `SKILL.md` asks the user to allow good-a11y.com when a later fetch fails, but the first fetch happens before the agent has read it. The prompt stays one neutral line (Vojta, 2026-11-05: a sentence about the sandbox in the prompt reads as a scam). The `url-network` arm measures Codex with network on, as a user who allowed it.

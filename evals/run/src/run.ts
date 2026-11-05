@@ -82,7 +82,7 @@ export const installedSkill = (skill: string, bundle: string): string =>
     .replaceAll(SHIPPED_SEARCH, `\`node ${bundle} search "<2-5 words>"\``);
 
 export const URL_PROMPT =
-  "Use https://good-a11y.com for accessibility in this project: read https://good-a11y.com/skill.md and follow it. If your sandbox blocks the network, ask me to allow good-a11y.com.";
+  "Use https://good-a11y.com for accessibility in this project: read https://good-a11y.com/skill.md and follow it.";
 
 export const AGENTS_POINTER =
   "\n\n## Accessibility\n\nBefore any UI, HTML, form or component work, read `.claude/skills/good-a11y/SKILL.md` and follow it.\n";

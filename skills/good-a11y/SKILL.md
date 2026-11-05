@@ -7,7 +7,7 @@ description: MANDATORY before you write or change UI. Use whenever you build or 
 
 Accessibility guides for the things agents get wrong, and a checker for your page. Reading needs nothing installed: fetch each Markdown URL below with your own fetch tool (WebFetch, curl or similar).
 
-When a fetch fails because your sandbox has no network, ask the user to allow network access to good-a11y.com for that one command, for example by approving it to run outside the sandbox. Do not go on without the guides silently.
+If a fetch fails because your sandbox has no network, tell the user, and ask them to allow good-a11y.com.
 
 ## Setup, once per project
 
@@ -38,7 +38,8 @@ Do not use it for: backend code, build config, copy edits with no markup.
 4. Check your running page:
    - localhost or a private address: `npx -y good-a11y@0.1.0 check <url>`. It needs Chrome. Ask the user to allow exactly this command, with this version, never bare `npx`. When your sandbox blocks the server or the browser (`listen EPERM`, or `check` says a sandbox is blocking it), ask the user to run the server and `check` outside the sandbox, for example by approving the command to run unsandboxed. Do not skip the check silently.
    - a public URL: fetch `https://good-a11y.com/check.md?url=<url>`. While it says the check is running, fetch it again after the seconds it gives.
-5. Fix each issue it lists with the guide it links, then check again.
+5. For each guide you used whose feature someone has to act on (buying, signing in, swiping, a time limit, a status message), write the flow from the guide's "Flow for check" section into `a11y-flows.json`, one array, and run `npx -y good-a11y@0.1.0 check <url> --flow a11y-flows.json` on the local page.
+6. Fix each issue and each failing flow claim with the guide it links, then check again.
 
 ## When the user gave no task
 
