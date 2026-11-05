@@ -55,8 +55,8 @@ Ground rules used:
 | 3.1.2 Language of Parts (STD-SC-3.1.2) | axe `valid-lang` | manual | - | - | - | - |
 | 3.2.1 On Focus (STD-SC-3.2.1) | none | rendered | tab walk; URL, open windows and focused document after each focus | focusing an element (no key other than Tab) navigates or opens a window | low | 2 |
 | 3.2.2 On Input (STD-SC-3.2.2) | none | manual | rejected: changing selects on a third-party site can trigger real actions | - | - | - |
-| 3.2.3 Consistent Navigation (STD-SC-3.2.3) | none | manual (needs several pages) | - | - | - | - |
-| 3.2.4 Consistent Identification (STD-SC-3.2.4) | none | manual (needs several pages) | - | - | - | - |
+| 3.2.3 Consistent Navigation (STD-SC-3.2.3) | none | crawl: navigation order across pages (`consistent-navigation`, 2026-11-05) | - | - | - | - |
+| 3.2.4 Consistent Identification (STD-SC-3.2.4) | none | crawl: names of the same navigation address across pages (`consistent-identification`, 2026-11-05) | - | - | - | - |
 | 3.3.1 Error Identification (STD-SC-3.3.1) | none | manual (needs form submission) | - | - | - | - |
 | 3.3.2 Labels or Instructions (STD-SC-3.3.2) | axe `form-field-multiple-labels` | manual (rest) | - | - | - | - |
 | 3.3.3 Error Suggestion (STD-SC-3.3.3) | none | manual (needs form submission) | - | - | - | - |
@@ -74,7 +74,7 @@ These belong to EN 301 549 V4.1.1 (STD-EN-7), which is not cited in the Official
 | 2.4.11 Focus Not Obscured (Minimum) (STD-SC22-2.4.11) | none | rendered | tab walk; for the focused element, `document.elementsFromPoint` at its centre and four inset corners | at every sample point the top element is a `position: fixed/sticky` element that is not the focused element or its ancestor or descendant | low-med | 2 |
 | 2.5.7 Dragging Movements (STD-SC22-2.5.7) | none | manual | - | - | - | - |
 | 2.5.8 Target Size (Minimum) (STD-SC22-2.5.8) | none (axe `target-size` exists but is tagged `wcag22aa`, outside `AXE_TAGS`) | rendered | axe 4.14 `target-size` run alone, with findings mapped to STD-SC22-2.5.8 only | axe reports a violation (target under 24x24 CSS px without the spacing exception) | med (inline-link exception) | 2 |
-| 3.2.6 Consistent Help (STD-SC22-3.2.6) | none | manual (needs several pages) | - | - | - | - |
+| 3.2.6 Consistent Help (STD-SC22-3.2.6) | none | crawl: place of help links among the shared navigation (`consistent-help`, 2026-11-05) | - | - | - | - |
 | 3.3.7 Redundant Entry (STD-SC22-3.3.7) | none | manual (needs a multi-step process) | - | - | - | - |
 | 3.3.8 Accessible Authentication (Minimum) (STD-SC22-3.3.8) | none | manual | rejected: detecting paste blocking on password fields needs typing into a third-party login | - | - | - |
 

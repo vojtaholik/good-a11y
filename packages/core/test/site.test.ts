@@ -56,8 +56,10 @@ const PAGE: FetchResult = {
 };
 
 const summary = (role: PageSummary["role"], path: string): PageSummary => ({
+  help: [],
   linkCount: 4,
   names: [],
+  navigation: [],
   role,
   search: role === "entered",
   sitemap: false,
@@ -100,16 +102,19 @@ const checked = judgePage(PAGE, { read: () => EVIDENCE }, AT);
 const report = withSite(checked, SITE);
 
 describe("withSite", () => {
-  it("adds no issue, verdict, coverage or checklist result: 3.2.3, 3.2.4 and 3.2.6 need a person", () => {
+  it("adds no issue and leaves 3.2.3, 3.2.4 and 3.2.6 undecided when the pages share too little navigation", () => {
     expect(issuesOf(report)).toEqual(issuesOf(checked));
     expect(report.verdict).toEqual(checked.verdict);
-    expect(report.coverage).toEqual(checked.coverage);
+    expect(report.site?.findings.map((finding) => finding.status)).toEqual([
+      "not_applicable",
+      "not_applicable",
+      "not_applicable",
+    ]);
     expect(
       requirementsOf(report)
         .filter((row) => ["3.2.3", "3.2.4", "3.2.6"].includes(row.key))
         .map((row) => row.status)
-    ).toEqual(["needs_person", "needs_person", "needs_person"]);
-    expect(formatReport(report)).not.toContain("compared");
+    ).not.toContain("fails");
   });
 
   it("lists every page it tried, the static issues of each page read, and keeps them out of the verdict", () => {

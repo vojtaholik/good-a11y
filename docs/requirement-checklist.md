@@ -56,7 +56,7 @@ The checklist sits after the issues and the judged observations, before the memb
 
 builder-cloud's crawl hands over `SiteEvidence`: the pages it tried (read with their static check results, or failed with a reason) and one `PageSummary` per page read, the page entered first. `withSite(report, evidence)` adds `Report.site`: the pages, and whether the scan saw a search or a site-map link.
 
-**No cross-page checks.** 3.2.3 Consistent Navigation, 3.2.4 Consistent Identification and 3.2.6 Consistent Help were built as page-to-page comparisons and shown as "compared, not yet counted" until an accuracy run. The run (`docs/accuracy-qa.md`, round 6) found 5 differences on 3 of the 21 QA sites, all 5 false positives, and no true positive. They are dropped: the three rows are "Needs a person" with a note saying what a person compares.
+**Cross-page checks (2026-11-05).** 3.2.3 Consistent Navigation, 3.2.4 Consistent Identification and 3.2.6 Consistent Help compare the page entered with each other page read, from the navigation and help links in `PageSummary` (`packages/core/src/site-checks.ts`, rules in `docs/consistency-and-interaction.md`). They were dropped once after round 6 (5 of 5 false positives) and came back after round 8 (`docs/accuracy-qa.md`) with the causes removed. Their results are `Report.site.findings`; a failure is an issue like any other, sourced "pages of the site compared". 3.2.3 and 3.2.4 count in the verdict; 3.2.6 is WCAG 2.2 and does not.
 
 The static check results of the other pages are listed per page in the site section and never count in the verdict: the report stays the report for the page entered.
 

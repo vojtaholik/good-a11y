@@ -234,6 +234,24 @@ Asked by the lead after verifier finding N1: 3.2.3, 3.2.4 and 3.2.6 count only w
 
 **What a return needs.** Leave out same-page links (fragment links and links to the page's own address) and compare only addresses that occur once in each page's navigation: the two causes behind all 5 false positives. Then a fixture set with known real inconsistencies, since none of the 21 sites has one, and a fresh run on other sites with every fail checked by hand. Until then the crawl's navigation and help links have no reader in core.
 
+## Round 8: cross-page checks return (2026-11-05)
+
+Task `ga-probes`. Round 6 named what a return needs; this run is that. Rules in `docs/consistency-and-interaction.md`.
+
+**Method.** `good-a11y-scan scan <site> --json` from the CLI (the same `scanUrl` crawl the Workflow runs, so the same evidence), over the 31 sites of round 7 and 30 new EU sites: shops (mall.cz, czc.cz, datart.cz, kosik.cz, tchibo.de, zalando.de, coolblue.nl, ah.nl, allegro.pl, empik.com, tescoma.cz, lidl.cz, dm.de, sportisimo.cz, pilulka.cz, ikea.com/cz/cs), banks and telecoms (csob.cz, mbank.cz, o2.cz, vodafone.de), travel (bahn.de, ryanair.com, lufthansa.com, kiwi.com) and public sites (ceskatelevize.cz, gov.pl, nhs.uk, european-union.europa.eu, mvcr.cz, praha.eu). The cross-page checks read static HTML only, so a dev scan adds nothing but Browser Run time; the CLI fetch differs from Worker egress only in which sites refuse it. Every fail was checked by hand.
+
+**Coverage.** 48 sites gave a report, 10 refused the fetch and 3 did not answer. 3.2.3 and 3.2.4 compared 37 page pairs on 23 sites (716 shared navigation addresses for 3.2.4), 3.2.6 compared 25 help links on 13 sites. The rest crawled no other page or shared fewer than 3 navigation addresses.
+
+| Site | Check | First run | Hand check | Fix |
+| --- | --- | --- | --- | --- |
+| vodafone.de | 3.2.3 | the sign-in page's menu in another order | false positive: the sign-in link redirects to `/cprx/captcha`, a bot wall with its own template | a page redirected to another path is not compared |
+| vodafone.de | 3.2.4 | "Infos & Services" against "Infos & Sevices" on the accessibility statement | false positive: a typo, the same name to a reader | names agree when most words match, one edit allowed |
+| vodafone.de | 3.2.4 | "Informationen für CallYa-Kund:innen" against "Informationen für CallYa Kunden" on the captcha page | false positive: a gender-inclusive spelling of the same name | same |
+
+**Result after the fixes.** 0 fails on 61 sites, so 0 false positives. The round 6 cases now pass or are not compared: ikea.com and w3.org/WAI pass, bbc.co.uk shares too little once its self-links are gone. No site showed a real inconsistency, so the fail path rests on the fixtures in `packages/core/test/site-checks.test.ts` (a reordered menu, "Cart" against "Basket", "Search" against "Find", a help link moved from before the menu to after it), which fail as they should.
+
+**Decision: shipped.** 3.2.3 and 3.2.4 count in the verdict; 3.2.6 stays with the WCAG 2.2 issues. Recall is unmeasured: the checks see only static HTML, navigation inside `nav` or `header`, and pairs that share 3 addresses.
+
 ## Round 7: the verdict on 31 sites (2026-11-04)
 
 Asked by the lead: the verdict ("This page does not meet WCAG 2.1 Level AA") raises the cost of every false positive, so each WCAG 2.1 Level A or AA failure behind a "does not meet" verdict is checked by hand, and a false positive that flips a verdict is fixed or taken out of the verdict.

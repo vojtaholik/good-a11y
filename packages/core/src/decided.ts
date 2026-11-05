@@ -31,11 +31,17 @@ export const decidedOf = (report: Report): Decided => {
 
   const rendered = report.rendered?.status === "ran" ? report.rendered : null;
 
+  const site =
+    report.outcome === "checked" ? (report.site?.findings ?? []) : [];
+
   const decided = new Set([
     ...served.flatMap((finding) =>
       finding.status === "not_applicable"
         ? []
         : (entryOf(finding.id)?.criteria ?? [])
+    ),
+    ...site.flatMap((finding) =>
+      finding.status === "not_applicable" ? [] : numbersOf(finding.references)
     ),
     ...(rendered === null
       ? []

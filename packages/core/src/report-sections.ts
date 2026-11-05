@@ -6,15 +6,17 @@ import type { FindingReference } from "./finding-reference.js";
 import { PROBES } from "./probes.js";
 import type { Rendered, RenderedFinding } from "./rendered.js";
 import type { Finding, Report } from "./report.js";
+import type { SiteFinding } from "./site-checks.js";
 
 export const ISSUE_SAMPLES = 3;
 
 export type Level = "A" | "AA";
 
-export type SampleSource = "rendered" | "static";
+export type SampleSource = "rendered" | "site" | "static";
 
 export const SAMPLE_SOURCE_LABELS: Readonly<Record<SampleSource, string>> = {
   rendered: "rendered page",
+  site: "pages of the site compared",
   static: "served HTML",
 };
 
@@ -166,9 +168,23 @@ const worstFirst = (left: Issue, right: Issue): number =>
   (LEVEL_RANK.get(left.level) ?? 2) - (LEVEL_RANK.get(right.level) ?? 2) ||
   left.key.localeCompare(right.key);
 
+const siteIssue = (finding: SiteFinding): Issue => ({
+  checked: finding.checked,
+  failing: finding.failing,
+  howToFix: finding.howToFix,
+  key: `site:${finding.id}`,
+  level: levelOf(finding.references),
+  references: finding.references,
+  samples: tagged("site", finding.samples).slice(0, ISSUE_SAMPLES),
+  sources: ["site"],
+  title: finding.title,
+  whatFails: finding.whatFails,
+});
+
 export const issuesFrom = (
   findings: readonly Finding[],
-  rendered: Rendered | null
+  rendered: Rendered | null,
+  site: readonly SiteFinding[]
 ): readonly Issue[] => {
   const renderedFindings = rendered?.status === "ran" ? rendered.findings : [];
 
@@ -195,6 +211,9 @@ export const issuesFrom = (
     ...renderedFindings
       .filter((finding) => !staticIds.has(concernOf(finding.rule)))
       .map(renderedIssue),
+    ...site.flatMap((finding) =>
+      finding.status === "fail" ? [siteIssue(finding)] : []
+    ),
   ].toSorted(worstFirst);
 };
 
@@ -213,7 +232,11 @@ export const concernsRun = (
   ]).size;
 
 export const issuesOf = (report: Report): readonly Issue[] =>
-  issuesFrom(report.findings, report.rendered);
+  issuesFrom(
+    report.findings,
+    report.rendered,
+    report.outcome === "checked" ? (report.site?.findings ?? []) : []
+  );
 
 export interface IssueGroups {
   readonly benchmark: readonly Issue[];

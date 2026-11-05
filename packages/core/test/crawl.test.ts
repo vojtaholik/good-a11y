@@ -128,6 +128,10 @@ describe("summaryOf", () => {
     );
 
     expect(summary).toEqual({
+      help: [
+        { href: "https://shop.example/hilfe", position: 3, text: "Hilfe" },
+        { href: "tel:+420123", position: 5, text: "Call us" },
+      ],
       linkCount: 9,
       names: [
         { href: "https://shop.example/shop", kind: "link", text: "Shop" },
@@ -147,6 +151,10 @@ describe("summaryOf", () => {
           text: "Sitemap",
         },
         { href: null, kind: "button", text: "Buy" },
+      ],
+      navigation: [
+        { href: "https://shop.example/shop", position: 0, text: "Shop" },
+        { href: "https://shop.example/", position: 1, text: "Logo" },
       ],
       role: "entered",
       search: true,

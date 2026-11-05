@@ -400,7 +400,8 @@ describe("withRendered", () => {
       [],
       rendered.status === "ran"
         ? { ...rendered, findings: [...rendered.findings, newerOnly] }
-        : rendered
+        : rendered,
+      []
     );
 
     expect(issues.at(-1)?.key).toBe("axe:target-size");

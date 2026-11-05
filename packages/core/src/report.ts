@@ -25,6 +25,7 @@ import type { Reference } from "./reference.js";
 import { RenderedSchema, renderedFrom } from "./rendered.js";
 import type { RenderedOutcome } from "./rendered.js";
 import { concernsRun, issuesFrom } from "./report-sections.js";
+import { SiteFindingSchema, runSiteChecks } from "./site-checks.js";
 import type { SiteEvidence, SitePage } from "./site-evidence.js";
 import {
   VERDICT_FACT,
@@ -97,6 +98,7 @@ export const SitePageResultSchema = Schema.Struct({
 export type SitePageResult = typeof SitePageResultSchema.Type;
 
 export const SiteSchema = Schema.Struct({
+  findings: Schema.Array(SiteFindingSchema),
   pages: Schema.Array(SitePageResultSchema),
   search: Schema.Boolean,
   sitemap: Schema.Boolean,
@@ -193,10 +195,17 @@ const assessed = (report: Report): Report => {
 
   const findings = served ? report.findings : [];
 
+  const site = served ? (report.site?.findings ?? []) : [];
+
   const coverage = coverageFrom(
     {
       checks: concernsRun(
-        findings.map((finding) => finding.id),
+        [
+          ...findings.map((finding) => finding.id),
+          ...site.flatMap((finding) =>
+            finding.status === "not_applicable" ? [] : [`site:${finding.id}`]
+          ),
+        ],
         rendered
       ),
       criteria: [...decidedOf(report).decided].map(
@@ -207,7 +216,7 @@ const assessed = (report: Report): Report => {
     methodOf(served, rendered !== null)
   );
 
-  const issues = issuesFrom(findings, rendered);
+  const issues = issuesFrom(findings, rendered, site);
 
   const verdict = verdictFrom(
     issues,
@@ -297,14 +306,19 @@ const pageOf = (page: SitePage): SitePageResult =>
         url: page.url,
       };
 
-export const withSite = (report: Report, evidence: SiteEvidence): Report => ({
-  ...report,
-  site: {
-    pages: evidence.pages.map(pageOf),
-    search: evidence.summaries.some((summary) => summary.search),
-    sitemap: evidence.summaries.some((summary) => summary.sitemap),
-  },
-});
+export const withSite = (report: Report, evidence: SiteEvidence): Report =>
+  assessed({
+    ...report,
+    site: {
+      findings:
+        report.outcome === "checked"
+          ? runSiteChecks(evidence, report.reference)
+          : [],
+      pages: evidence.pages.map(pageOf),
+      search: evidence.summaries.some((summary) => summary.search),
+      sitemap: evidence.summaries.some((summary) => summary.sitemap),
+    },
+  });
 
 export const withJudged = (report: Report, judged: Judged): Report => ({
   ...report,

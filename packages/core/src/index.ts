@@ -459,6 +459,8 @@ export {
   MAX_CONTROL_NAMES,
   PageRoleSchema,
   PageSummarySchema,
+  SiteLinkSchema,
+  type SiteLink,
   SiteEvidenceSchema,
   SitePageSchema,
   summaryOf,
@@ -468,6 +470,14 @@ export {
   type SiteEvidence,
   type SitePage,
 } from "./site-evidence.js";
+
+export {
+  MIN_SHARED_LINKS,
+  SITE_CHECKS,
+  SiteFindingSchema,
+  runSiteChecks,
+  type SiteFinding,
+} from "./site-checks.js";
 
 export {
   CRAWL_PAGES_AT_ONCE,
