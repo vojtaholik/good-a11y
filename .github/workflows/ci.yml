@@ -26,6 +26,12 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Install chrome-headless-shell for the browser tests
         run: pnpm chrome:install
+      - name: Give chrome-headless-shell an AppArmor profile
+        # Ubuntu 24.04 lets only binaries with an AppArmor profile create the user namespaces Chrome's sandbox needs. The system Chrome ships one; the downloaded shell gets the same, scoped to its own path, so it starts with its sandbox on.
+        run: |
+          shell="$(find ~/.cache/puppeteer/chrome-headless-shell -type f -name chrome-headless-shell | head -n 1)"
+          printf 'abi <abi/4.0>,\ninclude <tunables/global>\nprofile chrome-headless-shell "%s" flags=(unconfined) {\n  userns,\n}\n' "$shell" | sudo tee /etc/apparmor.d/chrome-headless-shell
+          sudo apparmor_parser -r /etc/apparmor.d/chrome-headless-shell
       - name: Check and test
         # Serialize Turbo tasks so concurrent Vitest pools do not contend on the CI runner.
         run: pnpm turbo run check test build --concurrency=1
