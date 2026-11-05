@@ -122,7 +122,7 @@ describe("moving between pages", () => {
     story(
       update,
       given(modelAt("/")),
-      message(Message.ChangedUrl({ url: urlOf("/guides/dialog-modal") })),
+      message(Message.ChangedUrl({ url: urlOf("/dialog-modal") })),
       Command.expectExact(FocusMainHeading()),
       Command.resolve(FocusMainHeading, Message.CompletedFocusMainHeading()),
       model((entered) => {
@@ -236,9 +236,13 @@ const clicked = (path: string) =>
 
 describe("following a link", () => {
   it.each([
-    "/guides/focus-visible/demo.html",
+    "/focus-visible/demo.html",
     "/skills/good-a11y/SKILL.md",
     "/skills/good-a11y/references/focus-visible.md",
+    "/focus-visible.md",
+    "/skill.md",
+    "/search.md",
+    "/check.md",
     "/llms.txt",
     "/sitemap.xml",
     "/robots.txt",
@@ -263,7 +267,7 @@ describe("following a link", () => {
     "/check",
     "/about",
     "/privacy",
-    "/guides/focus-visible",
+    "/focus-visible",
     "/check/example.com",
   ])("routes %s in the app without a page load", (path) => {
     story(

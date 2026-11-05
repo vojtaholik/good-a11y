@@ -7,20 +7,20 @@ Built 2026-11-04 by check for decision 11 of the good-a11y brief. `apps/web` is 
 | Path | Page | Markdown (`Accept: text/markdown`) |
 | --- | --- | --- |
 | `/` | Heading, the checker input, the agent command, then every guide by category in one list | The same, with absolute links |
-| `/guides/<id>` | The guide text, its `demo.html` live in a sandboxed iframe, the WCAG criteria from verified facts, `retrieve <id>` for agents | `guide.md` without frontmatter, plus the verified criteria, the demo URL and the retrieve command |
-| `/guides/<id>/demo.html` | The demo itself, served with `Content-Security-Policy: sandbox allow-scripts allow-forms; frame-ancestors 'self'; default-src 'none'; …` | none |
+| `/<id>` | The guide text, its `demo.html` live in a sandboxed iframe, the WCAG criteria from verified facts, `retrieve <id>` for agents | `guide.md` without frontmatter, plus the verified criteria, the demo URL and the retrieve command |
+| `/<id>/demo.html` | The demo itself, served with `Content-Security-Policy: sandbox allow-scripts allow-forms; frame-ancestors 'self'; default-src 'none'; …` | none |
 | `/check` | The checker input and what we check, per success criterion | The coverage table as Markdown, and the local `check` command |
 | `/check/<host>`, `/check/<host>/<id>` | The newest report for a site, or one scan. Each finding links to the guides that fix it (`CHECK_GUIDES`) | The report in the format `check` prints |
 | `/about`, `/privacy` | Who makes good-a11y and how the guides are tested; what the checker stores and for how long. Text in `apps/web/src/features/info-pages.ts` | The same text |
 | `/llms.txt` | none | The site and every guide |
-| `/guides/<id>.md` | none | The guide page's Markdown, no `Accept` needed |
-| `/search.md?q=<words>` | none | The top guides for the words (`makeGuideIndex`, the CLI's search): name, id, one line, link to `/guides/<id>.md`. No `q` answers 400 with an example |
+| `/<id>.md` | none | The guide page's Markdown, no `Accept` needed |
+| `/search.md?q=<words>` | none | The top guides for the words (`makeGuideIndex`, the CLI's search): name, id, one line, link to `/<id>.md`. No `q` answers 400 with an example |
 | `/check.md?url=<public url>` | none | Checks a public page for an agent without running code (`server/check-markdown.ts`). A scan of the same address that is running answers "fetch this same URL again in 10 seconds" with `Retry-After: 10`, and spends no rate limit. Otherwise it calls `startScan` as the caller, through the same per-address limit (`SCAN_LIMIT`, 429 with `Retry-After: 60`), daily caps, refusals and one-hour reuse as the form, and answers the report in the format `check` prints, or the running line. Always `no-store` |
 | `/skill.md`, `/skills/good-a11y/SKILL.md` | none | `skills/good-a11y/SKILL.md` with a References list |
 | `/skills/good-a11y/references/<id>.md` | none | The guide, as the guide page's Markdown |
 | `/sitemap.xml`, `/robots.txt` | none | `/`, `/check`, `/about`, `/privacy` and every guide; robots allows all and names the sitemap |
 
-Unknown paths and unknown guides answer 404 in both forms. Reports carry `robots: noindex` and `cache-control: no-store`; the other pages are cached for five minutes.
+Unknown paths and unknown guides answer 404 in both forms. Guides live at the root for search (decided by Vojta on 2026-11-05). Every old `/guides/...` address answers 308 to the same path without `/guides` (`movedGuide` in `server/site.ts`), and `/guides` itself to `/`, where the guide list lives: Google indexed the old addresses, so the redirects are part of the URL contract. A guide id may not be a root path the site serves; `site.test.ts` fails when one is. Reports carry `robots: noindex` and `cache-control: no-store`; the other pages are cached for five minutes.
 
 About and Privacy are proposals for Vojta, written 2026-11-04 by check. Privacy states what the code stores: the scan row in D1 (address, report with failing samples) with no expiry, so "until the report is removed"; the caller key, the IPv4 address or the IPv6 /64 the per-site daily cap reads, is blanked by the first check started 24 hours or more after it (2e8875b); the evidence in R2, deleted after 30 days by the bucket's lifecycle rule; the scanner's Workers Logs; the judged step's page text sent to Cloudflare Clef. Contact messages are left out while `CONTACT_SHOWN` is off. Removal is by a public GitHub issue, since the site has no contact channel. About names Vojta as maker and makes no claim about screen-reader testing. Change either when the facts change.
 

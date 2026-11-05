@@ -26,7 +26,7 @@ import { colors, font, layout, radius } from "./tokens.stylex.js";
 
 export const RETRIEVE = `${CLI} retrieve`;
 
-export const demoPath = (id: string): string => `/guides/${id}/demo.html`;
+export const demoPath = (id: string): string => `/${id}/demo.html`;
 
 export const referencePath = (id: string): string =>
   `/skills/good-a11y/references/${id}.md`;

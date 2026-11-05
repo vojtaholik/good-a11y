@@ -206,7 +206,7 @@ export const pageMarkdown = (
     Scan: ({ slug }) => reportMarkdown(origin, slug, maybeScan),
   }).join("\n");
 
-export const GUIDE_MARKDOWN_PATH = /^\/guides\/(?<id>[a-z\d-]+)\.md$/u;
+export const GUIDE_MARKDOWN_PATH = /^\/(?<id>[a-z\d-]+)\.md$/u;
 
 export const guideMarkdownPath = (id: string): string =>
   `${guideRouter({ guideId: id })}.md`;

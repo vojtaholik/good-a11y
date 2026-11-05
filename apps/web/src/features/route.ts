@@ -49,11 +49,7 @@ export const contactRouter = pipe(
   Route.mapTo(AppRoute.Contact)
 );
 
-export const guideRouter = pipe(
-  literal("guides"),
-  slash(string("guideId")),
-  Route.mapTo(AppRoute.Guide)
-);
+export const guideRouter = pipe(string("guideId"), Route.mapTo(AppRoute.Guide));
 
 export const reportSlugOf = (route: AppRouteState): Option.Option<string> =>
   Schema.is(AppRoute.Report)(route) || Schema.is(AppRoute.Scan)(route)
@@ -80,10 +76,10 @@ export const parseRoute = Route.parseUrlWithFallback(
     scanRouter,
     reportRouter,
     checkRouter,
-    guideRouter,
     aboutRouter,
     privacyRouter,
     contactRouter,
+    guideRouter,
     homeRouter
   ),
   AppRoute.NotFound

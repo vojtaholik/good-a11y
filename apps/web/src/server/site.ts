@@ -6,6 +6,7 @@ import { fromString } from "foldkit/url";
 
 import skill from "../../../../skills/good-a11y/SKILL.md?raw";
 import { SKILL_PATH, SKILL_URL_PATH } from "../features/agent-links.js";
+import { isMissing } from "../features/missing.js";
 import { pageMetaOf } from "../features/page-meta.js";
 import { AppRoute, parseRoute } from "../features/route.js";
 import { checkPage, checkUsage } from "./check-markdown.js";
@@ -25,10 +26,18 @@ import {
   searchMarkdown,
   sitemapXml,
 } from "./markdown.js";
-import { isMissing, renderPage, scanOf, withPageMeta } from "./render.js";
+import { renderPage, scanOf, withPageMeta } from "./render.js";
 import type { BackendFetch } from "./rpc.js";
 
-const DEMO_PATH = /^\/guides\/(?<id>[a-z\d-]+)\/demo\.html$/u;
+const DEMO_PATH = /^\/(?<id>[a-z\d-]+)\/demo\.html$/u;
+
+const OLD_GUIDES_PATH = /^\/guides(?:\/(?<rest>.*))?$/u;
+
+export const movedGuide = (url: URL): string | null => {
+  const match = OLD_GUIDES_PATH.exec(url.pathname);
+
+  return match === null ? null : `/${match.groups?.rest ?? ""}${url.search}`;
+};
 
 const REFERENCE_PATH =
   /^\/skills\/good-a11y\/references\/(?<id>[a-z\d-]+)\.md$/u;
@@ -192,6 +201,18 @@ export const siteHandler =
               checkPage(backend, allow, callerOf(request), siteOrigin, input)
             )
       );
+    }
+
+    const moved = movedGuide(url);
+
+    if (moved !== null) {
+      return new Response(null, {
+        headers: {
+          "cache-control": "public, max-age=86400",
+          location: moved,
+        },
+        status: 308,
+      });
     }
 
     const file = isRead ? agentFile(url, siteOrigin) : null;

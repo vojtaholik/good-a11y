@@ -169,7 +169,7 @@ describe("every link on our own built pages", () => {
           expect.arrayContaining([
             "/llms.txt",
             "/skills/good-a11y/SKILL.md",
-            "/guides/focus-visible/demo.html",
+            "/focus-visible/demo.html",
             "https://github.com/vojtaholik/good-a11y",
           ])
         );

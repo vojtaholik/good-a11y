@@ -73,7 +73,7 @@ describe("the check page", () => {
 
 describe("the guide pages", () => {
   it("reads the guide ID from its address", () => {
-    expect(routeOf("https://eaa.example/guides/dialog-modal")).toEqual(
+    expect(routeOf("https://eaa.example/dialog-modal")).toEqual(
       AppRoute.Guide({ guideId: "dialog-modal" })
     );
     expect(routeOf("https://eaa.example/")).toEqual(AppRoute.Home());

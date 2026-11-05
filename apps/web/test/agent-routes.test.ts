@@ -173,7 +173,7 @@ describe("/search.md", () => {
       expect(response.headers.get("cache-control")).toContain("max-age");
       expect(body).toContain('# Guides for "modal dialog focus"');
       expect(body).toMatch(
-        /^- \[[^\]]+\]\(https:\/\/good-a11y\.example\/guides\/dialog-modal\.md\) `dialog-modal`: /mu
+        /^- \[[^\]]+\]\(https:\/\/good-a11y\.example\/dialog-modal\.md\) `dialog-modal`: /mu
       );
     })
   );
@@ -191,12 +191,12 @@ describe("/search.md", () => {
   );
 });
 
-describe("/guides/<id>.md", () => {
+describe("/<id>.md", () => {
   it.effect("serves the guide as Markdown without an Accept header", () =>
     Effect.gen(function* guideFile() {
       const { get } = yield* siteWith(freshScanner());
-      const guide = yield* get(`/guides/${firstGuide?.id ?? ""}.md`);
-      const missing = yield* get("/guides/no-such-guide.md");
+      const guide = yield* get(`/${firstGuide?.id ?? ""}.md`);
+      const missing = yield* get("/no-such-guide.md");
 
       expect(guide.response.status).toBe(200);
       expect(guide.response.headers.get("content-type")).toContain(

@@ -35,6 +35,7 @@ import {
   CONTACT_PROBLEMS_ID,
   CONTACT_SENT_ID,
 } from "./landmarks.js";
+import { isMissing } from "./missing.js";
 import {
   AppRoute,
   isSameRoute,
@@ -276,7 +277,7 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
         External: ({ href }) => ({ commands: [LoadPage({ href })], model }),
         Internal: ({ url }) => ({
           commands: [
-            Schema.is(AppRoute.NotFound)(parseRoute(url))
+            isMissing(parseRoute(url))
               ? LoadPage({ href: urlToString(url) })
               : Navigate({ url: urlToString(url) }),
           ],

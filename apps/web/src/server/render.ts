@@ -1,10 +1,10 @@
-import { CONTACT_SHOWN } from "@good-a11y/core/contracts";
 import type { ScanView } from "@good-a11y/core/contracts";
-import { Effect, Option, Schema } from "effect";
+import type { Option } from "effect";
+import { Effect, Schema } from "effect";
 import { Server } from "foldkit/experimental";
 
 import { Flags } from "../client/model.js";
-import { guidePageOf } from "../features/guides.js";
+import { isMissing } from "../features/missing.js";
 import { SITE_NAME } from "../features/page-meta.js";
 import type { PageMeta } from "../features/page-meta.js";
 import { AppRoute } from "../features/route.js";
@@ -99,12 +99,6 @@ export const withPageMeta = (
       )
     : indexed;
 };
-
-export const isMissing = (route: AppRouteState): boolean =>
-  Schema.is(AppRoute.NotFound)(route) ||
-  (!CONTACT_SHOWN && Schema.is(AppRoute.Contact)(route)) ||
-  (Schema.is(AppRoute.Guide)(route) &&
-    Option.isNone(guidePageOf(route.guideId)));
 
 export const scanOf = (
   backend: BackendFetch,

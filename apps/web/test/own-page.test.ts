@@ -84,7 +84,7 @@ describe("our own page", () => {
 
       expect(failing(html)).toEqual([]);
       expect(html).toContain('href="/check"');
-      expect(html).toContain('href="/guides/dialog-modal"');
+      expect(html).toContain('href="/dialog-modal"');
     })
   );
 
@@ -97,7 +97,7 @@ describe("our own page", () => {
         });
 
         expect(failing(html)).toEqual([]);
-        expect(html).toContain(`src="/guides/${page.id}/demo.html"`);
+        expect(html).toContain(`src="/${page.id}/demo.html"`);
         expect(html).toContain(`retrieve ${page.id}`);
       }
     })
@@ -183,8 +183,8 @@ describe("our own page", () => {
       expect(order.map((index) => index >= 0)).toEqual(order.map(() => true));
       expect(order).toEqual(order.toSorted((left, right) => left - right));
       expect(html).toContain('href="/check#what-we-check"');
-      expect(html).toContain('href="/guides/image-alt"');
-      expect(html).toContain('href="/guides/icon-buttons"');
+      expect(html).toContain('href="/image-alt"');
+      expect(html).toContain('href="/icon-buttons"');
       expect(html.includes("Send message")).toBe(CONTACT_SHOWN);
       expect(html.includes("studio9")).toBe(CONTACT_SHOWN);
       expect(html.toLowerCase()).not.toContain("compliant");
