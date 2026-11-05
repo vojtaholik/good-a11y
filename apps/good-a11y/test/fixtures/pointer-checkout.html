@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkout - Trail Shop</title>
+  </head>
+  <body>
+    <main>
+      <h1>Checkout</h1>
+      <label for="name">Full name</label>
+      <input id="name" name="name" autocomplete="name" required />
+      <div class="button" id="place">Place order</div>
+    </main>
+    <script>
+      document.getElementById("place").addEventListener("click", () => {
+        history.pushState(null, "", "/order-placed");
+        document.querySelector("main").innerHTML =
+          "<h1>Thank you</h1><p>Your order is placed.</p>";
+      });
+    </script>
+  </body>
+</html>

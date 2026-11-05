@@ -1474,7 +1474,7 @@ const noLocalModeInHostedApps = defineRule({
 
 const INSTALLED_CHROME_DRIVERS = new Set([
   "packages/browser-audit/src/node.ts",
-  "packages/graders/src/flow-audit.ts",
+  "packages/graders/src/browser.ts",
 ]);
 
 const INSTALLED_CHANNEL = /^(?:chrome|msedge)(?:-|$)/u;

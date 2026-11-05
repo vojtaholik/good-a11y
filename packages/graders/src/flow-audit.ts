@@ -1,83 +1,22 @@
-// @effect-diagnostics asyncFunction:off nodeBuiltinImport:off -- Playwright drives the browser through Promise-based callbacks; Effect wraps the run once, in playwrightFlowAuditLayer.
-import { stripVTControlCharacters } from "node:util";
-
+// @effect-diagnostics asyncFunction:off -- Playwright drives the browser through Promise-based callbacks; Effect wraps the run once, in playwrightFlowAuditLayer.
 import { FlowAudit, FlowAuditFailed } from "@good-a11y/core";
 import type { ClaimResult, Flow, FlowResult, LocalUrl } from "@good-a11y/core";
 import { GUIDES } from "@good-a11y/guides";
-import { Cause, Effect, Layer, Schema } from "effect";
-import { chromium } from "playwright";
-import type { Browser, BrowserContext } from "playwright";
+import { Cause, Effect, Layer } from "effect";
+import type { Browser } from "playwright";
 
+import { attempt, contextFor, withBrowser } from "./browser.js";
+import type { FlowChrome } from "./browser.js";
 import { openFlow } from "./flow.js";
 import type { ContextOptions, Graded, Grader } from "./grader.js";
 import { graderFor } from "./graders.js";
 
-export interface FlowChrome {
-  readonly executablePath: string | null;
-}
+export type { FlowChrome } from "./browser.js";
 
 const CLAIM_TIMEOUT_MS = 15_000;
 
-const DETAIL_CHARACTERS = 1500;
-
-const BLOCKED_CHARACTERS = 200;
-
-const CALL_LOG = /\n\s*Call log:/u;
-
-const IN_PAGE = new Set(["about:", "blob:", "data:"]);
-
-const detailOf = (raw: string): string => {
-  const [message = raw] = stripVTControlCharacters(raw).split(CALL_LOG);
-
-  return message.trim().slice(0, DETAIL_CHARACTERS);
-};
-
-class BrowserStepFailed extends Schema.TaggedError<BrowserStepFailed>()(
-  "BrowserStepFailed",
-  { detail: Schema.String }
-) {}
-
-const attempt = <A>(run: () => Promise<A>) =>
-  Effect.tryPromise({
-    catch: (thrown) =>
-      new BrowserStepFailed({
-        detail: detailOf(
-          thrown instanceof Error ? thrown.message : String(thrown)
-        ),
-      }),
-    try: run,
-  });
-
 const TIMED_OUT = (ms: number) =>
   `The claim did not finish within ${ms / 1000} seconds. Check that the flow's targets name what the page shows.`;
-
-const contextFor = async (
-  browser: Browser,
-  origin: string,
-  blocked: Set<string>,
-  options: ContextOptions
-): Promise<BrowserContext> => {
-  const context = await browser.newContext({
-    serviceWorkers: "block",
-    viewport: { height: 800, width: 1280 },
-    ...options,
-  });
-
-  await context.route("**/*", async (route) => {
-    const url = new URL(route.request().url());
-
-    if (IN_PAGE.has(url.protocol) || url.origin === origin) {
-      await route.continue();
-
-      return;
-    }
-
-    blocked.add(url.href.slice(0, BLOCKED_CHARACTERS));
-    await route.abort("blockedbyclient");
-  });
-
-  return context;
-};
 
 const inContext = (
   browser: Browser,
@@ -220,22 +159,8 @@ const gradeFlow = (browser: Browser, base: LocalUrl, flow: Flow) =>
   });
 
 const runFlows = (chrome: FlowChrome, base: LocalUrl, flows: readonly Flow[]) =>
-  Effect.acquireUseRelease(
-    attempt(
-      async () =>
-        await chromium.launch({
-          headless: true,
-          ...(chrome.executablePath === null
-            ? { channel: "chrome" }
-            : { executablePath: chrome.executablePath }),
-        })
-    ),
-    (browser) =>
-      Effect.all(flows.map((flow) => gradeFlow(browser, base, flow))),
-    (browser) =>
-      attempt(async () => {
-        await browser.close();
-      }).pipe(Effect.ignore)
+  withBrowser(chrome, (browser) =>
+    Effect.all(flows.map((flow) => gradeFlow(browser, base, flow)))
   );
 
 export const playwrightFlowAuditLayer = (chrome: FlowChrome) =>

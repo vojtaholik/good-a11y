@@ -4,14 +4,14 @@ import type { Effect } from "effect";
 import type { FlowAuditFailed } from "./flow-audit-failed.js";
 import type { LocalUrl } from "./public-url.js";
 
-const RoleTargetSchema = Schema.Struct({
+export const RoleTargetSchema = Schema.Struct({
   exact: Schema.optional(Schema.Boolean),
   name: Schema.String,
   nth: Schema.optional(Schema.Int),
   role: Schema.String,
 });
 
-const TextTargetSchema = Schema.Struct({ text: Schema.String });
+export const TextTargetSchema = Schema.Struct({ text: Schema.String });
 
 const CssTargetSchema = Schema.Struct({ css: Schema.String });
 

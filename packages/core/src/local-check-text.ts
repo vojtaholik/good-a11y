@@ -10,6 +10,8 @@ import { REFERENCE } from "./reference.js";
 import { issueGroupsOf } from "./report-sections.js";
 import type { Issue } from "./report-sections.js";
 import type { Report } from "./report.js";
+import { tasksFinished } from "./scenario.js";
+import type { ScenarioResult } from "./scenario.js";
 import { verdictDetail } from "./verdict.js";
 
 export const AGENT_JUDGED_LABEL =
@@ -213,6 +215,54 @@ const flowsBlock = (check: LocalCheck, text: LocalCheckText): string[] => {
   ];
 };
 
+export const TASKS_LABEL =
+  "Each task was replayed from the keys in your scenario file, with no pointer, and counts as finished when its success condition held in the accessibility tree. This shows whether these tasks can be done this way. It is not a WCAG or EAA result, it does not count as issues, and it is not part of the verdict.";
+
+export const tasksHeadline = (results: readonly ScenarioResult[]): string => {
+  const { finished, total } = tasksFinished(results);
+
+  return `Task completion: ${finished} of ${total} ${total === 1 ? "task" : "tasks"} finished with the keyboard and the accessibility tree only.`;
+};
+
+const taskSection = (task: ScenarioResult): string[] => [
+  `### ${task.goal} \`task:${task.id}\``,
+  "",
+  task.status === "finished"
+    ? `Finished on ${task.url} after ${task.steps} of ${task.keys} keys.`
+    : `Not finished on ${task.url}: the success condition did not hold after ${task.steps} of ${task.keys} keys.`,
+  "",
+  ...(task.problem === null ? [] : [task.problem, ""]),
+  ...(task.status === "finished" || task.focused === null
+    ? []
+    : ["Focus was on:", "", fenced(task.focused), ""]),
+  ...(task.blocked.length === 0
+    ? []
+    : [
+        `Requests to other origins were blocked: ${task.blocked.slice(0, 5).join(", ")}${task.blocked.length > 5 ? `, and ${task.blocked.length - 5} more` : ""}.`,
+        "",
+      ]),
+];
+
+const tasksBlock = (check: LocalCheck): string[] => {
+  if (check.tasks === null) {
+    return [];
+  }
+
+  if ("skipped" in check.tasks) {
+    return ["## Tasks", "", `Tasks skipped: ${check.tasks.skipped}`, ""];
+  }
+
+  return [
+    "## Tasks",
+    "",
+    `**${tasksHeadline(check.tasks.ran)}**`,
+    "",
+    TASKS_LABEL,
+    "",
+    ...check.tasks.ran.flatMap(taskSection),
+  ];
+};
+
 const renderedLine = (check: LocalCheck): string[] => {
   const { rendered } = check.report;
 
@@ -258,6 +308,7 @@ export const formatLocalCheck = (
       text
     ),
     ...flowsBlock(check, text),
+    ...tasksBlock(check),
     ...questionsBlock(check.questions),
     report.statement.factId === null
       ? report.statement.text

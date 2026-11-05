@@ -502,6 +502,7 @@ export {
 export {
   checkLocally,
   FLOWS_PUBLIC,
+  TASKS_PUBLIC,
   LocalReportSchema,
   type LocalCheck,
 } from "./local-check.js";
@@ -522,6 +523,40 @@ export {
   type FlowTarget,
 } from "./flow.js";
 
+export {
+  ALREADY_REACHED,
+  SCENARIO_KEYS,
+  ScenarioAudit,
+  ScenarioFileSchema,
+  ScenarioKeySchema,
+  ScenarioResultSchema,
+  ScenarioSchema,
+  ScenarioStepSchema,
+  SuccessSchema,
+  TasksSchema,
+  TreeTargetSchema,
+  isOnTree,
+  reached,
+  tasksFinished,
+  treeOf,
+  unknownInput,
+  type Scenario,
+  type ScenarioKey,
+  type ScenarioResult,
+  type ScenarioState,
+  type ScenarioStep,
+  type Success,
+  type TaskCount,
+  type Tasks,
+  type Tree,
+  type TreeNode,
+  type TreeTarget,
+} from "./scenario.js";
+
+export { ScenarioAuditFailed } from "./scenario-audit-failed.js";
+
+export { ScenarioFileUnreadable } from "./scenario-file-unreadable.js";
+
 export { FlowAuditFailed } from "./flow-audit-failed.js";
 
 export { FlowFileUnreadable } from "./flow-file-unreadable.js";
@@ -529,6 +564,8 @@ export { FlowFileUnreadable } from "./flow-file-unreadable.js";
 export {
   AGENT_JUDGED_LABEL,
   FLOWS_LABEL,
+  TASKS_LABEL,
   formatLocalCheck,
+  tasksHeadline,
   type LocalCheckText,
 } from "./local-check-text.js";

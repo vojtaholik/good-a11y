@@ -142,7 +142,7 @@ const checkMarkdown = (origin: string): string[] => [
 
 export const reportText = (report: Report, origin: string): string =>
   formatLocalCheck(
-    { flows: null, questions: [], renderProblem: null, report },
+    { flows: null, questions: [], renderProblem: null, report, tasks: null },
     { guideUrl: (id) => `${origin}/${id}.md`, guidesFor: guidesForCheck }
   );
 

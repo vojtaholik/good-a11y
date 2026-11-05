@@ -20,7 +20,8 @@ npx github:vojtaholik/good-a11y check localhost:5173 --flow a11y-flows.json
 4. `RenderedAudit` opens the page in the user's Chrome (`@good-a11y/browser-audit/node`): the same page scripts, the pinned axe-core 4.14.0 and the same rendered probes as Browser Run, at the same viewport and with the same timeouts. On a private target (below) the forms are also submitted empty, under the hosted fence.
 5. `withRendered` adds the rendered findings, or a skip with its reason, to the `Report`.
 6. With `--flow`, on a private target, `FlowAudit` runs each named guide's grader on the flow the agent described (`docs/flows.md`). The results are their own section and are not counted in the verdict.
-7. The shown judged questions that relate to a WCAG criterion are built with `questionsFor` from the static and rendered evidence. No model is asked.
+7. With `--scenarios`, on a private target, `ScenarioAudit` replays each scenario by keyboard and counts the tasks that finish (`docs/scenarios.md`). Task completion is its own section, never issues and never in the verdict.
+8. The shown judged questions that relate to a WCAG criterion are built with `questionsFor` from the static and rendered evidence. No model is asked.
 
 There is no crawl: the check reads the one page it was given. The scope question (`sells-to-consumers`) and the statement question are left out; they belong to the EAA view of the hosted report.
 

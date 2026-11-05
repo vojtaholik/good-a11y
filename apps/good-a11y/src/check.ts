@@ -4,11 +4,16 @@ import {
   FlowFileUnreadable,
   LocalReportSchema,
   SafeFetch,
+  ScenarioFileSchema,
+  ScenarioFileUnreadable,
   checkLocally,
   formatLocalCheck,
 } from "@good-a11y/core";
-import type { Flow } from "@good-a11y/core";
-import { playwrightFlowAuditLayer } from "@good-a11y/graders";
+import type { Flow, Scenario } from "@good-a11y/core";
+import {
+  playwrightFlowAuditLayer,
+  playwrightScenarioAuditLayer,
+} from "@good-a11y/graders";
 import { guidesForCheck } from "@good-a11y/guides";
 import { htmlPageReaderLayer } from "@good-a11y/html-reader";
 import { localNodeHopTransportLayer } from "@good-a11y/http-transport/node";
@@ -49,7 +54,8 @@ const localLayer = (executablePath: string | null) =>
     SafeFetch.localLayer.pipe(Layer.provide(localNodeHopTransportLayer)),
     htmlPageReaderLayer,
     localRenderedAuditLayer({ executablePath }),
-    playwrightFlowAuditLayer({ executablePath })
+    playwrightFlowAuditLayer({ executablePath }),
+    playwrightScenarioAuditLayer({ executablePath })
   );
 
 const decodeFlows = Schema.decodeUnknownEffect(
@@ -67,6 +73,27 @@ const flowsFrom = (file: string) =>
   }).pipe(
     Effect.mapError(
       (failed) => new FlowFileUnreadable({ detail: failed.message, file })
+    )
+  );
+
+const decodeScenarios = Schema.decodeUnknownEffect(
+  Schema.fromJsonString(ScenarioFileSchema)
+);
+
+const scenariosFrom = (file: string) =>
+  Effect.gen(function* readScenarios() {
+    const fs = yield* FileSystem.FileSystem;
+    const text = yield* fs.readFileString(file);
+    const decoded = yield* decodeScenarios(text);
+
+    const scenarios: readonly Scenario[] = Array.isArray(decoded)
+      ? decoded
+      : [decoded];
+
+    return scenarios;
+  }).pipe(
+    Effect.mapError(
+      (failed) => new ScenarioFileUnreadable({ detail: failed.message, file })
     )
   );
 
@@ -89,17 +116,27 @@ export const checkCommand = Command.make(
       Flag.withDescription("Print the schema-encoded report as JSON"),
       Flag.withDefault(false)
     ),
+    scenarios: Flag.String("scenarios").pipe(
+      Flag.withDescription(
+        "A JSON file with one scenario or a list: a task (goal, path, keys, inputs) and its success condition. Each is replayed by keyboard only on a local page and counted in Task completion"
+      ),
+      Flag.optional
+    ),
     url: Argument.String("url").pipe(
       Argument.withDescription(
         "The page to check: localhost:5173, http://127.0.0.1:8080/cart or https://example.com"
       )
     ),
   },
-  Effect.fn("check")(function* check({ chrome, flow, json, url }) {
+  Effect.fn("check")(function* check({ chrome, flow, json, scenarios, url }) {
     const flows = Option.isSome(flow) ? yield* flowsFrom(flow.value) : [];
     const executablePath = yield* chromeFor(chrome);
 
-    const checked = yield* checkLocally(url, flows).pipe(
+    const tasks = Option.isSome(scenarios)
+      ? yield* scenariosFrom(scenarios.value)
+      : [];
+
+    const checked = yield* checkLocally(url, flows, tasks).pipe(
       Effect.provide(localLayer(executablePath))
     );
 
@@ -109,6 +146,7 @@ export const checkCommand = Command.make(
             yield* Schema.encodeEffect(LocalReportSchema)({
               ...checked.report,
               flows: checked.flows,
+              tasks: checked.tasks,
             }),
             null,
             2

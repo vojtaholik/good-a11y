@@ -25,7 +25,7 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 - `htmlparser2` `12.0.0` is the one HTML parser, and only `packages/html-reader` imports it
 - `axe-core` `4.14.0` (MPL-2.0) and `@cloudflare/puppeteer` `1.4.0` for the rendered page check, and `puppeteer-core` `25.13.0` (Apache-2.0) for the local `check` in the user's own Chrome; only `packages/browser-audit` imports them
 - `playwright` `1.64.1` for the graders in `packages/graders` (the local check's `--flow`; kept out of the bundle and listed in the `good-a11y` package's `dependencies`, like puppeteer-core) and `@playwright/test` `1.64.1` to run them as evals in `evals/graders`; React `19.3.1` only in the eval base app `evals/apps/shop`
-- `@puppeteer/browsers` `3.2.6` (Apache-2.0) pins `chrome-headless-shell` `155.0.8059.79` for every test, eval grader and sweep (`@good-a11y/browser-audit/headless-shell`, installed by `pnpm chrome:install`): our tooling never launches the installed Google Chrome, which opens a window and takes focus. The product's `check` still drives the user's own Chrome unless `--chrome` or `GOOD_A11Y_CHROME` names a binary. Fenced: `rat-stack-boundaries/no-installed-chrome` flags `channel: "chrome"` and `executablePath: null` outside the two product drivers (`packages/browser-audit/src/node.ts`, `packages/graders/src/flow-audit.ts`), and `check` exits under vitest (`VITEST` set) when neither names a binary
+- `@puppeteer/browsers` `3.2.6` (Apache-2.0) pins `chrome-headless-shell` `155.0.8059.79` for every test, eval grader and sweep (`@good-a11y/browser-audit/headless-shell`, installed by `pnpm chrome:install`): our tooling never launches the installed Google Chrome, which opens a window and takes focus. The product's `check` still drives the user's own Chrome unless `--chrome` or `GOOD_A11Y_CHROME` names a binary. Fenced: `rat-stack-boundaries/no-installed-chrome` flags `channel: "chrome"` and `executablePath: null` outside the two product drivers (`packages/browser-audit/src/node.ts`, `packages/graders/src/browser.ts`, which launches for both the flow and the scenario audit), and `check` exits under vitest (`VITEST` set) when neither names a binary
 - varlock `1.20.0`: declare every env var in `.env.schema`, never read `.env.local` directly, run `pnpm env:check` after schema edits
 
 ## Packages
@@ -39,7 +39,7 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 | `@good-a11y/browser-audit` | `packages/browser-audit` | Adapter for `RenderedAudit`: one Browser Run session through `@cloudflare/puppeteer`, fixed viewport and user agent, runs the pinned axe-core, closes the browser in a finalizer, hard timeout |
 | `@good-a11y/html-reader` | `packages/html-reader` | Adapter for `PageReader`: reads the accessibility evidence out of HTML in one pass over the `htmlparser2` tokenizer, with no tree |
 | `@good-a11y/cli` | `apps/cli` | Composition root for the `good-a11y-scan` bin. One command per capability |
-| `@good-a11y/graders` | `packages/graders` | One grader per guide (`src/guides/<guide-id>.ts`, one claim per item in its `expectations.md`) and `playwrightFlowAuditLayer`, the adapter for core's `FlowAudit` port that runs them on the flows an agent passes to the local check (`docs/flows.md`). Local mode only |
+| `@good-a11y/graders` | `packages/graders` | One grader per guide (`src/guides/<guide-id>.ts`, one claim per item in its `expectations.md`) and `playwrightFlowAuditLayer`, the adapter for core's `FlowAudit` port that runs them on the flows an agent passes to the local check (`docs/flows.md`), and `playwrightScenarioAuditLayer`, the `ScenarioAudit` adapter that replays scenarios by keyboard (`docs/scenarios.md`). Local mode only |
 | `@good-a11y/evals` | `evals` | Layer 3 of good-a11y: registers each grader with Playwright Test (`evals/graders/<guide-id>.spec.ts`, one `E<n>` test per claim), the base apps in `evals/apps`, and two task prompts per guide in `evals/tasks/<guide-id>/<app>.json` (`docs/evals.md`) |
 | `@good-a11y/eval-shop` | `evals/apps/shop` | Eval base app: a React and Vite shop (products, quick-view dialog, cart, checkout). `evals/apps/content` is its static sibling, plain HTML with no package |
 
@@ -56,6 +56,7 @@ Workspace `package.json` files declare the pinned stack. Keep dependencies exact
 | Check | `packages/core/src/checks/<id>.ts` | One pure function from page evidence to a check result |
 | Catalogue | `packages/core/src/catalogue.ts` | Maps each check to the fact IDs of its WCAG success criterion and EN 301 549 clauses |
 | State profile | `packages/facts` | Per member state: one verified fact per field, or unknown |
+| Scenario | `a11y-tasks.json` beside the flow file; schema and `reached` in `packages/core/src/scenario.ts` | A task a person must be able to finish: goal, start path, keyboard steps and a success condition a pure function decides over the accessibility tree. Counted as Task completion, never as issues (`docs/scenarios.md`) |
 | Projection | `packages/capability/src/to-<surface>.ts` | Expose implemented capabilities on one runtime surface |
 
 ## Commands

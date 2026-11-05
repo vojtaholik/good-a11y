@@ -13,12 +13,15 @@ import { withRendered, ReportSchema } from "./report.js";
 import type { Report } from "./report.js";
 import { parseLocalTarget } from "./scan-target.js";
 import { inspectTarget } from "./scan.js";
+import { ScenarioAudit, TasksSchema } from "./scenario.js";
+import type { Scenario, Tasks } from "./scenario.js";
 
 export interface LocalCheck {
   readonly flows: Flows | null;
   readonly questions: readonly Asked[];
   readonly renderProblem: string | null;
   readonly report: Report;
+  readonly tasks: Tasks | null;
 }
 
 const RENDERS: ReadonlySet<Report["outcome"]> = new Set(["checked", "refused"]);
@@ -56,6 +59,7 @@ const renderedOutcome = (url: string) =>
 export const LocalReportSchema = Schema.Struct({
   ...ReportSchema.fields,
   flows: Schema.NullOr(FlowsSchema),
+  tasks: Schema.NullOr(TasksSchema),
 });
 
 export const FLOWS_PUBLIC =
@@ -85,6 +89,45 @@ const flowsOn = (url: string, flows: readonly Flow[]) =>
     );
   });
 
+export const TASKS_PUBLIC =
+  "Scenarios run only against a page on your own machine: localhost, a private address or a one-label host. Run the app locally and check that address.";
+
+const tasksOn = (url: string, scenarios: readonly Scenario[]) =>
+  Effect.gen(function* runScenarios() {
+    if (scenarios.length === 0) {
+      return null;
+    }
+
+    const vetted = vetLocalUrl(url);
+
+    if (Result.isFailure(vetted) || !isPrivateTarget(url)) {
+      const skipped: Tasks = { skipped: TASKS_PUBLIC };
+
+      return skipped;
+    }
+
+    return yield* ScenarioAudit.use((audit) =>
+      audit.run(vetted.success, scenarios)
+    ).pipe(
+      Effect.match({
+        onFailure: (failure): Tasks => ({ skipped: failure.message }),
+        onSuccess: (ran): Tasks => ({ ran }),
+      })
+    );
+  });
+
+const tasksUnrun = (
+  url: string,
+  scenarios: readonly Scenario[],
+  reason: string
+): Tasks | null => {
+  if (scenarios.length === 0) {
+    return null;
+  }
+
+  return { skipped: isPrivateTarget(url) ? reason : TASKS_PUBLIC };
+};
+
 const flowsUnrun = (
   url: string,
   flows: readonly Flow[],
@@ -99,7 +142,8 @@ const flowsUnrun = (
 
 export const checkLocally = Effect.fn("checkLocally")(function* checkLocally(
   input: string,
-  flows: readonly Flow[]
+  flows: readonly Flow[],
+  scenarios: readonly Scenario[]
 ) {
   const target = yield* Effect.fromResult(parseLocalTarget(input));
   const { evidence, report } = yield* inspectTarget(target);
@@ -110,6 +154,7 @@ export const checkLocally = Effect.fn("checkLocally")(function* checkLocally(
       questions: [],
       renderProblem: null,
       report,
+      tasks: tasksUnrun(target.url, scenarios, report.outcomeDetail),
     };
 
     return unrendered;
@@ -136,6 +181,7 @@ export const checkLocally = Effect.fn("checkLocally")(function* checkLocally(
     questions,
     renderProblem: problem,
     report: withRendered(report, rendered),
+    tasks: yield* tasksOn(report.finalUrl ?? target.url, scenarios),
   };
 
   return checked;

@@ -23,6 +23,7 @@ const program = runCommand(process.argv.slice(2)).pipe(
       failWith(
         `${error.reason} Give a page address such as localhost:5173 or https://example.com.`
       ),
+    ScenarioFileUnreadable: (error) => failWith(error.message),
     TestChromeUnset: () => failWith(TEST_CHROME_UNSET),
   }),
   Effect.provide(NodeServices.layer)
