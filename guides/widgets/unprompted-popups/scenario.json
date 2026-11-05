@@ -1,0 +1,30 @@
+{
+  "id": "reject-cookies",
+  "goal": "Reject the cookies.",
+  "path": "/",
+  "keys": [
+    {
+      "press": "Tab"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "press": "Enter"
+    }
+  ],
+  "success": {
+    "absent": [
+      {
+        "role": "heading",
+        "name": "Cookies"
+      }
+    ],
+    "present": [
+      {
+        "role": "heading",
+        "name": "Trail notes"
+      }
+    ]
+  }
+}

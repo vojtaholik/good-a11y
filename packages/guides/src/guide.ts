@@ -1,3 +1,4 @@
+import { ScenarioSchema } from "@good-a11y/core/scenario";
 import { Schema } from "effect";
 
 const Filled = Schema.String.check(Schema.isMinLength(1));
@@ -55,6 +56,7 @@ export const GuideSchema = Schema.Struct({
   headings: Schema.Array(Schema.String),
   id: GuideIdSchema,
   name: Schema.String,
+  scenario: Schema.NullOr(ScenarioSchema),
   text: Schema.String,
 });
 

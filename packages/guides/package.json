@@ -35,6 +35,11 @@
       "import": "./dist/guide.js",
       "default": "./dist/guide.js"
     },
+    "./scenario-for-check": {
+      "types": "./src/scenario-for-check.ts",
+      "import": "./dist/scenario-for-check.js",
+      "default": "./dist/scenario-for-check.js"
+    },
     "./search": {
       "types": "./src/search.ts",
       "import": "./dist/search.js",
@@ -55,6 +60,7 @@
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {
+    "@good-a11y/core": "workspace:*",
     "@good-a11y/facts": "workspace:*",
     "effect": "4.0.0",
     "minisearch": "7.2.0",

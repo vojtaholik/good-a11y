@@ -1,3 +1,5 @@
+import { ScenarioSchema } from "@good-a11y/core/scenario";
+import type { Scenario } from "@good-a11y/core/scenario";
 import { verifiedFact } from "@good-a11y/facts";
 import { Result, Schema } from "effect";
 import { parse as parseYaml } from "yaml";
@@ -17,7 +19,12 @@ export const GUIDE_FILES = [
 
 export const FLOW_FILE = "flow.json";
 
-export type GuideFile = (typeof GUIDE_FILES)[number] | typeof FLOW_FILE;
+export const SCENARIO_FILE = "scenario.json";
+
+export type GuideFile =
+  | (typeof GUIDE_FILES)[number]
+  | typeof FLOW_FILE
+  | typeof SCENARIO_FILE;
 
 export const MAX_GUIDE_TOKENS = 3000;
 
@@ -65,6 +72,30 @@ const parseFlow = (
           means,
         }))
       );
+};
+
+const decodeScenario = Schema.decodeUnknownResult(
+  Schema.fromJsonString(ScenarioSchema)
+);
+
+const parseScenario = (
+  json: string | undefined
+): Result.Result<Scenario | null, string> => {
+  if (json === undefined) {
+    return Result.succeed(null);
+  }
+
+  const decoded = decodeScenario(json);
+
+  if (Result.isFailure(decoded)) {
+    return Result.fail(`${SCENARIO_FILE}: ${decoded.failure.message}`);
+  }
+
+  return decoded.success.keys === undefined
+    ? Result.fail(
+        `${SCENARIO_FILE}: give the keys that finish the task on demo.html, so a test can replay them`
+      )
+    : Result.succeed(decoded.success);
 };
 
 export const estimateTokens = (text: string): number =>
@@ -192,6 +223,12 @@ export const parseGuide = (
     return fail(flow.failure);
   }
 
+  const scenario = parseScenario(folder.files[SCENARIO_FILE]);
+
+  if (Result.isFailure(scenario)) {
+    return fail(scenario.failure);
+  }
+
   const headings = prose.flatMap((line) => {
     const heading = HEADING.exec(line)?.groups?.text;
 
@@ -208,6 +245,7 @@ export const parseGuide = (
     headings,
     id: folder.slug,
     name: meta.name,
+    scenario: scenario.success,
     text,
   });
 };

@@ -37,7 +37,8 @@ Do not use it for: backend code, build config, copy edits with no markup.
    - localhost or a private address: `npx -y good-a11y@0.1.0 check <url>`. It needs Chrome. Ask the user to allow exactly this command, with this version, never bare `npx`. When your sandbox blocks the server or the browser (`listen EPERM`, or `check` says a sandbox is blocking it), ask the user to run the server and `check` outside the sandbox, for example by approving the command to run unsandboxed. Do not skip the check silently.
    - a public URL: fetch `https://good-a11y.com/check.md?url=<url>`. While it says the check is running, fetch it again after the seconds it gives.
 5. For each guide you used whose feature someone has to act on (buying, signing in, swiping, a time limit, a status message), write the flow from the guide's "Flow for check" section into `a11y-flows.json`, one array, and run `npx -y good-a11y@0.1.0 check <url> --flow a11y-flows.json` on the local page.
-6. Fix each issue and each failing flow claim with the guide it links, then check again.
+6. For each guide you used that has a "Scenario for check" section (buying, signing in, fixing form errors, filling an address, a popup that opens on its own), write that task for your page into `a11y-tasks.json`, one array: the goal, the inputs, the keys a keyboard user would press, and what appears once it is done. Run `npx -y good-a11y@0.1.0 check <url> --flow a11y-flows.json --scenarios a11y-tasks.json`. A task that does not finish is a barrier: fix the page, never the keys.
+7. Fix each issue, each failing flow claim and each unfinished task with the guide it links, then check again.
 
 ## When the user gave no task
 
@@ -54,4 +55,4 @@ End with:
 ### Accessibility guidance used
 
 - `<guide id>`: what it changed in your code
-- `check`: its verdict, or why you could not run it
+- `check`: its verdict and, when you ran scenarios, its Task completion line, or why you could not run it

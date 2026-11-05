@@ -1,0 +1,24 @@
+{
+  "id": "buy-and-confirm",
+  "goal": "Buy the Rain jacket with Buy now, check the order and place it.",
+  "path": "/",
+  "keys": [
+    {
+      "press": "Tab"
+    },
+    {
+      "press": "Enter"
+    },
+    {
+      "press": "Enter"
+    }
+  ],
+  "success": {
+    "present": [
+      {
+        "role": "heading",
+        "name": "Thank you"
+      }
+    ]
+  }
+}

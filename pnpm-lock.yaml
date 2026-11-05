@@ -751,6 +751,9 @@ importers:
 
   packages/guides:
     dependencies:
+      '@good-a11y/core':
+        specifier: workspace:*
+        version: link:../core
       '@good-a11y/facts':
         specifier: workspace:*
         version: link:../facts

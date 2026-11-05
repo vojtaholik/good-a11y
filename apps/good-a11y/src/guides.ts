@@ -1,4 +1,9 @@
-import { GUIDES, flowForCheck, makeGuideIndex } from "@good-a11y/guides";
+import {
+  GUIDES,
+  flowForCheck,
+  makeGuideIndex,
+  scenarioForCheck,
+} from "@good-a11y/guides";
 import type { GuideHit } from "@good-a11y/guides";
 import { Console, Effect } from "effect";
 import { Argument, Command } from "effect/cli";
@@ -51,7 +56,14 @@ export const retrieveCommand = Command.make(
 
     const text = guides
       .map((guide) =>
-        [guide.text.trimEnd(), "", ...flowForCheck(guide)].join("\n").trimEnd()
+        [
+          guide.text.trimEnd(),
+          "",
+          ...flowForCheck(guide),
+          ...scenarioForCheck(guide),
+        ]
+          .join("\n")
+          .trimEnd()
       )
       .join("\n\n");
 

@@ -1,0 +1,61 @@
+{
+  "id": "fix-errors-and-create",
+  "goal": "Press Create account with the form empty, then fill in what the form asks for and create the account.",
+  "path": "/",
+  "inputs": {
+    "name": "Jana Novakova",
+    "email": "jana@example.com",
+    "password": "correct horse battery staple"
+  },
+  "keys": [
+    {
+      "press": "Tab"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "press": "Enter"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "press": "Enter"
+    },
+    {
+      "type": "name"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "type": "email"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "type": "password"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "press": "Enter"
+    }
+  ],
+  "success": {
+    "present": [
+      {
+        "text": "Account created"
+      }
+    ]
+  }
+}

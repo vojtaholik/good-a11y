@@ -10,6 +10,7 @@ A guide is `guides/<category>/<slug>/` at the repo root with three files:
 - `demo.html`: a working reference page, the live specimen on the site.
 - `expectations.md`: testable claims for the eval graders.
 - `flow.json` (when the grader reads targets): each target key the grader reads, `{"<key>": {"means": "one line", "demo": <its value on demo.html>}}`. The grader takes a key's default from `demo` and throws on a key the file does not declare. The served guide and `retrieve` render it as the "Flow for check" section (`docs/flows.md`).
+- `scenario.json` (when the guide's feature is a task a person has to finish): one scenario in the `--scenarios` format, with the `keys` that finish it on `demo.html`. `packages/guides` decodes it with core's `ScenarioSchema` and rejects one without keys; `evals/graders/scenarios.spec.ts` replays the keys on the demo and fails unless the success condition holds after them and not before. The served guide, `retrieve` and the eval runner's installed guides render it as the "Scenario for check" section (`docs/scenarios.md`).
 
 ```yaml
 ---

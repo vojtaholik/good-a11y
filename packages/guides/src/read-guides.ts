@@ -1,9 +1,9 @@
 import { Effect, FileSystem, Path } from "effect";
 
-import { FLOW_FILE, GUIDE_FILES, parseGuides } from "./parse.js";
+import { FLOW_FILE, GUIDE_FILES, SCENARIO_FILE, parseGuides } from "./parse.js";
 import type { GuideFile, GuideFolder } from "./parse.js";
 
-const FILES: readonly GuideFile[] = [...GUIDE_FILES, FLOW_FILE];
+const FILES: readonly GuideFile[] = [...GUIDE_FILES, FLOW_FILE, SCENARIO_FILE];
 
 export const GUIDES_DIRECTORY = "guides";
 

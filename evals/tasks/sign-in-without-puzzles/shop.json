@@ -10,5 +10,25 @@
   ],
   "targets": {
     "signedIn": "Outdoor gear"
-  }
+  },
+  "scenarios": [
+    {
+      "id": "sign-in",
+      "goal": "Sign in with your email and password.",
+      "path": "/sign-in",
+      "inputs": {
+        "email": "jana@example.com",
+        "password": "correct horse battery staple"
+      },
+      "success": {
+        "path": "/",
+        "present": [
+          {
+            "role": "heading",
+            "name": "Outdoor gear"
+          }
+        ]
+      }
+    }
+  ]
 }

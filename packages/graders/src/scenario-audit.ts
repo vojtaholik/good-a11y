@@ -37,6 +37,8 @@ const SETTLE_POLLS = 20;
 
 const FOCUS_MS = 1000;
 
+const TYPE_DELAY_MS = 50;
+
 const timedOut = (ms: number): string =>
   `The run did not finish within ${ms / 1000} seconds.`;
 
@@ -106,7 +108,7 @@ const play = (page: Page, scenario: Scenario, step: ScenarioStep) =>
       }
 
       yield* attempt(async () => {
-        await page.keyboard.type(value);
+        await page.keyboard.type(value, { delay: TYPE_DELAY_MS });
       });
     }
 

@@ -17,5 +17,21 @@
       "exact": false
     },
     "placed": "Thank you"
-  }
+  },
+  "scenarios": [
+    {
+      "id": "buy-now-and-place",
+      "goal": "Buy the Rain jacket with its Buy now button, check the order and place it.",
+      "path": "/",
+      "success": {
+        "path": "/order-placed",
+        "present": [
+          {
+            "role": "heading",
+            "name": "Thank you"
+          }
+        ]
+      }
+    }
+  ]
 }

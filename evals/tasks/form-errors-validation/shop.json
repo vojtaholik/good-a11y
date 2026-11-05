@@ -8,5 +8,29 @@
       "role": "button",
       "name": "Place order"
     }
-  }
+  },
+  "scenarios": [
+    {
+      "id": "fix-errors-and-place",
+      "goal": "Press Place order with the form empty, then fill in what the form asks for and place the order.",
+      "path": "/checkout",
+      "inputs": {
+        "name": "Jana Novakova",
+        "email": "jana@example.com",
+        "street": "Hlavni 1",
+        "city": "Brno",
+        "postal": "602 00",
+        "country": "Czechia"
+      },
+      "success": {
+        "path": "/order-placed",
+        "present": [
+          {
+            "role": "heading",
+            "name": "Thank you"
+          }
+        ]
+      }
+    }
+  ]
 }

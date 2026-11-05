@@ -15,12 +15,15 @@ export {
 
 export { FLOW_FOR_CHECK, flowForCheck } from "./flow-for-check.js";
 
+export { SCENARIO_FOR_CHECK, scenarioForCheck } from "./scenario-for-check.js";
+
 export { GUIDES } from "./guides.generated.js";
 
 export {
   FLOW_FILE,
   GUIDE_FILES,
   MAX_GUIDE_TOKENS,
+  SCENARIO_FILE,
   estimateTokens,
   parseGuide,
   parseGuides,

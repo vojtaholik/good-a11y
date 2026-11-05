@@ -1,0 +1,33 @@
+{
+  "id": "sign-in",
+  "goal": "Sign in with your email and password.",
+  "path": "/",
+  "inputs": {
+    "email": "jana@example.com",
+    "password": "correct horse battery staple"
+  },
+  "keys": [
+    {
+      "press": "Tab"
+    },
+    {
+      "type": "email"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "type": "password"
+    },
+    {
+      "press": "Enter"
+    }
+  ],
+  "success": {
+    "present": [
+      {
+        "text": "Welcome back"
+      }
+    ]
+  }
+}

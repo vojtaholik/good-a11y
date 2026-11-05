@@ -7,5 +7,29 @@
     "popup": {
       "text": "remember your cart"
     }
-  }
+  },
+  "scenarios": [
+    {
+      "id": "buy-past-the-banner",
+      "goal": "Buy the Rain jacket and place the order.",
+      "path": "/",
+      "inputs": {
+        "name": "Jana Novakova",
+        "email": "jana@example.com",
+        "street": "Hlavni 1",
+        "city": "Brno",
+        "postal": "602 00",
+        "country": "Czechia"
+      },
+      "success": {
+        "path": "/order-placed",
+        "present": [
+          {
+            "role": "heading",
+            "name": "Thank you"
+          }
+        ]
+      }
+    }
+  ]
 }

@@ -137,6 +137,7 @@
         </fieldset>
         <button type="submit">Place order</button>
       </form>
+      <p id="placed" role="status"></p>
     </main>
     <script>
       const same = document.getElementById("same");
@@ -144,6 +145,11 @@
 
       same.addEventListener("change", () => {
         billing.hidden = same.checked;
+      });
+
+      document.querySelector("form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        document.getElementById("placed").textContent = "Order placed.";
       });
     </script>
   </body>

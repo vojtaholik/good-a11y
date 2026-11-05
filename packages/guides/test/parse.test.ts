@@ -1,5 +1,6 @@
 import { NodeServices } from "@effect/platform-node";
 import { describe, expect, it } from "@effect/vitest";
+import type { Scenario } from "@good-a11y/core/scenario";
 import { Effect, Path, Result } from "effect";
 
 import { parseGuide, parseGuides, readGuides } from "../src/index.js";
@@ -104,6 +105,35 @@ describe("a malformed guide fails with what to fix", () => {
         folder("# Skip", { files: { "guide.md": `${frontmatter}# Skip` } })
       )
     ).toContain("missing demo.html, expectations.md");
+  });
+
+  it("reads a scenario with the keys that finish it on the demo, and refuses one without keys", () => {
+    const input = folder("# Skip");
+
+    const scenario = {
+      goal: "Skip to the content",
+      id: "skip",
+      success: { present: [{ text: "Main content" }] },
+    };
+
+    const withScenario = (value: Scenario) =>
+      parseGuide({
+        ...input,
+        files: { ...input.files, "scenario.json": JSON.stringify(value) },
+      });
+
+    const parsed = withScenario({ ...scenario, keys: [{ press: "Tab" }] });
+
+    expect(Result.isSuccess(parsed) ? parsed.success.scenario?.id : null).toBe(
+      "skip"
+    );
+    expect(Result.isSuccess(parseGuide(input)) ? "ok" : "failed").toBe("ok");
+
+    const refused = withScenario(scenario);
+
+    expect(Result.isFailure(refused) ? refused.failure.message : "").toContain(
+      "give the keys that finish the task on demo.html"
+    );
   });
 
   it("rejects a guide over 3,000 tokens", () => {

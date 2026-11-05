@@ -3,9 +3,37 @@
   "app": "shop",
   "path": "/checkout",
   "prompt": "In checkout, add a \"Billing address\" section after the delivery address with the same four fields: street and number, city, postal code and country. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions.",
-  "requires": [{ "text": "Billing address" }],
+  "requires": [
+    {
+      "text": "Billing address"
+    }
+  ],
   "targets": {
     "source": ["Street and number", "City", "Postal code", "Country"],
     "repeat": ["Street and number", "City", "Postal code", "Country"]
-  }
+  },
+  "scenarios": [
+    {
+      "id": "place-with-same-billing",
+      "goal": "Place the order, with the billing address the same as the delivery address.",
+      "path": "/checkout",
+      "inputs": {
+        "name": "Jana Novakova",
+        "email": "jana@example.com",
+        "street": "Hlavni 1",
+        "city": "Brno",
+        "postal": "602 00",
+        "country": "Czechia"
+      },
+      "success": {
+        "path": "/order-placed",
+        "present": [
+          {
+            "role": "heading",
+            "name": "Thank you"
+          }
+        ]
+      }
+    }
+  ]
 }

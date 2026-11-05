@@ -1,0 +1,53 @@
+{
+  "id": "order-same-billing",
+  "goal": "Enter the delivery address, use the same address for billing, and place the order.",
+  "path": "/",
+  "inputs": {
+    "street": "Hlavni 1",
+    "city": "Brno",
+    "postal": "602 00",
+    "country": "Czechia"
+  },
+  "keys": [
+    {
+      "press": "Tab"
+    },
+    {
+      "type": "street"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "type": "city"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "type": "postal"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "type": "country"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "press": "Tab"
+    },
+    {
+      "press": "Enter"
+    }
+  ],
+  "success": {
+    "present": [
+      {
+        "text": "Order placed"
+      }
+    ]
+  }
+}

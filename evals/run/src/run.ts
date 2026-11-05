@@ -1,5 +1,10 @@
 import { headlessShellPath } from "@good-a11y/browser-audit/headless-shell";
-import { GUIDES, flowForCheck, withGuideIndex } from "@good-a11y/guides";
+import {
+  GUIDES,
+  flowForCheck,
+  scenarioForCheck,
+  withGuideIndex,
+} from "@good-a11y/guides";
 import {
   Clock,
   Config,
@@ -223,7 +228,12 @@ export const prepareProject = Effect.fn("prepareProject")(
       for (const guide of GUIDES) {
         yield* fileSystem.writeFileString(
           path.join(project, INSTALLED_GUIDES, `${guide.id}.md`),
-          [guide.text.trimEnd(), "", ...flowForCheck(guide)].join("\n")
+          [
+            guide.text.trimEnd(),
+            "",
+            ...flowForCheck(guide),
+            ...scenarioForCheck(guide),
+          ].join("\n")
         );
       }
 
