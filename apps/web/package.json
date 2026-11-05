@@ -27,6 +27,7 @@
   "devDependencies": {
     "@effect/vitest": "4.0.0",
     "@foldkit/vite-plugin": "0.26.1",
+    "@good-a11y/browser-audit": "workspace:*",
     "@good-a11y/html-reader": "workspace:*",
     "@playwright/test": "1.64.1",
     "@stylexjs/unplugin": "0.19.1",

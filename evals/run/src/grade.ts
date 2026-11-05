@@ -1,3 +1,4 @@
+import { headlessShellPath } from "@good-a11y/browser-audit/headless-shell";
 import { ReportSchema, issueGroupsOf } from "@good-a11y/core";
 import { guidesForCheck } from "@good-a11y/guides";
 import { Context, Effect, Layer, Schema } from "effect";
@@ -144,12 +145,14 @@ export const liveGraders = (paths: {
       const check = Effect.fn("check")(function* check(input: GradeInput) {
         const output = yield* spawner
           .string(
-            ChildProcess.make(process.execPath, [
-              paths.bundle,
-              "check",
-              "--json",
-              input.url,
-            ])
+            ChildProcess.make(
+              process.execPath,
+              [paths.bundle, "check", "--json", input.url],
+              {
+                env: { GOOD_A11Y_CHROME: headlessShellPath() },
+                extendEnv: true,
+              }
+            )
           )
           .pipe(
             Effect.mapError(

@@ -63,6 +63,12 @@ export default defineConfig({
       },
     },
     {
+      files: ["apps/web/test/**"],
+      rules: {
+        "rat-stack-boundaries/no-local-mode-in-hosted-apps": "off",
+      },
+    },
+    {
       files: ["apps/web/src/**/*.ts"],
       rules: foldkitRules,
     },

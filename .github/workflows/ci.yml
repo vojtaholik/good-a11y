@@ -24,6 +24,8 @@ jobs:
         run: corepack enable && corepack prepare pnpm@11.3.0 --activate
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Install chrome-headless-shell for the browser tests
+        run: pnpm chrome:install
       - name: Check and test
         # Serialize Turbo tasks so concurrent Vitest pools do not contend on the CI runner.
         run: pnpm turbo run check test build --concurrency=1

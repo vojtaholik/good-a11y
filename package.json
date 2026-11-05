@@ -30,7 +30,8 @@
     "facts": "pnpm --filter @good-a11y/facts run facts",
     "guides": "pnpm --filter @good-a11y/guides run guides",
     "evals:graders": "pnpm --filter @good-a11y/evals run graders",
-    "good-a11y:bundle": "turbo run build --filter=good-a11y && pnpm --filter good-a11y run bundle"
+    "good-a11y:bundle": "turbo run build --filter=good-a11y && pnpm --filter good-a11y run bundle",
+    "chrome:install": "pnpm --filter @good-a11y/browser-audit run chrome:install"
   },
   "dependencies": {
     "puppeteer-core": "25.13.0"

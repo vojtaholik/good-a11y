@@ -24,6 +24,11 @@
       "types": "./src/node.ts",
       "import": "./dist/node.js",
       "default": "./dist/node.js"
+    },
+    "./headless-shell": {
+      "types": "./src/headless-shell.ts",
+      "import": "./dist/headless-shell.js",
+      "default": "./dist/headless-shell.js"
     }
   },
   "scripts": {
@@ -31,16 +36,19 @@
     "test": "vitest run",
     "build": "tsc -p tsconfig.build.json && tsc -p page/tsconfig.json && node scripts/embed-page-scripts.ts",
     "check": "pnpm run typecheck",
-    "pretest": "pnpm run --silent build"
+    "pretest": "pnpm run --silent build",
+    "chrome:install": "pnpm run --silent build && node scripts/install-headless-shell.ts"
   },
   "dependencies": {
     "@cloudflare/puppeteer": "1.4.0",
     "@good-a11y/core": "workspace:*",
+    "@puppeteer/browsers": "3.2.6",
     "axe-core": "4.14.0",
     "effect": "4.0.0",
     "puppeteer-core": "25.13.0"
   },
   "devDependencies": {
+    "@effect/platform-node": "4.0.0",
     "@effect/vitest": "4.0.0",
     "@types/node": "24.13.6",
     "happy-dom": "21.0.4",

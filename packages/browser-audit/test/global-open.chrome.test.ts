@@ -6,6 +6,7 @@ import path from "node:path";
 import { describe, expect, it } from "@effect/vitest";
 import { Effect, Schema } from "effect";
 
+import { headlessShellPath } from "../src/headless-shell.js";
 import { localChromeSession } from "../src/node.js";
 
 const PAGE = readFileSync(
@@ -47,7 +48,9 @@ describe("the popup guard in a page that declares its own open", () => {
     Effect.gen(function* globalOpen() {
       const { port, requests } = yield* pageServer;
 
-      const session = yield* localChromeSession({ executablePath: null });
+      const session = yield* localChromeSession({
+        executablePath: headlessShellPath(),
+      });
 
       const html = yield* session
         .open(`http://127.0.0.1:${port}/`)

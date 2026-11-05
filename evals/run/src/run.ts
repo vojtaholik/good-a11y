@@ -1,3 +1,4 @@
+import { headlessShellPath } from "@good-a11y/browser-audit/headless-shell";
 import { GUIDES, flowForCheck, withGuideIndex } from "@good-a11y/guides";
 import {
   Clock,
@@ -262,7 +263,10 @@ const runAgent = Effect.fn("runAgent")(function* runAgent(
   const finished: AgentOutcome = yield* runToEnd(
     invocation.command,
     invocation.args,
-    { cwd: project, env: invocation.env }
+    {
+      cwd: project,
+      env: { ...invocation.env, GOOD_A11Y_CHROME: headlessShellPath() },
+    }
   ).pipe(
     Effect.timeoutOrElse({
       duration: spec.timeout,

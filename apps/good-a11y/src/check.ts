@@ -12,8 +12,18 @@ import { playwrightFlowAuditLayer } from "@good-a11y/graders";
 import { guidesForCheck } from "@good-a11y/guides";
 import { htmlPageReaderLayer } from "@good-a11y/html-reader";
 import { localNodeHopTransportLayer } from "@good-a11y/http-transport/node";
-import { Console, Effect, FileSystem, Layer, Option, Schema } from "effect";
+import {
+  Config,
+  Console,
+  Effect,
+  FileSystem,
+  Layer,
+  Option,
+  Schema,
+} from "effect";
 import { Argument, Command, Flag } from "effect/cli";
+
+const CHROME_ENV = "GOOD_A11Y_CHROME";
 
 export const guideUrl = (id: string): string =>
   `https://good-a11y.com/${id}.md`;
@@ -49,7 +59,7 @@ export const checkCommand = Command.make(
   {
     chrome: Flag.String("chrome").pipe(
       Flag.withDescription(
-        "Path to the Chrome or Chromium binary. Default: the installed Google Chrome"
+        "Path to the Chrome or Chromium binary. Default: the path in GOOD_A11Y_CHROME, else the installed Google Chrome"
       ),
       Flag.optional
     ),
@@ -71,9 +81,12 @@ export const checkCommand = Command.make(
   },
   Effect.fn("check")(function* check({ chrome, flow, json, url }) {
     const flows = Option.isSome(flow) ? yield* flowsFrom(flow.value) : [];
+    const chromeFromEnv = yield* Config.String(CHROME_ENV).pipe(Config.option);
 
     const checked = yield* checkLocally(url, flows).pipe(
-      Effect.provide(localLayer(Option.getOrNull(chrome)))
+      Effect.provide(
+        localLayer(Option.getOrNull(Option.orElse(chrome, () => chromeFromEnv)))
+      )
     );
 
     yield* Console.log(

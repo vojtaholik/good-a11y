@@ -3,6 +3,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 
 import { describe, expect, it } from "@effect/vitest";
+import { headlessShellPath } from "@good-a11y/browser-audit/headless-shell";
 import { ReportSchema, issueGroupsOf } from "@good-a11y/core";
 import { Effect, Schema } from "effect";
 
@@ -15,7 +16,9 @@ const BUNDLE = path.join(
 
 const checkJson = (url: string) =>
   Effect.callback<string>((resume) => {
-    const child = spawn(process.execPath, [BUNDLE, "check", "--json", url]);
+    const child = spawn(process.execPath, [BUNDLE, "check", "--json", url], {
+      env: { ...process.env, GOOD_A11Y_CHROME: headlessShellPath() },
+    });
 
     let stdout = "";
 

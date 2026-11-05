@@ -3,6 +3,7 @@ import { spawn } from "node:child_process";
 import { createServer } from "node:http";
 
 import { describe, expect, it } from "@effect/vitest";
+import { headlessShellPath } from "@good-a11y/browser-audit/headless-shell";
 import { ReportSchema, issueGroupsOf } from "@good-a11y/core";
 import { GUIDES } from "@good-a11y/guides";
 import { Effect, Schema } from "effect";
@@ -46,12 +47,13 @@ const demoServer = Effect.acquireRelease(
 
 const checkJson = (url: string) =>
   Effect.callback<string>((resume) => {
-    const child = spawn(process.execPath, [
-      BUNDLE_PATH,
-      "check",
-      "--json",
-      url,
-    ]);
+    const child = spawn(
+      process.execPath,
+      [BUNDLE_PATH, "check", "--json", url],
+      {
+        env: { ...process.env, GOOD_A11Y_CHROME: headlessShellPath() },
+      }
+    );
 
     let stdout = "";
 

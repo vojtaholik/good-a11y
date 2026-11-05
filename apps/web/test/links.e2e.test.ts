@@ -1,5 +1,6 @@
 // @effect-diagnostics asyncFunction:off -- Playwright is a Promise API; each browser step is a plain async function the Effect test awaits.
 import { describe, expect, it } from "@effect/vitest";
+import { headlessShellPath } from "@good-a11y/browser-audit/headless-shell";
 import { chromium } from "@playwright/test";
 import type { Browser, Page } from "@playwright/test";
 import { Effect } from "effect";
@@ -9,7 +10,9 @@ import { PAGES, siteServer } from "./site-server.js";
 const EXTERNAL = "External page stand-in";
 
 const browser = Effect.acquireRelease(
-  Effect.promise(async () => await chromium.launch({ channel: "chrome" })),
+  Effect.promise(
+    async () => await chromium.launch({ executablePath: headlessShellPath() })
+  ),
   (opened) =>
     Effect.promise(async () => {
       await opened.close();
