@@ -1,0 +1,14 @@
+{
+  "source": {
+    "means": "Labels of the fields the user fills first.",
+    "demo": ["Street and number", "City", "Postal code", "Country"]
+  },
+  "repeat": {
+    "means": "Labels of the later fields that ask for the same data, in the same order.",
+    "demo": ["Street and number", "City", "Postal code", "Country"]
+  },
+  "next": {
+    "means": "Name of the button that leads from the first fields to the repeated ones; an empty string when both are on one step.",
+    "demo": ""
+  }
+}

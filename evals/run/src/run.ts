@@ -1,4 +1,4 @@
-import { GUIDES, withGuideIndex } from "@good-a11y/guides";
+import { GUIDES, flowForCheck, withGuideIndex } from "@good-a11y/guides";
 import {
   Clock,
   Config,
@@ -163,7 +163,7 @@ export const prepareProject = Effect.fn("prepareProject")(
       for (const guide of GUIDES) {
         yield* fileSystem.writeFileString(
           path.join(project, INSTALLED_GUIDES, `${guide.id}.md`),
-          guide.text
+          [guide.text.trimEnd(), "", ...flowForCheck(guide)].join("\n")
         );
       }
 

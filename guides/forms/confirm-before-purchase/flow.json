@@ -1,0 +1,14 @@
+{
+  "buy": {
+    "means": "The control that starts the purchase.",
+    "demo": {
+      "role": "button",
+      "name": "Buy now",
+      "exact": false
+    }
+  },
+  "placed": {
+    "means": "Text the page shows once the order is placed.",
+    "demo": "Thank you"
+  }
+}

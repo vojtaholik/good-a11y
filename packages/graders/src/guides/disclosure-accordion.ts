@@ -9,13 +9,9 @@ import type { Grader } from "../grader.js";
 import { accessibleName } from "../name.js";
 import { focusedIsSeen } from "../visible.js";
 
-const toggle = (page: Page, flow: Flow) =>
-  target(page, flow, "toggle", { name: "Shipping", role: "button" });
+const toggle = (page: Page, flow: Flow) => target(page, flow, "toggle");
 
-const content = (page: Page, flow: Flow) =>
-  target(page, flow, "content", {
-    text: "Orders ship within two working days",
-  });
+const content = (page: Page, flow: Flow) => target(page, flow, "content");
 
 export const grader: Grader = {
   claims: [

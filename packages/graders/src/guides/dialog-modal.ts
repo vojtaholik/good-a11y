@@ -13,8 +13,7 @@ const DIALOG = 'dialog[open], [role="dialog"], [role="alertdialog"]';
 const visibleDialogs = (page: Page) =>
   page.locator(DIALOG).filter({ visible: true });
 
-const opener = (page: Page, flow: Flow) =>
-  target(page, flow, "opener", { name: "Delete project", role: "button" });
+const opener = (page: Page, flow: Flow) => target(page, flow, "opener");
 
 const show = async (page: Page, flow: Flow) => {
   await opener(page, flow).focus();
@@ -133,10 +132,7 @@ export const grader: Grader = {
       "the cancel button closes and returns focus to the opener",
       async ({ page, flow }) => {
         await show(page, flow);
-        await target(page, flow, "close", {
-          name: "Cancel",
-          role: "button",
-        }).click();
+        await target(page, flow, "close").click();
         await expect(visibleDialogs(page)).toHaveCount(0);
         await expect(opener(page, flow)).toBeFocused();
       }

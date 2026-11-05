@@ -1,6 +1,8 @@
 // @effect-diagnostics asyncFunction:off -- Playwright drives the browser through Promise-based callbacks; graders hold no Effect code.
 import { FlowTargetSchema } from "@good-a11y/core";
 import type { Flow, FlowTarget } from "@good-a11y/core";
+import { GUIDES } from "@good-a11y/guides";
+import type { FlowValue } from "@good-a11y/guides";
 import { Schema } from "effect";
 import { expect } from "playwright/test";
 import type { Locator, Page } from "playwright/test";
@@ -60,32 +62,50 @@ export const locate = (page: Page, target: FlowTarget): Locator => {
     .nth(target.nth ?? 0);
 };
 
-export const target = (
-  page: Page,
+const declared = (flow: Flow, key: string): FlowValue => {
+  const entry = GUIDES.find((guide) => guide.id === flow.guide)?.flow.find(
+    (candidate) => candidate.key === key
+  );
+
+  if (entry === undefined) {
+    throw new Error(
+      `The ${flow.guide} grader reads the target "${key}", which the guide's flow.json does not declare. Declare it there with what it means and its value on the demo.`
+    );
+  }
+
+  return entry.demo;
+};
+
+const valueOf = <A>(
   flow: Flow,
   key: string,
-  demo: FlowTarget
-): Locator => {
+  is: (value: unknown) => value is A,
+  kind: string
+): A => {
+  const demo = declared(flow, key);
   const given = flow.targets?.[key];
 
-  return locate(page, isTarget(given) ? given : demo);
+  if (is(given)) {
+    return given;
+  }
+
+  if (!is(demo)) {
+    throw new Error(
+      `The ${flow.guide} guide's flow.json gives "${key}" a demo value that is not ${kind}.`
+    );
+  }
+
+  return demo;
 };
 
-export const text = (flow: Flow, key: string, demo: string): string => {
-  const given = flow.targets?.[key];
+export const target = (page: Page, flow: Flow, key: string): Locator =>
+  locate(page, valueOf(flow, key, isTarget, "a target"));
 
-  return isText(given) ? given : demo;
-};
+export const text = (flow: Flow, key: string): string =>
+  valueOf(flow, key, isText, "a string");
 
-export const texts = (
-  flow: Flow,
-  key: string,
-  demo: readonly string[]
-): readonly string[] => {
-  const given = flow.targets?.[key];
-
-  return isTexts(given) ? given : demo;
-};
+export const texts = (flow: Flow, key: string): readonly string[] =>
+  valueOf(flow, key, isTexts, "a list of strings");
 
 export const openFlow = async (
   page: Page,

@@ -1,0 +1,18 @@
+{
+  "start": {
+    "means": "The control that starts the time limit.",
+    "demo": {
+      "role": "button",
+      "name": "Add to cart",
+      "nth": 0
+    }
+  },
+  "limitMinutes": {
+    "means": "The time limit in minutes.",
+    "demo": "15"
+  },
+  "expired": {
+    "means": "Text the page shows when the time is up.",
+    "demo": "expired"
+  }
+}

@@ -8,16 +8,7 @@ import { claim } from "../grader.js";
 import type { Grader } from "../grader.js";
 
 const fields = (flow: Flow) =>
-  texts(flow, "fields", [
-    "First name=given-name",
-    "Last name=family-name",
-    "Email=email",
-    "Phone=tel",
-    "Street and number=street-address|address-line1",
-    "City=address-level2",
-    "Postal code=postal-code",
-    "Country=country-name|country",
-  ]).map((entry) => {
+  texts(flow, "fields").map((entry) => {
     const [label = "", tokens = ""] = entry.split("=");
 
     return { label, tokens: tokens.split("|") };

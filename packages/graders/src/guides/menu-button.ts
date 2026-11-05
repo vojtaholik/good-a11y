@@ -7,8 +7,7 @@ import { target } from "../flow.js";
 import { claim } from "../grader.js";
 import type { Grader } from "../grader.js";
 
-const trigger = (page: Page, flow: Flow) =>
-  target(page, flow, "trigger", { name: "Actions", role: "button" });
+const trigger = (page: Page, flow: Flow) => target(page, flow, "trigger");
 
 const menu = (page: Page) => page.getByRole("menu").filter({ visible: true });
 
@@ -95,10 +94,7 @@ export const grader: Grader = {
         await openMenu(page, flow);
         await expect(items(page).first()).toBeFocused();
 
-        const safe = target(page, flow, "safeItem", {
-          name: "Duplicate",
-          role: "menuitem",
-        });
+        const safe = target(page, flow, "safeItem");
 
         for (let press = 0; press < 10; press += 1) {
           if (await safe.evaluate((node) => node === document.activeElement)) {

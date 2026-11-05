@@ -21,12 +21,37 @@ export const GuideFrontmatterSchema = Schema.Struct({
 
 export type GuideFrontmatter = typeof GuideFrontmatterSchema.Type;
 
+export const FlowValueSchema = Schema.Union([
+  Schema.String,
+  Schema.Array(Schema.String),
+  Schema.Record(
+    Schema.String,
+    Schema.Union([Schema.String, Schema.Int, Schema.Boolean])
+  ),
+]);
+
+export type FlowValue = typeof FlowValueSchema.Type;
+
+export const FlowFileSchema = Schema.Record(
+  Schema.String.check(Schema.isPattern(/^[a-z][a-zA-Z\d]*$/u)),
+  Schema.Struct({ demo: FlowValueSchema, means: OneLine })
+);
+
+export const FlowKeySchema = Schema.Struct({
+  demo: FlowValueSchema,
+  key: Schema.String,
+  means: Schema.String,
+});
+
+export type FlowKey = typeof FlowKeySchema.Type;
+
 export const GuideSchema = Schema.Struct({
   category: GuideIdSchema,
   criteria: Schema.NonEmptyArray(CriterionIdSchema),
   demo: Schema.String,
   description: Schema.String,
   expectations: Schema.String,
+  flow: Schema.Array(FlowKeySchema),
   headings: Schema.Array(Schema.String),
   id: GuideIdSchema,
   name: Schema.String,

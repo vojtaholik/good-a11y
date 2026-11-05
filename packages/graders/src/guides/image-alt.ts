@@ -108,7 +108,7 @@ export const grader: Grader = {
     }),
 
     claim(6, "a chart has its data as text", async ({ page, flow }) => {
-      const values = texts(flow, "chartData", ["400", "600", "850", "1,100"]);
+      const values = texts(flow, "chartData");
 
       if (values.length > 0) {
         const asText = await page.evaluate(() =>

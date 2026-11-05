@@ -1,0 +1,15 @@
+{
+  "toggle": {
+    "means": "The button that shows and hides the panel.",
+    "demo": {
+      "role": "button",
+      "name": "Shipping"
+    }
+  },
+  "content": {
+    "means": "Text inside the panel, hidden while it is closed.",
+    "demo": {
+      "text": "Orders ship within two working days"
+    }
+  }
+}

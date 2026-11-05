@@ -1,0 +1,6 @@
+{
+  "chartData": {
+    "means": "Values a chart shows, which must also be on the page as text; an empty list when there is no chart.",
+    "demo": ["400", "600", "850", "1,100"]
+  }
+}

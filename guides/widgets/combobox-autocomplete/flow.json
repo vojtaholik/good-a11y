@@ -1,0 +1,13 @@
+{
+  "field": {
+    "means": "The combobox's text field.",
+    "demo": {
+      "role": "combobox",
+      "name": "City"
+    }
+  },
+  "query": {
+    "means": "What to type so the list shows suggestions.",
+    "demo": "B"
+  }
+}

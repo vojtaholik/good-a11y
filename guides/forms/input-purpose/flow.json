@@ -1,0 +1,15 @@
+{
+  "fields": {
+    "means": "Each personal-data field as its label, = and the autocomplete tokens it may have, separated by |.",
+    "demo": [
+      "First name=given-name",
+      "Last name=family-name",
+      "Email=email",
+      "Phone=tel",
+      "Street and number=street-address|address-line1",
+      "City=address-level2",
+      "Postal code=postal-code",
+      "Country=country-name|country"
+    ]
+  }
+}

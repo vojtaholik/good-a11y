@@ -28,7 +28,7 @@ const signIn = async (page: Page): Promise<void> => {
 
 const signedIn = async (page: Page, flow: Flow): Promise<boolean> => {
   const shown = await page
-    .getByText(text(flow, "signedIn", "Welcome back"), { exact: false })
+    .getByText(text(flow, "signedIn"), { exact: false })
     .filter({ visible: true })
     .count();
 

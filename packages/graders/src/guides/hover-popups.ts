@@ -42,7 +42,7 @@ const newContent = async (page: Page): Promise<readonly Box[]> =>
   );
 
 const restOnTrigger = async (page: Page, flow: Flow): Promise<Box> => {
-  const trigger = target(page, flow, "trigger", { css: "#trigger" });
+  const trigger = target(page, flow, "trigger");
 
   await trigger.scrollIntoViewIfNeeded();
   await page.evaluate((seen) => {

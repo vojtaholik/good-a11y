@@ -1,0 +1,13 @@
+{
+  "action": {
+    "means": "The control whose result is announced as a status message.",
+    "demo": {
+      "role": "button",
+      "name": "Add to cart"
+    }
+  },
+  "message": {
+    "means": "Text of the status message.",
+    "demo": "Rain jacket added"
+  }
+}

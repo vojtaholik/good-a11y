@@ -25,6 +25,11 @@
       "import": "./dist/guides.generated.js",
       "default": "./dist/guides.generated.js"
     },
+    "./flow-for-check": {
+      "types": "./src/flow-for-check.ts",
+      "import": "./dist/flow-for-check.js",
+      "default": "./dist/flow-for-check.js"
+    },
     "./guide": {
       "types": "./src/guide.ts",
       "import": "./dist/guide.js",

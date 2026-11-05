@@ -1,0 +1,16 @@
+{
+  "trigger": {
+    "means": "The button that opens the menu.",
+    "demo": {
+      "role": "button",
+      "name": "Actions"
+    }
+  },
+  "safeItem": {
+    "means": "A menu item that is safe to choose during the check.",
+    "demo": {
+      "role": "menuitem",
+      "name": "Duplicate"
+    }
+  }
+}

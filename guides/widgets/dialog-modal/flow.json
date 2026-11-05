@@ -1,0 +1,16 @@
+{
+  "opener": {
+    "means": "The control that opens the dialog.",
+    "demo": {
+      "role": "button",
+      "name": "Delete project"
+    }
+  },
+  "close": {
+    "means": "The control inside the dialog that closes it without acting.",
+    "demo": {
+      "role": "button",
+      "name": "Cancel"
+    }
+  }
+}

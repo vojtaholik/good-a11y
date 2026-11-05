@@ -7,8 +7,7 @@ import { target } from "../flow.js";
 import { claim } from "../grader.js";
 import type { Grader } from "../grader.js";
 
-const submit = (page: Page, flow: Flow) =>
-  target(page, flow, "submit", { name: "Create account", role: "button" });
+const submit = (page: Page, flow: Flow) => target(page, flow, "submit");
 
 const form = (page: Page, flow: Flow) =>
   submit(page, flow).locator("xpath=ancestor::form");

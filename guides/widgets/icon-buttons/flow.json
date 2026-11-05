@@ -1,0 +1,6 @@
+{
+  "toggle": {
+    "means": "Any text when the page has an icon toggle button with aria-pressed; an empty string when it has none.",
+    "demo": "yes"
+  }
+}

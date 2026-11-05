@@ -2,8 +2,12 @@ import { verifiedFact } from "@good-a11y/facts";
 import { Result, Schema } from "effect";
 import { parse as parseYaml } from "yaml";
 
-import { GuideFrontmatterSchema, MalformedGuide } from "./guide.js";
-import type { Guide, GuideFrontmatter } from "./guide.js";
+import {
+  FlowFileSchema,
+  GuideFrontmatterSchema,
+  MalformedGuide,
+} from "./guide.js";
+import type { FlowKey, Guide, GuideFrontmatter } from "./guide.js";
 
 export const GUIDE_FILES = [
   "guide.md",
@@ -11,7 +15,9 @@ export const GUIDE_FILES = [
   "expectations.md",
 ] as const;
 
-export type GuideFile = (typeof GUIDE_FILES)[number];
+export const FLOW_FILE = "flow.json";
+
+export type GuideFile = (typeof GUIDE_FILES)[number] | typeof FLOW_FILE;
 
 export const MAX_GUIDE_TOKENS = 3000;
 
@@ -36,6 +42,30 @@ const LINKS = [
 ];
 
 const decodeFrontmatter = Schema.decodeUnknownResult(GuideFrontmatterSchema);
+
+const decodeFlow = Schema.decodeUnknownResult(
+  Schema.fromJsonString(FlowFileSchema)
+);
+
+const parseFlow = (
+  json: string | undefined
+): Result.Result<readonly FlowKey[], string> => {
+  if (json === undefined) {
+    return Result.succeed([]);
+  }
+
+  const decoded = decodeFlow(json);
+
+  return Result.isFailure(decoded)
+    ? Result.fail(`${FLOW_FILE}: ${decoded.failure.message}`)
+    : Result.succeed(
+        Object.entries(decoded.success).map(([key, { demo, means }]) => ({
+          demo,
+          key,
+          means,
+        }))
+      );
+};
 
 export const estimateTokens = (text: string): number =>
   Math.ceil(text.length / 4);
@@ -156,6 +186,12 @@ export const parseGuide = (
     return fail("expectations.md is empty");
   }
 
+  const flow = parseFlow(folder.files[FLOW_FILE]);
+
+  if (Result.isFailure(flow)) {
+    return fail(flow.failure);
+  }
+
   const headings = prose.flatMap((line) => {
     const heading = HEADING.exec(line)?.groups?.text;
 
@@ -168,6 +204,7 @@ export const parseGuide = (
     demo,
     description: meta.description,
     expectations,
+    flow: flow.success,
     headings,
     id: folder.slug,
     name: meta.name,

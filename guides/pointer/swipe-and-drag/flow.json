@@ -1,0 +1,6 @@
+{
+  "items": {
+    "means": "Names of the items that can be swiped or dragged.",
+    "demo": ["Rain jacket", "Hiking boot"]
+  }
+}

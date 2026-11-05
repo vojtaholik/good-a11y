@@ -1,0 +1,9 @@
+{
+  "submit": {
+    "means": "The form's submit button.",
+    "demo": {
+      "role": "button",
+      "name": "Create account"
+    }
+  }
+}

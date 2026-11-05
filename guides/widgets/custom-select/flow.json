@@ -1,0 +1,9 @@
+{
+  "control": {
+    "means": "The custom select's button or combobox.",
+    "demo": {
+      "role": "combobox",
+      "name": "Size (EU)"
+    }
+  }
+}

@@ -7,8 +7,7 @@ import { target } from "../flow.js";
 import { claim } from "../grader.js";
 import type { Grader } from "../grader.js";
 
-const control = (page: Page, flow: Flow) =>
-  target(page, flow, "control", { name: "Size (EU)", role: "combobox" });
+const control = (page: Page, flow: Flow) => target(page, flow, "control");
 
 const valueOf = async (page: Page, flow: Flow): Promise<string> =>
   await control(page, flow).evaluate((node) =>

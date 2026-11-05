@@ -8,8 +8,7 @@ import { claim } from "../grader.js";
 import type { Grader } from "../grader.js";
 import { liveTexts, markLiveRegions } from "../live.js";
 
-const action = (page: Page, flow: Flow) =>
-  target(page, flow, "action", { name: "Add to cart", role: "button" });
+const action = (page: Page, flow: Flow) => target(page, flow, "action");
 
 const act = async (page: Page, flow: Flow): Promise<string> => {
   await markLiveRegions(page);
@@ -19,7 +18,7 @@ const act = async (page: Page, flow: Flow): Promise<string> => {
 
   await expect(
     page
-      .getByText(text(flow, "message", "Rain jacket added"), { exact: false })
+      .getByText(text(flow, "message"), { exact: false })
       .filter({ visible: true })
       .first(),
     "The feedback message the task asks for never appeared"

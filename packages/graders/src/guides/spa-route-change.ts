@@ -7,8 +7,7 @@ import { target, text, textOf } from "../flow.js";
 import { claim } from "../grader.js";
 import type { Grader } from "../grader.js";
 
-const route = (page: Page, flow: Flow) =>
-  target(page, flow, "link", { name: "Journal", role: "link" });
+const route = (page: Page, flow: Flow) => target(page, flow, "link");
 
 const heading = (page: Page) => page.locator("main h1, h1").first();
 
@@ -64,7 +63,7 @@ export const grader: Grader = {
         await go(page, flow);
         const current = page.locator('[aria-current="page"]');
         expect(await current.count()).toBeLessThanOrEqual(1);
-        const name = text(flow, "current", "Journal");
+        const name = text(flow, "current");
 
         if (name !== "") {
           await expect(current).toHaveCount(1);

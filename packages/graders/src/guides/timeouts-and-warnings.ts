@@ -12,15 +12,14 @@ const STEP_MS = 10 * 1000;
 const EXTEND =
   /extend|more time|more minutes|another \d+ minutes|keep|hold|still here|stay|continue|renew|add \d+ (?:more )?minutes/iu;
 
-const limitMs = (flow: Flow) =>
-  Number(text(flow, "limitMinutes", "15")) * 60 * 1000;
+const limitMs = (flow: Flow) => Number(text(flow, "limitMinutes")) * 60 * 1000;
 
 const extendControl = (page: Page): Locator =>
   page.getByRole("button", { name: EXTEND }).filter({ visible: true }).first();
 
 const isExpired = async (page: Page, flow: Flow): Promise<boolean> =>
   (await page
-    .getByText(text(flow, "expired", "expired"), { exact: false })
+    .getByText(text(flow, "expired"), { exact: false })
     .filter({ visible: true })
     .count()) > 0;
 
@@ -114,11 +113,7 @@ export const grader: Grader = {
   start: async ({ flow, open, page }) => {
     await page.clock.install();
     await open();
-    await target(page, flow, "start", {
-      name: "Add to cart",
-      nth: 0,
-      role: "button",
-    }).click();
+    await target(page, flow, "start").click();
     await page.waitForTimeout(500);
   },
   timeout: 120_000,

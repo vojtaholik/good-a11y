@@ -27,7 +27,7 @@ One flow, or an array of flows. A flow has the shape of an eval task (`evals/tas
 
 - `guide` is a guide id. Every guide has a grader, so every guide can be named.
 - `path` is resolved against the checked URL (default: the checked URL itself).
-- `setup`, `requires` and `targets` mean what they mean for eval tasks (`docs/evals.md`). The keys a grader reads are listed in the guide's expectations (`https://good-a11y.com/<guide>.md`) and in `packages/graders/src/guides/<guide>.ts`.
+- `setup`, `requires` and `targets` mean what they mean for eval tasks (`docs/evals.md`). The keys a grader reads are declared in the guide's `flow.json` and shown, with an example flow for the demo, in the "Flow for check" section at the end of the served guide (`https://good-a11y.com/<guide>.md`) and of `retrieve <guide>`. A grader that reads an undeclared key throws, so the section cannot drift from the grader.
 
 ## One grader, two runners
 

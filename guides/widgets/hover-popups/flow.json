@@ -1,0 +1,8 @@
+{
+  "trigger": {
+    "means": "The element that shows the popup on hover or focus.",
+    "demo": {
+      "css": "#trigger"
+    }
+  }
+}

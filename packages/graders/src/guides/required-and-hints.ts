@@ -9,16 +9,9 @@ import type { Grader } from "../grader.js";
 const FIELDS =
   "input:not([type=hidden]):not([type=submit]):not([type=button]), select, textarea";
 
-const required = (flow: Flow) =>
-  texts(flow, "required", [
-    "Full name",
-    "Email address",
-    "Phone number",
-    "Postal code",
-  ]);
+const required = (flow: Flow) => texts(flow, "required");
 
-const hinted = (flow: Flow) =>
-  texts(flow, "hinted", ["Email address", "Phone number"]);
+const hinted = (flow: Flow) => texts(flow, "hinted");
 
 export const grader: Grader = {
   claims: [

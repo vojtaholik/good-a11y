@@ -14,8 +14,7 @@ interface Box {
   readonly y: number;
 }
 
-const items = (flow: Flow) =>
-  texts(flow, "items", ["Rain jacket", "Hiking boot"]);
+const items = (flow: Flow) => texts(flow, "items");
 
 const present = async (page: Page, item: string): Promise<boolean> =>
   await page.evaluate((name) => {

@@ -7,6 +7,7 @@ import {
 import type { Report, ScanView } from "@good-a11y/core/contracts";
 import { guidesForCheck } from "@good-a11y/guides/check-guides";
 import { GUIDES } from "@good-a11y/guides/data";
+import { flowForCheck } from "@good-a11y/guides/flow-for-check";
 import type { Guide } from "@good-a11y/guides/guide";
 import { makeGuideIndex } from "@good-a11y/guides/search";
 import { Array, Option } from "effect";
@@ -93,6 +94,7 @@ export const guideMarkdown = (guide: Guide, origin: string): string[] => [
   "",
   `Retrieve this guide: \`${RETRIEVE} ${guide.id}\``,
   "",
+  ...flowForCheck(guide),
 ];
 
 export const guideMarkdownPath = (id: string): string =>

@@ -1,0 +1,13 @@
+{
+  "link": {
+    "means": "A link that changes the view without a page load.",
+    "demo": {
+      "role": "link",
+      "name": "Journal"
+    }
+  },
+  "current": {
+    "means": "The text of the navigation link marked aria-current after the change; an empty string when the navigation marks none.",
+    "demo": "Journal"
+  }
+}

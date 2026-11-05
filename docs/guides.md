@@ -9,6 +9,7 @@ A guide is `guides/<category>/<slug>/` at the repo root with three files:
 - `guide.md`: the text an agent reads. YAML frontmatter, then Markdown.
 - `demo.html`: a working reference page, the live specimen on the site.
 - `expectations.md`: testable claims for the eval graders.
+- `flow.json` (when the grader reads targets): each target key the grader reads, `{"<key>": {"means": "one line", "demo": <its value on demo.html>}}`. The grader takes a key's default from `demo` and throws on a key the file does not declare. The served guide and `retrieve` render it as the "Flow for check" section (`docs/flows.md`).
 
 ```yaml
 ---

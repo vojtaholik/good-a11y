@@ -80,7 +80,7 @@ export const grader: Grader = {
       4,
       "a toggle keeps its name and flips aria-pressed",
       async ({ page, flow }) => {
-        if (text(flow, "toggle", "yes") === "") {
+        if (text(flow, "toggle") === "") {
           return;
         }
 

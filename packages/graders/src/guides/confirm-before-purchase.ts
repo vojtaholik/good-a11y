@@ -14,7 +14,7 @@ const BACK_OUT = /cancel|back|close|no\b|not now|keep|edit|change/iu;
 
 const CANCELLED = /cancel+ed/iu;
 
-const placedText = (flow: Flow) => text(flow, "placed", "Thank you");
+const placedText = (flow: Flow) => text(flow, "placed");
 
 const SHOWN_BEFORE = "data-eval-shown-before";
 
@@ -33,11 +33,7 @@ const isPlaced = async (page: Page, flow: Flow): Promise<boolean> => {
 };
 
 const buyNow = async (page: Page, flow: Flow): Promise<string> => {
-  const buy = target(page, flow, "buy", {
-    exact: false,
-    name: "Buy now",
-    role: "button",
-  });
+  const buy = target(page, flow, "buy");
 
   const label = await accessibleName(buy);
   const name = label.trim().toLowerCase();

@@ -7,8 +7,6 @@ import { text, texts } from "../flow.js";
 import { claim } from "../grader.js";
 import type { Grader } from "../grader.js";
 
-const LABELS = ["Street and number", "City", "Postal code", "Country"];
-
 const REUSE = /same|copy|reuse|use (?:my|the|delivery)|as above|from step/iu;
 
 const SOURCE = "data-eval-source";
@@ -55,7 +53,7 @@ const fillSources = async (
 ): Promise<readonly string[]> => {
   const values: string[] = [];
 
-  for (const [index, label] of texts(flow, "source", LABELS).entries()) {
+  for (const [index, label] of texts(flow, "source").entries()) {
     const field = fieldsFor(page, label).first();
     const tag = await field.evaluate((node) => node.tagName);
 
@@ -71,7 +69,7 @@ const fillSources = async (
     }, SOURCE);
   }
 
-  const next = text(flow, "next", "");
+  const next = text(flow, "next");
 
   if (next !== "") {
     await fillRest(page);
@@ -95,7 +93,7 @@ const reused = async (
   values: readonly string[],
   flow: Flow
 ): Promise<boolean> => {
-  const repeats = texts(flow, "repeat", LABELS);
+  const repeats = texts(flow, "repeat");
   let hidden = 0;
 
   for (const [index, label] of repeats.entries()) {
@@ -158,7 +156,7 @@ export const grader: Grader = {
           await choice.click();
         }
 
-        for (const label of texts(flow, "repeat", LABELS)) {
+        for (const label of texts(flow, "repeat")) {
           const field = repeatOf(page, label).first();
 
           await expect(

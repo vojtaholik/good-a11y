@@ -1,7 +1,9 @@
 import { Effect, FileSystem, Path } from "effect";
 
-import { GUIDE_FILES, parseGuides } from "./parse.js";
+import { FLOW_FILE, GUIDE_FILES, parseGuides } from "./parse.js";
 import type { GuideFile, GuideFolder } from "./parse.js";
+
+const FILES: readonly GuideFile[] = [...GUIDE_FILES, FLOW_FILE];
 
 export const GUIDES_DIRECTORY = "guides";
 
@@ -43,7 +45,7 @@ export const readGuides = Effect.fn("readGuides")(function* readGuides(
 
       const files: Partial<Record<GuideFile, string>> = {};
 
-      for (const file of GUIDE_FILES) {
+      for (const file of FILES) {
         const filePath = path.join(guidePath, file);
 
         if (yield* fileSystem.exists(filePath)) {

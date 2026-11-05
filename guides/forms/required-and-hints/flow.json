@@ -1,0 +1,10 @@
+{
+  "required": {
+    "means": "Labels of the required fields.",
+    "demo": ["Full name", "Email address", "Phone number", "Postal code"]
+  },
+  "hinted": {
+    "means": "Labels of the fields that have a format hint.",
+    "demo": ["Email address", "Phone number"]
+  }
+}

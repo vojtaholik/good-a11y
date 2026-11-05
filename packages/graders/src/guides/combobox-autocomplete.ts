@@ -8,12 +8,11 @@ import { claim } from "../grader.js";
 import type { Grader } from "../grader.js";
 import { liveTexts, markLiveRegions } from "../live.js";
 
-const field = (page: Page, flow: Flow) =>
-  target(page, flow, "field", { name: "City", role: "combobox" });
+const field = (page: Page, flow: Flow) => target(page, flow, "field");
 
 const typeQuery = async (page: Page, flow: Flow) => {
   await field(page, flow).focus();
-  await page.keyboard.type(text(flow, "query", "B"), { delay: 20 });
+  await page.keyboard.type(text(flow, "query"), { delay: 20 });
 };
 
 export const grader: Grader = {
