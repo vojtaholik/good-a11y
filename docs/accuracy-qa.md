@@ -276,6 +276,8 @@ Task `ga-probes`. Rules in `docs/consistency-and-interaction.md`, layer 2.
 
 **Result.** After the fixes, no false positive is left: every remaining fail was confirmed by hand. 1.3.4 found nothing on 61 sites; its fail path rests on `orientation-fail.html`. Recall is unmeasured and low for 1.4.13 and 1.4.11.
 
+**Dev rerun (hosted, Browser Run).** After 16a6001 was deployed to stage dev, 47 sites (the 44 that rendered locally, plus zalando.de, datart.cz and pilulka.cz) went through `startScan` over RPC. The rendered page was checked on 41. Of the rest, 3 blocked the browser, h&m refused the fetch, and 2 failed in the browser service: service-public.fr ran into the 30 s navigation timeout again on a retry, and ceskatelevize.cz ran on a retry, with a 22 s session. The one fail was pilulka.cz's search border, the same 1.48:1 as locally. No other site failed a probe, so the hosted run had no false positive. Hosted, datart.cz's menu was not judged.
+
 **Decision: shipped,** all four. 2.1.4, 1.4.13, 1.3.4 and 1.4.11 count in the verdict like any WCAG 2.1 AA failure.
 
 ## Round 7: the verdict on 31 sites (2026-11-04)
