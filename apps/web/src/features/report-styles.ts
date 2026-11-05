@@ -42,8 +42,10 @@ export const report = stylex.create({
   },
   cardNumber: {
     color: colors["--ink-muted"],
+    flexShrink: 0,
     fontFamily: font["--font-code"],
     fontWeight: 400,
+    whiteSpace: "nowrap",
   },
   cardTitle: {
     display: "flex",
