@@ -140,7 +140,8 @@ const siteWith = (scanner: Scanner, budget = 5) =>
         limited.push(`${procedure}:${caller}`);
 
         return await Promise.resolve(limited.length <= budget);
-      }
+      },
+      ""
     );
 
     const get = (path: string) =>

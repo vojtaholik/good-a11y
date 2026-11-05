@@ -32,7 +32,7 @@ const backendDown: BackendFetch = async () =>
 // @effect-diagnostics-next-line asyncFunction:off -- The fakes stand in for Promise-returning Worker bindings.
 const allowAll = async () => await Promise.resolve(true);
 
-const site = siteHandler(backendDown, assets, ORIGIN, allowAll);
+const site = siteHandler(backendDown, assets, ORIGIN, allowAll, "");
 
 const get = (path: string, accept = "text/html") =>
   // @effect-diagnostics-next-line asyncFunction:off -- The handler under test is a Promise boundary.
@@ -289,4 +289,45 @@ describe("guides at the root", () => {
       ).toEqual(Option.some(AppRoute.Guide({ guideId: guide.id })));
     }
   });
+});
+
+const STAGE_TOKEN = "0123456789abcdef0123456789abcdef";
+
+const BEACON = "cloudflareinsights";
+
+const visitWith = (token: string, path: string, accept = "text/html") =>
+  // @effect-diagnostics-next-line asyncFunction:off -- The handler under test is a Promise boundary.
+  Effect.promise(async () => {
+    const response = await siteHandler(
+      backendDown,
+      assets,
+      ORIGIN,
+      allowAll,
+      token
+    )(new Request(`${SERVED_AT}${path}`, { headers: { accept } }));
+
+    return await response.text();
+  });
+
+describe("page views", () => {
+  it.effect(
+    "counts page views only where the stage has a token: one beacon at the end of the body, none in Markdown or without a usable token",
+    () =>
+      Effect.gen(function* countsPageViews() {
+        for (const path of ["/", "/check", "/dialog-modal", "/no-such-page"]) {
+          const measured = yield* visitWith(STAGE_TOKEN, path);
+          const asMarkdown = yield* visitWith(STAGE_TOKEN, path, MARKDOWN);
+
+          expect(measured.split(BEACON)).toHaveLength(2);
+          expect(measured).toContain(
+            `data-cf-beacon='{"token":"${STAGE_TOKEN}"}'></script></body>`
+          );
+          expect(asMarkdown).not.toContain(BEACON);
+
+          for (const unusable of ["", `x'></script><script>`, "with space"]) {
+            expect(yield* visitWith(unusable, path)).not.toContain(BEACON);
+          }
+        }
+      })
+  );
 });

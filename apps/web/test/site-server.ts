@@ -50,7 +50,7 @@ const respond = async (request: Request) => {
 
   const response = pathname.startsWith("/assets/")
     ? await assets(request)
-    : await siteHandler(backendDown, assets, origin, allowAll)(request);
+    : await siteHandler(backendDown, assets, origin, allowAll, "")(request);
 
   return {
     body: Buffer.from(await response.arrayBuffer()),

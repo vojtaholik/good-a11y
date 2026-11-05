@@ -2,16 +2,14 @@ import Scanner from "@good-a11y/scanner/worker";
 import * as Cloudflare from "alchemy/Cloudflare";
 import { Stack } from "alchemy/Stack";
 
+import { pageViewsToken } from "./page-views.js";
 import {
   MESSAGE_LIMIT_NAMESPACE,
   MESSAGES_PER_MINUTE,
   SCAN_LIMIT_NAMESPACE,
   SCANS_PER_MINUTE,
 } from "./server/limits.js";
-
-export const PRODUCTION_STAGE = "prod";
-
-export const SITE_DOMAIN = "good-a11y.com";
+import { PRODUCTION_STAGE, SITE_DOMAIN } from "./zone.js";
 
 const SETTINGS = {
   assets: {
@@ -25,6 +23,7 @@ const SETTINGS = {
       namespaceId: MESSAGE_LIMIT_NAMESPACE,
       simple: { limit: MESSAGES_PER_MINUTE, period: 60 },
     }),
+    PAGE_VIEWS_TOKEN: pageViewsToken,
     SCAN_LIMIT: Cloudflare.RateLimit("SCAN_LIMIT", {
       namespaceId: SCAN_LIMIT_NAMESPACE,
       simple: { limit: SCANS_PER_MINUTE, period: 60 },

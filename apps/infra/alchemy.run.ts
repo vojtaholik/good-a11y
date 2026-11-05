@@ -7,8 +7,8 @@ import { Stack } from "alchemy/Stack";
 import * as Effect from "effect/Effect";
 import * as Layer from "effect/Layer";
 
-import { PRODUCTION_STAGE, Website } from "../web/src/website.js";
-import { GoodA11yZone } from "../web/src/zone.js";
+import { Website } from "../web/src/website.js";
+import { GoodA11yZone, PRODUCTION_STAGE } from "../web/src/zone.js";
 
 export default Alchemy.Stack(
   "GoodA11y",

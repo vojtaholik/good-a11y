@@ -83,7 +83,7 @@ export const ABOUT: InfoPage = {
 };
 
 export const PRIVACY: InfoPage = {
-  lead: "The checker stores what it needs to show a report at its own address and to keep the service within its daily limits. This page lists all of it. The site sets no cookies and loads no analytics.",
+  lead: "The checker stores what it needs to show a report at its own address and to keep the service within its daily limits. This page lists all of it. The site sets no cookies. It counts page views with Cloudflare Web Analytics, which keeps no personal data.",
   sections: [
     {
       blocks: [
@@ -128,6 +128,15 @@ export const PRIVACY: InfoPage = {
       ],
       heading: "What we send to a model",
       id: "model",
+    },
+    {
+      blocks: [
+        Blocks.Text({
+          text: "good-a11y.com counts page views with Cloudflare Web Analytics. It sets no cookies, stores nothing in your browser and keeps no personal data: Cloudflare states that it does not fingerprint visitors or follow them across visits or sites. It records which page was opened, the site that linked to it, the browser, device type and country, and how fast the page loaded, and we see only totals.",
+        }),
+      ],
+      heading: "Page views",
+      id: "page-views",
     },
     {
       blocks: [

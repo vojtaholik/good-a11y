@@ -10,6 +10,7 @@ export default {
     request: Request,
     env: {
       readonly ASSETS: { readonly fetch: BackendFetch };
+      readonly PAGE_VIEWS_TOKEN: string;
       readonly SITE_ORIGIN: string;
     }
   ) =>
@@ -19,7 +20,8 @@ export default {
         backend,
         env.ASSETS.fetch.bind(env.ASSETS),
         new URL(env.SITE_ORIGIN).origin,
-        callerLimit
+        callerLimit,
+        env.PAGE_VIEWS_TOKEN
       ),
       callerLimit
     )(request),

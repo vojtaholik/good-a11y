@@ -9,6 +9,7 @@ import { SKILL_PATH, SKILL_URL_PATH } from "../features/agent-links.js";
 import { isMissing } from "../features/missing.js";
 import { pageMetaOf } from "../features/page-meta.js";
 import { AppRoute, parseRoute } from "../features/route.js";
+import { withBeacon } from "./beacon.js";
 import { checkPage, checkUsage } from "./check-markdown.js";
 import type { CheckAnswer } from "./check-markdown.js";
 import { callerOf } from "./handler.js";
@@ -184,7 +185,8 @@ export const siteHandler =
     backend: BackendFetch,
     assets: BackendFetch,
     siteOrigin: string,
-    allow: CallerLimit
+    allow: CallerLimit,
+    pageViewsToken: string
   ): BackendFetch =>
   // @effect-diagnostics-next-line asyncFunction:off -- A Worker fetch handler is a Promise boundary.
   async (request) => {
@@ -244,11 +246,9 @@ export const siteHandler =
 
     const shell = await assets(new Request(new URL("/", url.origin)));
 
-    const template = withPageMeta(
-      await shell.text(),
-      pageMetaOf(route),
-      route,
-      siteOrigin
+    const template = withBeacon(
+      withPageMeta(await shell.text(), pageMetaOf(route), route, siteOrigin),
+      pageViewsToken
     );
 
     return await Server.handleRequest(request, {
