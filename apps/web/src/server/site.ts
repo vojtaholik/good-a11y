@@ -4,7 +4,7 @@ import { Server } from "foldkit/experimental";
 import { fromString } from "foldkit/url";
 
 import skill from "../../../../skills/good-a11y/SKILL.md?raw";
-import { SKILL_PATH } from "../features/agent-links.js";
+import { SKILL_PATH, SKILL_URL_PATH } from "../features/agent-links.js";
 import { pageMetaOf } from "../features/page-meta.js";
 import { AppRoute, parseRoute } from "../features/route.js";
 import {
@@ -123,7 +123,7 @@ const agentFile = (url: URL, siteOrigin: string): Response | null => {
     return textResponse(robotsTxt(siteOrigin), "text/plain; charset=utf-8");
   }
 
-  if (url.pathname === SKILL_PATH) {
+  if (url.pathname === SKILL_PATH || url.pathname === SKILL_URL_PATH) {
     return textResponse(skillMarkdown(siteOrigin), MARKDOWN);
   }
 

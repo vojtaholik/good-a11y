@@ -132,6 +132,19 @@ describe("the site for agents", () => {
   );
 
   it.effect(
+    "serves the skill at /skill.md too, the address agents are given",
+    () =>
+      Effect.gen(function* shortSkill() {
+        const home = yield* get("/skills/good-a11y/SKILL.md");
+        const short = yield* get("/skill.md");
+
+        expect(short.response.status).toBe(200);
+        expect(short.response.headers.get("content-type")).toContain(MARKDOWN);
+        expect(short.body).toBe(home.body);
+      })
+  );
+
+  it.effect(
     "lists every indexable page in the sitemap, named by robots.txt",
     () =>
       Effect.gen(function* sitemap() {
