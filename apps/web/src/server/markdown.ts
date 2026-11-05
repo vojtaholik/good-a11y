@@ -12,7 +12,7 @@ import { GUIDES } from "@good-a11y/guides/data";
 import type { Guide } from "@good-a11y/guides/guide";
 import { Array, Option } from "effect";
 
-import { CLI, SKILL_PATH } from "../features/agent-links.js";
+import { CLI, SKILL_PATH, agentPrompt } from "../features/agent-links.js";
 import { LOCAL_CHECK } from "../features/check-view.js";
 import { RETRIEVE, demoPath } from "../features/guide-view.js";
 import { categoryName, guidesByCategory } from "../features/guides.js";
@@ -48,6 +48,8 @@ const guideLines = (origin: string): string[] =>
   ]);
 
 const homeMarkdown = (origin: string): string[] => [
+  `For AI agents: ${agentPrompt(origin)}`,
+  "",
   `# ${SITE_NAME}`,
   "",
   pageMetaOf(AppRoute.Home()).description,

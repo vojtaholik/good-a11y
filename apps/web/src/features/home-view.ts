@@ -3,7 +3,12 @@ import type { Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/message.js";
 import type { AppModel } from "../client/model.js";
-import { AGENT_COMMAND, SKILL_PATH } from "./agent-links.js";
+import {
+  AGENT_COMMAND,
+  SKILL_PATH,
+  SKILL_URL_PATH,
+  agentPrompt,
+} from "./agent-links.js";
 import { commandBlock } from "./command-block.js";
 import { categoryName, guidesByCategory } from "./guides.js";
 import { MAIN_ID } from "./landmarks.js";
@@ -16,6 +21,16 @@ import { colors, font, layout, radius } from "./tokens.stylex.js";
 const SECTION_HEADING = "clamp(1.75rem, 1cqi + 1.375rem, 2.25rem)";
 
 const home = stylex.create({
+  agentHint: {
+    color: colors["--ink-muted"],
+    fontSize: "0.8125rem",
+    margin: 0,
+  },
+  agentHintLink: {
+    color: colors["--ink-muted"],
+    fontFamily: font["--font-code"],
+    textUnderlineOffset: "3px",
+  },
   agentLink: {
     alignItems: "center",
     color: colors["--on-inverse"],
@@ -54,6 +69,11 @@ const home = stylex.create({
     color: colors["--on-inverse-muted"],
     margin: 0,
     maxInlineSize: "46ch",
+  },
+  agentsSecondary: {
+    color: colors["--on-inverse-muted"],
+    fontSize: "0.9375rem",
+    margin: "6px 0 0",
   },
   agentsText: {
     display: "flex",
@@ -231,6 +251,16 @@ const heroView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
       h.div(
         [sx(h, home.heroText)],
         [
+          h.p(
+            [sx(h, home.agentHint)],
+            [
+              "For AI agents: read ",
+              h.a(
+                [h.Href(SKILL_URL_PATH), sx(h, home.agentHintLink)],
+                [SKILL_URL_PATH]
+              ),
+            ]
+          ),
           h.h1([sx(h, home.title)], ["Accessibility guides for coding agents"]),
           h.p(
             [sx(h, home.lead)],
@@ -280,7 +310,7 @@ const agentsView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
               h.p(
                 [sx(h, home.agentsIntro)],
                 [
-                  "Give your agent this command. It searches the guides by pattern and reads the match as Markdown, before it writes the component.",
+                  "Give your coding agent this one line. It reads the skill, sets good-a11y up in your project, and from then on finds the guide before it builds a UI pattern, then checks the page.",
                 ]
               ),
             ]
@@ -288,7 +318,12 @@ const agentsView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
           h.div(
             [sx(h, home.agentsTool)],
             [
-              commandBlock(model, AGENT_COMMAND, "inverse", h),
+              commandBlock(model, agentPrompt(model.origin), "prompt", h),
+              h.p(
+                [sx(h, home.agentsSecondary)],
+                ["Or run the guides and the checker yourself:"]
+              ),
+              commandBlock(model, AGENT_COMMAND, "compact", h),
               h.p(
                 [sx(h, home.agentLinks)],
                 [

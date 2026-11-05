@@ -115,7 +115,7 @@ const block = stylex.create({
   },
 });
 
-export type CommandTone = "compact" | "inverse" | "light";
+export type CommandTone = "compact" | "inverse" | "light" | "prompt";
 
 const isCopied = (model: AppModel, command: string): boolean =>
   Schema.is(CopyState.Copied)(model.copy) && model.copy.key === command;
@@ -123,13 +123,17 @@ const isCopied = (model: AppModel, command: string): boolean =>
 const isFailed = (model: AppModel, command: string): boolean =>
   Schema.is(CopyState.Failed)(model.copy) && model.copy.key === command;
 
-const announcement = (model: AppModel, command: string): string => {
+const announcement = (
+  model: AppModel,
+  command: string,
+  noun: string
+): string => {
   if (isCopied(model, command)) {
-    return "Command copied";
+    return `${noun} copied`;
   }
 
   return isFailed(model, command)
-    ? "Copy failed. Select the command and copy it."
+    ? `Copy failed. Select the ${noun.toLowerCase()} and copy it.`
     : "";
 };
 
@@ -156,7 +160,7 @@ export const commandBlock = (
         [
           h.code(
             [],
-            isInverse
+            tone === "inverse" || tone === "compact"
               ? [
                   h.span([h.AriaHidden(true), sx(h, block.prompt)], ["$ "]),
                   command,
@@ -179,7 +183,7 @@ export const commandBlock = (
       ),
       h.span(
         [h.Role("status"), sx(h, reportStyles.visuallyHidden)],
-        [announcement(model, command)]
+        [announcement(model, command, tone === "prompt" ? "Prompt" : "Command")]
       ),
     ]
   );
