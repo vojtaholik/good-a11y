@@ -11,7 +11,7 @@ Audit by writer on 2026-11-05 at `ed34008` plus the launch commit. Each item is 
 | `.claude-plugin/plugin.json` (no version, like good-css) and `marketplace.json`. The marketplace entry lists `skills: ["./skills/good-a11y"]`, so only that skill loads: a plugin's own `skills` field adds to the default `skills/` scan, which would also load the seven repo-internal skills. `claude plugin validate .` passes; a local `marketplace add ./` plus `install` shows one skill | **done** |
 | skills.sh: the seven repo-internal skills in `skills/` carry `metadata.internal: true`. `skills@1.7.6 add <repo> --list` finds only `good-a11y`. `skills/good-a11y/README.md`, which held stale `github:` install lines, is removed; the routes live in the root README | **done** |
 | Plugin icon. The plugin directory warns without one: a square PNG, 512 to 2048 px, at `.claude-plugin/icon.png`. It is fixed at the first directory submission, so it should be the final mark | **needs Vojta** |
-| `good-a11y@0.2.0` on npm. The site, `skill.md` and both READMEs pin it; npm has `0.0.0-stage` and `0.1.0`, `latest` is `0.1.0`. Publish before the next prod deploy, or every copied agent prompt fails at `npx` | **needs Vojta** |
+| `good-a11y@0.2.0` on npm: `latest` since 2026-11-05 14:20 UTC, and the site, `skill.md` and both READMEs pin it | **done** |
 | `good-a11y@0.0.0-stage` on npm. Proposal: `npm deprecate good-a11y@0.0.0-stage "Use good-a11y@latest"`. It needs the npm owner's login | **needs Vojta** |
 
 ## Public-repo hygiene
@@ -52,4 +52,6 @@ Audit by writer on 2026-11-05 at `ed34008` plus the launch commit. Each item is 
 
 ## Launch blurb (proposal)
 
-> good-a11y gives your coding agent a short accessibility guide before it builds a dialog, a form or a menu, then checks the page it built. Paste one line into Claude Code, Codex or Cursor and its first version already works with a keyboard and a screen reader. Open source, with 25 guides, each with a live demo, at good-a11y.com.
+> good-a11y gives your coding agent a short accessibility guide before it builds a dialog, a form or a menu, then checks the page it built. In our evals, Claude Code and Codex built the patterns we guide far more often right when they read the guide first. Open source, with 25 guides, each with a live demo, at good-a11y.com.
+
+The eval claim rests on the matrices in `docs/evals.md`, 3 runs per base app and arm: a guide ships for an agent only where that agent failed it unguided, and the guided arm then passes 5 or 6 of 6 for the agent it ships for (for example form-errors-validation: 0 of 6 unguided, 6 of 6 guided, for both agents).
