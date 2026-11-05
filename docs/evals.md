@@ -171,3 +171,9 @@ After 2d6e153 (input-purpose and swipe-and-drag say their rule holds when the re
 | press-remove | 0/3 | 3/3 | 0/3 | 1/3 |
 
 Retrieval now finds the guide: Claude read input-purpose and swipe-and-drag in every guided run, Codex input-purpose in 3 of 3 and swipe-and-drag in 2 of 3. Codex then does what the request asks anyway, as it did for orientation (read 6 of 6, passed 0 of 6). Where a request asks for the violation, a guide moves Claude and not Codex.
+
+Both ship for Claude under the per-agent rule, as hover-popups and orientation do: the input-purpose and swipe-and-drag changes stay, and Codex is listed as not helped (lead, 2026-11-05).
+
+## Known limit: Codex follows the request over the guide
+
+When a task asks for the very thing a guide forbids (a sideways-turn overlay, autofill turned off, a remove button that acts on press), Codex reads the guide and still does what the request says: orientation 0 of 6, autofill-off 0 of 3 and press-remove 1 of 3 guided, with the guide read in nearly every run. Claude follows the guide's "also when the request asks for less" rule in all of them. Guides for such cases ship for Claude only; stronger wording is not expected to change Codex, since it already reads the guide that states the rule.
