@@ -1,0 +1,95 @@
+// @effect-diagnostics asyncFunction:off -- Playwright drives the browser through Promise-based callbacks; graders hold no Effect code.
+import type { Flow } from "@good-a11y/core";
+import { expect } from "playwright/test";
+import type { Page } from "playwright/test";
+
+import { texts } from "../flow.js";
+import { claim } from "../grader.js";
+import type { Grader } from "../grader.js";
+
+const fields = (flow: Flow) =>
+  texts(flow, "fields", [
+    "First name=given-name",
+    "Last name=family-name",
+    "Email=email",
+    "Phone=tel",
+    "Street and number=street-address|address-line1",
+    "City=address-level2",
+    "Postal code=postal-code",
+    "Country=country-name|country",
+  ]).map((entry) => {
+    const [label = "", tokens = ""] = entry.split("=");
+
+    return { label, tokens: tokens.split("|") };
+  });
+
+const GROUPS = {
+  address: [
+    "street-address",
+    "address-line1",
+    "address-level2",
+    "postal-code",
+    "country-name",
+    "country",
+  ],
+  contact: ["email", "tel"],
+  name: ["name", "given-name", "family-name"],
+};
+
+const wrongTokens = async (
+  page: Page,
+  group: readonly string[],
+  flow: Flow
+): Promise<readonly string[]> => {
+  const wanted = fields(flow).filter((field) =>
+    field.tokens.some((token) => group.includes(token))
+  );
+
+  expect(wanted.length, "the task names no field of this kind").toBeGreaterThan(
+    0
+  );
+
+  const wrong: string[] = [];
+
+  for (const { label, tokens } of wanted) {
+    const field = page.getByLabel(label, { exact: false }).first();
+
+    const given = ((await field.getAttribute("autocomplete")) ?? "")
+      .trim()
+      .toLowerCase()
+      .split(/\s+/u);
+
+    const token = given.at(-1) ?? "";
+
+    if (!tokens.includes(token)) {
+      wrong.push(
+        `${label}: "${given.join(" ")}", wanted ${tokens.join(" or ")}`
+      );
+    }
+  }
+
+  return wrong;
+};
+
+export const grader: Grader = {
+  claims: [
+    claim(1, "name fields carry their name tokens", async ({ page, flow }) => {
+      expect(await wrongTokens(page, GROUPS.name, flow)).toEqual([]);
+    }),
+    claim(
+      2,
+      "the email and phone fields carry email and tel",
+      async ({ page, flow }) => {
+        expect(await wrongTokens(page, GROUPS.contact, flow)).toEqual([]);
+      }
+    ),
+    claim(
+      3,
+      "address fields carry their address tokens",
+      async ({ page, flow }) => {
+        expect(await wrongTokens(page, GROUPS.address, flow)).toEqual([]);
+      }
+    ),
+  ],
+  guide: "input-purpose",
+};

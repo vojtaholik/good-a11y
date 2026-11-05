@@ -83,6 +83,8 @@ describe("architecture boundary rules", () => {
       'import { localNodeHopTransportLayer } from "@good-a11y/http-transport/node";',
       'import { localRenderedAuditLayer } from "@good-a11y/browser-audit/node";',
       'export { launch } from "puppeteer-core";',
+      'import { playwrightFlowAuditLayer } from "@good-a11y/graders";',
+      'export { chromium } from "playwright";',
     ];
 
     for (const area of ["apps/scanner/src", "apps/web/src", "apps/infra"]) {

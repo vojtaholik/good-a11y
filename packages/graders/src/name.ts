@@ -1,5 +1,5 @@
-// @effect-diagnostics asyncFunction:off -- Playwright drives the browser through Promise-based callbacks; this package holds no Effect code.
-import type { Locator } from "@playwright/test";
+// @effect-diagnostics asyncFunction:off -- Playwright drives the browser through Promise-based callbacks; graders hold no Effect code.
+import type { Locator } from "playwright/test";
 
 const FIRST_NODE = /^- [\w-]+(?: "(?<name>(?:[^"\\]|\\.)*)")?/u;
 

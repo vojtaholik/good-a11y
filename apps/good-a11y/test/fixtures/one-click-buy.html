@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rain jacket - Trail Shop</title>
+  </head>
+  <body>
+    <main>
+      <h1>Rain jacket</h1>
+      <p>Waterproof shell, 249 EUR.</p>
+      <button type="button" id="buy">Buy now</button>
+      <p id="placed" hidden>Thank you, your order is placed.</p>
+    </main>
+    <script>
+      new Image().src = "https://tracker.invalid/pixel.gif";
+      document.getElementById("buy").addEventListener("click", () => {
+        document.getElementById("placed").hidden = false;
+      });
+    </script>
+  </body>
+</html>

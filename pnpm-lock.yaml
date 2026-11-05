@@ -297,6 +297,9 @@ importers:
 
   apps/good-a11y:
     dependencies:
+      playwright:
+        specifier: 1.64.1
+        version: 1.64.1
       puppeteer-core:
         specifier: 25.13.0
         version: 25.13.0(yauzl@3.4.0)
@@ -313,6 +316,9 @@ importers:
       '@good-a11y/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@good-a11y/graders':
+        specifier: workspace:*
+        version: link:../../packages/graders
       '@good-a11y/guides':
         specifier: workspace:*
         version: link:../../packages/guides
@@ -502,6 +508,12 @@ importers:
 
   evals:
     dependencies:
+      '@good-a11y/core':
+        specifier: workspace:*
+        version: link:../packages/core
+      '@good-a11y/graders':
+        specifier: workspace:*
+        version: link:../packages/graders
       effect:
         specifier: 4.0.0
         version: 4.0.0
@@ -699,6 +711,28 @@ importers:
       vitest:
         specifier: 5.0.1
         version: 5.0.1(@types/node@24.13.6)(happy-dom@21.0.4)(vite@8.3.0(@types/node@24.13.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))
+
+  packages/graders:
+    dependencies:
+      '@good-a11y/core':
+        specifier: workspace:*
+        version: link:../core
+      '@good-a11y/guides':
+        specifier: workspace:*
+        version: link:../guides
+      effect:
+        specifier: 4.0.0
+        version: 4.0.0
+      playwright:
+        specifier: 1.64.1
+        version: 1.64.1
+    devDependencies:
+      '@types/node':
+        specifier: 24.13.6
+        version: 24.13.6
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
 
   packages/guides:
     dependencies:

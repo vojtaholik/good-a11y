@@ -1,14 +1,18 @@
 import { localRenderedAuditLayer } from "@good-a11y/browser-audit/node";
 import {
-  ReportSchema,
+  FlowFileSchema,
+  FlowFileUnreadable,
+  LocalReportSchema,
   SafeFetch,
   checkLocally,
   formatLocalCheck,
 } from "@good-a11y/core";
+import type { Flow } from "@good-a11y/core";
+import { playwrightFlowAuditLayer } from "@good-a11y/graders";
 import { guidesForCheck } from "@good-a11y/guides";
 import { htmlPageReaderLayer } from "@good-a11y/html-reader";
 import { localNodeHopTransportLayer } from "@good-a11y/http-transport/node";
-import { Console, Effect, Layer, Option, Schema } from "effect";
+import { Console, Effect, FileSystem, Layer, Option, Schema } from "effect";
 import { Argument, Command, Flag } from "effect/cli";
 
 export const guideUrl = (id: string): string =>
@@ -18,7 +22,26 @@ const localLayer = (executablePath: string | null) =>
   Layer.mergeAll(
     SafeFetch.localLayer.pipe(Layer.provide(localNodeHopTransportLayer)),
     htmlPageReaderLayer,
-    localRenderedAuditLayer({ executablePath })
+    localRenderedAuditLayer({ executablePath }),
+    playwrightFlowAuditLayer({ executablePath })
+  );
+
+const decodeFlows = Schema.decodeUnknownEffect(
+  Schema.fromJsonString(FlowFileSchema)
+);
+
+const flowsFrom = (file: string) =>
+  Effect.gen(function* readFlows() {
+    const fs = yield* FileSystem.FileSystem;
+    const text = yield* fs.readFileString(file);
+    const decoded = yield* decodeFlows(text);
+    const flows: readonly Flow[] = Array.isArray(decoded) ? decoded : [decoded];
+
+    return flows;
+  }).pipe(
+    Effect.mapError(
+      (failed) => new FlowFileUnreadable({ detail: failed.message, file })
+    )
   );
 
 export const checkCommand = Command.make(
@@ -27,6 +50,12 @@ export const checkCommand = Command.make(
     chrome: Flag.String("chrome").pipe(
       Flag.withDescription(
         "Path to the Chrome or Chromium binary. Default: the installed Google Chrome"
+      ),
+      Flag.optional
+    ),
+    flow: Flag.String("flow").pipe(
+      Flag.withDescription(
+        "A JSON file with one flow or a list of flows to run on a local page: guide id, path, setup, requires and targets. Each runs that guide's grader"
       ),
       Flag.optional
     ),
@@ -40,15 +69,20 @@ export const checkCommand = Command.make(
       )
     ),
   },
-  Effect.fn("check")(function* check({ chrome, json, url }) {
-    const checked = yield* checkLocally(url).pipe(
+  Effect.fn("check")(function* check({ chrome, flow, json, url }) {
+    const flows = Option.isSome(flow) ? yield* flowsFrom(flow.value) : [];
+
+    const checked = yield* checkLocally(url, flows).pipe(
       Effect.provide(localLayer(Option.getOrNull(chrome)))
     );
 
     yield* Console.log(
       json
         ? JSON.stringify(
-            yield* Schema.encodeEffect(ReportSchema)(checked.report),
+            yield* Schema.encodeEffect(LocalReportSchema)({
+              ...checked.report,
+              flows: checked.flows,
+            }),
             null,
             2
           )
@@ -60,6 +94,6 @@ export const checkCommand = Command.make(
   })
 ).pipe(
   Command.withDescription(
-    "Check a page in your local Chrome (localhost works): static checks, axe-core and rendered probes. Prints Markdown findings, each with its fix prompt and guide"
+    "Check a page in your local Chrome (localhost works): static checks, axe-core and rendered probes, and with --flow the guides' graders on the flows you describe. Prints Markdown findings, each with its fix prompt and guide"
   )
 );

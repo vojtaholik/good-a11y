@@ -1409,7 +1409,10 @@ const isHostedApp = (filename: string) =>
 
 const localOnlyModules = new Set([
   "@good-a11y/browser-audit/node",
+  "@good-a11y/graders",
   "@good-a11y/http-transport/node",
+  "playwright",
+  "playwright/test",
   "puppeteer-core",
 ]);
 
@@ -1417,6 +1420,7 @@ const localOnlyNames = new Set([
   "LocalHopTransport",
   "LocalUrl",
   "VettedUrl",
+  "playwrightFlowAuditLayer",
   "checkLocally",
   "localChromeSession",
   "localHopTransportLayerOn",

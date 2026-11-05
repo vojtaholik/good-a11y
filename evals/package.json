@@ -10,6 +10,8 @@
     "graders": "playwright test"
   },
   "dependencies": {
+    "@good-a11y/core": "workspace:*",
+    "@good-a11y/graders": "workspace:*",
     "effect": "4.0.0"
   },
   "devDependencies": {

@@ -16,6 +16,7 @@ const failWith = (message: string) =>
 
 const program = runCommand(process.argv.slice(2)).pipe(
   Effect.catchTags({
+    FlowFileUnreadable: (error) => failWith(error.message),
     GuideNotFound: (error) => failWith(error.message),
     ScanTargetRejected: (error) =>
       failWith(

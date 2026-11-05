@@ -7,6 +7,7 @@ npx github:vojtaholik/good-a11y check localhost:5173
 npx github:vojtaholik/good-a11y check https://example.com/cart
 npx github:vojtaholik/good-a11y check --json localhost:5173
 npx github:vojtaholik/good-a11y check --chrome /path/to/chromium localhost:5173
+npx github:vojtaholik/good-a11y check localhost:5173 --flow a11y-flows.json
 ```
 
 ## What runs
@@ -18,7 +19,8 @@ npx github:vojtaholik/good-a11y check --chrome /path/to/chromium localhost:5173
 3. `PageReader` reads the HTML and every static check runs.
 4. `RenderedAudit` opens the page in the user's Chrome (`@good-a11y/browser-audit/node`): the same page scripts, the pinned axe-core 4.14.0 and the same rendered probes as Browser Run, at the same viewport and with the same timeouts. On a private target (below) the forms are also submitted empty, under the hosted fence.
 5. `withRendered` adds the rendered findings, or a skip with its reason, to the `Report`.
-6. The shown judged questions that relate to a WCAG criterion are built with `questionsFor` from the static and rendered evidence. No model is asked.
+6. With `--flow`, on a private target, `FlowAudit` runs each named guide's grader on the flow the agent described (`docs/flows.md`). The results are their own section and are not counted in the verdict.
+7. The shown judged questions that relate to a WCAG criterion are built with `questionsFor` from the static and rendered evidence. No model is asked.
 
 There is no crawl: the check reads the one page it was given. The scope question (`sells-to-consumers`) and the statement question are left out; they belong to the EAA view of the hosted report.
 
@@ -65,7 +67,7 @@ The submits run under the same fence as on Browser Run (docs/rendered-probes.md,
 - **A `./node` entry of browser-audit, not a new package.** The page scripts, axe and the session code live there; a second package would have to import them across packages or copy them. Only `packages/browser-audit` imports puppeteer, as before.
 - **The session code runs on a structural type.** `SessionBrowser` (`packages/browser-audit/src/session-browser.ts`) lists the few browser, page, request and CDP methods the session uses. `@cloudflare/puppeteer` 1.4.0 and `puppeteer-core` 25.13.0 both satisfy it without a cast, so `sessionOn` is one implementation for both.
 - **puppeteer-core with the installed Chrome.** `launch({ channel: "chrome" })` finds Google Chrome where it installs itself. Full `puppeteer` would download a Chrome of its own on every `npx` install. `--chrome <path>` takes any Chrome or Chromium binary. If Chrome does not start, the static checks still run and the report says why the rendered check was skipped and how to fix it.
-- **puppeteer-core is not bundled.** The bundle keeps it external and the root `package.json` lists it under `dependencies`, so `npx` installs it next to the bundle.
+- **puppeteer-core and playwright are not bundled.** The bundle keeps them external and the `good-a11y` package lists them under `dependencies`, so `npx` installs them next to the bundle.
 - **Empty submits only on private targets.** On a public URL a form may post to someone's real backend; the fence blocks every request, but the hosted rule (off unless calibrating) stays for public pages.
 - **The user agent is the scanner's.** A local dev server does not care, and the same string keeps bot-wall detection the same.
 

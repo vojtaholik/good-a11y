@@ -496,10 +496,36 @@ export {
   type RenderedEvidence,
 } from "./rendered-evidence.js";
 
-export { checkLocally, type LocalCheck } from "./local-check.js";
+export {
+  checkLocally,
+  FLOWS_PUBLIC,
+  LocalReportSchema,
+  type LocalCheck,
+} from "./local-check.js";
+
+export {
+  ClaimResultSchema,
+  FlowAudit,
+  FlowFileSchema,
+  FlowResultSchema,
+  FlowSchema,
+  FlowsSchema,
+  FlowStepSchema,
+  FlowTargetSchema,
+  type ClaimResult,
+  type Flow,
+  type FlowResult,
+  type Flows,
+  type FlowTarget,
+} from "./flow.js";
+
+export { FlowAuditFailed } from "./flow-audit-failed.js";
+
+export { FlowFileUnreadable } from "./flow-file-unreadable.js";
 
 export {
   AGENT_JUDGED_LABEL,
+  FLOWS_LABEL,
   formatLocalCheck,
   type LocalCheckText,
 } from "./local-check-text.js";

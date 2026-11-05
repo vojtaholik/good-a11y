@@ -2,6 +2,7 @@ import { criterion } from "./catalogue.js";
 import { METHOD_NAMES } from "./coverage.js";
 import { referencesFor } from "./finding-reference.js";
 import { fixPromptOf } from "./fix-prompt.js";
+import type { FlowResult } from "./flow.js";
 import { JUDGED_CHECKS } from "./judged.js";
 import type { Asked } from "./judged.js";
 import type { LocalCheck } from "./local-check.js";
@@ -129,6 +130,89 @@ const questionsBlock = (questions: readonly Asked[]): string[] =>
         ...questions.flatMap(questionSection),
       ];
 
+export const FLOWS_LABEL =
+  "Graded with each guide's own grader on the flows you described. A guide's expectations can be stricter than WCAG, and a result depends on the targets in your flow, so these are not counted in the verdict. Fix each failing claim with its guide, then check again.";
+
+const SC_FACT = /^STD-SC-(?<number>[\d.]+)$/u;
+
+const relatesTo = (criteria: readonly string[]): string[] => {
+  const relates = referencesFor(
+    criteria.flatMap((id) => {
+      const number = SC_FACT.exec(id)?.groups?.number;
+
+      return number === undefined ? [] : [criterion(number)];
+    }),
+    REFERENCE
+  ).filter((reference) => reference.kind === "wcag");
+
+  return relates.length === 0
+    ? []
+    : [
+        `Relates to ${relates.map((reference) => `${reference.text} (${reference.source})`).join("; ")}.`,
+        "",
+      ];
+};
+
+const flowSection = (flow: FlowResult, text: LocalCheckText): string[] => {
+  const failing = flow.claims.filter((claim) => claim.status === "fail");
+  const passing = flow.claims.filter((claim) => claim.status === "pass");
+
+  return [
+    `### ${flow.name} \`flow:${flow.guide}\``,
+    "",
+    failing.length === 0 && flow.problem === null
+      ? `Ran on ${flow.url}: every claim passed.`
+      : `Ran on ${flow.url}: ${failing.length} of ${flow.claims.length} claims failed.`,
+    "",
+    ...relatesTo(flow.criteria),
+    ...(flow.problem === null ? [] : [flow.problem, ""]),
+    ...failing.flatMap((claim) => [
+      `- \`E${claim.n}\` ${claim.title}: failed.`,
+      "",
+      fenced(claim.detail ?? "No detail."),
+      "",
+    ]),
+    ...(passing.length === 0
+      ? []
+      : [
+          `Passed: ${passing.map((claim) => `\`E${claim.n}\` ${claim.title}`).join("; ")}.`,
+          "",
+        ]),
+    ...(flow.blocked.length === 0
+      ? []
+      : [
+          `Requests to other origins were blocked: ${flow.blocked.slice(0, 5).join(", ")}${flow.blocked.length > 5 ? `, and ${flow.blocked.length - 5} more` : ""}.`,
+          "",
+        ]),
+    ...(failing.length === 0
+      ? []
+      : [`Guide: ${text.guideUrl(flow.guide)}`, ""]),
+  ];
+};
+
+const flowsBlock = (check: LocalCheck, text: LocalCheckText): string[] => {
+  if (check.flows === null) {
+    return [];
+  }
+
+  if ("skipped" in check.flows) {
+    return [
+      "## From the flows you described",
+      "",
+      `Flows skipped: ${check.flows.skipped}`,
+      "",
+    ];
+  }
+
+  return [
+    "## From the flows you described",
+    "",
+    FLOWS_LABEL,
+    "",
+    ...check.flows.ran.flatMap((flow) => flowSection(flow, text)),
+  ];
+};
+
 const renderedLine = (check: LocalCheck): string[] => {
   const { rendered } = check.report;
 
@@ -173,6 +257,7 @@ export const formatLocalCheck = (
       benchmark.length + 1,
       text
     ),
+    ...flowsBlock(check, text),
     ...questionsBlock(check.questions),
     report.statement.factId === null
       ? report.statement.text

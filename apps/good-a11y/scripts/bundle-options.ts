@@ -14,7 +14,7 @@ export const bundleOptions: BuildOptions = {
   },
   bundle: true,
   entryPoints: ["dist/cli.js"],
-  external: ["puppeteer-core"],
+  external: ["playwright", "puppeteer-core"],
   format: "esm",
   legalComments: "eof",
   minify: true,

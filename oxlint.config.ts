@@ -51,9 +51,15 @@ export default defineConfig({
   },
   overrides: [
     {
-      files: ["evals/graders/**"],
+      files: ["evals/graders/**", "packages/graders/src/**"],
       rules: {
         "no-await-in-loop": "off",
+      },
+    },
+    {
+      files: ["packages/graders/src/**"],
+      rules: {
+        "rat-stack-boundaries/no-browser-globals-on-server": "off",
       },
     },
     {

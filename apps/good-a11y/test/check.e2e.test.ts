@@ -1,5 +1,4 @@
 // @effect-diagnostics nodeBuiltinImport:off -- Black-box tests of the committed bundle: a local static server serves fixture pages and the bundle runs as a child process in the user's Chrome, as npx does.
-import { spawn } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import path from "node:path";
@@ -8,15 +7,9 @@ import { describe, expect, it } from "@effect/vitest";
 import { ReportSchema } from "@good-a11y/core";
 import { Effect, Schema } from "effect";
 
-import { BUNDLE_PATH } from "../scripts/bundle-options.ts";
+import { runBundle } from "./run-bundle.ts";
 
 const fixtures = path.join(import.meta.dirname, "fixtures");
-
-interface Run {
-  readonly status: number | null;
-  readonly stderr: string;
-  readonly stdout: string;
-}
 
 const hits: string[] = [];
 
@@ -62,23 +55,6 @@ const pageServer = Effect.acquireRelease(
   }),
   () => Effect.void
 );
-
-const runBundle = (arguments_: readonly string[]) =>
-  Effect.callback<Run>((resume) => {
-    const child = spawn(process.execPath, [BUNDLE_PATH, ...arguments_]);
-    let stdout = "";
-    let stderr = "";
-
-    child.stdout.on("data", (chunk: Buffer) => {
-      stdout += chunk.toString();
-    });
-    child.stderr.on("data", (chunk: Buffer) => {
-      stderr += chunk.toString();
-    });
-    child.on("close", (status) => {
-      resume(Effect.succeed({ status, stderr, stdout }));
-    });
-  });
 
 describe("good-a11y check", () => {
   it.live(

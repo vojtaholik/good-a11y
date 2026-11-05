@@ -36,6 +36,7 @@
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {
+    "playwright": "1.64.1",
     "puppeteer-core": "25.13.0"
   },
   "devDependencies": {
@@ -43,6 +44,7 @@
     "@effect/vitest": "4.0.0",
     "@good-a11y/browser-audit": "workspace:*",
     "@good-a11y/core": "workspace:*",
+    "@good-a11y/graders": "workspace:*",
     "@good-a11y/guides": "workspace:*",
     "@good-a11y/html-reader": "workspace:*",
     "@good-a11y/http-transport": "workspace:*",
