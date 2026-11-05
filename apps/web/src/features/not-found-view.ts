@@ -34,8 +34,7 @@ const missing = stylex.create({
     gap: "20px",
     marginInline: "auto",
     maxInlineSize: layout["--page"],
-    paddingBlock: "clamp(48px, 6cqi, 88px)",
-    paddingInline: layout["--gutter"],
+    paddingBlock: "0 clamp(48px, 6cqi, 88px)",
   },
   title: {
     fontSize: "clamp(2.25rem, 2.8cqi + 1.375rem, 3.75rem)",

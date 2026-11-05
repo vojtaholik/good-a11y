@@ -138,3 +138,9 @@ code {
 [data-states] > li:has(> details[open]) {
   grid-column: 1 / -1;
 }
+
+@media (min-width: 768px) {
+  :root {
+    scroll-padding-block-start: 72px;
+  }
+}

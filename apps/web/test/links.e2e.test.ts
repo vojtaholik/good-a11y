@@ -92,7 +92,11 @@ const textAfterClick = async (
   expected: string
 ) => {
   const page = await openPage(opened, from);
-  const link = page.locator(`a[href="${href}"]`).first();
+
+  const link = page
+    .locator(`a[href="${href}"]`)
+    .filter({ visible: true })
+    .first();
 
   await link.scrollIntoViewIfNeeded();
   await Promise.all([

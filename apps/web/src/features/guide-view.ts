@@ -16,10 +16,12 @@ import { CopyState } from "../client/model.js";
 import type { AppModel } from "../client/model.js";
 import { CLI } from "./agent-links.js";
 import { commandBlock } from "./command-block.js";
-import { categoryName } from "./guides.js";
+import { categoryId, categoryName } from "./guides.js";
 import type { GuidePage } from "./guides.js";
 import { checkIcon, crossIcon } from "./icons.js";
 import { MAIN_ID } from "./landmarks.js";
+import { item, uniqueIds } from "./outline.js";
+import type { OutlineItem, PageLayout } from "./outline.js";
 import { homeRouter } from "./route.js";
 import { sx } from "./sx.js";
 import { colors, font, layout, radius } from "./tokens.stylex.js";
@@ -28,8 +30,11 @@ export const RETRIEVE = `${CLI} retrieve`;
 
 export const demoPath = (id: string): string => `/${id}/demo.html`;
 
-export const referencePath = (id: string): string =>
-  `/skills/good-a11y/references/${id}.md`;
+export const guideMarkdownPath = (id: string): string => `/${id}.md`;
+
+const DEMO_HEADING_ID = "live-demo";
+
+const AGENTS_HEADING_ID = "for-agents";
 
 const LANGUAGES = new Map([
   ["css", "CSS"],
@@ -85,8 +90,13 @@ const guide = stylex.create({
     gap: "48px clamp(40px, 5cqi, 72px)",
   },
   breadcrumb: {
+    display: "flex",
+    flexWrap: "wrap",
     fontSize: "0.9375rem",
+    gap: "4px 8px",
+    listStyle: "none",
     margin: 0,
+    padding: 0,
   },
   breadcrumbLink: {
     color: colors["--accent"],
@@ -158,6 +168,10 @@ const guide = stylex.create({
     overflowX: "auto",
     paddingBlock: "16px",
     paddingInline: "18px",
+  },
+  crumbMark: {
+    color: colors["--ink-muted"],
+    marginInlineEnd: "8px",
   },
   demo: {
     backgroundColor: colors["--surface"],
@@ -244,8 +258,16 @@ const guide = stylex.create({
     gap: "clamp(28px, 3cqi, 48px)",
     marginInline: "auto",
     maxInlineSize: "1280px",
-    paddingBlock: "clamp(32px, 4cqi, 64px) clamp(48px, 6cqi, 96px)",
-    paddingInline: layout["--gutter"],
+    paddingBlock: "0 clamp(48px, 6cqi, 96px)",
+  },
+  railTitle: {
+    color: colors["--ink-muted"],
+    fontFamily: font["--font-code"],
+    fontSize: "0.75rem",
+    fontWeight: 600,
+    letterSpacing: "0.06em",
+    margin: 0,
+    textTransform: "uppercase",
   },
   rule: {
     borderRadius: radius["--radius-md"],
@@ -320,6 +342,37 @@ const sectionsOf = (blocks: readonly Block[]): readonly Section[] => {
   return sections;
 };
 
+const contentBlocks = (page: GuidePage): readonly Block[] =>
+  page.document.blocks.filter((block) => !isHeadingAt(block, 1));
+
+const outlineHeadings = (page: GuidePage): readonly Block[] =>
+  contentBlocks(page).filter(
+    (block) => isHeadingAt(block, 2) || isHeadingAt(block, 3)
+  );
+
+const headingIdsOf = (page: GuidePage): ReadonlyMap<Block, string> => {
+  const headings = outlineHeadings(page);
+  const ids = uniqueIds(headings.map(headingText));
+
+  return new Map(headings.map((block, index) => [block, ids[index] ?? ""]));
+};
+
+export const guideOutline = (page: GuidePage): readonly OutlineItem[] => {
+  const ids = headingIdsOf(page);
+
+  return [
+    ...outlineHeadings(page).map((block) =>
+      item(
+        ids.get(block) ?? "",
+        headingText(block),
+        isHeadingAt(block, 3) ? 3 : 2
+      )
+    ),
+    item(DEMO_HEADING_ID, "Live demo"),
+    item(AGENTS_HEADING_ID, "For agents"),
+  ];
+};
+
 const isCopied = (model: AppModel, text: string): boolean =>
   Schema.is(CopyState.Copied)(model.copy) && model.copy.key === text;
 
@@ -363,9 +416,22 @@ const codeBlockView =
 
 const viewsFor = (
   model: AppModel,
+  ids: ReadonlyMap<Block, string>,
   h: HtmlBuilder<AppMessage>
 ): Partial<Views> => ({
   CodeBlock: codeBlockView(model, h),
+  Heading: (heading, content) => {
+    const id = ids.get(heading);
+    const attributes = id === undefined ? [] : [h.Id(id)];
+
+    if (heading.level === 2) {
+      return h.h2(attributes, [...content]);
+    }
+
+    return heading.level === 3
+      ? h.h3(attributes, [...content])
+      : h.h4(attributes, [...content]);
+  },
   Table: (_table, headerRow, bodyRows) =>
     h.div(
       [sx(h, guide.tableWrap)],
@@ -376,37 +442,45 @@ const viewsFor = (
 const blocksView = (
   blocks: readonly Block[],
   model: AppModel,
+  ids: ReadonlyMap<Block, string>,
   h: HtmlBuilder<AppMessage>
 ): readonly Html[] =>
   viewBlocks({ blocks } satisfies MarkdownDocument, {
-    views: viewsFor(model, h),
+    views: viewsFor(model, ids, h),
   });
 
 const ruleView = (
   section: Section,
   isDo: boolean,
   model: AppModel,
+  ids: ReadonlyMap<Block, string>,
   h: HtmlBuilder<AppMessage>
-): Html =>
-  h.section(
+): Html => {
+  const [heading] = section.blocks;
+  const id = heading === undefined ? undefined : ids.get(heading);
+
+  return h.section(
     [sx(h, guide.rule, isDo ? guide.do : guide.doNot)],
     [
       h.h2(
-        [sx(h, guide.ruleHeading, isDo ? guide.doHeading : guide.doNotHeading)],
+        [
+          ...(id === undefined ? [] : [h.Id(id)]),
+          sx(h, guide.ruleHeading, isDo ? guide.doHeading : guide.doNotHeading),
+        ],
         [isDo ? checkIcon(h, 20) : crossIcon(h, 20), section.heading]
       ),
-      ...blocksView(section.blocks.slice(1), model, h),
+      ...blocksView(section.blocks.slice(1), model, ids, h),
     ]
   );
+};
 
 const articleView = (
   page: GuidePage,
   model: AppModel,
   h: HtmlBuilder<AppMessage>
 ): Html => {
-  const sections = sectionsOf(
-    page.document.blocks.filter((block) => !isHeadingAt(block, 1))
-  );
+  const sections = sectionsOf(contentBlocks(page));
+  const ids = headingIdsOf(page);
 
   const maybeDo = Array.findFirst(sections, (s) => s.heading === "DO");
   const maybeDoNot = Array.findFirst(sections, (s) => s.heading === "DO NOT");
@@ -414,28 +488,30 @@ const articleView = (
   const rules = h.div(
     [sx(h, guide.rules)],
     [
-      ...Option.toArray(maybeDo).map((s) => ruleView(s, true, model, h)),
-      ...Option.toArray(maybeDoNot).map((s) => ruleView(s, false, model, h)),
+      ...Option.toArray(maybeDo).map((s) => ruleView(s, true, model, ids, h)),
+      ...Option.toArray(maybeDoNot).map((s) =>
+        ruleView(s, false, model, ids, h)
+      ),
     ]
+  );
+
+  const firstRule = sections.findIndex(
+    (s) => s.heading === "DO" || s.heading === "DO NOT"
   );
 
   return h.article(
     [h.DataAttribute("prose", ""), sx(h, guide.article)],
-    sections.flatMap((section) => {
-      if (section.heading === "DO NOT") {
-        return [];
+    sections.flatMap((section, index) => {
+      if (section.heading === "DO" || section.heading === "DO NOT") {
+        return index === firstRule ? [rules] : [];
       }
 
-      if (section.heading === "DO") {
-        return [rules];
-      }
-
-      return blocksView(section.blocks, model, h);
+      return blocksView(section.blocks, model, ids, h);
     })
   );
 };
 
-const criteriaView = (page: GuidePage, h: HtmlBuilder<AppMessage>): Html[] => {
+const criteriaRail = (page: GuidePage, h: HtmlBuilder<AppMessage>): Html[] => {
   const verified = Array.filter(
     page.criteria.map(verifiedText),
     (text) => text !== null
@@ -444,15 +520,15 @@ const criteriaView = (page: GuidePage, h: HtmlBuilder<AppMessage>): Html[] => {
   return verified.length === 0
     ? []
     : [
-        h.section(
-          [h.AriaLabelledBy("criteria-heading"), sx(h, guide.asideSection)],
+        h.div(
+          [sx(h, guide.asideSection)],
           [
-            h.h2(
-              [h.Id("criteria-heading"), sx(h, guide.asideHeading)],
+            h.p(
+              [h.Id(`criteria-${page.id}`), sx(h, guide.railTitle)],
               ["WCAG success criteria"]
             ),
             h.ul(
-              [sx(h, guide.chips)],
+              [h.AriaLabelledBy(`criteria-${page.id}`), sx(h, guide.chips)],
               verified.map(({ source, text }) =>
                 h.li(
                   [sx(h, guide.chip)],
@@ -465,62 +541,108 @@ const criteriaView = (page: GuidePage, h: HtmlBuilder<AppMessage>): Html[] => {
       ];
 };
 
-const asideView = (
+const demoRail = (page: GuidePage, h: HtmlBuilder<AppMessage>): Html =>
+  h.div(
+    [sx(h, guide.asideSection)],
+    [
+      h.p([sx(h, guide.railTitle)], ["Demo"]),
+      h.a(
+        [h.Href(demoPath(page.id)), sx(h, guide.demoLink)],
+        ["Open the demo page"]
+      ),
+    ]
+  );
+
+const demoView = (page: GuidePage, h: HtmlBuilder<AppMessage>): Html =>
+  h.section(
+    [h.AriaLabelledBy(DEMO_HEADING_ID), sx(h, guide.demo)],
+    [
+      h.div(
+        [sx(h, guide.demoHead)],
+        [
+          h.h2([h.Id(DEMO_HEADING_ID), sx(h, guide.demoTitle)], ["Live demo"]),
+          h.a(
+            [h.Href(demoPath(page.id)), sx(h, guide.demoLink)],
+            ["Open the demo"]
+          ),
+        ]
+      ),
+      h.iframe([
+        h.Src(demoPath(page.id)),
+        h.Title(`${page.name} demo`),
+        h.Sandbox("allow-scripts allow-forms"),
+        h.Loading("lazy"),
+        sx(h, guide.demoFrame),
+      ]),
+      h.p(
+        [sx(h, guide.demoCaption)],
+        [
+          "The guide's own demo page in a sandboxed frame. Works with mouse and keyboard.",
+        ]
+      ),
+    ]
+  );
+
+const agentsView = (
   page: GuidePage,
   model: AppModel,
   h: HtmlBuilder<AppMessage>
 ): Html =>
-  h.aside(
-    [h.AriaLabel("Demo and references"), sx(h, guide.aside)],
+  h.section(
+    [h.AriaLabelledBy(AGENTS_HEADING_ID), sx(h, guide.asideSection)],
     [
-      h.section(
-        [h.AriaLabelledBy("demo-heading"), sx(h, guide.demo)],
+      h.h2(
+        [h.Id(AGENTS_HEADING_ID), sx(h, guide.asideHeading)],
+        ["For agents"]
+      ),
+      commandBlock(model, `${RETRIEVE} ${page.id}`, "compact", h),
+      h.p(
+        [sx(h, guide.agentNote)],
         [
-          h.div(
-            [sx(h, guide.demoHead)],
-            [
-              h.h2(
-                [h.Id("demo-heading"), sx(h, guide.demoTitle)],
-                ["Live demo"]
-              ),
-              h.a(
-                [h.Href(demoPath(page.id)), sx(h, guide.demoLink)],
-                ["Open the demo"]
-              ),
-            ]
-          ),
-          h.iframe([
-            h.Src(demoPath(page.id)),
-            h.Title(`${page.name} demo`),
-            h.Sandbox("allow-scripts allow-forms"),
-            h.Loading("lazy"),
-            sx(h, guide.demoFrame),
-          ]),
-          h.p(
-            [sx(h, guide.demoCaption)],
-            [
-              "The guide's own demo page in a sandboxed frame. Works with mouse and keyboard.",
-            ]
+          "This guide as Markdown: ",
+          h.a(
+            [h.Href(guideMarkdownPath(page.id)), sx(h, guide.breadcrumbLink)],
+            [h.code([], [guideMarkdownPath(page.id)])]
           ),
         ]
       ),
-      ...criteriaView(page, h),
-      h.section(
-        [h.AriaLabelledBy("agents-heading"), sx(h, guide.asideSection)],
+    ]
+  );
+
+const breadcrumbView = (page: GuidePage, h: HtmlBuilder<AppMessage>): Html =>
+  h.nav(
+    [h.AriaLabel("Breadcrumb")],
+    [
+      h.ol(
+        [sx(h, guide.breadcrumb)],
         [
-          h.h2(
-            [h.Id("agents-heading"), sx(h, guide.asideHeading)],
-            ["For agents"]
-          ),
-          commandBlock(model, `${RETRIEVE} ${page.id}`, "compact", h),
-          h.p(
-            [sx(h, guide.agentNote)],
+          h.li(
+            [],
             [
-              "This guide as Markdown: ",
               h.a(
-                [h.Href(referencePath(page.id)), sx(h, guide.breadcrumbLink)],
-                [h.code([], [referencePath(page.id)])]
+                [h.Href(`${homeRouter()}#guides`), sx(h, guide.breadcrumbLink)],
+                ["Guides"]
               ),
+            ]
+          ),
+          h.li(
+            [],
+            [
+              h.span([h.AriaHidden(true), sx(h, guide.crumbMark)], ["/"]),
+              h.a(
+                [
+                  h.Href(`${homeRouter()}#${categoryId(page.category)}`),
+                  sx(h, guide.breadcrumbLink),
+                ],
+                [categoryName(page.category)]
+              ),
+            ]
+          ),
+          h.li(
+            [],
+            [
+              h.span([h.AriaHidden(true), sx(h, guide.crumbMark)], ["/"]),
+              h.span([h.AriaCurrent("page")], [page.name]),
             ]
           ),
         ]
@@ -528,7 +650,7 @@ const asideView = (
     ]
   );
 
-export const guideView = (
+const guideMain = (
   page: GuidePage,
   model: AppModel,
   h: HtmlBuilder<AppMessage>
@@ -539,34 +661,24 @@ export const guideView = (
       h.div(
         [sx(h, guide.intro)],
         [
-          h.nav(
-            [h.AriaLabel("Breadcrumb")],
-            [
-              h.p(
-                [sx(h, guide.breadcrumb)],
-                [
-                  h.a(
-                    [
-                      h.Href(`${homeRouter()}#guides`),
-                      sx(h, guide.breadcrumbLink),
-                    ],
-                    ["Guides"]
-                  ),
-                  " ",
-                  h.span([h.AriaHidden(true)], ["/"]),
-                  " ",
-                  categoryName(page.category),
-                ]
-              ),
-            ]
-          ),
+          breadcrumbView(page, h),
           h.h1([sx(h, guide.title)], [page.name]),
           h.p([sx(h, guide.lead)], [page.description.replace(/\.?$/u, ".")]),
         ]
       ),
-      h.div(
-        [sx(h, guide.body)],
-        [articleView(page, model, h), asideView(page, model, h)]
-      ),
+      articleView(page, model, h),
+      demoView(page, h),
+      agentsView(page, model, h),
     ]
   );
+
+export const guideView = (
+  page: GuidePage,
+  model: AppModel,
+  h: HtmlBuilder<AppMessage>
+): PageLayout => ({
+  index: null,
+  main: guideMain(page, model, h),
+  outline: guideOutline(page),
+  railExtra: [...criteriaRail(page, h), demoRail(page, h)],
+});

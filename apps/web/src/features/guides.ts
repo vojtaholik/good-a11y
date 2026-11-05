@@ -34,3 +34,5 @@ export const guidesByCategory = (): readonly (readonly [
   Object.entries(Array.groupBy(GUIDE_PAGES, (page) => page.category)).toSorted(
     ([left], [right]) => categoryName(left).localeCompare(categoryName(right))
   );
+
+export const categoryId = (category: string): string => `category-${category}`;

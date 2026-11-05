@@ -165,6 +165,7 @@ const enterRoute = (
             onNone: () => ScanState.Loading(),
             onSome: scanStateOf,
           }),
+    section: () => Option.none(),
     start: () => StartState.Idle(),
     url: (url) =>
       Schema.is(AppRoute.Check)(route) && route.url !== undefined
@@ -242,6 +243,7 @@ export const init: Runtime.RoutingApplicationInit<
       origin: flags.origin,
       route: AppRoute.Home(),
       scan: ScanState.Idle(),
+      section: Option.none(),
       start: StartState.Idle(),
       url: "",
     },
@@ -325,6 +327,9 @@ export const update = (model: AppModel, message: AppMessage): AppUpdate =>
             }),
           }
         : { model },
+    ScrolledToSection: ({ maybeId }) => ({
+      model: modifyFields(model, { section: () => maybeId }),
+    }),
     SubmittedContactForm: ({ maybeUrl }) => submitContact(model, maybeUrl),
     SubmittedScanForm: () => submitScan(model),
     SucceededCopyText: ({ key }) => ({

@@ -2,7 +2,7 @@ import { describe, expect, it } from "@effect/vitest";
 import { CONTACT_SHOWN, reportOf, runChecks } from "@good-a11y/core";
 import type { ScanView } from "@good-a11y/core";
 import { readPage } from "@good-a11y/html-reader";
-import { Effect } from "effect";
+import { Effect, Option } from "effect";
 import { renderToString } from "foldkit/experimental/server";
 import type { HtmlBuilder } from "foldkit/html";
 
@@ -17,6 +17,7 @@ import {
 import type { AppModel } from "../src/client/model.js";
 import { contactPageView } from "../src/features/contact-view.js";
 import { GUIDE_PAGES } from "../src/features/guides.js";
+import { plainPage } from "../src/features/outline.js";
 import { AppRoute } from "../src/features/route.js";
 import { pageShell } from "../src/features/shell.js";
 import { view } from "../src/features/view.js";
@@ -48,6 +49,7 @@ const home: AppModel = {
   origin: "https://good-a11y.example",
   route: AppRoute.Home(),
   scan: ScanState.Idle(),
+  section: Option.none(),
   start: StartState.Idle(),
   url: "",
 };
@@ -131,7 +133,7 @@ describe("our own page", () => {
               }),
               view: (model: AppModel, h: HtmlBuilder<AppMessage>) => ({
                 ...view(model, h),
-                body: pageShell(model.route, contactPageView(model, h), h),
+                body: pageShell(model, plainPage(contactPageView(model, h)), h),
               }),
             },
             { isHydratable: false }
@@ -172,13 +174,15 @@ describe("our own page", () => {
         scan: ScanState.Settled({ view: publishedScan() }),
       });
 
+      const main = html.slice(html.indexOf("<main"), html.indexOf("</main>"));
+
       const order = [
         "issues found by",
         "Issues (",
         "Where the EAA applies",
         "had nothing to check",
         "About the rules",
-      ].map((marker) => html.lastIndexOf(marker));
+      ].map((marker) => main.lastIndexOf(marker));
 
       expect(order.map((index) => index >= 0)).toEqual(order.map(() => true));
       expect(order).toEqual(order.toSorted((left, right) => left - right));
@@ -258,5 +262,69 @@ describe("our own page", () => {
 
         expect(start).toContain('value="https://example.com/"');
       })
+  );
+});
+
+const fragmentsOf = (html: string): readonly string[] =>
+  [...html.matchAll(/href="#(?<id>[^"]+)"/gu)].map(
+    (match) => match.groups?.id ?? ""
+  );
+
+const missingTargets = (html: string): readonly string[] =>
+  fragmentsOf(html).filter((id) => !html.includes(`id="${id}"`));
+
+describe("the page shell", () => {
+  it.effect("points every in-page link at a heading on the page", () =>
+    Effect.gen(function* inPageLinks() {
+      const routes = [
+        AppRoute.Home(),
+        AppRoute.Check({}),
+        AppRoute.About(),
+        ...GUIDE_PAGES.map((page) => AppRoute.Guide({ guideId: page.id })),
+      ];
+
+      for (const route of routes) {
+        const html = yield* pageOf({ ...home, route });
+
+        expect(fragmentsOf(html).length).toBeGreaterThan(1);
+        expect(missingTargets(html)).toEqual([]);
+      }
+    })
+  );
+
+  it.effect("marks the current guide in the guides navigation", () =>
+    Effect.gen(function* currentGuide() {
+      const html = yield* pageOf({
+        ...home,
+        route: AppRoute.Guide({ guideId: "dialog-modal" }),
+      });
+
+      expect(html).toContain('aria-label="Guides"');
+
+      const currentLinks = [...html.matchAll(/<a\b[^>]*>/gu)].flatMap(
+        ([tag]) =>
+          tag.includes('aria-current="page"')
+            ? [/href="(?<href>[^"]*)"/u.exec(tag)?.groups?.href]
+            : []
+      );
+
+      expect(currentLinks.length).toBeGreaterThan(0);
+      expect(new Set(currentLinks)).toEqual(new Set(["/dialog-modal"]));
+    })
+  );
+
+  it.effect("turns the sidebar into the report's own section index", () =>
+    Effect.gen(function* reportIndex() {
+      const html = yield* pageOf({
+        ...home,
+        route: AppRoute.Report({ slug: "example.com" }),
+        scan: ScanState.Settled({ view: publishedScan() }),
+      });
+
+      expect(html).toContain('aria-label="Report sections"');
+      expect(html).not.toContain('aria-label="Guides"');
+      expect(html).toContain('href="#summary"');
+      expect(missingTargets(html)).toEqual([]);
+    })
   );
 });

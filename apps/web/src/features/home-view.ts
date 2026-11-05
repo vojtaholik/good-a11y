@@ -10,8 +10,10 @@ import {
   agentPrompt,
 } from "./agent-links.js";
 import { commandBlock } from "./command-block.js";
-import { categoryName, guidesByCategory } from "./guides.js";
+import { categoryId, categoryName, guidesByCategory } from "./guides.js";
 import { MAIN_ID } from "./landmarks.js";
+import { item, plainPage } from "./outline.js";
+import type { PageLayout } from "./outline.js";
 import { guideRouter, privacyRouter } from "./route.js";
 import { scanForm } from "./scan-form.js";
 import { LLMS_PATH } from "./shell.js";
@@ -52,7 +54,9 @@ const home = stylex.create({
   },
   agents: {
     backgroundColor: colors["--inverse"],
+    borderRadius: radius["--radius-lg"],
     color: colors["--on-inverse"],
+    paddingInline: "clamp(20px, 4cqi, 48px)",
   },
   agentsInner: {
     alignItems: "center",
@@ -63,7 +67,6 @@ const home = stylex.create({
     marginInline: "auto",
     maxInlineSize: layout["--page"],
     paddingBlock: "clamp(40px, 5cqi, 72px)",
-    paddingInline: layout["--gutter"],
   },
   agentsIntro: {
     color: colors["--on-inverse-muted"],
@@ -169,7 +172,6 @@ const home = stylex.create({
     marginInline: "auto",
     maxInlineSize: layout["--page"],
     paddingBlock: "clamp(48px, 6cqi, 88px)",
-    paddingInline: layout["--gutter"],
   },
   guidesColumns: {
     columnGap: "56px",
@@ -194,8 +196,7 @@ const home = stylex.create({
     gap: "40px 64px",
     marginInline: "auto",
     maxInlineSize: layout["--page"],
-    paddingBlock: "clamp(40px, 6cqi, 96px) clamp(40px, 5cqi, 72px)",
-    paddingInline: layout["--gutter"],
+    paddingBlock: "0 clamp(40px, 5cqi, 72px)",
   },
   heroText: {
     display: "flex",
@@ -378,7 +379,7 @@ const guidesView = (h: HtmlBuilder<AppMessage>): Html => {
             [sx(h, home.categoryGroup)],
             [
               h.h3(
-                [sx(h, home.category)],
+                [h.Id(categoryId(category)), sx(h, home.category)],
                 [
                   categoryName(category),
                   " ",
@@ -415,8 +416,21 @@ const guidesView = (h: HtmlBuilder<AppMessage>): Html => {
   );
 };
 
-export const homeView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
-  h.main(
-    [h.Id(MAIN_ID)],
-    [heroView(model, h), agentsView(model, h), guidesView(h)]
+export const homeView = (
+  model: AppModel,
+  h: HtmlBuilder<AppMessage>
+): PageLayout =>
+  plainPage(
+    h.main(
+      [h.Id(MAIN_ID)],
+      [heroView(model, h), agentsView(model, h), guidesView(h)]
+    ),
+    [
+      item("check-heading", "Check one page"),
+      item("agents-heading", "For agents"),
+      item("guides", "Guides"),
+      ...guidesByCategory().map(([category]) =>
+        item(categoryId(category), categoryName(category), 3)
+      ),
+    ]
   );

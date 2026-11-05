@@ -8,7 +8,7 @@ import {
   quietSummary,
 } from "@good-a11y/core/contracts";
 import type { Finding, Report, Sourced } from "@good-a11y/core/contracts";
-import { Option } from "effect";
+import { Option, Schema } from "effect";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
 import type { AppMessage } from "../client/message.js";
@@ -18,9 +18,11 @@ import { contactView } from "./contact-view.js";
 import { statusMessage } from "./controls.js";
 import { crossIcon, infoIcon } from "./icons.js";
 import { MAIN_ID } from "./landmarks.js";
+import { item, plainPage } from "./outline.js";
+import type { OutlineItem, PageLayout } from "./outline.js";
 import { checklistSection } from "./report-checklist.js";
 import { issuesSection } from "./report-issues.js";
-import { judgedSection } from "./report-judged.js";
+import { judgedSection, notedCount } from "./report-judged.js";
 import { siteSection } from "./report-site.js";
 import { statesSection } from "./report-states.js";
 import { report as local } from "./report-styles.js";
@@ -136,6 +138,14 @@ const metaRow = (
 const issuesCounted = (count: number): string =>
   `${count} ${count === 1 ? "issue" : "issues"}`;
 
+const SUMMARY_ID = "summary";
+
+const issueTotal = (report: Report): number => {
+  const { benchmark, newer } = issueGroupsOf(report);
+
+  return benchmark.length + newer.length;
+};
+
 const issueCountLine = (report: Report): string => {
   const { benchmark, newer } = issueGroupsOf(report);
 
@@ -153,7 +163,7 @@ const topView = (
   h: HtmlBuilder<AppMessage>
 ): Html =>
   h.div(
-    [sx(h, local.head)],
+    [h.Id(SUMMARY_ID), sx(h, local.head)],
     [
       h.div(
         [sx(h, local.intro)],
@@ -212,18 +222,12 @@ const topView = (
     ]
   );
 
-type Part = Readonly<{ content: readonly Html[]; id: string; label: string }>;
-
-const navView = (parts: readonly Part[], h: HtmlBuilder<AppMessage>): Html =>
-  h.nav(
-    [h.AriaLabel("On this page"), sx(h, local.nav)],
-    [
-      h.p([sx(h, local.navTitle), h.AriaHidden(true)], ["On this page"]),
-      ...parts.map(({ id, label }) =>
-        h.a([h.Href(`#${id}`), sx(h, local.navLink)], [label])
-      ),
-    ]
-  );
+type Part = Readonly<{
+  content: readonly Html[];
+  count: number | null;
+  id: string;
+  label: string;
+}>;
 
 const quietView = (report: Report, h: HtmlBuilder<AppMessage>): Html[] => {
   const quiet = quietChecksOf(report);
@@ -316,71 +320,82 @@ const partsOf = (
     [
       {
         content: issuesSection(model, report, h),
+        count: issueTotal(report),
         id: "issues",
         label: "Issues",
       },
       {
         content: judgedSection(report, h),
+        count: notedCount(report),
         id: "judged",
         label: "Judged by a model",
       },
       {
         content: [checklistSection(report, h)],
+        count: null,
         id: "checklist",
         label: "Requirement checklist",
       },
-      { content: siteSection(report, h), id: "site", label: "Other pages" },
+      {
+        content: siteSection(report, h),
+        count: report.site?.pages.length ?? null,
+        id: "site",
+        label: "Other pages",
+      },
       {
         content: [statesSection(report, h)],
+        count: null,
         id: "states",
         label: "Where the EAA applies",
       },
       {
         content: quietView(report, h),
+        count: quietChecksOf(report).length,
         id: "quiet",
         label: "Checks with no issue",
       },
       {
         content: [rulesView(report, h)],
+        count: null,
         id: "rules",
         label: "About the rules",
       },
     ] satisfies Part[]
   ).filter(({ content }) => content.length > 0);
 
-const publishedView = (
+const partsFor = (
   model: AppModel,
   report: Report,
-  slug: string,
   h: HtmlBuilder<AppMessage>
-): Html[] => {
-  const parts: readonly Part[] = isTested(report)
+): readonly Part[] =>
+  isTested(report)
     ? partsOf(model, report, h)
     : [
         {
           content: [rulesView(report, h)],
+          count: null,
           id: "rules",
           label: "About the rules",
         },
       ];
 
-  return [
-    topView(report, slug, h),
-    h.div(
-      [sx(h, local.body)],
-      [
-        navView(parts, h),
-        h.div(
-          [sx(h, local.column)],
-          [
-            ...parts.flatMap(({ content }) => content),
-            ...closingView(report, h),
-          ]
-        ),
-      ]
-    ),
-  ];
-};
+const publishedView = (
+  report: Report,
+  slug: string,
+  parts: readonly Part[],
+  h: HtmlBuilder<AppMessage>
+): Html[] => [
+  topView(report, slug, h),
+  h.div(
+    [sx(h, local.column)],
+    [...parts.flatMap(({ content }) => content), ...closingView(report, h)]
+  ),
+];
+
+const indexOf = (parts: readonly Part[]): readonly OutlineItem[] => [
+  item(SUMMARY_ID, "Summary"),
+  ...parts.map(({ count, id, label }) => item(id, label, 2, count)),
+];
 
 const pendingView = (
   slug: string,
@@ -395,7 +410,38 @@ const newScanLink = (
 ): Html =>
   h.p([], [h.a([h.Href(checkRouter({ url })), sx(h, local.link)], [label])]);
 
-export const reportView = (
+const publishedLayout = (
+  model: AppModel,
+  report: Report,
+  slug: string,
+  h: HtmlBuilder<AppMessage>
+): PageLayout => {
+  const parts = partsFor(model, report, h);
+  const index = indexOf(parts);
+
+  return {
+    index,
+    main: h.main(
+      [h.Id(MAIN_ID), sx(h, local.main)],
+      [
+        ...publishedView(report, slug, parts, h),
+        ...(CONTACT_SHOWN
+          ? [
+              contactView(
+                model,
+                Option.some(report.finalUrl ?? report.requestedUrl),
+                h
+              ),
+            ]
+          : []),
+      ]
+    ),
+    outline: [],
+    railExtra: [],
+  };
+};
+
+const pendingMain = (
   model: AppModel,
   slug: string,
   h: HtmlBuilder<AppMessage>
@@ -425,29 +471,14 @@ export const reportView = (
           h
         ),
       Settled: ({ view }) =>
-        view.report === null
-          ? pendingView(
-              slug,
-              [
-                statusMessage(h, "error", view.failure ?? "the scan failed."),
-                newScanLink(view.url, "Start a new scan", h),
-              ],
-              h
-            )
-          : [
-              ...publishedView(model, view.report, slug, h),
-              ...(CONTACT_SHOWN
-                ? [
-                    contactView(
-                      model,
-                      Option.some(
-                        view.report.finalUrl ?? view.report.requestedUrl
-                      ),
-                      h
-                    ),
-                  ]
-                : []),
-            ],
+        pendingView(
+          slug,
+          [
+            statusMessage(h, "error", view.failure ?? "the scan failed."),
+            newScanLink(view.url, "Start a new scan", h),
+          ],
+          h
+        ),
       Unavailable: () =>
         pendingView(
           slug,
@@ -472,3 +503,12 @@ export const reportView = (
         ),
     })
   );
+
+export const reportView = (
+  model: AppModel,
+  slug: string,
+  h: HtmlBuilder<AppMessage>
+): PageLayout =>
+  Schema.is(ScanState.Settled)(model.scan) && model.scan.view.report !== null
+    ? publishedLayout(model, model.scan.view.report, slug, h)
+    : plainPage(pendingMain(model, slug, h));

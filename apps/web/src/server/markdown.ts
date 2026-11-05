@@ -15,7 +15,11 @@ import { Array, Option } from "effect";
 import { CLI, SKILL_PATH, agentPrompt } from "../features/agent-links.js";
 import { CHECK_TABLE, checkTableSummary } from "../features/check-table.js";
 import { LOCAL_CHECK } from "../features/check-view.js";
-import { RETRIEVE, demoPath } from "../features/guide-view.js";
+import {
+  RETRIEVE,
+  demoPath,
+  guideMarkdownPath,
+} from "../features/guide-view.js";
 import { categoryName, guidesByCategory } from "../features/guides.js";
 import { ABOUT, Blocks, ISSUES_URL, PRIVACY } from "../features/info-pages.js";
 import type { InfoPage } from "../features/info-pages.js";
@@ -96,9 +100,6 @@ export const guideMarkdown = (guide: Guide, origin: string): string[] => [
   "",
   ...flowForCheck(guide),
 ];
-
-export const guideMarkdownPath = (id: string): string =>
-  `${guideRouter({ guideId: id })}.md`;
 
 const checkSummaryLines = (): string[] => {
   const { columns, lead, newer, statement } = checkTableSummary(CHECK_TABLE);

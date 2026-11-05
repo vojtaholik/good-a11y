@@ -3,7 +3,7 @@
 Built 2026-11-05 by writer for the lead. The rendered check sees one page as it loads. Some criteria are only seen by using the page: confirming a purchase (3.3.4), entering data again (3.3.7), signing in without a puzzle (3.3.8), dragging and swiping (2.5.1, 2.5.2, 2.5.7), time limits (2.2.1), status messages (4.1.3). The eval graders already test these, one test per claim of a guide's `expectations.md`. The agent that just built the feature knows where it lives, so it describes it in a flow, and the local check runs that guide's grader against the running app.
 
 ```sh
-npx -y github:vojtaholik/good-a11y check localhost:5173 --flow a11y-flows.json
+npx -y good-a11y@0.1.0 check localhost:5173 --flow a11y-flows.json
 ```
 
 ## The flow file

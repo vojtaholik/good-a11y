@@ -5,6 +5,8 @@ import type { AppMessage } from "../client/message.js";
 import { Blocks } from "./info-pages.js";
 import type { InfoBlock, InfoPage, InfoSection } from "./info-pages.js";
 import { MAIN_ID } from "./landmarks.js";
+import { item as outlineItem, plainPage } from "./outline.js";
+import type { PageLayout } from "./outline.js";
 import { sx } from "./sx.js";
 import { colors, layout, radius } from "./tokens.stylex.js";
 
@@ -63,8 +65,7 @@ const info = stylex.create({
     boxSizing: "content-box",
     marginInline: "auto",
     maxInlineSize: layout["--page"],
-    paddingBlock: "clamp(48px, 6cqi, 88px)",
-    paddingInline: layout["--gutter"],
+    paddingBlock: "0 clamp(48px, 6cqi, 88px)",
   },
   rowHead: {
     fontWeight: 600,
@@ -176,7 +177,7 @@ const sectionView = (section: InfoSection, h: HtmlBuilder<AppMessage>): Html =>
     ]
   );
 
-export const infoView = (page: InfoPage, h: HtmlBuilder<AppMessage>): Html =>
+const infoMain = (page: InfoPage, h: HtmlBuilder<AppMessage>): Html =>
   h.main(
     [h.Id(MAIN_ID), sx(h, info.main)],
     [
@@ -194,4 +195,13 @@ export const infoView = (page: InfoPage, h: HtmlBuilder<AppMessage>): Html =>
         ]
       ),
     ]
+  );
+
+export const infoView = (
+  page: InfoPage,
+  h: HtmlBuilder<AppMessage>
+): PageLayout =>
+  plainPage(
+    infoMain(page, h),
+    page.sections.map((section) => outlineItem(section.id, section.heading))
   );

@@ -48,6 +48,12 @@ const observationCard = (
 
 const TITLE = "Judged by a model";
 
+export const notedCount = (report: Report): number | null =>
+  report.judged === null || report.judged.status === "skipped"
+    ? null
+    : sectionObservations(report).filter((observation) => observation.noted > 0)
+        .length;
+
 export const judgedSection = (
   report: Report,
   h: HtmlBuilder<AppMessage>

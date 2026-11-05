@@ -53,6 +53,7 @@ export const Model = Schema.Struct({
   origin: Schema.String,
   route: AppRoute,
   scan: ScanState,
+  section: Schema.Option(Schema.String),
   start: StartState,
   url: Schema.String,
 });

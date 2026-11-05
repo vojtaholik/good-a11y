@@ -179,8 +179,7 @@ export const report = stylex.create({
     gap: "40px",
     marginInline: "auto",
     maxInlineSize: layout["--page"],
-    paddingBlock: "clamp(32px, 4cqi, 64px) clamp(48px, 6cqi, 96px)",
-    paddingInline: layout["--gutter"],
+    paddingBlock: "0 clamp(48px, 6cqi, 96px)",
   },
   meta: {
     color: colors["--ink-muted"],

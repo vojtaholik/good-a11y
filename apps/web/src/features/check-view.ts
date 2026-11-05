@@ -7,6 +7,8 @@ import { CLI } from "./agent-links.js";
 import { checksView } from "./checks-view.js";
 import { commandBlock } from "./command-block.js";
 import { MAIN_ID } from "./landmarks.js";
+import { item, plainPage } from "./outline.js";
+import type { PageLayout } from "./outline.js";
 import { privacyRouter } from "./route.js";
 import { scanForm } from "./scan-form.js";
 import { sx } from "./sx.js";
@@ -62,8 +64,7 @@ const check = stylex.create({
     gap: "clamp(40px, 5cqi, 72px)",
     marginInline: "auto",
     maxInlineSize: layout["--page"],
-    paddingBlock: "clamp(40px, 5cqi, 72px) clamp(48px, 6cqi, 96px)",
-    paddingInline: layout["--gutter"],
+    paddingBlock: "0 clamp(48px, 6cqi, 96px)",
   },
   muted: {
     color: colors["--ink-muted"],
@@ -86,7 +87,7 @@ const check = stylex.create({
   },
 });
 
-export const checkView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
+const checkMain = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
   h.main(
     [h.Id(MAIN_ID), sx(h, check.main)],
     [
@@ -137,3 +138,12 @@ export const checkView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
       checksView(h),
     ]
   );
+
+export const checkView = (
+  model: AppModel,
+  h: HtmlBuilder<AppMessage>
+): PageLayout =>
+  plainPage(checkMain(model, h), [
+    item("check-heading", "Page to check"),
+    item("what-we-check", "What we check"),
+  ]);

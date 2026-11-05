@@ -101,8 +101,7 @@ const contact = stylex.create({
     gap: "40px 64px",
     marginInline: "auto",
     maxInlineSize: layout["--page"],
-    paddingBlock: "clamp(48px, 6cqi, 88px)",
-    paddingInline: layout["--gutter"],
+    paddingBlock: "0 clamp(48px, 6cqi, 88px)",
   },
   problem: {
     alignItems: "flex-start",

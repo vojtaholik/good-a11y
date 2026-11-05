@@ -8,6 +8,7 @@ import type {
 import { Effect, Option, Result } from "effect";
 
 import { ScanApi } from "../client/scan-api.js";
+import { CLI } from "../features/agent-links.js";
 import { reportRouter } from "../features/route.js";
 import type { CallerLimit } from "./handler.js";
 import { TOO_MANY } from "./handler.js";
@@ -41,7 +42,7 @@ export const checkUsage = (origin: string): CheckAnswer =>
       "",
       `Add the page's address: ${checkAddress(origin, "example.com")}`,
       "",
-      "The first fetch starts a scan. Fetch the same address again until the report is there. For localhost or a page behind a login, run `npx -y github:vojtaholik/good-a11y check <url>` on your own machine.",
+      `The first fetch starts a scan. Fetch the same address again until the report is there. For localhost or a page behind a login, run \`${CLI} check <url>\` on your own machine.`,
     ],
     400
   );
