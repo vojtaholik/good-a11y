@@ -15,6 +15,7 @@ import { ChildProcess, ChildProcessSpawner } from "effect/process";
 import { invocationOf } from "./agents.js";
 import type { AgentName } from "./agents.js";
 import { Graders } from "./grade.js";
+import { leftoverPids } from "./leftovers.js";
 import type { Grade, RunResult } from "./result.js";
 import { serveDirectory } from "./serve.js";
 import { URL_ARMS } from "./task.js";
@@ -127,6 +128,45 @@ export const runToEnd = (
       return { exitCode: Number(exitCode), stderr, stdout } satisfies Finished;
     })
   );
+
+const signal = (pid: number, name: "SIGKILL" | "SIGTERM") =>
+  Effect.try(() => process.kill(pid, name)).pipe(Effect.ignore);
+
+const outputOf = (command: string, args: readonly string[], cwd: string) =>
+  runToEnd(command, args, { cwd }).pipe(
+    Effect.map(({ stdout }) => stdout),
+    Effect.orElseSucceed(() => "")
+  );
+
+export const stopLeftovers = Effect.fn("stopLeftovers")(function* stopLeftovers(
+  workDir: string
+) {
+  const fileSystem = yield* FileSystem.FileSystem;
+
+  const real = yield* fileSystem
+    .realPath(workDir)
+    .pipe(Effect.orElseSucceed(() => workDir));
+
+  const pids = leftoverPids(
+    yield* outputOf("ps", ["-axo", "pid=,command="], real),
+    [...new Set([workDir, real])],
+    process.pid
+  );
+
+  if (pids.length === 0) {
+    return pids;
+  }
+
+  yield* Effect.forEach(pids, (pid) => signal(pid, "SIGTERM"), {
+    discard: true,
+  });
+  yield* Effect.sleep(Duration.seconds(1));
+  yield* Effect.forEach(pids, (pid) => signal(pid, "SIGKILL"), {
+    discard: true,
+  });
+
+  return pids;
+});
 
 export const prepareProject = Effect.fn("prepareProject")(
   function* prepareProject(spec: RunSpec, paths: RunPaths, workDir: string) {
@@ -384,6 +424,9 @@ export const runOne = Effect.fn("runOne")(function* runOne(
 
   const { built, project } = yield* prepareProject(spec, paths, workDir);
   const agent = yield* runAgent(spec, paths, project, workDir);
+
+  yield* stopLeftovers(workDir);
+
   const transcript = summarizeTranscript(agent.stdout);
 
   yield* fileSystem.writeFileString(

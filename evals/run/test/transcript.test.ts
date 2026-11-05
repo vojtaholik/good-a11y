@@ -174,7 +174,7 @@ describe("reading an agent transcript", () => {
         use(
           {
             command:
-              'curl -s "https://good-a11y.com/search.md?q=cart+hold+timer" && curl -s https://good-a11y.com/check.md?url=https%3A%2F%2Fshop.example%2F',
+              'curl -s "https://good-a11y.com/search.md?q=cart+hold+timer" && curl -s https://good-a11y.com/check.md?url=https%3A%2F%2Fshop.example%2F && npx -y good-a11y@0.1.0 check localhost:5173/',
           },
           "Bash"
         )
@@ -182,7 +182,7 @@ describe("reading an agent transcript", () => {
     );
 
     expect(summary.use).toEqual({
-      checks: ["https://shop.example/"],
+      checks: ["localhost:5173/", "https://shop.example/"],
       retrieved: ["dialog-modal", "tabs"],
       searches: ["cart hold timer"],
       skillOpened: true,

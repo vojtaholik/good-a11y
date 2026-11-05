@@ -105,7 +105,7 @@ const decodeLine = Schema.decodeUnknownOption(
 );
 
 const GOOD_A11Y_COMMAND =
-  /(?:good-a11y(?:\.mjs)?|\$\{?(?<variable>\w+)\}?)\s+(?<command>search|retrieve|check|list)\b(?<argument>[^\n;&|]*)/gu;
+  /(?:good-a11y(?:\.mjs|@\d+\.\d+\.\d+)?|\$\{?(?<variable>\w+)\}?)\s+(?<command>search|retrieve|check|list)\b(?<argument>[^\n;&|]*)/gu;
 
 const GOOD_A11Y_VARIABLE =
   /\b(?<name>[A-Za-z_]\w*)=(?:\\?"[^"]*good-a11y(?:\.mjs)?\\?"|'[^']*good-a11y(?:\.mjs)?'|[^\s;"']*good-a11y(?:\.mjs)?(?=[\s;]|$))/gu;

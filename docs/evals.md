@@ -144,3 +144,19 @@ The orientation guided arm is the first on the HTTP `SKILL.md` (decision 15): gu
 ## Known gap: Codex without network
 
 Codex runs `workspace-write` without network by default, so an agent given only the good-a11y.com prompt cannot fetch `/skill.md` and never reads the guides: 1 of 12 url-arm runs passed on 2026-11-05, against 12 of 12 for Claude, whose WebFetch reaches the site. `SKILL.md` asks the user to allow good-a11y.com when a later fetch fails, but the first fetch happens before the agent has read it. The prompt stays one neutral line (Vojta, 2026-11-05: a sentence about the sandbox in the prompt reads as a scam). The `url-network` arm measures Codex with network on, as a user who allowed it.
+
+## The URL route (2026-11-05)
+
+Four tasks (form-errors-validation/shop, input-purpose/shop, confirm-before-purchase/content, timeouts-and-warnings/shop), 3 runs each. The guided arm installs the repo's `SKILL.md` at 8fa7eeb with every guide as a local file. The url arms get only the prompt "Use https://good-a11y.com for accessibility in this project: read https://good-a11y.com/skill.md and follow it." and read prod at 1161750 (no flow step yet); `good-a11y@0.1.0` was on npm.
+
+| Agent | Arm | Pass | Installed the skill | Ran check |
+| --- | --- | --- | --- | --- |
+| Claude | guided | 10/11 (one run could not be graded) | (preinstalled) | 11/12 |
+| Claude | url | 12/12 | 0/12 | 12/12 |
+| Codex | guided | 12/12 | (preinstalled) | 10/12 |
+| Codex | url (default sandbox, no network) | 2/12 | 0/12 | 0/12 |
+| Codex | url-network | 12/12 | 12/12 | 12/12 |
+
+The URL route works as well as the installed skill for Claude, and for Codex once it has network. Claude reads the skill and the guides with WebFetch but skips the setup step every time; Codex with network installs it every time. Codex on its default sandbox reaches nothing (the known gap above). The first transcript count missed `npx -y good-a11y@0.1.0 check`; the counts above are from the transcripts, and the runner now matches the pinned command.
+
+Setup is now an offer: `SKILL.md` installs itself only when the user asks to keep good-a11y in the project. Claude skipped the unasked install in 12 of 12 url runs and still passed 12 of 12 by reading over HTTP and running check, and an agent installing files nobody asked for reads as the pushy feel Vojta vetoed in the prompt (lead, 2026-11-05).
