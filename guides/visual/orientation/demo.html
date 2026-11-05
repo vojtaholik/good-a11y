@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Screen orientation demo</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #ffffff;
+        --fg: #1a1a1a;
+        --card: #f2f2f2;
+        --accent: #0b57d0;
+        --on-accent: #ffffff;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #121212;
+          --fg: #f0f0f0;
+          --card: #1f1f1f;
+          --accent: #8ab4f8;
+          --on-accent: #062e6f;
+        }
+      }
+      body {
+        margin: 0;
+        font:
+          1rem/1.5 system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      header {
+        position: sticky;
+        top: 0;
+        padding: 1rem;
+        background: var(--card);
+      }
+      main {
+        padding: 1rem;
+      }
+      ul {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+        gap: 1rem;
+        padding: 0;
+        list-style: none;
+      }
+      li {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background: var(--card);
+      }
+      button {
+        padding: 0.5rem 1rem;
+        border: 0;
+        border-radius: 0.25rem;
+        background: var(--accent);
+        color: var(--on-accent);
+        font: inherit;
+      }
+      @media (orientation: landscape) and (max-height: 500px) {
+        header {
+          position: static;
+          padding: 0.5rem 1rem;
+        }
+        h1 {
+          margin: 0;
+          font-size: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header><h1>Fjell Outdoor</h1></header>
+    <main>
+      <p>
+        This page works with the phone held either way: in a short landscape
+        view the header stops sticking and the grid adds columns.
+      </p>
+      <ul>
+        <li>
+          <h2>Rain jacket</h2>
+          <p>89 EUR</p>
+          <button type="button">Add to cart</button>
+        </li>
+        <li>
+          <h2>Hiking boot</h2>
+          <p>139 EUR</p>
+          <button type="button">Add to cart</button>
+        </li>
+        <li>
+          <h2>Day pack 24 L</h2>
+          <p>59 EUR</p>
+          <button type="button">Add to cart</button>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>

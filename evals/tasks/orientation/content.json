@@ -1,0 +1,6 @@
+{
+  "guide": "orientation",
+  "app": "content",
+  "path": "/articles/tatras-in-october.html",
+  "prompt": "Our articles are designed for reading on a phone held upright. When a phone is turned sideways, cover the page with a full-screen message, \"Turn your phone upright to read\", until it is turned back. Plain HTML, CSS and JavaScript, no libraries; put the script in assets/orientation.js. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions."
+}

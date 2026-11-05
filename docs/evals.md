@@ -120,3 +120,23 @@ confirm-before-purchase and sign-in-without-puzzles are from `l5-<guide>-2`: the
 | non-text-contrast | 6/6 | 6/6 | 5/6 | 6/6 | neither, removed |
 
 Codex's screen failure on field borders did not repeat over 3 runs (5/6 unguided), so non-text-contrast does not meet the rule and is not shipped. The guided arm of this matrix started on the old `SKILL.md` and some runs installed the new one (setup section added); the loop it describes is the same.
+
+## Layer 5, screen 4 (2026-11-05)
+
+14 candidates by decision 14, both agents, unguided, one run: FAQ questions in bold, Remove acting on press-down, a red or green stock dot, a hint naming "the green button on the left", wind audio on page open, a narrated video, Save for later, a portrait-only overlay, a redirect 5 seconds after the order, a Slovak About page, card actions shown only on hover, a slide-in phone menu, autofill turned off on checkout, and red borders for empty fields. Agents passed 11 for both. Three first-run Claude failures were probe errors and passed once fixed: the hover-actions probe read the opacity during a 150 ms transition, the save-later probe missed the name "Save Rain jacket for later", and the slide-menu probe read focus during the panel's transition.
+
+Three requests that ask for the violation failed both agents:
+
+| Candidate | What both agents built | Guide |
+| --- | --- | --- |
+| portrait-only | the full-screen "turn your phone upright" overlay | new: `orientation` (STD-SC-1.3.4) |
+| autofill-off | `autocomplete="off"` on the address fields (Codex on all six) | `input-purpose` says it already; search does not find it for "autocomplete checkout form" |
+| press-remove | removal on `pointerdown` | `swipe-and-drag` says it already; its description names only swipes and drags |
+
+The orientation task asks for the overlay, so the base app (no overlay) passes the grader; no `requires` can make a correct answer and the base differ. The first guided rerun of autofill-off and press-remove ran in a worktree that predated both guides and is discarded.
+
+| Guide | Claude unguided | Claude guided | Codex unguided | Codex guided | Ships for |
+| --- | --- | --- | --- | --- | --- |
+| orientation | 0/6 | 6/6 | 0/6 | 0/6 | Claude |
+
+The orientation guided arm is the first on the HTTP `SKILL.md` (decision 15): guides installed as local files and linked from the index. Codex read the orientation guide in all six runs and still built the overlay the prompt asked for; it follows the request over the guide's "override this one part" rule.

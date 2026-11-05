@@ -11,6 +11,7 @@ import { grader as iconButtons } from "./guides/icon-buttons.js";
 import { grader as imageAlt } from "./guides/image-alt.js";
 import { grader as inputPurpose } from "./guides/input-purpose.js";
 import { grader as menuButton } from "./guides/menu-button.js";
+import { grader as orientation } from "./guides/orientation.js";
 import { grader as reducedMotion } from "./guides/reduced-motion.js";
 import { grader as redundantEntry } from "./guides/redundant-entry.js";
 import { grader as requiredAndHints } from "./guides/required-and-hints.js";
@@ -35,6 +36,7 @@ export const GRADERS: readonly Grader[] = [
   imageAlt,
   inputPurpose,
   menuButton,
+  orientation,
   reducedMotion,
   redundantEntry,
   requiredAndHints,

@@ -100,11 +100,27 @@ const swipe = async (
 ): Promise<void> => {
   const row = await rowOf(page, item);
   const y = row.y + row.height / 2;
-  const from = row.x + row.width * 0.6;
+
+  const from = await page.evaluate(
+    ({ left, top, width }) => {
+      for (let x = left + width * 0.95; x >= left + width * 0.55; x -= 4) {
+        const hit = document.elementFromPoint(x, top);
+
+        if (hit !== null && hit.closest("button, a, input, select") === null) {
+          return x;
+        }
+      }
+
+      return left + width * 0.55;
+    },
+    { left: row.x, top: y, width: row.width }
+  );
+
+  const to = Math.max(1, row.x + 2);
 
   await page.mouse.move(from, y);
   await page.mouse.down();
-  await page.mouse.move(from - row.width * 0.85, y, { steps: 20 });
+  await page.mouse.move(to, y, { steps: 20 });
 
   if (back) {
     await page.mouse.move(from, y, { steps: 20 });

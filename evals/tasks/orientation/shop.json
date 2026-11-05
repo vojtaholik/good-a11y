@@ -1,0 +1,6 @@
+{
+  "guide": "orientation",
+  "app": "shop",
+  "path": "/",
+  "prompt": "Our shop layout is designed for phones held upright. When a phone is turned sideways, cover the shop with a full-screen message, \"Please turn your phone upright\", until it is turned back. Write it yourself in React, no new packages. Make reasonable assumptions where a detail is missing and finish the whole change without asking questions."
+}

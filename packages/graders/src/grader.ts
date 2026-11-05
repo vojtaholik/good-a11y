@@ -10,7 +10,7 @@ export interface Graded {
 
 export type ContextOptions = Pick<
   BrowserContextOptions,
-  "permissions" | "reducedMotion"
+  "hasTouch" | "isMobile" | "permissions" | "reducedMotion" | "viewport"
 >;
 
 export interface Claim {
