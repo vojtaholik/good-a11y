@@ -9,6 +9,7 @@ a primary source but are never the source of a fact.
 
 - `eu.md` – Directive (EU) 2019/882 (EAA): scope, dates, exemptions, definitions.
 - `standards.md` – EN 301 549 (ETSI) and WCAG 2.1 (W3C): which clauses and success criteria apply to web.
+- `wcag3.md` – WCAG 3.0 (W3C Working Draft): status, conformance model, reporting tiers, and the draft requirements our checks and guides relate to. A draft, never a benchmark.
 - `states/<cc>.md` – one file per member state, ISO 3166-1 alpha-2 lowercase (`at.md`, `be.md`, ... `gr.md` for Greece).
 
 ## Fact format (machine-read by tests – keep it exact)
