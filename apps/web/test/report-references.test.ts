@@ -1,7 +1,8 @@
 import { describe, expect, it } from "@effect/vitest";
+import { wcag3DraftLabel } from "@good-a11y/core/contracts";
 import type { FindingReference } from "@good-a11y/core/contracts";
 
-import { byCriterion } from "../src/features/report-references.js";
+import { byCriterion, chipText } from "../src/features/report-references.js";
 
 const ref = (kind: FindingReference["kind"], factId: string) => ({
   factId,
@@ -28,5 +29,16 @@ describe("finding references on the report page", () => {
       ["wcag", "en-reference"],
       ["wcag3-draft", "wcag3-draft"],
     ]);
+  });
+
+  it("names the WCAG 3 draft and its date on an issue's chip", () => {
+    const draft = ref("wcag3-draft", "Human language detectable");
+    const criterion = ref("wcag", "3.1.1 Language of Page (Level A)");
+
+    expect(chipText(draft)).toBe(
+      `${wcag3DraftLabel()}: Human language detectable`
+    );
+    expect(wcag3DraftLabel()).toMatch(/WCAG 3/u);
+    expect(chipText(criterion)).not.toContain(wcag3DraftLabel());
   });
 });

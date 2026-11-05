@@ -106,10 +106,17 @@ export const referenceList = (
         ),
       ];
 
-const chipText = (reference: FindingReference): string =>
-  reference.kind === "en-newer"
-    ? `${shortText(reference)}, not cited in the OJ`
-    : reference.text.replace(CLAUSE, " ");
+export const chipText = (reference: FindingReference): string => {
+  if (reference.kind === "en-newer") {
+    return `${shortText(reference)}, not cited in the OJ`;
+  }
+
+  if (reference.kind === "wcag3-draft") {
+    return `${wcag3DraftLabel()}: ${reference.text}`;
+  }
+
+  return reference.text.replace(CLAUSE, " ");
+};
 
 export const referenceChips = (
   references: readonly FindingReference[],
