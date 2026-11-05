@@ -34,25 +34,25 @@ describe("our own built pages", () => {
       Effect.gen(function* checksPages() {
         const port = yield* siteServer;
 
-        const results: {
-          issues: readonly string[];
-          path: string;
-          rendered: string | undefined;
-        }[] = [];
+        const results = yield* Effect.forEach(
+          PAGES,
+          (page) =>
+            checkJson(`127.0.0.1:${port}${page}`).pipe(
+              Effect.flatMap(
+                Schema.decodeEffect(Schema.fromJsonString(ReportSchema))
+              ),
+              Effect.map((report) => {
+                const { benchmark, newer } = issueGroupsOf(report);
 
-        for (const page of PAGES) {
-          const report = yield* Schema.decodeEffect(
-            Schema.fromJsonString(ReportSchema)
-          )(yield* checkJson(`127.0.0.1:${port}${page}`));
-
-          const { benchmark, newer } = issueGroupsOf(report);
-
-          results.push({
-            issues: [...benchmark, ...newer].map((issue) => issue.key),
-            path: page,
-            rendered: report.rendered?.status,
-          });
-        }
+                return {
+                  issues: [...benchmark, ...newer].map((issue) => issue.key),
+                  path: page,
+                  rendered: report.rendered?.status,
+                };
+              })
+            ),
+          { concurrency: 4 }
+        );
 
         expect(results).toStrictEqual(
           PAGES.map((page) => ({ issues: [], path: page, rendered: "ran" }))
