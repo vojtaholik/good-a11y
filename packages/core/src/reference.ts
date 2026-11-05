@@ -91,6 +91,13 @@ export const REFERENCE: Reference = referenceFrom(VERIFIED_FACTS);
 export const verifiedText = (id: string): Sourced | null =>
   sourced(verifiedFact(id));
 
+export const WCAG3_DRAFT_FACT = "STD-WCAG3-1";
+
+export const WCAG3_DRAFT_LABEL = "WCAG 3 draft";
+
+export const wcag3DraftLabel = (): string =>
+  verifiedText(WCAG3_DRAFT_FACT)?.text ?? WCAG3_DRAFT_LABEL;
+
 export const NEWER_WCAG_FACT = "STD-EN-5";
 
 export const newerWcagLabel = (): string =>

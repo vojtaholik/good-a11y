@@ -1,5 +1,5 @@
 import type { FindingReference } from "./finding-reference.js";
-import { newerWcagLabel } from "./reference.js";
+import { newerWcagLabel, wcag3DraftLabel } from "./reference.js";
 import { SAMPLE_SOURCE_LABELS, issuesOf } from "./report-sections.js";
 import type { Issue, IssueSample } from "./report-sections.js";
 import type { Report } from "./report.js";
@@ -35,6 +35,7 @@ const KIND_LABELS: Readonly<Record<FindingReference["kind"], string>> = {
   "en-reference": "EN 301 549 (reference benchmark)",
   wcag: "WCAG 2.1",
   "wcag-newer": newerWcagLabel(),
+  "wcag3-draft": wcag3DraftLabel(),
 };
 
 const countOf = (issue: Issue): string =>

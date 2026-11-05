@@ -1,4 +1,4 @@
-import { newerWcagLabel } from "@good-a11y/core/contracts";
+import { newerWcagLabel, wcag3DraftLabel } from "@good-a11y/core/contracts";
 import type { FindingReference } from "@good-a11y/core/contracts";
 import type { Html, HtmlBuilder } from "foldkit/html";
 
@@ -19,8 +19,13 @@ const shortText = (reference: FindingReference): string =>
     .replace(LEVEL, (_match, level: string) => `(${level})`)
     .replace(CLAUSE, " ");
 
-const startsGroup = (reference: FindingReference): boolean =>
-  reference.kind === "wcag" || reference.kind === "wcag-newer";
+const startsGroup = (
+  reference: FindingReference,
+  previous: FindingReference | undefined
+): boolean =>
+  reference.kind === "wcag" ||
+  reference.kind === "wcag-newer" ||
+  (reference.kind === "wcag3-draft" && previous?.kind !== "wcag3-draft");
 
 export const byCriterion = (
   references: readonly FindingReference[]
@@ -30,7 +35,7 @@ export const byCriterion = (
   for (const reference of references) {
     const last = groups.at(-1);
 
-    if (startsGroup(reference) || last === undefined) {
+    if (startsGroup(reference, last?.at(-1)) || last === undefined) {
       groups.push([reference]);
     } else {
       last.push(reference);
@@ -52,7 +57,12 @@ const mainLine = (
 ): Child[] => {
   const main = group.filter((reference) => reference.kind !== "en-newer");
 
-  const lead = main[0]?.kind === "wcag-newer" ? newerWcagLabel() : "WCAG 2.1";
+  const leads: Partial<Record<FindingReference["kind"], string>> = {
+    "wcag-newer": newerWcagLabel(),
+    "wcag3-draft": wcag3DraftLabel(),
+  };
+
+  const lead = leads[main[0]?.kind ?? "wcag"] ?? "WCAG 2.1";
 
   return [
     lead,

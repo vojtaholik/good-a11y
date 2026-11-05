@@ -6,7 +6,11 @@ import {
   notSellingBasis,
   sellsLine,
 } from "./judged-placement.js";
-import { NEWER_VERSION_LABEL, newerWcagLabel } from "./reference.js";
+import {
+  NEWER_VERSION_LABEL,
+  newerWcagLabel,
+  wcag3DraftLabel,
+} from "./reference.js";
 import type { Sourced } from "./reference.js";
 import {
   NEWER_ISSUES_TITLE,
@@ -35,6 +39,7 @@ const KIND_LABELS: Readonly<Record<FindingReference["kind"], string>> = {
   "en-reference": "Reference benchmark",
   wcag: "WCAG 2.1",
   "wcag-newer": newerWcagLabel(),
+  "wcag3-draft": wcag3DraftLabel(),
 };
 
 const QUIET_MARKS = {

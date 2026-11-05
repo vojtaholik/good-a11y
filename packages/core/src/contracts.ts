@@ -50,6 +50,7 @@ export type { FindingReference } from "./report.js";
 export {
   NEWER_VERSION_LABEL,
   newerWcagLabel,
+  wcag3DraftLabel,
   type Sourced,
 } from "./reference.js";
 

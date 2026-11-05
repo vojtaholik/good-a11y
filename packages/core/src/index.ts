@@ -127,6 +127,8 @@ export {
   ReferenceSchema,
   SourcedSchema,
   referenceFrom,
+  WCAG3_DRAFT_FACT,
+  wcag3DraftLabel,
   type NewerVersion,
   type Reference,
   type Sourced,
@@ -168,6 +170,8 @@ export {
   type PageVisit,
   type Report,
 } from "./report.js";
+
+export { wcag3ReferencesFor, wcag3UseOf } from "./finding-reference.js";
 
 export { formatReport } from "./report-text.js";
 

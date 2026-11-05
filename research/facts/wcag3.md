@@ -256,6 +256,28 @@ or guide it relates to.
 - status: verified
 - verifier_note: Verified by writer 2026-11-05: fetched the source myself; excerpt verbatim in the cited section (tags removed, whitespace normalised), claim and value match it.
 
+### STD-WCAG3-26
+- claim: Replaces STD-WCAG3-11 with the section's real anchor. The Reporting section, which defines the reporting tiers, is informative and at the exploratory status; its third tier equates with conformance.
+- field: other
+- value: Reporting tiers are informative and exploratory; tier 3 = conformance
+- source: https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/#x4-reporting
+- excerpt: "This section presents reporting tiers, not conformance tiers. The third reporting tier equates with conformance to WCAG 3."
+- retrieved: 2026-11-05
+- used_by: none
+- status: unverified
+- verifier_note:
+
+### STD-WCAG3-27
+- claim: Replaces STD-WCAG3-15 with the section's real anchor. The draft suggests progress could be reported as counts or percentages between tiers, based on the tags.
+- field: other
+- value: Progress may be reported as counts or percentages between tiers
+- source: https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/#x4-reporting
+- excerpt: "Progress could also be reported as counts or percentages between each tier based on the tags."
+- retrieved: 2026-11-05
+- used_by: report.score
+- status: unverified
+- verifier_note:
+
 ## The W3C blog post (25 September 2026)
 
 ### STD-WCAG3-23
@@ -424,3 +446,14 @@ or guide it relates to.
 - used_by: guides.status-messages-toast.wcag3
 - status: verified
 - verifier_note: Verified by writer 2026-11-05: fetched the draft myself; section number, title, requirement type and excerpt match the cited section; the WCAG 2 criteria named match packages/core/src/catalogue.ts or the guide's criteria.
+
+### STD-W3-ROLES-VALUES-STATES-PROPERTIES-AVAILABLE-2
+- claim: Replaces STD-W3-ROLES-VALUES-STATES-PROPERTIES-AVAILABLE-1 with the exact title. WCAG 3 draft requirement 2.3.5.6 "Roles, values, states, properties available" is a core requirement. It relates to form-labels, link-name, button-name (WCAG 2 SC 4.1.2).
+- field: other
+- value: 2.3.5.6 Roles, values, states, properties available (core requirement)
+- source: https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/#roles-values-states-properties-available
+- excerpt: "Core requirement Accurate names, roles, values, and states are available for interactive elements."
+- retrieved: 2026-11-05
+- used_by: checks.form-labels.wcag3, checks.link-name.wcag3, checks.button-name.wcag3
+- status: unverified
+- verifier_note:

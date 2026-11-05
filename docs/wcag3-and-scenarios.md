@@ -22,7 +22,7 @@ Two asks: build for WCAG 3 without dropping WCAG 2.1 AA, and add a score made of
 | document-title, title-generic | 2.4.2 | STD-W3-PAGE-VIEW-TITLE-AVAILABLE-1 (core) |
 | image-alt | 1.1.1 | STD-W3-IMAGE-ALTERNATIVES-AVAILABLE-1 (core) |
 | alt-placeholder | 1.1.1 | STD-W3-IMAGE-ALTERNATIVES-EQUIVALENT-1 (core) |
-| form-labels, link-name, button-name | 1.3.1, 2.4.4, 4.1.2 | STD-W3-INTERACTIVE-ELEMENT-NAMES-AVAILABLE-1, STD-W3-ROLES-VALUES-STATES-PROPERTIES-AVAILABLE-1 (core) |
+| form-labels, link-name, button-name | 1.3.1, 2.4.4, 4.1.2 | STD-W3-INTERACTIVE-ELEMENT-NAMES-AVAILABLE-1, STD-W3-ROLES-VALUES-STATES-PROPERTIES-AVAILABLE-2 (core) |
 | meta-viewport-zoom | 1.4.4 | STD-W3-TEXT-SIZE-ADJUSTABLE-1 (core) |
 | meta-refresh | 2.2.1 | STD-W3-TIMEOUT-ADJUSTABLE-1 (supplemental: Level A in WCAG 2, not core in this draft) |
 | frame-title | 4.1.2 | none: no developing requirement covers frame titles |

@@ -15,7 +15,11 @@ import type { Method } from "./coverage.js";
 import { CoverageSchema, coverageFrom } from "./coverage.js";
 import { CrawlRoleSchema } from "./crawl.js";
 import { decidedOf } from "./decided.js";
-import { FindingReferenceSchema, referencesFor } from "./finding-reference.js";
+import {
+  FindingReferenceSchema,
+  referencesFor,
+  wcag3ReferencesFor,
+} from "./finding-reference.js";
 import type { FindingReference } from "./finding-reference.js";
 import { JudgedSchema } from "./judged.js";
 import type { Judged } from "./judged.js";
@@ -139,7 +143,10 @@ export type Report = typeof ReportSchema.Type;
 export const referencesOf = (
   entry: CatalogueEntry,
   reference: Reference
-): FindingReference[] => referencesFor(criteriaOf(entry), reference);
+): FindingReference[] => [
+  ...referencesFor(criteriaOf(entry), reference),
+  ...wcag3ReferencesFor(entry.check.id, VERIFIED_FACTS),
+];
 
 const findingOf = (
   entry: CatalogueEntry,
