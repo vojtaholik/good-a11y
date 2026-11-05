@@ -11,6 +11,7 @@ import { AppRoute } from "../features/route.js";
 import type { AppRouteState } from "../features/route.js";
 import { init } from "../features/update.js";
 import { view } from "../features/view.js";
+import { cacheControlFor } from "./cache.js";
 import { readScan } from "./read-scan.js";
 import type { BackendFetch } from "./rpc.js";
 
@@ -136,7 +137,10 @@ export const renderPage = (
     Effect.map((application) =>
       Server.Rendered(application, {
         headers: {
-          "cache-control": isReport(route) ? "no-store" : "public, max-age=300",
+          "cache-control": cacheControlFor(
+            isMissing(route) ? 404 : 200,
+            isReport(route)
+          ),
           "x-content-type-options": "nosniff",
         },
         status: isMissing(route) ? 404 : 200,

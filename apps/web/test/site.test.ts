@@ -331,3 +331,46 @@ describe("page views", () => {
       })
   );
 });
+
+describe("caching across a deploy", () => {
+  it.effect(
+    "lets no cache hold a page past a deploy and never stores a 404, so a new route cannot answer 404 after it ships",
+    () =>
+      Effect.gen(function* revalidates() {
+        const pages = [
+          "/",
+          "/check",
+          "/about",
+          `/${firstGuide?.id ?? ""}`,
+          `/${firstGuide?.id ?? ""}.md`,
+          `/${firstGuide?.id ?? ""}/demo.html`,
+          "/llms.txt",
+          "/skill.md",
+          "/sitemap.xml",
+        ];
+
+        for (const path of pages) {
+          for (const accept of ["text/html", MARKDOWN]) {
+            const { response } = yield* get(path, accept);
+
+            expect(response.status).toBe(200);
+            expect(response.headers.get("cache-control")).toBe("no-cache");
+          }
+        }
+
+        for (const path of [
+          "/a-guide-from-the-next-deploy",
+          "/a-guide-from-the-next-deploy.md",
+          "/a-guide-from-the-next-deploy/demo.html",
+        ]) {
+          for (const accept of ["text/html", MARKDOWN]) {
+            const { response } = yield* get(path, accept);
+
+            expect(response.status).toBe(404);
+            expect(response.headers.get("cache-control")).toBe("no-store");
+          }
+        }
+      }),
+    60_000
+  );
+});

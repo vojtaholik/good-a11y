@@ -171,7 +171,7 @@ describe("/search.md", () => {
 
       expect(response.status).toBe(200);
       expect(response.headers.get("content-type")).toContain("text/markdown");
-      expect(response.headers.get("cache-control")).toContain("max-age");
+      expect(response.headers.get("cache-control")).toBe("no-cache");
       expect(body).toContain('# Guides for "modal dialog focus"');
       expect(body).toMatch(
         /^- \[[^\]]+\]\(https:\/\/good-a11y\.example\/dialog-modal\.md\) `dialog-modal`: /mu

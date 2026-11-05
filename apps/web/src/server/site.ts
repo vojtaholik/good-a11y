@@ -10,6 +10,7 @@ import { isMissing } from "../features/missing.js";
 import { pageMetaOf } from "../features/page-meta.js";
 import { AppRoute, parseRoute } from "../features/route.js";
 import { withBeacon } from "./beacon.js";
+import { NEVER_STORE, cacheControlFor } from "./cache.js";
 import { checkPage, checkUsage } from "./check-markdown.js";
 import type { CheckAnswer } from "./check-markdown.js";
 import { callerOf } from "./handler.js";
@@ -101,7 +102,7 @@ const textResponse = (
 ): Response =>
   new Response(body, {
     headers: {
-      "cache-control": "public, max-age=300",
+      "cache-control": cacheControlFor(status),
       "content-type": contentType,
       "x-content-type-options": "nosniff",
       ...headers,
@@ -170,7 +171,7 @@ const agentFile = (url: URL, siteOrigin: string): Response | null => {
 
 const checkResponse = ({ body, retryAfter, status }: CheckAnswer) => {
   const response = textResponse(body, MARKDOWN, status, {
-    "cache-control": "no-store",
+    "cache-control": NEVER_STORE,
   });
 
   if (retryAfter !== null) {
@@ -236,9 +237,10 @@ export const siteHandler =
         MARKDOWN,
         isMissing(route) ? 404 : 200,
         {
-          "cache-control": Option.isSome(maybeScan)
-            ? "no-store"
-            : "public, max-age=300",
+          "cache-control": cacheControlFor(
+            isMissing(route) ? 404 : 200,
+            Option.isSome(maybeScan)
+          ),
           vary: "Accept",
         }
       );
