@@ -1,6 +1,6 @@
 {
   "name": "good-a11y",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Check a page on your own machine, localhost included, for accessibility issues, and read the good-a11y guides for coding agents.",
   "keywords": [
     "a11y",

@@ -1,4 +1,4 @@
-export const CLI = "npx -y good-a11y@0.1.0";
+export const CLI = "npx -y good-a11y@0.2.0";
 
 export const AGENT_COMMAND = `${CLI} search "modal dialog"`;
 

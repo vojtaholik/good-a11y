@@ -3,11 +3,11 @@
 Built 2026-11-04 by check for decision 6 of the good-a11y brief. An agent checks its own work, on localhost or on a public page, in the user's own Chrome, with its own tokens. Nothing goes to our servers and nothing is counted against our budgets.
 
 ```sh
-npx -y good-a11y@0.1.0 check localhost:5173
-npx -y good-a11y@0.1.0 check https://example.com/cart
-npx -y good-a11y@0.1.0 check --json localhost:5173
-npx -y good-a11y@0.1.0 check --chrome /path/to/chromium localhost:5173
-npx -y good-a11y@0.1.0 check localhost:5173 --flow a11y-flows.json
+npx -y good-a11y@0.2.0 check localhost:5173
+npx -y good-a11y@0.2.0 check https://example.com/cart
+npx -y good-a11y@0.2.0 check --json localhost:5173
+npx -y good-a11y@0.2.0 check --chrome /path/to/chromium localhost:5173
+npx -y good-a11y@0.2.0 check localhost:5173 --flow a11y-flows.json
 ```
 
 ## What runs
