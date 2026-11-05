@@ -138,10 +138,10 @@ const reports = [
   judgePage(refused, readerOf(FAILING), AT),
 ];
 
-const FORBIDDEN = /complian(?:t|ce score)/iu;
+const FORBIDDEN = /complian(?:t|ce score)|accessibility score|wcag score/iu;
 
 describe("the report", () => {
-  it("never says compliant or compliance score, in text or JSON", () => {
+  it("never says compliant, compliance score, accessibility score or WCAG score, in text or JSON", () => {
     for (const report of reports) {
       expect(formatReport(report)).not.toMatch(FORBIDDEN);
       expect(

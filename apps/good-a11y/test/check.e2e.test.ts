@@ -87,7 +87,9 @@ describe("good-a11y check", () => {
         expect(run.stdout).toContain("## Questions for you");
         expect(run.stdout).toContain("Judged by your agent, not calibrated.");
         expect(run.stdout).toContain('Link 1: text "Read more"');
-        expect(run.stdout).not.toMatch(/compliant|compliance score/iu);
+        expect(run.stdout).not.toMatch(
+          /compliant|compliance score|accessibility score|wcag score/iu
+        );
       }).pipe(Effect.scoped)
   );
 
