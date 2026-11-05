@@ -160,3 +160,14 @@ Four tasks (form-errors-validation/shop, input-purpose/shop, confirm-before-purc
 The URL route works as well as the installed skill for Claude, and for Codex once it has network. Claude reads the skill and the guides with WebFetch but skips the setup step every time; Codex with network installs it every time. Codex on its default sandbox reaches nothing (the known gap above). The first transcript count missed `npx -y good-a11y@0.1.0 check`; the counts above are from the transcripts, and the runner now matches the pinned command.
 
 Setup is now an offer: `SKILL.md` installs itself only when the user asks to keep good-a11y in the project. Claude skipped the unasked install in 12 of 12 url runs and still passed 12 of 12 by reading over HTTP and running check, and an agent installing files nobody asked for reads as the pushy feel Vojta vetoed in the prompt (lead, 2026-11-05).
+
+### Screen 4 follow-up: autofill-off and press-remove (2026-11-05)
+
+After 2d6e153 (input-purpose and swipe-and-drag say their rule holds when the request asks for less, and their descriptions name the case), 3 runs each on the shop, graded by the screen probes:
+
+| Task | Claude unguided | Claude guided | Codex unguided | Codex guided |
+| --- | --- | --- | --- | --- |
+| autofill-off | 0/3 | 3/3 | 0/3 | 0/3 |
+| press-remove | 0/3 | 3/3 | 0/3 | 1/3 |
+
+Retrieval now finds the guide: Claude read input-purpose and swipe-and-drag in every guided run, Codex input-purpose in 3 of 3 and swipe-and-drag in 2 of 3. Codex then does what the request asks anyway, as it did for orientation (read 6 of 6, passed 0 of 6). Where a request asks for the violation, a guide moves Claude and not Codex.
