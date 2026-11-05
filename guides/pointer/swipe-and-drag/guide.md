@@ -1,6 +1,6 @@
 ---
 name: Swipe and drag alternatives
-description: Swipe to delete, drag to reorder, sliders, carousels and drag-and-drop need a single click or tap alternative, and a swipe must be cancellable before release
+description: Swipe to delete, drag to reorder, sliders, carousels and drag-and-drop need a single click or tap alternative, a swipe must be cancellable before release, and no button acts on press-down
 criteria:
   - STD-SC-2.5.1
   - STD-SC-2.5.2
@@ -13,11 +13,13 @@ criteria:
 
 Any gesture with a path or a drag: swipe a row to remove or archive it, drag to reorder, drag and drop a file or card, a swipeable carousel, pull to refresh, a drawn signature, a range slider you build yourself. Also pinch and two-finger gestures.
 
-## The two rules agents break
+## The three rules agents break
 
 **1. The gesture is the only way.** Swipe-to-remove that works is still a lock-out for people who cannot hold a press while moving: tremor, a head pointer, eye gaze, voice control, a switch, a keyboard. Everything a swipe or drag does must also work with a single click or tap, with no path: a "Remove" button, "Move up" and "Move down" buttons, a "Choose file" button next to the drop zone, previous and next buttons for a carousel.
 
 **2. The action fires before release, or cannot be called off.** If the row is removed the moment it crosses half its width, a slip removes it. Decide on release (`pointerup`), and only if the pointer is still past the threshold then. Moving back before release, or `pointercancel`, puts the row back with nothing removed.
+
+**3. A button acts on press-down.** A Remove, Buy or Send button wired to `pointerdown` or `mousedown` to feel faster cannot be called off: sliding off before release, the way people back out of a mis-tap, no longer helps. Act on `click`, even when the request asks for press-down, and say why in your reply.
 
 ## Swipe to remove, done right
 

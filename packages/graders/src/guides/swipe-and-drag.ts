@@ -169,6 +169,36 @@ export const grader: Grader = {
         ).toBe(true);
       }
     ),
+
+    claim(3, "a remove control acts on release", async ({ page, flow }) => {
+      const [first = ""] = items(flow);
+
+      const remove = page
+        .getByRole("button", { name: /remove|delete/iu })
+        .filter({ visible: true })
+        .first();
+
+      const box = await remove.boundingBox();
+
+      expect(box, "no remove control without a swipe").not.toBeNull();
+
+      const place = box ?? { height: 0, width: 0, x: 0, y: 0 };
+
+      await page.mouse.move(
+        place.x + place.width / 2,
+        place.y + place.height / 2
+      );
+      await page.mouse.down();
+      await page.mouse.move(place.x + place.width / 2, place.y - 120, {
+        steps: 10,
+      });
+      await page.mouse.up();
+      await page.waitForTimeout(700);
+      expect(
+        await present(page, first),
+        "the line was removed on press-down, before release"
+      ).toBe(true);
+    }),
   ],
   guide: "swipe-and-drag",
   start: async ({ flow, open, page }) => {

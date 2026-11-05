@@ -1,6 +1,6 @@
 ---
 name: Input purpose and autofill
-description: Give name, email, phone, address, payment and account fields the exact autocomplete tokens so browsers, password managers and assistive tools fill and label them
+description: Give name, email, phone, address, payment and account fields the exact autocomplete tokens so browsers, password managers and assistive tools fill and label them, also when asked to turn autofill off
 criteria:
   - STD-SC-1.3.5
 ---
@@ -66,6 +66,10 @@ Use these exact values. A made-up value (`phone`, `zip`, `city`, `firstname`) is
 - When a form has both a delivery and a billing address, prefix each: `shipping address-line1`, `billing address-line1`. The prefix goes before the field token, and `section-<name>` may go before that.
 - A field that is about someone else (a gift recipient) still takes the address tokens, inside its own `section-recipient` prefix, so autofill keeps the two apart.
 - `autocomplete="off"` only on fields that are not about the user: search, coupon code, quantity, a captcha.
+
+## The second rule agents break: turning autofill off on request
+
+"Stop the browser filling old addresses" is not a reason for `autocomplete="off"` on the address fields. It takes the purpose away for everyone, and the people who need autofill most lose it. Keep every token, even when the request asks for less. If stale saved entries are the problem, the user removes them in the browser's saved addresses. Say in your reply that the tokens stay and why.
 
 ## DO
 
