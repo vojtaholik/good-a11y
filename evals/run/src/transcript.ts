@@ -1,3 +1,4 @@
+import { GUIDES } from "@good-a11y/guides";
 import { Option, Schema } from "effect";
 
 export interface ToolUse {
@@ -76,8 +77,68 @@ const ClaudeResult = Schema.Struct({
   }),
 });
 
+const ClaudeToolResult = Schema.Struct({
+  content: Schema.Union([
+    Schema.String,
+    Schema.Array(
+      Schema.Struct({
+        text: Schema.optional(Schema.String),
+        type: Schema.String,
+      })
+    ),
+  ]),
+  type: Schema.Literal("tool_result"),
+});
+
+const ClaudeUser = Schema.Struct({
+  message: Schema.Struct({
+    content: Schema.Union([
+      Schema.String,
+      Schema.Array(
+        Schema.Union([ClaudeToolResult, Schema.Struct({ type: Schema.String })])
+      ),
+    ]),
+  }),
+  type: Schema.Literal("user"),
+});
+
+const isText = Schema.is(Schema.String);
+
+const toolUsesOf = (line: typeof ClaudeAssistant.Type): readonly ToolUse[] =>
+  line.message.content.flatMap((part) =>
+    "name" in part
+      ? [
+          {
+            command: part.input.command ?? null,
+            name: part.name,
+            target:
+              part.input.skill ??
+              part.input.file_path ??
+              part.input.url ??
+              null,
+          },
+        ]
+      : []
+  );
+
+const toolResultsOf = (line: typeof ClaudeUser.Type): readonly string[] =>
+  isText(line.message.content)
+    ? []
+    : line.message.content.flatMap((part) => {
+        if (!("content" in part)) {
+          return [];
+        }
+
+        return [
+          isText(part.content)
+            ? part.content
+            : part.content.map((piece) => piece.text ?? "").join("\n"),
+        ];
+      });
+
 const CodexCommand = Schema.Struct({
   item: Schema.Struct({
+    aggregated_output: Schema.optional(Schema.String),
     command: Schema.String,
     type: Schema.Literal("command_execution"),
   }),
@@ -95,6 +156,7 @@ const CodexTurn = Schema.Struct({
 
 const TranscriptLine = Schema.Union([
   ClaudeAssistant,
+  ClaudeUser,
   ClaudeResult,
   CodexCommand,
   CodexTurn,
@@ -112,6 +174,28 @@ const GOOD_A11Y_VARIABLE =
 
 const GUIDE_READ =
   /(?:good-a11y\.com|good-a11y\/guides)\/(?!(?:skill|search|check|llms)\.)(?<id>[a-z\d]+(?:-[a-z\d]+)*)\.md\b/gu;
+
+const escapeRegExp = (text: string): string =>
+  text.replaceAll(/[.*+?^${}()|[\]\\]/gu, String.raw`\$&`);
+
+const GUIDE_HEADINGS = GUIDES.map((guide) => ({
+  heading: new RegExp(
+    `^(?:\\s*\\d+\\t)?# ${escapeRegExp(guide.name)}[ \\t]*$`,
+    "mu"
+  ),
+  id: guide.id,
+}));
+
+const guidesShownIn = (outputs: readonly string[]): readonly string[] =>
+  outputs.flatMap((output) =>
+    GUIDE_HEADINGS.flatMap(({ heading, id }) => {
+      const at = heading.exec(output)?.index;
+
+      return at === undefined ? [] : [{ at, id }];
+    })
+      .toSorted((a, b) => a.at - b.at)
+      .map(({ id }) => id)
+  );
 
 const HOSTED =
   /good-a11y\.com\/(?<page>search|check)\.md\?(?:q|url)=(?<value>[^\s"'`&)]+)/gu;
@@ -153,14 +237,19 @@ const hostedUseOf = (toolUses: readonly ToolUse[]) => {
 
   return {
     checks: valuesOf("check"),
-    retrieved: texts.flatMap((text) =>
-      [...text.matchAll(GUIDE_READ)].map((match) => match.groups?.id ?? "")
+    retrieved: toolUses.flatMap((use) =>
+      [...(use.target ?? "").matchAll(GUIDE_READ)].map(
+        (match) => match.groups?.id ?? ""
+      )
     ),
     searches: valuesOf("search"),
   };
 };
 
-export const goodA11yUseOf = (toolUses: readonly ToolUse[]): GoodA11yUse => {
+export const goodA11yUseOf = (
+  toolUses: readonly ToolUse[],
+  outputs: readonly string[]
+): GoodA11yUse => {
   const searches: string[] = [];
   const retrieved: string[] = [];
   const checks: string[] = [];
@@ -185,13 +274,6 @@ export const goodA11yUseOf = (toolUses: readonly ToolUse[]): GoodA11yUse => {
 
       if (match.groups?.command === "search") {
         searches.push(argument);
-      } else if (match.groups?.command === "retrieve") {
-        retrieved.push(
-          ...argument
-            .split(",")
-            .map((id) => id.trim())
-            .filter((id) => id !== "")
-        );
       } else if (match.groups?.command === "check") {
         checks.push(argument);
       }
@@ -200,7 +282,7 @@ export const goodA11yUseOf = (toolUses: readonly ToolUse[]): GoodA11yUse => {
 
   const hosted = hostedUseOf(toolUses);
 
-  retrieved.push(...hosted.retrieved);
+  retrieved.push(...guidesShownIn(outputs), ...hosted.retrieved);
   searches.push(...hosted.searches);
   checks.push(...hosted.checks);
 
@@ -217,6 +299,7 @@ export const goodA11yUseOf = (toolUses: readonly ToolUse[]): GoodA11yUse => {
 
 export const summarizeTranscript = (text: string): TranscriptSummary => {
   const toolUses: ToolUse[] = [];
+  const outputs: string[] = [];
   const denials: Denial[] = [];
   let usage: Usage | null = null;
 
@@ -240,20 +323,11 @@ export const summarizeTranscript = (text: string): TranscriptSummary => {
     const { value } = line;
 
     if (value.type === "assistant") {
-      for (const part of value.message.content) {
-        if ("name" in part) {
-          toolUses.push({
-            command: part.input.command ?? null,
-            name: part.name,
-            target:
-              part.input.skill ??
-              part.input.file_path ??
-              part.input.url ??
-              null,
-          });
-        }
-      }
+      toolUses.push(...toolUsesOf(value));
+    } else if (value.type === "user") {
+      outputs.push(...toolResultsOf(value));
     } else if (value.type === "item.completed") {
+      outputs.push(value.item.aggregated_output ?? "");
       toolUses.push({
         command: value.item.command,
         name: "shell",
@@ -293,6 +367,6 @@ export const summarizeTranscript = (text: string): TranscriptSummary => {
     denials,
     toolUses: toolUses.length,
     usage,
-    use: goodA11yUseOf(toolUses),
+    use: goodA11yUseOf(toolUses, outputs),
   };
 };

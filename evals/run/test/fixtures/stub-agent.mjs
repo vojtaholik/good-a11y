@@ -60,6 +60,21 @@ if (guided) {
     },
     type: "assistant",
   });
+  line({
+    message: {
+      content: [
+        {
+          content: readFileSync(
+            ".claude/skills/good-a11y/guides/skip-link-landmarks.md",
+            "utf-8"
+          ),
+          tool_use_id: "toolu_retrieve",
+          type: "tool_result",
+        },
+      ],
+    },
+    type: "user",
+  });
 }
 
 line({

@@ -5,6 +5,29 @@ import { summarizeTranscript } from "../src/transcript.js";
 const lines = (...values: readonly unknown[]): string =>
   values.map((value) => JSON.stringify(value)).join("\n");
 
+const shown = (
+  content: string | readonly { readonly text: string; readonly type: string }[]
+) => ({
+  message: {
+    content: [{ content, tool_use_id: "toolu_1", type: "tool_result" }],
+  },
+  type: "user",
+});
+
+const guideFile = (name: string, numbered = false): string =>
+  [
+    "---",
+    `name: ${name}`,
+    "description: d",
+    "---",
+    "",
+    `# ${name}`,
+    "",
+    "## When to use",
+  ]
+    .map((line, index) => (numbered ? `${index + 1}\t${line}` : line))
+    .join("\n");
+
 const use = (input: Record<string, string>, name: string) => ({
   message: { content: [{ input, name, type: "tool_use" }] },
   type: "assistant",
@@ -46,6 +69,10 @@ describe("reading an agent transcript", () => {
             },
             type: "assistant",
           },
+          shown([
+            { text: guideFile("Modal dialog"), type: "text" },
+            { text: guideFile("Form errors and validation"), type: "text" },
+          ]),
           {
             message: {
               content: [
@@ -103,6 +130,7 @@ describe("reading an agent transcript", () => {
         },
         {
           item: {
+            aggregated_output: `${guideFile("Tabs")}\n${guideFile("Visible focus styles")}`,
             command:
               'bash -lc "node /b/good-a11y.mjs search \'skip link landmarks\'; node /b/good-a11y.mjs retrieve \\"tabs,focus-visible\\""',
             type: "command_execution",
@@ -137,21 +165,26 @@ describe("reading an agent transcript", () => {
 
   it("follows the bundle through a shell variable, and only through one that holds it", () => {
     const summary = summarizeTranscript(
-      lines({
-        message: {
-          content: [
-            {
-              input: {
-                command:
-                  'cd /p; B=/x/bundle/good-a11y.mjs; node $B search "toast live region"; node $B retrieve "status-messages-toast,reduced-motion"; node $OTHER search "not ours"; G="node /x/bundle/good-a11y.mjs"; $G search "skip link"',
+      lines(
+        {
+          message: {
+            content: [
+              {
+                input: {
+                  command:
+                    'cd /p; B=/x/bundle/good-a11y.mjs; node $B search "toast live region"; node $B retrieve "status-messages-toast,reduced-motion"; node $OTHER search "not ours"; G="node /x/bundle/good-a11y.mjs"; $G search "skip link"',
+                },
+                name: "Bash",
+                type: "tool_use",
               },
-              name: "Bash",
-              type: "tool_use",
-            },
-          ],
+            ],
+          },
+          type: "assistant",
         },
-        type: "assistant",
-      })
+        shown(
+          `${guideFile("Status messages and toasts")}\n${guideFile("Reduced motion and moving content")}`
+        )
+      )
     );
 
     expect(summary.use).toEqual({
@@ -187,6 +220,64 @@ describe("reading an agent transcript", () => {
       searches: ["cart hold timer"],
       skillOpened: true,
     });
+  });
+
+  it("counts a guide when a tool shows its file, whatever the command looked like", () => {
+    const claude = summarizeTranscript(
+      lines(
+        use(
+          {
+            command:
+              "cd /p/.claude/skills/good-a11y/guides && cat unprompted-popups.md input-purpose.md; tail -40 ../../../../assets/site.css",
+          },
+          "Bash"
+        ),
+        shown(
+          `${guideFile("Popups that open on their own")}\n${guideFile("Input purpose and autofill")}\n:root { color: red; }`
+        ),
+        use(
+          {
+            command:
+              'echo \'[{"guide":"moving-content","path":"/"}]\' > a11y-flows.json',
+          },
+          "Bash"
+        ),
+        shown("")
+      )
+    );
+
+    const codex = summarizeTranscript(
+      lines({
+        item: {
+          aggregated_output: `${guideFile("Moving content that starts on its own")}\n${guideFile("Visible focus styles")}`,
+          command:
+            "/bin/zsh -lc 'cat index.html; cat .claude/skills/good-a11y/guides/{moving-content,focus-visible}.md'",
+          type: "command_execution",
+        },
+        type: "item.completed",
+      })
+    );
+
+    const read = summarizeTranscript(
+      lines(
+        use(
+          { file_path: "/p/.claude/skills/good-a11y/guides/tabs.md" },
+          "Read"
+        ),
+        shown(guideFile("Tabs", true)),
+        use({ command: "rg -n '^# ' .claude/skills/good-a11y/guides" }, "Bash"),
+        shown(
+          ".claude/skills/good-a11y/guides/dialog-modal.md:6:# Modal dialog"
+        )
+      )
+    );
+
+    expect(claude.use.retrieved).toEqual([
+      "unprompted-popups",
+      "input-purpose",
+    ]);
+    expect(codex.use.retrieved).toEqual(["moving-content", "focus-visible"]);
+    expect(read.use.retrieved).toEqual(["tabs"]);
   });
 
   it("lists the tool calls Claude Code denied", () => {

@@ -170,7 +170,7 @@ After 2d6e153 (input-purpose and swipe-and-drag say their rule holds when the re
 | autofill-off | 0/3 | 3/3 | 0/3 | 0/3 |
 | press-remove | 0/3 | 3/3 | 0/3 | 1/3 |
 
-Retrieval now finds the guide: Claude read input-purpose and swipe-and-drag in every guided run, Codex input-purpose in 3 of 3 and swipe-and-drag in 2 of 3. Codex then does what the request asks anyway, as it did for orientation (read 6 of 6, passed 0 of 6). Where a request asks for the violation, a guide moves Claude and not Codex.
+Retrieval now finds the guide: Claude read input-purpose and swipe-and-drag in every guided run, Codex input-purpose in 3 of 3 and swipe-and-drag in 3 of 3. Codex then does what the request asks anyway, as it did for orientation (read 6 of 6, passed 0 of 6). Where a request asks for the violation, a guide moves Claude and not Codex.
 
 Both ship for Claude under the per-agent rule, as hover-popups and orientation do: the input-purpose and swipe-and-drag changes stay, and Codex is listed as not helped (lead, 2026-11-05).
 
@@ -205,6 +205,6 @@ Text size held on a second task too, a fresh page with its own stylesheet and a 
 | unprompted-popups | content: newsletter popup | 0/3 | 3/3 | 0/3 | 3/3 |
 | unprompted-popups | shop: consent banner | 3/3 | 3/3 | 0/3 | 3/3 |
 
-moving-content ships for Claude (0/6 to 6/6). Codex read the guide in all 6 guided runs and still built an endless animation, because the prompt says "continuously" (the known limit above). unprompted-popups ships for both: Claude 3/6 to 6/6, Codex 0/6 to 6/6. Codex's unguided consent banner had no accessible name. The transcript count of guide reads misses an agent that changes into the guides folder and reads `<id>.md` by its bare name, so "guide read" counts here come from the guide's text quoted in the transcripts.
+moving-content ships for Claude (0/6 to 6/6). Codex read the guide in all 6 guided runs and still built an endless animation, because the prompt says "continuously" (the known limit above). unprompted-popups ships for both: Claude 3/6 to 6/6, Codex 0/6 to 6/6. Codex's unguided consent banner had no accessible name. A guide counts as read when a tool's output shows its file (its `# <name>` heading), or when a Read or WebFetch call names its file or URL. The counter used to match command text and missed `cd guides && cat <id>.md` and `guides/{a,b}.md`; the reads in this section and in screen 4 were recounted from the saved transcripts with the new counter.
 
 The confirm email failure repeated for Codex (0 of 3 more unguided runs, `autocomplete="off"` on the confirm field each time) and never for Claude. It became a section of input-purpose rather than a new guide: a confirm field repeats the token of the field it confirms and never blocks paste (WCAG 3 draft 2.9.1.1 "Automated entry allowed"), with a fourth grader claim that paste works in every field. Graded by the screening probe, 3 runs per cell: Claude 3/3 unguided and 3/3 guided, Codex 0/3 unguided and 3/3 guided, with the new section read in all three. It ships for Codex.
