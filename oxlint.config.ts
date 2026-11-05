@@ -125,6 +125,7 @@ export default defineConfig({
     "rat-stack-boundaries/no-core-adapters": "error",
     "rat-stack-boundaries/no-cross-layer-imports": "error",
     "rat-stack-boundaries/no-hand-rolled-surface": "error",
+    "rat-stack-boundaries/no-installed-chrome": "error",
     "rat-stack-boundaries/no-local-mode-in-hosted-apps": "error",
     "rat-stack-patterns/acquire-release-constructs-in-acquire-body": "error",
     "rat-stack-patterns/contract-binding-matches-name": "error",

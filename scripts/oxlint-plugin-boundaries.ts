@@ -1472,6 +1472,59 @@ const noLocalModeInHostedApps = defineRule({
   },
 });
 
+const INSTALLED_CHROME_DRIVERS = new Set([
+  "packages/browser-audit/src/node.ts",
+  "packages/graders/src/flow-audit.ts",
+]);
+
+const INSTALLED_CHANNEL = /^(?:chrome|msedge)(?:-|$)/u;
+
+const noInstalledChrome = defineRule({
+  create(context) {
+    if (INSTALLED_CHROME_DRIVERS.has(workspacePath(context.filename))) {
+      return {};
+    }
+
+    return {
+      Property(node) {
+        const key = staticPropertyKeyName(node);
+
+        if (node.value.type !== "Literal") {
+          return;
+        }
+
+        const { value } = node.value;
+
+        if (
+          key === "channel" &&
+          // oxlint-disable-next-line anti-slop/no-runtime-typeof -- ESTree Literal also represents numbers and booleans, so the channel needs a string check.
+          typeof value === "string" &&
+          INSTALLED_CHANNEL.test(value)
+        ) {
+          context.report({ messageId: "installedChannel", node });
+        }
+
+        if (key === "executablePath" && value === null) {
+          context.report({ messageId: "nullExecutable", node });
+        }
+      },
+    };
+  },
+  meta: {
+    docs: {
+      description:
+        "Only the product's two drivers may launch the installed Google Chrome; tests, evals and sweeps drive chrome-headless-shell, because Chrome.app opens a window and takes focus.",
+    },
+    messages: {
+      installedChannel:
+        "This launches the installed Google Chrome, which opens a window and takes focus. Pass executablePath: headlessShellPath() from @good-a11y/browser-audit/headless-shell.",
+      nullExecutable:
+        "executablePath: null makes the driver launch the installed Google Chrome, which opens a window and takes focus. Pass headlessShellPath() from @good-a11y/browser-audit/headless-shell.",
+    },
+    type: "problem",
+  },
+});
+
 export default definePlugin({
   meta: { name: "rat-stack-boundaries" },
   rules: {
@@ -1481,6 +1534,7 @@ export default definePlugin({
     "no-cross-layer-imports": noCrossLayerImports,
     "no-feature-transport": noFeatureTransport,
     "no-hand-rolled-surface": noHandRolledSurface,
+    "no-installed-chrome": noInstalledChrome,
     "no-local-mode-in-hosted-apps": noLocalModeInHostedApps,
   },
 });

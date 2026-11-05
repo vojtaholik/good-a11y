@@ -41,6 +41,7 @@ const lintFixture = (area: string, source: string): LintResult => {
         "rat-stack-boundaries/no-cross-layer-imports": "error",
         "rat-stack-boundaries/no-feature-transport": "error",
         "rat-stack-boundaries/no-hand-rolled-surface": "error",
+        "rat-stack-boundaries/no-installed-chrome": "error",
         "rat-stack-boundaries/no-local-mode-in-hosted-apps": "error",
       },
     })
@@ -105,6 +106,32 @@ describe("architecture boundary rules", () => {
         'import { SafeFetch, vetUrl } from "@good-a11y/core";\nexport const layer = [SafeFetch.layer, vetUrl];'
       ).output
     ).not.toContain("Hosted apps cannot");
+  });
+
+  it("keeps tests, evals and sweeps off the installed Google Chrome", () => {
+    const launches = [
+      'export const config = { use: { channel: "chrome" } };',
+      'export const options = { channel: "msedge-beta" };',
+      "export const chrome = { executablePath: null };",
+    ];
+
+    for (const area of [
+      "apps/good-a11y/test",
+      "packages/browser-audit/test",
+      "evals",
+      "packages/graders/src",
+    ]) {
+      for (const source of launches) {
+        expectRuleSoft(lintFixture(area, source), "takes focus");
+      }
+    }
+
+    expect(
+      lintFixture(
+        "packages/browser-audit/test",
+        'import { headlessShellPath } from "@good-a11y/browser-audit/headless-shell";\nexport const chrome = { executablePath: headlessShellPath() };\nexport const shell = { channel: "chromium-headless-shell" };'
+      ).output
+    ).not.toContain("takes focus");
   });
 
   it("keeps clients and vendor adapters out of core through every import form", () => {

@@ -12,10 +12,13 @@ export interface Run {
   readonly stdout: string;
 }
 
-export const runBundle = (arguments_: readonly string[]) =>
+export const runBundle = (
+  arguments_: readonly string[],
+  env?: NodeJS.ProcessEnv
+) =>
   Effect.callback<Run>((resume) => {
     const child = spawn(process.execPath, [BUNDLE_PATH, ...arguments_], {
-      env: { ...process.env, GOOD_A11Y_CHROME: headlessShellPath() },
+      env: env ?? { ...process.env, GOOD_A11Y_CHROME: headlessShellPath() },
     });
 
     let stdout = "";

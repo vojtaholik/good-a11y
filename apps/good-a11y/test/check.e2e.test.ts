@@ -184,6 +184,25 @@ describe("good-a11y check", () => {
     }).pipe(Effect.scoped)
   );
 
+  it.live(
+    "refuses to open the installed Chrome under a test when no headless shell is named",
+    () =>
+      Effect.gen(function* refusesInstalledChrome() {
+        const withoutShell = Object.fromEntries(
+          Object.entries(process.env).filter(
+            ([name]) => name !== "GOOD_A11Y_CHROME"
+          )
+        );
+
+        const run = yield* runBundle(["check", "localhost:9/"], withoutShell);
+
+        expect(run.status).toBe(1);
+        expect(run.stderr).toContain(
+          "it would open the installed Google Chrome"
+        );
+      })
+  );
+
   it.live("names an address it cannot check and exits one", () =>
     Effect.gen(function* refusesBadAddress() {
       const run = yield* runBundle(["check", "ftp://localhost/"]);

@@ -23,7 +23,23 @@ import {
 } from "effect";
 import { Argument, Command, Flag } from "effect/cli";
 
+import { TestChromeUnset } from "./test-chrome-unset.js";
+
 const CHROME_ENV = "GOOD_A11Y_CHROME";
+
+const chromeFor = Effect.fn("chromeFor")(function* chromeFor(
+  flag: Option.Option<string>
+) {
+  const fromEnv = yield* Config.String(CHROME_ENV).pipe(Config.option);
+  const chosen = Option.getOrNull(Option.orElse(flag, () => fromEnv));
+  const underTest = yield* Config.String("VITEST").pipe(Config.option);
+
+  if (chosen === null && Option.isSome(underTest)) {
+    return yield* new TestChromeUnset();
+  }
+
+  return chosen;
+});
 
 export const guideUrl = (id: string): string =>
   `https://good-a11y.com/${id}.md`;
@@ -81,12 +97,10 @@ export const checkCommand = Command.make(
   },
   Effect.fn("check")(function* check({ chrome, flow, json, url }) {
     const flows = Option.isSome(flow) ? yield* flowsFrom(flow.value) : [];
-    const chromeFromEnv = yield* Config.String(CHROME_ENV).pipe(Config.option);
+    const executablePath = yield* chromeFor(chrome);
 
     const checked = yield* checkLocally(url, flows).pipe(
-      Effect.provide(
-        localLayer(Option.getOrNull(Option.orElse(chrome, () => chromeFromEnv)))
-      )
+      Effect.provide(localLayer(executablePath))
     );
 
     yield* Console.log(

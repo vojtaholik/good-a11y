@@ -4,6 +4,7 @@ import { NodeRuntime, NodeServices } from "@effect/platform-node";
 import { Console, Effect } from "effect";
 
 import { runCommand } from "./command.js";
+import { TEST_CHROME_UNSET } from "./test-chrome-unset.js";
 
 const failWith = (message: string) =>
   Console.error(message).pipe(
@@ -22,6 +23,7 @@ const program = runCommand(process.argv.slice(2)).pipe(
       failWith(
         `${error.reason} Give a page address such as localhost:5173 or https://example.com.`
       ),
+    TestChromeUnset: () => failWith(TEST_CHROME_UNSET),
   }),
   Effect.provide(NodeServices.layer)
 );
