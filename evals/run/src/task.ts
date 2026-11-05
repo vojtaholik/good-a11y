@@ -1,3 +1,4 @@
+import { ScenarioSchema } from "@good-a11y/core";
 import { Effect, FileSystem, Path, Schema } from "effect";
 
 export const ARMS = ["unguided", "guided", "url", "url-network"] as const;
@@ -15,6 +16,7 @@ export const TaskSchema = Schema.Struct({
   guide: Schema.String.check(Schema.isPattern(/^[a-z\d-]+$/u)),
   path: Schema.String.check(Schema.isPattern(/^\//u)),
   prompt: Schema.String.check(Schema.isMinLength(1)),
+  scenarios: Schema.optional(Schema.Array(ScenarioSchema)),
 });
 
 export type Task = typeof TaskSchema.Type;

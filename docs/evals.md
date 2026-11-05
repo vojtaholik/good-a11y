@@ -47,6 +47,10 @@ Oxlint skips `evals/apps/**`: the repo fence (no comments, Effect rules) is for 
 
 `path` is the page the grader opens on the served app. A prompt is what a product owner would ask for, fully specified: every name, label, route and line of copy the change needs, so an agent never has to stop and ask, and every prompt ends by telling the agent to make reasonable assumptions and finish without asking. The names in `targets` are the ones the prompt asks for. It never names the accessibility technique, ARIA, focus, labels, keyboards or screen readers. Where a realistic request pulls toward the failure (the focus-visible tasks ask for a flat restyle with a sticky header on top of the outline reset), that pull is the point.
 
+A task may carry `scenarios`, an array in the format of `a11y-tasks.json` (`docs/scenarios.md`). The runner writes them to `scenarios.json` in the run folder and grades with `check --json --scenarios` on it. The result keeps them apart from `passed`: `check.tasks` counts finished scenarios, and a scenario the driver could not answer is a driver error, never a scenario that did not finish. `summary.md` shows them in the "Guided task completion" column.
+
+`--skill <path>` swaps the `SKILL.md` the guided arm installs (default `skills/good-a11y/SKILL.md`) to compare two skill variants: run both from the same commit into two out dirs. Each guided result records `skill` as the path plus a sha256 prefix.
+
 ## Round 1 (2026-11-04)
 
 Every task, both arms, 3 runs each. Claude Code (`--effort low`) from `full-1`, regraded on 1bdf5a3 after the grader fixes below, and `focus-1` for focus-visible on the trapped base apps. Codex (`model_reasoning_effort=low`) from `codex-clean-1`, a fresh run in its own HOME on 7e92a2b: the Codex runs in `full-1` read the user's personal skills from `~/.agents/skills` in all 180 runs and are void. Each cell is passes over graded runs, both apps together (6 runs). Ship rule per agent: unguided under 70 % and an uplift of at least 15 points.

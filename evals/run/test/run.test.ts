@@ -3,7 +3,7 @@ import { expect, it } from "@effect/vitest";
 import { Duration, Effect, FileSystem, Layer, Path } from "effect";
 import { FetchHttpClient, HttpClient } from "effect/http";
 
-import { GradeFailed, Graders } from "../src/grade.js";
+import { GradeFailed, Graders, taskGradeOf } from "../src/grade.js";
 import type { GradeInput } from "../src/grade.js";
 import { readResult, regradeOne } from "../src/regrade.js";
 import { URL_PROMPT, prepareProject, runOne } from "../src/run.js";
@@ -29,6 +29,7 @@ const pageGraders = (fail: boolean) =>
           failing: [],
           guideFailing: [],
           headline: "No failures",
+          tasks: null,
           verdict: "no_failures",
         }),
       expectations: (input: GradeInput) =>
@@ -66,7 +67,125 @@ const pageGraders = (fail: boolean) =>
     })
   );
 
+const scenarioRun = (problem: string | null, reached: boolean) => ({
+  confirmed: reached,
+  focused: null,
+  problem,
+  reached,
+  trace: [],
+});
+
+const scenarioResult = (
+  id: string,
+  status: "finished" | "not_finished",
+  runs: readonly ReturnType<typeof scenarioRun>[]
+) => ({
+  blocked: [],
+  driver: "claude-sonnet-5-5",
+  goal: id,
+  id,
+  mode: "driven" as const,
+  runs,
+  status,
+  url: "http://localhost:5173/",
+});
+
+it("counts a scenario the driver could not answer as a driver error, not an unfinished task", () => {
+  expect(
+    taskGradeOf({
+      ran: [
+        scenarioResult("buy", "finished", [
+          scenarioRun(null, true),
+          scenarioRun(null, true),
+        ]),
+        scenarioResult("sign-in", "not_finished", [
+          scenarioRun("The model gave up: no submit button", false),
+        ]),
+        scenarioResult("redo", "not_finished", [
+          scenarioRun(
+            "The model driving the scenario did not answer: claude exited 1",
+            false
+          ),
+        ]),
+      ],
+    })
+  ).toEqual({
+    driverErrors: 1,
+    finished: 1,
+    scenarios: [
+      { driverError: false, id: "buy", status: "finished" },
+      { driverError: false, id: "sign-in", status: "not_finished" },
+      { driverError: true, id: "redo", status: "not_finished" },
+    ],
+    skipped: null,
+    total: 3,
+  });
+  expect(taskGradeOf({ skipped: "not a local page" })?.skipped).toBe(
+    "not a local page"
+  );
+  expect(taskGradeOf(null)).toBeNull();
+});
+
 it.layer(NodeServices.layer)("one eval run", (test) => {
+  test.effect(
+    "hands a task's scenarios to the check as a file in the run folder",
+    () =>
+      Effect.gen(function* scenariosFile() {
+        const fileSystem = yield* FileSystem.FileSystem;
+        const outDir = yield* fileSystem.makeTempDirectoryScoped();
+        const seen: (string | null)[] = [];
+
+        const recording = Layer.succeed(
+          Graders,
+          Graders.of({
+            check: (input: GradeInput) =>
+              Effect.sync(() => {
+                seen.push(input.scenariosFile);
+
+                return {
+                  failing: [],
+                  guideFailing: [],
+                  headline: "No failures",
+                  tasks: null,
+                  verdict: "no_failures",
+                };
+              }),
+            expectations: () => Effect.succeed({ expectations: [] }),
+          })
+        );
+
+        for (const guide of ["redundant-entry", "skip-link-landmarks"]) {
+          yield* runOne(
+            {
+              agent: "stub",
+              arm: "unguided",
+              index: 1,
+              loaded: yield* readTask(paths.evalsRoot, guide, "mini"),
+              outDir,
+              timeout: Duration.minutes(1),
+            },
+            paths
+          ).pipe(Effect.provide(recording));
+        }
+
+        const [withScenarios, without] = seen;
+
+        expect(without).toBeNull();
+        expect(withScenarios).toMatch(
+          /redundant-entry--mini--stub--unguided--1\/scenarios\.json$/u
+        );
+        expect(
+          JSON.parse(yield* fileSystem.readFileString(withScenarios ?? ""))
+        ).toEqual([
+          {
+            goal: "Place the order",
+            id: "place-order",
+            success: { present: [{ text: "Order placed" }] },
+          },
+        ]);
+      })
+  );
+
   test.effect(
     "copies the app, runs the agent, serves its page and grades it",
     () =>
@@ -115,6 +234,10 @@ it.layer(NodeServices.layer)("one eval run", (test) => {
           skillOpened: true,
         });
         expect(guided.guideRetrieved).toBe(true);
+        expect(unguided.skill).toBeUndefined();
+        expect(guided.skill).toMatch(
+          /skills\/good-a11y\/SKILL\.md@sha256:[0-9a-f]{12}$/u
+        );
 
         const runDir = path.join(outDir, "runs", guided.id);
 

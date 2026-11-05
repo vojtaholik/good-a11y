@@ -76,6 +76,34 @@ export const queryLogOf = (
       }))
     );
 
+const taskCompletionOf = (runs: readonly RunResult[]): string => {
+  const graded = runs.flatMap((result) =>
+    result.check?.tasks === undefined ||
+    result.check.tasks === null ||
+    result.check.tasks.skipped !== null
+      ? []
+      : [result.check.tasks]
+  );
+
+  if (graded.length === 0) {
+    return "n/a";
+  }
+
+  const finished = graded.reduce((sum, tasks) => sum + tasks.finished, 0);
+
+  const scored = graded.reduce(
+    (sum, tasks) => sum + tasks.total - tasks.driverErrors,
+    0
+  );
+
+  const driverErrors = graded.reduce(
+    (sum, tasks) => sum + tasks.driverErrors,
+    0
+  );
+
+  return `${finished}/${scored}${driverErrors === 0 ? "" : ` (${driverErrors} driver errors)`}`;
+};
+
 export const summaryOf = (results: readonly RunResult[]): string => {
   const lines = ["# good-a11y eval", ""];
   const guides = [...new Set(results.map((result) => result.guide))].toSorted();
@@ -85,8 +113,8 @@ export const summaryOf = (results: readonly RunResult[]): string => {
     lines.push(
       `## ${guide}`,
       "",
-      "| Agent | Unguided pass | Guided pass | Uplift | Guided runs that retrieved the guide | Opened the skill | Mean tokens (unguided / guided) | Mean cost (unguided / guided) | Mean minutes | Errors |",
-      "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+      "| Agent | Unguided pass | Guided pass | Uplift | Guided runs that retrieved the guide | Opened the skill | Mean tokens (unguided / guided) | Mean cost (unguided / guided) | Mean minutes | Errors | Guided task completion |",
+      "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
     );
 
     for (const agent of [
@@ -106,7 +134,7 @@ export const summaryOf = (results: readonly RunResult[]): string => {
       const minutes = mean(runs.map((result) => result.durationMs / 60_000));
 
       lines.push(
-        `| ${agent} | ${countOf(unguided)} (${percent(unguidedRate)}) | ${countOf(guided)} (${percent(guidedRate)}) | ${uplift} | ${guided.filter((result) => result.guideRetrieved).length}/${guided.length} | ${guided.filter((result) => result.transcript.use.skillOpened).length}/${guided.length} | ${formatTokens(mean(unguided.flatMap((result) => tokensOf(result) ?? [])))} / ${formatTokens(mean(guided.flatMap((result) => tokensOf(result) ?? [])))} | ${costOf(unguided)} / ${costOf(guided)} | ${minutes === null ? "n/a" : minutes.toFixed(1)} | ${runs.filter((result) => result.status !== "graded").length} |`
+        `| ${agent} | ${countOf(unguided)} (${percent(unguidedRate)}) | ${countOf(guided)} (${percent(guidedRate)}) | ${uplift} | ${guided.filter((result) => result.guideRetrieved).length}/${guided.length} | ${guided.filter((result) => result.transcript.use.skillOpened).length}/${guided.length} | ${formatTokens(mean(unguided.flatMap((result) => tokensOf(result) ?? [])))} / ${formatTokens(mean(guided.flatMap((result) => tokensOf(result) ?? [])))} | ${costOf(unguided)} / ${costOf(guided)} | ${minutes === null ? "n/a" : minutes.toFixed(1)} | ${runs.filter((result) => result.status !== "graded").length} | ${taskCompletionOf(guided)} |`
       );
     }
 

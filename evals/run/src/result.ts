@@ -14,10 +14,25 @@ export const RunStatusSchema = Schema.Literals([
 
 export type RunStatus = typeof RunStatusSchema.Type;
 
+export const TaskGradeSchema = Schema.Struct({
+  driverErrors: Count,
+  finished: Count,
+  scenarios: Schema.Array(
+    Schema.Struct({
+      driverError: Schema.Boolean,
+      id: Schema.String,
+      status: Schema.Literals(["finished", "not_finished"]),
+    })
+  ),
+  skipped: Schema.NullOr(Schema.String),
+  total: Count,
+});
+
 export const CheckGradeSchema = Schema.Struct({
   failing: Schema.Array(Schema.String),
   guideFailing: Schema.Array(Schema.String),
   headline: Schema.String,
+  tasks: Schema.optional(Schema.NullOr(TaskGradeSchema)),
   verdict: Schema.NullOr(Schema.String),
 });
 
@@ -63,6 +78,7 @@ export const RunResultSchema = Schema.Struct({
   problem: Schema.NullOr(Schema.String),
   regradedAt: Schema.optional(Schema.String),
   run: Count,
+  skill: Schema.optional(Schema.String),
   status: RunStatusSchema,
   transcript: TranscriptSummarySchema,
 });

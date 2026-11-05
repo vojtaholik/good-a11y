@@ -37,6 +37,15 @@ const decodeAgents = Schema.decodeUnknownEffect(
 
 const decodeArms = Schema.decodeUnknownEffect(Schema.NonEmptyArray(ArmSchema));
 
+class SkillNotFound extends Schema.TaggedError<SkillNotFound>()(
+  "SkillNotFound",
+  { skill: Schema.String }
+) {
+  override get message(): string {
+    return `--skill names no file: ${this.skill}. Pass the path of a SKILL.md, e.g. skills/good-a11y/SKILL.md`;
+  }
+}
+
 const runPathsOf = (path: Path.Path): RunPaths => {
   const repoRoot = path.resolve(import.meta.dirname, "../../..");
   const evalsRoot = path.join(repoRoot, "evals");
@@ -155,12 +164,30 @@ const evalCommand = Command.make(
     ),
     out: Flag.String("out").pipe(Flag.optional),
     runs: Flag.Int("runs").pipe(Flag.withDefault(3)),
+    skill: Flag.String("skill").pipe(
+      Flag.optional,
+      Flag.withDescription(
+        "SKILL.md the guided arm installs, to compare skill variants; default skills/good-a11y/SKILL.md. Each guided result records its path and sha256"
+      )
+    ),
     timeoutMinutes: Flag.Int("timeout-minutes").pipe(Flag.withDefault(20)),
   },
   Effect.fn("evalRun")(function* evalRun(flags) {
     const fileSystem = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
-    const paths = runPathsOf(path);
+
+    const paths = Option.match(flags.skill, {
+      onNone: () => runPathsOf(path),
+      onSome: (skill) => ({ ...runPathsOf(path), skill: path.resolve(skill) }),
+    });
+
+    yield* fileSystem.exists(paths.skill).pipe(
+      Effect.filterOrFail(
+        (exists) => exists,
+        () => new SkillNotFound({ skill: paths.skill })
+      )
+    );
+
     const { evalsRoot } = paths;
 
     const stamp = DateTime.formatIso(yield* DateTime.now).replaceAll(

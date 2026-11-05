@@ -1,5 +1,10 @@
 import { headlessShellPath } from "@good-a11y/browser-audit/headless-shell";
-import { ReportSchema, issueGroupsOf } from "@good-a11y/core";
+import {
+  LocalReportSchema,
+  ScenarioDriverFailed,
+  issueGroupsOf,
+} from "@good-a11y/core";
+import type { Tasks } from "@good-a11y/core";
 import { guidesForCheck } from "@good-a11y/guides";
 import { Context, Effect, Layer, Schema } from "effect";
 import { ChildProcess, ChildProcessSpawner } from "effect/process";
@@ -8,10 +13,23 @@ import { GradeFailed } from "./grade-failed.js";
 
 export { GradeFailed } from "./grade-failed.js";
 
+export interface TaskGrade {
+  readonly driverErrors: number;
+  readonly finished: number;
+  readonly scenarios: readonly {
+    readonly driverError: boolean;
+    readonly id: string;
+    readonly status: "finished" | "not_finished";
+  }[];
+  readonly skipped: string | null;
+  readonly total: number;
+}
+
 export interface CheckGrade {
   readonly failing: readonly string[];
   readonly guideFailing: readonly string[];
   readonly headline: string;
+  readonly tasks: TaskGrade | null;
   readonly verdict: string | null;
 }
 
@@ -28,6 +46,7 @@ export interface GraderGrade {
 export interface GradeInput {
   readonly guide: string;
   readonly outputDir: string;
+  readonly scenariosFile: string | null;
   readonly taskFile: string;
   readonly url: string;
 }
@@ -45,8 +64,45 @@ export class Graders extends Context.Service<
 >()("@good-a11y/eval-run/Graders") {}
 
 const decodeReport = Schema.decodeUnknownEffect(
-  Schema.fromJsonString(ReportSchema)
+  Schema.fromJsonString(LocalReportSchema)
 );
+
+const DRIVER_FAILED = new ScenarioDriverFailed({ detail: "" }).message;
+
+export const taskGradeOf = (tasks: Tasks | null): TaskGrade | null => {
+  if (tasks === null) {
+    return null;
+  }
+
+  if ("skipped" in tasks) {
+    return {
+      driverErrors: 0,
+      finished: 0,
+      scenarios: [],
+      skipped: tasks.skipped,
+      total: 0,
+    };
+  }
+
+  const scenarios = tasks.ran.map((result) => ({
+    driverError:
+      result.status === "not_finished" &&
+      result.runs.some(
+        (run) => run.problem?.startsWith(DRIVER_FAILED) ?? false
+      ),
+    id: result.id,
+    status: result.status,
+  }));
+
+  return {
+    driverErrors: scenarios.filter((scenario) => scenario.driverError).length,
+    finished: scenarios.filter((scenario) => scenario.status === "finished")
+      .length,
+    scenarios,
+    skipped: null,
+    total: scenarios.length,
+  };
+};
 
 interface PlaywrightSpec {
   readonly ok: boolean;
@@ -116,7 +172,7 @@ const specsOf = (suite: PlaywrightSuite): Expectation[] => [
 ];
 
 export const checkGradeOf = (
-  report: typeof ReportSchema.Type,
+  report: typeof LocalReportSchema.Type,
   guide: string
 ): CheckGrade => {
   const { benchmark, newer } = issueGroupsOf(report);
@@ -129,6 +185,7 @@ export const checkGradeOf = (
     failing,
     guideFailing: failing.filter((key) => guidesForCheck(key).includes(guide)),
     headline: report.headline,
+    tasks: taskGradeOf(report.tasks),
     verdict: report.verdict?.kind ?? null,
   };
 };
@@ -147,7 +204,15 @@ export const liveGraders = (paths: {
           .string(
             ChildProcess.make(
               process.execPath,
-              [paths.bundle, "check", "--json", input.url],
+              [
+                paths.bundle,
+                "check",
+                "--json",
+                ...(input.scenariosFile === null
+                  ? []
+                  : ["--scenarios", input.scenariosFile]),
+                input.url,
+              ],
               {
                 env: { GOOD_A11Y_CHROME: headlessShellPath() },
                 extendEnv: true,

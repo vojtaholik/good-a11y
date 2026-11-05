@@ -10,6 +10,7 @@ import {
   Schema,
   Stream,
 } from "effect";
+import { Crypto } from "effect/Crypto";
 import { ChildProcess, ChildProcessSpawner } from "effect/process";
 
 import { invocationOf } from "./agents.js";
@@ -34,6 +35,24 @@ export interface RunPaths {
   readonly skill: string;
   readonly stubScript: string;
 }
+
+const SKILL_ID_HEX = 12;
+
+export const skillIdOf = Effect.fn("skillIdOf")(function* skillIdOf(
+  skill: string
+) {
+  const fileSystem = yield* FileSystem.FileSystem;
+  const crypto = yield* Crypto;
+  const bytes = yield* fileSystem.readFile(skill);
+  const digest = yield* crypto.digest("SHA-256", bytes);
+
+  const hex = [...digest]
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("")
+    .slice(0, SKILL_ID_HEX);
+
+  return `${skill}@sha256:${hex}`;
+});
 
 export interface RunSpec {
   readonly agent: AgentName;
@@ -348,6 +367,7 @@ export const gradeProject = Effect.fn("gradeProject")(function* gradeProject({
   task,
   taskFile,
 }: GradeTarget) {
+  const fileSystem = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
   const graders = yield* Graders;
 
@@ -371,9 +391,22 @@ export const gradeProject = Effect.fn("gradeProject")(function* gradeProject({
 
   const url = `${served}${task.path}`;
 
+  const scenariosFile =
+    task.scenarios === undefined || task.scenarios.length === 0
+      ? null
+      : path.join(runDir, "scenarios.json");
+
+  if (scenariosFile !== null) {
+    yield* fileSystem.writeFileString(
+      scenariosFile,
+      `${JSON.stringify(task.scenarios, null, 2)}\n`
+    );
+  }
+
   const input = {
     guide: task.guide,
     outputDir: path.join(runDir, "playwright"),
+    scenariosFile,
     taskFile,
     url,
   };
@@ -442,7 +475,7 @@ export const runOne = Effect.fn("runOne")(function* runOne(
     yield* changesOf(project)
   );
 
-  const base = {
+  const unskilled = {
     agent: spec.agent,
     agentExitCode: agent.exitCode,
     app: task.app,
@@ -453,6 +486,11 @@ export const runOne = Effect.fn("runOne")(function* runOne(
     run: spec.index,
     transcript,
   };
+
+  const base =
+    spec.arm === "guided"
+      ? { ...unskilled, skill: yield* skillIdOf(paths.skill) }
+      : unskilled;
 
   const finish = (outcome: Omit<RunResult, "durationMs">) =>
     Clock.currentTimeMillis.pipe(

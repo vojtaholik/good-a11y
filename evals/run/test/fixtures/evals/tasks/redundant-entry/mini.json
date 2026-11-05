@@ -1,0 +1,13 @@
+{
+  "app": "mini",
+  "guide": "redundant-entry",
+  "path": "/",
+  "prompt": "Add a checkout.",
+  "scenarios": [
+    {
+      "goal": "Place the order",
+      "id": "place-order",
+      "success": { "present": [{ "text": "Order placed" }] }
+    }
+  ]
+}
