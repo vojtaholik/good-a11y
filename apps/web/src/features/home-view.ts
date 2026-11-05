@@ -127,6 +127,7 @@ const home = stylex.create({
     flexDirection: "column",
     flexGrow: 1,
     gap: "10px",
+    marginBlock: "clamp(40px, 5cqi, 72px) 0",
     minInlineSize: 0,
     padding: "clamp(20px, 2cqi, 28px)",
   },
@@ -245,7 +246,7 @@ const home = stylex.create({
 const counted = (count: number, one: string, many: string): string =>
   `${count} ${count === 1 ? one : many}`;
 
-const heroView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
+const heroView = (h: HtmlBuilder<AppMessage>): Html =>
   h.div(
     [sx(h, home.hero)],
     [
@@ -271,23 +272,24 @@ const heroView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
           ),
         ]
       ),
-      h.section(
-        [h.AriaLabelledBy("check-heading"), sx(h, home.checkCard)],
+    ]
+  );
+
+const checkView = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
+  h.section(
+    [h.AriaLabelledBy("check-heading"), sx(h, home.checkCard)],
+    [
+      h.h2(
+        [h.Id("check-heading"), sx(h, home.checkHeading)],
+        ["Check one page"]
+      ),
+      scanForm(model, h),
+      h.p(
+        [sx(h, home.note)],
         [
-          h.h2(
-            [h.Id("check-heading"), sx(h, home.checkHeading)],
-            ["Check one page"]
-          ),
-          scanForm(model, h),
-          h.p(
-            [sx(h, home.note)],
-            [
-              "Takes 20 to 90 seconds. ",
-              h.a(
-                [h.Href(privacyRouter()), sx(h, home.noteLink)],
-                ["What we store"]
-              ),
-            ]
+          h.a(
+            [h.Href(privacyRouter()), sx(h, home.noteLink)],
+            ["What we store"]
           ),
         ]
       ),
@@ -423,11 +425,11 @@ export const homeView = (
   plainPage(
     h.main(
       [h.Id(MAIN_ID)],
-      [heroView(model, h), agentsView(model, h), guidesView(h)]
+      [heroView(h), agentsView(model, h), checkView(model, h), guidesView(h)]
     ),
     [
-      item("check-heading", "Check one page"),
       item("agents-heading", "For agents"),
+      item("check-heading", "Check one page"),
       item("guides", "Guides"),
       ...guidesByCategory().map(([category]) =>
         item(categoryId(category), categoryName(category), 3)

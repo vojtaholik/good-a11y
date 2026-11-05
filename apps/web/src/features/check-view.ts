@@ -124,7 +124,6 @@ const checkMain = (model: AppModel, h: HtmlBuilder<AppMessage>): Html =>
               h.p(
                 [sx(h, check.note)],
                 [
-                  "Takes 20 to 90 seconds. ",
                   h.a(
                     [h.Href(privacyRouter()), sx(h, check.noteLink)],
                     ["What we store"]
