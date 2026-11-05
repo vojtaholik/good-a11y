@@ -5,7 +5,7 @@ description: MANDATORY before you write or change UI. Use whenever you build or 
 
 # good-a11y
 
-Accessibility guides for the things agents get wrong, and a checker for your own page. Run every command as `npx -y github:vojtaholik/good-a11y <command>`. Nothing to install from npm.
+Accessibility guides for the things agents get wrong, and a checker for your page. Reading needs nothing installed: fetch each Markdown URL below with your own fetch tool (WebFetch, curl or similar).
 
 ## Setup, once per project
 
@@ -30,20 +30,20 @@ Do not use it for: backend code, build config, copy edits with no markup.
 
 ## The loop
 
-1. `search "<2-5 words>"` names the task, such as `search "modal dialog focus"`. It prints `[{id, description}]`.
-2. `retrieve "<id>[,<id>]"` prints the guides. When it prints a file path, read that file.
+1. Pick the guides for your task from the list at the end of this file. If none fits, fetch `https://good-a11y.com/search.md?q=<2-5 words>`.
+2. Fetch each guide you picked from its link and read all of it.
 3. Build with them. Follow every DO and DO NOT, also where the request asks for less.
-4. `check <url>` on your running page, `localhost` included. `check` needs a local server and Chrome. When your sandbox blocks them (`listen EPERM`, or `check` says a sandbox is blocking it), ask the user to run the server and `check` outside the sandbox, for example by approving the command to run unsandboxed. Do not skip the check silently.
-5. Fix each issue it lists with the guide it names, then check again.
-
-`list` prints every guide.
+4. Check your running page:
+   - localhost or a private address: `npx -y good-a11y@0.1.0 check <url>`. It needs Chrome. Ask the user to allow exactly this command, with this version, never bare `npx`. When your sandbox blocks the server or the browser (`listen EPERM`, or `check` says a sandbox is blocking it), ask the user to run the server and `check` outside the sandbox, for example by approving the command to run unsandboxed. Do not skip the check silently.
+   - a public URL: fetch `https://good-a11y.com/check.md?url=<url>`. While it says the check is running, fetch it again after the seconds it gives.
+5. Fix each issue it lists with the guide it links, then check again.
 
 ## When the user gave no task
 
 If the user only pointed you here, audit and fix:
 
-1. Start the project's dev server, or use the one already running, and run `check` on its main pages. For a public site with no local code, run `check https://...`; without Chrome, send the user to https://good-a11y.com/check.
-2. Fix the issues in the order `check` lists them, each with the guide it names, then check again.
+1. Start the project's dev server, or use the one already running, and check its main pages. For a public site with no local code, check its URL with the hosted checker.
+2. Fix the issues in the order the check lists them, each with the guide it links, then check again.
 3. Report what you fixed and what is left.
 
 ## In your answer

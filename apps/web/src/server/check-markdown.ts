@@ -63,7 +63,7 @@ const running = (origin: string, input: string, scan: ScanView) =>
 const settled = (origin: string, input: string, scan: ScanView) => {
   if (scan.report !== null) {
     return answer([
-      reportText(scan.report),
+      reportText(scan.report, origin),
       "",
       `The same report as a page: ${origin}${reportRouter({ slug: scan.slug })}`,
     ]);

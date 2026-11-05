@@ -11,7 +11,8 @@ import { localNodeHopTransportLayer } from "@good-a11y/http-transport/node";
 import { Console, Effect, Layer, Option, Schema } from "effect";
 import { Argument, Command, Flag } from "effect/cli";
 
-export const RETRIEVE = "npx github:vojtaholik/good-a11y retrieve";
+export const guideUrl = (id: string): string =>
+  `https://good-a11y.com/${id}.md`;
 
 const localLayer = (executablePath: string | null) =>
   Layer.mergeAll(
@@ -52,8 +53,8 @@ export const checkCommand = Command.make(
             2
           )
         : formatLocalCheck(checked, {
+            guideUrl,
             guidesFor: guidesForCheck,
-            retrieve: RETRIEVE,
           })
     );
   })

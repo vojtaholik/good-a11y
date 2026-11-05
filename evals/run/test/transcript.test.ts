@@ -5,6 +5,11 @@ import { summarizeTranscript } from "../src/transcript.js";
 const lines = (...values: readonly unknown[]): string =>
   values.map((value) => JSON.stringify(value)).join("\n");
 
+const use = (input: Record<string, string>, name: string) => ({
+  message: { content: [{ input, name, type: "tool_use" }] },
+  type: "assistant",
+});
+
 describe("reading an agent transcript", () => {
   it("finds good-a11y searches, retrievals and checks in Claude Code tool calls, and its usage", () => {
     const summary = summarizeTranscript(
@@ -154,6 +159,33 @@ describe("reading an agent transcript", () => {
       retrieved: ["status-messages-toast", "reduced-motion"],
       searches: ["toast live region", "skip link"],
       skillOpened: false,
+    });
+  });
+
+  it("counts guides read from the installed files or fetched from good-a11y.com, and hosted searches and checks", () => {
+    const summary = summarizeTranscript(
+      lines(
+        use({ url: "https://good-a11y.com/skill.md" }, "WebFetch"),
+        use({ url: "https://good-a11y.com/dialog-modal.md" }, "WebFetch"),
+        use(
+          { file_path: "/p/.claude/skills/good-a11y/guides/tabs.md" },
+          "Read"
+        ),
+        use(
+          {
+            command:
+              'curl -s "https://good-a11y.com/search.md?q=cart+hold+timer" && curl -s https://good-a11y.com/check.md?url=https%3A%2F%2Fshop.example%2F',
+          },
+          "Bash"
+        )
+      )
+    );
+
+    expect(summary.use).toEqual({
+      checks: ["https://shop.example/"],
+      retrieved: ["dialog-modal", "tabs"],
+      searches: ["cart hold timer"],
+      skillOpened: true,
     });
   });
 

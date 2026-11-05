@@ -33,3 +33,5 @@ export {
 } from "./search.js";
 
 export { CHECK_GUIDES, guidesForCheck } from "./check-guides.js";
+
+export { withGuideIndex } from "./skill-index.js";

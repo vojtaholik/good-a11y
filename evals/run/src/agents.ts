@@ -111,6 +111,9 @@ export const invocationOf = (
         "--skip-git-repo-check",
         "--sandbox",
         "workspace-write",
+        ...(input.web
+          ? ["-c", "sandbox_workspace_write.network_access=true"]
+          : []),
         "-c",
         'model_reasoning_effort="low"',
         "-C",

@@ -104,7 +104,7 @@ describe("good-a11y check", () => {
           "Images have a text alternative `image-alt`"
         );
         expect(run.stdout).toContain(
-          "Guide: `npx github:vojtaholik/good-a11y retrieve image-alt`"
+          "Guide: https://good-a11y.com/image-alt.md"
         );
         expect(run.stdout).toContain('> <img src="late.png">');
         expect(run.stdout).toContain("1.1.1 Non-text Content (Level A)");

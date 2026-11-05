@@ -1,4 +1,5 @@
 import { GUIDES } from "@good-a11y/guides/data";
+import { withGuideIndex } from "@good-a11y/guides/skill-index";
 import { Effect, Option } from "effect";
 import { Server } from "foldkit/experimental";
 import { fromString } from "foldkit/url";
@@ -102,19 +103,7 @@ const notFound = (): Response =>
   textResponse("Not found. See /llms.txt.\n", MARKDOWN, 404);
 
 export const skillMarkdown = (origin: string): string =>
-  [
-    skill.trimEnd(),
-    "",
-    "## References",
-    "",
-    "Each guide, the same text `retrieve` prints:",
-    "",
-    ...GUIDES.map(
-      (guide) =>
-        `- [${guide.name}](${origin}${REFERENCES_PATH}/${guide.id}.md): ${guide.description}`
-    ),
-    "",
-  ].join("\n");
+  withGuideIndex(skill, GUIDES, (id) => `${origin}/${id}.md`);
 
 const agentFile = (url: URL, siteOrigin: string): Response | null => {
   if (url.pathname === "/llms.txt") {

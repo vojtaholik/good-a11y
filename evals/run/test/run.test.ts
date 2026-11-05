@@ -6,7 +6,7 @@ import { FetchHttpClient, HttpClient } from "effect/http";
 import { GradeFailed, Graders } from "../src/grade.js";
 import type { GradeInput } from "../src/grade.js";
 import { readResult, regradeOne } from "../src/regrade.js";
-import { SHIPPED_COMMAND, URL_PROMPT, runOne } from "../src/run.js";
+import { URL_PROMPT, prepareProject, runOne } from "../src/run.js";
 import type { RunPaths } from "../src/run.js";
 import { summaryOf } from "../src/summary.js";
 import { readTask } from "../src/task.js";
@@ -305,13 +305,44 @@ it.layer(NodeServices.layer)("one eval run", (test) => {
   );
 
   test.effect(
-    "installs the skill with the shipped command pointed at the local bundle",
+    "installs the skill with every guide as a local file and check on the local bundle",
     () =>
       Effect.gen(function* installsSkill() {
         const fileSystem = yield* FileSystem.FileSystem;
-        const skill = yield* fileSystem.readFileString(paths.skill);
+        const path = yield* Path.Path;
+        const workDir = yield* fileSystem.makeTempDirectoryScoped();
+        const loaded = yield* readTask(paths.evalsRoot, "tabs", "mini");
 
-        expect(skill).toContain(SHIPPED_COMMAND);
+        const { project } = yield* prepareProject(
+          {
+            agent: "stub",
+            arm: "guided",
+            index: 1,
+            loaded,
+            outDir: workDir,
+            timeout: Duration.minutes(1),
+          },
+          paths,
+          workDir
+        );
+
+        const skill = yield* fileSystem.readFileString(
+          path.join(project, ".claude/skills/good-a11y/SKILL.md")
+        );
+
+        const guide = yield* fileSystem.readFileString(
+          path.join(project, ".claude/skills/good-a11y/guides/tabs.md")
+        );
+
+        expect(skill).toContain(
+          "- [tabs](.claude/skills/good-a11y/guides/tabs.md): "
+        );
+        expect(skill).toContain(`\`node ${paths.bundle} check <url>\``);
+        expect(skill).toContain(
+          `\`node ${paths.bundle} search "<2-5 words>"\``
+        );
+        expect(skill).not.toMatch(/npx -y good-a11y@|search\.md\?q=/u);
+        expect(guide).toContain("# Tabs");
       })
   );
 

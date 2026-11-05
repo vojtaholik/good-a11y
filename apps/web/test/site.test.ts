@@ -138,7 +138,7 @@ describe("the site for agents", () => {
       for (const guide of GUIDES) {
         expect(llms.body).toContain(`${ORIGIN}/guides/${guide.id}`);
         expect(skill.body).toContain(
-          `${ORIGIN}/skills/good-a11y/references/${guide.id}.md`
+          `- [${guide.id}](${ORIGIN}/${guide.id}.md): ${guide.description}`
         );
       }
 

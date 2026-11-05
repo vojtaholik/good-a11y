@@ -1,5 +1,5 @@
 {
-  "name": "good-a11y",
+  "name": "good-a11y-workspace",
   "version": "0.1.0",
   "private": true,
   "description": "Accessibility guidance for coding agents, with the checker on top: guides, search, retrieve and a local check, on rat-stack.",
@@ -30,7 +30,7 @@
     "facts": "pnpm --filter @good-a11y/facts run facts",
     "guides": "pnpm --filter @good-a11y/guides run guides",
     "evals:graders": "pnpm --filter @good-a11y/evals run graders",
-    "good-a11y:bundle": "turbo run build --filter=@good-a11y/good-a11y && pnpm --filter @good-a11y/good-a11y run bundle"
+    "good-a11y:bundle": "turbo run build --filter=good-a11y && pnpm --filter good-a11y run bundle"
   },
   "dependencies": {
     "puppeteer-core": "25.13.0"

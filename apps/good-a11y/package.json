@@ -1,11 +1,32 @@
 {
-  "name": "@good-a11y/good-a11y",
+  "name": "good-a11y",
   "version": "0.1.0",
-  "private": true,
-  "bin": {
-    "good-a11y": "./bundle/good-a11y.mjs"
+  "description": "Check a page on your own machine, localhost included, for accessibility issues, and read the good-a11y guides for coding agents.",
+  "keywords": [
+    "a11y",
+    "accessibility",
+    "coding-agents",
+    "eaa",
+    "wcag"
+  ],
+  "homepage": "https://good-a11y.com",
+  "bugs": "https://github.com/vojtaholik/good-a11y/issues",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vojtaholik/good-a11y.git",
+    "directory": "apps/good-a11y"
   },
+  "bin": {
+    "good-a11y": "bundle/good-a11y.mjs"
+  },
+  "files": [
+    "bundle"
+  ],
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run",
@@ -15,19 +36,23 @@
     "pretest": "pnpm run --silent build"
   },
   "dependencies": {
+    "puppeteer-core": "25.13.0"
+  },
+  "devDependencies": {
     "@effect/platform-node": "4.0.0",
+    "@effect/vitest": "4.0.0",
     "@good-a11y/browser-audit": "workspace:*",
     "@good-a11y/core": "workspace:*",
     "@good-a11y/guides": "workspace:*",
     "@good-a11y/html-reader": "workspace:*",
     "@good-a11y/http-transport": "workspace:*",
-    "effect": "4.0.0"
-  },
-  "devDependencies": {
-    "@effect/vitest": "4.0.0",
     "@types/node": "24.13.6",
+    "effect": "4.0.0",
     "esbuild": "0.28.2",
     "typescript": "7.0.2",
     "vitest": "5.0.1"
+  },
+  "engines": {
+    "node": ">=24.18.0"
   }
 }

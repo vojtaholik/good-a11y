@@ -120,13 +120,14 @@ const checkMarkdown = (): string[] => [
   ]),
 ];
 
-export const reportText = (report: Report): string =>
+export const reportText = (report: Report, origin: string): string =>
   formatLocalCheck(
     { questions: [], renderProblem: null, report },
-    { guidesFor: guidesForCheck, retrieve: RETRIEVE }
+    { guideUrl: (id) => `${origin}/${id}.md`, guidesFor: guidesForCheck }
   );
 
 const reportMarkdown = (
+  origin: string,
   slug: string,
   maybeScan: Option.Option<ScanView>
 ): string[] =>
@@ -144,7 +145,7 @@ const reportMarkdown = (
             scan.failure ??
               `The scan is ${scan.stage}. Ask again in a few seconds.`,
           ]
-        : [reportText(scan.report)],
+        : [reportText(scan.report, origin)],
   });
 
 const infoMarkdown = (page: InfoPage): string[] => [
@@ -201,8 +202,8 @@ export const pageMarkdown = (
     Home: () => homeMarkdown(origin),
     NotFound: notFoundMarkdown,
     Privacy: () => infoMarkdown(PRIVACY),
-    Report: ({ slug }) => reportMarkdown(slug, maybeScan),
-    Scan: ({ slug }) => reportMarkdown(slug, maybeScan),
+    Report: ({ slug }) => reportMarkdown(origin, slug, maybeScan),
+    Scan: ({ slug }) => reportMarkdown(origin, slug, maybeScan),
   }).join("\n");
 
 export const GUIDE_MARKDOWN_PATH = /^\/guides\/(?<id>[a-z\d-]+)\.md$/u;

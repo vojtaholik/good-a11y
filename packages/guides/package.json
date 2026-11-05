@@ -34,6 +34,11 @@
       "types": "./src/search.ts",
       "import": "./dist/search.js",
       "default": "./dist/search.js"
+    },
+    "./skill-index": {
+      "types": "./src/skill-index.ts",
+      "import": "./dist/skill-index.js",
+      "default": "./dist/skill-index.js"
     }
   },
   "scripts": {

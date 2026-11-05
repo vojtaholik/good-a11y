@@ -39,6 +39,7 @@ const ClaudeToolUse = Schema.Struct({
     command: Schema.optional(Schema.String),
     file_path: Schema.optional(Schema.String),
     skill: Schema.optional(Schema.String),
+    url: Schema.optional(Schema.String),
   }),
   name: Schema.String,
   type: Schema.Literal("tool_use"),
@@ -109,6 +110,20 @@ const GOOD_A11Y_COMMAND =
 const GOOD_A11Y_VARIABLE =
   /\b(?<name>[A-Za-z_]\w*)=(?:\\?"[^"]*good-a11y(?:\.mjs)?\\?"|'[^']*good-a11y(?:\.mjs)?'|[^\s;"']*good-a11y(?:\.mjs)?(?=[\s;]|$))/gu;
 
+const GUIDE_READ =
+  /(?:good-a11y\.com|good-a11y\/guides)\/(?!(?:skill|search|check|llms)\.)(?<id>[a-z\d]+(?:-[a-z\d]+)*)\.md\b/gu;
+
+const HOSTED =
+  /good-a11y\.com\/(?<page>search|check)\.md\?(?:q|url)=(?<value>[^\s"'`&)]+)/gu;
+
+const decoded = (value: string): string => {
+  try {
+    return decodeURIComponent(value.replaceAll("+", " "));
+  } catch {
+    return value;
+  }
+};
+
 const FIRST_ARGUMENT =
   /^\s*(?:--json\s+|--chrome\s+\S+\s+)*(?:\\"(?<escaped>[^"\\]*)\\"|"(?<double>[^"]*)"|'(?<single>[^']*)'|(?<bare>[^\s"'\\]+))/u;
 
@@ -122,6 +137,27 @@ const firstArgument = (text: string): string => {
     groups?.bare ??
     ""
   ).trim();
+};
+
+const hostedUseOf = (toolUses: readonly ToolUse[]) => {
+  const texts = toolUses.map(
+    (use) => `${use.command ?? ""} ${use.target ?? ""}`
+  );
+
+  const hosted = texts.flatMap((text) => [...text.matchAll(HOSTED)]);
+
+  const valuesOf = (page: string) =>
+    hosted.flatMap((match) =>
+      match.groups?.page === page ? [decoded(match.groups.value ?? "")] : []
+    );
+
+  return {
+    checks: valuesOf("check"),
+    retrieved: texts.flatMap((text) =>
+      [...text.matchAll(GUIDE_READ)].map((match) => match.groups?.id ?? "")
+    ),
+    searches: valuesOf("search"),
+  };
 };
 
 export const goodA11yUseOf = (toolUses: readonly ToolUse[]): GoodA11yUse => {
@@ -162,10 +198,17 @@ export const goodA11yUseOf = (toolUses: readonly ToolUse[]): GoodA11yUse => {
     }
   }
 
+  const hosted = hostedUseOf(toolUses);
+
+  retrieved.push(...hosted.retrieved);
+  searches.push(...hosted.searches);
+  checks.push(...hosted.checks);
+
   const skillOpened = toolUses.some(
     (use) =>
       (use.name === "Skill" && use.target === "good-a11y") ||
       (use.target?.endsWith("good-a11y/SKILL.md") ?? false) ||
+      (use.target?.includes("good-a11y.com/skill.md") ?? false) ||
       (use.command?.includes("good-a11y/SKILL.md") ?? false)
   );
 
@@ -202,7 +245,11 @@ export const summarizeTranscript = (text: string): TranscriptSummary => {
           toolUses.push({
             command: part.input.command ?? null,
             name: part.name,
-            target: part.input.skill ?? part.input.file_path ?? null,
+            target:
+              part.input.skill ??
+              part.input.file_path ??
+              part.input.url ??
+              null,
           });
         }
       }

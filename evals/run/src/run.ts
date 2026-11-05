@@ -1,3 +1,4 @@
+import { GUIDES, withGuideIndex } from "@good-a11y/guides";
 import {
   Clock,
   Config,
@@ -18,7 +19,11 @@ import { serveDirectory } from "./serve.js";
 import type { Arm, LoadedTask } from "./task.js";
 import { summarizeTranscript } from "./transcript.js";
 
-export const SHIPPED_COMMAND = "npx -y github:vojtaholik/good-a11y";
+export const SHIPPED_COMMAND = /npx -y good-a11y@\d+\.\d+\.\d+/gu;
+
+export const SHIPPED_SEARCH = "`https://good-a11y.com/search.md?q=<2-5 words>`";
+
+export const INSTALLED_GUIDES = ".claude/skills/good-a11y/guides";
 
 export interface RunPaths {
   readonly bundle: string;
@@ -71,7 +76,9 @@ export const runIdOf = (
   `${spec.loaded.task.guide}--${spec.loaded.task.app}--${spec.agent}--${spec.arm}--${spec.index}`;
 
 export const installedSkill = (skill: string, bundle: string): string =>
-  skill.replaceAll(SHIPPED_COMMAND, `node ${bundle}`);
+  withGuideIndex(skill, GUIDES, (id) => `${INSTALLED_GUIDES}/${id}.md`)
+    .replaceAll(SHIPPED_COMMAND, `node ${bundle}`)
+    .replaceAll(SHIPPED_SEARCH, `\`node ${bundle} search "<2-5 words>"\``);
 
 export const URL_PROMPT =
   "Use https://good-a11y.com for accessibility in this project: read https://good-a11y.com/skill.md and follow it.";
@@ -148,7 +155,17 @@ export const prepareProject = Effect.fn("prepareProject")(
         ? yield* fileSystem.readFileString(agentsFile)
         : "# Project notes";
 
-      yield* fileSystem.makeDirectory(skillDir, { recursive: true });
+      yield* fileSystem.makeDirectory(path.join(project, INSTALLED_GUIDES), {
+        recursive: true,
+      });
+
+      for (const guide of GUIDES) {
+        yield* fileSystem.writeFileString(
+          path.join(project, INSTALLED_GUIDES, `${guide.id}.md`),
+          guide.text
+        );
+      }
+
       yield* fileSystem.writeFileString(
         path.join(skillDir, "SKILL.md"),
         installedSkill(

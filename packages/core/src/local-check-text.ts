@@ -19,7 +19,7 @@ export const CHROME_FIX =
 
 export interface LocalCheckText {
   readonly guidesFor: (key: string) => readonly string[];
-  readonly retrieve: string;
+  readonly guideUrl: (id: string) => string;
 }
 
 const BACKTICKS = /`+/gu;
@@ -57,7 +57,7 @@ const issueSection = (
     `${levelOf(issue)}, ${countOf(issue)}.`,
     ...(guides.length === 0
       ? []
-      : [`Guide: \`${text.retrieve} ${guides.join(",")}\``]),
+      : [`Guide: ${guides.map(text.guideUrl).join(", ")}`]),
     "",
     fenced(fixPromptOf(report, issue)),
     "",
