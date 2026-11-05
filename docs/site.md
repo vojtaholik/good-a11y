@@ -13,7 +13,10 @@ Built 2026-11-04 by check for decision 11 of the good-a11y brief. `apps/web` is 
 | `/check/<host>`, `/check/<host>/<id>` | The newest report for a site, or one scan. Each finding links to the guides that fix it (`CHECK_GUIDES`) | The report in the format `check` prints |
 | `/about`, `/privacy` | Who makes good-a11y and how the guides are tested; what the checker stores and for how long. Text in `apps/web/src/features/info-pages.ts` | The same text |
 | `/llms.txt` | none | The site and every guide |
-| `/skills/good-a11y/SKILL.md` | none | `skills/good-a11y/SKILL.md` with a References list |
+| `/guides/<id>.md` | none | The guide page's Markdown, no `Accept` needed |
+| `/search.md?q=<words>` | none | The top guides for the words (`makeGuideIndex`, the CLI's search): name, id, one line, link to `/guides/<id>.md`. No `q` answers 400 with an example |
+| `/check.md?url=<public url>` | none | Checks a public page for an agent without running code (`server/check-markdown.ts`). A scan of the same address that is running answers "fetch this same URL again in 10 seconds" with `Retry-After: 10`, and spends no rate limit. Otherwise it calls `startScan` as the caller, through the same per-address limit (`SCAN_LIMIT`, 429 with `Retry-After: 60`), daily caps, refusals and one-hour reuse as the form, and answers the report in the format `check` prints, or the running line. Always `no-store` |
+| `/skill.md`, `/skills/good-a11y/SKILL.md` | none | `skills/good-a11y/SKILL.md` with a References list |
 | `/skills/good-a11y/references/<id>.md` | none | The guide, as the guide page's Markdown |
 | `/sitemap.xml`, `/robots.txt` | none | `/`, `/check`, `/about`, `/privacy` and every guide; robots allows all and names the sitemap |
 

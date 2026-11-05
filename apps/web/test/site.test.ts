@@ -27,7 +27,10 @@ const assets: BackendFetch = async (request) =>
 const backendDown: BackendFetch = async () =>
   await Promise.resolve(new Response(null, { status: 503 }));
 
-const site = siteHandler(backendDown, assets, ORIGIN);
+// @effect-diagnostics-next-line asyncFunction:off -- The fakes stand in for Promise-returning Worker bindings.
+const allowAll = async () => await Promise.resolve(true);
+
+const site = siteHandler(backendDown, assets, ORIGIN, allowAll);
 
 const get = (path: string, accept = "text/html") =>
   // @effect-diagnostics-next-line asyncFunction:off -- The handler under test is a Promise boundary.
@@ -124,6 +127,11 @@ describe("the site for agents", () => {
 
       expect(llms.body.startsWith("# good-a11y\n\n> ")).toBe(true);
       expect(llms.body).toContain("## When to use");
+      expect(llms.body).toContain(
+        "use [good-css](https://good-css.com/llms.txt), the sibling site."
+      );
+      expect(llms.body).toContain(`${ORIGIN}/search.md?q=`);
+      expect(llms.body).toContain(`${ORIGIN}/check.md?url=`);
       expect(skill.response.headers.get("content-type")).toContain(MARKDOWN);
       expect(skill.body).toContain("name: good-a11y");
 

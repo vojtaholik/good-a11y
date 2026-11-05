@@ -18,7 +18,8 @@ export default {
       siteHandler(
         backend,
         env.ASSETS.fetch.bind(env.ASSETS),
-        new URL(env.SITE_ORIGIN).origin
+        new URL(env.SITE_ORIGIN).origin,
+        callerLimit
       ),
       callerLimit
     )(request),

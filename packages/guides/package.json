@@ -29,6 +29,11 @@
       "types": "./src/guide.ts",
       "import": "./dist/guide.js",
       "default": "./dist/guide.js"
+    },
+    "./search": {
+      "types": "./src/search.ts",
+      "import": "./dist/search.js",
+      "default": "./dist/search.js"
     }
   },
   "scripts": {

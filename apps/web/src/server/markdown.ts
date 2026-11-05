@@ -6,10 +6,11 @@ import {
   verifiedText,
   CONTACT_SHOWN,
 } from "@good-a11y/core/contracts";
-import type { ScanView } from "@good-a11y/core/contracts";
+import type { Report, ScanView } from "@good-a11y/core/contracts";
 import { guidesForCheck } from "@good-a11y/guides/check-guides";
 import { GUIDES } from "@good-a11y/guides/data";
 import type { Guide } from "@good-a11y/guides/guide";
+import { makeGuideIndex } from "@good-a11y/guides/search";
 import { Array, Option } from "effect";
 
 import { CLI, SKILL_PATH, agentPrompt } from "../features/agent-links.js";
@@ -119,6 +120,12 @@ const checkMarkdown = (): string[] => [
   ]),
 ];
 
+export const reportText = (report: Report): string =>
+  formatLocalCheck(
+    { questions: [], renderProblem: null, report },
+    { guidesFor: guidesForCheck, retrieve: RETRIEVE }
+  );
+
 const reportMarkdown = (
   slug: string,
   maybeScan: Option.Option<ScanView>
@@ -137,12 +144,7 @@ const reportMarkdown = (
             scan.failure ??
               `The scan is ${scan.stage}. Ask again in a few seconds.`,
           ]
-        : [
-            formatLocalCheck(
-              { questions: [], renderProblem: null, report: scan.report },
-              { guidesFor: guidesForCheck, retrieve: RETRIEVE }
-            ),
-          ],
+        : [reportText(scan.report)],
   });
 
 const infoMarkdown = (page: InfoPage): string[] => [
@@ -203,13 +205,58 @@ export const pageMarkdown = (
     Scan: ({ slug }) => reportMarkdown(slug, maybeScan),
   }).join("\n");
 
+export const GUIDE_MARKDOWN_PATH = /^\/guides\/(?<id>[a-z\d-]+)\.md$/u;
+
+export const guideMarkdownPath = (id: string): string =>
+  `${guideRouter({ guideId: id })}.md`;
+
+export const SEARCH_PATH = "/search.md";
+
+export const CHECK_PATH = "/check.md";
+
+const searchIndex = makeGuideIndex(GUIDES);
+
+export const searchMarkdown = (query: string, origin: string): string => {
+  const hits = searchIndex.search(query).flatMap(({ id }) =>
+    Option.match(guideOf(id), {
+      onNone: () => [],
+      onSome: (guide) => [
+        `- [${guide.name}](${origin}${guideMarkdownPath(guide.id)}) \`${guide.id}\`: ${guide.description}`,
+      ],
+    })
+  );
+
+  return [
+    `# Guides for "${query}"`,
+    "",
+    ...(hits.length === 0
+      ? [
+          `No guide matches. Try other words, or read the list of every guide: ${origin}/llms.txt`,
+        ]
+      : [
+          "Best match first. Read a guide before you build, and follow every DO and DO NOT.",
+          "",
+          ...hits,
+        ]),
+    "",
+  ].join("\n");
+};
+
+export const SEARCH_USAGE = (origin: string): string =>
+  [
+    "# Search the guides",
+    "",
+    `Add the task in 2 to 5 words: ${origin}${SEARCH_PATH}?q=modal+dialog+focus`,
+    "",
+  ].join("\n");
+
 export const llmsTxt = (origin: string): string =>
   [
     `# ${SITE_NAME}`,
     "",
     `> ${pageMetaOf(AppRoute.Home()).description}`,
     "",
-    `Every page is also served as Markdown: send \`Accept: text/markdown\`. Agents run the guides and the checker locally with \`${CLI}\`.`,
+    `Every page is also served as Markdown: send \`Accept: text/markdown\`, or add \`.md\` to a guide's address. Agents run the guides and the checker locally with \`${CLI}\`.`,
     "",
     "## When to use",
     "",
@@ -221,9 +268,13 @@ export const llmsTxt = (origin: string): string =>
     "",
     "Do not use it for backend code, build configuration, or copy edits that add no markup.",
     "",
+    "For styling, layout and modern CSS technique, use [good-css](https://good-css.com/llms.txt), the sibling site.",
+    "",
     "## Agents",
     "",
     `- [good-a11y skill](${origin}${SKILL_PATH}): triggers and the search, retrieve, build and check loop`,
+    `- [Search the guides](${origin}${SEARCH_PATH}?q=modal+dialog+focus): the best guides for a task in 2 to 5 words, as Markdown`,
+    `- [Check a public page](${origin}${CHECK_PATH}?url=example.com): starts a scan, or reuses one from the last hour, and answers the report as Markdown. While it runs, fetch the same address again after the seconds in Retry-After`,
     `- [Check a page](${origin}/check): what the checker tests, per WCAG success criterion`,
     `- [About](${origin}${aboutRouter()}): who makes good-a11y and how the guides are tested`,
     `- [Privacy](${origin}${privacyRouter()}): what the checker stores and for how long`,

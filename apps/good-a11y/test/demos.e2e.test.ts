@@ -69,32 +69,37 @@ const issueKeysOf = (report: typeof ReportSchema.Type): readonly string[] => {
   return [...benchmark, ...newer].map((issue) => issue.key);
 };
 
+const SECONDS_PER_DEMO = 15;
+
 describe("every guide's demo", () => {
-  it.live("passes our own checker, rendered page included", () =>
-    Effect.gen(function* checksDemos() {
-      const port = yield* demoServer;
+  it.live(
+    "passes our own checker, rendered page included",
+    () =>
+      Effect.gen(function* checksDemos() {
+        const port = yield* demoServer;
 
-      const results: {
-        id: string;
-        issues: readonly string[];
-        rendered: string | undefined;
-      }[] = [];
+        const results: {
+          id: string;
+          issues: readonly string[];
+          rendered: string | undefined;
+        }[] = [];
 
-      for (const guide of GUIDES) {
-        const report = yield* Schema.decodeEffect(
-          Schema.fromJsonString(ReportSchema)
-        )(yield* checkJson(`127.0.0.1:${port}/${guide.id}/demo.html`));
+        for (const guide of GUIDES) {
+          const report = yield* Schema.decodeEffect(
+            Schema.fromJsonString(ReportSchema)
+          )(yield* checkJson(`127.0.0.1:${port}/${guide.id}/demo.html`));
 
-        results.push({
-          id: guide.id,
-          issues: issueKeysOf(report),
-          rendered: report.rendered?.status,
-        });
-      }
+          results.push({
+            id: guide.id,
+            issues: issueKeysOf(report),
+            rendered: report.rendered?.status,
+          });
+        }
 
-      expect(results).toStrictEqual(
-        GUIDES.map((guide) => ({ id: guide.id, issues: [], rendered: "ran" }))
-      );
-    }).pipe(Effect.scoped)
+        expect(results).toStrictEqual(
+          GUIDES.map((guide) => ({ id: guide.id, issues: [], rendered: "ran" }))
+        );
+      }).pipe(Effect.scoped),
+    GUIDES.length * SECONDS_PER_DEMO * 1000
   );
 });

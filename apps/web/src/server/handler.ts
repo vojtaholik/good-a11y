@@ -90,7 +90,7 @@ export const callerKey = (address: string): string => {
     .join(":")}::/64`;
 };
 
-const callerOf = (request: Request): string =>
+export const callerOf = (request: Request): string =>
   callerKey(request.headers.get("cf-connecting-ip") ?? "unknown");
 
 export const RPC_METHOD_ONLY = "The RPC endpoint takes POST only.";

@@ -7,12 +7,21 @@ import skill from "../../../../skills/good-a11y/SKILL.md?raw";
 import { SKILL_PATH, SKILL_URL_PATH } from "../features/agent-links.js";
 import { pageMetaOf } from "../features/page-meta.js";
 import { AppRoute, parseRoute } from "../features/route.js";
+import { checkPage, checkUsage } from "./check-markdown.js";
+import type { CheckAnswer } from "./check-markdown.js";
+import { callerOf } from "./handler.js";
+import type { CallerLimit } from "./handler.js";
 import {
+  CHECK_PATH,
+  GUIDE_MARKDOWN_PATH,
+  SEARCH_PATH,
+  SEARCH_USAGE,
   guideMarkdown,
   guideOf,
   llmsTxt,
   pageMarkdown,
   robotsTxt,
+  searchMarkdown,
   sitemapXml,
 } from "./markdown.js";
 import { isMissing, renderPage, scanOf, withPageMeta } from "./render.js";
@@ -127,7 +136,17 @@ const agentFile = (url: URL, siteOrigin: string): Response | null => {
     return textResponse(skillMarkdown(siteOrigin), MARKDOWN);
   }
 
-  const reference = REFERENCE_PATH.exec(url.pathname)?.groups?.id;
+  if (url.pathname === SEARCH_PATH) {
+    const query = url.searchParams.get("q")?.trim() ?? "";
+
+    return query === ""
+      ? textResponse(SEARCH_USAGE(siteOrigin), MARKDOWN, 400)
+      : textResponse(searchMarkdown(query, siteOrigin), MARKDOWN);
+  }
+
+  const reference =
+    REFERENCE_PATH.exec(url.pathname)?.groups?.id ??
+    GUIDE_MARKDOWN_PATH.exec(url.pathname)?.groups?.id;
 
   if (reference !== undefined) {
     return Option.match(guideOf(reference), {
@@ -150,16 +169,42 @@ const agentFile = (url: URL, siteOrigin: string): Response | null => {
       });
 };
 
+const checkResponse = ({ body, retryAfter, status }: CheckAnswer) => {
+  const response = textResponse(body, MARKDOWN, status, {
+    "cache-control": "no-store",
+  });
+
+  if (retryAfter !== null) {
+    response.headers.set("retry-after", String(retryAfter));
+  }
+
+  return response;
+};
+
 export const siteHandler =
   (
     backend: BackendFetch,
     assets: BackendFetch,
-    siteOrigin: string
+    siteOrigin: string,
+    allow: CallerLimit
   ): BackendFetch =>
   // @effect-diagnostics-next-line asyncFunction:off -- A Worker fetch handler is a Promise boundary.
   async (request) => {
     const url = new URL(request.url);
     const isRead = request.method === "GET" || request.method === "HEAD";
+
+    if (isRead && url.pathname === CHECK_PATH) {
+      const input = url.searchParams.get("url")?.trim() ?? "";
+
+      return checkResponse(
+        input === ""
+          ? checkUsage(siteOrigin)
+          : await Effect.runPromise(
+              checkPage(backend, allow, callerOf(request), siteOrigin, input)
+            )
+      );
+    }
+
     const file = isRead ? agentFile(url, siteOrigin) : null;
 
     if (file !== null) {

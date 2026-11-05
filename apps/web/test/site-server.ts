@@ -41,13 +41,16 @@ const assets: BackendFetch = async (request) => {
 const backendDown: BackendFetch = async () =>
   await Promise.resolve(new Response(null, { status: 503 }));
 
+// @effect-diagnostics-next-line asyncFunction:off -- Stands in for the Promise-returning rate limit binding.
+const allowAll = async () => await Promise.resolve(true);
+
 // @effect-diagnostics-next-line asyncFunction:off -- The local server is a Promise boundary.
 const respond = async (request: Request) => {
   const { origin, pathname } = new URL(request.url);
 
   const response = pathname.startsWith("/assets/")
     ? await assets(request)
-    : await siteHandler(backendDown, assets, origin)(request);
+    : await siteHandler(backendDown, assets, origin, allowAll)(request);
 
   return {
     body: Buffer.from(await response.arrayBuffer()),
