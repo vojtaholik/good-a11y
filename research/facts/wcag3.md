@@ -264,8 +264,8 @@ or guide it relates to.
 - excerpt: "This section presents reporting tiers, not conformance tiers. The third reporting tier equates with conformance to WCAG 3."
 - retrieved: 2026-11-05
 - used_by: none
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Verified by writer 2026-11-05: fetched the draft myself; #x4-reporting exists, section 4 Reporting is marked Exploratory and informative, the excerpt is verbatim inside it (tags removed, whitespace normalised); claim and value match.
 
 ### STD-WCAG3-27
 - claim: Replaces STD-WCAG3-15 with the section's real anchor. The draft suggests progress could be reported as counts or percentages between tiers, based on the tags.
@@ -275,8 +275,8 @@ or guide it relates to.
 - excerpt: "Progress could also be reported as counts or percentages between each tier based on the tags."
 - retrieved: 2026-11-05
 - used_by: report.score
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Verified by writer 2026-11-05: fetched the draft myself; the excerpt is verbatim in section 4 Reporting at #x4-reporting; claim and value match.
 
 ## The W3C blog post (25 September 2026)
 
@@ -455,5 +455,5 @@ or guide it relates to.
 - excerpt: "Core requirement Accurate names, roles, values, and states are available for interactive elements."
 - retrieved: 2026-11-05
 - used_by: checks.form-labels.wcag3, checks.link-name.wcag3, checks.button-name.wcag3
-- status: unverified
-- verifier_note:
+- status: verified
+- verifier_note: Verified by writer 2026-11-05: fetched the draft myself; 2.3.5.6 is titled "Roles, values, states, properties available" with commas, a core requirement, excerpt verbatim at the anchor; form-labels, link-name and button-name map to 4.1.2 in packages/core/src/catalogue.ts.

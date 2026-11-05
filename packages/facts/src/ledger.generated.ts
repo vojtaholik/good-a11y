@@ -5854,6 +5854,28 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "value": "Default accessibility support set not yet defined"
   },
   {
+    "claim": "Replaces STD-WCAG3-11 with the section's real anchor. The Reporting section, which defines the reporting tiers, is informative and at the exploratory status; its third tier equates with conformance.",
+    "excerpt": "\"This section presents reporting tiers, not conformance tiers. The third reporting tier equates with conformance to WCAG 3.\"",
+    "field": "other",
+    "file": "wcag3.md",
+    "id": "STD-WCAG3-26",
+    "retrieved": "2026-11-05",
+    "source": "https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/#x4-reporting",
+    "usedBy": "none",
+    "value": "Reporting tiers are informative and exploratory; tier 3 = conformance"
+  },
+  {
+    "claim": "Replaces STD-WCAG3-15 with the section's real anchor. The draft suggests progress could be reported as counts or percentages between tiers, based on the tags.",
+    "excerpt": "\"Progress could also be reported as counts or percentages between each tier based on the tags.\"",
+    "field": "other",
+    "file": "wcag3.md",
+    "id": "STD-WCAG3-27",
+    "retrieved": "2026-11-05",
+    "source": "https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/#x4-reporting",
+    "usedBy": "report.score",
+    "value": "Progress may be reported as counts or percentages between tiers"
+  },
+  {
     "claim": "The W3C WAI Director's blog post of 25 September 2026 says the September 2026 draft has a single level of conformance called core requirements, built on WCAG 2.2 Level A and AA success criteria.",
     "excerpt": "\"a single level of conformance called \"core requirements\" builds on WCAG 2.2 Level A and AA success criteria provides a baseline for policymakers\"",
     "field": "other",
@@ -6006,5 +6028,16 @@ export const VERIFIED_FACTS: readonly VerifiedFact[] = [
     "source": "https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/#change-of-content-notified",
     "usedBy": "guides.status-messages-toast.wcag3",
     "value": "2.12.5.1 Change of content notified (core requirement)"
+  },
+  {
+    "claim": "Replaces STD-W3-ROLES-VALUES-STATES-PROPERTIES-AVAILABLE-1 with the exact title. WCAG 3 draft requirement 2.3.5.6 \"Roles, values, states, properties available\" is a core requirement. It relates to form-labels, link-name, button-name (WCAG 2 SC 4.1.2).",
+    "excerpt": "\"Core requirement Accurate names, roles, values, and states are available for interactive elements.\"",
+    "field": "other",
+    "file": "wcag3.md",
+    "id": "STD-W3-ROLES-VALUES-STATES-PROPERTIES-AVAILABLE-2",
+    "retrieved": "2026-11-05",
+    "source": "https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/#roles-values-states-properties-available",
+    "usedBy": "checks.form-labels.wcag3, checks.link-name.wcag3, checks.button-name.wcag3",
+    "value": "2.3.5.6 Roles, values, states, properties available (core requirement)"
   }
 ];
