@@ -16,6 +16,7 @@ import type { AgentName } from "./agents.js";
 import { Graders } from "./grade.js";
 import type { Grade, RunResult } from "./result.js";
 import { serveDirectory } from "./serve.js";
+import { URL_ARMS } from "./task.js";
 import type { Arm, LoadedTask } from "./task.js";
 import { summarizeTranscript } from "./transcript.js";
 
@@ -249,13 +250,13 @@ const runAgent = Effect.fn("runAgent")(function* runAgent(
 
   const invocation = invocationOf(spec.agent, {
     home,
+    network: spec.arm === "url-network",
     project,
-    prompt:
-      spec.arm === "url"
-        ? `${URL_PROMPT}\n\n${spec.loaded.task.prompt}`
-        : spec.loaded.task.prompt,
+    prompt: URL_ARMS.has(spec.arm)
+      ? `${URL_PROMPT}\n\n${spec.loaded.task.prompt}`
+      : spec.loaded.task.prompt,
     stubScript: paths.stubScript,
-    web: spec.arm === "url",
+    web: URL_ARMS.has(spec.arm),
   });
 
   const finished: AgentOutcome = yield* runToEnd(

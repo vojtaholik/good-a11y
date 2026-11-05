@@ -1,6 +1,8 @@
 import { Effect, FileSystem, Path, Schema } from "effect";
 
-export const ARMS = ["unguided", "guided", "url"] as const;
+export const ARMS = ["unguided", "guided", "url", "url-network"] as const;
+
+export const URL_ARMS: ReadonlySet<Arm> = new Set(["url", "url-network"]);
 
 export const DEFAULT_ARMS = ["unguided", "guided"] as const;
 

@@ -17,6 +17,7 @@ export interface InvocationInput {
   readonly project: string;
   readonly prompt: string;
   readonly stubScript: string;
+  readonly network: boolean;
   readonly web: boolean;
 }
 
@@ -111,7 +112,7 @@ export const invocationOf = (
         "--skip-git-repo-check",
         "--sandbox",
         "workspace-write",
-        ...(input.web
+        ...(input.network
           ? ["-c", "sandbox_workspace_write.network_access=true"]
           : []),
         "-c",
