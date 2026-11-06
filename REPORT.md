@@ -24,7 +24,7 @@ State at 08:50 CET on 2026-11-04, all on `main`, CI green, deployed to stage dev
 
 - Stage `dev` (non-production, workers.dev), Alchemy stack `GoodA11y` since 2026-11-04: https://gooda11y-website-dev-s2azigohuevma2wl.vojtaholik.workers.dev (canary: https://gooda11y-canary-dev-hrahc5q6lporawvt.vojtaholik.workers.dev). Checked end to end on 2026-11-04 10:33: a gov.uk scan published with the rendered and judged steps run. The old `EaaCheck` dev stack (https://eaacheck-website-dev-x6ihepvlvg74r7cg.vojtaholik.workers.dev) is still up until it is destroyed. At first deploy the Alchemy plan was 5 creates, 0 updates or deletes (Website Worker, Scanner Worker, ScanWorkflow, D1 ScanDatabase, migrations). A scan runs through the XState machine inside the Cloudflare Workflow and the page shows the report.
 
-- Stage `prod`: https://good-a11y.com (www redirects to the apex), deployed 2026-11-04 from 71703de by the lead; future prod deploys are run or approved by Vojta. is-agentic 97/100 on the domain (13:19 UTC); still failing are Organization schema completeness (needs a real contact point and address) and trust pages (About, Contact, Privacy, which the design work adds; Contact stays hidden by decision 2).
+- Stage `prod`: https://good-a11y.com (www redirects to the apex), deployed 2026-11-04 from 71703de by the lead; future prod deploys are run or approved by Vojta. is-agentic 97/100 on the domain (13:19 UTC); still failing are Organization schema completeness and trust pages, both accepted by Vojta on 2026-11-06: no Organization schema, Contact stays hidden (decision 2), About approved as is.
 
 ## Facts ledger coverage
 

@@ -45,10 +45,10 @@ Audit by writer on 2026-11-05 at `ed34008` plus the launch commit. Each item is 
 
 | Item | Status |
 | --- | --- |
-| About page text, a proposal in `docs/site.md` (written 2026-11-04 by check): names Vojta as maker, makes no claim about screen-reader testing | **needs Vojta** (approve) |
-| Organization schema. is-agentic's `org-schema-completeness` wants `contactPoint` with an email or phone and a postal `address`. Proposal in `docs/site.md`; it needs a real contact point | **needs Vojta** |
-| Contact. `CONTACT_SHOWN` is off (decision 2), so `/contact` answers 404 and removal requests go through a public GitHub issue | **needs Vojta** |
-| is-agentic on prod: **97** (scan 2026-11-04T13:19Z). Open: `org-schema-completeness`, `trust-anchors` (About, Contact and Privacy of 500+ characters; Contact is hidden), `brand-search-accuracy` (the domain does not rank yet). The first two wait on the rows above; the third waits on launch traffic | **needs Vojta** |
+| About page text (written 2026-11-04 by check): names Vojta as maker, makes no claim about screen-reader testing. Approved by Vojta as is on 2026-11-06; live at `/about`, linked from the header, the footer, the sitemap and `llms.txt` | **done** |
+| Organization schema. is-agentic's `org-schema-completeness` wants `contactPoint` with an email or phone and a postal `address`. Vojta decided on 2026-11-06: no `Organization` schema | **done** (dropped) |
+| Contact. `CONTACT_SHOWN` is off (decision 2), so `/contact` answers 404 and removal requests go through a public GitHub issue. Vojta decided on 2026-11-06: contact stays hidden | **done** |
+| is-agentic on prod: **97** (scan 2026-11-04T13:19Z). Open: `org-schema-completeness`, `trust-anchors` (About, Contact and Privacy of 500+ characters; Contact is hidden), `brand-search-accuracy` (the domain does not rank yet). The first two stay open by Vojta's 2026-11-06 decision (no Organization schema, no Contact); the third waits on launch traffic | **accepted** |
 
 ## Launch blurb (proposal)
 
