@@ -88,7 +88,7 @@ What round 1 changed:
 
 Picked by expected failure, not coverage (decision 14 of the good-a11y brief). Each candidate was first screened with a throwaway probe: one task, both agents, unguided, one run. Only a failure earns a guide.
 
-Screen 1, 20 candidates: 18 passed for both agents (OTP code entry, custom date picker, dual price slider, drag reorder, info tooltip, sortable table, gift-wrap switch, colour swatches, photo drop zone, small quantity buttons, cookie notice, route tiles at 320 px and with text spacing, product gallery, checkout steps, load more, Slovak quote language, "Read more" link names, PDF link text). Checkout fields (autocomplete tokens) and billing address (redundant entry) failed both.
+Screen 1, 20 candidates: 17 passed for both agents (OTP code entry, custom date picker, dual price slider, info tooltip, sortable table, gift-wrap switch, colour swatches, photo drop zone, small quantity buttons, cookie notice, route tiles at 320 px and with text spacing, product gallery, checkout steps, load more, Slovak quote language, "Read more" link names, PDF link text). Checkout fields (autocomplete tokens) and billing address (redundant entry) failed both. Drag reorder was not graded: its probe timed out for both agents, in the first run and in the rerun (`screen-l5-fix`).
 
 Screen 2, 9 candidates: label in name, character key shortcuts, sticky header over focus, consistent help and video captions passed both. Buy now (no confirm or cancel) and a letters puzzle at sign-in failed both. A cart hold with no warning and a swipe that cannot be called off failed Codex only.
 

@@ -1,0 +1,1569 @@
+{
+  "agents": [
+    {
+      "id": "claude",
+      "name": "Claude Code",
+      "setting": "--effort low"
+    },
+    {
+      "id": "codex",
+      "name": "Codex",
+      "setting": "model_reasoning_effort=low"
+    }
+  ],
+  "guides": [
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [6, 6],
+          "runs": ["full-1-regraded"],
+          "unguided": [0, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [0, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "form-errors-validation",
+      "id": "round-1/form-errors-validation",
+      "note": null,
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": ["claude", "codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [5, 6],
+          "runs": ["full-1-regraded"],
+          "unguided": [0, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [2, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "skip-link-landmarks",
+      "id": "round-1/skip-link-landmarks",
+      "note": null,
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": ["claude", "codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [6, 6],
+          "runs": ["full-1-regraded"],
+          "unguided": [4, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [1, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "menu-button",
+      "id": "round-1/menu-button",
+      "note": null,
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": ["claude", "codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "5e392bb",
+          "guided": [6, 6],
+          "runs": ["full-1-regraded", "round1-fix-image-alt"],
+          "unguided": [1, 6],
+          "guidedBefore": [3, 6]
+        },
+        "codex": {
+          "commit": "5e392bb",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1", "round1-fix-image-alt-codex-clean"],
+          "unguided": [3, 6],
+          "guidedBefore": [5, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "image-alt",
+      "id": "round-1/image-alt",
+      "note": "Agents put the chart values in a caption sentence; the guide's chart example gained a data table (5e392bb) and the guided arm was re-run.",
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": ["claude", "codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "114be2f",
+          "guided": [6, 6],
+          "runs": ["toast-2", "toast-2-v3"],
+          "unguided": [3, 6]
+        },
+        "codex": {
+          "commit": "114be2f",
+          "guided": [6, 6],
+          "runs": ["toast-2", "toast-2-v3"],
+          "unguided": [0, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "status-messages-toast",
+      "id": "round-1/status-messages-toast",
+      "note": "Measured again after a task and grader fix: the prompts name no duration, and a toast faded to opacity 0 counts as gone.",
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": ["claude", "codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [6, 6],
+          "runs": ["full-1-regraded"],
+          "unguided": [4, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [6, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "tabs",
+      "id": "round-1/tabs",
+      "note": null,
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": ["claude"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [6, 6],
+          "runs": ["focus-1-regraded"],
+          "unguided": [3, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [6, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "focus-visible",
+      "id": "round-1/focus-visible",
+      "note": null,
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": ["claude"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [6, 6],
+          "runs": ["full-1-regraded"],
+          "unguided": [6, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [3, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "combobox-autocomplete",
+      "id": "round-1/combobox-autocomplete",
+      "note": null,
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": ["codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [6, 6],
+          "runs": ["full-1-regraded"],
+          "unguided": [5, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [5, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [3, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "disclosure-accordion",
+      "id": "round-1/disclosure-accordion",
+      "note": null,
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": ["codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [5, 6],
+          "runs": ["full-1-regraded"],
+          "unguided": [6, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [3, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "spa-route-change",
+      "id": "round-1/spa-route-change",
+      "note": null,
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": ["codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [6, 6],
+          "runs": ["full-1-regraded"],
+          "unguided": [6, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [6, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "reduced-motion",
+      "id": "round-1/reduced-motion",
+      "note": "Round 1 measured guides that already existed; the ship rule did not gate them, and this one stays published.",
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": [],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [6, 6],
+          "runs": ["full-1-regraded"],
+          "unguided": [6, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [6, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "custom-select",
+      "id": "round-1/custom-select",
+      "note": "Round 1 measured guides that already existed; the ship rule did not gate them, and this one stays published.",
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": [],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [6, 6],
+          "runs": ["full-1-regraded"],
+          "unguided": [6, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [6, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "dialog-modal",
+      "id": "round-1/dialog-modal",
+      "note": "Round 1 measured guides that already existed; the ship rule did not gate them, and this one stays published.",
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": [],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [6, 6],
+          "runs": ["full-1-regraded"],
+          "unguided": [6, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [6, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "icon-buttons",
+      "id": "round-1/icon-buttons",
+      "note": "Round 1 measured guides that already existed; the ship rule did not gate them, and this one stays published.",
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": [],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "1bdf5a3",
+          "guided": [6, 6],
+          "runs": ["full-1-regraded"],
+          "unguided": [6, 6]
+        },
+        "codex": {
+          "commit": "7e92a2b",
+          "guided": [6, 6],
+          "runs": ["codex-clean-1"],
+          "unguided": [6, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "required-and-hints",
+      "id": "round-1/required-and-hints",
+      "note": "Round 1 measured guides that already existed; the ship rule did not gate them, and this one stays published.",
+      "published": true,
+      "round": "Round 1",
+      "shipsFor": [],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-input-purpose"],
+          "unguided": [3, 6]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-input-purpose"],
+          "unguided": [3, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "input-purpose",
+      "id": "screens-1-and-2/input-purpose",
+      "note": null,
+      "published": true,
+      "round": "Screens 1 and 2",
+      "shipsFor": ["claude", "codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-redundant-entry-r"],
+          "unguided": [3, 6]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-redundant-entry-r"],
+          "unguided": [0, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "redundant-entry",
+      "id": "screens-1-and-2/redundant-entry",
+      "note": null,
+      "published": true,
+      "round": "Screens 1 and 2",
+      "shipsFor": ["claude", "codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [5, 6],
+          "runs": ["l5-confirm-before-purchase-2"],
+          "unguided": [2, 6]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-confirm-before-purchase-2"],
+          "unguided": [0, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "confirm-before-purchase",
+      "id": "screens-1-and-2/confirm-before-purchase",
+      "note": "Measured with prompts that state the goal; the first prompts asked for the violation.",
+      "published": true,
+      "round": "Screens 1 and 2",
+      "shipsFor": ["claude", "codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-sign-in-without-puzzles-2"],
+          "unguided": [1, 6]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-sign-in-without-puzzles-2"],
+          "unguided": [1, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "sign-in-without-puzzles",
+      "id": "screens-1-and-2/sign-in-without-puzzles",
+      "note": "Measured with prompts that state the goal; the first prompts asked for the violation.",
+      "published": true,
+      "round": "Screens 1 and 2",
+      "shipsFor": ["claude", "codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-timeouts-and-warnings-r"],
+          "unguided": [3, 6]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-timeouts-and-warnings-r"],
+          "unguided": [2, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "timeouts-and-warnings",
+      "id": "screens-1-and-2/timeouts-and-warnings",
+      "note": null,
+      "published": true,
+      "round": "Screens 1 and 2",
+      "shipsFor": ["claude", "codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-swipe-and-drag"],
+          "unguided": [6, 6]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-swipe-and-drag"],
+          "unguided": [4, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "swipe-and-drag",
+      "id": "screens-1-and-2/swipe-and-drag",
+      "note": null,
+      "published": true,
+      "round": "Screens 1 and 2",
+      "shipsFor": ["codex"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-hover-popups"],
+          "unguided": [3, 6]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-hover-popups"],
+          "unguided": [6, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "hover-popups",
+      "id": "screen-3/hover-popups",
+      "note": null,
+      "published": true,
+      "round": "Screen 3",
+      "shipsFor": ["claude"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-non-text-contrast"],
+          "unguided": [6, 6]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-non-text-contrast"],
+          "unguided": [5, 6]
+        }
+      },
+      "date": "2026-11-04",
+      "guide": "non-text-contrast",
+      "id": "screen-3/non-text-contrast",
+      "note": "Codex's screen failure did not repeat: 5 of 6 unguided runs passed, so the guide met the ship rule for neither agent.",
+      "published": false,
+      "round": "Screen 3",
+      "shipsFor": [],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [6, 6],
+          "runs": ["l5-orientation"],
+          "unguided": [0, 6]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [0, 6],
+          "runs": ["l5-orientation"],
+          "unguided": [0, 6]
+        }
+      },
+      "date": "2026-11-05",
+      "guide": "orientation",
+      "id": "screen-4/orientation",
+      "note": "Codex read the guide in all six guided runs and still built the overlay the prompt asked for.",
+      "published": true,
+      "round": "Screen 4",
+      "shipsFor": ["claude"],
+      "task": null
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "2d6e153",
+          "guided": [3, 3],
+          "runs": ["m-autofill-off"],
+          "unguided": [0, 3]
+        },
+        "codex": {
+          "commit": "2d6e153",
+          "guided": [0, 3],
+          "runs": ["m-autofill-off"],
+          "unguided": [0, 3]
+        }
+      },
+      "date": "2026-11-05",
+      "guide": "input-purpose",
+      "id": "screen-4-follow-up/input-purpose/autofill-off",
+      "note": "Shop only, graded by the screening probe. Codex read the guide and did what the request asked.",
+      "published": true,
+      "round": "Screen 4 follow-up",
+      "shipsFor": ["claude"],
+      "task": "autofill-off"
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": "2d6e153",
+          "guided": [3, 3],
+          "runs": ["m-press-remove"],
+          "unguided": [0, 3]
+        },
+        "codex": {
+          "commit": "2d6e153",
+          "guided": [1, 3],
+          "runs": ["m-press-remove"],
+          "unguided": [0, 3]
+        }
+      },
+      "date": "2026-11-05",
+      "guide": "swipe-and-drag",
+      "id": "screen-4-follow-up/swipe-and-drag/press-remove",
+      "note": "Shop only, graded by the screening probe. Codex read the guide and did what the request asked.",
+      "published": true,
+      "round": "Screen 4 follow-up",
+      "shipsFor": ["claude"],
+      "task": "press-remove"
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [3, 3],
+          "runs": ["m5-moving-content-content"],
+          "unguided": [0, 3]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [0, 3],
+          "runs": ["m5-moving-content-content"],
+          "unguided": [0, 3]
+        }
+      },
+      "date": "2026-11-05",
+      "guide": "moving-content",
+      "id": "screen-5/moving-content/content",
+      "note": "Codex read the guide in all 6 guided runs and still built an endless animation, because the prompt says \"continuously\".",
+      "published": true,
+      "round": "Screen 5",
+      "shipsFor": ["claude"],
+      "task": "content: brand ticker"
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [3, 3],
+          "runs": ["m5-moving-content-shop"],
+          "unguided": [0, 3]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [0, 3],
+          "runs": ["m5-moving-content-shop"],
+          "unguided": [0, 3]
+        }
+      },
+      "date": "2026-11-05",
+      "guide": "moving-content",
+      "id": "screen-5/moving-content/shop",
+      "note": "Codex read the guide in all 6 guided runs and still built an endless animation, because the prompt says \"continuously\".",
+      "published": true,
+      "round": "Screen 5",
+      "shipsFor": ["claude"],
+      "task": "shop: announcement bar"
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [3, 3],
+          "runs": ["m5-unprompted-popups-content"],
+          "unguided": [0, 3]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [3, 3],
+          "runs": ["m5-unprompted-popups-content"],
+          "unguided": [0, 3]
+        }
+      },
+      "date": "2026-11-05",
+      "guide": "unprompted-popups",
+      "id": "screen-5/unprompted-popups/content",
+      "note": "The ship rule counts both tasks together.",
+      "published": true,
+      "round": "Screen 5",
+      "shipsFor": ["claude", "codex"],
+      "task": "content: newsletter popup"
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [3, 3],
+          "runs": ["m5-unprompted-popups-shop"],
+          "unguided": [3, 3]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [3, 3],
+          "runs": ["m5-unprompted-popups-shop"],
+          "unguided": [0, 3]
+        }
+      },
+      "date": "2026-11-05",
+      "guide": "unprompted-popups",
+      "id": "screen-5/unprompted-popups/shop",
+      "note": "The ship rule counts both tasks together.",
+      "published": true,
+      "round": "Screen 5",
+      "shipsFor": ["claude", "codex"],
+      "task": "shop: consent banner"
+    },
+    {
+      "cells": {
+        "claude": {
+          "commit": null,
+          "guided": [3, 3],
+          "runs": ["m5-confirm"],
+          "unguided": [3, 3]
+        },
+        "codex": {
+          "commit": null,
+          "guided": [3, 3],
+          "runs": ["m5-confirm"],
+          "unguided": [0, 3]
+        }
+      },
+      "date": "2026-11-05",
+      "guide": "input-purpose",
+      "id": "screen-5/input-purpose/confirm-email-field",
+      "note": "A section of input-purpose, graded by the screening probe.",
+      "published": true,
+      "round": "Screen 5",
+      "shipsFor": ["codex"],
+      "task": "confirm email field"
+    }
+  ],
+  "scenariosStep": {
+    "commit": "baa8ba0",
+    "runs": ["scen-nostep", "scen-step"],
+    "rows": [
+      {
+        "agent": "claude",
+        "passed": [15, 15],
+        "ranCheck": [13, 15],
+        "ranScenarios": [0, 15],
+        "skill": "no step",
+        "taskCompletion": [15, 15]
+      },
+      {
+        "agent": "claude",
+        "passed": [15, 15],
+        "ranCheck": [15, 15],
+        "ranScenarios": [12, 15],
+        "skill": "step 6",
+        "taskCompletion": [15, 15]
+      },
+      {
+        "agent": "codex",
+        "passed": [15, 15],
+        "ranCheck": [13, 15],
+        "ranScenarios": [13, 15],
+        "skill": "no step",
+        "taskCompletion": [15, 15]
+      },
+      {
+        "agent": "codex",
+        "passed": [15, 15],
+        "ranCheck": [12, 15],
+        "ranScenarios": [12, 15],
+        "skill": "step 6",
+        "taskCompletion": [15, 15]
+      }
+    ]
+  },
+  "screens": [
+    {
+      "candidate": "OTP code entry",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "custom date picker",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": "The first probe was wrong; the regraded run passed.",
+      "runs": ["screen-l5", "screen-l5-fix"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "dual price slider",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "info tooltip",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "sortable table",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "gift-wrap switch",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "colour swatches",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "photo drop zone",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "small quantity buttons",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": "The first probe was wrong; the regraded run passed.",
+      "runs": ["screen-l5", "screen-l5-fix"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "cookie notice",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "route tiles at 320 px and with text spacing",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "product gallery",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "checkout steps",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "load more",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "Slovak quote language",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "\"Read more\" link names",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "PDF link text",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": "The first probe was wrong; the regraded run passed.",
+      "runs": ["screen-l5", "screen-l5-fix"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "drag reorder",
+      "claude": "not-graded",
+      "codex": "not-graded",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": "The probe timed out for both agents, in the first run and the rerun.",
+      "runs": ["screen-l5", "screen-l5-fix"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "checkout fields (autocomplete tokens)",
+      "claude": "fail",
+      "codex": "fail",
+      "date": "2026-11-04",
+      "guide": "input-purpose",
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "billing address (redundant entry)",
+      "claude": "fail",
+      "codex": "fail",
+      "date": "2026-11-04",
+      "guide": "redundant-entry",
+      "note": null,
+      "runs": ["screen-l5"],
+      "screen": "Screen 1"
+    },
+    {
+      "candidate": "label in name",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5b"],
+      "screen": "Screen 2"
+    },
+    {
+      "candidate": "character key shortcuts",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5b"],
+      "screen": "Screen 2"
+    },
+    {
+      "candidate": "sticky header over focus",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5b"],
+      "screen": "Screen 2"
+    },
+    {
+      "candidate": "consistent help",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5b"],
+      "screen": "Screen 2"
+    },
+    {
+      "candidate": "video captions",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5b"],
+      "screen": "Screen 2"
+    },
+    {
+      "candidate": "buy now (no confirm or cancel)",
+      "claude": "fail",
+      "codex": "fail",
+      "date": "2026-11-04",
+      "guide": "confirm-before-purchase",
+      "note": null,
+      "runs": ["screen-l5b"],
+      "screen": "Screen 2"
+    },
+    {
+      "candidate": "letters puzzle at sign-in",
+      "claude": "fail",
+      "codex": "fail",
+      "date": "2026-11-04",
+      "guide": "sign-in-without-puzzles",
+      "note": null,
+      "runs": ["screen-l5b"],
+      "screen": "Screen 2"
+    },
+    {
+      "candidate": "cart hold with no warning",
+      "claude": "pass",
+      "codex": "fail",
+      "date": "2026-11-04",
+      "guide": "timeouts-and-warnings",
+      "note": "Claude failed the first run and passed the rerun; the rerun counts.",
+      "runs": ["screen-l5b", "screen-l5b-ch"],
+      "screen": "Screen 2"
+    },
+    {
+      "candidate": "swipe that cannot be called off",
+      "claude": "pass",
+      "codex": "fail",
+      "date": "2026-11-04",
+      "guide": "swipe-and-drag",
+      "note": null,
+      "runs": ["screen-l5b"],
+      "screen": "Screen 2"
+    },
+    {
+      "candidate": "link colour in text",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "jump-to select",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "a new page's title",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "phone map view",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "shake to undo",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "one-line notice bar at 320 px",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "postal code and email error wording",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "endless scroll",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "language links",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "wishlist button in two places",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "rotating tips",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "field borders in a light restyle",
+      "claude": "pass",
+      "codex": "fail",
+      "date": "2026-11-04",
+      "guide": "non-text-contrast",
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "image zoom on hover",
+      "claude": "fail",
+      "codex": "pass",
+      "date": "2026-11-04",
+      "guide": "hover-popups",
+      "note": null,
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "comment draft",
+      "claude": "not-graded",
+      "codex": "not-graded",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": "Probe error: a static \"your draft is saved\" line is not a status message.",
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "live search",
+      "claude": "pass",
+      "codex": "not-graded",
+      "date": "2026-11-04",
+      "guide": null,
+      "note": "Probe error: Codex built the live search on the home page.",
+      "runs": ["screen-l5c"],
+      "screen": "Screen 3"
+    },
+    {
+      "candidate": "FAQ questions in bold",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "red or green stock dot",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "hint naming \"the green button on the left\"",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "wind audio on page open",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "narrated video",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "Save for later",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": "The first probe missed the name \"Save Rain jacket for later\"; Claude passed once it was fixed.",
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "redirect 5 seconds after the order",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "Slovak About page",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "card actions shown only on hover",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": "The first probe read the opacity during a 150 ms transition; Claude passed once it was fixed.",
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "slide-in phone menu",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": "The first probe read focus during the panel's transition; Claude passed once it was fixed.",
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "red borders for empty fields",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "portrait-only overlay",
+      "claude": "fail",
+      "codex": "fail",
+      "date": "2026-11-05",
+      "guide": "orientation",
+      "note": null,
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "autofill turned off on checkout",
+      "claude": "fail",
+      "codex": "fail",
+      "date": "2026-11-05",
+      "guide": "input-purpose",
+      "note": "input-purpose already covered it; its description now names the case.",
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "Remove acting on press-down",
+      "claude": "fail",
+      "codex": "fail",
+      "date": "2026-11-05",
+      "guide": "swipe-and-drag",
+      "note": "swipe-and-drag already covered it; its description now names the case.",
+      "runs": ["screen-l5d"],
+      "screen": "Screen 4"
+    },
+    {
+      "candidate": "text size from px specs",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen5"],
+      "screen": "Screen 5"
+    },
+    {
+      "candidate": "brand ticker",
+      "claude": "fail",
+      "codex": "fail",
+      "date": "2026-11-05",
+      "guide": "moving-content",
+      "note": null,
+      "runs": ["screen5"],
+      "screen": "Screen 5"
+    },
+    {
+      "candidate": "newsletter popup after 3 s",
+      "claude": "fail",
+      "codex": "fail",
+      "date": "2026-11-05",
+      "guide": "unprompted-popups",
+      "note": null,
+      "runs": ["screen5"],
+      "screen": "Screen 5"
+    },
+    {
+      "candidate": "confirm email field",
+      "claude": "pass",
+      "codex": "fail",
+      "date": "2026-11-05",
+      "guide": "input-purpose",
+      "note": null,
+      "runs": ["screen5"],
+      "screen": "Screen 5"
+    },
+    {
+      "candidate": "email and postal code validation",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen5"],
+      "screen": "Screen 5"
+    },
+    {
+      "candidate": "three-step checkout",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen5"],
+      "screen": "Screen 5"
+    },
+    {
+      "candidate": "product page links on cards",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen5"],
+      "screen": "Screen 5"
+    },
+    {
+      "candidate": "keyboard shortcuts",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen5"],
+      "screen": "Screen 5"
+    },
+    {
+      "candidate": "order button disabled until filled",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen5"],
+      "screen": "Screen 5"
+    },
+    {
+      "candidate": "insurance on by default",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen5"],
+      "screen": "Screen 5"
+    },
+    {
+      "candidate": "order and delivery dates",
+      "claude": "pass",
+      "codex": "pass",
+      "date": "2026-11-05",
+      "guide": null,
+      "note": null,
+      "runs": ["screen5"],
+      "screen": "Screen 5"
+    }
+  ],
+  "shipRule": {
+    "maxUnguidedPercent": 70,
+    "minUpliftPoints": 15
+  },
+  "updated": "2026-11-05",
+  "urlRoute": [
+    {
+      "agent": "claude",
+      "arm": "guided",
+      "graded": 11,
+      "installed": null,
+      "passed": 10,
+      "ranCheck": 11,
+      "runs": 12,
+      "study": "url2"
+    },
+    {
+      "agent": "claude",
+      "arm": "url",
+      "graded": 12,
+      "installed": 0,
+      "passed": 12,
+      "ranCheck": 12,
+      "runs": 12,
+      "study": "url2"
+    },
+    {
+      "agent": "codex",
+      "arm": "guided",
+      "graded": 12,
+      "installed": null,
+      "passed": 12,
+      "ranCheck": 10,
+      "runs": 12,
+      "study": "url2"
+    },
+    {
+      "agent": "codex",
+      "arm": "url",
+      "graded": 12,
+      "installed": 0,
+      "passed": 2,
+      "ranCheck": 0,
+      "runs": 12,
+      "study": "url2"
+    },
+    {
+      "agent": "codex",
+      "arm": "url-network",
+      "graded": 12,
+      "installed": 12,
+      "passed": 12,
+      "ranCheck": 12,
+      "runs": 12,
+      "study": "url2net"
+    },
+    {
+      "agent": "claude",
+      "arm": "url",
+      "graded": 12,
+      "installed": null,
+      "passed": 12,
+      "ranCheck": null,
+      "runs": 12,
+      "study": "url"
+    },
+    {
+      "agent": "codex",
+      "arm": "url",
+      "graded": 12,
+      "installed": null,
+      "passed": 1,
+      "ranCheck": null,
+      "runs": 12,
+      "study": "url"
+    }
+  ]
+}

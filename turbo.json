@@ -66,7 +66,12 @@
     "@good-a11y/guides#test": {
       "dependsOn": ["build"],
       "outputs": [],
-      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/guides/**"]
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/guides/**",
+        "$TURBO_ROOT$/docs/evals.md",
+        "$TURBO_ROOT$/evals/results.json"
+      ]
     },
     "@good-a11y/evals#test": {
       "dependsOn": ["build"],
