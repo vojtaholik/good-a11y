@@ -123,7 +123,12 @@ const blockView = (block: InfoBlock, h: HtmlBuilder<AppMessage>): Html =>
       ),
     Table: ({ caption, head, rows }) =>
       h.div(
-        [sx(h, info.tableWrap)],
+        [
+          h.Role("region"),
+          h.AriaLabel(caption),
+          h.Tabindex(0),
+          sx(h, info.tableWrap),
+        ],
         [
           h.table(
             [sx(h, info.table)],

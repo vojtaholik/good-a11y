@@ -196,6 +196,12 @@ describe("the site for agents", () => {
         expect(page.body).toContain('<th scope="col"');
         expect(page.body).toContain('<th scope="row"');
         expect(page.body).toContain("<caption");
+        expect(page.body.split("<table").length - 1).toBe(
+          page.body.split('role="region"').length - 1
+        );
+        expect(page.body).toMatch(
+          /<div(?=[^>]*role="region")(?=[^>]*aria-label="Screened candidates")(?=[^>]*tabindex="0")[^>]*>/u
+        );
         expect(home.body).toContain('href="/evals"');
         expect(map.body).toContain(`<loc>${ORIGIN}/evals</loc>`);
         expect(llms.body).toContain(`${ORIGIN}/evals)`);
