@@ -13,6 +13,7 @@ import type { OutlineItem, PageLayout } from "./outline.js";
 import {
   AppRoute,
   aboutRouter,
+  evalsRouter,
   checkRouter,
   guideRouter,
   homeRouter,
@@ -321,6 +322,7 @@ const checkCurrent = (route: AppRouteState): Current =>
     About: () => null,
     Check: () => "page",
     Contact: () => null,
+    Evals: () => null,
     Guide: () => null,
     Home: () => null,
     NotFound: () => null,
@@ -593,6 +595,7 @@ const footer = (h: HtmlBuilder<AppMessage>): Html =>
             [h.AriaLabel("Footer"), sx(h, shell.footerNav)],
             [
               h.a([h.Href(aboutRouter()), sx(h, shell.footerLink)], ["About"]),
+              h.a([h.Href(evalsRouter()), sx(h, shell.footerLink)], ["Evals"]),
               h.a(
                 [h.Href(privacyRouter()), sx(h, shell.footerLink)],
                 ["Privacy"]

@@ -280,6 +280,7 @@ describe("the page shell", () => {
         AppRoute.Home(),
         AppRoute.Check({}),
         AppRoute.About(),
+        AppRoute.Evals(),
         ...GUIDE_PAGES.map((page) => AppRoute.Guide({ guideId: page.id })),
       ];
 

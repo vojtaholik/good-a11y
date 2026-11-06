@@ -81,7 +81,11 @@
     "@good-a11y/web#build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"],
-      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/skills/good-a11y/**"]
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/skills/good-a11y/**",
+        "$TURBO_ROOT$/evals/results.json"
+      ]
     },
     "@good-a11y/web#test": {
       "dependsOn": ["build"],
@@ -89,7 +93,8 @@
       "inputs": [
         "$TURBO_DEFAULT$",
         "$TURBO_ROOT$/skills/good-a11y/**",
-        "$TURBO_ROOT$/apps/good-a11y/bundle/**"
+        "$TURBO_ROOT$/apps/good-a11y/bundle/**",
+        "$TURBO_ROOT$/evals/results.json"
       ]
     }
   }

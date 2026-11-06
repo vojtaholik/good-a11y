@@ -6,6 +6,7 @@ export const AppRoute = defineRouteUnion({
   About: {},
   Check: { url: Schema.optionalKey(Schema.String) },
   Contact: {},
+  Evals: {},
   Guide: { guideId: Schema.String },
   Home: {},
   NotFound: { path: Schema.String },
@@ -44,6 +45,8 @@ export const privacyRouter = pipe(
   Route.mapTo(AppRoute.Privacy)
 );
 
+export const evalsRouter = pipe(literal("evals"), Route.mapTo(AppRoute.Evals));
+
 export const contactRouter = pipe(
   literal("contact"),
   Route.mapTo(AppRoute.Contact)
@@ -63,6 +66,7 @@ export const pathOf = (route: AppRouteState): string =>
     About: () => aboutRouter(),
     Check: () => checkRouter({}),
     Contact: () => contactRouter(),
+    Evals: () => evalsRouter(),
     Guide: ({ guideId }) => guideRouter({ guideId }),
     Home: () => homeRouter(),
     NotFound: ({ path }) => path,
@@ -77,6 +81,7 @@ export const parseRoute = Route.parseUrlWithFallback(
     reportRouter,
     checkRouter,
     aboutRouter,
+    evalsRouter,
     privacyRouter,
     contactRouter,
     guideRouter,

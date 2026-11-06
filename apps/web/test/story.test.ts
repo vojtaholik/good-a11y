@@ -266,6 +266,7 @@ describe("following a link", () => {
     "/",
     "/check",
     "/about",
+    "/evals",
     "/privacy",
     "/focus-visible",
     "/check/example.com",

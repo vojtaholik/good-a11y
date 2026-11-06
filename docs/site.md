@@ -12,13 +12,14 @@ Built 2026-11-04 by check for decision 11 of the good-a11y brief. `apps/web` is 
 | `/check` | The checker input and what we check, per success criterion | The coverage table as Markdown, and the local `check` command |
 | `/check/<host>`, `/check/<host>/<id>` | The newest report for a site, or one scan. Each finding links to the guides that fix it (`CHECK_GUIDES`) | The report in the format `check` prints |
 | `/about`, `/privacy` | Who makes good-a11y and how the guides are tested; what the checker stores and for how long. Text in `apps/web/src/features/info-pages.ts` | The same text |
+| `/evals` | Every eval result from `evals/results.json` (decoded with `EvalResultsSchema` from `@good-a11y/guides/evals`, never hand-copied): a table per round, the guides that did not ship, every screened candidate, method, limits and links to the tasks, base apps, graders and runner. Copy fact-checked by the writer (2026-11-06). Text in `apps/web/src/features/evals-page.ts` | The same text |
 | `/llms.txt` | none | The site and every guide |
 | `/<id>.md` | none | The guide page's Markdown, no `Accept` needed |
 | `/search.md?q=<words>` | none | The top guides for the words (`makeGuideIndex`, the CLI's search): name, id, one line, link to `/<id>.md`. No `q` answers 400 with an example |
 | `/check.md?url=<public url>` | none | Checks a public page for an agent without running code (`server/check-markdown.ts`). A scan of the same address that is running answers "fetch this same URL again in 10 seconds" with `Retry-After: 10`, and spends no rate limit. Otherwise it calls `startScan` as the caller, through the same per-address limit (`SCAN_LIMIT`, 429 with `Retry-After: 60`), daily caps, refusals and one-hour reuse as the form, and answers the report in the format `check` prints, or the running line. Always `no-store` |
 | `/skill.md`, `/skills/good-a11y/SKILL.md` | none | `skills/good-a11y/SKILL.md` with a References list |
 | `/skills/good-a11y/references/<id>.md` | none | The guide, as the guide page's Markdown |
-| `/sitemap.xml`, `/robots.txt` | none | `/`, `/check`, `/about`, `/privacy` and every guide; robots allows all and names the sitemap |
+| `/sitemap.xml`, `/robots.txt` | none | `/`, `/check`, `/about`, `/evals`, `/privacy` and every guide; robots allows all and names the sitemap |
 
 Unknown paths and unknown guides answer 404 in both forms. Guides live at the root for search (decided by Vojta on 2026-11-05). Every old `/guides/...` address answers 308 to the same path without `/guides` (`movedGuide` in `server/site.ts`), and `/guides` itself to `/`, where the guide list lives: Google indexed the old addresses, so the redirects are part of the URL contract. A guide id may not be a root path the site serves; `site.test.ts` fails when one is. Reports carry `robots: noindex` and `cache-control: no-store`; the other pages are cached for five minutes.
 

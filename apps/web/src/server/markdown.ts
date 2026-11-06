@@ -16,6 +16,7 @@ import { Array, Option } from "effect";
 import { CLI, SKILL_PATH, agentPrompt } from "../features/agent-links.js";
 import { CHECK_TABLE, checkTableSummary } from "../features/check-table.js";
 import { LOCAL_CHECK } from "../features/check-view.js";
+import { EVALS } from "../features/evals-page.js";
 import {
   RETRIEVE,
   demoPath,
@@ -32,6 +33,7 @@ import {
 import {
   AppRoute,
   aboutRouter,
+  evalsRouter,
   guideRouter,
   privacyRouter,
 } from "../features/route.js";
@@ -217,6 +219,7 @@ export const pageMarkdown = (
             `Questions about a guide or a report. For bugs, open an issue: ${ISSUES_URL}`,
           ]
         : notFoundMarkdown(),
+    Evals: () => infoMarkdown(EVALS),
     Guide: ({ guideId }) =>
       Option.match(guideOf(guideId), {
         onNone: notFoundMarkdown,
@@ -298,6 +301,7 @@ export const llmsTxt = (origin: string): string =>
     `- [Check a public page](${origin}${CHECK_PATH}?url=example.com): starts a scan, or reuses one from the last hour, and answers the report as Markdown. While it runs, fetch the same address again after the seconds in Retry-After`,
     `- [Check a page](${origin}/check): what the checker tests, per WCAG success criterion`,
     `- [About](${origin}${aboutRouter()}): who makes good-a11y and how the guides are tested`,
+    `- [Evals](${origin}${evalsRouter()}): every eval result behind the guides, the method and its limits`,
     `- [Privacy](${origin}${privacyRouter()}): what the checker stores and for how long`,
     "",
     "## Guides",
@@ -317,6 +321,7 @@ export const sitemapXml = (origin: string): string =>
       "/",
       "/check",
       aboutRouter(),
+      evalsRouter(),
       privacyRouter(),
       ...GUIDES.map((guide) => guideRouter({ guideId: guide.id })),
     ].map((path) => `  <url><loc>${origin}${path}</loc></url>`),

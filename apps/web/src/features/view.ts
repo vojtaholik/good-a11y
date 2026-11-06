@@ -6,6 +6,7 @@ import type { AppMessage } from "../client/message.js";
 import type { AppModel } from "../client/model.js";
 import { checkView } from "./check-view.js";
 import { contactPageView } from "./contact-view.js";
+import { EVALS } from "./evals-page.js";
 import { guideView } from "./guide-view.js";
 import { guidePageOf } from "./guides.js";
 import { homeView } from "./home-view.js";
@@ -27,6 +28,7 @@ const routeView = (model: AppModel, h: HtmlBuilder<AppMessage>): PageLayout =>
       CONTACT_SHOWN
         ? plainPage(contactPageView(model, h))
         : plainPage(notFoundView(h)),
+    Evals: () => infoView(EVALS, h),
     Guide: ({ guideId }) =>
       Option.match(guidePageOf(guideId), {
         onNone: () => plainPage(notFoundView(h)),

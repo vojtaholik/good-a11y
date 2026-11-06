@@ -97,6 +97,7 @@ export const PAGES = [
   "/",
   "/check",
   "/about",
+  "/evals",
   "/privacy",
   "/no-such-page",
   ...GUIDES.map((guide) => `/${guide.id}`),

@@ -22,6 +22,9 @@ export const CHECK_DESCRIPTION =
 export const ABOUT_DESCRIPTION =
   "Who makes good-a11y, why it writes guides for coding agents, and how the guides are tested.";
 
+export const EVALS_DESCRIPTION =
+  "Every eval result behind the guides: Claude Code and Codex with and without each guide, the guides that did not ship, the method and its limits.";
+
 export const PRIVACY_DESCRIPTION =
   "What the checker stores when you check a page, for how long, and what goes to a model.";
 
@@ -53,6 +56,11 @@ export const pageMetaOf = (route: AppRouteState): PageMeta =>
             title: `Contact | ${SITE_NAME}`,
           }
         : NOT_FOUND,
+    Evals: () => ({
+      description: EVALS_DESCRIPTION,
+      isIndexed: true,
+      title: `Evals | ${SITE_NAME}`,
+    }),
     Guide: ({ guideId }) =>
       Option.match(guidePageOf(guideId), {
         onNone: () => ({

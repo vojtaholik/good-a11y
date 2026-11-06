@@ -5,6 +5,7 @@ import { Effect, Option } from "effect";
 import { fromString } from "foldkit/url";
 
 import SHELL from "../index.html?raw";
+import { EVAL_RESULTS } from "../src/features/evals-page.js";
 import { AppRoute, parseRoute } from "../src/features/route.js";
 import type { BackendFetch } from "../src/server/rpc.js";
 import {
@@ -180,6 +181,44 @@ describe("the site for agents", () => {
       })
   );
 
+  it.effect(
+    "shows every eval entry from evals/results.json on /evals, linked from the footer, the sitemap and llms.txt",
+    () =>
+      Effect.gen(function* evalsPage() {
+        const page = yield* get("/evals");
+        const markdown = yield* get("/evals", MARKDOWN);
+        const map = yield* get("/sitemap.xml");
+        const llms = yield* get("/llms.txt");
+        const home = yield* get("/");
+        const rows = markdown.body.split("\n");
+
+        expect(page.response.status).toBe(200);
+        expect(page.body).toContain('<th scope="col"');
+        expect(page.body).toContain('<th scope="row"');
+        expect(page.body).toContain("<caption");
+        expect(home.body).toContain('href="/evals"');
+        expect(map.body).toContain(`<loc>${ORIGIN}/evals</loc>`);
+        expect(llms.body).toContain(`${ORIGIN}/evals)`);
+
+        for (const entry of EVAL_RESULTS.guides) {
+          const counts = [
+            entry.cells.claude.unguided,
+            entry.cells.claude.guided,
+            entry.cells.codex.unguided,
+            entry.cells.codex.guided,
+          ].map(([passed, runs]) => `${passed} of ${runs}`);
+
+          const row = rows.find(
+            (line) =>
+              line.includes(entry.task ?? "|") &&
+              counts.every((count) => line.includes(count))
+          );
+
+          expect(row, entry.id).toBeDefined();
+        }
+      })
+  );
+
   it.effect("serves a demo sandboxed, framed only by the site", () =>
     Effect.gen(function* demo() {
       const { body, response } = yield* get(
@@ -263,6 +302,7 @@ const SITE_PATHS = [
   "check",
   "check.md",
   "contact",
+  "evals",
   "guides",
   "llms.txt",
   "privacy",
